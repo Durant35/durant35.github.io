@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/2016/10/02/ROS_ROS_Basics/</loc>
+    
+    <lastmod>2016-10-08T12:02:18.551Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2016/09/08/programPearls_precise%20delay%20using%20select/</loc>
     
     <lastmod>2016-10-08T03:55:10.883Z</lastmod>
@@ -61,13 +68,6 @@
     <loc>http://durant35.github.io/2016/10/03/ROS_ROS_Navigation_GettingStarted/</loc>
     
     <lastmod>2016-10-03T13:32:46.531Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2016/10/02/ROS_ROS_Basics/</loc>
-    
-    <lastmod>2016-10-03T09:40:01.553Z</lastmod>
     
   </url>
   
