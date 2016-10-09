@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/</loc>
+    
+    <lastmod>2016-10-09T07:27:25.233Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2016/10/09/OverlappingSounds_Key%20Word%20Engineering/</loc>
+    
+    <lastmod>2016-10-09T00:19:25.678Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2016/10/02/ROS_ROS_Basics/</loc>
     
     <lastmod>2016-10-08T12:04:54.265Z</lastmod>
@@ -75,13 +89,6 @@
     <loc>http://durant35.github.io/2016/10/03/linux_sudo_unable_to_resolve_host/</loc>
     
     <lastmod>2016-10-03T02:55:50.345Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/</loc>
-    
-    <lastmod>2016-10-03T02:35:01.045Z</lastmod>
     
   </url>
   

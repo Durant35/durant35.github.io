@@ -15,16 +15,16 @@
 
 
 
-<meta name="description" content="来自实训第三天的某段代码，1234567891011121314151617181920212223242526272829303132struct vec2f &amp;#123;  float x;  float y;&amp;#125;;typedef struct vec2f vec2f;vec2f* vec2f_alloc() &amp;#123;  vec2f* ret;  ret = ( vec2f*">
+<meta name="description" content="A">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C语言中结构体内存free">
-<meta property="og:url" content="http://durant35.github.io/2016/07/02/programPearls_C语言中结构体内存free/index.html">
+<meta property="og:title" content="Key Word Engineering">
+<meta property="og:url" content="http://durant35.github.io/2016/10/09/OverlappingSounds_Key Word Engineering/index.html">
 <meta property="og:site_name" content="Tarantula-7's Blog">
-<meta property="og:description" content="来自实训第三天的某段代码，1234567891011121314151617181920212223242526272829303132struct vec2f &amp;#123;  float x;  float y;&amp;#125;;typedef struct vec2f vec2f;vec2f* vec2f_alloc() &amp;#123;  vec2f* ret;  ret = ( vec2f*">
-<meta property="og:updated_time" content="2016-07-02T12:23:32.000Z">
+<meta property="og:description" content="A">
+<meta property="og:updated_time" content="2016-10-09T00:19:25.678Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C语言中结构体内存free">
-<meta name="twitter:description" content="来自实训第三天的某段代码，1234567891011121314151617181920212223242526272829303132struct vec2f &amp;#123;  float x;  float y;&amp;#125;;typedef struct vec2f vec2f;vec2f* vec2f_alloc() &amp;#123;  vec2f* ret;  ret = ( vec2f*">
+<meta name="twitter:title" content="Key Word Engineering">
+<meta name="twitter:description" content="A">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>C语言中结构体内存free | Tarantula-7&#39;s Blog</title>
+<title>Key Word Engineering | Tarantula-7&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -249,11 +249,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-programPearls_C语言中结构体内存free" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-OverlappingSounds_Key Word Engineering" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/07/02/programPearls_C语言中结构体内存free/" class="article-date">
-      <time datetime="2016-07-02T06:38:46.000Z" itemprop="datePublished">2016-07-02</time>
+      <a href="/2016/10/09/OverlappingSounds_Key Word Engineering/" class="article-date">
+      <time datetime="2016-10-09T00:14:45.000Z" itemprop="datePublished">2016-10-09</time>
 </a>
 
 
@@ -268,7 +268,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      C语言中结构体内存free
+      Key Word Engineering
     </h1>
   
 
@@ -276,12 +276,12 @@
       
       <div class="article-info article-info-post">
         
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
-    </div>
-
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Key-words/">Key-words</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -289,11 +289,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>　　来自实训第三天的某段代码，<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> vec2f &#123;</div><div class="line">  <span class="keyword">float</span> x;</div><div class="line">  <span class="keyword">float</span> y;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> vec2f vec2f;</div><div class="line"></div><div class="line"><span class="function">vec2f* <span class="title">vec2f_alloc</span><span class="params">()</span> </span>&#123;</div><div class="line">  vec2f* ret;</div><div class="line">  ret = ( vec2f* ) <span class="built_in">malloc</span>( <span class="keyword">sizeof</span>( vec2f ) );</div><div class="line">  <span class="comment">//if( !ret ) // if error occurs</span></div><div class="line">  <span class="keyword">return</span> ret;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_init</span><span class="params">( vec2f* v, <span class="keyword">float</span> x, <span class="keyword">float</span> y )</span> </span>&#123;</div><div class="line">  v-&gt;x = x;</div><div class="line">  v-&gt;y = y;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function">vec2f* <span class="title">vec2f_new</span><span class="params">( <span class="keyword">float</span> x, <span class="keyword">float</span> y )</span> </span>&#123;</div><div class="line">  vec2f* ret = vec2f_alloc();</div><div class="line">  vec2f_init( ret, x, y );</div><div class="line">  <span class="keyword">return</span> ret;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_delete</span><span class="params">( vec2f** v )</span> </span>&#123;</div><div class="line">  <span class="built_in">free</span>( *v );</div><div class="line">  *v = <span class="literal">NULL</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_print</span><span class="params">( <span class="keyword">const</span> vec2f* v )</span> </span>&#123;</div><div class="line">  <span class="built_in">printf</span>( <span class="string">"[ %g %g ]\n"</span>, v-&gt;x, v-&gt;y );</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>　　<font color="green">关于 <strong>vec2f_delete</strong> 函数参数为什么是 <strong>pointer to pointer</strong>???</font><br>　　原因可能是，<strong>C</strong> 语言里面没有 <strong>引用</strong> 这个东西，上面释放内存的函数，除了将结构体那块内存释放外，为了避免 <strong>野指针</strong> 的情况，还需要将指向结构体那块内存的 <strong>pointer</strong> 置为 <strong>NULL</strong>。假如写成下面这种形式，<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_delete</span><span class="params">( vec2f* v )</span> </span>&#123;</div><div class="line">  <span class="built_in">free</span>( v );</div><div class="line">  v = <span class="literal">NULL</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>　　由于函数参数传递的临时拷贝，<strong>v = NULL;</strong> 只在函数作用域内有效，调用该函数并不能真正使 <font color="red">指向结构体那块内存的 <strong>pointer</strong></font> 失效，<strong>野指针</strong> 仍然存在！
-　　</p>
+        <h3 id="A"><a href="#A" class="headerlink" title="A"></a>A</h3><a id="more"></a>
+<h3 id="B"><a href="#B" class="headerlink" title="B"></a>B</h3><h3 id="C"><a href="#C" class="headerlink" title="C"></a>C</h3><h3 id="D"><a href="#D" class="headerlink" title="D"></a>D</h3><blockquote>
+<p><strong>DL</strong>: Deep Learning</p>
+</blockquote>
 
       
     </div>
@@ -302,18 +301,18 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a></p>
+        <p><span>本文标题:</span><a href="/2016/10/09/OverlappingSounds_Key Word Engineering/">Key Word Engineering</a></p>
 
         <!-- 
         <p><span>文章作者:</span><a href="/" title="回到主页">Tarantula-7</a></p>
         -->
-        <p><span>文章作者:</span>undefined</p>
+        <p><span>文章作者:</span>Gary</p>
 
-        <p><span>发布时间:</span>2016-07-02, 14:38:46</p>
-        <p><span>最后更新:</span>2016-07-02, 20:23:32</p>
+        <p><span>发布时间:</span>2016-10-09, 08:14:45</p>
+        <p><span>最后更新:</span>2016-10-09, 08:19:25</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/07/02/programPearls_C语言中结构体内存free/" title="C语言中结构体内存free">http://durant35.github.io/2016/07/02/programPearls_C语言中结构体内存free/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2016/07/02/programPearls_C语言中结构体内存free/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/10/09/OverlappingSounds_Key Word Engineering/" title="Key Word Engineering">http://durant35.github.io/2016/10/09/OverlappingSounds_Key Word Engineering/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2016/10/09/OverlappingSounds_Key Word Engineering/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
 
@@ -328,16 +327,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/07/15/linux_瞎谈Socket编程_1/">
-                    瞎谈 Socket 编程(一)
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">
-                    Java到底是不是一种纯面向对象语言？
+                <a href="/2016/10/07/hexo_Yelee Migrant Note(2)/">
+                    hexo博客主题Yelee迁移笔记(二)
                 </a>
             </div>
         
@@ -349,7 +342,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#A"><span class="toc-number">1.</span> <span class="toc-text">A</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B"><span class="toc-number">2.</span> <span class="toc-text">B</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C"><span class="toc-number">3.</span> <span class="toc-text">C</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#D"><span class="toc-number">4.</span> <span class="toc-text">D</span></a></li></ol>
         
     </div>
     <style>
@@ -389,7 +382,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"C语言中结构体内存free　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Key Word Engineering　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -405,7 +398,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2016/07/02/programPearls_C语言中结构体内存free/" data-title="C语言中结构体内存free" data-url="http://durant35.github.io/2016/07/02/programPearls_C语言中结构体内存free/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2016/10/09/OverlappingSounds_Key Word Engineering/" data-title="Key Word Engineering" data-url="http://durant35.github.io/2016/10/09/OverlappingSounds_Key Word Engineering/"></div>
     <script>
         var duoshuoQuery = {short_name:"durant35"};
         var loadComment = function(){
@@ -428,15 +421,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/07/15/linux_瞎谈Socket编程_1/" title="上一篇: 瞎谈 Socket 编程(一)">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/" title="下一篇: Java到底是不是一种纯面向对象语言？">
+            <a href="/2016/10/07/hexo_Yelee Migrant Note(2)/" title="下一篇: hexo博客主题Yelee迁移笔记(二)">
                 <i class="fa fa-angle-right"></i>
             </a>
         
