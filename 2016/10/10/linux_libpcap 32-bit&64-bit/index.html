@@ -15,19 +15,16 @@
 
 
 
-<meta name="description" content="之前已经说过，在hexo中新建一篇博文非常简单，只需要在git bash中输入以下命令回车执行即可。1&amp;gt; hexo new &quot;title&quot;
-　　一般新建完之后，就需要对该博文源代码进行编辑，通常你需要依次打开 hexo-home/source/_post 目录，然后在成堆的Markdown文件中找到刚才创建的文档title.md。虽然hexo以你输入的title来给你的Markdown文">
+<meta name="description" content="情况是这样的，在之前讲过的回播 .pcap 数据的 Velodyne_player 程序中，需要调用 Winpcap (其实就是 libpcap 的 Win挫版) 的 API 解析 .pcap 数据，再通过 UDP 发送出去。我们的 Velodyne_player 是一个 Win32 的程序，显然调用的就是32位的 Winpcap 库的 API； 后来我们也移植了一个 .pcap 采集程序的 L">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在hexo new之后立即打开Markdown文稿">
-<meta property="og:url" content="http://durant35.github.io/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/index.html">
+<meta property="og:title" content="libpcap, 32-bit&64-bit">
+<meta property="og:url" content="http://durant35.github.io/2016/10/10/linux_libpcap 32-bit&64-bit/index.html">
 <meta property="og:site_name" content="Tarantula-7's Blog">
-<meta property="og:description" content="之前已经说过，在hexo中新建一篇博文非常简单，只需要在git bash中输入以下命令回车执行即可。1&amp;gt; hexo new &quot;title&quot;
-　　一般新建完之后，就需要对该博文源代码进行编辑，通常你需要依次打开 hexo-home/source/_post 目录，然后在成堆的Markdown文件中找到刚才创建的文档title.md。虽然hexo以你输入的title来给你的Markdown文">
-<meta property="og:updated_time" content="2016-07-16T08:01:48.000Z">
+<meta property="og:description" content="情况是这样的，在之前讲过的回播 .pcap 数据的 Velodyne_player 程序中，需要调用 Winpcap (其实就是 libpcap 的 Win挫版) 的 API 解析 .pcap 数据，再通过 UDP 发送出去。我们的 Velodyne_player 是一个 Win32 的程序，显然调用的就是32位的 Winpcap 库的 API； 后来我们也移植了一个 .pcap 采集程序的 L">
+<meta property="og:updated_time" content="2016-10-10T07:30:43.225Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在hexo new之后立即打开Markdown文稿">
-<meta name="twitter:description" content="之前已经说过，在hexo中新建一篇博文非常简单，只需要在git bash中输入以下命令回车执行即可。1&amp;gt; hexo new &quot;title&quot;
-　　一般新建完之后，就需要对该博文源代码进行编辑，通常你需要依次打开 hexo-home/source/_post 目录，然后在成堆的Markdown文件中找到刚才创建的文档title.md。虽然hexo以你输入的title来给你的Markdown文">
+<meta name="twitter:title" content="libpcap, 32-bit&64-bit">
+<meta name="twitter:description" content="情况是这样的，在之前讲过的回播 .pcap 数据的 Velodyne_player 程序中，需要调用 Winpcap (其实就是 libpcap 的 Win挫版) 的 API 解析 .pcap 数据，再通过 UDP 发送出去。我们的 Velodyne_player 是一个 Win32 的程序，显然调用的就是32位的 Winpcap 库的 API； 后来我们也移植了一个 .pcap 采集程序的 L">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -59,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>在hexo new之后立即打开Markdown文稿 | Tarantula-7&#39;s Blog</title>
+<title>libpcap, 32-bit&amp;64-bit | Tarantula-7&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -252,11 +249,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-hexo_在hexo new之后立即打开新建的Markdown文稿" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-linux_libpcap 32-bit&amp;64-bit" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/" class="article-date">
-      <time datetime="2016-02-02T07:27:37.000Z" itemprop="datePublished">2016-02-02</time>
+      <a href="/2016/10/10/linux_libpcap 32-bit&64-bit/" class="article-date">
+      <time datetime="2016-10-10T02:42:37.000Z" itemprop="datePublished">2016-10-10</time>
 </a>
 
 
@@ -271,7 +268,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      在hexo new之后立即打开Markdown文稿
+      libpcap, 32-bit&amp;64-bit
     </h1>
   
 
@@ -280,13 +277,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMD/">CMD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pcap/">pcap</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -296,19 +293,40 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>　　之前已经说过，在hexo中新建一篇博文非常简单，只需要在<strong>git bash</strong>中输入以下命令回车执行即可。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; hexo <span class="keyword">new</span> <span class="string">"title"</span></div></pre></td></tr></table></figure></p>
-<p>　　一般新建完之后，就需要对该博文源代码进行编辑，通常你需要依次打开<strong> hexo-home/source/_post</strong> 目录，然后在成堆的<strong>Markdown文件</strong>中找到刚才创建的文档<strong>title.md</strong>。虽然hexo以你输入的<strong>title</strong>来给你的<strong>Markdown文件</strong>命名，命名的不咋地(诸如，空格和<code>.</code>变成<code>-</code>，括号<code>(xxx)</code>变成<code>-xxx-</code>，而且通常我们需要为博文源代码文件名字加个前缀，这样更加容易管理)，你通常需要找到该文件，重新起个名字再打开，但是很多时候，命名的还是过得去的。藏在这么深的目录下，每次都得去找一番甚是烦人，有没有什么办法能够创建完(也就是敲个回车)之后自动帮我们用系统上已经安装的<strong>Markdown编辑器</strong>打开呢？<br><a id="more"></a></p>
-<h2 id="搜寻"><a href="#搜寻" class="headerlink" title="搜寻"></a><font color="#F40D64">搜寻</font></h2><p>　　所以上网一搜，搜到这样一篇文章<a href="http://liam0205.me/2015/05/01/open-editor-after-hexo-new-immediately/">《在 hexo new 之后立即打开新建的 Markdown 文稿》</a>。内容嘛，这里就不多说了，大概的步骤我就摘在下面，有兴趣的你可以点进去看一下。</p>
-<div style="background-color: #CFD5DB"><font color="blue"><br>　　Tommy<font color="#D3442D">　(就是弄这个Hexo的鼻祖，博主还说Hexo是其时为大学生的台湾人Tommy开发的轻量级静态博客生成器，具有简洁、快速、扩展性好等特点，我们都得感谢此大牛，真心感谢，这个好东西，太赞了！！)　</font>指出，可以在<strong> Hexo </strong>目录下的 <strong>scripts </strong>目录（若没有，则新建一个）中创建一个<strong>JavaScript 脚本</strong>，监听<strong> hexo new </strong>这个动作。并在检测到<strong> hexo new </strong>之后，执行编辑器打开的命令。<br><br>　　Tommy给出的代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> spawn = <span class="built_in">require</span>(<span class="string">'child_process'</span>).spawn;</div><div class="line"></div><div class="line"><span class="comment">// Hexo 2.x</span></div><div class="line">hexo.on(<span class="string">'new'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">path</span>)</span>&#123;</div><div class="line">  spawn(<span class="string">'vi'</span>, [path]);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// Hexo 3</span></div><div class="line">hexo.on(<span class="string">'new'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">  spawn(<span class="string">'vi'</span>, [data.path]);</div><div class="line">&#125;);</div></pre></td></tr></table></figure><br><br>　　<font color="#D3442D">博主就是参考这个代码，领悟到其精髓后，给出了自己实践可行的代码。</font><br><br>　　我<font color="#D3442D">　(是该博客博主，蓝色部分均摘自博客)　</font>使用的 Hexo 是 2.5.4 版本，然而，测试过 Tommy 给出的代码之后并没有顺利地打开编辑器。不过精髓已经理解，需要的就只是细节的改变了。<br><br>　　简单翻阅了一下 JavaScript 的语法规则，我尝试了下列 JavaScript 代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> exec = <span class="built_in">require</span>(<span class="string">'child_process'</span>).exec;</div><div class="line"></div><div class="line"><span class="comment">// Hexo 2.x</span></div><div class="line">hexo.on(<span class="string">'new'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">path</span>)</span>&#123;</div><div class="line">    exec(<span class="string">'open -a "/Applications/Sublime Text.app" '</span> + path);</div><div class="line">&#125;);</div></pre></td></tr></table></figure><br><br>注意，我这里执行的系统命令，是 OS X 下的 open。换到 Windows 中，可能需要改为 start。<br><br></font></div>
-
-<p>　　卧槽，博主有钱淫，用的是苹果机…我可是穷渣渣，只能用Windows，那他说可能改为<strong>start</strong>，我就试一下嘛，照着他说的一步一步来(如果你是苹果机，可以照着这里的代码改改看，应该可以吧，虽然我没试过)。</p>
-<h2 id="试水"><a href="#试水" class="headerlink" title="试水"></a><font color="#F40D64">试水</font></h2><p>　　<strong>第一步： </strong><br>　　　在根目录新建一个文件夹<strong>scripts</strong>(因为本来没有，只能新建)，然后新建txt文本文件，重命名为 <strong>“open_editor_after_hexo_new_immediately.js”</strong>，这个在Windows下干活的人都知道吧，名字可以随便，不过我觉得这个名字比较好认，你以后可能要改也方便。</p>
-<p>　　<strong>第二步： </strong><br>　　　随便用一个文本编辑器打开，我是习惯用<strong>Sublime Text</strong>。修改内容如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> exec = <span class="built_in">require</span>(<span class="string">'child_process'</span>).exec;</div><div class="line"></div><div class="line"><span class="comment">// Hexo 2.x 传进来的参数即是路径</span></div><div class="line"><span class="comment">/*</div><div class="line">hexo.on('new', function(path)&#123;</div><div class="line">    exec('"S:\\Hexo\\MarkdownPad2\\MarkdownPad2.exe" ' + "\"" + [path] + "\"");</div><div class="line">&#125;);</div><div class="line">*/</span></div><div class="line"></div><div class="line"><span class="comment">// Hexo 3 传进来的参数是一个&#123;&#125;定义的多属性对象，</span></div><div class="line"><span class="comment">//		参见"hexo根目录/node_modules/hexo/lib/plugins/console/new.js"</span></div><div class="line">hexo.on(<span class="string">'new'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    exec(<span class="string">'"S:/Hexo/MarkdownPad2/MarkdownPad2.exe" '</span> + <span class="string">"\""</span> + [data.path] + <span class="string">"\""</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h2 id="回头分析"><a href="#回头分析" class="headerlink" title="回头分析"></a><font color="#F40D64">回头分析</font></h2><p>　　其实上面的代码是经过近半个小时的折腾才弄出来的，亲测可用。现在说说这个过程顺便简单分析一下。<br>　　　1. 首先当然是试了博主的代码，只不过改了<strong>start</strong>，之前是知道<strong>start</strong>是<strong>CMD</strong>里面用于重新打开一个窗口的命令；还有就是，参考鼻祖的<strong>Hexo 3</strong>的代码，因为之前已经说过，我<strong>从2.x迁移到3了</strong>(你也看到上面Hexo 2.x部分被我注释掉了)。试了一下，报<code>-a</code>参数错误，肯定就把他删了再试，心想，而且知道这代码确实监听到我的<code>hexo new</code>命令了。<br>　　　2. 再new再回车，结果报<strong>“找不到文件D:/Workspace/Hexo”</strong>的错误，不过这个路径好像就是我Hexo根目录的路径，只不过，我那个是<strong>“D:/Workspace/Hexo Workspace”</strong>，我看到路径里面有个空格，想到以前曾经在<strong>CMD</strong>上踩过的坑，果断知道需要给路径加上个引号什么的。<br>　　　3. 还好之前也弄过一点<strong>Javascript</strong>，知道用个”+”来拼接就行了，就试了一下。显然你去弄的话也知道这里还需要灵活使用一下转义符<code>\</code>反斜杠。再试。<br>　　　4. 成功用我系统上的编辑器<strong>MarkdownPad2</strong>打开我新new的博文源代码。我也明白了，其中原理不过像我们在<strong>CMD</strong>里面敲的一样吗，只不过这个<strong>CMD</strong>起始路径不知道而已，我想应该就是<strong>Git Bash</strong>的路径吧(这里就是我的Hexo根目录<strong>“D:/Workspace/Hexo Workspace”</strong>)。反正我们上面用的都是绝对路径，这点就无所谓了。<br>　　　5. 想到这里，我想<strong>start</strong>也是没必要的，去掉一试，就成了上面的最终代码了。<br>　　之后也想弄清楚一下两个版本的代码为什么要不一样，心想传进来的其实都是函数的形式参数(本人有一点<strong>JS</strong>基础，不过跟其他语言在这一块原理差不多)，只不过一个直接用，一个还需要索引。心想命令是<code>hexo new</code>，就去Hexo根目录的<strong>node_modules</strong>找一下，应该有这么个名字的JS文件，果不其然，在<strong>“hexo根目录/node_modules/hexo/lib/plugins/console/new.js”</strong>，里面有段代码，内容如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = &#123;</div><div class="line">    <span class="attr">title</span>: args._.pop(),</div><div class="line">    <span class="attr">layout</span>: args._.length ? args._[<span class="number">0</span>] : <span class="keyword">this</span>.config.default_layout,</div><div class="line">    <span class="attr">slug</span>: args.s || args.slug,</div><div class="line">    <span class="attr">path</span>: args.p || args.path</div><div class="line">  &#125;;</div></pre></td></tr></table></figure></p>
-<p>　　然后上网了解到<strong>JS里面用{}定义的叫做多属性对象</strong>，猜测<strong>Hexo 3</strong>传进来给<strong>new监听函数</strong>的参数是应该一个<strong>{}定义的多属性对象</strong>(如上面代码)，通过<code>.</code>操作符获取其<strong>path</strong>属性，而<strong>Hexo 2.x</strong>传进来的参数应该就是一个普通变量吧，通过不一样的方式获取到新建<strong>Markdown文件</strong>的全局路径。</p>
-<h2 id="Windows-CMD下的-和"><a href="#Windows-CMD下的-和" class="headerlink" title="Windows CMD下的\和/"></a><font color="#F40D64">Windows CMD下的<code>\</code>和<code>/</code></font></h2><p>　　如果你仔细看上面我贴的用于<strong>Hexo 3</strong>和<strong>Hexo 2.x</strong>的代码，你会发现，上面用来获取<strong>MarkdownPad2</strong>编辑器的路径有点不一样，熟悉<strong>CMD</strong>的人应该都知道，这两种方式都是可以的，下面是我获取到的资料：</p>
-<div style="background-color: #CFD5DB"><font color="blue"><br>　　　Windows 用反斜杠<strong>（”\”）</strong>的历史来自 DOS，而 DOS 的另一个传统是用斜杠<strong>（”/“）</strong>表示命令行参数，比如：<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> <span class="variable">%SystemDrive%</span><span class="built_in">dir</span> </div><div class="line">/s /b shell32.dll</div></pre></td></tr></table></figure><br><br>　　　既然 DOS 这边斜杠被占用了，只好找一个最接近的。那就是”\”了。<br>　　　而在 UNIX 环境中，我们用减号（”-“）和双减号（”–”）表示命令行参数。<br>　　　我们也知道，转义字符不是都用”\”么，所以如果用来当文件路径的话就要写成”\“。<br><br></font></div>
-
+        <p>　情况是这样的，在之前讲过的回播 <strong>.pcap</strong> 数据的 <strong>Velodyne_player</strong> 程序中，需要调用 <strong>Winpcap</strong> (其实就是 <strong>libpcap</strong> 的 Win挫版) 的 API 解析 <strong>.pcap</strong> 数据，再通过 UDP 发送出去。我们的 <strong>Velodyne_player</strong> 是一个 <strong>Win32</strong> 的程序，显然调用的就是32位的 <strong>Winpcap</strong> 库的 API； 后来我们也移植了一个 <strong>.pcap</strong> 采集程序的 Linux 版本，结果，用该 Linux 版本采集程序采集到的 <strong>.pcap</strong> 数据却没办法用我们 Win 下的 <strong>Velodyne_player</strong> 回播。后来发现，我们的 Linux 版本的采集程序用的是64位的 <strong>libpcap</strong> 库(因为系统是64位的 Ubuntu16.04，默认安装的就是64位的 <strong>libpcap</strong> 库)，64位和32位的 <strong>libpcap</strong>，在时间戳上有很关键的区别，下面是开源的 <strong>pcap.h</strong> 中的声明:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</div><div class="line"> * Generic per-packet information, as supplied by libpcap.</div><div class="line"> *</div><div class="line"> * The time stamp can and should be a "struct timeval", regardless of</div><div class="line"> * whether your system supports 32-bit tv_sec in "struct timeval",</div><div class="line"> * 64-bit tv_sec in "struct timeval", or both if it supports both 32-bit</div><div class="line"> * and 64-bit applications.  The on-disk format of savefiles uses 32-bit</div><div class="line"> * tv_sec (and tv_usec); this structure is irrelevant to that.  32-bit</div><div class="line"> * and 64-bit versions of libpcap, even if they're on the same platform,</div><div class="line"> * should supply the appropriate version of "struct timeval", even if</div><div class="line"> * that's not what the underlying packet capture mechanism supplies.</div><div class="line"> */</span></div><div class="line"><span class="keyword">struct</span> pcap_pkthdr &#123;</div><div class="line">  <span class="keyword">struct</span> timeval ts;	<span class="comment">/* time stamp */</span></div><div class="line">  bpf_u_int32 caplen;	<span class="comment">/* length of portion present */</span></div><div class="line">  bpf_u_int32 len;	<span class="comment">/* length this packet (off wire) */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>　对于上面遇到的问题，我们想到的解决办法是，移植的 Linux 版本采集程序生成32位的，而不是目前的64位。因为现在装的是64位的 <strong>libpcap</strong>(64位系统使然)，那接下来的问题便是，如何在64位的 <strong>Ubuntu16.04</strong> 上面安装32位的 <strong>libpcap</strong> 库，然后生成我们需要的32位数据采集程序(-m32 or -m64)。</p>
+<h3 id="Generate-32-bit-exes-depending-on-libpcap"><a href="#Generate-32-bit-exes-depending-on-libpcap" class="headerlink" title="Generate 32-bit exes depending on libpcap"></a>Generate 32-bit exes depending on libpcap</h3><ol>
+<li><p>64位系统默认安装的包都是64位的，所以，64位的 <strong>Ubuntu16.04</strong> 安装64位的 <strong>libpcap</strong> 库比较简单。</p>
+<blockquote>
+<p>Reference: <a href="http://askubuntu.com/questions/347788/how-can-i-install-libpcap-header-files-on-ubuntu-12-04">How can I install libpcap header files on Ubuntu 12.04?</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxx@...$ sudo apt-get install libpcap0.8 libpcap0.8-dev libpcap-dev</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>64位的 <strong>Ubuntu16.04</strong> 安装32位的 <strong>libpcap</strong> 库则比较麻烦一点。</p>
+<blockquote>
+<p>Reference: <a href="http://askubuntu.com/questions/654079/libpcap-32-bit-on-64-bit-ubuntu">libpcap 32 bit on 64 bit Ubuntu</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># enable multiarch support for i386 architecture</span></div><div class="line">xxx@...$ sudo dpkg --add-architecture i386</div><div class="line"><span class="comment"># update the source </span></div><div class="line">xxx@...$ sudo apt-get update</div><div class="line"><span class="comment"># now, you can install the pcap library</span></div><div class="line">xxx@...$ sudo apt-get install libpcap0.8:i386 libpcap0.8-dev:i386 libpcap-dev:i386</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>装了32位的 <strong>libpcap</strong> 库，并不意味着你就能编译32位的，<strong>libpcap</strong> 应用程序，因为，64位系统默认并没有32位应用程序需要的基本库(诸如<strong>C/C++标准库</strong>)，所以需要安装好基本库环境。</p>
+<blockquote>
+<p>Reference: <a href="http://askubuntu.com/questions/709893/14-04-01-32-bit-missing-g-64-bit-include-files-when-cross-compiling">14.04.01 32-bit: Missing g++ 64-bit include files when cross-compiling</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxx@...$ sudo apt-get install g++-multilib</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>安装好32位的基本库，还有 <strong>libpcap</strong> 后，我们就能生成需要的32位程序了。步骤很简单，源代码不需要修改，在 <strong>CodeBlocks</strong> 中只需要在项目对应的 <strong>Build Option</strong> 中将 <strong>-m64</strong> 调整为 <strong>-m32</strong>；对于其他构建方式(如 <strong>cmake</strong>)，方法应该类似，核心都是 <strong>-m32</strong> 还是 <strong>-m64</strong> 作为构建参数。</p>
+</li>
+</ol>
+<h3 id="Linux-下如何查看程序-库信息"><a href="#Linux-下如何查看程序-库信息" class="headerlink" title="Linux 下如何查看程序/库信息"></a>Linux 下如何查看程序/库信息</h3><p>1.查看导出信息<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">xxx@...$ nm -D xxx.so/xxx.out</div><div class="line">xxx@...$ nm -g xxx.a</div><div class="line"><span class="comment"># or using objdump</span></div><div class="line">xxx@...$ objdump -tT xxx.so</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>nm [option]:</strong><br>-A 在每个符号信息的前面打印所在对象文件名称；<br>-C 输出demangle过了的符号名称；<br>-D 打印动态符号；<br>-l 使用对象文件中的调试信息打印出所在源文件及行号；<br>-n 按照地址/符号值来排序；<br>-u 打印出那些未定义的符号</p>
+</blockquote>
+<p>2.查看依赖库信息<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看动态依赖库信息</span></div><div class="line">xxx@...$ ldd xxx.so/xxx.out</div></pre></td></tr></table></figure></p>
+<p>3.查看程序/库位数<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxx@...$ objdump <span class="_">-a</span> xxx.a/xxx.so/xxx.out</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>输出结果: elf32-i386或elf64-x86-64</p>
+</blockquote>
 
       
     </div>
@@ -317,18 +335,18 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">在hexo new之后立即打开Markdown文稿</a></p>
+        <p><span>本文标题:</span><a href="/2016/10/10/linux_libpcap 32-bit&64-bit/">libpcap, 32-bit&amp;64-bit</a></p>
 
         <!-- 
         <p><span>文章作者:</span><a href="/" title="回到主页">Tarantula-7</a></p>
         -->
-        <p><span>文章作者:</span>undefined</p>
+        <p><span>文章作者:</span>Gary</p>
 
-        <p><span>发布时间:</span>2016-02-02, 15:27:37</p>
-        <p><span>最后更新:</span>2016-07-16, 16:01:48</p>
+        <p><span>发布时间:</span>2016-10-10, 10:42:37</p>
+        <p><span>最后更新:</span>2016-10-10, 15:30:43</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/" title="在hexo new之后立即打开Markdown文稿">http://durant35.github.io/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/10/10/linux_libpcap 32-bit&64-bit/" title="libpcap, 32-bit&amp;64-bit">http://durant35.github.io/2016/10/10/linux_libpcap 32-bit&amp;64-bit/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2016/10/10/linux_libpcap 32-bit&amp;64-bit/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
 
@@ -343,16 +361,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/02/02/tool_NotePad/">
-                    NotePad++
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/01/26/hexo_自定义主题/">
-                    hexo自定义主题
+                <a href="/2016/10/09/OverlappingSounds_Key Word Engineering/">
+                    Key Word Engineering
                 </a>
             </div>
         
@@ -364,7 +376,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#搜寻"><span class="toc-number">1.</span> <span class="toc-text">搜寻</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#试水"><span class="toc-number">2.</span> <span class="toc-text">试水</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回头分析"><span class="toc-number">3.</span> <span class="toc-text">回头分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows-CMD下的-和"><span class="toc-number">4.</span> <span class="toc-text">Windows CMD下的\和/</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-32-bit-exes-depending-on-libpcap"><span class="toc-number">1.</span> <span class="toc-text">Generate 32-bit exes depending on libpcap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux-下如何查看程序-库信息"><span class="toc-number">2.</span> <span class="toc-text">Linux 下如何查看程序/库信息</span></a></li></ol>
         
     </div>
     <style>
@@ -404,7 +416,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"在hexo new之后立即打开Markdown文稿　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"libpcap, 32-bit&64-bit　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -420,7 +432,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/" data-title="在hexo new之后立即打开Markdown文稿" data-url="http://durant35.github.io/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2016/10/10/linux_libpcap 32-bit&amp;64-bit/" data-title="libpcap, 32-bit&amp;64-bit" data-url="http://durant35.github.io/2016/10/10/linux_libpcap 32-bit&amp;64-bit/"></div>
     <script>
         var duoshuoQuery = {short_name:"durant35"};
         var loadComment = function(){
@@ -443,15 +455,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/02/02/tool_NotePad/" title="上一篇: NotePad++">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/01/26/hexo_自定义主题/" title="下一篇: hexo自定义主题">
+            <a href="/2016/10/09/OverlappingSounds_Key Word Engineering/" title="下一篇: Key Word Engineering">
                 <i class="fa fa-angle-right"></i>
             </a>
         
