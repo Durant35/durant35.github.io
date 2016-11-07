@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/2016/04/21/tool_CMake_%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</loc>
+    
+    <lastmod>2016-11-07T06:54:34.469Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2016/02/02/programPearls_Qt_%E5%80%9FQt%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%B0%88%E8%B0%88Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</loc>
     
     <lastmod>2016-10-27T02:06:55.005Z</lastmod>
@@ -222,13 +229,6 @@
     <loc>http://durant35.github.io/2016/02/02/tool_NotePad/</loc>
     
     <lastmod>2016-07-16T08:02:34.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2016/04/21/tool_CMake_%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</loc>
-    
-    <lastmod>2016-07-16T08:02:20.000Z</lastmod>
     
   </url>
   

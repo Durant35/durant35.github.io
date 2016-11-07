@@ -255,6 +255,90 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-tool_CMake_快速入门" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/21/tool_CMake_快速入门/" class="article-date">
+      <time datetime="2016-04-21T13:45:13.000Z" itemprop="datePublished">2016-04-21</time>
+</a>
+
+ 
+    <a href="/2016/04/21/tool_CMake_快速入门/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/04/21/tool_CMake_快速入门/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　<strong>CMake</strong> 是一个跨平台的安装（编译）工具，可以用简单的语句来描述所有平台的安装(编译过程)。他能够输出各种各样 <strong>Makefile</strong> 或者 <strong>project</strong> 文件，能测试编译器所支持的 <strong>C++</strong> 特性，类似 <strong>UNIX</strong> 下的 <strong>automake</strong>。</p>
+<p>　　说在前头的个人的一些想法 (<a href="./pdf/CMake Practice.pdf">《CMake Practice》</a> 也这么说    ) 和建议吧：<br>　　<strong><font color="blue">①. </font></strong> <strong>CMake</strong> 的学习过程是实践过程，没有实践，读的再多几天后也会忘记。所以，最好是你现在有实际的项目需求(没有的话，希望这个日后还可以作为参考)，另外，文章中的实例请你必须亲自运行验证一下。</p>
+<p>　　<strong><font color="blue">②. </font></strong> 如果你的工程只有几个文件，直接编写 Makefile 是个可行的选择，不过考虑到移植性，比如究竟是gcc呢？g++呢？还是什么其他的呢？还是使用 <strong>CMake</strong> 吧。</p>
+<p>　　<strong><font color="blue">③. </font></strong> 如果使用的是 <strong>C/C++/Java</strong> 之外的语言，请不要使用 CMake(目前还不支持)。</p>
+<p>　　<strong><font color="blue">④. </font></strong> 如果你使用的语言有非常完备的构建体系，比如 Java 的 <strong>Ant</strong>，也不需要学习 <strong>CMake</strong>。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/小工具/">小工具</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMake/">CMake</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/04/21/tool_CMake_快速入门/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -950,86 +1034,6 @@
       
         <p class="article-more-link">
           <a href="/2015/04/30/hexo_win搭建hexo/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-linux_瞎谈Socket编程_3" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/08/linux_瞎谈Socket编程_3/" class="article-date">
-      <time datetime="2016-09-08T01:59:58.000Z" itemprop="datePublished">2016-09-08</time>
-</a>
-
- 
-    <a href="/2016/09/08/linux_瞎谈Socket编程_3/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/09/08/linux_瞎谈Socket编程_3/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="Server端"><a href="#Server端" class="headerlink" title="Server端"></a>Server端</h2><p>　　<strong>UDP Socket</strong> 编程中服务器端流程与 <strong>TCP</strong> 相似, 只是不需要通过 <strong>listen()</strong> 和 <strong>accept()</strong> 监听和等待客户端请求，直接通过 <strong>sendto()</strong> 和 <strong>recvfrom()</strong> 和客户端进行读写操作。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/09/08/linux_瞎谈Socket编程_3/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
