@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="Tarantula-7's Blog">
 <meta property="og:description" content="参考博文 《#pragma once与#ifndef #define …#endif的区别》
 　　#pragma once 用来防止某个头文件被多次 include；　　#ifndef，#define，#endif 用来防止某个宏被多次定义。">
-<meta property="og:updated_time" content="2016-04-21T13:37:44.000Z">
+<meta property="og:updated_time" content="2016-11-12T10:11:25.869Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=".h中的#ifndef..#define..#endif">
 <meta name="twitter:description" content="参考博文 《#pragma once与#ifndef #define …#endif的区别》
@@ -294,8 +294,8 @@
           
         <p>　　参考博文 <a href="http://blog.csdn.net/luoweifu/article/details/42550955">《#pragma once与#ifndef #define …#endif的区别》</a></p>
 <p>　　<strong>#pragma once</strong> 用来防止某个头文件被多次 include；<br>　　<strong>#ifndef</strong>，<strong>#define</strong>，<strong>#endif</strong> 用来防止某个宏被多次定义。<br><a id="more"></a></p>
-<h2 id="两种方式"><a href="#两种方式" class="headerlink" title="两种方式"></a><font color="#F40D64">两种方式</font></h2><p>　　<strong>方式一：</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// xxx.h</span></div><div class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></div><div class="line"></div><div class="line">... ... <span class="comment">// 一些声明语句</span></div></pre></td></tr></table></figure></p>
-<p>　　<strong>方式二：</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// xxx.h</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _XXX_H_</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> _XXX_H_</span></div><div class="line"></div><div class="line">... ... <span class="comment">// 一些声明语句</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure></p>
+<h2 id="两种方式"><a href="#两种方式" class="headerlink" title="两种方式"></a><font color="#F40D64">两种方式</font></h2><p>　　<strong>方式一：</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// xxx.h</span></div><div class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></div><div class="line"> </div><div class="line">... ... <span class="comment">// 一些声明语句</span></div></pre></td></tr></table></figure></p>
+<p>　　<strong>方式二：</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// xxx.h</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _XXX_H_</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> _XXX_H_</span></div><div class="line"> </div><div class="line">... ... <span class="comment">// 一些声明语句</span></div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure></p>
 <h2 id="有什么问题？"><a href="#有什么问题？" class="headerlink" title="有什么问题？"></a><font color="#F40D64">有什么问题？</font></h2><p>　　<strong>#pragma once</strong> 是编译相关，就是说这个编译系统上能用，但在其他编译系统不一定可以，也就是说移植性差，不过现在基本上已经是每个编译器都有这个定义了；</p>
 <p>　　<strong>#ifndef</strong> 的方式依赖于宏名字不能冲突，这不光可以保证同一个文件不会被包含多次，也能保证内容完全相同的两个文件不会被不小心同时包含。当然，缺点就是如果不同头文件的宏名不小心 <strong>“撞车”</strong>，可能就会导致头文件明明存在，编译器却硬说找不到声明的状况。</p>
 <h2 id="该如何抉择？"><a href="#该如何抉择？" class="headerlink" title="该如何抉择？ "></a><font color="#F40D64">该如何抉择？ </font></h2><p>　　<strong>#ifndef…#define…#endif</strong> 这个是 <strong>C++</strong> 语言相关，这是 <strong>C++</strong> 语言中的宏定义，通过宏定义避免文件多次编译。所以在所有支持 <strong>C++</strong> 语言的编译器上都是有效的，如果写的程序要跨平台，最好使用这种方式。</p>
@@ -318,10 +318,10 @@
         <!-- 
         <p><span>文章作者:</span><a href="/" title="回到主页">Tarantula-7</a></p>
         -->
-        <p><span>文章作者:</span>undefined</p>
+        <p><span>文章作者:</span>Gary</p>
 
         <p><span>发布时间:</span>2016-04-21, 11:41:51</p>
-        <p><span>最后更新:</span>2016-04-21, 21:37:44</p>
+        <p><span>最后更新:</span>2016-11-12, 18:11:25</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/" title=".h中的#ifndef..#define..#endif">http://durant35.github.io/2016/04/21/programPearls_.h中的ifndef..define..endif/</a>
             <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2016/04/21/programPearls_.h中的ifndef..define..endif/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
