@@ -812,7 +812,7 @@
     <link href="http://durant35.github.io/2016/07/26/tool_git%E5%87%A0%E6%AD%A5%E8%B5%B0/"/>
     <id>http://durant35.github.io/2016/07/26/tool_git几步走/</id>
     <published>2016-07-26T00:47:07.000Z</published>
-    <updated>2016-07-26T01:35:56.000Z</updated>
+    <updated>2016-11-12T10:04:57.275Z</updated>
     
     <content type="html"><![CDATA[<p>　　<strong>第一步:</strong> <strong>github.com</strong> 上添加新仓库 “Create New Repository”</p>
 <p>　　<strong>第二步:</strong> 本地关联远程库.添加后，远程库的名字就是 <strong>origin</strong>，这是 <strong>Git</strong> 默认的叫法，也可以改成别的，但是 <strong>origin</strong> 这个名字一看就知道是远程库。<br>　　　<font color="green"><strong>git remote add origin <a href="https://github.com/Durant35/[Repository">https://github.com/Durant35/[Repository</a> Name].git</strong></font></p>

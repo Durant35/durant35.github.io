@@ -255,6 +255,406 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-考勤系统-二-MFC-ADO连接MySQL数据库" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/" class="article-date">
+      <time datetime="2015-04-30T15:14:17.000Z" itemprop="datePublished">2015-04-30</time>
+</a>
+
+ 
+    <a href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <ol>
+<li><a href="#step01">引入ADO库定义文件</a>；   </li>
+<li><a href="#step02">声明AdoMysqlHelper辅助类</a>；   </li>
+<li><a href="#step03">实现AdoMysqlHelper辅助类</a>；   </li>
+<li><a href="#step04">小结一下</a>.<br>　　我的本本是<strong>win7-64位</strong>的，<strong>MySQL是5.6.21</strong>的，需要安装MySQL驱动的可以从这里下载安装，里面的.pdf文档有本教程需要的驱动环境的配置教程<a href="http://yunpan.cn/cjqxCLtCfLNvW">点击获取</a>访问密码 <strong>a89b</strong>(从这里也可以获取VC++6.0安装包以及32位的MySQL数据库安装包)。</li>
+</ol>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/MFC考勤系统/">MFC考勤系统</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/" class="article-date">
+      <time datetime="2016-02-02T11:33:21.000Z" itemprop="datePublished">2016-02-02</time>
+</a>
+
+ 
+    <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/02/programPearls_Qt_%E5%80%9FQt%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%B0%88%E8%B0%88Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/#more">《这是第一篇》</a><br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a></font>
+
+<p>　　因为想着把毕业设计中的读写器上位机软件放在 <strong>Qt</strong> 上开发，这学期<a href="http://durant35.github.io/categories/%E7%89%A9%E8%81%94%E7%BD%91%E6%8A%80%E6%9C%AF%E5%AF%BC%E8%AE%BA%E5%AE%9E%E9%AA%8C%E8%AF%BE/">《物联网导论实验课程》</a>也做过一个类似的上位机软件，不过是在 <strong>MFC</strong> 上开发，所以想到先做一下这个课程 <strong>Project</strong> 的移植，体验一发 <strong>Qt</strong>，没想到一开始就碰大壁了。。。</p>
+<p>　　相信大家也经常遇到，那就是做 <strong>UI</strong> 界面时或者通过 <strong>UI</strong> 给用户提示时，<strong>中文乱码</strong> 的现象。比如，这学期，在上《物联网导论实验课》的时候，虽然课程建议的开发平台是 <strong>VC++ 6.0</strong>，但是有部分同学尝试在 <strong>VS≥2012</strong> 开发，就发现，课程 <strong>Demo</strong> 给的部分示例代码直接放到 <strong>VS</strong> 上，就出现了 <strong>UI</strong> 中文乱码的现象。他们，或者说大多数人一开始想到的问题，无非就是项目相关文件保存方式弄错了，也许改一下保存编码方式就行。但是真的是这样吗？还有编码方式是什么，解决这个问题需要了解多少东西？本期及之后的几篇文章，将会跟大家讲述本人在解决这个问题过程中的学习体会，包括从网上学习的各种资料的汇总。一来希望能给遇到相关问题的亲们指引一下(希望对你有帮助，嘻嘻)，二来更是把自己这近几周的学习作一个系统总结，留档，方便后知后觉忘了的时候，可以温故知新。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VS2013/">VS2013</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编码/">编码</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-linux_libpcap 32-bit&amp;64-bit" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/10/linux_libpcap 32-bit&64-bit/" class="article-date">
+      <time datetime="2016-10-10T02:42:37.000Z" itemprop="datePublished">2016-10-10</time>
+</a>
+
+ 
+    <a href="/2016/10/10/linux_libpcap 32-bit&64-bit/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/10/10/linux_libpcap 32-bit&amp;64-bit/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/10/linux_libpcap 32-bit&64-bit/">libpcap, 32-bit&amp;64-bit</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　情况是这样的，在之前讲过的回播 <strong>.pcap</strong> 数据的 <strong>Velodyne_player</strong> 程序中，需要调用 <strong>Winpcap</strong> (其实就是 <strong>libpcap</strong> 的 Win挫版) 的 API 解析 <strong>.pcap</strong> 数据，再通过 UDP 发送出去。我们的 <strong>Velodyne_player</strong> 是一个 <strong>Win32</strong> 的程序，显然调用的就是32位的 <strong>Winpcap</strong> 库的 API； 后来我们也移植了一个 <strong>.pcap</strong> 采集程序的 Linux 版本，结果，用该 Linux 版本采集程序采集到的 <strong>.pcap</strong> 数据却没办法用我们 Win 下的 <strong>Velodyne_player</strong> 回播。后来发现，我们的 Linux 版本的采集程序用的是64位的 <strong>libpcap</strong> 库(因为系统是64位的 Ubuntu16.04，默认安装的就是64位的 <strong>libpcap</strong> 库)，64位和32位的 <strong>libpcap</strong>，在时间戳上有很关键的区别，下面是开源的 <strong>pcap.h</strong> 中的声明:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</div><div class="line"> * Generic per-packet information, as supplied by libpcap.</div><div class="line"> *</div><div class="line"> * The time stamp can and should be a "struct timeval", regardless of</div><div class="line"> * whether your system supports 32-bit tv_sec in "struct timeval",</div><div class="line"> * 64-bit tv_sec in "struct timeval", or both if it supports both 32-bit</div><div class="line"> * and 64-bit applications.  The on-disk format of savefiles uses 32-bit</div><div class="line"> * tv_sec (and tv_usec); this structure is irrelevant to that.  32-bit</div><div class="line"> * and 64-bit versions of libpcap, even if they're on the same platform,</div><div class="line"> * should supply the appropriate version of "struct timeval", even if</div><div class="line"> * that's not what the underlying packet capture mechanism supplies.</div><div class="line"> */</span></div><div class="line"><span class="keyword">struct</span> pcap_pkthdr &#123;</div><div class="line">  <span class="keyword">struct</span> timeval ts;	<span class="comment">/* time stamp */</span></div><div class="line">  bpf_u_int32 caplen;	<span class="comment">/* length of portion present */</span></div><div class="line">  bpf_u_int32 len;	<span class="comment">/* length this packet (off wire) */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pcap/">pcap</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/10/10/linux_libpcap 32-bit&64-bit/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-TACouses_Embedded_System_2016" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/01/TACouses_Embedded_System_2016/" class="article-date">
+      <time datetime="2016-10-01T07:50:14.000Z" itemprop="datePublished">2016-10-01</time>
+</a>
+
+ 
+    <a href="/2016/10/01/TACouses_Embedded_System_2016/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/10/01/TACouses_Embedded_System_2016/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/01/TACouses_Embedded_System_2016/">Embedded System 2016</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　嵌入式系统实验课大概涉及的内容有以下几个部分:<br>    <center><img src="/img/TA-Cources/ES2016/dol_framework.png" width="640px"/></center><br>　　主体就涵盖了三条纵线一条横线，functional simulation，Hds simulation，analysis model 是三纵，如何通过三纵得到的数据迭代获取 application 和 architecture 的最佳 mapping 为一横。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a>
+    </div>
+
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2016/10/01/TACouses_Embedded_System_2016/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-OverlappingSounds_Key Word Engineering" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/09/OverlappingSounds_Key Word Engineering/" class="article-date">
+      <time datetime="2016-10-09T00:14:45.000Z" itemprop="datePublished">2016-10-09</time>
+</a>
+
+ 
+    <a href="/2016/10/09/OverlappingSounds_Key Word Engineering/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/10/09/OverlappingSounds_Key Word Engineering/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/09/OverlappingSounds_Key Word Engineering/">Key Word Engineering</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="A"><a href="#A" class="headerlink" title="A"></a>A</h3>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Key-words/">Key-words</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/10/09/OverlappingSounds_Key Word Engineering/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-ROS_ROS_Basics" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -635,425 +1035,6 @@
       
         <p class="article-more-link">
           <a href="/2016/09/08/linux_瞎谈Socket编程_3/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-linux_瞎谈Socket编程_2" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/16/linux_瞎谈Socket编程_2/" class="article-date">
-      <time datetime="2016-07-16T09:28:00.000Z" itemprop="datePublished">2016-07-16</time>
-</a>
-
- 
-    <a href="/2016/07/16/linux_瞎谈Socket编程_2/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/07/16/linux_瞎谈Socket编程_2/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="数据传输方式"><a href="#数据传输方式" class="headerlink" title="数据传输方式"></a><font color="#F40D64">数据传输方式</font></h2><p>　　<strong>SOCK_STREAM</strong>　　　　面向连接　　　　　　　　准确性/相对较慢　　　<font color="red">TCP</font><br>　　<strong>SOCK_DGRAM</strong>　　　　 无连接的传输方式    　　　　视频/音频    　　　　　　<font color="red">UDP</font><br><strong>Server</strong><br>　1. 创建套接字　　　　　　　　　　　　　　　　　<font color="green">int sock = socket(AF_INET, SOCK_STREAM, 0);</font><br>　2. 将套接字和IP、端口绑定　　　　　　　　　　　<font color="green">bind(sock, (struct sockaddr*)&amp;serv_addr, sizeof(serv_addr));</font><br>　3. 进入监听状态，等待客户端请求　　　　　　　　<font color="green">listen(…);</font><br>    　　　　　　　　　　　　　　　　　　　　　　　　<font color="green">accept(…);</font><br>　4. 接受客户端数据/向客户端发送数据　　　　　　　<font color="green">read(…)/write(…);</font>　　　　　　　　　　　　　　<br>　5. 关闭套接字　　　　　　　　　　　　　　　　　<font color="green">close();</font></p>
-<p><strong>Client</strong><br>　1. 创建套接字<br>　2. 向服务器(特定的IP和端口)发送请求　　　　　　　<font color="green">connect(…);</font><br>　3. 读取服务器传回的数据/向服务器发送数据　　　　<font color="green">read/write(sock, char*, sizeof(…));</font><br>　4. 关闭套接字<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/07/16/linux_瞎谈Socket编程_2/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-linux_瞎谈Socket编程_1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/15/linux_瞎谈Socket编程_1/" class="article-date">
-      <time datetime="2016-07-15T07:24:30.000Z" itemprop="datePublished">2016-07-15</time>
-</a>
-
- 
-    <a href="/2016/07/15/linux_瞎谈Socket编程_1/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/07/15/linux_瞎谈Socket编程_1/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　从项目中一个实例说起，我们的目标是将决策层做出的控制小车的决策(主要是速度velocity还有角速度angular)，通过TCP网络传输的方式传递到与控制小车的FPGA相连接的RaspberryPi。也许你会问，为毛要通过网络传输，不能通过其他方式，比如串口，不是会更快点吧？<br>　　Maybe…不过，这是有原因的。<br>　　其一，我觉得应该通过以太网线直接将运行决策的PC机网卡与树莓派上的网卡直接相连接，再用网络传输，应该比串口快，或者说，更稳定高效。遗憾的是，我们没办法通过以太网线直接相连，而是通过WiFi，这是因为，其二，PC机唯有的一个以太网卡，拿去插激光雷达了，而激光雷达作为一个sensor，是决策所必须的。<br>　　其三，整个体系运行在ROS之上，而，把ROS体系中做出来的决策送到控制端的树莓派上，我们得自己想办法或者说Coding。刚好，找到有一个开源的ros通讯，恰好人家是通过TCP传输的，所以，就没想那么多，直接用上了。<br>　　可想而知，这个开源的ros通讯要做的，就是把决策层做出来的velocity和angular，通过tcp传送到运行在树莓派上的程序进而控制FPGA控制小车。搞过ROS的应该知道，在ROS中节点都是通过消息进行通讯的，那么，这个ros通讯节点要做的肯定就是订阅决策层做出来的关于控制的消息，然后通过网络传输出去，这些，你可以阅读 <a href="https://github.com/JoeyNeidigh/ros_tcp_comm">这个开源项目</a> 的源码进行了解。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/07/15/linux_瞎谈Socket编程_1/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo_博客主题Yelee迁移笔记" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/16/hexo_博客主题Yelee迁移笔记/" class="article-date">
-      <time datetime="2016-09-16T06:54:28.000Z" itemprop="datePublished">2016-09-16</time>
-</a>
-
- 
-    <a href="/2016/09/16/hexo_博客主题Yelee迁移笔记/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/09/16/hexo_博客主题Yelee迁移笔记/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/16/hexo_博客主题Yelee迁移笔记/">hexo博客主题Yelee迁移笔记</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>References:</p>
-<ul>
-<li><a href="http://moxfive.coding.me/yelee/">Yelee 主题使用说明</a></li>
-<li><a href="https://github.com/MOxFIVE/hexo-theme-yelee">Github: 简而不减 Hexo 双栏博客主题</a></li>
-</ul>
-</blockquote>
-<p>　　<strong><a href="http://moxfive.xyz/">MOxFIVE</a></strong> 自定义的 <strong>Yelee</strong> 这个主题真的很好用，迁移之后我的几个体会是:<br>　　　a). 动态效果很酷炫，整个界面给人的感觉就很满意<br>　　　b). 添加多说评论栏是如此的简单<br>　　　c). 自带的站点、页面访问量统计，很不错<br>　　　d). 整个源码的框架似乎更合理了，你可以自己浏览一下源码，感同身受吧？</p>
-<p>　　下面是本人将自己的博客主题迁移到 <strong>Yelee</strong> 的过程以及其中做的一些自定义适配。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/09/16/hexo_博客主题Yelee迁移笔记/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-ROS_ROS_Navigation_GettingStarted" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/" class="article-date">
-      <time datetime="2016-10-03T09:43:09.000Z" itemprop="datePublished">2016-10-03</time>
-</a>
-
- 
-    <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/10/03/ROS_ROS_Navigation_GettingStarted/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　To add navigation to a robot, we need to launch 3 nodes:</p>
-<blockquote>
-<ul>
-<li>map_server: to provide the static map {“*.yaml” &amp; “*.pgm”}, against which the robot will localize and plan.</li>
-<li>amcl: to localize the robot against the static map.</li>
-<li>move_base: to handle global planning and local control for the robot.</li>
-</ul>
-</blockquote>
-<p>　　<strong>amcl</strong> 是移动机器人二维环境下的概率定位系统，它实现了自适应(或 <strong>kdl</strong> 采样)的 <strong>蒙特卡洛定位</strong> 方法，其中针对已有的地图使用 <strong>粒子滤波器</strong> 跟踪一个机器人的姿态。</p>
-<p>　　<strong>move_base</strong> 提供了 ROS 导航的配置，运行，交互接口，主要包括两个部分：</p>
-<blockquote>
-<p>　(1) 全局路径规划：根据给定的目标位置进行总体路径的规划<br>　(2) 局部路径规划：根据附近的障碍物信息进行躲避路线规划<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/ROS/">ROS</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-linux_sudo_unable_to_resolve_host" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/03/linux_sudo_unable_to_resolve_host/" class="article-date">
-      <time datetime="2016-10-03T02:42:07.000Z" itemprop="datePublished">2016-10-03</time>
-</a>
-
- 
-    <a href="/2016/10/03/linux_sudo_unable_to_resolve_host/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/10/03/linux_sudo_unable_to_resolve_host/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>Reference:<br>　<a href="http://askubuntu.com/questions/59458/error-message-when-i-run-sudo-unable-to-resolve-host-none">Error message when I run sudo: unable to resolve host (none)</a></p>
-</blockquote>
-<p>　现象是这样的。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xxx@...:~$ sudo <span class="literal">true</span></div><div class="line">sudo: unable to resolve host (...)</div></pre></td></tr></table></figure></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/10/03/linux_sudo_unable_to_resolve_host/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
