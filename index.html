@@ -255,6 +255,322 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-linux_瞎谈Socket编程_3" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/08/linux_瞎谈Socket编程_3/" class="article-date">
+      <time datetime="2016-09-08T01:59:58.000Z" itemprop="datePublished">2016-09-08</time>
+</a>
+
+ 
+    <a href="/2016/09/08/linux_瞎谈Socket编程_3/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/09/08/linux_瞎谈Socket编程_3/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="Server端"><a href="#Server端" class="headerlink" title="Server端"></a>Server端</h2><p>　　<strong>UDP Socket</strong> 编程中服务器端流程与 <strong>TCP</strong> 相似, 只是不需要通过 <strong>listen()</strong> 和 <strong>accept()</strong> 监听和等待客户端请求，直接通过 <strong>sendto()</strong> 和 <strong>recvfrom()</strong> 和客户端进行读写操作。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/09/08/linux_瞎谈Socket编程_3/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-linux_瞎谈Socket编程_1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/15/linux_瞎谈Socket编程_1/" class="article-date">
+      <time datetime="2016-07-15T07:24:30.000Z" itemprop="datePublished">2016-07-15</time>
+</a>
+
+ 
+    <a href="/2016/07/15/linux_瞎谈Socket编程_1/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/07/15/linux_瞎谈Socket编程_1/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　从项目中一个实例说起，我们的目标是将决策层做出的控制小车的决策(主要是速度velocity还有角速度angular)，通过TCP网络传输的方式传递到与控制小车的FPGA相连接的RaspberryPi。也许你会问，为毛要通过网络传输，不能通过其他方式，比如串口，不是会更快点吧？<br>　　Maybe…不过，这是有原因的。<br>　　其一，我觉得应该通过以太网线直接将运行决策的PC机网卡与树莓派上的网卡直接相连接，再用网络传输，应该比串口快，或者说，更稳定高效。遗憾的是，我们没办法通过以太网线直接相连，而是通过WiFi，这是因为，其二，PC机唯有的一个以太网卡，拿去插激光雷达了，而激光雷达作为一个sensor，是决策所必须的。<br>　　其三，整个体系运行在ROS之上，而，把ROS体系中做出来的决策送到控制端的树莓派上，我们得自己想办法或者说Coding。刚好，找到有一个开源的ros通讯，恰好人家是通过TCP传输的，所以，就没想那么多，直接用上了。<br>　　可想而知，这个开源的ros通讯要做的，就是把决策层做出来的velocity和angular，通过tcp传送到运行在树莓派上的程序进而控制FPGA控制小车。搞过ROS的应该知道，在ROS中节点都是通过消息进行通讯的，那么，这个ros通讯节点要做的肯定就是订阅决策层做出来的关于控制的消息，然后通过网络传输出去，这些，你可以阅读 <a href="https://github.com/JoeyNeidigh/ros_tcp_comm">这个开源项目</a> 的源码进行了解。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/07/15/linux_瞎谈Socket编程_1/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-programPearls_Win&amp;Linux Operate ini configuration files(API)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/08/programPearls_Win&Linux Operate ini configuration files(API)/" class="article-date">
+      <time datetime="2016-09-08T03:54:32.000Z" itemprop="datePublished">2016-09-08</time>
+</a>
+
+ 
+    <a href="/2016/09/08/programPearls_Win&Linux Operate ini configuration files(API)/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/09/08/programPearls_Win&amp;Linux Operate ini configuration files(API)/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/08/programPearls_Win&Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　我们的程序常常需要从配置文件中获取参数，一方面，用户关于程序的自定义配置往往就存储在配置文件中，自定义配置的适配与保存就转化为对配置文件的读写操作；另一方面，也是本文编写的由来，那就是将有关程序中核心算法的参数提取到配置文件，方便算法参数的调试(只要调整配置文件，无需修改程序源码，更无需重新构建)。<br>　<strong>.ini</strong> 文件作为典型的配置文件，其文件存储的内容基本上是一些参数的 <strong>Key-Value</strong> 形式，此外就是一些所谓的属性段，多个对同一方面参数进行描述的 <strong>键值对</strong> 可以归纳为一个 <strong>Section</strong>。<br>　下面，是 <strong>Win/Linux</strong> 下如何通过不同的 API 实现对 <strong>*.ini</strong> 配置文件读写操作的整理。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ini/">ini</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/文件操作/">文件操作</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/09/08/programPearls_Win&Linux Operate ini configuration files(API)/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-programPearls_C语言中结构体内存free" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/02/programPearls_C语言中结构体内存free/" class="article-date">
+      <time datetime="2016-07-02T06:38:46.000Z" itemprop="datePublished">2016-07-02</time>
+</a>
+
+ 
+    <a href="/2016/07/02/programPearls_C语言中结构体内存free/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/07/02/programPearls_C语言中结构体内存free/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　来自实训第三天的某段代码，<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> vec2f &#123;</div><div class="line">  <span class="keyword">float</span> x;</div><div class="line">  <span class="keyword">float</span> y;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> vec2f vec2f;</div><div class="line"> </div><div class="line"><span class="function">vec2f* <span class="title">vec2f_alloc</span><span class="params">()</span> </span>&#123;</div><div class="line">  vec2f* ret;</div><div class="line">  ret = ( vec2f* ) <span class="built_in">malloc</span>( <span class="keyword">sizeof</span>( vec2f ) );</div><div class="line">  <span class="comment">//if( !ret ) // if error occurs</span></div><div class="line">  <span class="keyword">return</span> ret;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_init</span><span class="params">( vec2f* v, <span class="keyword">float</span> x, <span class="keyword">float</span> y )</span> </span>&#123;</div><div class="line">  v-&gt;x = x;</div><div class="line">  v-&gt;y = y;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function">vec2f* <span class="title">vec2f_new</span><span class="params">( <span class="keyword">float</span> x, <span class="keyword">float</span> y )</span> </span>&#123;</div><div class="line">  vec2f* ret = vec2f_alloc();</div><div class="line">  vec2f_init( ret, x, y );</div><div class="line">  <span class="keyword">return</span> ret;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_delete</span><span class="params">( vec2f** v )</span> </span>&#123;</div><div class="line">  <span class="built_in">free</span>( *v );</div><div class="line">  *v = <span class="literal">NULL</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_print</span><span class="params">( <span class="keyword">const</span> vec2f* v )</span> </span>&#123;</div><div class="line">  <span class="built_in">printf</span>( <span class="string">"[ %g %g ]\n"</span>, v-&gt;x, v-&gt;y );</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
+    </div>
+
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2016/07/02/programPearls_C语言中结构体内存free/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-hexo_博客主题Yelee迁移笔记" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -723,327 +1039,6 @@
       
         <p class="article-more-link">
           <a href="/2016/01/24/hexo_hexo扫盲/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo_2.0x hexo迁移至最新版本笔记" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/" class="article-date">
-      <time datetime="2016-01-24T01:56:14.000Z" itemprop="datePublished">2016-01-24</time>
-</a>
-
- 
-    <a href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　今天看到<strong><a href="http://zhiqiu.github.io">zhiqiu</a></strong>的hexo有<strong>年/月视图</strong>的特性，<br>    <center><img src="/img/hexo/view_archive.png" width="800px"/></center><br>心想这是自己需要的功能，这样会让All-list里面的归档更为清晰，就按照网上提示，只需修改根目录下<strong>_config.yml</strong>，添加如下配置：<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_.h中的ifndef..define..endif" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/21/programPearls_.h中的ifndef..define..endif/" class="article-date">
-      <time datetime="2016-04-21T03:41:51.000Z" itemprop="datePublished">2016-04-21</time>
-</a>
-
- 
-    <a href="/2016/04/21/programPearls_.h中的ifndef..define..endif/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/04/21/programPearls_.h中的ifndef..define..endif/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　参考博文 <a href="http://blog.csdn.net/luoweifu/article/details/42550955">《#pragma once与#ifndef #define …#endif的区别》</a></p>
-<p>　　<strong>#pragma once</strong> 用来防止某个头文件被多次 include；<br>　　<strong>#ifndef</strong>，<strong>#define</strong>，<strong>#endif</strong> 用来防止某个宏被多次定义。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2016/04/21/programPearls_.h中的ifndef..define..endif/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo_push你的新博客到Github" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/01/22/hexo_push你的新博客到Github/" class="article-date">
-      <time datetime="2016-01-22T02:09:22.000Z" itemprop="datePublished">2016-01-22</time>
-</a>
-
- 
-    <a href="/2016/01/22/hexo_push你的新博客到Github/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/01/22/hexo_push你的新博客到Github/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="第一步-为hexo配置你的Github"><a href="#第一步-为hexo配置你的Github" class="headerlink" title="第一步 为hexo配置你的Github"></a><font color="#F40D64"><strong>第一步 为hexo配置你的Github</strong></font></h2><p>　　首先编辑你hexo根目录下的<strong>_config.yml</strong>文件，找到以下内容并修改为github的部署方式<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># Deployment 需要进行部署方式的修改</div><div class="line">## Docs: http:<span class="comment">//hexo.io/docs/deployment.html</span></div><div class="line">deploy:</div><div class="line">  type: git 			#部署类型, 本文使用Github</div><div class="line">  repository: https:<span class="comment">//github.com/username/username.github.io.git </span></div><div class="line">        #部署的仓库的SSH</div><div class="line">  branch: master 		#部署分支,一般使用master主分支</div></pre></td></tr></table></figure></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/01/22/hexo_push你的新博客到Github/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-tool_CMake_快速入门" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/21/tool_CMake_快速入门/" class="article-date">
-      <time datetime="2016-04-21T13:45:13.000Z" itemprop="datePublished">2016-04-21</time>
-</a>
-
- 
-    <a href="/2016/04/21/tool_CMake_快速入门/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/04/21/tool_CMake_快速入门/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　<strong>CMake</strong> 是一个跨平台的安装（编译）工具，可以用简单的语句来描述所有平台的安装(编译过程)。他能够输出各种各样 <strong>Makefile</strong> 或者 <strong>project</strong> 文件，能测试编译器所支持的 <strong>C++</strong> 特性，类似 <strong>UNIX</strong> 下的 <strong>automake</strong>。</p>
-<p>　　说在前头的个人的一些想法 (<a href="./pdf/CMake Practice.pdf">《CMake Practice》</a> 也这么说    ) 和建议吧：<br>　　<strong><font color="blue">①. </font></strong> <strong>CMake</strong> 的学习过程是实践过程，没有实践，读的再多几天后也会忘记。所以，最好是你现在有实际的项目需求(没有的话，希望这个日后还可以作为参考)，另外，文章中的实例请你必须亲自运行验证一下。</p>
-<p>　　<strong><font color="blue">②. </font></strong> 如果你的工程只有几个文件，直接编写 Makefile 是个可行的选择，不过考虑到移植性，比如究竟是gcc呢？g++呢？还是什么其他的呢？还是使用 <strong>CMake</strong> 吧。</p>
-<p>　　<strong><font color="blue">③. </font></strong> 如果使用的是 <strong>C/C++/Java</strong> 之外的语言，请不要使用 CMake(目前还不支持)。</p>
-<p>　　<strong><font color="blue">④. </font></strong> 如果你使用的语言有非常完备的构建体系，比如 Java 的 <strong>Ant</strong>，也不需要学习 <strong>CMake</strong>。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/小工具/">小工具</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMake/">CMake</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/04/21/tool_CMake_快速入门/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
