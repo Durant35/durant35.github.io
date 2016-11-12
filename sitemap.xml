@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/2015/11/29/iotCourse_03_ADO%E8%BF%9E%E6%8E%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    
+    <lastmod>2016-11-12T10:00:46.585Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2015/10/16/iotCourse_02%20Windows%E4%B8%8B%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93/</loc>
     
-    <lastmod>2016-11-12T09:51:56.196Z</lastmod>
+    <lastmod>2016-11-12T09:56:20.114Z</lastmod>
     
   </url>
   
@@ -12,13 +19,6 @@
     <loc>http://durant35.github.io/2015/09/28/iotCourse_01%20MFC-TabControl%E6%8E%A7%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%89%E9%A1%B9%E5%8D%A1%E5%8A%9F%E8%83%BD/</loc>
     
     <lastmod>2016-11-12T09:48:58.298Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2015/11/29/iotCourse_03_ADO%E8%BF%9E%E6%8E%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    
-    <lastmod>2016-11-12T09:47:22.178Z</lastmod>
     
   </url>
   
