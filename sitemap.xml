@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/2015/10/16/iotCourse_02%20Windows%E4%B8%8B%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93/</loc>
+    
+    <lastmod>2016-11-12T09:51:56.196Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2015/09/28/iotCourse_01%20MFC-TabControl%E6%8E%A7%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%89%E9%A1%B9%E5%8D%A1%E5%8A%9F%E8%83%BD/</loc>
+    
+    <lastmod>2016-11-12T09:48:58.298Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2015/11/29/iotCourse_03_ADO%E8%BF%9E%E6%8E%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    
+    <lastmod>2016-11-12T09:47:22.178Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2015/07/15/Android_%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BAAndroid-ADT%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-%E5%9F%BA%E4%BA%8EWin7-Win8-1-%E5%85%B6%E4%BB%96%E4%BB%85%E4%BE%9B%E5%8F%82%E8%80%83/</loc>
     
     <lastmod>2016-11-12T09:43:28.572Z</lastmod>
@@ -334,27 +355,6 @@
     <loc>http://durant35.github.io/2016/01/24/hexo_2.0x%20hexo%E8%BF%81%E7%A7%BB%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2016-07-16T08:00:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2015/11/29/iotCourse_03_ADO%E8%BF%9E%E6%8E%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    
-    <lastmod>2016-07-16T07:54:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2015/10/16/iotCourse_02%20Windows%E4%B8%8B%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93/</loc>
-    
-    <lastmod>2016-07-16T07:54:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2015/09/28/iotCourse_01%20MFC-TabControl%E6%8E%A7%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%89%E9%A1%B9%E5%8D%A1%E5%8A%9F%E8%83%BD/</loc>
-    
-    <lastmod>2016-07-16T07:53:30.000Z</lastmod>
     
   </url>
   
