@@ -74,7 +74,7 @@
 <meta property="og:image" content="http://durant35.github.io/img/programPearls/encoding-note/9_zoneCode_globalCode_machineCode.png">
 <meta property="og:image" content="http://durant35.github.io/img/programPearls/encoding-note/9_GB2312_machineCode.png">
 <meta property="og:image" content="http://durant35.github.io/img/programPearls/encoding-note/9_coordinate_3Code.png">
-<meta property="og:updated_time" content="2016-11-26T14:02:37.955Z">
+<meta property="og:updated_time" content="2016-11-26T14:10:38.815Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Coding中的编码问题之系统学习">
 <meta name="twitter:description" content="[系列文章]上一篇：《Coding中的编码问题之入门&amp;amp;概览》[系列文章]下一篇：《Coding中的编码问题之回顾&amp;amp;深入》
@@ -415,7 +415,7 @@
 <p><font color="blue" size="4"><strong>小结：</strong></font><br>　<strong>1.</strong> 定长与变长方案涉及字符容量与存储效率的矛盾，当然也涉及编、解码效率等问题。<br>　<strong>2.</strong> 咱们中国人程序猿，随便用就用 <strong>GBK</strong> 或者 <strong>GB2312</strong>(具体怎么样，目前不清楚)；但为了国际化，也就是咱要对自己严格要求，还是用 <strong>UTF-8</strong>(具体怎么样，目前又不清楚)吧。<br>　<strong>3.</strong> 目前了解的定长编码，咱知道，<strong>ASCII</strong> 是一个字节定长的，<strong>UCS-2</strong> 是两个字节定长的，<strong>UTF-32</strong> 是四个字节定长的。<br>　<strong>4.</strong> 目前了解的变长编码，咱知道，<strong>GBK/GB2312</strong> 是 1-2 字节；<strong>UTF-8</strong> 是 1-4 字节，他们都利用高位作区分；<strong>UTF-16</strong> 则是 2 或 4 字节，利用代理区作区分。具体怎么做，目前不清楚；代理区是什么，也不太清楚。<br>　<strong>5.</strong> 因为<strong>GBK/GB2312</strong> 两个字节搞定中文，兼容(也就是一模一样的编码对应一模一样的字符)伟大的 <strong>ASCII</strong>；<strong>UTF-8</strong> 三个字节搞定中文，也兼容 <strong>ASCII</strong>，二者都比较受欢迎。前者由于<font color="red">存储汉字的效率比 <strong>UTF-8</strong> 高</font>，备受国人喜爱，本来就中国人自己造出来的；后者则能<font color="red">表示所有 <strong>Unicode</strong> 字符，推动国际化</font>，受世界人欢迎。中国人就喜欢重复造轮子(chao xi)，搞了个和 <strong>UTF-8</strong> 差不多的 <strong>GB18030标准</strong>，不受欢迎。。。</p>
 <h2 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a><font color="#F40D64">Unicode</font></h2><p>　　原文地址：<a href="http://my.oschina.net/goldenshaw/blog/310331">http://my.oschina.net/goldenshaw/blog/310331</a></p>
 <ol>
-<li><p>什么是 <strong>Unicode</strong>？<br><center><img src="/img/programPearls/encoding-note/4_what_is_Unicode.png"/></center><br>　<strong>1.</strong> 所谓的一个唯一的数字在 <strong>Unicode</strong> 中就叫做码点。<br>　<strong>2.</strong> <code>U+[XX]XXXX</code> 是码点的表示形式，X 代表一个十六制数字，可以有 4-6 位，不足 4 位前补 0 补足 4 位，超过则按是几位就是几位。<br>　<strong>3.</strong> 它的范围目前是 <strong>U+0000~U+10FFFF</strong>，理论大小为： <strong>10FFFF+1=110000<sub>16</sub></strong>。后一个 1 代表是 <strong>65536(FFFF)</strong>，因为是 16 进制，所以前一个 1 是后一个 1 的 16 倍，所以总共有 1×16+1=17 个的 65536 的大小，粗略估算为 17×6 万 =102 万，所以这是一个百万级别的数。<br>　<strong>4.</strong> 准确的值是 <strong>1114112</strong>，一般记为 111 万左右即可。</p>
+<li><p>什么是 <strong>Unicode</strong>？<br><center><img src="/img/programPearls/encoding-note/4_what_is_Unicode.png"/></center><br>　<strong>1.</strong> 所谓的一个唯一的数字在 <strong>Unicode</strong> 中就叫做码点。<br>　<strong>2.</strong> <code>U+[XX]XXXX</code> 是码点的表示形式，X 代表一个十六制数字，可以有 4-6 位，不足 4 位前补 0 补足 4 位，超过则按是几位就是几位。<br>　<strong>3.</strong> 它的范围目前是 <strong>U+0000~U+10FFFF</strong>，理论大小为： <strong>10FFFF+1=110000(16)</strong>。后一个 1 代表是 <strong>65536(FFFF)</strong>，因为是 16 进制，所以前一个 1 是后一个 1 的 16 倍，所以总共有 1×16+1=17 个的 65536 的大小，粗略估算为 17×6 万 =102 万，所以这是一个百万级别的数。<br>　<strong>4.</strong> 准确的值是 <strong>1114112</strong>，一般记为 111 万左右即可。</p>
 </li>
 <li><p>什么是<strong>平面</strong>？<br><center><img src="/img/programPearls/encoding-note/4_Unicode_plan.png"/></center><br>　<strong>1.</strong> 为了更好分类管理如此庞大的码点数，把每 65536 个码点作为一个平面，总共 17(0~0x10) 个平面。<br>　<strong>2.</strong> 由前面可知，码点的全部范围可以均分成 17 个 65536 大小的部分，这里面的每一个部分就是一个 <strong>平面(Plane)</strong>。编号从 0 开始，第一个平面称为 Plane 0。</p>
 </li>
@@ -531,7 +531,7 @@
         <p><span>文章作者:</span>Gary</p>
 
         <p><span>发布时间:</span>2016-02-22, 12:11:03</p>
-        <p><span>最后更新:</span>2016-11-26, 22:02:37</p>
+        <p><span>最后更新:</span>2016-11-26, 22:10:38</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/" title="Coding中的编码问题之系统学习">http://durant35.github.io/2016/02/22/programPearls_Coding中的编码问题之系统学习/</a>
             <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2016/02/22/programPearls_Coding中的编码问题之系统学习/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
