@@ -255,19 +255,19 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-OverlappingSounds_Key Word Engineering" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-JSP考勤系统-二-JDBC连接MySQL数据库" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/10/09/OverlappingSounds_Key Word Engineering/" class="article-date">
-      <time datetime="2016-10-09T00:14:45.000Z" itemprop="datePublished">2016-10-09</time>
+      <a href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/" class="article-date">
+      <time datetime="2015-05-16T07:13:44.000Z" itemprop="datePublished">2015-05-16</time>
 </a>
 
  
-    <a href="/2016/10/09/OverlappingSounds_Key Word Engineering/#comments" title="查看评论">
+    <a href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/10/09/OverlappingSounds_Key Word Engineering/" ></span>
+            <span class="ds-thread-count"  data-thread-key="2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/" ></span>
         
         
     </a>
@@ -283,7 +283,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/09/OverlappingSounds_Key Word Engineering/">Key Word Engineering</a>
+      <a class="article-title" href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a>
     </h1>
   
 
@@ -293,7 +293,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h3 id="A"><a href="#A" class="headerlink" title="A"></a>A</h3>
+              <p>　　在前面的MFC程序那一块，我们已经介绍了基于ODBC和ADO技术如何操作MySQL数据库，这一部分我们介绍另外一种更加方便快捷的，能够实现相同功能的方式，那就是通过JDBC访问数据库。相比之下，这种方式要比之前的ADO方便得多，较之前面难度也有所下降。</p>
+<h2 id="ODBC-vs-JDBC"><a href="#ODBC-vs-JDBC" class="headerlink" title="ODBC vs JDBC"></a><strong>ODBC vs JDBC</strong></h2><p>　　这两种方式都是访问数据库的常用的编程接口，<strong>ODBC(Open Database Connection)</strong>是”微””软”的东西，只能在其操作系统上跑，移植性可想而知；<strong>JDBC(Java Database Connection)</strong>则是Oracle的东西，是Java大家庭的一员。大家都知道，Java正式可移植性的典范，所以，JDBC的可移植性是显然的。至于为什么，通过下面的实现流程，你应该会有所体会。此外，可以通过比较ADO的实现来窥见其便捷性。<br>
           
       
     </div>
@@ -301,15 +302,260 @@
     <div class="article-info article-info-index">
       
       
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/MFC考勤系统/">MFC考勤系统</a>
+    </div>
+
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Key-words/">Key-words</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSP/">JSP</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2016/10/09/OverlappingSounds_Key Word Engineering/#more">more >></a>
+          <a href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-考勤系统-二-MFC-ADO连接MySQL数据库" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/" class="article-date">
+      <time datetime="2015-04-30T15:14:17.000Z" itemprop="datePublished">2015-04-30</time>
+</a>
+
+ 
+    <a href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <ol>
+<li><a href="#step01">引入ADO库定义文件</a>；   </li>
+<li><a href="#step02">声明AdoMysqlHelper辅助类</a>；   </li>
+<li><a href="#step03">实现AdoMysqlHelper辅助类</a>；   </li>
+<li><a href="#step04">小结一下</a>.<br>　　我的本本是<strong>win7-64位</strong>的，<strong>MySQL是5.6.21</strong>的，需要安装MySQL驱动的可以从这里下载安装，里面的.pdf文档有本教程需要的驱动环境的配置教程<a href="http://yunpan.cn/cjqxCLtCfLNvW">点击获取</a>访问密码 <strong>a89b</strong>(从这里也可以获取VC++6.0安装包以及32位的MySQL数据库安装包)。</li>
+</ol>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/MFC考勤系统/">MFC考勤系统</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-linux_libpcap 32-bit&amp;64-bit" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/10/linux_libpcap 32-bit&64-bit/" class="article-date">
+      <time datetime="2016-10-10T02:42:37.000Z" itemprop="datePublished">2016-10-10</time>
+</a>
+
+ 
+    <a href="/2016/10/10/linux_libpcap 32-bit&64-bit/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/10/10/linux_libpcap 32-bit&amp;64-bit/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/10/linux_libpcap 32-bit&64-bit/">libpcap, 32-bit&amp;64-bit</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　情况是这样的，在之前讲过的回播 <strong>.pcap</strong> 数据的 <strong>Velodyne_player</strong> 程序中，需要调用 <strong>Winpcap</strong> (其实就是 <strong>libpcap</strong> 的 Win挫版) 的 API 解析 <strong>.pcap</strong> 数据，再通过 UDP 发送出去。我们的 <strong>Velodyne_player</strong> 是一个 <strong>Win32</strong> 的程序，显然调用的就是32位的 <strong>Winpcap</strong> 库的 API； 后来我们也移植了一个 <strong>.pcap</strong> 采集程序的 Linux 版本，结果，用该 Linux 版本采集程序采集到的 <strong>.pcap</strong> 数据却没办法用我们 Win 下的 <strong>Velodyne_player</strong> 回播。后来发现，我们的 Linux 版本的采集程序用的是64位的 <strong>libpcap</strong> 库(因为系统是64位的 Ubuntu16.04，默认安装的就是64位的 <strong>libpcap</strong> 库)，64位和32位的 <strong>libpcap</strong>，在时间戳上有很关键的区别，下面是开源的 <strong>pcap.h</strong> 中的声明:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</div><div class="line"> * Generic per-packet information, as supplied by libpcap.</div><div class="line"> *</div><div class="line"> * The time stamp can and should be a "struct timeval", regardless of</div><div class="line"> * whether your system supports 32-bit tv_sec in "struct timeval",</div><div class="line"> * 64-bit tv_sec in "struct timeval", or both if it supports both 32-bit</div><div class="line"> * and 64-bit applications.  The on-disk format of savefiles uses 32-bit</div><div class="line"> * tv_sec (and tv_usec); this structure is irrelevant to that.  32-bit</div><div class="line"> * and 64-bit versions of libpcap, even if they're on the same platform,</div><div class="line"> * should supply the appropriate version of "struct timeval", even if</div><div class="line"> * that's not what the underlying packet capture mechanism supplies.</div><div class="line"> */</span></div><div class="line"><span class="keyword">struct</span> pcap_pkthdr &#123;</div><div class="line">  <span class="keyword">struct</span> timeval ts;	<span class="comment">/* time stamp */</span></div><div class="line">  bpf_u_int32 caplen;	<span class="comment">/* length of portion present */</span></div><div class="line">  bpf_u_int32 len;	<span class="comment">/* length this packet (off wire) */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pcap/">pcap</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/10/10/linux_libpcap 32-bit&64-bit/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-TACouses_Embedded_System_2016" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/01/TACouses_Embedded_System_2016/" class="article-date">
+      <time datetime="2016-10-01T07:50:14.000Z" itemprop="datePublished">2016-10-01</time>
+</a>
+
+ 
+    <a href="/2016/10/01/TACouses_Embedded_System_2016/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/10/01/TACouses_Embedded_System_2016/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/01/TACouses_Embedded_System_2016/">Embedded System 2016</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　嵌入式系统实验课大概涉及的内容有以下几个部分:<br>    <center><img src="/img/TA-Cources/ES2016/dol_framework.png" width="640px"/></center><br>　　主体就涵盖了三条纵线一条横线，functional simulation，Hds simulation，analysis model 是三纵，如何通过三纵得到的数据迭代获取 application 和 architecture 的最佳 mapping 为一横。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a>
+    </div>
+
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2016/10/01/TACouses_Embedded_System_2016/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -823,250 +1069,6 @@
 
 
   
-    <article id="post-graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/" class="article-date">
-      <time datetime="2015-10-03T00:59:14.000Z" itemprop="datePublished">2015-10-03</time>
-</a>
-
- 
-    <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　<strong>本文介绍了使用MFRC500射频芯片搭建射频读写模块的完整设计，其中包括电源部分的设计，PCB天线设计，以及天线电路设计及相关的理论依据，公式计算</strong>。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/毕业设计/">毕业设计</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PCB/">PCB</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/" class="article-date">
-      <time datetime="2016-09-17T11:54:00.000Z" itemprop="datePublished">2016-09-17</time>
-</a>
-
- 
-    <a href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　翻开 <strong>VS</strong> 的 <strong>dumpbin.exe</strong>、<strong>cl.exe</strong> 的存放目录，你会惊奇的发现，居然存在这么多个分支！<br>    <center><img src="/img/hsw/VS2013_dumpbin_dirs.png" width="640px"/></center><br>　　什么 <strong>amd64</strong>、<strong>amd64_arm</strong>、<strong>amd64_x86</strong>、<strong>arm</strong>、<strong>x86_amd64</strong>、<strong>x86_arm</strong>???<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/体系结构/">体系结构</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_dumpbin指南" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/16/programPearls_dumpbin指南/" class="article-date">
-      <time datetime="2016-09-16T05:23:16.000Z" itemprop="datePublished">2016-09-16</time>
-</a>
-
- 
-    <a href="/2016/09/16/programPearls_dumpbin指南/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/09/16/programPearls_dumpbin指南/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>近几个月的 <strong>Windows</strong> 高空作业让我发现，<strong>dumpbin</strong> 这个小工具往往能解决一些关键问题。目前发现并且使用过的这个小家伙的功能有:</p>
-<ul>
-<li>查看 DLL 动态链接库导入导出信息，解决动态链接库导出和可执行程序引用对接问题、程序缺失库问题</li>
-<li>查看可执行程序的依赖库信息，解决各种程序运行时报错</li>
-<li>查看程序、库位数信息，找到库引用位数不匹配等尴尬问题</li>
-</ul>
-</blockquote>
-<p>　下面就来快速学习一下，怎么把这个小家伙用起来。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/工具链/">工具链</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dumpbin/">dumpbin</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/09/16/programPearls_dumpbin指南/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
@@ -1078,7 +1080,7 @@
         <div id="footer-info">
             <div class="footer-left">
                 <i class="fa fa-copyright"></i> 
-                2014-2016 Tarantula-7
+                2014-2017 Tarantula-7
             </div>
             <div class="footer-right">
                 <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
