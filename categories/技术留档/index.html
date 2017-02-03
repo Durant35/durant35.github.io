@@ -250,6 +250,78 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-hexo-md源文件内容修改预览页面刷新无效" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/" class="article-date">
+      <time datetime="2017-02-02T12:42:12.000Z" itemprop="datePublished">2017-02-02</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　之前在 <strong>Window</strong> 下面通过 <strong>hexo s</strong> 启动本地服务器，通过浏览器预览，对md源文件的当前修改能够通过网页刷新出来。这段时间在 <strong>Linux</strong> 上部署，就一直出现刷新页面无效的情况，必须重新启动服务器才能刷新，有时甚至还需要通过 <strong>hexo g</strong> 重新解析源文件才能成功刷新。之前有段时间也以为是 <strong>Linux</strong> 对带有中文名称的md源文件支持不好的缘故，因为将那些不能成功刷新的源文件的文件名修改下，去掉所有的中文字符后，就可以刷新有效了。</p>
+<p>　　不过，今天尝试了这个方法，居然不行了，不知道是不是因为升级了 <strong>Hexo</strong> 的缘故，不过，却发现了更有效的解决方法，可以不用考虑源文件文件名的问题。</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-hexo_Yelee Migrant Note(2)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -525,81 +597,6 @@
       
         <p class="article-more-link">
           <a href="/2016/07/16/hexo_hexo分级目录与多标签/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-tool_CMake_快速入门" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/21/tool_CMake_快速入门/" class="article-date">
-      <time datetime="2016-04-21T13:45:13.000Z" itemprop="datePublished">2016-04-21</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　<strong>CMake</strong> 是一个跨平台的安装（编译）工具，可以用简单的语句来描述所有平台的安装(编译过程)。他能够输出各种各样 <strong>Makefile</strong> 或者 <strong>project</strong> 文件，能测试编译器所支持的 <strong>C++</strong> 特性，类似 <strong>UNIX</strong> 下的 <strong>automake</strong>。</p>
-<p>　　说在前头的个人的一些想法 (<a href="./pdf/CMake Practice.pdf">《CMake Practice》</a> 也这么说    ) 和建议吧：<br>　　<strong><font color="blue">①. </font></strong> <strong>CMake</strong> 的学习过程是实践过程，没有实践，读的再多几天后也会忘记。所以，最好是你现在有实际的项目需求(没有的话，希望这个日后还可以作为参考)，另外，文章中的实例请你必须亲自运行验证一下。</p>
-<p>　　<strong><font color="blue">②. </font></strong> 如果你的工程只有几个文件，直接编写 Makefile 是个可行的选择，不过考虑到移植性，比如究竟是gcc呢？g++呢？还是什么其他的呢？还是使用 <strong>CMake</strong> 吧。</p>
-<p>　　<strong><font color="blue">③. </font></strong> 如果使用的是 <strong>C/C++/Java</strong> 之外的语言，请不要使用 CMake(目前还不支持)。</p>
-<p>　　<strong><font color="blue">④. </font></strong> 如果你使用的语言有非常完备的构建体系，比如 Java 的 <strong>Ant</strong>，也不需要学习 <strong>CMake</strong>。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/小工具/">小工具</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMake/">CMake</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/04/21/tool_CMake_快速入门/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

@@ -255,6 +255,331 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-programPearls_Coding中的编码问题之入门&amp;概览" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/21/programPearls_Coding中的编码问题之入门&概览/" class="article-date">
+      <time datetime="2016-02-21T04:11:03.000Z" itemprop="datePublished">2016-02-21</time>
+</a>
+
+ 
+    <a href="/2016/02/21/programPearls_Coding中的编码问题之入门&概览/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/02/21/programPearls_Coding中的编码问题之入门&amp;概览/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/21/programPearls_Coding中的编码问题之入门&概览/">Coding中的编码问题之入门&amp;概览</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/02/programPearls_Qt_%E5%80%9FQt%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%B0%88%E8%B0%88Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/#more">《借Qt中文乱码谈谈Coding中的编码问题》</a> (<strong>可选择性阅读</strong>)<br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/22/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/#more">《Coding中的编码问题之系统学习》</a></font>
+
+<p>　　大家在看完<a href="http://durant35.github.io/2016/02/02/programPearls_Qt_%E5%80%9FQt%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%B0%88%E8%B0%88Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/#more">《借Qt中文乱码谈谈Coding中的编码问题》</a>后，估计对文章中提到的很多概念性的东西似懂非懂，本系列接下来的几篇文章会陆续为大家解释清楚 <strong>（没看过该文章也无所谓啦，hhhhhh）</strong>。由于本人也是通过零散阅读包括 <strong>开源中国</strong> 上<a href="http://my.oschina.net/goldenshaw/blog?disp=2&amp;p=1&amp;catalog=536953">《字符集编码系列》</a>等博文慢慢理解的，故本文及后续文章均会以阅读笔记的形式提供，会涵盖个人笔记以及个人小结，希望能对大家有所帮助。也方便日后自己回顾、学习。<br>　　本文借<a href="http://www.cnblogs.com/Kyzy/archive/2012/06/17/2552432.html">《学习程序设计的必要准备——稀里糊涂的说说各种字符编码到底是个怎么回事。》</a>为大家说说字符编码的大概起源和字符编码的大概发展，会再一次提及上一篇文章提到的几个<code>Key Word</code> (<strong>ASCII</strong>, <strong>GB2312</strong>, <strong>Big5</strong>, <strong>GBK</strong>, <strong>Unicode</strong>, <strong>UTF-8</strong>…)，希望能帮大家对字符编码有一个大概的认识，为下一步系统学习打下基础。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/编码/">编码</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编码/">编码</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/02/21/programPearls_Coding中的编码问题之入门&概览/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/" class="article-date">
+      <time datetime="2016-02-02T11:33:21.000Z" itemprop="datePublished">2016-02-02</time>
+</a>
+
+ 
+    <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/02/programPearls_Qt_%E5%80%9FQt%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%B0%88%E8%B0%88Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/#more">《这是第一篇》</a><br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a></font>
+
+<p>　　因为想着把毕业设计中的读写器上位机软件放在 <strong>Qt</strong> 上开发，这学期<a href="http://durant35.github.io/categories/%E7%89%A9%E8%81%94%E7%BD%91%E6%8A%80%E6%9C%AF%E5%AF%BC%E8%AE%BA%E5%AE%9E%E9%AA%8C%E8%AF%BE/">《物联网导论实验课程》</a>也做过一个类似的上位机软件，不过是在 <strong>MFC</strong> 上开发，所以想到先做一下这个课程 <strong>Project</strong> 的移植，体验一发 <strong>Qt</strong>，没想到一开始就碰大壁了。。。</p>
+<p>　　相信大家也经常遇到，那就是做 <strong>UI</strong> 界面时或者通过 <strong>UI</strong> 给用户提示时，<strong>中文乱码</strong> 的现象。比如，这学期，在上《物联网导论实验课》的时候，虽然课程建议的开发平台是 <strong>VC++ 6.0</strong>，但是有部分同学尝试在 <strong>VS≥2012</strong> 开发，就发现，课程 <strong>Demo</strong> 给的部分示例代码直接放到 <strong>VS</strong> 上，就出现了 <strong>UI</strong> 中文乱码的现象。他们，或者说大多数人一开始想到的问题，无非就是项目相关文件保存方式弄错了，也许改一下保存编码方式就行。但是真的是这样吗？还有编码方式是什么，解决这个问题需要了解多少东西？本期及之后的几篇文章，将会跟大家讲述本人在解决这个问题过程中的学习体会，包括从网上学习的各种资料的汇总。一来希望能给遇到相关问题的亲们指引一下(希望对你有帮助，嘻嘻)，二来更是把自己这近几周的学习作一个系统总结，留档，方便后知后觉忘了的时候，可以温故知新。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VS2013/">VS2013</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编码/">编码</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-linux_瞎谈Socket编程_3" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/08/linux_瞎谈Socket编程_3/" class="article-date">
+      <time datetime="2016-09-08T01:59:58.000Z" itemprop="datePublished">2016-09-08</time>
+</a>
+
+ 
+    <a href="/2016/09/08/linux_瞎谈Socket编程_3/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/09/08/linux_瞎谈Socket编程_3/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="Server端"><a href="#Server端" class="headerlink" title="Server端"></a>Server端</h2><p>　　<strong>UDP Socket</strong> 编程中服务器端流程与 <strong>TCP</strong> 相似, 只是不需要通过 <strong>listen()</strong> 和 <strong>accept()</strong> 监听和等待客户端请求，直接通过 <strong>sendto()</strong> 和 <strong>recvfrom()</strong> 和客户端进行读写操作。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/09/08/linux_瞎谈Socket编程_3/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-linux_瞎谈Socket编程_1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/15/linux_瞎谈Socket编程_1/" class="article-date">
+      <time datetime="2016-07-15T07:24:30.000Z" itemprop="datePublished">2016-07-15</time>
+</a>
+
+ 
+    <a href="/2016/07/15/linux_瞎谈Socket编程_1/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/07/15/linux_瞎谈Socket编程_1/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　从项目中一个实例说起，我们的目标是将决策层做出的控制小车的决策(主要是速度velocity还有角速度angular)，通过TCP网络传输的方式传递到与控制小车的FPGA相连接的RaspberryPi。也许你会问，为毛要通过网络传输，不能通过其他方式，比如串口，不是会更快点吧？<br>　　Maybe…不过，这是有原因的。<br>　　其一，我觉得应该通过以太网线直接将运行决策的PC机网卡与树莓派上的网卡直接相连接，再用网络传输，应该比串口快，或者说，更稳定高效。遗憾的是，我们没办法通过以太网线直接相连，而是通过WiFi，这是因为，其二，PC机唯有的一个以太网卡，拿去插激光雷达了，而激光雷达作为一个sensor，是决策所必须的。<br>　　其三，整个体系运行在ROS之上，而，把ROS体系中做出来的决策送到控制端的树莓派上，我们得自己想办法或者说Coding。刚好，找到有一个开源的ros通讯，恰好人家是通过TCP传输的，所以，就没想那么多，直接用上了。<br>　　可想而知，这个开源的ros通讯要做的，就是把决策层做出来的velocity和angular，通过tcp传送到运行在树莓派上的程序进而控制FPGA控制小车。搞过ROS的应该知道，在ROS中节点都是通过消息进行通讯的，那么，这个ros通讯节点要做的肯定就是订阅决策层做出来的关于控制的消息，然后通过网络传输出去，这些，你可以阅读 <a href="https://github.com/JoeyNeidigh/ros_tcp_comm">这个开源项目</a> 的源码进行了解。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/07/15/linux_瞎谈Socket编程_1/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-programPearls_Win&amp;Linux Operate ini configuration files(API)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -719,323 +1044,6 @@
       
         <p class="article-more-link">
           <a href="/2016/01/26/hexo_添加about导航栏/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo_hexo错误的分类或标签无法删除" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/" class="article-date">
-      <time datetime="2016-01-24T03:51:31.000Z" itemprop="datePublished">2016-01-24</time>
-</a>
-
- 
-    <a href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/01/24/hexo_hexo错误的分类或标签无法删除/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　<strong>描述：</strong><br>　　　有的时候我们在编写<code>.md</code>文件时，可能一时没注意，将<code>categories:</code> 或<code>tags:</code>写错，直到通过<code>$ hexo s[erver]</code>预览时才发现；或者我们一开始定义了一个分类或一个标签，细想觉得不合适。这些情况都涉及到分类和标签的修改，但是有时我们会苦恼于，明明原先的分类/标签改掉了，可为何预览时他还在，折腾很久还是没有干掉他！！！<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo_hexo扫盲" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/01/24/hexo_hexo扫盲/" class="article-date">
-      <time datetime="2016-01-24T03:38:39.000Z" itemprop="datePublished">2016-01-24</time>
-</a>
-
- 
-    <a href="/2016/01/24/hexo_hexo扫盲/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/01/24/hexo_hexo扫盲/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　下述盲点也是本人在搭建过程中遇到的疑惑，在此文中做一个整理：<br>　　　<a href="#spot01"><strong><1> </strong> 用于配置的<strong>_config.yml</strong>文件的这种<strong>.yml</strong>格式是什么？</a><br>　　　<a href="#spot02"><strong><2> </strong> 安装hexo时用到的<strong>npm命令</strong>究竟是什么？</a><br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/01/24/hexo_hexo扫盲/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo_2.0x hexo迁移至最新版本笔记" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/" class="article-date">
-      <time datetime="2016-01-24T01:56:14.000Z" itemprop="datePublished">2016-01-24</time>
-</a>
-
- 
-    <a href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　今天看到<strong><a href="http://zhiqiu.github.io">zhiqiu</a></strong>的hexo有<strong>年/月视图</strong>的特性，<br>    <center><img src="/img/hexo/view_archive.png" width="800px"/></center><br>心想这是自己需要的功能，这样会让All-list里面的归档更为清晰，就按照网上提示，只需修改根目录下<strong>_config.yml</strong>，添加如下配置：<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_.h中的ifndef..define..endif" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/21/programPearls_.h中的ifndef..define..endif/" class="article-date">
-      <time datetime="2016-04-21T03:41:51.000Z" itemprop="datePublished">2016-04-21</time>
-</a>
-
- 
-    <a href="/2016/04/21/programPearls_.h中的ifndef..define..endif/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/04/21/programPearls_.h中的ifndef..define..endif/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　参考博文 <a href="http://blog.csdn.net/luoweifu/article/details/42550955">《#pragma once与#ifndef #define …#endif的区别》</a></p>
-<p>　　<strong>#pragma once</strong> 用来防止某个头文件被多次 include；<br>　　<strong>#ifndef</strong>，<strong>#define</strong>，<strong>#endif</strong> 用来防止某个宏被多次定义。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2016/04/21/programPearls_.h中的ifndef..define..endif/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

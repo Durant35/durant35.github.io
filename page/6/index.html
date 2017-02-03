@@ -255,6 +255,257 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-linux_瞎谈Socket编程_2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/16/linux_瞎谈Socket编程_2/" class="article-date">
+      <time datetime="2016-07-16T09:28:00.000Z" itemprop="datePublished">2016-07-16</time>
+</a>
+
+ 
+    <a href="/2016/07/16/linux_瞎谈Socket编程_2/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/07/16/linux_瞎谈Socket编程_2/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="数据传输方式"><a href="#数据传输方式" class="headerlink" title="数据传输方式"></a><font color="#F40D64">数据传输方式</font></h2><p>　　<strong>SOCK_STREAM</strong>　　　　面向连接　　　　　　　　准确性/相对较慢　　　<font color="red">TCP</font><br>　　<strong>SOCK_DGRAM</strong>　　　　 无连接的传输方式    　　　　视频/音频    　　　　　　<font color="red">UDP</font><br><strong>Server</strong><br>　1. 创建套接字　　　　　　　　　　　　　　　　　<font color="green">int sock = socket(AF_INET, SOCK_STREAM, 0);</font><br>　2. 将套接字和IP、端口绑定　　　　　　　　　　　<font color="green">bind(sock, (struct sockaddr*)&amp;serv_addr, sizeof(serv_addr));</font><br>　3. 进入监听状态，等待客户端请求　　　　　　　　<font color="green">listen(…);</font><br>    　　　　　　　　　　　　　　　　　　　　　　　　<font color="green">accept(…);</font><br>　4. 接受客户端数据/向客户端发送数据　　　　　　　<font color="green">read(…)/write(…);</font>　　　　　　　　　　　　　　<br>　5. 关闭套接字　　　　　　　　　　　　　　　　　<font color="green">close();</font></p>
+<p><strong>Client</strong><br>　1. 创建套接字<br>　2. 向服务器(特定的IP和端口)发送请求　　　　　　　<font color="green">connect(…);</font><br>　3. 读取服务器传回的数据/向服务器发送数据　　　　<font color="green">read/write(sock, char*, sizeof(…));</font><br>　4. 关闭套接字<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/07/16/linux_瞎谈Socket编程_2/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-ROS_ROS_Navigation_GettingStarted" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/" class="article-date">
+      <time datetime="2016-10-03T09:43:09.000Z" itemprop="datePublished">2016-10-03</time>
+</a>
+
+ 
+    <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/10/03/ROS_ROS_Navigation_GettingStarted/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　To add navigation to a robot, we need to launch 3 nodes:</p>
+<blockquote>
+<ul>
+<li>map_server: to provide the static map {“*.yaml” &amp; “*.pgm”}, against which the robot will localize and plan.</li>
+<li>amcl: to localize the robot against the static map.</li>
+<li>move_base: to handle global planning and local control for the robot.</li>
+</ul>
+</blockquote>
+<p>　　<strong>amcl</strong> 是移动机器人二维环境下的概率定位系统，它实现了自适应(或 <strong>kdl</strong> 采样)的 <strong>蒙特卡洛定位</strong> 方法，其中针对已有的地图使用 <strong>粒子滤波器</strong> 跟踪一个机器人的姿态。</p>
+<p>　　<strong>move_base</strong> 提供了 ROS 导航的配置，运行，交互接口，主要包括两个部分：</p>
+<blockquote>
+<p>　(1) 全局路径规划：根据给定的目标位置进行总体路径的规划<br>　(2) 局部路径规划：根据附近的障碍物信息进行躲避路线规划<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/ROS/">ROS</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-linux_sudo_unable_to_resolve_host" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/03/linux_sudo_unable_to_resolve_host/" class="article-date">
+      <time datetime="2016-10-03T02:42:07.000Z" itemprop="datePublished">2016-10-03</time>
+</a>
+
+ 
+    <a href="/2016/10/03/linux_sudo_unable_to_resolve_host/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/10/03/linux_sudo_unable_to_resolve_host/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <blockquote>
+<p>Reference:<br>　<a href="http://askubuntu.com/questions/59458/error-message-when-i-run-sudo-unable-to-resolve-host-none">Error message when I run sudo: unable to resolve host (none)</a></p>
+</blockquote>
+<p>　现象是这样的。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xxx@...:~$ sudo <span class="literal">true</span></div><div class="line">sudo: unable to resolve host (...)</div></pre></td></tr></table></figure></p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/10/03/linux_sudo_unable_to_resolve_host/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -314,82 +565,6 @@
       
         <p class="article-more-link">
           <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/" class="article-date">
-      <time datetime="2016-09-17T11:54:00.000Z" itemprop="datePublished">2016-09-17</time>
-</a>
-
- 
-    <a href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　翻开 <strong>VS</strong> 的 <strong>dumpbin.exe</strong>、<strong>cl.exe</strong> 的存放目录，你会惊奇的发现，居然存在这么多个分支！<br>    <center><img src="/img/hsw/VS2013_dumpbin_dirs.png" width="640px"/></center><br>　　什么 <strong>amd64</strong>、<strong>amd64_arm</strong>、<strong>amd64_x86</strong>、<strong>arm</strong>、<strong>x86_amd64</strong>、<strong>x86_arm</strong>???<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/体系结构/">体系结构</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -631,87 +806,6 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ini/">ini</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/文件操作/">文件操作</a></li></ul>
     </div>
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo_hexo分级目录与多标签" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/16/hexo_hexo分级目录与多标签/" class="article-date">
-      <time datetime="2016-07-16T08:11:05.000Z" itemprop="datePublished">2016-07-16</time>
-</a>
-
- 
-    <a href="/2016/07/16/hexo_hexo分级目录与多标签/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/07/16/hexo_hexo分级目录与多标签/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　无论是多标签还是分级目录，其最终目的都是为了更好的归档我们的文章，方便在查找时能够快速准确的翻开我们之前保存的博文。</p>
-<h2 id="多标签"><a href="#多标签" class="headerlink" title="多标签"></a><font color="#F40D64">多标签</font></h2><p>　　多标签，就是想把一篇文章同时归档到多个标签里面，这样，通过任一个标签都能索引到我们的博文。而，用作标签的，显然是我们之前抒写的博文内容的 <strong>Keywords</strong>。<br>　　可以通过以下方式实现 <strong>hexo</strong> 的多标签：<br><figure class="highlight md"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">tags: #文章标签可，空，多标签请用格式[tag1,tag2,tag3]，如下，注意!!"tags:"后面有个空格</div><div class="line">tags: [tag1, tag2, tag3, ...]</div><div class="line"><span class="section"># 下面这种方式似乎仅限于hexo 3.0，应该包括以上吧...</span></div><div class="line">tags: </div><div class="line"><span class="bullet">- </span>tags1</div><div class="line"><span class="bullet">- </span>tags2</div><div class="line"><span class="bullet">- </span>...</div></pre></td></tr></table></figure></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/07/16/hexo_hexo分级目录与多标签/#more">more >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>
