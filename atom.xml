@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-02-02T15:02:38.380Z</updated>
+  <updated>2017-02-04T08:15:43.787Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -14,6 +14,534 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux命令小纸条</title>
+    <link href="http://durant35.github.io/2017/02/04/linux_Linux%E5%91%BD%E4%BB%A4%E5%B0%8F%E7%BA%B8%E6%9D%A1/"/>
+    <id>http://durant35.github.io/2017/02/04/linux_Linux命令小纸条/</id>
+    <published>2017-02-04T07:20:59.000Z</published>
+    <updated>2017-02-04T08:15:43.787Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="压缩-解压"><a href="#压缩-解压" class="headerlink" title="压缩/解压"></a>压缩/解压</h3><ul>
+<li><strong>tar</strong> 压缩</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -zcvf dst.tar.gz /src-dir</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>tar</strong> 解压</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -xvf src.tar.gz</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>zip</strong> 压缩<a id="more"></a></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ zip -r dst.zip /src-dir</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>zip</strong> 解压</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ unzip src.zip <span class="_">-d</span> .</div></pre></td></tr></table></figure>
+<h3 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h3><ul>
+<li><strong>scp</strong> 上传</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp -rp host-path-src user@remote:/path-dst</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>scp</strong> 下载</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp -r user@remote:/path-src host-path-dst</div></pre></td></tr></table></figure>
+<h3 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h3><ul>
+<li>查看进程信息（如：<strong>PID</strong>）</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ps -aux [| grep key-word]</div></pre></td></tr></table></figure>
+<h3 id="网络管理"><a href="#网络管理" class="headerlink" title="网络管理"></a>网络管理</h3><ul>
+<li><strong>端口</strong> 占用情况</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ netstat -anp [| grep target-port]</div></pre></td></tr></table></figure>
+<h3 id="挂载-解挂"><a href="#挂载-解挂" class="headerlink" title="挂载/解挂"></a>挂载/解挂</h3><ul>
+<li>解挂</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo umount <span class="_">-l</span> mount-dir</div></pre></td></tr></table></figure>
+<ul>
+<li>挂载</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看挂载设备 /dev/sd?</span></div><div class="line">$ sudo fdisk <span class="_">-l</span></div><div class="line"><span class="comment"># 需要时创建挂载点</span></div><div class="line">$ mkdir mount-point-dir</div><div class="line"><span class="comment"># 挂载设备</span></div><div class="line">$ sudo mount /dev/sd? mount-point-dir</div></pre></td></tr></table></figure>
+<h3 id="快速查找"><a href="#快速查找" class="headerlink" title="快速查找"></a>快速查找</h3><ul>
+<li>文件名查找</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ find <span class="string">"name-string"</span> find-path</div></pre></td></tr></table></figure>
+<ul>
+<li>文件内容查找</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ grep -r -i <span class="string">"content-string"</span> find-path</div></pre></td></tr></table></figure>
+<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><ul>
+<li>批量重命名（<strong>*.cpp</strong>全部变成<strong>*.c</strong>）</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># "\" 指代相同内容</span></div><div class="line">$ rename -v s/\.cpp/\.c/ *</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;压缩-解压&quot;&gt;&lt;a href=&quot;#压缩-解压&quot; class=&quot;headerlink&quot; title=&quot;压缩/解压&quot;&gt;&lt;/a&gt;压缩/解压&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;tar&lt;/strong&gt; 压缩&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;$ tar -zcvf dst.tar.gz /src-dir&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;tar&lt;/strong&gt; 解压&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;$ tar -xvf src.tar.gz&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;zip&lt;/strong&gt; 压缩
+    
+    </summary>
+    
+      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    
+      <category term="Linux" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Linux/"/>
+    
+    
+      <category term="CMD" scheme="http://durant35.github.io/tags/CMD/"/>
+    
+      <category term="Linux" scheme="http://durant35.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vim几步走</title>
+    <link href="http://durant35.github.io/2017/02/04/tool_vim%E5%87%A0%E6%AD%A5%E8%B5%B0/"/>
+    <id>http://durant35.github.io/2017/02/04/tool_vim几步走/</id>
+    <published>2017-02-04T06:07:18.000Z</published>
+    <updated>2017-02-04T07:20:33.129Z</updated>
+    
+    <content type="html"><![CDATA[<p>　通过 <strong>sudo apt-get install vim</strong> 即可安装 <strong>vim</strong>，也能通过 <a href="https://github.com/amix/vimrc">vimrc</a> 之类安装大神们的各种自适配的高级 <strong>vim</strong>。<br>　本文旨在记录开发过程中用过的 <strong>vim</strong> 操作。　　<br><a id="more"></a></p>
+<blockquote>
+<p>Reference: <a href="http://www.cnblogs.com/wsine/p/5517005.html">Wsnie’s Linux之Vim学习</a></p>
+</blockquote>
+<h3 id="一般模式下的常见操作"><a href="#一般模式下的常见操作" class="headerlink" title="一般模式下的常见操作"></a>一般模式下的常见操作</h3><ul>
+<li>光标移动</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">按键</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">j或down方向键</td>
+<td style="text-align:center">向下移动一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">k或up方向键</td>
+<td style="text-align:center">向上移动一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">h或left方向键</td>
+<td style="text-align:center">向左移动一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">l或right方向键</td>
+<td style="text-align:center">向右移动一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+f或PageUp键</td>
+<td style="text-align:center">屏幕向前移动一页</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+b或PageDown键</td>
+<td style="text-align:center">屏幕向后移动一页</td>
+</tr>
+<tr>
+<td style="text-align:center">w</td>
+<td style="text-align:center">向后移动一个词</td>
+</tr>
+<tr>
+<td style="text-align:center">e</td>
+<td style="text-align:center">向前移动一个词</td>
+</tr>
+<tr>
+<td style="text-align:center">e</td>
+<td style="text-align:center">向后移动一个词到词尾</td>
+</tr>
+<tr>
+<td style="text-align:center">ge</td>
+<td style="text-align:center">向前移动一个词到词头</td>
+</tr>
+<tr>
+<td style="text-align:center">g_</td>
+<td style="text-align:center">到本行最后一个不是blank字符的位置</td>
+</tr>
+<tr>
+<td style="text-align:center">0或Shift+6</td>
+<td style="text-align:center">移动到行首</td>
+</tr>
+<tr>
+<td style="text-align:center">$或Shift+4</td>
+<td style="text-align:center">移动到行尾</td>
+</tr>
+<tr>
+<td style="text-align:center">gg</td>
+<td style="text-align:center">移动到首行</td>
+</tr>
+<tr>
+<td style="text-align:center">G</td>
+<td style="text-align:center">移动到尾行</td>
+</tr>
+<tr>
+<td style="text-align:center">nG</td>
+<td style="text-align:center">移动到第n行</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>增删改查</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">按键</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">x</td>
+<td style="text-align:center">向后删除一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">X</td>
+<td style="text-align:center">向前删除一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">dd</td>
+<td style="text-align:center">删除/剪切当前所在的行</td>
+</tr>
+<tr>
+<td style="text-align:center">ndd</td>
+<td style="text-align:center">删除/剪切当前行及其之后的共n行</td>
+</tr>
+<tr>
+<td style="text-align:center">dw</td>
+<td style="text-align:center">向后删除一个词</td>
+</tr>
+<tr>
+<td style="text-align:center">i</td>
+<td style="text-align:center">在当前字符前插入，按esc退出</td>
+</tr>
+<tr>
+<td style="text-align:center">a</td>
+<td style="text-align:center">在当前字符后插入，按esc退出</td>
+</tr>
+<tr>
+<td style="text-align:center">I</td>
+<td style="text-align:center">在当前行的行首插入，按esc退出</td>
+</tr>
+<tr>
+<td style="text-align:center">A</td>
+<td style="text-align:center">在当前行的行尾插入，按esc退出</td>
+</tr>
+<tr>
+<td style="text-align:center">o</td>
+<td style="text-align:center">在当前行的下一行插入新的一行，按esc退出</td>
+</tr>
+<tr>
+<td style="text-align:center">O</td>
+<td style="text-align:center">在当前行的上一行插入新的一行，按esc退出</td>
+</tr>
+<tr>
+<td style="text-align:center">r</td>
+<td style="text-align:center">再输入一个字符，向后替换一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">R</td>
+<td style="text-align:center">连续输入字符，向后连续替换字符，按esc退出</td>
+</tr>
+<tr>
+<td style="text-align:center">yy</td>
+<td style="text-align:center">复制当前行</td>
+</tr>
+<tr>
+<td style="text-align:center">nyy</td>
+<td style="text-align:center">在当前行开始，向下复制n行</td>
+</tr>
+<tr>
+<td style="text-align:center">np</td>
+<td style="text-align:center">在当前行开始，向下粘贴已经复制的内容n次</td>
+</tr>
+<tr>
+<td style="text-align:center">P</td>
+<td style="text-align:center">在当前行开始，向上粘贴已经复制的内容</td>
+</tr>
+<tr>
+<td style="text-align:center">v</td>
+<td style="text-align:center">进入选定模式，移动光标选定字符，可复制剪切删除，按esc退出</td>
+</tr>
+<tr>
+<td style="text-align:center">u</td>
+<td style="text-align:center">还原上一步的操作</td>
+</tr>
+</tbody>
+</table>
+<h3 id="命令模式下的常见操作"><a href="#命令模式下的常见操作" class="headerlink" title="命令模式下的常见操作"></a>命令模式下的常见操作</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">/word</td>
+<td style="text-align:center">向后搜索字符串word，按n继续搜索</td>
+</tr>
+<tr>
+<td style="text-align:center">?word</td>
+<td style="text-align:center">向前搜索字符串word，按n继续搜索</td>
+</tr>
+<tr>
+<td style="text-align:center">:w</td>
+<td style="text-align:center">保存文本</td>
+</tr>
+<tr>
+<td style="text-align:center">:q</td>
+<td style="text-align:center">退出</td>
+</tr>
+<tr>
+<td style="text-align:center">:q!</td>
+<td style="text-align:center">放弃修改，强制退出</td>
+</tr>
+<tr>
+<td style="text-align:center">:wq</td>
+<td style="text-align:center">保存并退出</td>
+</tr>
+</tbody>
+</table>
+<h3 id="我的典型操作"><a href="#我的典型操作" class="headerlink" title="我的典型操作"></a>我的典型操作</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">按键</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0y$</td>
+<td style="text-align:center">拷贝当前行</td>
+</tr>
+<tr>
+<td style="text-align:center">ye</td>
+<td style="text-align:center">从当前位置拷贝到本单词的最后一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">gU</td>
+<td style="text-align:center">变大写</td>
+</tr>
+<tr>
+<td style="text-align:center">gu</td>
+<td style="text-align:center">变小写</td>
+</tr>
+<tr>
+<td style="text-align:center">在 Insert 模式下，你可以输入一个词的开头，然后按 &lt;C-p&gt;或是&lt;C-n&gt;</td>
+<td style="text-align:center">自动补齐</td>
+</tr>
+<tr>
+<td style="text-align:center">v<strong>→</strong>d/y<strong>→</strong>p</td>
+<td style="text-align:center">剪切/复制粘贴</td>
+</tr>
+</tbody>
+</table>
+<h3 id="第三方参考"><a href="#第三方参考" class="headerlink" title="第三方参考"></a>第三方参考</h3><ul>
+<li>RiHui-Song’s Blog 的 <a href="https://rh-song.github.io/2016/07/15/vim/#more">本文意在记录vim的使用以及相关的配置</a><ul>
+<li>在linux下vim中文出现乱码问题</li>
+<li>vim：MarkDown preview</li>
+<li>vim添加markdown语法高亮</li>
+</ul>
+</li>
+<li><a href="http://coolshell.cn/articles/5426.html">简明 VIM 练级攻略</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;　通过 &lt;strong&gt;sudo apt-get install vim&lt;/strong&gt; 即可安装 &lt;strong&gt;vim&lt;/strong&gt;，也能通过 &lt;a href=&quot;https://github.com/amix/vimrc&quot;&gt;vimrc&lt;/a&gt; 之类安装大神们的各种自适配的高级 &lt;strong&gt;vim&lt;/strong&gt;。&lt;br&gt;　本文旨在记录开发过程中用过的 &lt;strong&gt;vim&lt;/strong&gt; 操作。　　&lt;br&gt;
+    
+    </summary>
+    
+      <category term="技术留档" scheme="http://durant35.github.io/categories/%E6%8A%80%E6%9C%AF%E7%95%99%E6%A1%A3/"/>
+    
+      <category term="小工具" scheme="http://durant35.github.io/categories/%E6%8A%80%E6%9C%AF%E7%95%99%E6%A1%A3/%E5%B0%8F%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="git" scheme="http://durant35.github.io/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Summer-trainning in July, 2016</title>
+    <link href="http://durant35.github.io/2017/02/04/TACourses_Summer-trainning-in-July,2016/"/>
+    <id>http://durant35.github.io/2017/02/04/TACourses_Summer-trainning-in-July,2016/</id>
+    <published>2017-02-04T03:21:01.000Z</published>
+    <updated>2017-02-04T06:05:48.070Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>摘自 <a href="https://rh-song.github.io/2016/07/18/Summer-training/#more">RiHui-Song’s Blog：Summer-training</a></p>
+</blockquote>
+<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>　本文主要记录SMIE最后一次初级实训学习的主要内容。包括了大概是三个阶段：</p>
+<ul>
+<li>准备阶段：学习测量仪器，回顾C语言编程；</li>
+<li>熟悉阶段：在FPGA上运行HelloWorld，开发小应用，如跑马灯等，最后还了解了uc/os这样一个实时操作系统；</li>
+<li>开发阶段：使用PWM波以及H桥控制车轮，使用超声模块控制让小车感知外界状况，从而进行控制，最后可以使用PID控制理论优化小车的控制。<a id="more"></a>
+</li>
+</ul>
+<h3 id="学习仪器"><a href="#学习仪器" class="headerlink" title="学习仪器"></a>学习仪器</h3><ul>
+<li>学会使用示波器，可以用来观察从ADC，PWM波等等信号。</li>
+<li>学会使用万用表测电压，电阻，电流。<center><img src="/img/TA-Cources/Summer-training2016/Oscilloscope.png" width="420px"/></center>
+
+</li>
+</ul>
+<h3 id="回顾c语言编程"><a href="#回顾c语言编程" class="headerlink" title="回顾c语言编程"></a>回顾c语言编程</h3><ul>
+<li>条件判断</li>
+<li>循环：for loop &amp; while loop</li>
+<li>数组：<ul>
+<li>使用下标访问</li>
+<li>使用指针访问</li>
+</ul>
+</li>
+<li>函数使用：<ul>
+<li>递归</li>
+<li>迭代</li>
+</ul>
+</li>
+<li>链表：<ul>
+<li>结构体声明和使用</li>
+<li>指针使用</li>
+<li>链表结构和基本操作</li>
+</ul>
+</li>
+<li>位操作<ul>
+<li>位操作将十进制表示成二进制数</li>
+<li>位操作实现某一位的反转，或者某一位不变其它位反转等</li>
+</ul>
+</li>
+</ul>
+<h3 id="C语言进阶"><a href="#C语言进阶" class="headerlink" title="C语言进阶"></a>C语言进阶</h3><ul>
+<li>使用header file，source file以及main file。尝试尽可能的复用。</li>
+<li>C语言与安全性<ul>
+<li>数组越界</li>
+<li>判断逻辑不全</li>
+<li>变量没有初始化</li>
+<li>内存泄露</li>
+<li>没有考虑非法输入</li>
+</ul>
+</li>
+</ul>
+<h3 id="FPGA编程"><a href="#FPGA编程" class="headerlink" title="FPGA编程"></a>FPGA编程</h3><ul>
+<li>FPGA：DE0-Nano board<center><img src="/img/TA-Cources/Summer-training2016/DE0-Nano.jpg" width="340px"/></center></li>
+<li>使用自带软件测试FPGA完好</li>
+<li>在FPGA上运行HelloWorld工程</li>
+<li>实现LED Sliding Pattern（闪烁模式之类）</li>
+<li>使用中断<ul>
+<li>中断的原理和运行机制</li>
+</ul>
+</li>
+</ul>
+<h3 id="FPGA上编程进阶"><a href="#FPGA上编程进阶" class="headerlink" title="FPGA上编程进阶"></a>FPGA上编程进阶</h3><ul>
+<li>在IDE：eclipse上进行Debug</li>
+<li>ADC:<ul>
+<li>FPDA上有一个ADC的硬件模块</li>
+</ul>
+</li>
+</ul>
+<h3 id="PWM-Pulse-Width-Modulation"><a href="#PWM-Pulse-Width-Modulation" class="headerlink" title="PWM(Pulse Width Modulation)"></a>PWM(Pulse Width Modulation)</h3><ul>
+<li>Duty cycle 占空比<center><img src="/img/TA-Cources/Summer-training2016/what_is_PWM.png"  width="640px"/></center></li>
+<li>Why PWM?<ul>
+<li>Digital voltage control: 只能控制1和0</li>
+<li>需要最大电压的x%则让占空比为x%</li>
+</ul>
+</li>
+<li>产生PWM的方法：<ul>
+<li>软件方法<ul>
+<li>使用计数器</li>
+<li>使用中断？</li>
+</ul>
+</li>
+<li>硬件方法<ul>
+<li>Hardware PWM IP &lt;– NIOS core</li>
+<li>moto_setting(),能产生2个PWM波</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="H桥"><a href="#H桥" class="headerlink" title="H桥"></a>H桥</h3><ul>
+<li>低电流做控制，产生大电流去驱动电机</li>
+<li>PWM波控制H桥驱动电机，使小车前进，后退，转弯等<center><img src="/img/TA-Cources/Summer-training2016/H-Bridge.png"  width="720px"/></center>
+
+</li>
+</ul>
+<h3 id="超声模块"><a href="#超声模块" class="headerlink" title="超声模块"></a>超声模块</h3><ul>
+<li>超声模块是：KS103<br><center><img src="/img/TA-Cources/Summer-training2016/KS103.png"  width="360px"/></center><ul>
+<li>VCC: Power Pin</li>
+<li>SDA/TX: data pin in I2C bus/TX pin in uart bus</li>
+<li>SCL/RX: clock pin in I2C bus/RX pin in uart bus</li>
+<li>GND: power ground pin</li>
+<li>Mode: Select the communication mode.<ul>
+<li>High Level(VCC): I2C</li>
+<li>Low Level (GND): Uart</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>使用流程：<center><img src="/img/TA-Cources/Summer-training2016/how_to_use_KS103.png"  width="480px"/></center></li>
+<li>接线：<ul>
+<li>使用Uart模式：<ul>
+<li>超声TX接入FPGA的RX，超声的RX接入FPGA的TX</li>
+</ul>
+</li>
+<li>使用I2C模式：<ul>
+<li>data pin &amp; clock pin</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>编程时的端口查找：<ul>
+<li>结合QSF文件以及FPGA用户手册</li>
+</ul>
+</li>
+</ul>
+<h3 id="uc-OS-实时嵌入式操作系统"><a href="#uc-OS-实时嵌入式操作系统" class="headerlink" title="uc/OS 实时嵌入式操作系统"></a>uc/OS 实时嵌入式操作系统</h3><ul>
+<li>以上都是bare metal hardware（裸跑）上编程，然后编译我们需要的程序</li>
+<li>如果需要完成复杂的多任务，可以考虑跑在一个操作系统上（嵌入式操作系统，如uc/OS）<ul>
+<li>多任务（线程）</li>
+<li>信号量</li>
+<li>临界区访问<center><img src="/img/TA-Cources/Summer-training2016/uc-OS.png"  width="480px"/></center>
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="PID控制"><a href="#PID控制" class="headerlink" title="PID控制"></a>PID控制</h3><ul>
+<li>p：比例系数，I：积分系数，D：微分系数</li>
+<li>使用PI控制，因为高阶噪声，所以不使用D</li>
+<li>如下图，其中e(t) = r(t) - y(t)<center><img src="/img/TA-Cources/Summer-training2016/PID.png"  width="480px"/></center>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘自 &lt;a href=&quot;https://rh-song.github.io/2016/07/18/Summer-training/#more&quot;&gt;RiHui-Song’s Blog：Summer-training&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h3&gt;&lt;p&gt;　本文主要记录SMIE最后一次初级实训学习的主要内容。包括了大概是三个阶段：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;准备阶段：学习测量仪器，回顾C语言编程；&lt;/li&gt;
+&lt;li&gt;熟悉阶段：在FPGA上运行HelloWorld，开发小应用，如跑马灯等，最后还了解了uc/os这样一个实时操作系统；&lt;/li&gt;
+&lt;li&gt;开发阶段：使用PWM波以及H桥控制车轮，使用超声模块控制让小车感知外界状况，从而进行控制，最后可以使用PID控制理论优化小车的控制。
+    
+    </summary>
+    
+      <category term="TA Cources" scheme="http://durant35.github.io/categories/TA-Cources/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>hexo，md源文件内容修改预览页面刷新无效</title>
@@ -237,9 +765,9 @@
       <category term="Linux" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Linux/"/>
     
     
-      <category term="pcap" scheme="http://durant35.github.io/tags/pcap/"/>
-    
       <category term="Linux" scheme="http://durant35.github.io/tags/Linux/"/>
+    
+      <category term="pcap" scheme="http://durant35.github.io/tags/pcap/"/>
     
   </entry>
   
@@ -942,151 +1470,6 @@
       <category term="文件操作" scheme="http://durant35.github.io/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"/>
     
       <category term="ini" scheme="http://durant35.github.io/tags/ini/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 select 函数实现更为精确的延时</title>
-    <link href="http://durant35.github.io/2016/09/08/programPearls_precise%20delay%20using%20select/"/>
-    <id>http://durant35.github.io/2016/09/08/programPearls_precise delay using select/</id>
-    <published>2016-09-08T03:51:14.000Z</published>
-    <updated>2016-10-08T03:55:10.883Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="select-初识"><a href="#select-初识" class="headerlink" title="select 初识"></a>select 初识</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(</div><div class="line">  _In_    <span class="keyword">int</span>                  nfds,         <span class="comment">// 忽略,仅是为了与Berkeley套接字兼容</span></div><div class="line">  _Inout_ fd_set               *readfds,     <span class="comment">// 指向一个套接字集合,用来检查其可读性</span></div><div class="line">  _Inout_ fd_set               *writefds,    <span class="comment">// 指向一个套接字集合,用来检查其可写性</span></div><div class="line">  _Inout_ fd_set               *exceptfds,   <span class="comment">// 指向一个套接字集合,用来检查错误</span></div><div class="line">  _In_    <span class="keyword">const</span> <span class="keyword">struct</span> timeval *timeout      <span class="comment">// 指定此函数等待的最长时间,如果为NULL,则最长时间为无限大</span></div><div class="line">)</span></span>;</div><div class="line"> </div><div class="line">返回值: </div><div class="line">  函数调用成功，返回发生网络事件的所有套接字数量的总和</div><div class="line">  如果超时返回<span class="number">0</span>，代表在描述词状态改变前已超过timeout时间;</div><div class="line">  当有错误发生时则返回SOCKET_ERROR(<span class="number">-1</span>).</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<ul>
-<li>select 包含三个 Socket 队列，分别代表： readfds，检查可读性，writefds，检查可写性，exceptfds，例外数据。</li>
-<li>timeout 是 select 函数的返回时间。timeout 参数控制 select 完成的时间。若 <font color="blue">timeout 参数为空指针，则 select 将一直阻塞到有一个描述字满足条件</font>，否则的话，timeout 指向一个 timeval 结构，其中指定了 select 调用在返回前等待多长时间。如果 timeval 为 {0,0}，则 select 立即返回，这可用于探询所选套接口的状态，如果处于这种状态，则 select 调用可认为是非阻塞的，且一切适用于非阻塞调用的假设都适用于它。</li>
-</ul>
-<blockquote>
-<p>Windows 下有关 <strong>select</strong> 函数使用的 APIs:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;WinSock2.h&gt;</span></span></div><div class="line"> </div><div class="line"><span class="keyword">struct</span> timeval &#123;</div><div class="line">    <span class="keyword">long</span> tv_sec;  <span class="comment">// 秒</span></div><div class="line">    <span class="keyword">long</span> tv_usec; <span class="comment">// 微秒</span></div><div class="line">&#125;;</div><div class="line"> </div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> fd_set &#123;</div><div class="line">    u_int fd_count;                 <span class="comment">// 下面数组的大小</span></div><div class="line">    SOCKET fd_array[FD_SETSIZE];    <span class="comment">// 套接字句柄数组</span></div><div class="line">&#125; fd_set;</div><div class="line"> </div><div class="line">FD_ZERO(*fd_set);       <span class="comment">// 初始化 fd_set 为空集合。集合在使用前应该总是清空</span></div><div class="line">FD_CLR(fd, *fd_set);    <span class="comment">// 从 fd_set 移除套接字 fd</span></div><div class="line">FD_ISSET(fd, *fd_set);  <span class="comment">// 检查 fd 是不是 fd_set 的成员，如果是返回 TRUE</span></div><div class="line">FD_SET(fd, *fd_set);    <span class="comment">// 添加套接字 fd 到集合 fd_set</span></div><div class="line"><span class="comment">/**************************************************************************/</span></div></pre></td></tr></table></figure></p>
-</blockquote>
-<p>　例如，我们想要检查一个套接字是否有数据需要(可以)接收，我们可以把套接字句柄加入可读性检查队列中，然后调用 select，如果，该套接字没有数据需要(可以)接收， select 函数会把该套接字从可读性检查队列中删除掉，所以我们只要检查该套接字句柄是否还存在于可读性队列中，就可以知道到底有没有数据需要(可以)接收了。<br>    <center><img src="/img/programPearls/socket/select_queue.png" /></center></p>
-<h3 id="When-Readable-When-Writable"><a href="#When-Readable-When-Writable" class="headerlink" title="When Readable? When Writable?"></a>When Readable? When Writable?</h3><blockquote>
-<p>下面是摘自 <strong>Microsoft</strong> 官网的 API<a href="https://msdn.microsoft.com/zh-cn/library/windows/desktop/ms740141(v=vs.85).aspx">[select function]</a> 说明</p>
-<ul>
-<li>The parameter readfds identifies the sockets that are to be checked for readability. </li>
-</ul>
-<p>　If the socket is currently in the listen state, it will be marked as readable if an incoming connection request has been received such that an accept is guaranteed to complete without blocking.<br>　<font color="blue">假如已调用了 listen，而且一个连接正在建立，那么 accept 函数调用会成功，accept 之前，用于监听的 socket 是可读的</font>。<br>　For other sockets, readability means that queued data is available for reading such that a call to recv, WSARecv, WSARecvFrom, or recvfrom is guaranteed not to block.<br>　<font color="blue">对于其他不是用于监听的 Socket，有数据可以读入，则是可读的</font>。</p>
-<ul>
-<li>The parameter writefds identifies the sockets that are to be checked for writability.<br>　If a socket is processing a connect call (nonblocking), a socket is writeable if the connection establishment successfully completes.<br>　<font color="blue">如果已完成了对一个非阻塞 connect 调用的处理，连接能够成功就是可写</font>。<br>　If the socket is not processing a connect call, writability means a send, sendto, or WSASendto are guaranteed to succeed.<br>　<font color="blue">对于其他不是调用 connect 的 Socket，可以发出数据就是可写的</font>。</li>
-</ul>
-</blockquote>
-<p>　相信你看完官网的说明之后会对 <font color="blue">什么 Socket 可读？什么 Socket 可写</font> 更加捉摸不透(即使有注解)。下面是个人关于这方面的理解，其实所谓可读可写，可以借用 <strong>Linux 一切皆文件</strong> 的思想，任何一个 Socket，其实就是一个文件句柄，当连接建立起来，显然，关于连接两端的 Socket，都是可写的；收发两端均没有数据发送时，关于连接两端的 Socket，都是不可读的；当有一端有数据发送，另一端对应的 Socket 则是可读的。我们借用之前的 <strong>三次握手</strong> 建立连接流程图作进一步解释。<br>    <center><img src="/img/programPearls/socket/establish_3_way_handshake.jpg" /></center><br>　通过设置非阻塞属性，可以实现 <strong>connect</strong>，<strong>accept</strong> 非阻塞调用。上图的阻塞阶段可以理解为无需阻塞了，而变成类似下面的代码流程通过 <strong>select</strong> 函数检测连接状态变化。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span>       rwCount;</div><div class="line">fd_set    rSSet, wSSet;</div><div class="line">SOCKET    listenSoc, connectSoc;</div><div class="line"> </div><div class="line"><span class="comment">// listenSoc: bind, listen</span></div><div class="line"> </div><div class="line"><span class="comment">// connectSoc: connect</span></div><div class="line"> </div><div class="line">rwCount = <span class="number">0</span>;</div><div class="line"><span class="keyword">while</span> (rwCount &lt; <span class="number">2</span>)&#123;</div><div class="line">  <span class="comment">// listen socket 可读，connect socket 可写 说明建立连接了</span></div><div class="line">  rdSSet.fd_count = <span class="number">1</span>;</div><div class="line">  rdSSet.fd_array[<span class="number">0</span>] = listenSoc;</div><div class="line">  wrSSet.fd_count = <span class="number">1</span>;</div><div class="line">  wrSSet.fd_array[<span class="number">0</span>] = connectSoc;</div><div class="line">  rwCount = select(<span class="number">0</span>, &amp;rdSSet, &amp;wrSSet, <span class="literal">NULL</span>, &amp;tv);</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// listenSoc: accept</span></div></pre></td></tr></table></figure></p>
-<p>　在非阻塞的状态下，Server 依次通过 <strong>bind</strong>，<strong>listen</strong> 创建队列，监听客户端的连接。Client 通过 <strong>connect</strong> 与 Server 建立连接，并获得该连接对应 Socket 句柄；Server 端的监听队列则保留了与该连接对应的 Socket，通过 <strong>accept</strong> 获取该连接对应的 Socket 句柄。在此之后，Client，Server 两端便可通过与建立的连接对应的 Socket 实现通讯。</p>
-<blockquote>
-<p><font color="red">总结:</font></p>
-<ul>
-<li>通过 select 模式，实现了监听 socket 的 accept 和客户端的 read 之间，以及各个客户端之间的 read，可以不用一直阻塞在那，而是在有相应事件的时候再进行阻塞处理，把 accept 和 read 两个长阻塞转化为 select 一个长阻塞。</li>
-<li>使用 select 的好处是程序能够在单个线程内同时处理多个套接字连接，这避免了阻塞模式下的线程膨胀问题。</li>
-</ul>
-</blockquote>
-<h3 id="Using-Select-for-Delay"><a href="#Using-Select-for-Delay" class="headerlink" title="Using Select for Delay"></a>Using Select for Delay</h3><p>　从上面的描述中我们可以看到，当 <strong>select</strong> 检测的 socket 状态没有发生改变时，假如设置了 timeout 时间，则会一直阻塞直到 timeout 时间到。利用 <strong>select</strong> 实现 delay 正是利用这样的原理。不难想象，我们需要先创建一些 socket，然后让用于实现 delay 的 select 检测 socket 处于某种状态(不可读或者不可写)，然后通过 select 去检测该不可达状态，最终 select 超时来实现准确的 delay。<br>　下面通过我们项目中一个实际应用 <strong>Velodyne_player</strong> 作进一步说明。<br>    <center><img src="/img/programPearls/socket/Velodyne_player.png" width="520px"/></center></p>
-<blockquote>
-<ul>
-<li><strong>Velodyne_player</strong> 是一个 <strong>.pcap</strong> 文件回播程序，实现的功能是，32线 <strong>Velodyne-HDL-32E</strong> 激光雷达采集的数据是 <strong>UDP</strong> 的数据包，通过 <strong>.pcap</strong> 文件保存；在日后的线下算法调试中通过 <strong>Velodyne_player</strong> 进行回播，解析采集的 <strong>.pcap</strong> 文件，然后通过 <strong>UDP</strong> 的方式发送，模拟 <strong>Velodyne-HDL-32E</strong> 激光雷达数据采集过程。</li>
-<li><strong>.pcap</strong> 文件中每一个数据包均带有时间戳，数据按帧(激光雷达一周扫描的数据为一帧)播放，所以可以获取每一帧的起始时间戳，进而获取每一帧的时间间隔。<strong>Velodyne_player</strong> 中我们通过计算当前帧与起始帧的时间间隔，然后利用系统时间，将其转化为系统绝对时间。接下来，问题就便成同步当前机器时间与播放帧系统绝对时间：<br>　　1). 当前帧绝对时间滞后于机器时间，将当前帧数据立即发送<br>　　2). 当前帧绝对时间超前于机器时间，通过 select 延迟超前的时间，再将当前帧数据发送出去</li>
-</ul>
-</blockquote>
-<p>　<font color="#FF8888">1.</font> 首先，需要创建用于 <strong>select</strong> 检测的，我们可以判断所处状态的 socket。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// include needed MFC library hearder files</span></div><div class="line"><span class="comment">// ...</span></div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;WinSock2.h&gt;</span>   <span class="comment">// for mostly socket operation</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;glib.h&gt;</span>		<span class="comment">// for g_get_current_time</span></span></div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">define</span>	ARBITRARY_START_PORT	11000</span></div><div class="line"> </div><div class="line"><span class="keyword">static</span> LONG	LastSocket = ARBITRARY_START_PORT;</div><div class="line"> </div><div class="line"><span class="comment">/**</div><div class="line"> * Debug function: message box for print tempory data</div><div class="line"> */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">printFunc</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* info, <span class="keyword">int</span> status)</span></span>&#123;</div><div class="line">  CString tmp = <span class="string">" = "</span>;</div><div class="line">  CString str;</div><div class="line">  str.Format(<span class="string">"%d"</span>, status);</div><div class="line">  MessageBox(<span class="literal">NULL</span>, info + tmp + str, <span class="string">""</span>, <span class="literal">NULL</span>);</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">/*</div><div class="line"> * 静态函数会被自动分配在一个一直使用的存储区，直到退出应用程序实例，避免了调用函数时压栈出栈，速度快很多</div><div class="line"> */</span></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">lcm_internal_pipe_create</span><span class="params">(<span class="keyword">int</span> filedes[<span class="number">2</span>])</span></span>&#123;</div><div class="line">  <span class="keyword">int</span>             status, SocOpt, rwCount, nPort;</div><div class="line">  <span class="keyword">short</span>           Port;</div><div class="line">  <span class="comment">// readability&amp;writability check socket set</span></div><div class="line">  fd_set          rdSSet, wrSSet;</div><div class="line">  SOCKET          listenSoc, acceptSoc, connectSoc;</div><div class="line">  sockaddr_in     listen_addr, connect_addr;</div><div class="line">  timeval         tv;</div><div class="line">  <span class="comment">/*</div><div class="line">   * listenSoc: 服务器端的socket</div><div class="line">   * connectSoc: 客户端的socket</div><div class="line">   */</span></div><div class="line">  listenSoc = socket(PF_INET, SOCK_STREAM, <span class="number">0</span>);</div><div class="line">  connectSoc = socket(PF_INET, SOCK_STREAM, <span class="number">0</span>);</div><div class="line"> </div><div class="line">  listen_addr.sin_family = AF_INET;</div><div class="line">  listen_addr.sin_addr.s_addr = inet_addr(<span class="string">"127.0.0.1"</span>);</div><div class="line">  <span class="comment">/*</div><div class="line">   * This loop ensures that we pick up an UNUSED port. If anything else used this port,</div><div class="line">   *  the entire lcm notification system melts down. The assumption is that we can't bind</div><div class="line">   *  to an address in use once the SO_EXCLUSIVEADDRUSE has been set. If this isn't true, </div><div class="line">   *  another method will need to be implemented.</div><div class="line">   */</span></div><div class="line">  <span class="keyword">do</span>&#123;</div><div class="line">    nPort = InterlockedIncrement(&amp;LastSocket);      <span class="comment">// Make sure we're using unique port</span></div><div class="line">    <span class="keyword">if</span> (nPort &gt; <span class="number">65500</span>)&#123;                             <span class="comment">// Wrapping, reset the port #</span></div><div class="line">      InterlockedCompareExchange(&amp;LastSocket, ARBITRARY_START_PORT, nPort);</div><div class="line">    &#125;</div><div class="line">    Port = (<span class="keyword">short</span>)nPort;</div><div class="line">    listen_addr.sin_port = htons(Port);</div><div class="line"></div><div class="line">    SocOpt = <span class="number">1</span>;</div><div class="line">    status = setsockopt(listenSoc, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, (<span class="keyword">const</span> <span class="keyword">char</span> *)&amp;SocOpt, <span class="keyword">sizeof</span>(SocOpt));</div><div class="line">    <span class="keyword">if</span> (status)</div><div class="line">      <span class="keyword">continue</span>;</div><div class="line">    status = bind(listenSoc, (LPSOCKADDR)&amp;listen_addr, <span class="keyword">sizeof</span>(listen_addr));</div><div class="line">  &#125; <span class="keyword">while</span> (status != <span class="number">0</span>);</div><div class="line">  <span class="comment">/*</div><div class="line">   * 1. 非阻塞方式连接</div><div class="line">   *   设置非阻塞方式连接(http://blog.csdn.net/ludw508/article/details/8565203)</div><div class="line">   *     对于阻塞的套接字：0表示正确，SOCKET_ERROR表示错误</div><div class="line">   *     对于非阻塞套接字，不能立刻判断连接是否完成。函数会返回SOCKET_ERROR，但这并不表示出错</div><div class="line">   * 2. 请求队列只能允许一个客户端请求</div><div class="line">   */</span></div><div class="line">  SocOpt = <span class="number">1</span>;</div><div class="line">  status = ioctlsocket(listenSoc, FIONBIO, (u_long *)&amp;SocOpt);</div><div class="line">  status = listen(listenSoc, <span class="number">1</span>);</div><div class="line"> </div><div class="line">  connect_addr.sin_family = AF_INET;</div><div class="line">  connect_addr.sin_addr.s_addr = inet_addr(<span class="string">"127.0.0.1"</span>);</div><div class="line">  connect_addr.sin_port = htons(Port);</div><div class="line">  </div><div class="line">  SocOpt = <span class="number">1</span>;</div><div class="line">  status = ioctlsocket(connectSoc, FIONBIO, (u_long *)&amp;SocOpt);</div><div class="line">  <span class="keyword">if</span> (SOCKET_ERROR == status)&#123;</div><div class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">  &#125;</div><div class="line">  status = connect(connectSoc, (LPSOCKADDR)&amp;connect_addr, <span class="keyword">sizeof</span>(connect_addr));</div><div class="line"></div><div class="line">  <span class="comment">/**</div><div class="line">   * 使用 select 函数来决定连接请求的完成，通过查看套接字是否可写</div><div class="line">   */</span></div><div class="line">  rwCount = <span class="number">0</span>;</div><div class="line">  tv.tv_sec = <span class="number">0</span>;</div><div class="line">  tv.tv_usec = <span class="number">20</span> * <span class="number">1000</span>;</div><div class="line">  <span class="keyword">while</span> (rwCount &lt; <span class="number">2</span>)&#123;</div><div class="line">    rdSSet.fd_count = <span class="number">1</span>;</div><div class="line">    rdSSet.fd_array[<span class="number">0</span>] = connectSoc;</div><div class="line">    wrSSet.fd_count = <span class="number">1</span>;</div><div class="line">    wrSSet.fd_array[<span class="number">0</span>] = listenSoc;</div><div class="line">    rwCount = select(<span class="number">0</span>, &amp;wrSSet, &amp;rdSSet, <span class="literal">NULL</span>, &amp;tv);</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __TEST__</span></div><div class="line">    printFunc(<span class="string">"rwCount ="</span>, rwCount);</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">  &#125;</div><div class="line">  <span class="comment">// Both sockets are ready now to complete the connection.</span></div><div class="line"> </div><div class="line">  <span class="keyword">int</span> addr_len = <span class="keyword">sizeof</span>(listen_addr);</div><div class="line">  acceptSoc = accept(listenSoc, (LPSOCKADDR)&amp;listen_addr, &amp;addr_len);</div><div class="line"> </div><div class="line">  <span class="comment">// Restore the sockets to blocking (default behavior).</span></div><div class="line">  SocOpt = <span class="number">0</span>;</div><div class="line">  status = ioctlsocket(connectSoc, FIONBIO, (u_long *)&amp;SocOpt);</div><div class="line">  status = ioctlsocket(acceptSoc, FIONBIO, (u_long *)&amp;SocOpt);</div><div class="line"> </div><div class="line">  filedes[<span class="number">0</span>] = (<span class="keyword">int</span>)connectSoc;</div><div class="line">  filedes[<span class="number">1</span>] = (<span class="keyword">int</span>)acceptSoc;</div><div class="line"> </div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p><font color="red">分析:</font></p>
-<ul>
-<li>结合前一节关于可读性，可写性的解释，结合上面具体的代码，调用 <strong>lcm_internal_pipe_create</strong> 获得 <strong>connect</strong> 和 <strong>accept</strong> 返回的 socket 句柄，两个 socket 是通过 listen socket 建立的连接的两端，连接成功建立，二者都是可写的；连接中没有任何一方发送数据，故二者都是不可读的。</li>
-<li>此外，用于建立连接的  listen socket，因为他的 listen 队列大小为 1，所以，最终该 socket 是不可写的；因为调用 <strong>accept</strong> 后，监听队列被取空，所以该监听 socket 也是不可读的。</li>
-<li><strong>lcm_internal_pipe_create</strong> 必须是静态函数，这样该函数的所有变量会被自动分配在一个一直使用的存储区，直到退出应用程序实例，保证 socket 句柄一直存在，一直有效。</li>
-</ul>
-</blockquote>
-<p>　<font color="#FF8888">2.</font> 开启 <strong>gthread</strong> 线程按帧为单位获取激光雷达数据包，并以 <strong>UDP</strong> 的方式发送出去。为了更准确的模拟激光雷达帧数据的播放时间，通过 <strong>select</strong> 实现恰当的延时，保证帧与帧之间播放的时间间隔，每一帧播放的时间与实际情况相符。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</div><div class="line"> * Glib time control functions</div><div class="line"> * struct timeval: glib Structure used in select() call</div><div class="line"> */</span></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> int64_t <span class="title">timevalToInt64</span><span class="params">(<span class="keyword">struct</span> timeval tv)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> (<span class="keyword">int64_t</span>)tv.tv_sec * <span class="number">1000000</span> + tv.tv_usec;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">static</span> int64_t <span class="title">timestamp_now</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</div><div class="line">  GTimeVal tv;</div><div class="line">  g_get_current_time(&amp;tv);</div><div class="line">  <span class="keyword">return</span> (<span class="keyword">int64_t</span>)tv.tv_sec * <span class="number">1000000</span> + tv.tv_usec;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">lcm_internal_pipe_close</span><span class="params">(<span class="keyword">int</span> fd)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> closesocket((SOCKET)fd);</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">/*</div><div class="line"> * gthread线程函数</div><div class="line"> *  1. 通过NextEvent从.pcap文件获取下一帧激光数据</div><div class="line"> *  2. 通过select的准确timeout，同步播放时刻与抓包时间戳</div><div class="line"> *  3. 通过PublishEvent通过UDP发送出去，提供给Velodyne_viewer使用</div><div class="line"> */</span></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span>* <span class="title">timer_thread_func</span><span class="params">(<span class="keyword">void</span>* user)</span></span>&#123;</div><div class="line">  VeloPlayer* velo_player = <span class="keyword">reinterpret_cast</span>&lt;VeloPlayer*&gt; (user);</div><div class="line"> </div><div class="line">  <span class="keyword">int64_t</span> abstime;</div><div class="line">  <span class="keyword">int64_t</span> now;</div><div class="line">  <span class="keyword">int64_t</span> starttime;</div><div class="line">  <span class="keyword">int64_t</span> startabstime;</div><div class="line">  <span class="keyword">struct</span> timeval sleep_tv;</div><div class="line"> </div><div class="line">  <span class="keyword">int64_t</span> sleep_utime;</div><div class="line">  fd_set fds;</div><div class="line">  <span class="keyword">int</span> timer_pipe[<span class="number">2</span>];</div><div class="line">  TRACE(<span class="string">"timer_thread_func \n"</span>);</div><div class="line">  <span class="keyword">if</span> (lcm_internal_pipe_create(timer_pipe) != <span class="number">0</span>)&#123;</div><div class="line">    TRACE(<span class="string">"lcm_internal_pipe_create failed\n"</span>);</div><div class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  <span class="keyword">int</span> status = <span class="number">0</span>;</div><div class="line"> </div><div class="line">  startabstime = timestamp_now();</div><div class="line"> </div><div class="line">  velo_player-&gt;NextEvent();</div><div class="line">  starttime = timevalToInt64(velo_player-&gt;m_currentTime);</div><div class="line"> </div><div class="line">  <span class="keyword">while</span> (velo_player-&gt;m_exitThread == <span class="number">0</span>)&#123;</div><div class="line">    velo_player-&gt;NextEvent();</div><div class="line">    abstime = timevalToInt64(velo_player-&gt;m_currentTime) - starttime + startabstime;</div><div class="line">    <span class="keyword">if</span> (abstime &lt; <span class="number">0</span>)</div><div class="line">      <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line"> </div><div class="line">    now = timestamp_now();</div><div class="line">    <span class="keyword">if</span> (abstime &gt;now)&#123;</div><div class="line">      sleep_utime = abstime - now;</div><div class="line">      sleep_tv.tv_sec = sleep_utime / <span class="number">1000000</span>;</div><div class="line">      sleep_tv.tv_usec = sleep_utime % <span class="number">1000000</span>;</div><div class="line"> </div><div class="line">      <span class="comment">// sleep until the next timed message, or until an abort message</span></div><div class="line">      <span class="comment">/*</div><div class="line">       * select: 2rd parameter readfds identifies the sockets that are to be checked for readability</div><div class="line">       */</span></div><div class="line">      FD_ZERO(&amp;fds);</div><div class="line">      FD_SET(timer_pipe[<span class="number">0</span>], &amp;fds);</div><div class="line">      <span class="comment">/*</div><div class="line">       * 测试可读性 可写性</div><div class="line">       *  velo_player-&gt;timer_pipe[0/1]: connect socket/accept socket </div><div class="line">       *   已完成一个非阻塞connect的连接(可写)</div><div class="line">       *   没有数据可以接收(不可读 阻塞到超时，超时时间sleep_tv)</div><div class="line">       */</span></div><div class="line">      <span class="comment">//#define _SELECT_TEST_</span></div><div class="line">      <span class="comment">//#define _SELECT_WRITE_TEST_</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _SELECT_WRITE_TEST_</span></div><div class="line">      status = select(<span class="number">0</span>, <span class="number">0</span>, &amp;fds, <span class="literal">NULL</span>, &amp;sleep_tv);</div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line">      status = select(<span class="number">0</span>, &amp;fds, <span class="number">0</span>, <span class="literal">NULL</span>, &amp;sleep_tv);</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _SELECT_TEST_</span></div><div class="line">      <span class="keyword">int</span> error = WSAGetLastError();</div><div class="line">      printFunc(<span class="string">"status ="</span>, status);</div><div class="line">      printFunc(<span class="string">"error ="</span>, error);</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">      <span class="comment">// select timed out</span></div><div class="line">      <span class="keyword">if</span> (!status)&#123;</div><div class="line">        velo_player-&gt;PublishEvent();</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">else</span>&#123;</div><div class="line">        TRACE(<span class="string">"0 != status %d %d\n"</span>, status, WSAGetLastError());</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">      <span class="keyword">if</span> (abstime &lt; now)</div><div class="line">        TRACE(<span class="string">"abstime &lt; now %ld\n"</span>, now - abstime);</div><div class="line">      velo_player-&gt;PublishEvent();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  TRACE(<span class="string">"Thread stoped! \n"</span>);</div><div class="line">  <span class="keyword">if</span> (timer_pipe[<span class="number">0</span>] &gt;= <span class="number">0</span>)</div><div class="line">    lcm_internal_pipe_close(timer_pipe[<span class="number">0</span>]);</div><div class="line">  <span class="keyword">if</span> (timer_pipe[<span class="number">1</span>] &gt;= <span class="number">0</span>)</div><div class="line">    lcm_internal_pipe_close(timer_pipe[<span class="number">1</span>]);</div><div class="line"> </div><div class="line">  <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>References: </p>
-<ul>
-<li><a href="http://www.cnblogs.com/ranjiewen/p/5618620.html">Winsock IO模型之select模型</a></li>
-<li><a href="http://www.cnblogs.com/XiaoG/archive/2010/08/11/1823581.html">解决Linux Socket select总是返回1的问题</a></li>
-</ul>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;select-初识&quot;&gt;&lt;a href=&quot;#select-初识&quot; class=&quot;headerlink&quot; title=&quot;select 初识&quot;&gt;&lt;/a&gt;select 初识&lt;/h3&gt;&lt;figure class=&quot;highlight c++&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  _In_    &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt;                  nfds,         &lt;span class=&quot;comment&quot;&gt;// 忽略,仅是为了与Berkeley套接字兼容&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  _Inout_ fd_set               *readfds,     &lt;span class=&quot;comment&quot;&gt;// 指向一个套接字集合,用来检查其可读性&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  _Inout_ fd_set               *writefds,    &lt;span class=&quot;comment&quot;&gt;// 指向一个套接字集合,用来检查其可写性&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  _Inout_ fd_set               *exceptfds,   &lt;span class=&quot;comment&quot;&gt;// 指向一个套接字集合,用来检查错误&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  _In_    &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;struct&lt;/span&gt; timeval *timeout      &lt;span class=&quot;comment&quot;&gt;// 指定此函数等待的最长时间,如果为NULL,则最长时间为无限大&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;)&lt;/span&gt;&lt;/span&gt;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;返回值: &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  函数调用成功，返回发生网络事件的所有套接字数量的总和&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  如果超时返回&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;，代表在描述词状态改变前已超过timeout时间;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  当有错误发生时则返回SOCKET_ERROR(&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;).&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
-    
-    
-      <category term="Socket" scheme="http://durant35.github.io/tags/Socket/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>瞎谈Socket编程(三) Win/Linux下的UDP编程</title>
-    <link href="http://durant35.github.io/2016/09/08/linux_%E7%9E%8E%E8%B0%88Socket%E7%BC%96%E7%A8%8B_3/"/>
-    <id>http://durant35.github.io/2016/09/08/linux_瞎谈Socket编程_3/</id>
-    <published>2016-09-08T01:59:58.000Z</published>
-    <updated>2016-11-12T10:28:51.164Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Server端"><a href="#Server端" class="headerlink" title="Server端"></a>Server端</h2><p>　　<strong>UDP Socket</strong> 编程中服务器端流程与 <strong>TCP</strong> 相似, 只是不需要通过 <strong>listen()</strong> 和 <strong>accept()</strong> 监听和等待客户端请求，直接通过 <strong>sendto()</strong> 和 <strong>recvfrom()</strong> 和客户端进行读写操作。<br><a id="more"></a></p>
-<blockquote>
-<p>server.cpp<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> WIN32</span></div><div class="line">    <span class="meta">#<span class="meta-keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></div><div class="line">    <span class="meta">#<span class="meta-keyword">define</span> socklen_t int</span></div><div class="line">    <span class="comment">// Win socket dynamic library</span></div><div class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></div><div class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Winsock.h&gt;</span></span></div><div class="line">    <span class="meta">#<span class="meta-keyword">pragma</span> comment(lib, <span class="meta-string">"Wsock32.lib"</span>)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line">    <span class="meta">#<span class="meta-keyword">define</span> _snprintf snprintf</span></div><div class="line">    <span class="meta">#<span class="meta-keyword">define</span> INVALID_SOCKET (-1)</span></div><div class="line">    <span class="comment">// Linux kernel socket calling</span></div><div class="line">    <span class="meta">#<span class="meta-keyword">define</span> closesocket close</span></div><div class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></div><div class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></div><div class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></div><div class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></div><div class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></div><div class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// WIN32</span></span></div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span>     <span class="comment">// for memset</span></span></div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> BUFLEN 512</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> NPACK 10</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> PORT 2368</span></div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</div><div class="line">  <span class="keyword">struct</span> sockaddr_in sockaddr_server, sockaddr_client;</div><div class="line">  <span class="keyword">int</span> sockfd;</div><div class="line">  <span class="keyword">int</span> i;</div><div class="line">  <span class="keyword">char</span> recv_buf[BUFLEN];</div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> WIN32</span></div><div class="line">  <span class="comment">// Loading &amp; initializing winsock</span></div><div class="line">  WSADATA wsa;</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"\nInitializing Winsock..."</span>);</div><div class="line">  <span class="keyword">if</span> (WSAStartup(MAKEWORD(<span class="number">2</span>, <span class="number">2</span>), &amp;wsa) != <span class="number">0</span>)&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"Failed. Error Code : %d"</span>, WSAGetLastError());</div><div class="line">    <span class="built_in">exit</span>(EXIT_FAILURE);</div><div class="line">  &#125;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">  <span class="built_in">printf</span>(<span class="string">"Initialized.\n"</span>);</div><div class="line">  <span class="comment">// 1. Creating socket, no-connection way, datagram</span></div><div class="line">  <span class="keyword">if</span> ((sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == INVALID_SOCKET&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"fail to create socket...\n"</span>);</div><div class="line">  &#125;</div><div class="line">  <span class="comment">// Configuring server ip port, etc</span></div><div class="line">  <span class="built_in">memset</span>((<span class="keyword">char</span> *)&amp;sockaddr_server, <span class="number">0</span>, <span class="keyword">sizeof</span>(sockaddr_server));</div><div class="line">  sockaddr_me.sin_family = AF_INET;</div><div class="line">  sockaddr_me.sin_port = htons(PORT);</div><div class="line">  sockaddr_me.sin_addr.s_addr = htonl(INADDR_ANY);</div><div class="line">  <span class="comment">// 2. Binding server's socket with ip and port </span></div><div class="line">  <span class="keyword">if</span> (bind(sockfd, (sockaddr *)&amp;sockaddr_server, <span class="keyword">sizeof</span>(sockaddr_server)) == <span class="number">-1</span>)&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"bind error...\n"</span>);</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  <span class="keyword">socklen_t</span> sockaddr_client_len = <span class="keyword">sizeof</span>(sockaddr_client);</div><div class="line">  <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; NPACK; i++) &#123;</div><div class="line">    <span class="comment">// 3. Receiving data from client</span></div><div class="line">    <span class="keyword">if</span> (recvfrom(sockfd, buf, BUFLEN, <span class="number">0</span>, </div><div class="line">      (sockaddr *)&amp;sockaddr_client, &amp;sockaddr_client_len) == <span class="number">-1</span>)&#123;</div><div class="line">      <span class="built_in">printf</span>(<span class="string">"recvfrom error...\n"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"Received packet from %s:%d\nData: %s\n\n"</span>,</div><div class="line">      inet_ntoa(sockaddr_client.sin_addr), ntohs(sockaddr_client.sin_port), buf);</div><div class="line">  &#125;</div><div class="line">  <span class="comment">// 4. Closing server's socket after transceiving </span></div><div class="line">  closesocket(sockfd);</div><div class="line">#ifdef WIN32</div><div class="line">  <span class="comment">// Unloading win socket dynamic library</span></div><div class="line">  WSACleanup();</div><div class="line">#endif</div><div class="line"> </div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-</blockquote>
-<h2 id="Client端"><a href="#Client端" class="headerlink" title="Client端"></a>Client端</h2><p>　　<strong>UDP Socket</strong> 编程客户端流程与服务器端相比更为简单，无需进行绑定操作，直接通过服务器端的ip、端口等信息， 使用 <strong>sendto()/recvfrom()</strong> 进行数据发送和接收操作。</p>
-<blockquote>
-<p>client.cpp<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> WIN32</span></div><div class="line">    <span class="meta">#<span class="meta-keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></div><div class="line">    <span class="meta">#<span class="meta-keyword">define</span> socklen_t int</span></div><div class="line">    <span class="comment">// Win socket dynamic library</span></div><div class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></div><div class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Winsock.h&gt;</span></span></div><div class="line">    <span class="meta">#<span class="meta-keyword">pragma</span> comment(lib, <span class="meta-string">"Wsock32.lib"</span>)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line">    <span class="meta">#<span class="meta-keyword">define</span> _snprintf snprintf</span></div><div class="line">    <span class="meta">#<span class="meta-keyword">define</span> INVALID_SOCKET (-1)</span></div><div class="line">    <span class="comment">// Linux kernel socket calling</span></div><div class="line">    <span class="meta">#<span class="meta-keyword">define</span> closesocket close</span></div><div class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></div><div class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></div><div class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></div><div class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></div><div class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></div><div class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// WIN32</span></span></div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span>     <span class="comment">// for memset</span></span></div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> BUFLEN 512</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> NPACK 10</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> PORT 2368</span></div><div class="line"><span class="comment">// Server's ip address which is pingable</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> SRV_IP <span class="meta-string">"127.0.0.1"</span></span></div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</div><div class="line">  <span class="keyword">struct</span> sockaddr_in sockaddr_server;</div><div class="line">  <span class="keyword">int</span> sockfd;</div><div class="line">  <span class="keyword">char</span> buf[BUFLEN];</div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> WIN32</span></div><div class="line">  WSADATA wsa;</div><div class="line">  <span class="comment">// Loading &amp; initializing winsock</span></div><div class="line">  <span class="built_in">printf</span>(<span class="string">"\nInitialising Winsock..."</span>);</div><div class="line">  <span class="keyword">if</span> (WSAStartup(MAKEWORD(<span class="number">2</span>, <span class="number">2</span>), &amp;wsa) != <span class="number">0</span>)&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"Failed. Error Code : %d"</span>, WSAGetLastError());</div><div class="line">    <span class="built_in">exit</span>(EXIT_FAILURE);</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"Initialised.\n"</span>);</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">  <span class="comment">// 1. Creating socket, no-connection way, datagram</span></div><div class="line">  <span class="keyword">if</span> ((sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == INVALID_SOCKET)&#123;</div><div class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="comment">// Configuring server ip address, port, etc for client</span></div><div class="line">  <span class="built_in">memset</span>((<span class="keyword">char</span> *)&amp;sockaddr_server, <span class="number">0</span>, <span class="keyword">sizeof</span>(sockaddr_server));</div><div class="line">  sockaddr_server.sin_family = AF_INET;</div><div class="line">  sockaddr_server.sin_port = htons(PORT);</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> WIN32</span></div><div class="line">  sockaddr_server.sin_addr.S_un.S_addr = inet_addr(SRV_IP);</div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line">  sockaddr_server.sin_addr.s_addr = inet_addr(SRV_IP);</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">   </div><div class="line">  <span class="comment">// 2. Sending/Receiving data to/from client</span></div><div class="line">  <span class="keyword">for</span> (<span class="keyword">unsigned</span> i = <span class="number">0</span>; i&lt;NPACK; i++) &#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"Sending packet %d\n"</span>, i);</div><div class="line">    <span class="built_in">sprintf</span>(buf, <span class="string">"This is packet %d\n"</span>, i);</div><div class="line">    <span class="keyword">if</span> (sendto(sockfd, buf, BUFLEN, <span class="number">0</span>, </div><div class="line">      (<span class="keyword">struct</span> sockaddr *) &amp;sockaddr_server, <span class="keyword">sizeof</span>(sockaddr_server)) == <span class="number">-1</span>)</div><div class="line">      <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"sendto error\n"</span>);</div><div class="line">  &#125;</div><div class="line">  <span class="comment">// 3. Closing client's socket after transceiving</span></div><div class="line">  closesocket(sockfd);</div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> WIN32</span></div><div class="line">  <span class="comment">// Unloading win socket dynamic library</span></div><div class="line">  WSACleanup();</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"> </div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;Server端&quot;&gt;&lt;a href=&quot;#Server端&quot; class=&quot;headerlink&quot; title=&quot;Server端&quot;&gt;&lt;/a&gt;Server端&lt;/h2&gt;&lt;p&gt;　　&lt;strong&gt;UDP Socket&lt;/strong&gt; 编程中服务器端流程与 &lt;strong&gt;TCP&lt;/strong&gt; 相似, 只是不需要通过 &lt;strong&gt;listen()&lt;/strong&gt; 和 &lt;strong&gt;accept()&lt;/strong&gt; 监听和等待客户端请求，直接通过 &lt;strong&gt;sendto()&lt;/strong&gt; 和 &lt;strong&gt;recvfrom()&lt;/strong&gt; 和客户端进行读写操作。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
-    
-      <category term="Linux" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://durant35.github.io/tags/Linux/"/>
-    
-      <category term="Socket" scheme="http://durant35.github.io/tags/Socket/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>git几步走</title>
-    <link href="http://durant35.github.io/2016/07/26/tool_git%E5%87%A0%E6%AD%A5%E8%B5%B0/"/>
-    <id>http://durant35.github.io/2016/07/26/tool_git几步走/</id>
-    <published>2016-07-26T00:47:07.000Z</published>
-    <updated>2016-11-12T10:04:57.275Z</updated>
-    
-    <content type="html"><![CDATA[<p>　　<strong>第一步:</strong> <strong>github.com</strong> 上添加新仓库 “Create New Repository”</p>
-<p>　　<strong>第二步:</strong> 本地关联远程库.添加后，远程库的名字就是 <strong>origin</strong>，这是 <strong>Git</strong> 默认的叫法，也可以改成别的，但是 <strong>origin</strong> 这个名字一看就知道是远程库。<br>　　　<font color="green"><strong>git remote add origin <a href="https://github.com/Durant35/[Repository">https://github.com/Durant35/[Repository</a> Name].git</strong></font></p>
-<p>　　把本地库的内容推送到远程，用 <strong>git push</strong> 命令，实际上是把当前分支 <strong>master</strong> 推送到远程。<br>　　由于远程库是空的，我们第一次推送 <strong>master</strong> 分支时，加上了 <strong>-u</strong> 参数，<strong>Git</strong> 不但会把本地的 <strong>master</strong> 分支内容推送的远程新的 <strong>master</strong> 分支，还会把本地的 <strong>master</strong> 分支和远程的 <strong>master</strong> 分支关联起来，在以后的推送或者拉取时就可以简化命令。<br>　　　<font color="green"><strong>git push -u origin master</strong></font></p>
-<p>　　把本地 <strong>master</strong> 分支的最新修改推送至 <strong>GitHub</strong>！<br>　　　<font color="green"><strong>git push origin master</strong></font><br><a id="more"></a></p>
-<p>　　<strong>第三步：</strong> 查看改变<br>　　查看本地文件夹改变<br>　　　<font color="green"><strong>git status</strong></font><br>　　查看本地文件改变<br>　　　<font color="green"><strong>git diff “file name”</strong></font><br>　　查看本地与远程库区别<br>　　　<font color="green"><strong>git diff master origin</strong></font></p>
-<p>　　<strong>第四步:</strong> 文件/文件夹创建、编写<br>　　　<font color="green"><strong>git add “file name”</strong></font>　　　　# 创建<br>　　　<font color="green"><strong>git rm “file name”    </strong></font>　　　　 # 删除<br>　　　<font color="green"><strong>git add .    </strong></font>　　　　 　　　 　# git add all files changed</p>
-<p>　　<strong>第五步:</strong> 先本地提交，后远程提交<br>　　　<font color="green"><strong>git commit -m “messages”</strong></font><br>　　　<font color="green"><strong>git push origin master</strong></font></p>
-<p>　　<strong>第六步:</strong> <strong>git</strong> 版本回退<br>　　　(注意 <strong>hard</strong> 前面是两个<strong>“-“</strong>)<br>　　　<font color="green"><strong>git reset –hard commit_id</strong></font></p>
-<p>　　1) <strong>HEAD</strong> 指向的版本就是当前版本<br>　　2) <strong>commit_id</strong> 通过以下命令获取<br>　　　<font color="green"><strong>git log</strong></font>　　　 查看提交历史    –&gt; 回退到过去哪个版本<br>　　　<font color="green"><strong>git reflog</strong></font>　　查看命令历史     –&gt; 回到未来的哪个版本</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;　　&lt;strong&gt;第一步:&lt;/strong&gt; &lt;strong&gt;github.com&lt;/strong&gt; 上添加新仓库 “Create New Repository”&lt;/p&gt;
-&lt;p&gt;　　&lt;strong&gt;第二步:&lt;/strong&gt; 本地关联远程库.添加后，远程库的名字就是 &lt;strong&gt;origin&lt;/strong&gt;，这是 &lt;strong&gt;Git&lt;/strong&gt; 默认的叫法，也可以改成别的，但是 &lt;strong&gt;origin&lt;/strong&gt; 这个名字一看就知道是远程库。&lt;br&gt;　　　&lt;font color=&quot;green&quot;&gt;&lt;strong&gt;git remote add origin &lt;a href=&quot;https://github.com/Durant35/[Repository&quot;&gt;https://github.com/Durant35/[Repository&lt;/a&gt; Name].git&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;　　把本地库的内容推送到远程，用 &lt;strong&gt;git push&lt;/strong&gt; 命令，实际上是把当前分支 &lt;strong&gt;master&lt;/strong&gt; 推送到远程。&lt;br&gt;　　由于远程库是空的，我们第一次推送 &lt;strong&gt;master&lt;/strong&gt; 分支时，加上了 &lt;strong&gt;-u&lt;/strong&gt; 参数，&lt;strong&gt;Git&lt;/strong&gt; 不但会把本地的 &lt;strong&gt;master&lt;/strong&gt; 分支内容推送的远程新的 &lt;strong&gt;master&lt;/strong&gt; 分支，还会把本地的 &lt;strong&gt;master&lt;/strong&gt; 分支和远程的 &lt;strong&gt;master&lt;/strong&gt; 分支关联起来，在以后的推送或者拉取时就可以简化命令。&lt;br&gt;　　　&lt;font color=&quot;green&quot;&gt;&lt;strong&gt;git push -u origin master&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;　　把本地 &lt;strong&gt;master&lt;/strong&gt; 分支的最新修改推送至 &lt;strong&gt;GitHub&lt;/strong&gt;！&lt;br&gt;　　　&lt;font color=&quot;green&quot;&gt;&lt;strong&gt;git push origin master&lt;/strong&gt;&lt;/font&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="技术留档" scheme="http://durant35.github.io/categories/%E6%8A%80%E6%9C%AF%E7%95%99%E6%A1%A3/"/>
-    
-      <category term="小工具" scheme="http://durant35.github.io/categories/%E6%8A%80%E6%9C%AF%E7%95%99%E6%A1%A3/%E5%B0%8F%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="git" scheme="http://durant35.github.io/tags/git/"/>
     
   </entry>
   

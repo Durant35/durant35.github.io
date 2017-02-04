@@ -255,6 +255,247 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-ROS_ROS_Basics" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/02/ROS_ROS_Basics/" class="article-date">
+      <time datetime="2016-10-02T13:18:03.000Z" itemprop="datePublished">2016-10-02</time>
+</a>
+
+ 
+    <a href="/2016/10/02/ROS_ROS_Basics/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/10/02/ROS_ROS_Basics/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　ROS 基本概念以及经常使用的命令。</p>
+<h3 id="ROS-文件系统"><a href="#ROS-文件系统" class="headerlink" title="ROS 文件系统"></a>ROS 文件系统</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 获取软件包有关信息</span></div><div class="line">xxx@...$ rospack find [package-name]</div><div class="line"><span class="comment"># 查看环境变量(ROS_PACKAGE_PATH)</span></div><div class="line">xxx@...$ <span class="built_in">export</span> | grep ROS</div></pre></td></tr></table></figure>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/ROS/">ROS</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/10/02/ROS_ROS_Basics/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-programPearls_precise delay using select" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/08/programPearls_precise delay using select/" class="article-date">
+      <time datetime="2016-09-08T03:51:14.000Z" itemprop="datePublished">2016-09-08</time>
+</a>
+
+ 
+    <a href="/2016/09/08/programPearls_precise delay using select/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/09/08/programPearls_precise delay using select/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="select-初识"><a href="#select-初识" class="headerlink" title="select 初识"></a>select 初识</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(</div><div class="line">  _In_    <span class="keyword">int</span>                  nfds,         <span class="comment">// 忽略,仅是为了与Berkeley套接字兼容</span></div><div class="line">  _Inout_ fd_set               *readfds,     <span class="comment">// 指向一个套接字集合,用来检查其可读性</span></div><div class="line">  _Inout_ fd_set               *writefds,    <span class="comment">// 指向一个套接字集合,用来检查其可写性</span></div><div class="line">  _Inout_ fd_set               *exceptfds,   <span class="comment">// 指向一个套接字集合,用来检查错误</span></div><div class="line">  _In_    <span class="keyword">const</span> <span class="keyword">struct</span> timeval *timeout      <span class="comment">// 指定此函数等待的最长时间,如果为NULL,则最长时间为无限大</span></div><div class="line">)</span></span>;</div><div class="line"> </div><div class="line">返回值: </div><div class="line">  函数调用成功，返回发生网络事件的所有套接字数量的总和</div><div class="line">  如果超时返回<span class="number">0</span>，代表在描述词状态改变前已超过timeout时间;</div><div class="line">  当有错误发生时则返回SOCKET_ERROR(<span class="number">-1</span>).</div></pre></td></tr></table></figure>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/09/08/programPearls_precise delay using select/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hexo_Yelee Migrant Note(2)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/07/hexo_Yelee Migrant Note(2)/" class="article-date">
+      <time datetime="2016-10-07T07:33:41.000Z" itemprop="datePublished">2016-10-07</time>
+</a>
+
+ 
+    <a href="/2016/10/07/hexo_Yelee Migrant Note(2)/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/10/07/hexo_Yelee Migrant Note(2)/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/07/hexo_Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　本文记录了 <strong>Hexo</strong> 首页与归档博文排序如何自定义，想实现的功能是 <strong>index</strong> 按照修改日期排序，最近修改的文章置顶显示；<strong>Archives</strong> 归档则按照默认的创建时间前后排序。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/10/07/hexo_Yelee Migrant Note(2)/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-linux_瞎谈Socket编程_2" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -826,244 +1067,9 @@
 
 
   
-    <article id="post-movies_漫威电影" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/02/11/movies_漫威电影/" class="article-date">
-      <time datetime="2016-02-11T08:57:54.000Z" itemprop="datePublished">2016-02-11</time>
-</a>
-
- 
-    <a href="/2016/02/11/movies_漫威电影/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/02/11/movies_漫威电影/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/11/movies_漫威电影/">漫威21部系列电影(持续更新)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　漫威21部系列电影的计划 <a href="http://bbs.feng.com/read-htm-tid-9131622.html">摘自《[讨论] 漫威计划的21部系列电影全览，漫威迷，可以了解下，还有后面几部电影的上映时间》</a>：<br>　　<strong>第一阶段</strong><br>　　+ 《钢铁侠》 Iron Man（2008.04.30）<br>　　+ 《无敌浩克》 The Incredible Hulk（2008.08.20）<br>　　+ 《钢铁侠2》Iron Man 2（2010.04.25）<br>　　+ 《雷神》 Thor（2011.05.02）<br>　　+ 《美国队长：第一个复仇者》 Captain America: The First Avenger（2011.07.19）<br>　　+ 《复仇者联盟》 The Avengers（2012.05.04)<br>　　<strong>第二阶段</strong><br>　　+ 《钢铁侠3》 Iron Man 3（2013.05.01）<br>　　+ 《雷神2：黑暗世界》 Thor: The Dark World（2013.11.08）<br>　　+ 《美国队长2：冬日战士》 Captain America: The Winter Soldier（2014.04.04）<br>　　+ 《银河护卫队》 Guardians of the Galaxy（2014.10.10）<br>　　+ 《复仇者联盟2：奥创纪元》 Avengers: Age of Ultron（2015.05.12）<br>　　+ 《蚁人》 Ant-man（2015.07.17）<br>　　<strong>第三阶段</strong><br>　　+ 《美国队长3：内战》 Captain America: Civil War（2016.05.06）（未上映）<br>　　+ 《奇异博士》 Doctor Strange（2016.11.04）（未上映）<br>　　+ 《银河护卫队2》 Guardians of the Galaxy 2（2017.05.05）（未上映）<br>　　+ 《蜘蛛侠：新复仇者》Untitled Spider-Man film（2017.07.28）（未上映）<br>　　+ 《雷神3：诸神黄昏》 Thor: Ragnarok（2017.11.03）（未上映）<br>　　+ 《复仇者联盟3：无限战争（上）》 Avengers: Infinity War Part Ⅰ（2018.05.04）（未上映）<br>　　+ 《黑豹》 Black Panther（2018.07.06）（未上映）<br>　　+ 《惊奇队长》 Captain Marvel（2018.11.02）（未上映）<br>　　+ 《复仇者联盟3：无限战争（下）》 Avengers: Infinity War Part Ⅱ（2019.05.03）（未上映）<br>　　+ 《异人族》 Inhumans（2019.07.12）（未上映）<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Codes源于生活/">Codes源于生活</a><a class="article-category-link" href="/categories/Codes源于生活/电影人生/">电影人生</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漫威电影/">漫威电影</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/02/11/movies_漫威电影/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-System_Win8.1简体中文系统切换到繁体中文系统" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/" class="article-date">
-      <time datetime="2016-02-02T09:20:25.000Z" itemprop="datePublished">2016-02-02</time>
-</a>
-
- 
-    <a href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　今天在捣鼓<strong>VS2013</strong>的时候，出于验证<strong>VS2013</strong>默认执行字符集究竟是<strong>GBK</strong>还是<strong>ANSI</strong>，心想能不能把目前的<strong>Win8.1简体中文系统</strong>直接换成<strong>繁体中文系统</strong>，试一下再换回来。就搜了一下，果然有，虽然是百度经验<a href="http://jingyan.baidu.com/article/4ae03de3fabbe93eff9e6b1f.html">《win8.1简体系统切换到繁体系统》</a>，不过这种东西，百度还是可以信一下的，不行改回去应该不会死(有时就是这样死掉的，O(∩_∩)O哈哈~)。下面就是我Follow此百度经验切换的过程。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/系统/">系统</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编码/">编码</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_Java到底是不是一种纯面向对象语言？" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/" class="article-date">
-      <time datetime="2016-06-30T02:26:22.000Z" itemprop="datePublished">2016-06-30</time>
-</a>
-
- 
-    <a href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>　　参考博文 <a href="http://www.codeceo.com/article/why-java-purely-object-oriented-language.html">《Java到底是不是一种纯面向对象语言？》</a></p>
-<p>　　<strong>JVM</strong> 在创建对象的时候，实际上会创建两个对象：<br>　　　一个是实例对象。<br>　　　另一个是 <strong>Class</strong> 对象。该 <strong>Class</strong> 对象在 <strong>JVM</strong> 内仅仅会装载一次，该类的静态方法和静态属性也一同装载，<strong>JVM</strong> 使用该 <strong>Class</strong> 对象来创建具体的实例对象。<br>　　例如，在下面的 <strong>Java</strong> 语句中，将有两个对象被创建：<br>　　　　Employee emp = new Employee();<br>　　一个是实例对象 emp ；另一个则是 Class 对象，我们可以通过 <strong>Employee.class</strong> 引用到它；这个 Class 对象拥有所有的这个类定义的静态变量和静态方法，同时，如果我们访问 通过 emp 对象来访问静态内容，会发现它其实指向的对象就是 <strong>Employee.class</strong> 。</p>
-<p>　　<font color="green">静态内容确实被证实属于一个对象</font><br>　　　为什么静态内容在一个对象中（不管是emp还是emp2）改变了，在另一个对象中也同时改变，因为这两个对象改变的都是在 Employee.class 同一个对象里面的内容。</p>
-<p>　　Java 官方为每一个原始类型推出了对应的包装类（比如：Integer 对应 int，Long 对应 long，Character 对应 char），所以，其实现在我们可以为原始类型创建一个包装对象，同时对它们做对象相关的操作。<br>　　　JVM看来它把所有的 “原始类型” 都是当作对象处理”</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
-    </div>
-
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
     </nav>
   
 </div>
