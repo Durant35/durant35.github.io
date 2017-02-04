@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-02-04T08:15:43.787Z</updated>
+  <updated>2017-02-04T10:08:38.543Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -14,6 +14,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Digital Image Process</title>
+    <link href="http://durant35.github.io/2017/02/04/cv_Digital-Image-Process(pg_2016)/"/>
+    <id>http://durant35.github.io/2017/02/04/cv_Digital-Image-Process(pg_2016)/</id>
+    <published>2017-02-04T09:53:31.000Z</published>
+    <updated>2017-02-04T10:08:38.543Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>Books：<br>Codes：<a href="https://github.com/Durant35/Courses/tree/master/dip">https://github.com/Durant35/Courses/tree/master/dip</a></p>
+</blockquote>
+<h3 id="第2章-数字图像基础"><a href="#第2章-数字图像基础" class="headerlink" title="第2章 数字图像基础"></a>第2章 数字图像基础</h3><p>　　左边是Tab</p>
+<a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;Books：&lt;br&gt;Codes：&lt;a href=&quot;https://github.com/Durant35/Courses/tree/master/dip&quot;&gt;https://github.com/Durant35/Courses/tree/master/dip&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;第2章-数字图像基础&quot;&gt;&lt;a href=&quot;#第2章-数字图像基础&quot; class=&quot;headerlink&quot; title=&quot;第2章 数字图像基础&quot;&gt;&lt;/a&gt;第2章 数字图像基础&lt;/h3&gt;&lt;p&gt;　　左边是Tab&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="CV" scheme="http://durant35.github.io/categories/CV/"/>
+    
+      <category term="dip" scheme="http://durant35.github.io/categories/CV/dip/"/>
+    
+    
+      <category term="CV" scheme="http://durant35.github.io/tags/CV/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux命令小纸条</title>
@@ -1407,69 +1438,6 @@
     
     
       <category term="文件操作" scheme="http://durant35.github.io/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Win/Linux下操作ini配置文件(API)</title>
-    <link href="http://durant35.github.io/2016/09/08/programPearls_Win&amp;Linux%20Operate%20ini%20configuration%20files(API)/"/>
-    <id>http://durant35.github.io/2016/09/08/programPearls_Win&amp;Linux Operate ini configuration files(API)/</id>
-    <published>2016-09-08T03:54:32.000Z</published>
-    <updated>2016-11-12T10:26:04.696Z</updated>
-    
-    <content type="html"><![CDATA[<p>　我们的程序常常需要从配置文件中获取参数，一方面，用户关于程序的自定义配置往往就存储在配置文件中，自定义配置的适配与保存就转化为对配置文件的读写操作；另一方面，也是本文编写的由来，那就是将有关程序中核心算法的参数提取到配置文件，方便算法参数的调试(只要调整配置文件，无需修改程序源码，更无需重新构建)。<br>　<strong>.ini</strong> 文件作为典型的配置文件，其文件存储的内容基本上是一些参数的 <strong>Key-Value</strong> 形式，此外就是一些所谓的属性段，多个对同一方面参数进行描述的 <strong>键值对</strong> 可以归纳为一个 <strong>Section</strong>。<br>　下面，是 <strong>Win/Linux</strong> 下如何通过不同的 API 实现对 <strong>*.ini</strong> 配置文件读写操作的整理。<br><a id="more"></a></p>
-<h3 id="Linux-using-Glib-API"><a href="#Linux-using-Glib-API" class="headerlink" title="Linux, using Glib API"></a>Linux, using Glib API</h3><blockquote>
-<p>Reference: </p>
-<ul>
-<li><a href="https://developer.gnome.org/glib/stable/glib-Key-value-file-parser.html">Key-value file parser: Key-value file parser — parses .ini-like config files</a></li>
-</ul>
-</blockquote>
-<p>　Linux 下我们通过使用 <strong>Glib API</strong> 操作 <strong>.ini</strong> 文件，具体流程包括安装 <strong>Glib</strong> 库，加载 <strong>ini</strong> 文件，通过 <strong>Key</strong> 读写键值对，最后再卸载文件。</p>
-<p><font color="FFAAAA"><strong>1. </strong></font>Configure Runtime Environment<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxx@...$ sudo apt-get install libglib2.0-dev</div></pre></td></tr></table></figure></p>
-<p>　Install <strong>glib-2.0</strong> and <font color="blue">add it as a link library</font> for build option.</p>
-<p><font color="FFAAAA"><strong>2. </strong></font>Create File Handler</p>
-<blockquote>
-<p>APIs:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function">GKeyFile* <span class="title">g_key_file_new</span> <span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line"> </div><div class="line"><span class="function">gboolean <span class="title">g_key_file_load_from_file</span> <span class="params">(GKeyFile *key_file,</div><div class="line">                        <span class="keyword">const</span> gchar *file,</div><div class="line">                        GKeyFileFlags flags,</div><div class="line">                        GError **error)</span></span>;</div><div class="line">flags: G_KEY_FILE_NONE </div><div class="line">     | G_KEY_FILE_KEEP_COMMENTS </div><div class="line">     | G_KEY_FILE_KEEP_TRANSLATIONS</div></pre></td></tr></table></figure></p>
-<p>Examples:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;glib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span>		<span class="comment">// for fprintf&amp;stderr</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span>		<span class="comment">// for EXIT_FAILURE</span></span></div><div class="line"> </div><div class="line"><span class="comment">// get Gkeyfile</span></div><div class="line">GKeyFile* viewer_ini = g_key_file_new();</div><div class="line">GError **error = <span class="literal">NULL</span>;</div><div class="line"> </div><div class="line"><span class="keyword">if</span> (!g_key_file_load_from_file(viewer_ini, <span class="string">"velodyne.ini"</span>, </div><div class="line">                			G_KEY_FILE_NONE, error))&#123;</div><div class="line">    <span class="built_in">fprintf</span> (<span class="built_in">stderr</span>, <span class="string">"Could not read config file\n"</span>);</div><div class="line">    <span class="keyword">return</span> EXIT_FAILURE;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p><font color="FFAAAA"><strong>3. </strong></font>Read/Write Parameters from/to File<br>　我们选用常用的数据类型，<strong>integer</strong>, <strong>double</strong>, <strong>string</strong>, <strong>boolean</strong>。</p>
-<blockquote>
-<p>APIs:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function">gint <span class="title">g_key_file_get_integer</span> <span class="params">(GKeyFile *key_file,</div><div class="line">                       <span class="keyword">const</span> gchar *group_name,</div><div class="line">                       <span class="keyword">const</span> gchar *key,</div><div class="line">                       GError **error)</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">g_key_file_set_integer</span> <span class="params">(GKeyFile *key_file,</div><div class="line">                       <span class="keyword">const</span> gchar *group_name,</div><div class="line">                       <span class="keyword">const</span> gchar *key,</div><div class="line">                       gint value)</span></span>;</div><div class="line"> </div><div class="line"><span class="function">gdouble <span class="title">g_key_file_get_double</span> <span class="params">(GKeyFile *key_file,</div><div class="line">                       <span class="keyword">const</span> gchar *group_name,</div><div class="line">                       <span class="keyword">const</span> gchar *key,</div><div class="line">                       GError **error)</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">g_key_file_set_double</span> <span class="params">(GKeyFile *key_file,</div><div class="line">                       <span class="keyword">const</span> gchar *group_name,</div><div class="line">                       <span class="keyword">const</span> gchar *key,</div><div class="line">                       gdouble value)</span></span>;</div><div class="line"> </div><div class="line"><span class="function">gchar* <span class="title">g_key_file_get_string</span> <span class="params">(GKeyFile *key_file,</div><div class="line">                       <span class="keyword">const</span> gchar *group_name,</div><div class="line">                       <span class="keyword">const</span> gchar *key,</div><div class="line">                       GError **error)</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">g_key_file_set_string</span> <span class="params">(GKeyFile *key_file,</div><div class="line">                       <span class="keyword">const</span> gchar *group_name,</div><div class="line">                       <span class="keyword">const</span> gchar *key,</div><div class="line">                       <span class="keyword">const</span> gchar *<span class="built_in">string</span>)</span></span>;</div><div class="line"> </div><div class="line"><span class="function">gboolean <span class="title">g_key_file_get_boolean</span> <span class="params">(GKeyFile *key_file,</div><div class="line">                       <span class="keyword">const</span> gchar *group_name,</div><div class="line">                       <span class="keyword">const</span> gchar *key,</div><div class="line">                       GError **error)</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">g_key_file_set_boolean</span> <span class="params">(GKeyFile *key_file,</div><div class="line">                       <span class="keyword">const</span> gchar *group_name,</div><div class="line">                       <span class="keyword">const</span> gchar *key,</div><div class="line">                       gboolean value)</span></span>;</div></pre></td></tr></table></figure></p>
-<p>Examples:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># velodyne.ini</span></div><div class="line"><span class="section">[CfgGlobal]</span></div><div class="line"><span class="attr">GroundZ</span>=-<span class="number">192</span></div><div class="line"><span class="attr">CarLength</span>=<span class="number">469</span></div><div class="line"><span class="attr">CarWidth</span>=<span class="number">185</span></div><div class="line"><span class="attr">CarHeight</span>=<span class="number">172</span></div><div class="line"><span class="attr">Threshold</span>=<span class="number">0.820000</span></div></pre></td></tr></table></figure></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// *.cpp</span></div><div class="line">cfg.cfgGlobal.GroundZ =</div><div class="line">    g_key_file_get_integer(viewer_ini, <span class="string">"CfgGlobal"</span>, <span class="string">"GroundZ"</span>, error);</div><div class="line">cfg.cfgGlobal.ThresholdMinRad =</div><div class="line">    g_key_file_get_double(viewer_ini, <span class="string">"CfgGlobal"</span>, <span class="string">"Threshold"</span>, error);</div><div class="line"> </div><div class="line">g_key_file_set_integer(viewer_ini, <span class="string">"CfgGlobal"</span>, <span class="string">"GroundZ"</span>, </div><div class="line">                                              cfg.cfgGlobal.GroundZ);</div><div class="line">g_key_file_set_double(viewer_ini, <span class="string">"CfgGlobal"</span>, <span class="string">"ThresholdMinRad"</span>, </div><div class="line">                                              cfg.cfgGlobal.Threshold);</div></pre></td></tr></table></figure>
-</blockquote>
-<p><font color="FFAAAA"><strong>4. </strong></font>Free File Handler</p>
-<blockquote>
-<p>API:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">g_key_file_free</span> <span class="params">(GKeyFile *key_file)</span></span>;</div></pre></td></tr></table></figure></p>
-<p>Example:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g_key_file_free (glib_keyfile);</div></pre></td></tr></table></figure></p>
-</blockquote>
-<h3 id="Windows-using-Winbase-API"><a href="#Windows-using-Winbase-API" class="headerlink" title="Windows, using Winbase API"></a>Windows, using Winbase API</h3><p>　Windows 下我们使用 <strong>Winbase.h</strong> 提供的 API 操作 <strong>.ini</strong> 文件，与 Linux 下使用 <strong>Glib API</strong> 最大的不同是，不存在配置文件的加载，卸载流程，不过每次读写参数时都需要传递操作文件所需要的文件名；此外，支持的数据类型也比较少(似乎就只有 <strong>Int</strong> 和 <strong>String</strong>)，写操作更是只有 <strong>String</strong> 数据类型。<br>　下面是简单功能的基本实现。</p>
-<blockquote>
-<p>APIs:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function">UINT WINAPI <span class="title">GetPrivateProfileInt</span><span class="params">(</div><div class="line">  _In_ LPCTSTR lpAppName,</div><div class="line">  _In_ LPCTSTR lpKeyName,</div><div class="line">  _In_ INT     nDefault,</div><div class="line">  _In_ LPCTSTR lpFileName</div><div class="line">)</span></span>;</div><div class="line"><span class="function">DWORD WINAPI <span class="title">GetPrivateProfileString</span><span class="params">(</div><div class="line">  _In_  LPCTSTR lpAppName,</div><div class="line">  _In_  LPCTSTR lpKeyName,</div><div class="line">  _In_  LPCTSTR lpDefault,</div><div class="line">  _Out_ LPTSTR  lpReturnedString,</div><div class="line">  _In_  DWORD   nSize,</div><div class="line">  _In_  LPCTSTR lpFileName</div><div class="line">)</span></span>;</div><div class="line"> </div><div class="line"><span class="function">BOOL WINAPI <span class="title">WritePrivateProfileString</span><span class="params">(</div><div class="line">  _In_ LPCTSTR lpAppName,</div><div class="line">  _In_ LPCTSTR lpKeyName,</div><div class="line">  _In_ LPCTSTR lpString,</div><div class="line">  _In_ LPCTSTR lpFileName</div><div class="line">)</span></span>;</div></pre></td></tr></table></figure></p>
-<p>Examples:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// for GetPrivateProfileInt&amp;Get/WritePrivateProfileString</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;winbase.h&gt;</span></span></div><div class="line"><span class="comment">// for _snprintf</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="comment">// for atof</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"> </div><div class="line"><span class="keyword">char</span> buf[<span class="number">64</span>];</div><div class="line"><span class="keyword">char</span> defaultVal[<span class="number">64</span>];</div><div class="line"> </div><div class="line">cfg.cfgGlobal.GroundZ =</div><div class="line">        GetPrivateProfileInt(<span class="string">"CfgGlobal"</span>, <span class="string">"GroundZ"</span>, g_DefaultGlobalCfg.GroundZ, <span class="string">"velodyne.ini"</span>);</div><div class="line"> </div><div class="line">_snprintf(defaultVal, <span class="keyword">sizeof</span>(defaultVal), <span class="string">"%f"</span>, g_DefaultGlobalCfg.Threshold);</div><div class="line">GetPrivateProfileString(<span class="string">"CfgGlobal"</span>, <span class="string">"Threshold"</span>, defaultVal, buf, <span class="keyword">sizeof</span>(buf), <span class="string">"velodyne.ini"</span>);</div><div class="line">cfg.cfgGlobal.Threshold = (<span class="keyword">double</span>)atof(buf);</div><div class="line"> </div><div class="line"> </div><div class="line"><span class="keyword">char</span> val[<span class="number">64</span>];</div><div class="line">_snprintf(val, <span class="keyword">sizeof</span>(val), <span class="string">"%d"</span>, cfg.cfgGlobal.GroundZ);</div><div class="line">WritePrivateProfileString(<span class="string">"CfgGlobal"</span>, <span class="string">"GroundZ"</span>, val, <span class="string">"velodyne.ini"</span>);</div><div class="line"> </div><div class="line">_snprintf(val, <span class="keyword">sizeof</span>(val), <span class="string">"%.6f"</span>, cfg.cfgGlobal.Threshold);</div><div class="line">WritePrivateProfileString(<span class="string">"CfgGlobal"</span>, <span class="string">"Threshold"</span>, val, <span class="string">"velodyne.ini"</span>);</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p><font color="red"><strong>注意： </strong></font></p>
-<blockquote>
-<ul>
-<li>GetPrivateProfileInt 和 GetPrivateProfileString 都需要传递缺省值，而且每一次都需要制定对应的配置文件；假如成功找到对应的参数键，返回对应的值，否则返回传进去的缺省值。</li>
-<li>对于 <strong>Int</strong>，<strong>String</strong> 除外的数据类型，通过 <strong>GetPrivateProfileString</strong> 获取参数键对应的值，不过返回的值是参数值对应的字符串，需要再通过 <strong>atof</strong>，<strong>atoi</strong>，<strong>atol</strong> 转为对应的数据类型。</li>
-<li>关于键值对保存到配置文件，只有 <strong>WritePrivateProfileString</strong> 这种字符串数据类型，需要通过 <strong>_snprintf</strong> 将要保存的参数数据类型转为字符串格式再进行保存。 <strong>_snprintf</strong> 的格式说明和 <strong>printf</strong> 基本相同。</li>
-</ul>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;　我们的程序常常需要从配置文件中获取参数，一方面，用户关于程序的自定义配置往往就存储在配置文件中，自定义配置的适配与保存就转化为对配置文件的读写操作；另一方面，也是本文编写的由来，那就是将有关程序中核心算法的参数提取到配置文件，方便算法参数的调试(只要调整配置文件，无需修改程序源码，更无需重新构建)。&lt;br&gt;　&lt;strong&gt;.ini&lt;/strong&gt; 文件作为典型的配置文件，其文件存储的内容基本上是一些参数的 &lt;strong&gt;Key-Value&lt;/strong&gt; 形式，此外就是一些所谓的属性段，多个对同一方面参数进行描述的 &lt;strong&gt;键值对&lt;/strong&gt; 可以归纳为一个 &lt;strong&gt;Section&lt;/strong&gt;。&lt;br&gt;　下面，是 &lt;strong&gt;Win/Linux&lt;/strong&gt; 下如何通过不同的 API 实现对 &lt;strong&gt;*.ini&lt;/strong&gt; 配置文件读写操作的整理。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
-    
-    
-      <category term="文件操作" scheme="http://durant35.github.io/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"/>
-    
-      <category term="ini" scheme="http://durant35.github.io/tags/ini/"/>
     
   </entry>
   
