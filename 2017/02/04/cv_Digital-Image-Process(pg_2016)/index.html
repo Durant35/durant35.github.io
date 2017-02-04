@@ -15,22 +15,34 @@
 
 
 
-<meta name="description" content="Books：数字图像处理（冈萨雷斯）[%E5%86%88%E8%90%A8%E9%9B%B7%E6%96%AF].pdf)Codes：https://github.com/Durant35/Courses/tree/master/dip
+<meta name="description" content="Books：数字图像处理（冈萨雷斯）Codes：https://github.com/Durant35/Courses/tree/master/dip
 
-第2章 数字图像基础　　左边是Tab">
+第2章 数字图像基础
+取样和量化
+空间和灰度分辨率
+空间分辨率：空间分辨率是图像在单位面积内像素的个数，表示了图像的空间细节分辨能力
+灰度分辨率：灰度分辨率指的是在纯黑和纯白之间灰度级别的多少，指的是图像对灰度变化细节的分辨能力">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Digital Image Process">
 <meta property="og:url" content="http://durant35.github.io/2017/02/04/cv_Digital-Image-Process(pg_2016)/index.html">
 <meta property="og:site_name" content="Tarantula-7's Blog">
-<meta property="og:description" content="Books：数字图像处理（冈萨雷斯）[%E5%86%88%E8%90%A8%E9%9B%B7%E6%96%AF].pdf)Codes：https://github.com/Durant35/Courses/tree/master/dip
+<meta property="og:description" content="Books：数字图像处理（冈萨雷斯）Codes：https://github.com/Durant35/Courses/tree/master/dip
 
-第2章 数字图像基础　　左边是Tab">
-<meta property="og:updated_time" content="2017-02-04T10:31:31.699Z">
+第2章 数字图像基础
+取样和量化
+空间和灰度分辨率
+空间分辨率：空间分辨率是图像在单位面积内像素的个数，表示了图像的空间细节分辨能力
+灰度分辨率：灰度分辨率指的是在纯黑和纯白之间灰度级别的多少，指的是图像对灰度变化细节的分辨能力">
+<meta property="og:updated_time" content="2017-02-04T13:23:32.356Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Digital Image Process">
-<meta name="twitter:description" content="Books：数字图像处理（冈萨雷斯）[%E5%86%88%E8%90%A8%E9%9B%B7%E6%96%AF].pdf)Codes：https://github.com/Durant35/Courses/tree/master/dip
+<meta name="twitter:description" content="Books：数字图像处理（冈萨雷斯）Codes：https://github.com/Durant35/Courses/tree/master/dip
 
-第2章 数字图像基础　　左边是Tab">
+第2章 数字图像基础
+取样和量化
+空间和灰度分辨率
+空间分辨率：空间分辨率是图像在单位面积内像素的个数，表示了图像的空间细节分辨能力
+灰度分辨率：灰度分辨率指的是在纯黑和纯白之间灰度级别的多少，指的是图像对灰度变化细节的分辨能力">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -300,10 +312,38 @@
       
           
         <blockquote>
-<p>Books：<a href="http://durant35.github.io/pdf/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86(%E4%B8%AD%E8%AF%91%E7%AC%AC%E4%B8%89%E7%89%88\">数字图像处理（冈萨雷斯）</a>[%E5%86%88%E8%90%A8%E9%9B%B7%E6%96%AF].pdf)<br>Codes：<a href="https://github.com/Durant35/Courses/tree/master/dip">https://github.com/Durant35/Courses/tree/master/dip</a></p>
+<p>Books：<a href="http://durant35.github.io/pdf/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86(%E5%86%88%E8%90%A8%E9%9B%B7%E6%96%AF)%E4%B8%AD%E8%AF%91%E7%AC%AC%E4%B8%89%E7%89%88.pdf" alt="数字图像处理（冈萨雷斯）">数字图像处理（冈萨雷斯）</a><br>Codes：<a href="https://github.com/Durant35/Courses/tree/master/dip">https://github.com/Durant35/Courses/tree/master/dip</a></p>
 </blockquote>
-<h3 id="第2章-数字图像基础"><a href="#第2章-数字图像基础" class="headerlink" title="第2章 数字图像基础"></a>第2章 数字图像基础</h3><p>　　左边是Tab</p>
-<a id="more"></a>
+<h3 id="第2章-数字图像基础"><a href="#第2章-数字图像基础" class="headerlink" title="第2章 数字图像基础"></a>第2章 数字图像基础</h3><ul>
+<li>取样和量化</li>
+<li>空间和灰度分辨率<ul>
+<li>空间分辨率：空间分辨率是图像在单位面积内像素的个数，表示了图像的空间细节分辨能力</li>
+<li>灰度分辨率：灰度分辨率指的是在纯黑和纯白之间灰度级别的多少，指的是图像对灰度变化细节的分辨能力<a id="more"></a></li>
+</ul>
+</li>
+<li>图像内插</li>
+<li>像素间的一些基本关系<ul>
+<li>N<sup>4</sup>(p)；N<sub>8</sub>(p) = N<sub>4</sub>(p) + N<sub>D</sub>(p)（对角像素） 4领域/8领域</li>
+<li>距离度量 D<sub>e</sub>(p, q)<ul>
+<li>城市街区距离：p(x, y)；q(s, t)；D<sub>4</sub>(p, q) = |x-s| + |y-t|</li>
+<li>棋盘距离：</li>
+</ul>
+</li>
+<li>邻接性：（1）灰度值的邻接性（值域V）（2）物理位置的邻接性（领域）<ul>
+<li>4 邻接；8邻接：二义性（像素到另一个像素有多条路径）</li>
+<li>m 邻接：p是q的m邻接，首先p，q具有V中的数值；<br>  -（i）p在N<sub>4</sub>(q)中或<br>  -（ii）p在N<sub>D</sub>(q)且N<sub>4</sub>(p)∩N<sub>4</sub>(q)中没有V值（为空或不为空但没有V值）</li>
+</ul>
+</li>
+<li>Path：从像素到像素的一个像素序列<ul>
+<li>4-path</li>
+<li>8-path</li>
+<li>闭合通路 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="第6章-彩色图像处理"><a href="#第6章-彩色图像处理" class="headerlink" title="第6章 彩色图像处理"></a>第6章 彩色图像处理</h3><h3 id="第3章-灰度变换与空间滤波"><a href="#第3章-灰度变换与空间滤波" class="headerlink" title="第3章 灰度变换与空间滤波"></a>第3章 灰度变换与空间滤波</h3><h3 id="第4章-频率域滤波"><a href="#第4章-频率域滤波" class="headerlink" title="第4章 频率域滤波"></a>第4章 频率域滤波</h3><h3 id="第5章-图像复原与重建"><a href="#第5章-图像复原与重建" class="headerlink" title="第5章 图像复原与重建"></a>第5章 图像复原与重建</h3>
       
     </div>
     
@@ -319,7 +359,7 @@
         <p><span>文章作者:</span>Gary</p>
 
         <p><span>发布时间:</span>2017-02-04, 17:53:31</p>
-        <p><span>最后更新:</span>2017-02-04, 18:31:31</p>
+        <p><span>最后更新:</span>2017-02-04, 21:23:32</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/" title="Digital Image Process">http://durant35.github.io/2017/02/04/cv_Digital-Image-Process(pg_2016)/</a>
             <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/02/04/cv_Digital-Image-Process(pg_2016)/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -352,7 +392,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#第2章-数字图像基础"><span class="toc-number">1.</span> <span class="toc-text">第2章 数字图像基础</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#第2章-数字图像基础"><span class="toc-number">1.</span> <span class="toc-text">第2章 数字图像基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第6章-彩色图像处理"><span class="toc-number">2.</span> <span class="toc-text">第6章 彩色图像处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第3章-灰度变换与空间滤波"><span class="toc-number">3.</span> <span class="toc-text">第3章 灰度变换与空间滤波</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第4章-频率域滤波"><span class="toc-number">4.</span> <span class="toc-text">第4章 频率域滤波</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第5章-图像复原与重建"><span class="toc-number">5.</span> <span class="toc-text">第5章 图像复原与重建</span></a></li></ol>
         
     </div>
     <style>

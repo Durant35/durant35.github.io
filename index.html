@@ -294,9 +294,13 @@
       
           
               <blockquote>
-<p>Books：<a href="http://durant35.github.io/pdf/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86(%E4%B8%AD%E8%AF%91%E7%AC%AC%E4%B8%89%E7%89%88\">数字图像处理（冈萨雷斯）</a>[%E5%86%88%E8%90%A8%E9%9B%B7%E6%96%AF].pdf)<br>Codes：<a href="https://github.com/Durant35/Courses/tree/master/dip">https://github.com/Durant35/Courses/tree/master/dip</a></p>
+<p>Books：<a href="http://durant35.github.io/pdf/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86(%E5%86%88%E8%90%A8%E9%9B%B7%E6%96%AF)%E4%B8%AD%E8%AF%91%E7%AC%AC%E4%B8%89%E7%89%88.pdf" alt="数字图像处理（冈萨雷斯）">数字图像处理（冈萨雷斯）</a><br>Codes：<a href="https://github.com/Durant35/Courses/tree/master/dip">https://github.com/Durant35/Courses/tree/master/dip</a></p>
 </blockquote>
-<h3 id="第2章-数字图像基础"><a href="#第2章-数字图像基础" class="headerlink" title="第2章 数字图像基础"></a>第2章 数字图像基础</h3><p>　　左边是Tab</p>
+<h3 id="第2章-数字图像基础"><a href="#第2章-数字图像基础" class="headerlink" title="第2章 数字图像基础"></a>第2章 数字图像基础</h3><ul>
+<li>取样和量化</li>
+<li>空间和灰度分辨率<ul>
+<li>空间分辨率：空间分辨率是图像在单位面积内像素的个数，表示了图像的空间细节分辨能力</li>
+<li>灰度分辨率：灰度分辨率指的是在纯黑和纯白之间灰度级别的多少，指的是图像对灰度变化细节的分辨能力
           
       
     </div>
@@ -317,6 +321,88 @@
       
         <p class="article-more-link">
           <a href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-programPearls_Coding中的编码问题之系统学习" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/" class="article-date">
+      <time datetime="2016-02-22T04:11:03.000Z" itemprop="datePublished">2016-02-22</time>
+</a>
+
+ 
+    <a href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/02/22/programPearls_Coding中的编码问题之系统学习/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a><br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/25/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%9B%9E%E9%A1%BE&amp;%E6%B7%B1%E5%85%A5/#more">《Coding中的编码问题之回顾&amp;深入》</a></font>
+
+<p>　　大家在看完<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a>后，估计对字符编码应该有一个总览性的理解了。本文借 <strong>开源中国</strong> 上<a href="http://my.oschina.net/goldenshaw/blog?disp=2&amp;p=1&amp;catalog=536953">《字符集编码系列》</a>系列博文为大家详细介绍字符编码的诸多细节，相信看完本文后，一定能一一解决你到目前积累的绝大多数疑问，让我们带着疑问现在就开始吧！<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/编码/">编码</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编码/">编码</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -963,87 +1049,6 @@
       
         <p class="article-more-link">
           <a href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo_hexo分级目录与多标签" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/16/hexo_hexo分级目录与多标签/" class="article-date">
-      <time datetime="2016-07-16T08:11:05.000Z" itemprop="datePublished">2016-07-16</time>
-</a>
-
- 
-    <a href="/2016/07/16/hexo_hexo分级目录与多标签/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-            <span class="ds-thread-count"  data-thread-key="2016/07/16/hexo_hexo分级目录与多标签/" ></span>
-        
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　无论是多标签还是分级目录，其最终目的都是为了更好的归档我们的文章，方便在查找时能够快速准确的翻开我们之前保存的博文。</p>
-<h2 id="多标签"><a href="#多标签" class="headerlink" title="多标签"></a><font color="#F40D64">多标签</font></h2><p>　　多标签，就是想把一篇文章同时归档到多个标签里面，这样，通过任一个标签都能索引到我们的博文。而，用作标签的，显然是我们之前抒写的博文内容的 <strong>Keywords</strong>。<br>　　可以通过以下方式实现 <strong>hexo</strong> 的多标签：<br><figure class="highlight md"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">tags: #文章标签可，空，多标签请用格式[tag1,tag2,tag3]，如下，注意!!"tags:"后面有个空格</div><div class="line">tags: [tag1, tag2, tag3, ...]</div><div class="line"><span class="section"># 下面这种方式似乎仅限于hexo 3.0，应该包括以上吧...</span></div><div class="line">tags: </div><div class="line"><span class="bullet">- </span>tags1</div><div class="line"><span class="bullet">- </span>tags2</div><div class="line"><span class="bullet">- </span>...</div></pre></td></tr></table></figure></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/07/16/hexo_hexo分级目录与多标签/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
