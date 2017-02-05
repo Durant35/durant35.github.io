@@ -2,7 +2,7 @@
 <html lang="zh-Hans">
 <head>
 
-    <!--[if lt IE 9]>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lt IE 9]>
         <style>body {display: none; background: none !important} </style>
         <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
     <![endif]-->
@@ -33,7 +33,7 @@
 空间和灰度分辨率
 空间分辨率：空间分辨率是图像在单位面积内像素的个数，表示了图像的空间细节分辨能力
 灰度分辨率：灰度分辨率指的是在纯黑和纯白之间灰度级别的多少，指的是图像对灰度变化细节的分辨能力">
-<meta property="og:updated_time" content="2017-02-04T13:23:32.356Z">
+<meta property="og:updated_time" content="2017-02-05T06:52:58.213Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Digital Image Process">
 <meta name="twitter:description" content="Books：数字图像处理（冈萨雷斯）Codes：https://github.com/Durant35/Courses/tree/master/dip
@@ -99,7 +99,7 @@
 
 
 
-    <script> yiliaConfig.rootUrl = "\/";</script>
+    <script> yiliaConfig.rootUrl = "\/";</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -108,7 +108,7 @@
 
 </head>
 <body>
-  <div id="container">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
     <div class="left-col">
     <div class="overlay"></div>
 <div class="intrude-less">
@@ -323,7 +323,7 @@
 </li>
 <li>图像内插</li>
 <li>像素间的一些基本关系<ul>
-<li>N<sup>4</sup>(p)；N<sub>8</sub>(p) = N<sub>4</sub>(p) + N<sub>D</sub>(p)（对角像素） 4领域/8领域</li>
+<li>$N_4$(p)；N<sub>8</sub>(p) = N<sub>4</sub>(p) + N<sub>D</sub>(p)（对角像素） 4领域/8领域</li>
 <li>距离度量 D<sub>e</sub>(p, q)<ul>
 <li>城市街区距离：p(x, y)；q(s, t)；D<sub>4</sub>(p, q) = |x-s| + |y-t|</li>
 <li>棋盘距离：</li>
@@ -359,7 +359,7 @@
         <p><span>文章作者:</span>Gary</p>
 
         <p><span>发布时间:</span>2017-02-04, 17:53:31</p>
-        <p><span>最后更新:</span>2017-02-04, 21:23:32</p>
+        <p><span>最后更新:</span>2017-02-05, 14:52:58</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/" title="Digital Image Process">http://durant35.github.io/2017/02/04/cv_Digital-Image-Process(pg_2016)/</a>
             <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/02/04/cv_Digital-Image-Process(pg_2016)/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -580,6 +580,23 @@
 
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
-  </div>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 </html>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-02-04T13:23:32.356Z</updated>
+  <updated>2017-02-05T06:52:58.213Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://durant35.github.io/2017/02/04/cv_Digital-Image-Process(pg_2016)/"/>
     <id>http://durant35.github.io/2017/02/04/cv_Digital-Image-Process(pg_2016)/</id>
     <published>2017-02-04T09:53:31.000Z</published>
-    <updated>2017-02-04T13:23:32.356Z</updated>
+    <updated>2017-02-05T06:52:58.213Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>Books：<a href="http://durant35.github.io/pdf/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86(%E5%86%88%E8%90%A8%E9%9B%B7%E6%96%AF)%E4%B8%AD%E8%AF%91%E7%AC%AC%E4%B8%89%E7%89%88.pdf" alt="数字图像处理（冈萨雷斯）">数字图像处理（冈萨雷斯）</a><br>Codes：<a href="https://github.com/Durant35/Courses/tree/master/dip">https://github.com/Durant35/Courses/tree/master/dip</a></p>
@@ -34,7 +34,7 @@
 </li>
 <li>图像内插</li>
 <li>像素间的一些基本关系<ul>
-<li>N<sup>4</sup>(p)；N<sub>8</sub>(p) = N<sub>4</sub>(p) + N<sub>D</sub>(p)（对角像素） 4领域/8领域</li>
+<li>$N_4$(p)；N<sub>8</sub>(p) = N<sub>4</sub>(p) + N<sub>D</sub>(p)（对角像素） 4领域/8领域</li>
 <li>距离度量 D<sub>e</sub>(p, q)<ul>
 <li>城市街区距离：p(x, y)；q(s, t)；D<sub>4</sub>(p, q) = |x-s| + |y-t|</li>
 <li>棋盘距离：</li>
