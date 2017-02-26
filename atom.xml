@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-02-19T17:19:32.732Z</updated>
+  <updated>2017-02-26T06:56:45.425Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -16,11 +16,71 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>算法设计与分析[0001] Divide and Conquer </title>
+    <link href="http://durant35.github.io/2017/02/26/Algorithms_Week01%20Divide%20and%20Conquer/"/>
+    <id>http://durant35.github.io/2017/02/26/Algorithms_Week01 Divide and Conquer/</id>
+    <published>2017-02-26T06:00:22.000Z</published>
+    <updated>2017-02-26T06:56:45.425Z</updated>
+    
+    <content type="html"><![CDATA[<p>　本周的 part 是 <strong>Divide and Conquer（分而治之）</strong>。<br><a id="more"></a></p>
+<h4 id="169-Majority-Element"><a href="#169-Majority-Element" class="headerlink" title="169. Majority Element "></a><a href="https://leetcode.com/problems/majority-element/?tab=Description">169. Majority Element </a></h4><ul>
+<li>Level: Easy</li>
+<li>Description<blockquote>
+<p>　Given an array of size n, find the <strong>majority element</strong>. The <strong>majority element</strong> is the element that appears more than $⌊ n/2 ⌋$ times.<br>　You may assume that the array is non-empty and the majority element always exist in the array.</p>
+</blockquote>
+</li>
+<li>解题思路<ul>
+<li><strong>Majority Element</strong>: A majority element in an array A[] of size n is an element that appears more than n/2 times（显然，只有唯一一个）</li>
+<li>可以通过构造 size 为 n 的向量表计数每个数字出现的次数（$O(n)$ 线性时间复杂度），在计数过程中，一旦发现 $count &gt; n/2$ 即可返回，该数字即为要找的 <strong>Majority Element</strong></li>
+<li>细想发现，使用数组构建的向量表，通过下标直接访问的方式，必须满足一个前提条件：n 个元素必须 $\in [0, n)$，所以感觉需要维护两个 size 为 n 的数组，一个保存出现的数字 $elements[0…n)$，另一个是对应的计数 $count[0…n)$，但是这样问题就出现了：在一遍遍历计数每个数字出现的次数过程中，为了找到对应的 $count[0…n)$ 下标，需要对  $elements[0…n)$ 进行查找</li>
+<li>考虑了以上的情况，决定使用 C++ 中的 <strong>map</strong> 字典来实现上述的想法，避免手动维护这样一个字典功能带来的低效率和繁琐工作量（毕竟是 Easy）</li>
+</ul>
+</li>
+<li>Solution &amp; Analysis<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(<span class="number">1</span> == nums.size()) &#123;</div><div class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>];</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; table;</div><div class="line">        <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;::iterator table_iter = table.end();</div><div class="line"> </div><div class="line">        <span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator iter=nums.begin(); iter!=nums.end(); iter++)&#123;</div><div class="line">            <span class="keyword">if</span>(table.end() == table.find(*iter))&#123;</div><div class="line">                table.insert(pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;(*iter, <span class="number">1</span>));</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                table[*iter]++;</div><div class="line">                <span class="keyword">if</span>(table[*iter] &gt; nums.size()/<span class="number">2</span>)&#123;</div><div class="line">                    <span class="keyword">return</span> (*iter);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line"> </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>　<font color="green">Accepted</font>，不过耗时：<strong>38ms</strong>，应该有更高效的方式。</p>
+<ul>
+<li>补充<ul>
+<li>有一种算法：<a href="http://www.cs.utexas.edu/~moore/best-ideas/mjrty/">A Linear Time Majority Vote Algorithm</a> ，其思路如下<blockquote>
+<ol>
+<li>Initialize index and count of majority element:  majorityElement = 0, count = 0</li>
+<li>Loop for n = 0 to size – 1<br>　(c)If count == 0<br>　　majorityElement = a[n]<br>　　count = 1<br>　(b)If majorityElement == a[n]<br>　　count++<br>　(b)Else<br>　　count–;</li>
+<li>Return majorityElement</li>
+</ol>
+</blockquote>
+</li>
+<li>代码实现如下，其时间复杂度只有：13 ms，大大降低了<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> count = <span class="number">0</span>, n, majorityElement;</div><div class="line">    <span class="keyword">for</span> (n = <span class="number">0</span>; n &lt; numsSize; n++) &#123;</div><div class="line">  <span class="keyword">if</span> (count == <span class="number">0</span>)&#123;</div><div class="line">      majorityElement = nums[n];</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">if</span> (nums[n] == majorityElement) &#123;</div><div class="line">      count++;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">else</span> &#123;</div><div class="line">      count--;</div><div class="line">  &#125;</div><div class="line">    &#125;</div><div class="line">    count = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (n = <span class="number">0</span>; n &lt; numsSize; n++)&#123;</div><div class="line">  <span class="keyword">if</span> (nums[n] == majorityElement) &#123;</div><div class="line">      count++;</div><div class="line">  &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (count &gt; numsSize/<span class="number">2</span>)&#123;</div><div class="line">  <span class="keyword">return</span> majorityElement;</div><div class="line">    &#125;</div><div class="line">     </div><div class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>+ </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;　本周的 part 是 &lt;strong&gt;Divide and Conquer（分而治之）&lt;/strong&gt;。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
+    
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
+    
+      <category term="leetcode" scheme="http://durant35.github.io/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Digital Image Process</title>
     <link href="http://durant35.github.io/2017/02/04/cv_Digital-Image-Process(pg_2016)/"/>
     <id>http://durant35.github.io/2017/02/04/cv_Digital-Image-Process(pg_2016)/</id>
     <published>2017-02-04T09:53:31.000Z</published>
-    <updated>2017-02-19T17:19:32.732Z</updated>
+    <updated>2017-02-20T06:06:07.637Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>Books：<a href="http://durant35.github.io/pdf/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86(%E5%86%88%E8%90%A8%E9%9B%B7%E6%96%AF)%E4%B8%AD%E8%AF%91%E7%AC%AC%E4%B8%89%E7%89%88.pdf" alt="数字图像处理（冈萨雷斯）">数字图像处理（冈萨雷斯）</a><br>Codes：<a href="https://github.com/Durant35/Courses/tree/master/dip">https://github.com/Durant35/Courses/tree/master/dip</a></p>
@@ -1834,30 +1894,6 @@
       <category term="文件操作" scheme="http://durant35.github.io/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"/>
     
       <category term="ini" scheme="http://durant35.github.io/tags/ini/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Win/Linux下基本文件操作</title>
-    <link href="http://durant35.github.io/2016/09/08/programPearls_Win&amp;Linux%E4%B8%8B%E5%9F%BA%E6%9C%AC%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"/>
-    <id>http://durant35.github.io/2016/09/08/programPearls_Win&amp;Linux下基本文件操作/</id>
-    <published>2016-09-08T03:58:53.000Z</published>
-    <updated>2016-09-08T04:05:30.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>　　待续…</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;　　待续…&lt;/p&gt;
-
-    
-    </summary>
-    
-      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
-    
-    
-      <category term="文件操作" scheme="http://durant35.github.io/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"/>
     
   </entry>
   
