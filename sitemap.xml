@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/2016/10/02/ROS_ROS_Basics/</loc>
+    
+    <lastmod>2017-03-06T02:05:46.883Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2017/02/26/Algorithms_Week01%20Divide%20and%20Conquer/</loc>
     
     <lastmod>2017-02-26T06:56:45.425Z</lastmod>
@@ -376,13 +383,6 @@
     <loc>http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/</loc>
     
     <lastmod>2016-10-09T07:29:58.695Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2016/10/02/ROS_ROS_Basics/</loc>
-    
-    <lastmod>2016-10-08T12:04:54.265Z</lastmod>
     
   </url>
   

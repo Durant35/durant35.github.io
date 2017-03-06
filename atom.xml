@@ -1557,7 +1557,7 @@
     <link href="http://durant35.github.io/2016/10/02/ROS_ROS_Basics/"/>
     <id>http://durant35.github.io/2016/10/02/ROS_ROS_Basics/</id>
     <published>2016-10-02T13:18:03.000Z</published>
-    <updated>2016-10-08T12:04:54.265Z</updated>
+    <updated>2017-03-06T02:05:46.883Z</updated>
     
     <content type="html"><![CDATA[<p>　　ROS 基本概念以及经常使用的命令。</p>
 <h3 id="ROS-文件系统"><a href="#ROS-文件系统" class="headerlink" title="ROS 文件系统"></a>ROS 文件系统</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 获取软件包有关信息</span></div><div class="line">xxx@...$ rospack find [package-name]</div><div class="line"><span class="comment"># 查看环境变量(ROS_PACKAGE_PATH)</span></div><div class="line">xxx@...$ <span class="built_in">export</span> | grep ROS</div></pre></td></tr></table></figure>
@@ -1611,7 +1611,7 @@
 <blockquote>
 <p>Hector SLAM is running and the real-time map is constructing under map server</p>
 </blockquote>
-<p>　　建图完成后从 <strong>map server</strong> 获取地图数据，进行保存<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxx@...$ rosrun map_server map_server <span class="_">-f</span> &lt;file-name&gt;</div></pre></td></tr></table></figure></p>
+<p>　　建图完成后从 <strong>map server</strong> 获取地图数据，进行保存<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxx@...$ rosrun map_server map_saver <span class="_">-f</span> &lt;file-name&gt;</div></pre></td></tr></table></figure></p>
 <blockquote>
 <p>会在当前目录生成地图数据 <strong><file-name>.pgm</strong> 和 <strong><file-name>.yaml</strong><br>    <center><img src="/img/ROS/lab510.png" width="502px"/></center></p>
 </blockquote>
