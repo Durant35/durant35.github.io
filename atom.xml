@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-02-26T06:56:45.425Z</updated>
+  <updated>2017-03-11T03:03:07.409Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -16,9 +16,95 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>算法设计与分析[0003] 一道阿里巴巴面试题（2017） </title>
+    <link href="http://durant35.github.io/2017/03/10/Algorithms_An%20Alibaba%20Interview%20Question/"/>
+    <id>http://durant35.github.io/2017/03/10/Algorithms_An Alibaba Interview Question/</id>
+    <published>2017-03-10T06:00:22.000Z</published>
+    <updated>2017-03-11T03:03:07.409Z</updated>
+    
+    <content type="html"><![CDATA[<p>　本周的 part 是 <strong>Divide and Conquer（分而治之）</strong>。<br><a id="more"></a></p>
+<h4 id="169-Majority-Element"><a href="#169-Majority-Element" class="headerlink" title="169. Majority Element "></a><a href="https://leetcode.com/problems/majority-element/?tab=Description">169. Majority Element </a></h4>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;　本周的 part 是 &lt;strong&gt;Divide and Conquer（分而治之）&lt;/strong&gt;。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
+    
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</title>
+    <link href="http://durant35.github.io/2017/03/04/Algorithms_FFT/"/>
+    <id>http://durant35.github.io/2017/03/04/Algorithms_FFT/</id>
+    <published>2017-03-04T06:00:22.000Z</published>
+    <updated>2017-03-12T09:45:24.552Z</updated>
+    
+    <content type="html"><![CDATA[<p>　本文介绍 <strong>Divide and Conquer（分而治之）</strong> 的一种典型算法，<strong>FFT</strong>（快速傅里叶变换）。</p>
+<h3 id="DFT"><a href="#DFT" class="headerlink" title="DFT"></a>DFT</h3><p>DFT：$X[k] = \sum_{n=0}^{N-1} x[n] e^{-j \frac{2 \pi k}{N} n}, k = 0, 1, 2, …, N-1$</p>
+<ul>
+<li>for each k: <strong>N</strong> complex mults, <strong>N-1</strong> complex adds</li>
+<li>$e^{-j \frac{2 \pi k}{N} n}$ 预计算并保存在计算机中</li>
+<li>$O(N^2)$ computations for direct <strong>DFT</strong> $\Longrightarrow$ $O(N log_2 N)$ for <strong>FFT</strong><a id="more"></a>
+<h3 id="FFT-算法原理"><a href="#FFT-算法原理" class="headerlink" title="FFT 算法原理"></a>FFT 算法原理</h3>　做出如下定义：$W_N = e^{-j \frac{2 \pi}{N}}$，则：$W_N^{kn} = e^{-j \frac{2 \pi k}{N} n}$，具有如下性质：</li>
+</ul>
+<ol>
+<li>$W_N^{kN} = e^{-j 2 \pi k } = 1$</li>
+<li>复共轭对称：$W_N^{k(N-n)} = W_N^{-kn)} = (W_N^{kn})^{*}$</li>
+<li>周期性：$W_N^{kn} = W_N^{k(N+n))} = W_N^{(k+N)n}$</li>
+</ol>
+<p>　假设 $N = 2^m$，separate $x[n]$ into even and odd-indexed subsequences<br>　$ X[k] = \sum_{n=0}^{N-1} x[n] W_N^{kn} =  \sum_{n \in even} x[n] W_N^{kr} + \sum_{n \in odd} x[n] W_N^{kr} $<br>　$ X[k] = \sum_{r=0}^{\frac{N}{2}-1} x[2r] W_N^{k 2r} +  \sum_{r=0}^{\frac{N}{2}-1} x[2r+1] W_N^{k(2r+1)} $<br>　　　$ = \sum_{r=0}^{\frac{N}{2}-1} x[2r] (W_N^2)^{kr} +  W_N^k \sum_{r=0}^{\frac{N}{2}-1} x[2r+1] (W_N^2)^{kr} $<br>　But：$W_N^2 = e^{-j \frac{2 \pi}{N} 2} = e^{-j \frac{2 \pi}{\frac{N}{2}}} = W_{\frac{N}{2}}$<br>　$ X[k] = \sum_{r=0}^{\frac{N}{2}-1} x[2r] W_{\frac{N}{2}}^{kr} +  W_N^k \sum_{r=0}^{\frac{N}{2}-1} x[2r+1] W_{\frac{N}{2}}^{kr} $<br>　　　$ = X_e[k]  + W_N^k X_o[k]$<br>　其中，$X_e[k]$：N/2 DFT of even samples，$X_o[k]$：N/2 DFT of odd samples，$X[k] \Rightarrow$ sum of 2 N/2 point DFTs<br>　<br>　举$N=8$作为一个例子，根据上述的思路进行一次二分，如下图：</p>
+<center><img src="/img/Algorithms/0002_FFT complexity 1.png" width="720px"/></center><br>　左边按照普通的 <strong>DFT</strong> 计算（$O(n^2)$的时间复杂度）得到$x_e[0…3]$和$x_o[0…3]$，需要$(\frac{N}{2})^2·2$ 次乘法；$W_8^{0…7}$ 的预计算需要 $N$ 次乘法；最后的 $X[0…7]$ 的计算每一项都需要一次乘法，总共需要 $N$ 次乘法。故通过一次二分得出的计算复杂度估计为 $\frac{N^2}{2} + N$<br><center><img src="/img/Algorithms/0002_FFT complexity 2.png" width="720px"/></center><br>　按照这种思路，继续二分下去（如下图），得到 <strong>FFT</strong> 算法的最终时间复杂度：$O(N log_2 N)$<br><center><img src="/img/Algorithms/0002_FFT diagram(N=8).png" width="800px"/></center>
+
+<h3 id="FFT算法实现"><a href="#FFT算法实现" class="headerlink" title="FFT算法实现"></a>FFT算法实现</h3><ul>
+<li>源代码<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// FFT.cpp</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span> </span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> M_PI  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> M_PI 3.14159265358979323846  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> SIZE 1024*16</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> VALUE_MAX 1000</span></div><div class="line"> </div><div class="line"><span class="comment">// define a complex structure</span></div><div class="line"><span class="keyword">struct</span> Complex_&#123;  </div><div class="line">    <span class="keyword">double</span> real;  </div><div class="line">    <span class="keyword">double</span> imagin;  </div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Complex_ Complex;</div><div class="line"><span class="comment">// define complex computation: add/subtract/multiply</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Complex_Add</span><span class="params">(Complex* src1, Complex* src2, Complex* dst)</span></span>&#123;  </div><div class="line">    dst-&gt;real = src1-&gt;real + src2-&gt;real;  </div><div class="line">    dst-&gt;imagin = src1-&gt;imagin + src2-&gt;imagin;  </div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Complex_Sub</span><span class="params">(Complex* src1, Complex* src2, Complex* dst)</span></span>&#123;  </div><div class="line">    dst-&gt;real = src1-&gt;real - src2-&gt;real;  </div><div class="line">    dst-&gt;imagin = src1-&gt;imagin - src2-&gt;imagin;  </div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Complex_Multiply</span><span class="params">(Complex* src1, Complex* src2, Complex* dst)</span></span>&#123;</div><div class="line">  <span class="keyword">double</span> r1 = <span class="number">0.0</span>, r2 = <span class="number">0.0</span>;  </div><div class="line">    <span class="keyword">double</span> i1 = <span class="number">0.0</span>, i2 = <span class="number">0.0</span>;</div><div class="line">    r1 = src1-&gt;real;  </div><div class="line">    i1 = src1-&gt;imagin;  </div><div class="line">    r2 = src2-&gt;real;  </div><div class="line">    i2 = src2-&gt;imagin;</div><div class="line">    dst-&gt;real = r1*r2 - i1*i2;</div><div class="line">    dst-&gt;imagin = i1*r2 + r1*i2;  </div><div class="line">&#125;</div><div class="line">  </div><div class="line"><span class="comment">// get W_N^k  </span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">getWN</span><span class="params">(<span class="keyword">double</span> k, <span class="keyword">double</span> N, Complex* dst)</span></span>&#123;  </div><div class="line">    <span class="keyword">double</span> x = <span class="number">2.0</span>*M_PI*k/N;  </div><div class="line">    dst-&gt;real = <span class="built_in">cos</span>(x);</div><div class="line">    dst-&gt;imagin = -<span class="built_in">sin</span>(x);  </div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// input generator</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">input_generator</span><span class="params">(<span class="keyword">double</span>* data, <span class="keyword">int</span>  n)</span></span>&#123;  </div><div class="line">    srand((<span class="keyword">int</span>)time(<span class="number">0</span>));  </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;SIZE; i++)&#123;  </div><div class="line">        data[i] = rand()%VALUE_MAX;  </div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%lf\n"</span>,data[i]);  </div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">/*</div><div class="line"> * normal DFT algorithm, with O(n^2) complexity</div><div class="line"> */</span> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFT</span><span class="params">(<span class="keyword">double</span>* src, Complex* dst, <span class="keyword">int</span> size)</span> </span>&#123; </div><div class="line">    <span class="keyword">clock_t</span> start, end; </div><div class="line">    start = clock(); </div><div class="line">    <span class="comment">// 2 cycle, each with step of 1, size n, so O(n*n)</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> m=<span class="number">0</span>; m&lt;size; m++)&#123; </div><div class="line">        <span class="keyword">double</span> real = <span class="number">0.0</span>;  </div><div class="line">        <span class="keyword">double</span> imagin = <span class="number">0.0</span>;  </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>; n&lt;size; n++)&#123;  </div><div class="line">            <span class="keyword">double</span> x = M_PI*<span class="number">2</span>*m*n;  </div><div class="line">            real += src[n]*<span class="built_in">cos</span>(x/size);  </div><div class="line">            imagin += src[n]*(-<span class="built_in">sin</span>(x/size));  </div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        dst[m].imagin = imagin;  </div><div class="line">        dst[m].real = real;  </div><div class="line">        <span class="keyword">if</span>(imagin &gt;= <span class="number">0.0</span>)</div><div class="line">        	<span class="built_in">printf</span>(<span class="string">"%lf+%lfj\n"</span>, real, imagin); </div><div class="line">        <span class="keyword">else</span> </div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%lf%lfj\n"</span>, real, imagin);</div><div class="line">    &#125; </div><div class="line">    end = clock(); </div><div class="line">    <span class="built_in">printf</span>(<span class="string">"DFT use time :%lf for Datasize of:%d\n"</span>,(<span class="keyword">double</span>)(end-start)/CLOCKS_PER_SEC, size); </div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">IDFT</span><span class="params">(Complex* src, Complex* dst, <span class="keyword">int</span> size)</span> </span>&#123; </div><div class="line">    <span class="keyword">clock_t</span> start, end; </div><div class="line">    start = clock(); </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> m=<span class="number">0</span>; m&lt;size; m++) &#123; </div><div class="line">        <span class="keyword">double</span> real = <span class="number">0.0</span>;  </div><div class="line">        <span class="keyword">double</span> imagin = <span class="number">0.0</span>;  </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>; n&lt;size; n++) &#123;  </div><div class="line">            <span class="keyword">double</span> x = M_PI*<span class="number">2</span>*m*n/size;  </div><div class="line">            real += src[n].real*<span class="built_in">cos</span>(x)-src[n].imagin*<span class="built_in">sin</span>(x);  </div><div class="line">            imagin += src[n].real*<span class="built_in">sin</span>(x)+src[n].imagin*<span class="built_in">cos</span>(x);  </div><div class="line">               </div><div class="line">        &#125;  </div><div class="line">        real /= SIZE;  </div><div class="line">        imagin /= SIZE;</div><div class="line"> </div><div class="line">        <span class="keyword">if</span>(dst != <span class="literal">NULL</span>)&#123;  </div><div class="line">            dst[m].real = real;  </div><div class="line">            dst[m].imagin = imagin;  </div><div class="line">        &#125;  </div><div class="line">        <span class="keyword">if</span>(imagin &gt;= <span class="number">0.0</span>)  </div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%lf+%lfj\n"</span>, real, imagin);  </div><div class="line">        <span class="keyword">else</span>  </div><div class="line">            <span class="built_in">printf</span>(<span class="string">"%lf%lfj\n"</span>, real, imagin);  </div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    end=clock();  </div><div class="line">    <span class="built_in">printf</span>(<span class="string">"IDFT use time :%lfs for Datasize of:%d\n"</span>, (<span class="keyword">double</span>)(end-start)/CLOCKS_PER_SEC,size); </div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// define FFT initialization data, remapping</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">FFT_remap</span><span class="params">(<span class="keyword">double</span>* src, <span class="keyword">int</span> N)</span> </span>&#123; </div><div class="line">    <span class="keyword">if</span>(N == <span class="number">1</span>) </div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>; </div><div class="line"> </div><div class="line">    <span class="keyword">double</span>* temp = (<span class="keyword">double</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">double</span>)*N); </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) </div><div class="line">        <span class="keyword">if</span>(i%<span class="number">2</span>==<span class="number">0</span>)  </div><div class="line">            temp[i/<span class="number">2</span>] = src[i];  </div><div class="line">        <span class="keyword">else</span>  </div><div class="line">            temp[(N+i)/<span class="number">2</span>] = src[i];</div><div class="line"> </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) </div><div class="line">        src[i] = temp[i];</div><div class="line"> </div><div class="line">    <span class="built_in">free</span>(temp);</div><div class="line"> </div><div class="line">    FFT_remap(src, N/<span class="number">2</span>); </div><div class="line">    FFT_remap(src+N/<span class="number">2</span>, N/<span class="number">2</span>);</div><div class="line"> </div><div class="line">    <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line">   </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">FFT</span><span class="params">(<span class="keyword">double</span>* src, Complex* dst, <span class="keyword">int</span> N)</span></span>&#123; </div><div class="line">    FFT_remap(src, N);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) </div><div class="line">    	<span class="built_in">printf</span>(<span class="string">"%lf\n"</span>, src[i]);</div><div class="line"> </div><div class="line">    <span class="keyword">clock_t</span> start, end; </div><div class="line">    start = clock(); </div><div class="line">    <span class="keyword">int</span> n = N;</div><div class="line">    <span class="keyword">int</span> k = <span class="number">0</span>;</div><div class="line"> </div><div class="line">    <span class="comment">// get number of stage</span></div><div class="line">    <span class="keyword">int</span> stage = <span class="number">0</span>; </div><div class="line">    <span class="keyword">while</span>(n /= <span class="number">2</span>) &#123; </div><div class="line">        stage++;  </div><div class="line">    &#125;</div><div class="line">    n = stage; </div><div class="line">    <span class="keyword">if</span>(N != (<span class="number">1</span>&lt;&lt;n)) </div><div class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</div><div class="line"> </div><div class="line">    Complex* src_complex = (Complex*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Complex)*N);</div><div class="line">    <span class="keyword">if</span>(src_complex == <span class="literal">NULL</span>)</div><div class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);  </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++)&#123; </div><div class="line">        src_complex[i].real = src[i];  </div><div class="line">        src_complex[i].imagin = <span class="number">0</span>;  </div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123; </div><div class="line">        k = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;N; j++) &#123; </div><div class="line">            <span class="keyword">if</span>((j/(<span class="number">1</span>&lt;&lt;i))%<span class="number">2</span> == <span class="number">1</span>) &#123;  </div><div class="line">                Complex WNk;  </div><div class="line">                getWN(k, N, &amp;WNk);</div><div class="line"> </div><div class="line">                Complex_Multiply(&amp;src_complex[j], &amp;WNk, &amp;src_complex[j]);  </div><div class="line">                k += <span class="number">1</span>&lt;&lt;(k-i<span class="number">-1</span>);</div><div class="line">                Complex temp;  </div><div class="line">                <span class="keyword">int</span> neighbour = j-(<span class="number">1</span>&lt;&lt;(i));  </div><div class="line">                temp.real = src_complex[neighbour].real;  </div><div class="line">                temp.imagin = src_complex[neighbour].imagin;  </div><div class="line">                Complex_Add(&amp;temp, &amp;src_complex[j], &amp;src_complex[neighbour]);  </div><div class="line">                Complex_Sub(&amp;temp, &amp;src_complex[j], &amp;src_complex[j]);  </div><div class="line">            &#125;  </div><div class="line">            <span class="keyword">else</span>  </div><div class="line">                k = <span class="number">0</span>;  </div><div class="line">        &#125;  </div><div class="line">       </div><div class="line">    &#125; </div><div class="line">     </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</div><div class="line">   		<span class="keyword">if</span>(src_complex[i].imagin &gt;= <span class="number">0.0</span>) &#123; </div><div class="line">      <span class="built_in">printf</span>(<span class="string">"%lf+%lfj\n"</span>, src_complex[i].real, src_complex[i].imagin); </div><div class="line">    &#125; </div><div class="line">    <span class="keyword">else</span> </div><div class="line">      <span class="built_in">printf</span>(<span class="string">"%lf%lfj\n"</span>, src_complex[i].real, src_complex[i].imagin);	</div><div class="line">    &#125; </div><div class="line"> </div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++)&#123;</div><div class="line">    dst[i].imagin = src_complex[i].imagin;  </div><div class="line">    dst[i].real = src_complex[i].real;  </div><div class="line">  &#125;</div><div class="line">    end = clock();</div><div class="line"> </div><div class="line">    <span class="built_in">printf</span>(<span class="string">"FFT use time :%lfs for Datasize of:%d\n"</span>,(<span class="keyword">double</span>)(end-start)/CLOCKS_PER_SEC, N); </div><div class="line">       </div><div class="line">&#125; </div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span> </span>&#123; </div><div class="line">    <span class="keyword">double</span> input[SIZE]; </div><div class="line">    Complex dst[SIZE]; </div><div class="line">    input_generator(input, SIZE); </div><div class="line">    <span class="built_in">printf</span>(<span class="string">"\n\n"</span>);</div><div class="line">    DFT(input, dst, SIZE);</div><div class="line"> </div><div class="line">    <span class="built_in">printf</span>(<span class="string">"\n\n"</span>); </div><div class="line">    FFT(input, dst, SIZE);</div><div class="line"> </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>　</p>
+<ul>
+<li>编译构建<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ gcc -o FFT FFT.cpp -lm</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>　</p>
+<ul>
+<li>测试结果<blockquote>
+<p>DFT use time :33.963164 for Datasize of:16384<br>FFT use time :0.090624s for Datasize of:16384</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;　本文介绍 &lt;strong&gt;Divide and Conquer（分而治之）&lt;/strong&gt; 的一种典型算法，&lt;strong&gt;FFT&lt;/strong&gt;（快速傅里叶变换）。&lt;/p&gt;
+&lt;h3 id=&quot;DFT&quot;&gt;&lt;a href=&quot;#DFT&quot; class=&quot;headerlink&quot; title=&quot;DFT&quot;&gt;&lt;/a&gt;DFT&lt;/h3&gt;&lt;p&gt;DFT：$X[k] = \sum_{n=0}^{N-1} x[n] e^{-j \frac{2 \pi k}{N} n}, k = 0, 1, 2, …, N-1$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;for each k: &lt;strong&gt;N&lt;/strong&gt; complex mults, &lt;strong&gt;N-1&lt;/strong&gt; complex adds&lt;/li&gt;
+&lt;li&gt;$e^{-j \frac{2 \pi k}{N} n}$ 预计算并保存在计算机中&lt;/li&gt;
+&lt;li&gt;$O(N^2)$ computations for direct &lt;strong&gt;DFT&lt;/strong&gt; $\Longrightarrow$ $O(N log_2 N)$ for &lt;strong&gt;FFT&lt;/strong&gt;
+    
+    </summary>
+    
+      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
+    
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
+    
+  </entry>
+  
+  <entry>
     <title>算法设计与分析[0001] Divide and Conquer </title>
-    <link href="http://durant35.github.io/2017/02/26/Algorithms_Week01%20Divide%20and%20Conquer/"/>
-    <id>http://durant35.github.io/2017/02/26/Algorithms_Week01 Divide and Conquer/</id>
+    <link href="http://durant35.github.io/2017/02/26/Algorithms_Divide%20and%20Conquer/"/>
+    <id>http://durant35.github.io/2017/02/26/Algorithms_Divide and Conquer/</id>
     <published>2017-02-26T06:00:22.000Z</published>
     <updated>2017-02-26T06:56:45.425Z</updated>
     
@@ -1821,79 +1907,6 @@
     
     
       <category term="Hexo" scheme="http://durant35.github.io/tags/Hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>dumpbin 指南</title>
-    <link href="http://durant35.github.io/2016/09/16/programPearls_dumpbin%E6%8C%87%E5%8D%97/"/>
-    <id>http://durant35.github.io/2016/09/16/programPearls_dumpbin指南/</id>
-    <published>2016-09-16T05:23:16.000Z</published>
-    <updated>2016-09-17T13:32:46.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>近几个月的 <strong>Windows</strong> 高空作业让我发现，<strong>dumpbin</strong> 这个小工具往往能解决一些关键问题。目前发现并且使用过的这个小家伙的功能有:</p>
-<ul>
-<li>查看 DLL 动态链接库导入导出信息，解决动态链接库导出和可执行程序引用对接问题、程序缺失库问题</li>
-<li>查看可执行程序的依赖库信息，解决各种程序运行时报错</li>
-<li>查看程序、库位数信息，找到库引用位数不匹配等尴尬问题</li>
-</ul>
-</blockquote>
-<p>　下面就来快速学习一下，怎么把这个小家伙用起来。<br><a id="more"></a></p>
-<h2 id="配置-path"><a href="#配置-path" class="headerlink" title="配置 path"></a>配置 path</h2><p>　首先，<strong>DUMPBIN.EXE</strong> 程序可以在 <strong><your-VS>/VC/bin/</strong> 目录下找到(32位系统)，该路径下的 amd64 则用于64位系统，参考<a href="">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64…</a>；对于 <strong>VC++6.0</strong> 则可以在安装目录的 <strong>/Bin/</strong> 目录下(中文版则是<strong>/VC98/Bin/</strong>) 找到。为了在 <strong>cmd命令行</strong> 里面方便使用，我们将其所在的全局路径加入到环境变量 <strong>Path</strong> 中，如下图。<br>    <center><img src="/img/RFID/01-01.png" width="1024px"/></center><br>　右键计算机，属性<strong>→</strong>高级系统配置<strong>→</strong>环境变量<strong>→</strong>双击系统变量中的 <strong>Path→</strong> 在变量值后面加上 <strong>DUMPBIN.EXE</strong> 程序所在全局路径。<strong>(<font color="red">注意：添加路径前需要有”；”隔开，因为变量值是通过”；”分隔的</font>)</strong>。</p>
-<h2 id="查看-DLL-EXE-导入导出信息"><a href="#查看-DLL-EXE-导入导出信息" class="headerlink" title="查看 DLL/EXE 导入导出信息"></a>查看 <strong>DLL/EXE</strong> 导入导出信息</h2><p>　接下来我们就可以使用这个工具查看一个 <strong>DLL</strong> 提供的导出函数，(如下左图)。<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">dumpbin.exe -exports xxx.dll</div><div class="line">dumpbin.exe -exports xxx.exe</div></pre></td></tr></table></figure></p>
-<p>　其中要注意的 <strong>“ordinal列”</strong> 列出的信息是导出函数的序号；<strong>“RVA列”</strong> 是一些地址值，也就是导出函数在 <strong>DLL</strong> 模块中的位置，通过该地址值可以在 <strong>DLL</strong> 中找到相应的函数；<strong>“name列”</strong> 是导出函数的名称，使用该 <strong>DLL</strong> 的程序通过该名称找到所需的 <strong>DLL</strong> 导出函数。<br>    <center><img src="/img/RFID/01-02.png" width="1024px"/></center><br>　还可以使用这个工具查看一个 <strong>可执行模块依赖的动态链接库信息</strong> 以及该 <strong>动态链接库中被可执行模块调用的函数</strong><br><figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">dumpbin.exe -imports xxx.dll</div><div class="line">dumpbin.exe -imports xxx.exe</div></pre></td></tr></table></figure></p>
-<p>　<strong>这里需要注意的是：一个可执行模块依赖的库函数名称必须与该动态链接库导出的函数名字相一致，因为可执行模块使用依赖的库函数名称来调用DLL中的函数，只有在二者相一致的情况下，可执行模块才能找到所需的DLL导出函数</strong>。因此客户端程序引用的函数符号名必须与 <strong>DLL</strong> 中的导出函数名称一致才能成功调用！</p>
-<h2 id="查看-DLL-EXE-位数信息"><a href="#查看-DLL-EXE-位数信息" class="headerlink" title="查看 DLL/EXE 位数信息"></a>查看 <strong>DLL/EXE</strong> 位数信息</h2><p>　经常犯的一个错误是，构建运行的可执行程序，往往与系统位数保持一致，而现在系统通常都是 64位的；然而该可执行程序运行时需要的动态链接库却错误地绑定成 32位的依赖库了，这其实就是报错 <strong>入口不一致…</strong> 的主要原因。 我们可以通过 <strong>dumpbin</strong> 来查看我们生成的可执行程序的是多少位的，同时，使用上面介绍的 <strong>dumpbin.exe -imports xxx.exe</strong> 查看该可执行程序的依赖库信息，然后检查相关依赖库的位数是否有偏差。<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">dumpbin /headers  XXX.exe </div><div class="line">dumpbin /headers  XXX.dll</div></pre></td></tr></table></figure></p>
-<p>　执行上述命令会打印出一些信息，在信息的最开始 <strong>FILE HEADER VALUES</strong> 字段中有 <strong>machine</strong> 字样，假如 machine 是 <font color="green"><strong>x64</strong></font> 或者 <font color="green"><strong>Unknown</strong></font> 说明该 dll/exe 是 64位的；<font color="green"><strong>i386</strong></font> 字样则通常是 32位的。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;近几个月的 &lt;strong&gt;Windows&lt;/strong&gt; 高空作业让我发现，&lt;strong&gt;dumpbin&lt;/strong&gt; 这个小工具往往能解决一些关键问题。目前发现并且使用过的这个小家伙的功能有:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;查看 DLL 动态链接库导入导出信息，解决动态链接库导出和可执行程序引用对接问题、程序缺失库问题&lt;/li&gt;
-&lt;li&gt;查看可执行程序的依赖库信息，解决各种程序运行时报错&lt;/li&gt;
-&lt;li&gt;查看程序、库位数信息，找到库引用位数不匹配等尴尬问题&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;　下面就来快速学习一下，怎么把这个小家伙用起来。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
-    
-      <category term="工具链" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/%E5%B7%A5%E5%85%B7%E9%93%BE/"/>
-    
-    
-      <category term="dumpbin" scheme="http://durant35.github.io/tags/dumpbin/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Win/Linux下操作ini配置文件(DIY)</title>
-    <link href="http://durant35.github.io/2016/09/08/programPearls_Win&amp;Linux%E4%B8%8B%E6%93%8D%E4%BD%9Cini%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(DIY)/"/>
-    <id>http://durant35.github.io/2016/09/08/programPearls_Win&amp;Linux下操作ini配置文件(DIY)/</id>
-    <published>2016-09-08T03:59:37.000Z</published>
-    <updated>2016-09-08T04:05:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>　　待续…</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;　　待续…&lt;/p&gt;
-
-    
-    </summary>
-    
-      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
-    
-    
-      <category term="文件操作" scheme="http://durant35.github.io/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"/>
-    
-      <category term="ini" scheme="http://durant35.github.io/tags/ini/"/>
     
   </entry>
   
