@@ -40,7 +40,7 @@ tar 解压
 
 zip 压缩">
 <meta property="og:image" content="http://durant35.github.io/img/programPearls/linux/netstat.jpg">
-<meta property="og:updated_time" content="2017-03-18T15:03:36.803Z">
+<meta property="og:updated_time" content="2017-03-19T06:56:52.002Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux命令小纸条">
 <meta name="twitter:description" content="压缩/解压
@@ -387,6 +387,18 @@ zip 压缩">
 <li>内核版本信息</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ uname -r</div></pre></td></tr></table></figure>
+<h3 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h3><ul>
+<li>查看文件权限信息（注意文件夹和文件的区别）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ ls -al</div><div class="line">total 36</div><div class="line">drwxrwxr-x 8 gary gary 4096 3月  17 15:19 .</div><div class="line">drwxrwxr-x 4 gary gary 4096 3月   9 14:13 ..</div><div class="line">drwxrwxr-x 3 gary gary 4096 3月  19 14:38 carControl</div><div class="line">-rw-rw-rw- 1 gary gary 1029 3月   9 14:15 emergencyBrake.ino</div><div class="line">[   权限 ][link][拥有者][群组][文件容量][修改日期][    文件名     ]</div></pre></td></tr></table></figure>
+<ul>
+<li>修改文件<code>rwx</code>权限，常见的有：777（所有权限）；666（可读写）；用户可执行</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo chmod 777 [-R] file-name</div><div class="line">$ sudo chmod u+x file-name</div></pre></td></tr></table></figure>
+<ul>
+<li>文件拥有者:群组</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo chown owner:group file-name</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -403,7 +415,7 @@ zip 压缩">
         <p><span>文章作者:</span>Gary</p>
 
         <p><span>发布时间:</span>2017-02-04, 15:20:59</p>
-        <p><span>最后更新:</span>2017-03-18, 23:03:36</p>
+        <p><span>最后更新:</span>2017-03-19, 14:56:52</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/02/04/linux_Linux命令小纸条/" title="Linux命令小纸条">http://durant35.github.io/2017/02/04/linux_Linux命令小纸条/</a>
             <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/02/04/linux_Linux命令小纸条/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -442,7 +454,7 @@ zip 压缩">
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#压缩-解压"><span class="toc-number">1.</span> <span class="toc-text">压缩/解压</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scp"><span class="toc-number">2.</span> <span class="toc-text">scp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进程管理"><span class="toc-number">3.</span> <span class="toc-text">进程管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络管理"><span class="toc-number">4.</span> <span class="toc-text">网络管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#挂载-解挂"><span class="toc-number">5.</span> <span class="toc-text">挂载/解挂</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快速查找"><span class="toc-number">6.</span> <span class="toc-text">快速查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件操作"><span class="toc-number">7.</span> <span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统信息"><span class="toc-number">8.</span> <span class="toc-text">系统信息</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#压缩-解压"><span class="toc-number">1.</span> <span class="toc-text">压缩/解压</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scp"><span class="toc-number">2.</span> <span class="toc-text">scp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进程管理"><span class="toc-number">3.</span> <span class="toc-text">进程管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络管理"><span class="toc-number">4.</span> <span class="toc-text">网络管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#挂载-解挂"><span class="toc-number">5.</span> <span class="toc-text">挂载/解挂</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快速查找"><span class="toc-number">6.</span> <span class="toc-text">快速查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件操作"><span class="toc-number">7.</span> <span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统信息"><span class="toc-number">8.</span> <span class="toc-text">系统信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#权限管理"><span class="toc-number">9.</span> <span class="toc-text">权限管理</span></a></li></ol>
         
     </div>
     <style>
