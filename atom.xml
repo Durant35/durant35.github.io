@@ -642,7 +642,7 @@
     <link href="http://durant35.github.io/2017/02/04/linux_Linux%E5%91%BD%E4%BB%A4%E5%B0%8F%E7%BA%B8%E6%9D%A1/"/>
     <id>http://durant35.github.io/2017/02/04/linux_Linux命令小纸条/</id>
     <published>2017-02-04T07:20:59.000Z</published>
-    <updated>2017-03-19T06:56:52.002Z</updated>
+    <updated>2017-03-19T07:15:26.647Z</updated>
     
     <content type="html"><![CDATA[<h3 id="压缩-解压"><a href="#压缩-解压" class="headerlink" title="压缩/解压"></a>压缩/解压</h3><ul>
 <li><strong>tar</strong> 压缩</li>
@@ -713,6 +713,7 @@
 <li>查看文件权限信息（注意文件夹和文件的区别）</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ ls -al</div><div class="line">total 36</div><div class="line">drwxrwxr-x 8 gary gary 4096 3月  17 15:19 .</div><div class="line">drwxrwxr-x 4 gary gary 4096 3月   9 14:13 ..</div><div class="line">drwxrwxr-x 3 gary gary 4096 3月  19 14:38 carControl</div><div class="line">-rw-rw-rw- 1 gary gary 1029 3月   9 14:15 emergencyBrake.ino</div><div class="line">[   权限 ][link][拥有者][群组][文件容量][修改日期][    文件名     ]</div></pre></td></tr></table></figure>
+<p><center><img src="/img/programPearls/linux/file_permission.png" alt="file permission" width="540px"/></center></p>
 <ul>
 <li>修改文件<code>rwx</code>权限，常见的有：777（所有权限）；666（可读写）；用户可执行</li>
 </ul>
