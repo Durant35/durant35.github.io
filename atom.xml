@@ -642,7 +642,7 @@
     <link href="http://durant35.github.io/2017/02/04/linux_Linux%E5%91%BD%E4%BB%A4%E5%B0%8F%E7%BA%B8%E6%9D%A1/"/>
     <id>http://durant35.github.io/2017/02/04/linux_Linux命令小纸条/</id>
     <published>2017-02-04T07:20:59.000Z</published>
-    <updated>2017-02-14T06:51:12.648Z</updated>
+    <updated>2017-03-18T15:03:36.803Z</updated>
     
     <content type="html"><![CDATA[<h3 id="压缩-解压"><a href="#压缩-解压" class="headerlink" title="压缩/解压"></a>压缩/解压</h3><ul>
 <li><strong>tar</strong> 压缩</li>
@@ -672,6 +672,10 @@
 <li>查看进程信息（如：<strong>PID</strong>）</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ps -aux [| grep key-word]</div></pre></td></tr></table></figure>
+<ul>
+<li>查看 线程-资源 使用情况</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ top -c <span class="_">-d</span> 1</div></pre></td></tr></table></figure>
 <h3 id="网络管理"><a href="#网络管理" class="headerlink" title="网络管理"></a>网络管理</h3><ul>
 <li><strong>端口</strong> 占用情况</li>
 </ul>
@@ -1396,9 +1400,9 @@
       <category term="Linux" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Linux/"/>
     
     
-      <category term="Linux" scheme="http://durant35.github.io/tags/Linux/"/>
-    
       <category term="pcap" scheme="http://durant35.github.io/tags/pcap/"/>
+    
+      <category term="Linux" scheme="http://durant35.github.io/tags/Linux/"/>
     
   </entry>
   
