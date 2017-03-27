@@ -250,6 +250,148 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Algorithms_BFS" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/22/Algorithms_BFS/" class="article-date">
+      <time datetime="2017-03-22T06:00:22.000Z" itemprop="datePublished">2017-03-22</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　本文主要介绍 <strong>BFS</strong> 的 <em>C++</em> 和 <em>C</em> 语言实现，并借助 <a href="https://leetcode.com/">LeetCode</a> 上的一道题，说说基本的 <strong>BFS</strong> 在问题求解中的应用。</p>
+<h3 id="What’s-B-readth-F-irst-S-earch"><a href="#What’s-B-readth-F-irst-S-earch" class="headerlink" title="What’s B(readth)F(irst)S(earch)"></a>What’s B(readth)F(irst)S(earch)</h3><p>　广度优先搜索算法（Breadth First Search），又叫宽度优先搜索，或横向优先搜索。是从根节点开始，沿着树的宽度遍历树的节点。如果所有节点均被访问，则算法中止。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/03/22/Algorithms_BFS/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_DFS" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/15/Algorithms_DFS/" class="article-date">
+      <time datetime="2017-03-15T06:00:22.000Z" itemprop="datePublished">2017-03-15</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>　本文介绍</p>
+<p><a href="http://blog.csdn.net/nomasp/article/details/50569025">112 Path Sum（路径和）</a></p>
+<p>等价于<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasPathSum</span><span class="params">(TreeNode *root, <span class="keyword">int</span> sum)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        </div><div class="line">        sum -= root-&gt;val;</div><div class="line">        <span class="keyword">if</span>(!root-&gt;left &amp;&amp; !root-&gt;right) </div><div class="line">            <span class="keyword">return</span> sum==<span class="number">0</span> ? <span class="literal">true</span> : <span class="literal">false</span>;</div><div class="line">            </div><div class="line">        <span class="keyword">if</span>(root-&gt;left &amp;&amp; hasPathSum(root-&gt;left,sum)) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        <span class="keyword">if</span>(root-&gt;right &amp;&amp; hasPathSum(root-&gt;right,sum)) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><a href="http://bangbingsyb.blogspot.com/2014/11/leetcode-path-sum-i-ii.html">[LeetCode] Path Sum I, II</a><br><a href="http://blog.csdn.net/happyaaaaaaaaaaa/article/details/51636652">leetcode 113. Path Sum II-路径和|回溯算法</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Algorithms_An Alibaba Interview Question" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -469,160 +611,9 @@
 
 
   
-    <article id="post-linux_Linux命令小纸条" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/04/linux_Linux命令小纸条/" class="article-date">
-      <time datetime="2017-02-04T07:20:59.000Z" itemprop="datePublished">2017-02-04</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/04/linux_Linux命令小纸条/">Linux命令小纸条</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="压缩-解压"><a href="#压缩-解压" class="headerlink" title="压缩/解压"></a>压缩/解压</h3><ul>
-<li><strong>tar</strong> 压缩</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -zcvf dst.tar.gz /src-dir</div></pre></td></tr></table></figure>
-<ul>
-<li><strong>tar</strong> 解压</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -xvf src.tar.gz</div></pre></td></tr></table></figure>
-<ul>
-<li><strong>zip</strong> 压缩
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMD/">CMD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/02/04/linux_Linux命令小纸条/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-linux_libpcap 32-bit&amp;64-bit" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/10/linux_libpcap 32-bit&64-bit/" class="article-date">
-      <time datetime="2016-10-10T02:42:37.000Z" itemprop="datePublished">2016-10-10</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/10/linux_libpcap 32-bit&64-bit/">libpcap, 32-bit&amp;64-bit</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　情况是这样的，在之前讲过的回播 <strong>.pcap</strong> 数据的 <strong>Velodyne_player</strong> 程序中，需要调用 <strong>Winpcap</strong> (其实就是 <strong>libpcap</strong> 的 Win挫版) 的 API 解析 <strong>.pcap</strong> 数据，再通过 UDP 发送出去。我们的 <strong>Velodyne_player</strong> 是一个 <strong>Win32</strong> 的程序，显然调用的就是32位的 <strong>Winpcap</strong> 库的 API； 后来我们也移植了一个 <strong>.pcap</strong> 采集程序的 Linux 版本，结果，用该 Linux 版本采集程序采集到的 <strong>.pcap</strong> 数据却没办法用我们 Win 下的 <strong>Velodyne_player</strong> 回播。后来发现，我们的 Linux 版本的采集程序用的是64位的 <strong>libpcap</strong> 库(因为系统是64位的 Ubuntu16.04，默认安装的就是64位的 <strong>libpcap</strong> 库)，64位和32位的 <strong>libpcap</strong>，在时间戳上有很关键的区别，下面是开源的 <strong>pcap.h</strong> 中的声明:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</div><div class="line"> * Generic per-packet information, as supplied by libpcap.</div><div class="line"> *</div><div class="line"> * The time stamp can and should be a "struct timeval", regardless of</div><div class="line"> * whether your system supports 32-bit tv_sec in "struct timeval",</div><div class="line"> * 64-bit tv_sec in "struct timeval", or both if it supports both 32-bit</div><div class="line"> * and 64-bit applications.  The on-disk format of savefiles uses 32-bit</div><div class="line"> * tv_sec (and tv_usec); this structure is irrelevant to that.  32-bit</div><div class="line"> * and 64-bit versions of libpcap, even if they're on the same platform,</div><div class="line"> * should supply the appropriate version of "struct timeval", even if</div><div class="line"> * that's not what the underlying packet capture mechanism supplies.</div><div class="line"> */</span></div><div class="line"><span class="keyword">struct</span> pcap_pkthdr &#123;</div><div class="line">  <span class="keyword">struct</span> timeval ts;	<span class="comment">/* time stamp */</span></div><div class="line">  bpf_u_int32 caplen;	<span class="comment">/* length of portion present */</span></div><div class="line">  bpf_u_int32 len;	<span class="comment">/* length this packet (off wire) */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pcap/">pcap</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/10/10/linux_libpcap 32-bit&64-bit/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/categories/编程珠玑/page/2/">2</a><a class="page-number" href="/categories/编程珠玑/page/3/">3</a><a class="page-number" href="/categories/编程珠玑/page/4/">4</a><a class="extend next" rel="next" href="/categories/编程珠玑/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/categories/编程珠玑/page/2/">2</a><a class="page-number" href="/categories/编程珠玑/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/categories/编程珠玑/page/5/">5</a><a class="extend next" rel="next" href="/categories/编程珠玑/page/2/">Next &raquo;</a>
     </nav>
   
 </div>

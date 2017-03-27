@@ -255,6 +255,176 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-ROS_ROS_Navigation_GettingStarted" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/" class="article-date">
+      <time datetime="2016-10-03T09:43:09.000Z" itemprop="datePublished">2016-10-03</time>
+</a>
+
+ 
+    <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/10/03/ROS_ROS_Navigation_GettingStarted/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　To add navigation to a robot, we need to launch 3 nodes:</p>
+<blockquote>
+<ul>
+<li>map_server: to provide the static map {“*.yaml” &amp; “*.pgm”}, against which the robot will localize and plan.</li>
+<li>amcl: to localize the robot against the static map.</li>
+<li>move_base: to handle global planning and local control for the robot.</li>
+</ul>
+</blockquote>
+<p>　　<strong>amcl</strong> 是移动机器人二维环境下的概率定位系统，它实现了自适应(或 <strong>kdl</strong> 采样)的 <strong>蒙特卡洛定位</strong> 方法，其中针对已有的地图使用 <strong>粒子滤波器</strong> 跟踪一个机器人的姿态。</p>
+<p>　　<strong>move_base</strong> 提供了 ROS 导航的配置，运行，交互接口，主要包括两个部分：</p>
+<blockquote>
+<p>　(1) 全局路径规划：根据给定的目标位置进行总体路径的规划<br>　(2) 局部路径规划：根据附近的障碍物信息进行躲避路线规划<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/ROS/">ROS</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-linux_sudo_unable_to_resolve_host" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/03/linux_sudo_unable_to_resolve_host/" class="article-date">
+      <time datetime="2016-10-03T02:42:07.000Z" itemprop="datePublished">2016-10-03</time>
+</a>
+
+ 
+    <a href="/2016/10/03/linux_sudo_unable_to_resolve_host/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/10/03/linux_sudo_unable_to_resolve_host/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <blockquote>
+<p>Reference:<br>　<a href="http://askubuntu.com/questions/59458/error-message-when-i-run-sudo-unable-to-resolve-host-none">Error message when I run sudo: unable to resolve host (none)</a></p>
+</blockquote>
+<p>　现象是这样的。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xxx@...:~$ sudo <span class="literal">true</span></div><div class="line">sudo: unable to resolve host (...)</div></pre></td></tr></table></figure></p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/10/03/linux_sudo_unable_to_resolve_host/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">

@@ -250,6 +250,148 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-programPearls_Win&amp;Linux Operate ini configuration files(API)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/08/programPearls_Win&Linux Operate ini configuration files(API)/" class="article-date">
+      <time datetime="2016-09-08T03:54:32.000Z" itemprop="datePublished">2016-09-08</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/08/programPearls_Win&Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　我们的程序常常需要从配置文件中获取参数，一方面，用户关于程序的自定义配置往往就存储在配置文件中，自定义配置的适配与保存就转化为对配置文件的读写操作；另一方面，也是本文编写的由来，那就是将有关程序中核心算法的参数提取到配置文件，方便算法参数的调试(只要调整配置文件，无需修改程序源码，更无需重新构建)。<br>　<strong>.ini</strong> 文件作为典型的配置文件，其文件存储的内容基本上是一些参数的 <strong>Key-Value</strong> 形式，此外就是一些所谓的属性段，多个对同一方面参数进行描述的 <strong>键值对</strong> 可以归纳为一个 <strong>Section</strong>。<br>　下面，是 <strong>Win/Linux</strong> 下如何通过不同的 API 实现对 <strong>*.ini</strong> 配置文件读写操作的整理。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ini/">ini</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/文件操作/">文件操作</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/09/08/programPearls_Win&Linux Operate ini configuration files(API)/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-programPearls_precise delay using select" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/08/programPearls_precise delay using select/" class="article-date">
+      <time datetime="2016-09-08T03:51:14.000Z" itemprop="datePublished">2016-09-08</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="select-初识"><a href="#select-初识" class="headerlink" title="select 初识"></a>select 初识</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(</div><div class="line">  _In_    <span class="keyword">int</span>                  nfds,         <span class="comment">// 忽略,仅是为了与Berkeley套接字兼容</span></div><div class="line">  _Inout_ fd_set               *readfds,     <span class="comment">// 指向一个套接字集合,用来检查其可读性</span></div><div class="line">  _Inout_ fd_set               *writefds,    <span class="comment">// 指向一个套接字集合,用来检查其可写性</span></div><div class="line">  _Inout_ fd_set               *exceptfds,   <span class="comment">// 指向一个套接字集合,用来检查错误</span></div><div class="line">  _In_    <span class="keyword">const</span> <span class="keyword">struct</span> timeval *timeout      <span class="comment">// 指定此函数等待的最长时间,如果为NULL,则最长时间为无限大</span></div><div class="line">)</span></span>;</div><div class="line"> </div><div class="line">返回值: </div><div class="line">  函数调用成功，返回发生网络事件的所有套接字数量的总和</div><div class="line">  如果超时返回<span class="number">0</span>，代表在描述词状态改变前已超过timeout时间;</div><div class="line">  当有错误发生时则返回SOCKET_ERROR(<span class="number">-1</span>).</div></pre></td></tr></table></figure>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/09/08/programPearls_precise delay using select/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-linux_瞎谈Socket编程_3" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -464,142 +606,9 @@
 
 
   
-    <article id="post-programPearls_C语言中结构体内存free" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/02/programPearls_C语言中结构体内存free/" class="article-date">
-      <time datetime="2016-07-02T06:38:46.000Z" itemprop="datePublished">2016-07-02</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　来自实训第三天的某段代码，<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> vec2f &#123;</div><div class="line">  <span class="keyword">float</span> x;</div><div class="line">  <span class="keyword">float</span> y;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> vec2f vec2f;</div><div class="line"> </div><div class="line"><span class="function">vec2f* <span class="title">vec2f_alloc</span><span class="params">()</span> </span>&#123;</div><div class="line">  vec2f* ret;</div><div class="line">  ret = ( vec2f* ) <span class="built_in">malloc</span>( <span class="keyword">sizeof</span>( vec2f ) );</div><div class="line">  <span class="comment">//if( !ret ) // if error occurs</span></div><div class="line">  <span class="keyword">return</span> ret;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_init</span><span class="params">( vec2f* v, <span class="keyword">float</span> x, <span class="keyword">float</span> y )</span> </span>&#123;</div><div class="line">  v-&gt;x = x;</div><div class="line">  v-&gt;y = y;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function">vec2f* <span class="title">vec2f_new</span><span class="params">( <span class="keyword">float</span> x, <span class="keyword">float</span> y )</span> </span>&#123;</div><div class="line">  vec2f* ret = vec2f_alloc();</div><div class="line">  vec2f_init( ret, x, y );</div><div class="line">  <span class="keyword">return</span> ret;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_delete</span><span class="params">( vec2f** v )</span> </span>&#123;</div><div class="line">  <span class="built_in">free</span>( *v );</div><div class="line">  *v = <span class="literal">NULL</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_print</span><span class="params">( <span class="keyword">const</span> vec2f* v )</span> </span>&#123;</div><div class="line">  <span class="built_in">printf</span>( <span class="string">"[ %g %g ]\n"</span>, v-&gt;x, v-&gt;y );</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2016/07/02/programPearls_C语言中结构体内存free/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_Java到底是不是一种纯面向对象语言？" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/" class="article-date">
-      <time datetime="2016-06-30T02:26:22.000Z" itemprop="datePublished">2016-06-30</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>　　参考博文 <a href="http://www.codeceo.com/article/why-java-purely-object-oriented-language.html">《Java到底是不是一种纯面向对象语言？》</a></p>
-<p>　　<strong>JVM</strong> 在创建对象的时候，实际上会创建两个对象：<br>　　　一个是实例对象。<br>　　　另一个是 <strong>Class</strong> 对象。该 <strong>Class</strong> 对象在 <strong>JVM</strong> 内仅仅会装载一次，该类的静态方法和静态属性也一同装载，<strong>JVM</strong> 使用该 <strong>Class</strong> 对象来创建具体的实例对象。<br>　　例如，在下面的 <strong>Java</strong> 语句中，将有两个对象被创建：<br>　　　　Employee emp = new Employee();<br>　　一个是实例对象 emp ；另一个则是 Class 对象，我们可以通过 <strong>Employee.class</strong> 引用到它；这个 Class 对象拥有所有的这个类定义的静态变量和静态方法，同时，如果我们访问 通过 emp 对象来访问静态内容，会发现它其实指向的对象就是 <strong>Employee.class</strong> 。</p>
-<p>　　<font color="green">静态内容确实被证实属于一个对象</font><br>　　　为什么静态内容在一个对象中（不管是emp还是emp2）改变了，在另一个对象中也同时改变，因为这两个对象改变的都是在 Employee.class 同一个对象里面的内容。</p>
-<p>　　Java 官方为每一个原始类型推出了对应的包装类（比如：Integer 对应 int，Long 对应 long，Character 对应 char），所以，其实现在我们可以为原始类型创建一个包装对象，同时对它们做对象相关的操作。<br>　　　JVM看来它把所有的 “原始类型” 都是当作对象处理”</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
-    </div>
-
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/categories/编程珠玑/page/2/">&laquo; Prev</a><a class="page-number" href="/categories/编程珠玑/">1</a><a class="page-number" href="/categories/编程珠玑/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/categories/编程珠玑/page/4/">4</a><a class="extend next" rel="next" href="/categories/编程珠玑/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/categories/编程珠玑/page/2/">&laquo; Prev</a><a class="page-number" href="/categories/编程珠玑/">1</a><a class="page-number" href="/categories/编程珠玑/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/categories/编程珠玑/page/4/">4</a><a class="page-number" href="/categories/编程珠玑/page/5/">5</a><a class="extend next" rel="next" href="/categories/编程珠玑/page/4/">Next &raquo;</a>
     </nav>
   
 </div>

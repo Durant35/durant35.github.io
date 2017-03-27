@@ -15,46 +15,22 @@
 
 
 
-<meta name="description" content="压缩/解压
-tar 压缩
-
-1$ tar -zcvf dst.tar.gz /src-dir
-
-tar 解压
-
-1$ tar -xvf src.tar.gz
-
-zip 压缩">
+<meta name="description" content="本文介绍
+112 Path Sum（路径和）
+等价于1234567891011121314class Solution &amp;#123;public:    bool hasPathSum(TreeNode *root, int sum) &amp;#123;        if(!root) return false;                sum -= root-&amp;gt;val;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux命令小纸条">
-<meta property="og:url" content="http://durant35.github.io/2017/02/04/linux_Linux命令小纸条/index.html">
+<meta property="og:title" content="算法设计与分析[0004] Depth First Search（深度优先搜索）">
+<meta property="og:url" content="http://durant35.github.io/2017/03/15/Algorithms_DFS/index.html">
 <meta property="og:site_name" content="Tarantula-7's Blog">
-<meta property="og:description" content="压缩/解压
-tar 压缩
-
-1$ tar -zcvf dst.tar.gz /src-dir
-
-tar 解压
-
-1$ tar -xvf src.tar.gz
-
-zip 压缩">
-<meta property="og:image" content="http://durant35.github.io/img/programPearls/linux/netstat.jpg">
-<meta property="og:image" content="http://durant35.github.io/img/programPearls/linux/file_permission.png">
-<meta property="og:updated_time" content="2017-03-20T09:13:00.275Z">
+<meta property="og:description" content="本文介绍
+112 Path Sum（路径和）
+等价于1234567891011121314class Solution &amp;#123;public:    bool hasPathSum(TreeNode *root, int sum) &amp;#123;        if(!root) return false;                sum -= root-&amp;gt;val;">
+<meta property="og:updated_time" content="2017-03-26T09:10:08.338Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux命令小纸条">
-<meta name="twitter:description" content="压缩/解压
-tar 压缩
-
-1$ tar -zcvf dst.tar.gz /src-dir
-
-tar 解压
-
-1$ tar -xvf src.tar.gz
-
-zip 压缩">
-<meta name="twitter:image" content="http://durant35.github.io/img/programPearls/linux/netstat.jpg">
+<meta name="twitter:title" content="算法设计与分析[0004] Depth First Search（深度优先搜索）">
+<meta name="twitter:description" content="本文介绍
+112 Path Sum（路径和）
+等价于1234567891011121314class Solution &amp;#123;public:    bool hasPathSum(TreeNode *root, int sum) &amp;#123;        if(!root) return false;                sum -= root-&amp;gt;val;">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -86,7 +62,7 @@ zip 压缩">
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Linux命令小纸条 | Tarantula-7&#39;s Blog</title>
+<title>算法设计与分析[0004] Depth First Search（深度优先搜索） | Tarantula-7&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -279,11 +255,11 @@ zip 压缩">
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-linux_Linux命令小纸条" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Algorithms_DFS" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/02/04/linux_Linux命令小纸条/" class="article-date">
-      <time datetime="2017-02-04T07:20:59.000Z" itemprop="datePublished">2017-02-04</time>
+      <a href="/2017/03/15/Algorithms_DFS/" class="article-date">
+      <time datetime="2017-03-15T06:00:22.000Z" itemprop="datePublished">2017-03-15</time>
 </a>
 
 
@@ -298,7 +274,7 @@ zip 压缩">
         
   
     <h1 class="article-title" itemprop="name">
-      Linux命令小纸条
+      算法设计与分析[0004] Depth First Search（深度优先搜索）
     </h1>
   
 
@@ -307,13 +283,13 @@ zip 压缩">
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMD/">CMD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -323,84 +299,10 @@ zip 压缩">
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="压缩-解压"><a href="#压缩-解压" class="headerlink" title="压缩/解压"></a>压缩/解压</h3><ul>
-<li><strong>tar</strong> 压缩</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -zcvf dst.tar.gz /src-dir</div></pre></td></tr></table></figure>
-<ul>
-<li><strong>tar</strong> 解压</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -xvf src.tar.gz</div></pre></td></tr></table></figure>
-<ul>
-<li><strong>zip</strong> 压缩<a id="more"></a></li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ zip -r dst.zip /src-dir</div></pre></td></tr></table></figure>
-<ul>
-<li><strong>zip</strong> 解压</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ unzip src.zip <span class="_">-d</span> .</div></pre></td></tr></table></figure>
-<h3 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h3><ul>
-<li><strong>scp</strong> 上传</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp  -P port-number -rp host-path-src user@remote:/path-dst</div></pre></td></tr></table></figure>
-<ul>
-<li><strong>scp</strong> 下载</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp -r user@remote:/path-src host-path-dst</div></pre></td></tr></table></figure>
-<h3 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h3><ul>
-<li>查看进程信息（如：<strong>PID</strong>）</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ps -aux [| grep key-word]</div></pre></td></tr></table></figure>
-<ul>
-<li>查看 线程-资源 使用情况</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ top -c <span class="_">-d</span> 1</div></pre></td></tr></table></figure>
-<h3 id="网络管理"><a href="#网络管理" class="headerlink" title="网络管理"></a>网络管理</h3><ul>
-<li><strong>端口</strong> 占用情况</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ netstat -anp [| grep target-port]</div></pre></td></tr></table></figure>
-<ul>
-<li>查看监听端口<center><img src="/img/programPearls/linux/netstat.jpg" alt="netstat" width="720px"/></center>
-
-</li>
-</ul>
-<h3 id="挂载-解挂"><a href="#挂载-解挂" class="headerlink" title="挂载/解挂"></a>挂载/解挂</h3><ul>
-<li>解挂</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo umount <span class="_">-l</span> mount-dir</div></pre></td></tr></table></figure>
-<ul>
-<li>挂载</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看挂载设备 /dev/sd?</span></div><div class="line">$ sudo fdisk <span class="_">-l</span></div><div class="line"><span class="comment"># 需要时创建挂载点</span></div><div class="line">$ mkdir mount-point-dir</div><div class="line"><span class="comment"># 挂载设备</span></div><div class="line">$ sudo mount /dev/sd? mount-point-dir</div></pre></td></tr></table></figure>
-<h3 id="快速查找"><a href="#快速查找" class="headerlink" title="快速查找"></a>快速查找</h3><ul>
-<li>文件名查找</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ find <span class="string">"name-string"</span> find-path</div></pre></td></tr></table></figure>
-<ul>
-<li>文件内容查找</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ grep -r -i <span class="string">"content-string"</span> find-path</div></pre></td></tr></table></figure>
-<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><ul>
-<li>批量重命名（<strong>*.cpp</strong>全部变成<strong>*.c</strong>）</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># "\" 指代相同内容</span></div><div class="line">$ rename -v s/\.cpp/\.c/ *</div></pre></td></tr></table></figure>
-<h3 id="系统信息"><a href="#系统信息" class="headerlink" title="系统信息"></a>系统信息</h3><ul>
-<li>内核版本信息</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ uname -r</div></pre></td></tr></table></figure>
-<h3 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h3><ul>
-<li>查看文件权限信息（注意文件夹和文件的区别）</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ ls -al</div><div class="line">total 36</div><div class="line">drwxrwxr-x 8 gary gary 4096 3月  17 15:19 .</div><div class="line">drwxrwxr-x 4 gary gary 4096 3月   9 14:13 ..</div><div class="line">drwxrwxr-x 3 gary gary 4096 3月  19 14:38 carControl</div><div class="line">-rw-rw-rw- 1 gary gary 1029 3月   9 14:15 emergencyBrake.ino</div><div class="line">[   权限 ][link][拥有者][群组][文件容量][修改日期][    文件名     ]</div></pre></td></tr></table></figure>
-<p><center><img src="/img/programPearls/linux/file_permission.png" alt="file permission" width="540px"/></center></p>
-<ul>
-<li>修改文件<code>rwx</code>权限，常见的有：777（所有权限）；666（可读写）；用户可执行</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo chmod 777 [-R] file-name</div><div class="line">$ sudo chmod u+x file-name</div></pre></td></tr></table></figure>
-<ul>
-<li>文件拥有者:群组</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo chown owner:group file-name</div></pre></td></tr></table></figure>
+        <p>　本文介绍</p>
+<p><a href="http://blog.csdn.net/nomasp/article/details/50569025">112 Path Sum（路径和）</a></p>
+<p>等价于<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasPathSum</span><span class="params">(TreeNode *root, <span class="keyword">int</span> sum)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        </div><div class="line">        sum -= root-&gt;val;</div><div class="line">        <span class="keyword">if</span>(!root-&gt;left &amp;&amp; !root-&gt;right) </div><div class="line">            <span class="keyword">return</span> sum==<span class="number">0</span> ? <span class="literal">true</span> : <span class="literal">false</span>;</div><div class="line">            </div><div class="line">        <span class="keyword">if</span>(root-&gt;left &amp;&amp; hasPathSum(root-&gt;left,sum)) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        <span class="keyword">if</span>(root-&gt;right &amp;&amp; hasPathSum(root-&gt;right,sum)) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><a href="http://bangbingsyb.blogspot.com/2014/11/leetcode-path-sum-i-ii.html">[LeetCode] Path Sum I, II</a><br><a href="http://blog.csdn.net/happyaaaaaaaaaaa/article/details/51636652">leetcode 113. Path Sum II-路径和|回溯算法</a></p>
 
       
     </div>
@@ -409,18 +311,18 @@ zip 压缩">
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/02/04/linux_Linux命令小纸条/">Linux命令小纸条</a></p>
+        <p><span>本文标题:</span><a href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a></p>
 
         <!-- 
         <p><span>文章作者:</span><a href="/" title="回到主页">Tarantula-7</a></p>
         -->
         <p><span>文章作者:</span>Gary</p>
 
-        <p><span>发布时间:</span>2017-02-04, 15:20:59</p>
-        <p><span>最后更新:</span>2017-03-20, 17:13:00</p>
+        <p><span>发布时间:</span>2017-03-15, 14:00:22</p>
+        <p><span>最后更新:</span>2017-03-26, 17:10:08</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/02/04/linux_Linux命令小纸条/" title="Linux命令小纸条">http://durant35.github.io/2017/02/04/linux_Linux命令小纸条/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/02/04/linux_Linux命令小纸条/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/03/15/Algorithms_DFS/" title="算法设计与分析[0004] Depth First Search（深度优先搜索）">http://durant35.github.io/2017/03/15/Algorithms_DFS/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/03/15/Algorithms_DFS/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
 
@@ -436,15 +338,15 @@ zip 压缩">
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/">
-                    Digital Image Process
+                <a href="/2017/03/22/Algorithms_BFS/">
+                    算法设计与分析[0005] Breadth First Search（广度优先搜索）
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/02/04/tool_vim几步走/">
-                    vim几步走
+                <a href="/2017/03/10/Algorithms_An Alibaba Interview Question/">
+                    算法设计与分析[0003] 一道阿里巴巴面试题（2017） 
                 </a>
             </div>
         
@@ -456,7 +358,7 @@ zip 压缩">
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#压缩-解压"><span class="toc-number">1.</span> <span class="toc-text">压缩/解压</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scp"><span class="toc-number">2.</span> <span class="toc-text">scp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进程管理"><span class="toc-number">3.</span> <span class="toc-text">进程管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络管理"><span class="toc-number">4.</span> <span class="toc-text">网络管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#挂载-解挂"><span class="toc-number">5.</span> <span class="toc-text">挂载/解挂</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快速查找"><span class="toc-number">6.</span> <span class="toc-text">快速查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件操作"><span class="toc-number">7.</span> <span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统信息"><span class="toc-number">8.</span> <span class="toc-text">系统信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#权限管理"><span class="toc-number">9.</span> <span class="toc-text">权限管理</span></a></li></ol>
+            
         
     </div>
     <style>
@@ -496,7 +398,7 @@ zip 压缩">
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Linux命令小纸条　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"算法设计与分析[0004] Depth First Search（深度优先搜索）　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -512,7 +414,7 @@ zip 压缩">
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2017/02/04/linux_Linux命令小纸条/" data-title="Linux命令小纸条" data-url="http://durant35.github.io/2017/02/04/linux_Linux命令小纸条/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/03/15/Algorithms_DFS/" data-title="算法设计与分析[0004] Depth First Search（深度优先搜索）" data-url="http://durant35.github.io/2017/03/15/Algorithms_DFS/"></div>
     <script>
         var duoshuoQuery = {short_name:"durant35"};
         var loadComment = function(){
@@ -535,7 +437,7 @@ zip 压缩">
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/" title="上一篇: Digital Image Process">
+            <a href="/2017/03/22/Algorithms_BFS/" title="上一篇: 算法设计与分析[0005] Breadth First Search（广度优先搜索）">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -543,7 +445,7 @@ zip 压缩">
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/02/04/tool_vim几步走/" title="下一篇: vim几步走">
+            <a href="/2017/03/10/Algorithms_An Alibaba Interview Question/" title="下一篇: 算法设计与分析[0003] 一道阿里巴巴面试题（2017） ">
                 <i class="fa fa-angle-right"></i>
             </a>
         
