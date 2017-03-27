@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/2017/03/15/Algorithms_DFS/</loc>
+    
+    <lastmod>2017-03-27T12:39:55.370Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2017/03/22/Algorithms_BFS/</loc>
     
-    <lastmod>2017-03-27T09:23:28.405Z</lastmod>
+    <lastmod>2017-03-27T11:52:39.901Z</lastmod>
     
   </url>
   
@@ -12,13 +19,6 @@
     <loc>http://durant35.github.io/2016/07/26/tool_git%E5%87%A0%E6%AD%A5%E8%B5%B0/</loc>
     
     <lastmod>2017-03-26T16:14:57.146Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/03/15/Algorithms_DFS/</loc>
-    
-    <lastmod>2017-03-26T09:10:08.338Z</lastmod>
     
   </url>
   

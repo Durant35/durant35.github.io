@@ -351,11 +351,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>　本文介绍</p>
-<p><a href="http://blog.csdn.net/nomasp/article/details/50569025">112 Path Sum（路径和）</a></p>
-<p>等价于<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasPathSum</span><span class="params">(TreeNode *root, <span class="keyword">int</span> sum)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        </div><div class="line">        sum -= root-&gt;val;</div><div class="line">        <span class="keyword">if</span>(!root-&gt;left &amp;&amp; !root-&gt;right) </div><div class="line">            <span class="keyword">return</span> sum==<span class="number">0</span> ? <span class="literal">true</span> : <span class="literal">false</span>;</div><div class="line">            </div><div class="line">        <span class="keyword">if</span>(root-&gt;left &amp;&amp; hasPathSum(root-&gt;left,sum)) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        <span class="keyword">if</span>(root-&gt;right &amp;&amp; hasPathSum(root-&gt;right,sum)) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p><a href="http://bangbingsyb.blogspot.com/2014/11/leetcode-path-sum-i-ii.html">[LeetCode] Path Sum I, II</a><br><a href="http://blog.csdn.net/happyaaaaaaaaaaa/article/details/51636652">leetcode 113. Path Sum II-路径和|回溯算法</a></p>
-
+              <p>　本文主要介绍 <strong>DFS</strong> 的 <em>C++</em> 和 <em>C</em> 语言实现，并借助 <a href="https://leetcode.com/">LeetCode</a> 上的一道题，说说基本的 <strong>DFS</strong> 在问题求解中的应用。</p>
+<h3 id="What’s-D-epth-F-irst-S-earch"><a href="#What’s-D-epth-F-irst-S-earch" class="headerlink" title="What’s D(epth)F(irst)S(earch)"></a>What’s D(epth)F(irst)S(earch)</h3><p>　深度优先搜索算法（Depth First Search），是搜索算法的一种。是沿着树的深度遍历树的节点，尽可能深的搜索树的分支。当节点 <strong>N</strong> 的所有边都己被探寻过，搜索将回溯到发现节点 <strong>N</strong> 的那条边的起始节点，这一过程一直进行到已发现从源节点可达的所有节点为止。<br>　如果还存在未被发现的节点，则选择其中一个作为源节点并重复以上过程，整个进程反复进行直到所有节点都被访问为止。<br>
+          
       
     </div>
     
@@ -372,6 +370,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a href="/2017/03/15/Algorithms_DFS/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
