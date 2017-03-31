@@ -267,8 +267,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/02/25/programPearls_Coding中的编码问题之回顾&amp;深入/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/02/25/programPearls_Coding中的编码问题之回顾&amp;深入/"></span>
         
     </a>
 
@@ -349,8 +349,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/02/21/programPearls_Coding中的编码问题之入门&amp;概览/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/02/21/programPearls_Coding中的编码问题之入门&amp;概览/"></span>
         
     </a>
 
@@ -431,8 +431,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/"></span>
         
     </a>
 
@@ -514,8 +514,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/09/08/linux_瞎谈Socket编程_3/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/linux_瞎谈Socket编程_3/"></span>
         
     </a>
 
@@ -594,8 +594,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/07/15/linux_瞎谈Socket编程_1/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/07/15/linux_瞎谈Socket编程_1/"></span>
         
     </a>
 
@@ -674,8 +674,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/09/08/programPearls_Win&amp;Linux Operate ini configuration files(API)/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/programPearls_Win&amp;Linux Operate ini configuration files(API)/"></span>
         
     </a>
 
@@ -754,8 +754,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/07/02/programPearls_C语言中结构体内存free/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/07/02/programPearls_C语言中结构体内存free/"></span>
         
     </a>
 
@@ -830,8 +830,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/09/16/hexo_博客主题Yelee迁移笔记/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/16/hexo_博客主题Yelee迁移笔记/"></span>
         
     </a>
 
@@ -918,8 +918,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/"></span>
         
     </a>
 
@@ -999,8 +999,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/01/26/hexo_自定义主题/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/01/26/hexo_自定义主题/"></span>
         
     </a>
 
@@ -1127,28 +1127,23 @@
 
 
     
+
+    
+        <script id="dsq-count-scr" src="//durant35.disqus.com/count.js" async></script>
         <script>
             if ($(".left-col").is(":visible")) {
-                var duoshuoQuery = {short_name:"durant35"};
-                (function() {
-                    var d = document, s = d.createElement('script');
-                    s.src = 'http://static.duoshuo.com/embed.js';
-                    s.async = true; s.charset = 'UTF-8';
-                    (d.head || d.body).appendChild(s);
-                })();
-
-                $(document).ready(function(){
-                    var $duoshuoCount = $(".ds-thread-count");
-                    $duoshuoCount.bind("DOMNodeInserted", function(e) {
-                        var num = $(this).text().replace(/[^0-9]/ig,"");
+                var $disqusCount = $(".disqus-comment-count");
+                $disqusCount.bind("DOMNodeInserted", function(e) {
+                    var num = $(this).text().replace(/[^0-9]/ig,"");
+                    if (num > 0) {
                         $(this).siblings(".count-comment").text(num);
-                        $(this).remove();
-                    })
+                    }
+                    $(this).remove();
                 })
+            } else {
+                $(".disqus-comment-count").remove();
             }
         </script>
-    
-
      
 
 

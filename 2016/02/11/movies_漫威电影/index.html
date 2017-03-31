@@ -438,24 +438,27 @@
 
 
     
-      <div class="duoshuo" id="comments">
-    <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2016/02/11/movies_漫威电影/" data-title="漫威21部系列电影(持续更新)" data-url="http://durant35.github.io/2016/02/11/movies_漫威电影/"></div>
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
     <script>
-        var duoshuoQuery = {short_name:"durant35"};
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/2016/02/11/movies_漫威电影/';
+            this.page.identifier = '2016/02/11/movies_漫威电影/';
+        };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
-            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-            s.async = true; s.charset = 'UTF-8';
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
             (d.head || d.body).appendChild(s);
         }
-
-        
     </script>
     
     <script> loadComment(); </script>
 
-</div>
+</section>
+
+
     
 
 

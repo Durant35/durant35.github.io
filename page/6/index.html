@@ -267,8 +267,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/"></span>
         
     </a>
 
@@ -347,8 +347,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2015/05/06/考勤系统-一-搭建起项目需要的开发环境/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/06/考勤系统-一-搭建起项目需要的开发环境/"></span>
         
     </a>
 
@@ -428,8 +428,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2015/04/30/hexo_win搭建hexo/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2015/04/30/hexo_win搭建hexo/"></span>
         
     </a>
 
@@ -508,8 +508,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/"></span>
         
     </a>
 
@@ -589,8 +589,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/"></span>
         
     </a>
 
@@ -674,8 +674,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/10/10/linux_libpcap 32-bit&amp;64-bit/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/10/10/linux_libpcap 32-bit&amp;64-bit/"></span>
         
     </a>
 
@@ -754,8 +754,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/10/01/TACouses_Embedded_System_2016/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/10/01/TACouses_Embedded_System_2016/"></span>
         
     </a>
 
@@ -830,8 +830,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/09/08/programPearls_precise delay using select/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/programPearls_precise delay using select/"></span>
         
     </a>
 
@@ -910,8 +910,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/10/07/hexo_Yelee Migrant Note(2)/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/10/07/hexo_Yelee Migrant Note(2)/"></span>
         
     </a>
 
@@ -990,8 +990,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/07/16/linux_瞎谈Socket编程_2/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/07/16/linux_瞎谈Socket编程_2/"></span>
         
     </a>
 
@@ -1119,28 +1119,23 @@
 
 
     
+
+    
+        <script id="dsq-count-scr" src="//durant35.disqus.com/count.js" async></script>
         <script>
             if ($(".left-col").is(":visible")) {
-                var duoshuoQuery = {short_name:"durant35"};
-                (function() {
-                    var d = document, s = d.createElement('script');
-                    s.src = 'http://static.duoshuo.com/embed.js';
-                    s.async = true; s.charset = 'UTF-8';
-                    (d.head || d.body).appendChild(s);
-                })();
-
-                $(document).ready(function(){
-                    var $duoshuoCount = $(".ds-thread-count");
-                    $duoshuoCount.bind("DOMNodeInserted", function(e) {
-                        var num = $(this).text().replace(/[^0-9]/ig,"");
+                var $disqusCount = $(".disqus-comment-count");
+                $disqusCount.bind("DOMNodeInserted", function(e) {
+                    var num = $(this).text().replace(/[^0-9]/ig,"");
+                    if (num > 0) {
                         $(this).siblings(".count-comment").text(num);
-                        $(this).remove();
-                    })
+                    }
+                    $(this).remove();
                 })
+            } else {
+                $(".disqus-comment-count").remove();
             }
         </script>
-    
-
      
 
 

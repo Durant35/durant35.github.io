@@ -267,8 +267,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/10/03/ROS_ROS_Navigation_GettingStarted/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/10/03/ROS_ROS_Navigation_GettingStarted/"></span>
         
     </a>
 
@@ -358,8 +358,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/10/03/linux_sudo_unable_to_resolve_host/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/10/03/linux_sudo_unable_to_resolve_host/"></span>
         
     </a>
 
@@ -437,8 +437,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/"></span>
         
     </a>
 
@@ -517,8 +517,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/09/16/programPearls_dumpbin指南/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/16/programPearls_dumpbin指南/"></span>
         
     </a>
 
@@ -605,8 +605,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/09/08/programPearls_Win&amp;Linux下基本文件操作/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/programPearls_Win&amp;Linux下基本文件操作/"></span>
         
     </a>
 
@@ -681,8 +681,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/09/08/programPearls_Win&amp;Linux下操作ini配置文件(DIY)/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/programPearls_Win&amp;Linux下操作ini配置文件(DIY)/"></span>
         
     </a>
 
@@ -757,8 +757,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/02/11/movies_漫威电影/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/02/11/movies_漫威电影/"></span>
         
     </a>
 
@@ -837,8 +837,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/"></span>
         
     </a>
 
@@ -917,8 +917,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/"></span>
         
     </a>
 
@@ -1040,28 +1040,23 @@
 
 
     
+
+    
+        <script id="dsq-count-scr" src="//durant35.disqus.com/count.js" async></script>
         <script>
             if ($(".left-col").is(":visible")) {
-                var duoshuoQuery = {short_name:"durant35"};
-                (function() {
-                    var d = document, s = d.createElement('script');
-                    s.src = 'http://static.duoshuo.com/embed.js';
-                    s.async = true; s.charset = 'UTF-8';
-                    (d.head || d.body).appendChild(s);
-                })();
-
-                $(document).ready(function(){
-                    var $duoshuoCount = $(".ds-thread-count");
-                    $duoshuoCount.bind("DOMNodeInserted", function(e) {
-                        var num = $(this).text().replace(/[^0-9]/ig,"");
+                var $disqusCount = $(".disqus-comment-count");
+                $disqusCount.bind("DOMNodeInserted", function(e) {
+                    var num = $(this).text().replace(/[^0-9]/ig,"");
+                    if (num > 0) {
                         $(this).siblings(".count-comment").text(num);
-                        $(this).remove();
-                    })
+                    }
+                    $(this).remove();
                 })
+            } else {
+                $(".disqus-comment-count").remove();
             }
         </script>
-    
-
      
 
 

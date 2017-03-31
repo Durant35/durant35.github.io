@@ -267,8 +267,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/01/26/hexo_添加about导航栏/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/01/26/hexo_添加about导航栏/"></span>
         
     </a>
 
@@ -347,8 +347,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/01/24/hexo_hexo错误的分类或标签无法删除/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/01/24/hexo_hexo错误的分类或标签无法删除/"></span>
         
     </a>
 
@@ -427,8 +427,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/01/24/hexo_hexo扫盲/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/01/24/hexo_hexo扫盲/"></span>
         
     </a>
 
@@ -507,8 +507,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/"></span>
         
     </a>
 
@@ -587,8 +587,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/04/21/programPearls_.h中的ifndef..define..endif/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/04/21/programPearls_.h中的ifndef..define..endif/"></span>
         
     </a>
 
@@ -664,8 +664,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/01/22/hexo_push你的新博客到Github/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/01/22/hexo_push你的新博客到Github/"></span>
         
     </a>
 
@@ -744,8 +744,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/04/21/tool_CMake_快速入门/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/04/21/tool_CMake_快速入门/"></span>
         
     </a>
 
@@ -828,8 +828,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/06/09/OverlappingSounds_Basketball_Never_Stops/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/06/09/OverlappingSounds_Basketball_Never_Stops/"></span>
         
     </a>
 
@@ -904,8 +904,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/06/12/OverlappingSounds_写于幸运保研后/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/06/12/OverlappingSounds_写于幸运保研后/"></span>
         
     </a>
 
@@ -980,8 +980,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/02/02/tool_NotePad/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/02/02/tool_NotePad/"></span>
         
     </a>
 
@@ -1108,28 +1108,23 @@
 
 
     
+
+    
+        <script id="dsq-count-scr" src="//durant35.disqus.com/count.js" async></script>
         <script>
             if ($(".left-col").is(":visible")) {
-                var duoshuoQuery = {short_name:"durant35"};
-                (function() {
-                    var d = document, s = d.createElement('script');
-                    s.src = 'http://static.duoshuo.com/embed.js';
-                    s.async = true; s.charset = 'UTF-8';
-                    (d.head || d.body).appendChild(s);
-                })();
-
-                $(document).ready(function(){
-                    var $duoshuoCount = $(".ds-thread-count");
-                    $duoshuoCount.bind("DOMNodeInserted", function(e) {
-                        var num = $(this).text().replace(/[^0-9]/ig,"");
+                var $disqusCount = $(".disqus-comment-count");
+                $disqusCount.bind("DOMNodeInserted", function(e) {
+                    var num = $(this).text().replace(/[^0-9]/ig,"");
+                    if (num > 0) {
                         $(this).siblings(".count-comment").text(num);
-                        $(this).remove();
-                    })
+                    }
+                    $(this).remove();
                 })
+            } else {
+                $(".disqus-comment-count").remove();
             }
         </script>
-    
-
      
 
 

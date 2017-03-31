@@ -267,8 +267,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2017/03/15/Algorithms_DFS/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2017/03/15/Algorithms_DFS/"></span>
         
     </a>
 
@@ -348,8 +348,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2017/03/22/Algorithms_BFS/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2017/03/22/Algorithms_BFS/"></span>
         
     </a>
 
@@ -429,8 +429,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/07/26/tool_git几步走/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/07/26/tool_git几步走/"></span>
         
     </a>
 
@@ -512,8 +512,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2017/02/04/linux_Linux命令小纸条/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2017/02/04/linux_Linux命令小纸条/"></span>
         
     </a>
 
@@ -601,8 +601,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2017/03/10/Algorithms_An Alibaba Interview Question/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2017/03/10/Algorithms_An Alibaba Interview Question/"></span>
         
     </a>
 
@@ -682,8 +682,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2017/03/04/Algorithms_FFT/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2017/03/04/Algorithms_FFT/"></span>
         
     </a>
 
@@ -767,8 +767,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/10/02/ROS_ROS_Basics/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/10/02/ROS_ROS_Basics/"></span>
         
     </a>
 
@@ -848,8 +848,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2017/02/26/Algorithms_Divide and Conquer/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2017/02/26/Algorithms_Divide and Conquer/"></span>
         
     </a>
 
@@ -928,8 +928,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2017/02/04/cv_Digital-Image-Process(pg_2016)/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2017/02/04/cv_Digital-Image-Process(pg_2016)/"></span>
         
     </a>
 
@@ -1015,8 +1015,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2017/02/04/tool_vim几步走/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2017/02/04/tool_vim几步走/"></span>
         
     </a>
 
@@ -1143,28 +1143,23 @@
 
 
     
+
+    
+        <script id="dsq-count-scr" src="//durant35.disqus.com/count.js" async></script>
         <script>
             if ($(".left-col").is(":visible")) {
-                var duoshuoQuery = {short_name:"durant35"};
-                (function() {
-                    var d = document, s = d.createElement('script');
-                    s.src = 'http://static.duoshuo.com/embed.js';
-                    s.async = true; s.charset = 'UTF-8';
-                    (d.head || d.body).appendChild(s);
-                })();
-
-                $(document).ready(function(){
-                    var $duoshuoCount = $(".ds-thread-count");
-                    $duoshuoCount.bind("DOMNodeInserted", function(e) {
-                        var num = $(this).text().replace(/[^0-9]/ig,"");
+                var $disqusCount = $(".disqus-comment-count");
+                $disqusCount.bind("DOMNodeInserted", function(e) {
+                    var num = $(this).text().replace(/[^0-9]/ig,"");
+                    if (num > 0) {
                         $(this).siblings(".count-comment").text(num);
-                        $(this).remove();
-                    })
+                    }
+                    $(this).remove();
                 })
+            } else {
+                $(".disqus-comment-count").remove();
             }
         </script>
-    
-
      
 
 

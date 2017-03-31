@@ -428,24 +428,27 @@ ODBC vs JDBC　　这两种方式都是访问数据库的常用的编程接口�
 
 
     
-      <div class="duoshuo" id="comments">
-    <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/" data-title="JSP考勤系统(二) JDBC连接MySQL数据库" data-url="http://durant35.github.io/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/"></div>
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
     <script>
-        var duoshuoQuery = {short_name:"durant35"};
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/';
+            this.page.identifier = '2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/';
+        };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
-            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-            s.async = true; s.charset = 'UTF-8';
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
             (d.head || d.body).appendChild(s);
         }
-
-        
     </script>
     
     <script> loadComment(); </script>
 
-</div>
+</section>
+
+
     
 
 

@@ -435,24 +435,27 @@
 
 
     
-      <div class="duoshuo" id="comments">
-    <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/" data-title="快速搭建Android ADT开发环境(基于Win7&amp;Win8.1(both 64-bit),其他仅供参考)" data-url="http://durant35.github.io/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/"></div>
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
     <script>
-        var duoshuoQuery = {short_name:"durant35"};
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/';
+            this.page.identifier = '2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/';
+        };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
-            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-            s.async = true; s.charset = 'UTF-8';
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
             (d.head || d.body).appendChild(s);
         }
-
-        
     </script>
     
     <script> loadComment(); </script>
 
-</div>
+</section>
+
+
     
 
 

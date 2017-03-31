@@ -267,8 +267,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/02/22/programPearls_Coding中的编码问题之系统学习/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/02/22/programPearls_Coding中的编码问题之系统学习/"></span>
         
     </a>
 
@@ -349,8 +349,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2017/02/04/TACourses_Summer-trainning-in-July,2016/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2017/02/04/TACourses_Summer-trainning-in-July,2016/"></span>
         
     </a>
 
@@ -432,8 +432,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/10/09/OverlappingSounds_Key Word Engineering/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/10/09/OverlappingSounds_Key Word Engineering/"></span>
         
     </a>
 
@@ -509,8 +509,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/"></span>
         
     </a>
 
@@ -585,8 +585,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2017/01/25/raspberry_enable-ssh-without-UI/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2017/01/25/raspberry_enable-ssh-without-UI/"></span>
         
     </a>
 
@@ -662,8 +662,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2017/02/02/hexo-md源文件内容修改预览页面刷新无效/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2017/02/02/hexo-md源文件内容修改预览页面刷新无效/"></span>
         
     </a>
 
@@ -743,8 +743,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/07/16/hexo_hexo分级目录与多标签/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/07/16/hexo_hexo分级目录与多标签/"></span>
         
     </a>
 
@@ -824,8 +824,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/"></span>
         
     </a>
 
@@ -900,8 +900,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/"></span>
         
     </a>
 
@@ -980,8 +980,8 @@
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
-            <span class="ds-thread-count"  data-thread-key="2017/01/24/python_sort-Functions/" ></span>
         
+            <span class="disqus-comment-count" data-disqus-identifier="2017/01/24/python_sort-Functions/"></span>
         
     </a>
 
@@ -1095,28 +1095,23 @@
 
 
     
+
+    
+        <script id="dsq-count-scr" src="//durant35.disqus.com/count.js" async></script>
         <script>
             if ($(".left-col").is(":visible")) {
-                var duoshuoQuery = {short_name:"durant35"};
-                (function() {
-                    var d = document, s = d.createElement('script');
-                    s.src = 'http://static.duoshuo.com/embed.js';
-                    s.async = true; s.charset = 'UTF-8';
-                    (d.head || d.body).appendChild(s);
-                })();
-
-                $(document).ready(function(){
-                    var $duoshuoCount = $(".ds-thread-count");
-                    $duoshuoCount.bind("DOMNodeInserted", function(e) {
-                        var num = $(this).text().replace(/[^0-9]/ig,"");
+                var $disqusCount = $(".disqus-comment-count");
+                $disqusCount.bind("DOMNodeInserted", function(e) {
+                    var num = $(this).text().replace(/[^0-9]/ig,"");
+                    if (num > 0) {
                         $(this).siblings(".count-comment").text(num);
-                        $(this).remove();
-                    })
+                    }
+                    $(this).remove();
                 })
+            } else {
+                $(".disqus-comment-count").remove();
             }
         </script>
-    
-
      
 
 

@@ -447,24 +447,27 @@
 
 
     
-      <div class="duoshuo" id="comments">
-    <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2016/07/16/linux_瞎谈Socket编程_2/" data-title="瞎谈 Socket 编程(二)" data-url="http://durant35.github.io/2016/07/16/linux_瞎谈Socket编程_2/"></div>
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
     <script>
-        var duoshuoQuery = {short_name:"durant35"};
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/2016/07/16/linux_瞎谈Socket编程_2/';
+            this.page.identifier = '2016/07/16/linux_瞎谈Socket编程_2/';
+        };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
-            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-            s.async = true; s.charset = 'UTF-8';
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
             (d.head || d.body).appendChild(s);
         }
-
-        
     </script>
     
     <script> loadComment(); </script>
 
-</div>
+</section>
+
+
     
 
 
