@@ -888,7 +888,7 @@
     <link href="http://durant35.github.io/2017/02/04/tool_vim%E5%87%A0%E6%AD%A5%E8%B5%B0/"/>
     <id>http://durant35.github.io/2017/02/04/tool_vim几步走/</id>
     <published>2017-02-04T06:07:18.000Z</published>
-    <updated>2017-02-06T09:10:23.491Z</updated>
+    <updated>2017-03-31T07:11:13.363Z</updated>
     
     <content type="html"><![CDATA[<p>　通过 <strong>sudo apt-get install vim</strong> 即可安装 <strong>vim</strong>，也能通过 <a href="https://github.com/amix/vimrc">vimrc</a> 之类安装大神们的各种自适配的高级 <strong>vim</strong>。<br>　本文旨在记录开发过程中用过的 <strong>vim</strong> 操作。　　<br><a id="more"></a></p>
 <blockquote>
@@ -1150,7 +1150,7 @@
       <category term="小工具" scheme="http://durant35.github.io/categories/%E6%8A%80%E6%9C%AF%E7%95%99%E6%A1%A3/%E5%B0%8F%E5%B7%A5%E5%85%B7/"/>
     
     
-      <category term="git" scheme="http://durant35.github.io/tags/git/"/>
+      <category term="vim" scheme="http://durant35.github.io/tags/vim/"/>
     
   </entry>
   
