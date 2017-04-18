@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-03-27T11:52:39.901Z</updated>
+  <updated>2017-04-18T08:36:19.306Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -14,6 +14,130 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>算法设计与分析[0008] Dynamic Programming(I)（动态规划）</title>
+    <link href="http://durant35.github.io/2017/04/13/Algorithms_Dynamic%20Programming(I)/"/>
+    <id>http://durant35.github.io/2017/04/13/Algorithms_Dynamic Programming(I)/</id>
+    <published>2017-04-13T06:00:22.000Z</published>
+    <updated>2017-04-18T08:36:19.306Z</updated>
+    
+    <content type="html"><![CDATA[<p>　本文通过 <strong>Unique Paths <a href="https://leetcode.com/problems/unique-paths/#/description">[I]</a> &amp; <a href="https://leetcode.com/problems/unique-paths-ii/#/description">[II]</a></strong> 两道题从普通的递归思路到动态规划两种方式的求解尝试，希望能够初步分析如何根据动态规划的思路，进行问题求解。<br><a id="more"></a></p>
+<h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><p><center><img src="/img/Algorithms/0008_robot_maze.png" width="380px"/></center></p>
+<ul>
+<li>两道题解决的问题相似，都是求解从格网图左上角（Start）→ 右下角（Finish）可行的路径总数，而且行走方向只有向下或者向右移动两种方式，只是在以下两个地方存在一些区别：<ul>
+<li><a href="https://leetcode.com/problems/unique-paths/#/description">Unique Paths [I]</a> 行走的格网图不设立障碍，而 <a href="https://leetcode.com/problems/unique-paths-ii/#/description">Unique Paths [[II]</a> 中行走的格网图存在障碍，在可行路径选取上需要考虑避开障碍物的问题。</li>
+<li>由于上面的区别，导致在输入上两道题有所不同：前者只需要输入格网图的大小（#row*#column）；后者则需要提供格网图的0-1矩阵（1表示网格存在障碍物）</li>
+</ul>
+</li>
+</ul>
+<h4 id="递归思想解答"><a href="#递归思想解答" class="headerlink" title="递归思想解答"></a>递归思想解答</h4><ul>
+<li>由于每一步的行走策略只有两种，不是向下走就是向右走，因此，假设当前这一步完成后到达右下角（#row，#column），那么只有（#row-1，#column）向下走和（#row，#column-1）向右走这两种方式，所以可行的路径总数显然就是从起点（1，1）到这两个中间点的可行路径总数之和。</li>
+<li>按照上述的思路，很容易通过递归的方式最终会退到起点（递归基），并通过递归函数返回得到总的可行路径数目。</li>
+<li>需要注意的一点是，由于每一步只有向右或者向下两种策略，所以，并不需要递归回起点（1，1），当回退到（1，？）或（？，1）时，从起点到当前中间点，有且只有一条路径（一直向右走或者一直想下走）。</li>
+<li><a href="https://leetcode.com/problems/unique-paths/#/description">Unique Paths [I]</a>  按照递归思路的解答如下：</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePaths</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="comment">// sanity check</span></div><div class="line">        <span class="keyword">if</span>(m&lt;<span class="number">1</span> || n&lt;<span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// when m==1 or n==1, only directly down or directly right</span></div><div class="line">        <span class="keyword">if</span>(m==<span class="number">1</span> || n==<span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">// left to right + up to down</span></div><div class="line">        <span class="keyword">return</span> uniquePaths(m, n<span class="number">-1</span>) + uniquePaths(m<span class="number">-1</span>, n);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://leetcode.com/problems/unique-paths-ii/#/description">Unique Paths [[II]</a> 则需要进一步考虑当前步是否可行的问题，倘若存在障碍物，显然此路不通，不应计入可行路径的统计，<code>return 0</code>。</li>
+<li>另外，与 <a href="https://leetcode.com/problems/unique-paths/#/description">Unique Paths [I]</a> 不同，只有回退到起点，才能判断通过递归历经的网格所构成的路径是可行的。因为，只是回退到（1，？）或（？，1），一旦起点到该中间点的<code>向右直走路径</code>或<code>向下直走路径</code>中间出现任何一个障碍物，该路径都是不可行的。</li>
+<li>以下是递归解答，留意与前一道题目在输入上的区别。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; obstacleGrid, <span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(obstacleGrid[m<span class="number">-1</span>][n<span class="number">-1</span>] == <span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// obstacleGrid[0][0] == 0</span></div><div class="line">        <span class="keyword">if</span>(m==<span class="number">1</span> &amp;&amp; n==<span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// left to right</span></div><div class="line">        <span class="keyword">if</span>(m==<span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> uniquePathsWithObstacles(obstacleGrid, m, n<span class="number">-1</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// up to down</span></div><div class="line">        <span class="keyword">if</span>(n==<span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> uniquePathsWithObstacles(obstacleGrid, m<span class="number">-1</span>, n);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// up to down + left to right</span></div><div class="line">        <span class="keyword">return</span> uniquePathsWithObstacles(obstacleGrid, m<span class="number">-1</span>, n) + uniquePathsWithObstacles(obstacleGrid, m, n<span class="number">-1</span>);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; obstacleGrid)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> rowSize = obstacleGrid.size();</div><div class="line">        <span class="keyword">int</span> colSize = obstacleGrid[<span class="number">0</span>].size();</div><div class="line">        </div><div class="line">        <span class="comment">// sanity check</span></div><div class="line">        <span class="keyword">if</span>((colSize &lt; <span class="number">1</span>) || (obstacleGrid[<span class="number">0</span>][<span class="number">0</span>] == <span class="number">1</span>) || (obstacleGrid[rowSize<span class="number">-1</span>][colSize<span class="number">-1</span>] == <span class="number">1</span>)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> uniquePathsWithObstacles(obstacleGrid, rowSize, colSize);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li><font color="red">递归思路解答对上述问题并不可行</font><ul>
+<li>我们都知道，直接的递归实现，可读性强，但频繁的函数调用会造成一定的时间损耗，因此上述两题都存在 <code>Time Limit Exceeded</code> 的错误。</li>
+<li>另一个更为关键的问题是，上述简单的递归实现，每次递归的时候都对从起点到达当前中间网格的可行路径数进行了重复计算，这种重复计算的代价是巨大的，往往需要好几层回退；假如能够避免这种冗余，肯定会带来巨大的提升。</li>
+</ul>
+</li>
+</ul>
+<h4 id="动态规划思路解答"><a href="#动态规划思路解答" class="headerlink" title="动态规划思路解答"></a>动态规划思路解答</h4><ul>
+<li>动态规划思路就能很好解决上述的问题：回退的方式不好避免重复计算的问题（可能需要维护从起点到达每个网格可行路径总数的表，另外通过是否为<code>Inf</code>避免重复计算，为了让每次递归均能访问操作该表，需要将其置为全局变量），我们干脆换个方向，从起点出发，直到到达右下角；动态规划的过程就像是在填上述这样一个表。</li>
+<li>通过递归回退+维护从起点到达每个网格可行路径总数的表避免冗余计算的方式（记忆化搜索），因为只有在右下角到起点的可行路径上的网格才会被计算，能够避开其他不必要的网格；但是，函数的调用显然有一定损耗。</li>
+<li>动态规划这种填表的思路，会将所有网格对应的表项填满，但这种顺序进行的操作实现简易（通过一个数组，两三层循环即可实现），耗时也较少，因此在大多数问题（动态规划多余的计算数目并不算多）下较记忆化搜索有一定优势。</li>
+<li><a href="https://leetcode.com/problems/unique-paths-ii/#/description">Unique Paths [[II]</a> 的动态规划解答关键已经在递归思路中体现，即：从起点到当前网格的可行路径总数为到左方网格（向右移动到达当前网格）及上方网格（向下移动达到当前网格）可行路径总数之和。<ul>
+<li>需要注意的是，从起点到（1，？）或（？，1）的可行路径显然都只有一条（一直向右移动/一直向下移动）。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePaths</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="comment">// sanity check</span></div><div class="line">        <span class="keyword">if</span>(m&lt;<span class="number">1</span> || n&lt;<span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> paths[m][n];</div><div class="line">        <span class="comment">// paths(1, 1...n), left to right</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>; col&lt;n; col++) &#123;</div><div class="line">            paths[<span class="number">0</span>][col] = <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// paths(1...n, 1), up to down</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;m; row++) &#123;</div><div class="line">            paths[row][<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">1</span>; row&lt;m; row++) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">1</span>; col&lt;n; col++) &#123;</div><div class="line">                <span class="comment">// left to right + up to down</span></div><div class="line">                paths[row][col] = paths[row][col<span class="number">-1</span>] + paths[row<span class="number">-1</span>][col];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> paths[m<span class="number">-1</span>][n<span class="number">-1</span>];</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://leetcode.com/problems/unique-paths-ii/#/description">Unique Paths [[II]</a> 思路基本一致，只是当当前网格存在障碍物，其到起点的可行路径显然不存在。<ul>
+<li>另外，对于从起点到（1，？）或（？，1）可行路径的分析与递归思路解答时一致。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; obstacleGrid)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> rowSize = obstacleGrid.size();</div><div class="line">        <span class="keyword">int</span> colSize = obstacleGrid[<span class="number">0</span>].size();</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>((rowSize &lt; <span class="number">1</span>) || (obstacleGrid[<span class="number">0</span>][<span class="number">0</span>] == <span class="number">1</span>) || (obstacleGrid[rowSize<span class="number">-1</span>][colSize<span class="number">-1</span>] == <span class="number">1</span>)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> paths[rowSize][colSize];</div><div class="line">        <span class="comment">// obstacleGrid[0][0] == 0 from above</span></div><div class="line">        paths[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">        </div><div class="line">        <span class="comment">// paths(1, 1...n)</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">1</span>; col&lt;colSize; col++) &#123;</div><div class="line">            paths[<span class="number">0</span>][col] = obstacleGrid[<span class="number">0</span>][col]==<span class="number">0</span> ? paths[<span class="number">0</span>][col<span class="number">-1</span>] : <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// paths(1...n, 1)</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">1</span>; row&lt;rowSize; row++) &#123;</div><div class="line">            paths[row][<span class="number">0</span>] = obstacleGrid[row][<span class="number">0</span>]==<span class="number">0</span> ? paths[row<span class="number">-1</span>][<span class="number">0</span>] : <span class="number">0</span>;;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">1</span>; row&lt;rowSize; row++) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">1</span>; col&lt;colSize; col++) &#123;</div><div class="line">                <span class="comment">// left to right + up to down</span></div><div class="line">                paths[row][col] = obstacleGrid[row][col]==<span class="number">0</span> ? (paths[row][col<span class="number">-1</span>] + paths[row<span class="number">-1</span>][col]) : <span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> paths[rowSize<span class="number">-1</span>][colSize<span class="number">-1</span>];</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;　本文通过 &lt;strong&gt;Unique Paths &lt;a href=&quot;https://leetcode.com/problems/unique-paths/#/description&quot;&gt;[I]&lt;/a&gt; &amp;amp; &lt;a href=&quot;https://leetcode.com/problems/unique-paths-ii/#/description&quot;&gt;[II]&lt;/a&gt;&lt;/strong&gt; 两道题从普通的递归思路到动态规划两种方式的求解尝试，希望能够初步分析如何根据动态规划的思路，进行问题求解。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
+    
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</title>
+    <link href="http://durant35.github.io/2017/04/06/Algorithms_Minimum%20Spanning%20Tree/"/>
+    <id>http://durant35.github.io/2017/04/06/Algorithms_Minimum Spanning Tree/</id>
+    <published>2017-04-06T06:00:22.000Z</published>
+    <updated>2017-04-18T07:05:15.545Z</updated>
+    
+    <content type="html"><![CDATA[<p>　本文通过一道阿里面试题（下图），说说关于该题的字符串最长子串的查找问题。</p>
+<p><center><img src="/img/Algorithms/0003_alibaba_2017.png" width="1024px"/></center><br><a id="more"></a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;　本文通过一道阿里面试题（下图），说说关于该题的字符串最长子串的查找问题。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img src=&quot;/img/Algorithms/0003_alibaba_2017.png&quot; width=&quot;1024px&quot;/&gt;&lt;/center&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
+    
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</title>
+    <link href="http://durant35.github.io/2017/03/29/Algorithms_Some%20Shortest-path%20Algorithms/"/>
+    <id>http://durant35.github.io/2017/03/29/Algorithms_Some Shortest-path Algorithms/</id>
+    <published>2017-03-29T06:00:22.000Z</published>
+    <updated>2017-04-18T07:02:43.395Z</updated>
+    
+    <content type="html"><![CDATA[<p>　本文通过一道阿里面试题（下图），说说关于该题的字符串最长子串的查找问题。</p>
+<p><center><img src="/img/Algorithms/0003_alibaba_2017.png" width="1024px"/></center><br><a id="more"></a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;　本文通过一道阿里面试题（下图），说说关于该题的字符串最长子串的查找问题。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img src=&quot;/img/Algorithms/0003_alibaba_2017.png&quot; width=&quot;1024px&quot;/&gt;&lt;/center&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
+    
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
+    
+  </entry>
   
   <entry>
     <title>算法设计与分析[0005] Breadth First Search（广度优先搜索）</title>
@@ -888,7 +1012,7 @@
     <link href="http://durant35.github.io/2017/02/04/tool_vim%E5%87%A0%E6%AD%A5%E8%B5%B0/"/>
     <id>http://durant35.github.io/2017/02/04/tool_vim几步走/</id>
     <published>2017-02-04T06:07:18.000Z</published>
-    <updated>2017-03-31T07:11:13.363Z</updated>
+    <updated>2017-03-31T07:14:06.624Z</updated>
     
     <content type="html"><![CDATA[<p>　通过 <strong>sudo apt-get install vim</strong> 即可安装 <strong>vim</strong>，也能通过 <a href="https://github.com/amix/vimrc">vimrc</a> 之类安装大神们的各种自适配的高级 <strong>vim</strong>。<br>　本文旨在记录开发过程中用过的 <strong>vim</strong> 操作。　　<br><a id="more"></a></p>
 <blockquote>
@@ -1546,9 +1670,9 @@
       <category term="Linux" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Linux/"/>
     
     
-      <category term="Linux" scheme="http://durant35.github.io/tags/Linux/"/>
-    
       <category term="pcap" scheme="http://durant35.github.io/tags/pcap/"/>
+    
+      <category term="Linux" scheme="http://durant35.github.io/tags/Linux/"/>
     
   </entry>
   
@@ -1780,202 +1904,6 @@
     
     
       <category term="ROS" scheme="http://durant35.github.io/tags/ROS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sudo, unable to resolve host</title>
-    <link href="http://durant35.github.io/2016/10/03/linux_sudo_unable_to_resolve_host/"/>
-    <id>http://durant35.github.io/2016/10/03/linux_sudo_unable_to_resolve_host/</id>
-    <published>2016-10-03T02:42:07.000Z</published>
-    <updated>2016-10-03T02:55:50.345Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>Reference:<br>　<a href="http://askubuntu.com/questions/59458/error-message-when-i-run-sudo-unable-to-resolve-host-none">Error message when I run sudo: unable to resolve host (none)</a></p>
-</blockquote>
-<p>　现象是这样的。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xxx@...:~$ sudo <span class="literal">true</span></div><div class="line">sudo: unable to resolve host (...)</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>　解决的方法如下。</p>
-<blockquote>
-<p>Two things to check (assuming your machine is called my-machine, you can change this as appropriate):</p>
-<ul>
-<li>That the /etc/hostname file contains just the name of the machine.</li>
-<li>That /etc/hosts has an entry for localhost. It should have something like:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">127.0.0.1    localhost.localdomain localhost</div><div class="line">127.0.1.1    my-machine</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>If either of these files aren’t correct (since you can’t sudo), you may have to reboot the machine into recovery mode and make the modifications, then reboot to your usual environment.</p>
-</blockquote>
-<p>　我遇到的问题是，通过UI系统设置修改了机器名，<strong>/etc/hostname</strong> 是修改过来了，但是 <strong>/etc/hosts</strong> 中却还是保留了原来的机器名。<br>　这个问题，在使用 <strong>Networking-ROS</strong> 的运行过程中使得通过网络连接的分布式 <strong>master</strong> 和 <strong>slave</strong> 无法正常通讯。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;Reference:&lt;br&gt;　&lt;a href=&quot;http://askubuntu.com/questions/59458/error-message-when-i-run-sudo-unable-to-resolve-host-none&quot;&gt;Error message when I run sudo: unable to resolve host (none)&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;　现象是这样的。&lt;br&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;xxx@...:~$ sudo &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;sudo: unable to resolve host (...)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Linux" scheme="http://durant35.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ROS Basics</title>
-    <link href="http://durant35.github.io/2016/10/02/ROS_ROS_Basics/"/>
-    <id>http://durant35.github.io/2016/10/02/ROS_ROS_Basics/</id>
-    <published>2016-10-02T13:18:03.000Z</published>
-    <updated>2017-03-06T02:05:46.883Z</updated>
-    
-    <content type="html"><![CDATA[<p>　　ROS 基本概念以及经常使用的命令。</p>
-<h3 id="ROS-文件系统"><a href="#ROS-文件系统" class="headerlink" title="ROS 文件系统"></a>ROS 文件系统</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 获取软件包有关信息</span></div><div class="line">xxx@...$ rospack find [package-name]</div><div class="line"><span class="comment"># 查看环境变量(ROS_PACKAGE_PATH)</span></div><div class="line">xxx@...$ <span class="built_in">export</span> | grep ROS</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="ROS-package"><a href="#ROS-package" class="headerlink" title="ROS package"></a>ROS package</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看一级依赖包信息，内容大致为 packages.xml 所示信息</span></div><div class="line">xxx@...$ rospack depends1 [package-name]</div><div class="line"></div><div class="line"><span class="comment"># catkin_make 构建，基于 cmake</span></div><div class="line">xxx@...$ catkin_make [make-targets] [-DCMAKE_INSTALL_PREFIX=xxx]</div></pre></td></tr></table></figure>
-<h3 id="ROS-服务和参数"><a href="#ROS-服务和参数" class="headerlink" title="ROS 服务和参数"></a>ROS 服务和参数</h3><blockquote>
-<p>服务是节点之间通讯的一种方式 {request –&gt; response}<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">xxx@...$ rosservice list</div><div class="line">xxx@...$ rosservice <span class="built_in">type</span> [service-name]</div><div class="line">xxx@...$ rosservice call [service-name] [args]</div></pre></td></tr></table></figure></p>
-<p>参数服务器操作<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xxx@...$ rosparam list</div><div class="line">xxx@...$ rosparam <span class="built_in">set</span>/get [param-name]</div></pre></td></tr></table></figure></p>
-</blockquote>
-<h3 id="ROS-调试"><a href="#ROS-调试" class="headerlink" title="ROS 调试"></a>ROS 调试</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">xxx@...$ rosrun rqt_console rqt_console</div><div class="line"> </div><div class="line">xxx@...$ rosrun rqt_logger_level rqt_logger_level</div><div class="line"> </div><div class="line"><span class="comment"># 检查 ROS 系统</span></div><div class="line">xxx@...$ roswtf</div></pre></td></tr></table></figure>
-<h3 id="ROS-节点"><a href="#ROS-节点" class="headerlink" title="ROS 节点"></a>ROS 节点</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 显示当前运行的 ROS 节点信息</span></div><div class="line">xxx@...$ rosnode list</div><div class="line"> </div><div class="line"><span class="comment"># 返回一个特定节点信息</span></div><div class="line">xxx@...$ rosnode info /&lt;node-name&gt;</div><div class="line"> </div><div class="line"><span class="comment"># 启动某个节点，需要明确该节点属于哪个package</span></div><div class="line">xxx@...$ rosrun [package-name] [node-name]</div><div class="line"> </div><div class="line"><span class="comment"># 在运行所有 ROS 程序节点前 master 节点必须先要运行起来</span></div><div class="line"><span class="comment"># roslaunch 会自动先启动 master 节点</span></div><div class="line">xxx@...$ roscore</div></pre></td></tr></table></figure>
-<h3 id="ROS-话题"><a href="#ROS-话题" class="headerlink" title="ROS 话题"></a>ROS 话题</h3><p>　　<font color="blue">通过 <strong>rqt_graph</strong> 命令显示当前系统运行情况动态图，能准确了解系统的整体框架！</font><br>    <img src="/img/ROS/navigation_rqt_graph.png" /><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxx@...$ rosrun rqt_graph rqt_graph</div></pre></td></tr></table></figure></p>
-<p>　　其他的有关 ROS topic 的命令对于了解整个系统数据流向，数据信息(如频率，数据类型等)有极大的辅助作用！<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 显示某个话题上发布的数据</span></div><div class="line">xxx@...$ rostopic <span class="built_in">echo</span> /[topic]</div><div class="line"> </div><div class="line"><span class="comment"># 分别显示所有发布和订阅的话题及其类型的详细信息</span></div><div class="line">xxx@...$ rostopic list -v</div><div class="line"> </div><div class="line"><span class="comment"># 显示某个topic所有的发布节点和订阅节点</span></div><div class="line">xxx@...$ rostopic info /[topic]</div><div class="line"> </div><div class="line"><span class="comment"># 查看数据类型</span></div><div class="line">xxx@...$ rostopic <span class="built_in">type</span> /[topic]</div><div class="line"> </div><div class="line"><span class="comment"># 发布数据到topic</span></div><div class="line"><span class="comment">#  &#123;-1&#125; 发布一条消息后马上退出,option</span></div><div class="line"><span class="comment">#  &#123;-r ?&#125; 稳定频率?hz的命令流,option</span></div><div class="line">xxx@...$ rostopic pub &#123;-1&#125; /[topic] [msg_type] &#123;-r ?&#125; -- [args]</div><div class="line"> </div><div class="line"><span class="comment"># 查看数据发布频率</span></div><div class="line">xxx@...$ rostopic hz /[topic]</div><div class="line"> </div><div class="line"><span class="comment"># 查看数据变化图形</span></div><div class="line">xxx@...$ rosrun rqt_plot rqt_plot</div></pre></td></tr></table></figure></p>
-<p>1.节点中如何按照一定频率发布 topic<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ros::<span class="function">Rate <span class="title">loop_rate</span><span class="params">(<span class="keyword">double</span> frequency)</span></span>;</div><div class="line"><span class="keyword">while</span>(ros::ok())&#123;</div><div class="line">  ros::spinOnce();</div><div class="line">  loop_rate.sleep();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<blockquote>
-<ul>
-<li><strong>ros::spin()</strong>　blocks until ros invokes a shutdown(频率与callback函数相关！！)</li>
-<li><strong>ros::spinOnce()</strong> handles the event and return immediatey(可控频率！)</li>
-</ul>
-</blockquote>
-<p>2.节点中如何订阅 topic<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ros::NodeHandle n;</div><div class="line">ros::Publisher pub = n.advertise(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;topic, </div><div class="line">       <span class="keyword">uint32_t</span> queue_size, <span class="keyword">bool</span> latch=<span class="literal">false</span>);</div></pre></td></tr></table></figure></p>
-<p>3.<font color="blue"><strong>消息调试可能的步骤!!!</strong></font><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">xxx@...$ rostopic list -v</div><div class="line">xxx@...$ rostopic info /&lt;topic-name&gt;</div><div class="line">xxx@...$ rosrun tf view_frame</div></pre></td></tr></table></figure></p>
-<h3 id="使用-roslaunch"><a href="#使用-roslaunch" class="headerlink" title="使用 roslaunch"></a>使用 roslaunch</h3><p>　　启动定义在　<strong>launch</strong> 文件中的多个节点<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxx@...$ roslaunch [package] [file-name.launch]</div></pre></td></tr></table></figure></p>
-<p>　　<strong>roslaunch</strong> 在大型系统中的使用技巧</p>
-<ol>
-<li><p>高层次的 launch 文件应该简短，利用 <strong>include</strong> 指令将系统的组成部分和 <strong>ROS parameter</strong> 引用过来即可。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">include</span> <span class="attr">file</span>=<span class="string">"$(find package-name)/.../..."</span> /&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>当一个给定类型的消息在不同的情况下发布在不同的 topic 上，可以使用 <strong>remapping</strong>。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">remap</span> <span class="attr">from</span>=<span class="string">"topic-name"</span> <span class="attr">to</span>=<span class="string">"xxx"</span>/&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>参数</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 声明和使用</div><div class="line"><span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">"xxx"</span> <span class="attr">value</span>=<span class="string">"xxx"</span>/&gt;</span></div><div class="line">$(arg name)</div><div class="line"># 通过*.yaml文件加载</div><div class="line">#  通过 ns 划分 namespace</div><div class="line"><span class="tag">&lt;<span class="name">rosparam</span> <span class="attr">file</span>=<span class="string">"*.yaml"</span> <span class="attr">command</span>=<span class="string">"load"</span> [<span class="attr">ns</span>=<span class="string">"xxx"</span>] /&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>launch 文件的重用以及参数覆盖(当前文件声明覆盖外部文件声明)应少用为妙。</p>
-</li>
-</ol>
-<h3 id="tf-坐标变换树"><a href="#tf-坐标变换树" class="headerlink" title="tf 坐标变换树"></a>tf 坐标变换树</h3><p>　　<font color="blue"><strong>tf</strong> 变换树定义了不同坐标系之间的平移和旋转变换关系，通过 <strong>rqt_tf_tree</strong> 命令查看当前系统 <strong>tf 变换树</strong> 能够有效的对系统缺漏做出判断！</font><br>    <center><img src="/img/ROS/slam_tf_tree.png" width="640px"/></center><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看the tree of frame</span></div><div class="line">xxx@...$ rosrun rqt_tf_tree rqt_tf_tree</div><div class="line"><span class="comment"># 查看一对不同坐标间的变换</span></div><div class="line">xxx@...$ rosrun tf tf_echo [reference_frame] [target_frame]</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>ROS 使用 <strong>tf</strong> 来决定机器人的位置和静态地图中的传感器数据，但是 <strong>tf</strong> 中没有机器人的速度信息，所以导航功能包要求机器人能够通过里程计信息源发布包含速度信息的里程计(数据类型: <strong>nav_msgs/Odometry</strong>), <strong>“/odom”</strong></p>
-</blockquote>
-<h3 id="rosbag-数据操作"><a href="#rosbag-数据操作" class="headerlink" title="rosbag 数据操作"></a>rosbag 数据操作</h3><ol>
-<li><p>记录数据</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xxx@...$ rosbag record -o &lt;file-name&gt; /scan /tf /&lt;topic-name&gt;...</div><div class="line"><span class="comment"># CTRL+C to generate &lt;file-name&gt;.bag</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>数据仿真</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxx@...$ rosbag play &lt;file-name&gt;.bag --clock</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="保存-SLAM-地图"><a href="#保存-SLAM-地图" class="headerlink" title="保存 SLAM 地图"></a>保存 SLAM 地图</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxx@...$ roslaunch hector_slam_example hector_hokoyo.launch</div></pre></td></tr></table></figure>
-<blockquote>
-<p>Hector SLAM is running and the real-time map is constructing under map server</p>
-</blockquote>
-<p>　　建图完成后从 <strong>map server</strong> 获取地图数据，进行保存<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxx@...$ rosrun map_server map_saver <span class="_">-f</span> &lt;file-name&gt;</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>会在当前目录生成地图数据 <strong><file-name>.pgm</strong> 和 <strong><file-name>.yaml</strong><br>    <center><img src="/img/ROS/lab510.png" width="502px"/></center></p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;　　ROS 基本概念以及经常使用的命令。&lt;/p&gt;
-&lt;h3 id=&quot;ROS-文件系统&quot;&gt;&lt;a href=&quot;#ROS-文件系统&quot; class=&quot;headerlink&quot; title=&quot;ROS 文件系统&quot;&gt;&lt;/a&gt;ROS 文件系统&lt;/h3&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 获取软件包有关信息&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;xxx@...$ rospack find [package-name]&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 查看环境变量(ROS_PACKAGE_PATH)&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;xxx@...$ &lt;span class=&quot;built_in&quot;&gt;export&lt;/span&gt; | grep ROS&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="软硬兼施" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/"/>
-    
-      <category term="ROS" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/ROS/"/>
-    
-    
-      <category term="ROS" scheme="http://durant35.github.io/tags/ROS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Embedded System 2016</title>
-    <link href="http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/"/>
-    <id>http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/</id>
-    <published>2016-10-01T07:50:14.000Z</published>
-    <updated>2016-10-09T07:29:58.695Z</updated>
-    
-    <content type="html"><![CDATA[<p>　　嵌入式系统实验课大概涉及的内容有以下几个部分:<br>    <center><img src="/img/TA-Cources/ES2016/dol_framework.png" width="640px"/></center><br>　　主体就涵盖了三条纵线一条横线，functional simulation，Hds simulation，analysis model 是三纵，如何通过三纵得到的数据迭代获取 application 和 architecture 的最佳 mapping 为一横。<br><a id="more"></a></p>
-<blockquote>
-<ol>
-<li><p>DOL Framework的了解，入门编程，功能仿真<br>1.1 <strong><font color="green">DOL + systemC</font></strong><br>　Functional Simulation，包括分析，动手编程修改 example 模型<br>1.2 <strong><font color="green">MPARM + RTEMS OS</font></strong><br>　System Synthesis(Hds，硬件相关软件层)，mparm<br>1.3 <strong><font color="green">MATLAB + RTC/MPA</font></strong><br>　Analysis Model分析，MPA(<strong>Modular Performance Analysis</strong>)，获取当前 mapping 的各项参数，如: Backlog, Delay，用于迭代的back-annotation。</p>
-</li>
-<li><p>解决 <strong>Application</strong> 到 <strong>Architecture</strong> 的 <strong>Mapping</strong>: <strong>DES(Design Space Exploration)</strong> 探索，使用 <strong>EXPO</strong> 并进行数据分析。</p>
- <center><img src="/img/TA-Cources/ES2016/dse_cycle.png" width="420px"/></center>　</li>
-<li>DeadLock 死锁问题</li>
-<li>KPN 模型设计与分析</li>
-</ol>
-</blockquote>
-<h3 id="D-istributed-O-peration-L-ayer"><a href="#D-istributed-O-peration-L-ayer" class="headerlink" title="D(istributed)O(peration)L(ayer)"></a><font color="green">D</font>(istributed)<font color="green">O</font>(peration)<font color="green">L</font>(ayer)</h3><blockquote>
-<p><center><img src="/img/TA-Cources/ES2016/SHAPES.png" width="640px"/></center><br>上图描述了 <strong>DOL</strong> 的整体框架以及所使用的工具链<br>　VSP: Virtual SHAPES Platform</p>
-<p><center><img src="/img/TA-Cources/ES2016/dol_basic_structure.png" width="520px"/></center><br>上图描述了 <strong>DOL</strong> 的整体流程：<br>　1). <strong>DOL Specification</strong>，包括 <code>*.c</code>, <code>*.h</code>, <code>*.xml</code> 定义的 <strong>application</strong>, <code>*.xml</code> 定义的 <strong>architecture</strong> 和 <strong>mapping</strong><br>　2). 自动化生成 SystemC 代码，并基于 SystemC 进行 <strong>Functional Simulation</strong><br>　3). 自动化生成 MPARM 平台上运行的二进制代码，进行 <strong>Cycle Accurate Simulation</strong><br>　4). 利用上述两种 Simulation 产生的 <strong>Log files</strong> 生成 <strong>MPA Model</strong>，进行 <strong>RTC</strong> 等相关分析</p>
-<p><center><img src="/img/TA-Cources/ES2016/what_is_mapping.png" width="520px"/></center><br>接下来会介绍两种 <strong>DOL Software Synthesis</strong>:</p>
-<ul>
-<li>基于 <strong>SystemC</strong> 的功能仿真</li>
-<li>基于 <strong>RTEMS(real-time executive for multiprocessor systems)</strong> 和 <strong>MPARM</strong> 的模拟仿真(Cycle Accurate Simulation)</li>
-</ul>
-</blockquote>
-<p>1.DOL &amp; SystemC for <font color="green">Functional Simulation</font><br>    <center><img src="/img/TA-Cources/ES2016/dol_overview.png" width="420px"/></center></p>
-<blockquote>
-<p>Step 1: Flattening of the process network description</p>
-<ul>
-<li>Java class XMLFlattener, XMLFlattener creates a Java class that can generate the flattened XML file<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">java dol.helper.flattener.XMLFlattener pn.xml Generator</div><div class="line">javac Generator.java</div><div class="line">java Generator.java &gt; flattened_pn.xml</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>Step 2: Flattening of the generated XML file</p>
-<ul>
-<li>Flattened XML file <strong><font color="blue">— dotty —&gt;</font></strong> representation of the process network<br>　　To generate a network description displayable by dotty, use dol with the -D flag.<br>　　To specify the process network file, use the -P flag.<br>　　The -c flag is used to enable a basic consistency check of the process network，dol will check whether each port is connected to some channel, for instance<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">java dol.main.Main -P flattened_pn.xml -D dotty_pn.dot -c</div><div class="line">dotty dotty_pn.dot</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><center><img src="/img/TA-Cources/ES2016/Hds_synthesis.png" width="420px"/></center></p>
-<ul>
-<li>Flattened XML file + C source code <strong><font color="blue">— dol —&gt;</font></strong> executable SystemC application<br>　　To generate the source code for an executable systemC application, use dol with the -H flag<br>　　dol will create a directory with the specified name containing all required source files for generating a systemC application, including a Makefile<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># copy *.c &amp; *.h</span></div><div class="line">cp <span class="variable">$sourcefiles</span> ./src</div><div class="line">java dol.main.Main -P flattened_pn.xml -H systemc -c</div><div class="line"><span class="built_in">cd</span> systemc/src</div><div class="line">make</div><div class="line">./sc_application</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-<ul>
-<li><font color="red">Assignment</font><br>　a. How to configure DOL environment in your computer?<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># check your system environment</span></div><div class="line">xxx@...:~$ sudo lsb_release <span class="_">-a</span></div><div class="line"> </div><div class="line"><span class="comment"># The requirements:</span></div><div class="line"><span class="comment">#  C/C++ environment: compiler, linker</span></div><div class="line"><span class="comment">#  Java environment: javac, java</span></div><div class="line"><span class="comment">#  Build environment: make, Ant (version 1.6.5 or greater)</span></div><div class="line"><span class="comment"># check your gcc</span></div><div class="line">xxx@...:~$ gcc -v</div><div class="line">xxx@...:~$ sudo apt-get install ant</div><div class="line"><span class="comment"># install Java environment</span></div><div class="line">xxx@...:~$ sudo apt-cache search openjdk-*</div><div class="line">xxx@...:~$ sudo apt-get install openjdk-&lt;your cache jdk version&gt;-jdk</div><div class="line"><span class="comment"># check installation success or not</span></div><div class="line">xxx@...:~$ java -version</div><div class="line"> </div><div class="line"><span class="comment"># 配置 DOL 依赖: SystemC</span></div><div class="line"><span class="comment"># SystemC environment (version 2.1 or greater)</span></div><div class="line"><span class="comment">#  File: systemc-2.3.1.tar</span></div><div class="line"><span class="comment">#  链接：http://www.accellera.org/downloads/standards/systemc/files</span></div><div class="line">xxx@...:&lt;sub&gt;$ <span class="built_in">cd</span> &lt;/sub&gt;/Workspace/DOL</div><div class="line">xxx@...:~$ tar -zxvf systemc-2.3.1.tgz</div><div class="line">xxx@...:~$ rm systemc-2.3.1.tgz</div><div class="line"><span class="comment"># 1. Change to the top level directory (systemc-2.3.1)</span></div><div class="line">xxx@...:&lt;sub&gt;$ <span class="built_in">cd</span> &lt;/sub&gt;/Workspace/DOL/systemc-2.3.1</div><div class="line">xxx@...:~$ <span class="built_in">pwd</span></div><div class="line"><span class="comment"># 2. Create a temporary directory, e.g.,</span></div><div class="line">xxx@...:~$ mkdir objdir</div><div class="line"><span class="comment"># 3. Change to the temporary directory, e.g.,</span></div><div class="line">xxx@...:~$ <span class="built_in">cd</span> objdir</div><div class="line"><span class="comment"># 4. Configure the package for your system, e.g.,</span></div><div class="line">xxx@...:~$ ../configure CXX=g++ --disable-async-updates</div><div class="line"><span class="comment"># 5. Compile the package.</span></div><div class="line">xxx@...:~$ make</div><div class="line"><span class="comment"># 6. [option] verify the compiled package by testing the example suite.</span></div><div class="line">xxx@...:~$ make check</div><div class="line"><span class="comment"># 7. Install the package.</span></div><div class="line">xxx@...:~$ make install</div><div class="line"><span class="comment"># 8. You can now remove the temporary directory, .e.g,</span></div><div class="line">xxx@...:~$ <span class="built_in">cd</span> ..</div><div class="line">xxx@...:~$ rm -rf objdir</div><div class="line"><span class="comment"># Alternatively, you can keep the temporary directory to allow you to:</span></div><div class="line"><span class="comment">#  a) Experiment with the examples.</span></div><div class="line"><span class="comment">#  b) Later uninstall the package. </span></div><div class="line"><span class="comment">#    To clean up the temporary directory, enter:</span></div><div class="line">xxx@...:~$ make clean</div><div class="line"><span class="comment">#    To uninstall the package, enter:</span></div><div class="line">xxx@...:~$ make uninstall</div><div class="line"> </div><div class="line"><span class="comment"># 配置 DOL</span></div><div class="line"><span class="comment">#  wget http://www.tik.ee.ethz.ch/~shapes/downloads/dol_ethz.zip</span></div><div class="line">xxx@...:&lt;sub&gt;$ <span class="built_in">cd</span> &lt;/sub&gt;/Workspace/DOL</div><div class="line">xxx@...:~$ unzip dol_ethz.zip</div><div class="line">xxx@...:~$ rm dol_ethz.zip </div><div class="line"><span class="comment"># 修改 build_zip.xml 文件</span></div><div class="line">xxx@...:~$ vim build_zip.xml</div><div class="line"><span class="comment"># 找到下面这段话，修改成上面编译的 SystemC 所在的位置，</span></div><div class="line"><span class="comment">#  &lt;property name="systemc.inc" value="YYY/include"/&gt;</span></div><div class="line"><span class="comment">#  &lt;property name="systemc.lib" value="YYY/lib-linux/libsystemc.a"/&gt;</span></div><div class="line"><span class="comment"># 把YYY改成上面pwd的结果（注意，对于64位系统的机器，lib-linux要改成lib-linux64）</span></div><div class="line"><span class="comment"># 编译 DOL，若成功会显示 BUILD SUCCESSFUL</span></div><div class="line">xxx@...:~$ ant <span class="_">-f</span> build_zip.xml all</div><div class="line"><span class="comment"># 接着可以试试运行第一个例子</span></div><div class="line"><span class="comment"># 进入build/bin/mian路径下</span></div><div class="line">xxx@...:~$ <span class="built_in">cd</span> build/bin/main</div><div class="line"><span class="comment"># 然后构建，运行第一个例子</span></div><div class="line">xxx@...:~$ ant <span class="_">-f</span> runexample.xml -Dnumber=1</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<font color="blue"><strong>Q&amp;A</strong></font>
-
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">1.build_zip.xml无法保存</div><div class="line">Ans：sudo gedit build_zip.xml</div><div class="line"> </div><div class="line">2.最后一步build failed</div><div class="line">  出现在中文系统，在dol/build/bin/main下的runexample.xml 215-217行需要注释或者删掉</div><div class="line">Ans: 找到</div><div class="line"><span class="tag">&lt;<span class="name">tstamp</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">format</span> <span class="attr">property</span>=<span class="string">"touch.time"</span></div><div class="line">          <span class="attr">pattern</span>=<span class="string">"MM/dd/yyyy hh:mm aa"</span></div><div class="line">          <span class="attr">offset</span>=<span class="string">"-5"</span> <span class="attr">unit</span>=<span class="string">"second"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">tstamp</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">touch</span> <span class="attr">datetime</span>=<span class="string">"$&#123;touch.time&#125;"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">fileset</span> <span class="attr">dir</span>=<span class="string">"example$&#123;number&#125;"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">touch</span>&gt;</span></div><div class="line">修改为：</div><div class="line"><span class="comment">&lt;!--     </div><div class="line">&lt;tstamp&gt;</div><div class="line">  &lt;format property="touch.time"</div><div class="line">          pattern="MM/dd/yyyy hh:mm aa"</div><div class="line">          offset="-5" unit="second"/&gt;</div><div class="line">&lt;/tstamp&gt;</div><div class="line">&lt;touch datetime="$&#123;touch.time&#125;"&gt;</div><div class="line">  &lt;fileset dir="example$&#123;number&#125;"/&gt;</div><div class="line">&lt;/touch&gt; </div><div class="line">--&gt;</span></div><div class="line"> </div><div class="line">3.make和ant有什么不一样</div><div class="line">Ans: MAKE是基于C语言；ant是基于Java语言</div><div class="line"> </div><div class="line">4.第一次build successful, 但是最后build failed</div><div class="line">Ans: 这个问题大致上是JAVA的问题</div><div class="line">  对于这个问题，安装JDK可以解决，sudo apt-get install openjdk-?-jdk可以解决</div><div class="line"> </div><div class="line">5.sudo apt-get install openjdk-?-jdk后，build还是有问题</div><div class="line">Ans: 可能因为安装了多个版本的JAVA，需要设置一下JAVA的环境变量</div><div class="line"> </div><div class="line">6.有人遇到pthread_mutex_tryloc,什么鬼的</div><div class="line">Ans: 表示摊手，因为在编译Systemc时，</div><div class="line">    sudo ../configure CXX=g++ --disable-async-updates，</div><div class="line">  这是systemc的相关设置，已经禁用了pthread。</div><div class="line">  如果按照上述语句configure还出现问题的，试试重新安装一遍。</div><div class="line"> </div><div class="line">7.PPT上最后一个图示可以画出来的吗？</div><div class="line">Ans：可以，在build/bin/main 的exmaple文件里有面个*.dot文件，双击就可以看到了</div><div class="line"> </div><div class="line">...</div></pre></td></tr></table></figure>
-<p>　b. Analyze DOL framework by some example.<br>　c. Write your DOL Apps based on above analysis.</p>
-<p>2.<font color="green">MPARM Simulation</font> with RTEMS OS<br>    <center><img src="/img/TA-Cources/ES2016/MPARM_simulation.png" width="540px"/></center></p>
-<ul>
-<li><font color="red">Assignment</font><br>　a. Configure and run MPARM simulation.<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Step1: Install requirement: MATLAB</span></div><div class="line"><span class="comment">#  安装MATLAB_R2014A</span></div><div class="line"><span class="comment"># 1. 步入ISO所在路径，sudo mount MATHWORKS_R2014A.iso MATLAB_R2014A/ 挂载MATHWORKS_R2014A.iso到MATLAB_R2014A</span></div><div class="line">x@.:~$ mkdir MATLAB_R2014A</div><div class="line">x@.:~$ sudo mount MATHWORKS_R2014A.iso MATLAB_R2014A/</div><div class="line"> </div><div class="line"><span class="comment"># 2. 启动安装</span></div><div class="line">x@.:~$ <span class="built_in">cd</span> MATLAB_R2014A/</div><div class="line">x@.:~$ sudo ./install</div><div class="line"> </div><div class="line"><span class="comment"># 3. 选择是否在线安装时，选否，即 install manually without using the internet</span></div><div class="line"><span class="comment">#  让输入key，输入 12313-94680-65562-90832</span></div><div class="line"><span class="comment">#  文件安装路径选择依照自己习惯，一般为：/usr/local/</span></div><div class="line">x@.:~$ sudo umount -v MATLAB_R2014A/</div><div class="line">x@.:~$ sudo rm -rf MATLAB_R2014A/</div><div class="line"> </div><div class="line"><span class="comment"># 4. 步入  /usr/local/MATLAB/R2014a/bin， sudo ./matlab，即可启动 MATLAB，说明成功安装并破解</span></div><div class="line">x@.:~$ <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/MATLAB/R2014a/bin</div><div class="line">x@.:~$ sudo ./matlab</div><div class="line"> </div><div class="line"><span class="comment"># 5. 不使用Internet手动激活，使用：破解/Crack/license_405329_R2014a.lic文件</span></div><div class="line"><span class="comment">#  此外，将 破解/Crack/Linux/libmwservices.so 复制到 MATLAB/R2014a/bin/glnxa64/ （可能需要通过命令mv或者cp）</span></div><div class="line">x@.:~$ <span class="built_in">cd</span> &lt;ISO所在路径&gt;</div><div class="line">x@.:~$ unzip MATHWORKS_R2014A_Crack.zip</div><div class="line">x@.:~$ sudo cp Crack/Linux/libmwservices.so /usr/<span class="built_in">local</span>/MATLAB/R2014a/bin/glnxa64/</div><div class="line">x@.:~$ <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/MATLAB/R2014a/bin</div><div class="line"><span class="comment">#  MATLAB已经破解，正常启动</span></div><div class="line">x@.:~$ sudo ./matlab</div><div class="line"> </div><div class="line"><span class="comment"># 6. 制作 MATLAB 快捷启动 (matlab-support)</span></div><div class="line"><span class="comment">#  sudo apt-get install matlab-support	按照要求填写目录即可</span></div><div class="line"><span class="comment">#  任意 Terminal下 键入命令：matlab 即可启动，如果报错，需要键入 sudo matlab</span></div><div class="line">x@.:~$ sudo apt-get install matlab-support</div><div class="line"><span class="comment"># Location of MATLAB installation(s): /usr/local/MATLAB/R2014a</span></div><div class="line"><span class="comment"># Authorized user for MATLAB: &lt;empty&gt;</span></div><div class="line"><span class="comment"># ...</span></div><div class="line"> </div><div class="line"><span class="comment"># 7. [option]更改 MATLAB 默认文件夹</span></div><div class="line"><span class="comment">#  在 MATLAB 命令行键入 edit pathdef，在 pathdef.m 文件最末尾添加： cd 你要设置的默认目录 即可。</span></div><div class="line"><span class="comment"># 8. 配置RTC ToolBox 说明</span></div><div class="line"><span class="comment">#  链接: http://www.mpa.ethz.ch/Rtctoolbox/Download</span></div><div class="line"><span class="comment">#  rtc_toobox.zip is the same contents as tecsexperiments-2010-10-22-final/testbed/matlab/rtc</span></div><div class="line"><span class="comment"># Extract the downloaded zip package. The extracted directory will contain a directory called rtc.</span></div><div class="line"><span class="comment"># Copy or move the directory rtc to its final installation destination, e.g. to $MATLAB$/toolbox/rtc</span></div><div class="line">x@.:~$ sudo unzip rtc_toobox.zip <span class="_">-d</span> /usr/<span class="built_in">local</span>/MATLAB/R2014a/toolbox/</div><div class="line">x@.:~$ sudo matlab</div><div class="line"><span class="comment"># Open Matlab and change to the rtc directory:</span></div><div class="line"><span class="built_in">cd</span> <span class="variable">$MATLAB</span>$/toolbox/rtc</div><div class="line"><span class="comment"># Run:</span></div><div class="line">rtc_install</div><div class="line"><span class="comment"># Now you can start using the RTC Toolbox. To explore the functionality of the RTC Toolbox, try the following:</span></div><div class="line"><span class="built_in">help</span> rtc</div><div class="line"><span class="comment"># Uninstalling the Real-Time Calculus (RTC) Toolbox:</span></div><div class="line">rtc_uninstall</div><div class="line"><span class="comment"># You may now delete the directory $MATLAB$/toolbox/rtc </span></div><div class="line">x@.:~$ sudo rm -rf /usr/<span class="built_in">local</span>/MATLAB/R2014a/toolbox/rtc</div><div class="line"> </div><div class="line"><span class="comment"># Step2: Configure testbed environment</span></div><div class="line"><span class="comment"># 1. 修改 mparm/RTEMS-os/install-rtems/arm-rtems/arm_bare_bsp/Makefile.inc 中'prefix'和'exec_prefix'所对应的路径</span></div><div class="line"><span class="comment">#  修改为自己的 mparm 所在目录</span></div><div class="line">prefix = /home/khuang/work/mparm-haid/mparm/RTEMS-os/install-rtems</div><div class="line">exec_prefix = /home/khuang/work/mparm-haid/mparm/RTEMS-os/install-rtems/arm-rtems</div><div class="line"> </div><div class="line"><span class="comment"># 2. 修改 testbed/localjars/dol.properties 中'SYSTEMC_INC'和'SYSTEMC_LIB'所对应的路径</span></div><div class="line"><span class="comment">#  修改为自己 systemC 中 include 与 libsystemc.a 所对应的目录。</span></div><div class="line">SYSTEMC_INC = /home/khuang/work/shapes/systemC/include</div><div class="line">SYSTEMC_LIB = /home/khuang/work/shapes/systemC/lib-linux/libsystemc.a</div><div class="line"> </div><div class="line"><span class="comment"># 3. 在 testbed/localjars 中更新 jar 文件,使用命令 jar -uf dol.jar dol.properties</span></div><div class="line">x@.:~$ jar -uf dol.jar dol.properties</div><div class="line"> </div><div class="line"><span class="comment"># 4. 修改 testbed/build.xml 中'mparm.dir'所对应的路径为自己 mparm 所在路径</span></div><div class="line">&lt;property name=<span class="string">"mparm.dir"</span> location=<span class="string">"/home/khuang/work/mparm-haid/mparm/"</span>/&gt;</div><div class="line"> </div><div class="line"><span class="comment"># 5. 至此,就可以运行 testbed 了,在 testbed 目录下执行 ant,查看结果</span></div><div class="line">x@.:&lt;sub&gt;$ <span class="built_in">cd</span> &lt;/sub&gt;/Workspace/tecsexperiments-2010-10-22-final/testbed</div><div class="line">x@.:~$ ant</div><div class="line"> </div><div class="line"><span class="comment"># 6. 调用MATLAB分析MPA</span></div><div class="line">x@.:~$ <span class="built_in">cd</span> tecs</div><div class="line">x@.:~$ ./runmatlab.sh</div><div class="line"> </div><div class="line"><span class="comment"># 7. [option]修改 testbed/build.xml 中'source.dir',可以运行不同的测试样例,测试样例在tecs/examples 目录下。</span></div><div class="line">&lt;property name=<span class="string">"source.dir"</span> value=<span class="string">"tecs/examples/examplemjpegVSP-trigger"</span>/&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<font color="blue"><strong>Q&amp;A</strong></font>
-
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># MPARM工具是32位程序，通过查看链接情况解决依赖位数不匹配的问题</span></div><div class="line"><span class="comment">#  需要安装i386的C++标准库</span></div><div class="line"><span class="comment">#  参考链接: http://askubuntu.com/questions/709893/14-04-01-32-bit-missing-g-64-bit-include-files-when-cross-compiling</span></div><div class="line">x@.:~/Workspace/tecsexperiments-2010-10-22-final/mparm/swarm/bin$ ldd mpsim.x</div><div class="line">  linux-gate.so.1 =&gt;  (0xf7747000)</div><div class="line">  libstdc++.so.5 =&gt; not found</div><div class="line">  libm.so.6 =&gt; /lib/i386-linux-gnu/libm.so.6 (0xf76e8000)</div><div class="line">  libgcc_s.so.1 =&gt; /lib/i386-linux-gnu/libgcc_s.so.1 (0xf76ca000)</div><div class="line">  libc.so.6 =&gt; /lib/i386-linux-gnu/libc.so.6 (0xf751c000)</div><div class="line">  /lib/ld-linux.so.2 (0xf774a000)</div><div class="line"><span class="comment"># This is just a dependency package that resolves to g++-?-multilib for the default gcc/g++ version, </span></div><div class="line"><span class="comment">#  and in turn depends on lib64stdc++-?-dev (64-bit compilation on 32-bit) or libx32stdc++-?-dev (32-bit compilation on 64-bit)</span></div><div class="line"><span class="comment">#  it is these that contain the actual header files.</span></div><div class="line">x@.:~/Workspace/tecsexperiments-2010-10-22-final/mparm/swarm/bin$ sudo apt-get install g++-multilib</div></pre></td></tr></table></figure>
-<p>　b. Analyze MPARM simulation log files to know about the whole process.</p>
-<p>3.<font color="green">MPA Model</font></p>
-<h3 id="DSE-EXPO"><a href="#DSE-EXPO" class="headerlink" title="DSE-EXPO"></a>DSE-EXPO</h3><h3 id="Dead-Lock"><a href="#Dead-Lock" class="headerlink" title="Dead Lock"></a>Dead Lock</h3><h3 id="K-ahn-P-rocess-N-etwork"><a href="#K-ahn-P-rocess-N-etwork" class="headerlink" title="K(ahn)P(rocess)N(etwork)"></a><font color="green">K</font>(ahn)<font color="green">P</font>(rocess)<font color="green">N</font>(etwork)</h3>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;　　嵌入式系统实验课大概涉及的内容有以下几个部分:&lt;br&gt;    &lt;center&gt;&lt;img src=&quot;/img/TA-Cources/ES2016/dol_framework.png&quot; width=&quot;640px&quot;/&gt;&lt;/center&gt;&lt;br&gt;　　主体就涵盖了三条纵线一条横线，functional simulation，Hds simulation，analysis model 是三纵，如何通过三纵得到的数据迭代获取 application 和 architecture 的最佳 mapping 为一横。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="TA Cources" scheme="http://durant35.github.io/categories/TA-Cources/"/>
-    
     
   </entry>
   
