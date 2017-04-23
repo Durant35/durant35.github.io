@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-04-18T08:36:19.306Z</updated>
+  <updated>2017-04-23T13:18:12.921Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -14,6 +14,71 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>算法设计与分析[0009] Dynamic Programming(II)（动态规划）</title>
+    <link href="http://durant35.github.io/2017/04/23/Algorithms_Dynamic%20Programming(II)/"/>
+    <id>http://durant35.github.io/2017/04/23/Algorithms_Dynamic Programming(II)/</id>
+    <published>2017-04-23T06:00:22.000Z</published>
+    <updated>2017-04-23T13:18:12.921Z</updated>
+    
+    <content type="html"><![CDATA[<p>　本文通过 <strong><a href="https://leetcode.com/problems/maximum-subarray/#/description">53. Maximum Subarray</a> &amp; <a href="https://leetcode.com/problems/maximum-product-subarray/#/description">152. Maximum Product Subarray</a></strong> 分析根据动态规划思路进行问题求解中的一个关键环节：子问题的拆分和求解。<br><a id="more"></a></p>
+<h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><ul>
+<li>两道题解决的问题相似，都是求解给定序列中满足某种数学特征（和最大/乘积最大）的子序列，虽然不需要将该子序列输出。</li>
+</ul>
+<blockquote>
+<p>Find the contiguous subarray within an array(containing at least one number) which has the largest sum/product.</p>
+<ul>
+<li>For example, given the array [-2,1,-3,4,-1,2,1,-5,4], the contiguous subarray [4,-1,2,1] has the largest sum = 6. </li>
+<li>For example, given the array [2,3,-2,4], the contiguous subarray [2,3] has the largest product = 6. </li>
+</ul>
+</blockquote>
+<ul>
+<li>留意的关键字眼是：<code>containing at least one number</code>，所以给定序列至少有一个元素，这也启发我们可以将其作为特殊处理。</li>
+</ul>
+<h4 id="53-Maximum-Subarray-解题思路"><a href="#53-Maximum-Subarray-解题思路" class="headerlink" title="53. Maximum Subarray 解题思路"></a><a href="https://leetcode.com/problems/maximum-subarray/#/description">53. Maximum Subarray</a> 解题思路</h4><ul>
+<li>思路一：$sums[j]$ 为序列前 j 个元素的最大子段和作为求解的子问题，则 $sum[n]$ 则为问题的答案。然而，如何利用 $sums[1, 2, …, j-1]$ 对 $sums[j]$ 进行求解呢？显然需要知道前 j 个元素的最大字段和的子段起始和终止位置，求解这个子问题的状态迁移显然比较复杂。</li>
+<li>换一种思路。思路二：$sums[j]$ 为以第 j 个元素为结尾的子段的最大子段和作为求解的子问题，$max_{1 \leq j \leq n}(sums[j])$ 即为整个序列的最大子段和。而通过 $sums[j-1]$ 和当前元素 $nums[j]$ 即可计算以第 j 个元素为结尾的最大子段和 $sums[j]$，<code>状态转移方程</code> 如下：<br>$$ sums[j+1] = \begin{cases}  nums[j+1]　　　　　　sums[j] \lt 0 \cr sums[j] + nums[j+1]　others \end{cases}$$</li>
+<li>根据思路二，<a href="https://leetcode.com/problems/maximum-subarray/#/description">53. Maximum Subarray</a> 解答如下：</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> SizeofNums = nums.size();</div><div class="line">        <span class="keyword">if</span>(SizeofNums == <span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> sums[SizeofNums];</div><div class="line">        sums[<span class="number">0</span>] = nums[<span class="number">0</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;SizeofNums; i++) &#123;</div><div class="line">            <span class="comment">// sums[i]: The largest sum of subarray ending with the i-th element</span></div><div class="line">            sums[i] = sums[i<span class="number">-1</span>]&lt;<span class="number">0</span> ? nums[i] : sums[i<span class="number">-1</span>]+nums[i]; </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">// The largest sum of the whole array</span></div><div class="line">        <span class="keyword">int</span> largestSum = sums[<span class="number">0</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;SizeofNums; i++) &#123;</div><div class="line">            <span class="keyword">if</span>(largestSum &lt; sums[i]) &#123;</div><div class="line">                largestSum = sums[i];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> largestSum;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>为了得到 <code>largestSum</code> 对应的子序列，我们可以通过变量 <code>startIdx</code> 记录以第 j 个元素结尾（<code>endIdx</code>）的最大子段和对应子序列的起始位置，$nums[startIdx, …, endIdx]$ 即为对应的子序列；另外，考虑到<strong>当前状态只与前一个状态有关</strong>，所以可以使用变量代替数组，节省内存，同时，避免获取<code>The largest sum of the whole array</code> 时的重复循环。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> SizeofNums = nums.size();</div><div class="line">        <span class="keyword">if</span>(SizeofNums == <span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>];</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// largest sum for the subarray ending with current element </span></div><div class="line">        <span class="keyword">int</span> curSum = nums[<span class="number">0</span>];</div><div class="line">        <span class="comment">// largest sum of subarray for the whole array</span></div><div class="line">        <span class="keyword">int</span> largestSum = curSum;</div><div class="line">        <span class="comment">// subarray[startIdx, endIdx] with largest sum for the whole array</span></div><div class="line">        <span class="keyword">int</span> startIdx = <span class="number">0</span>, endIdx = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;SizeofNums; i++) &#123;</div><div class="line">            <span class="keyword">if</span>(curSum &lt; <span class="number">0</span>) &#123;</div><div class="line">                curSum = nums[i];</div><div class="line">                startIdx = i;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                curSum = curSum + nums[i];</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="keyword">if</span>(curSum &gt; largestSum) &#123;</div><div class="line">                largestSum = curSum;</div><div class="line">                endIdx = i;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> largestSum;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="152-Maximum-Product-Subarray-解题思路"><a href="#152-Maximum-Product-Subarray-解题思路" class="headerlink" title="152. Maximum Product Subarray 解题思路"></a><a href="https://leetcode.com/problems/maximum-product-subarray/#/description">152. Maximum Product Subarray</a> 解题思路</h4><ul>
+<li>这一题的解题流程与上一题基本类似，但是要解决的关键问题是：状态转移，即如何根据上一个子问题（以第 j 个元素为结尾的子段的max product）的答案推算出当前子问题的结果。</li>
+<li>从上一题的分析可以看出，当前子问题（以第 j 个元素为结尾的子段的max sum）的计算只需考虑上一个子问题的结果 $sum[j-1]$，$sum[j-1] &lt; 0$，因为是加法，显然可以将子问题结果忽略；$sum[j-1] &gt; 0$，$sum[j-1]$ 加上当前元素就是当前子问题的结果。</li>
+<li>类似的问题，只不过换成乘积，子问题的求解就变得复杂了，需要考虑以下几种情况：<ul>
+<li>当前元素是正数，max product可能是正正得正的情况，因为都是整数，乘积＞1，上一子问题的结果乘上当前元素即为当前子问题的答案</li>
+<li>当前元素是负数，max product可能是负负得正的情况，因此需要维护以第 j 个元素为结尾的子段的min product（很大可能是负数）</li>
+<li>另外，需要考虑上一个子问题的结果为0的情况</li>
+<li>总之，乘积的最大值为上述三种情况之一<br>状态转移方程如下：<br>$$ maxProducts[j+1] = max(maxProducts[j-1]*nums[j], minProducts[j-1]*nums[j], nums[j])$$</li>
+</ul>
+</li>
+<li><a href="https://leetcode.com/problems/maximum-product-subarray/#/description">152. Maximum Product Subarray</a> 解答如下：</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProduct</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> SizeofNums = nums.size();</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(SizeofNums == <span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>];</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// The largest/least product of subarray ending with the i-th element</span></div><div class="line">        <span class="keyword">int</span> maxProducts[SizeofNums];</div><div class="line">        <span class="keyword">int</span> minProducts[SizeofNums];</div><div class="line">        maxProducts[<span class="number">0</span>] = minProducts[<span class="number">0</span>] = nums[<span class="number">0</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;SizeofNums; i++) &#123;</div><div class="line">            <span class="comment">// positive with positive, negative with negative, ignore previous zero</span></div><div class="line">            maxProducts[i] = max( max(maxProducts[i<span class="number">-1</span>]*nums[i], minProducts[i<span class="number">-1</span>]*nums[i]), nums[i]);</div><div class="line">            <span class="comment">// positive with negative, negative with positive, ignore previous zero</span></div><div class="line">            minProducts[i] = min( min(maxProducts[i<span class="number">-1</span>]*nums[i], minProducts[i<span class="number">-1</span>]*nums[i]), nums[i]);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">// getting the largest product for the whole array</span></div><div class="line">        <span class="keyword">int</span> largestProduct = maxProducts[<span class="number">0</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;SizeofNums; i++) &#123;</div><div class="line">            <span class="keyword">if</span>(maxProducts[i] &gt; largestProduct) &#123;</div><div class="line">                largestProduct = maxProducts[i];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> largestProduct;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>与上一题类似，添加额外变量，也能实现节省内存，记录子段最大乘积对应子段（$nums[startIdx, endIdx]$）的起始和终止位置。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProduct</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> SizeofNums = nums.size();</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(SizeofNums == <span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>];</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// The largest/least product of subarray ending with the i-th element</span></div><div class="line">        <span class="keyword">int</span> largestProduct = nums[<span class="number">0</span>];</div><div class="line">        <span class="keyword">int</span> leastProduct = nums[<span class="number">0</span>];</div><div class="line">        <span class="comment">// The largest product for the whole array</span></div><div class="line">        <span class="keyword">int</span> maxProduct = largestProduct;</div><div class="line">        <span class="comment">// subarray[startIdx, endIdx] with largest product for the whole array</span></div><div class="line">        <span class="keyword">int</span> startIdx = <span class="number">0</span>, endIdx = <span class="number">0</span>;</div><div class="line">        <span class="comment">// start index for largestProduct/leastProduct</span></div><div class="line">        <span class="keyword">int</span> startIdx_pos = startIdx, startIdx_neg = startIdx;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;SizeofNums; i++) &#123;</div><div class="line">            <span class="keyword">int</span> largestProduct_pre = largestProduct;</div><div class="line">            <span class="keyword">int</span> leastProduct_pre = leastProduct;</div><div class="line">            </div><div class="line">            <span class="comment">// positive with positive, negative with negative, ignore previous zero</span></div><div class="line">            largestProduct = max( max(largestProduct_pre*nums[i], leastProduct_pre*nums[i]), nums[i]);</div><div class="line">            <span class="keyword">if</span>((largestProduct_pre != nums[i]) &amp;&amp; (largestProduct == nums[i])) &#123;</div><div class="line">                startIdx_pos = i;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="comment">// positive with negative, negative with positive, ignore previous zero</span></div><div class="line">            leastProduct = min( min(largestProduct_pre*nums[i], leastProduct_pre*nums[i]), nums[i]);</div><div class="line">            <span class="keyword">if</span>((leastProduct_pre != nums[i]) &amp;&amp; (leastProduct == nums[i])) &#123;</div><div class="line">                startIdx_neg = i;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="keyword">if</span>(largestProduct &gt; maxProduct) &#123;</div><div class="line">                maxProduct = largestProduct;</div><div class="line">                <span class="keyword">if</span>(largestProduct_pre*nums[i] &gt; leastProduct_pre*nums[i]) &#123;</div><div class="line">                    startIdx = startIdx_pos;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> &#123;</div><div class="line">                    startIdx = startIdx_neg;</div><div class="line">                &#125;</div><div class="line">                endIdx = i;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> maxProduct;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;　本文通过 &lt;strong&gt;&lt;a href=&quot;https://leetcode.com/problems/maximum-subarray/#/description&quot;&gt;53. Maximum Subarray&lt;/a&gt; &amp;amp; &lt;a href=&quot;https://leetcode.com/problems/maximum-product-subarray/#/description&quot;&gt;152. Maximum Product Subarray&lt;/a&gt;&lt;/strong&gt; 分析根据动态规划思路进行问题求解中的一个关键环节：子问题的拆分和求解。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
+    
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
+    
+  </entry>
   
   <entry>
     <title>算法设计与分析[0008] Dynamic Programming(I)（动态规划）</title>
@@ -1805,105 +1870,6 @@
     
     
       <category term="Hexo" scheme="http://durant35.github.io/tags/Hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>初识ROS自主导航</title>
-    <link href="http://durant35.github.io/2016/10/03/ROS_ROS_Navigation_GettingStarted/"/>
-    <id>http://durant35.github.io/2016/10/03/ROS_ROS_Navigation_GettingStarted/</id>
-    <published>2016-10-03T09:43:09.000Z</published>
-    <updated>2016-10-03T13:32:46.531Z</updated>
-    
-    <content type="html"><![CDATA[<p>　　To add navigation to a robot, we need to launch 3 nodes:</p>
-<blockquote>
-<ul>
-<li>map_server: to provide the static map {“*.yaml” &amp; “*.pgm”}, against which the robot will localize and plan.</li>
-<li>amcl: to localize the robot against the static map.</li>
-<li>move_base: to handle global planning and local control for the robot.</li>
-</ul>
-</blockquote>
-<p>　　<strong>amcl</strong> 是移动机器人二维环境下的概率定位系统，它实现了自适应(或 <strong>kdl</strong> 采样)的 <strong>蒙特卡洛定位</strong> 方法，其中针对已有的地图使用 <strong>粒子滤波器</strong> 跟踪一个机器人的姿态。</p>
-<p>　　<strong>move_base</strong> 提供了 ROS 导航的配置，运行，交互接口，主要包括两个部分：</p>
-<blockquote>
-<p>　(1) 全局路径规划：根据给定的目标位置进行总体路径的规划<br>　(2) 局部路径规划：根据附近的障碍物信息进行躲避路线规划<br><a id="more"></a></p>
-</blockquote>
-<h3 id="amcl"><a href="#amcl" class="headerlink" title="amcl"></a>amcl</h3><p>　　<font color="blue">amcl(Adaptive Monte Carlo Localization) —-&gt; pose(position, oriention) &lt;—- map 坐标系</font></p>
-<blockquote>
-<p>自主定位</p>
-<ul>
-<li>全局定位：通过测机器人的绝对未知来定位，定位的精度较高，并且可以用来修复局部定位的定位误差</li>
-<li>局部定位：通过测量相对于机器人初始位置的距离和方向来确定当前的位姿，但随着时间的累计造成定位的误差较大，无法精确定位</li>
-</ul>
-</blockquote>
-<p>　　AMCL maintains a set of poses, representing where it thinks the robot might be, each of these candidate pose has associated with a probability: higher-probability poses are more likely to be where the robot actually is.</p>
-<p>　　<font color="green">When amcl first starts up, you have to give it the initial pose(position and oriention) of the robot as this is something amcl cannot figure out on its own.</font></p>
-<p>　　As the robot moves around ,the sensor readings are compared to the readings that would be expected for each of the poses, according to the map:</p>
-<blockquote>
-<ul>
-<li>consistent with the map, probablity <strong>↗</strong></li>
-<li>inconsistent with the map, probablity <strong>↘</strong></li>
-</ul>
-</blockquote>
-<p>　　Over time, candidate poses with very low probability go away, while those with high probability stick around.</p>
-<h3 id="move-base"><a href="#move-base" class="headerlink" title="move_base"></a>move_base</h3><p>　在 ROS 的导航中，首先会通过全局路径规划，计算出机器人到目标位置的全局路线，这一功能是 <strong>navfn</strong> 这个包实现的。</p>
-<blockquote>
-<p>　<strong>navfn</strong> 通过 <strong>Dijkstra</strong> 最优路径的算法，计算 costmap 上的最小花费路径，作为机器人的全局路线。(将来在算法上应该还会加入 <strong>A*</strong> 算法)</p>
-</blockquote>
-<p>　本地的实时规划是利用 <strong>base_local_planner</strong> 包实现的，该包使用 <strong>Trajectory Rollout</strong> 和 <strong>Dynamic Window Approaches</strong> 算法计算每个周期内应该行驶的速度和角度(dx, dy, dtheta velocities)</p>
-<blockquote>
-<p>　<strong>base_local_planner</strong> 这个包通过地图数据，通过算法搜索到达目标的多条路径，利用一些评价标准(是否会撞到障碍物，所需要的时间等等)，选取最优的路径，并且计算所需要的实时速度和角度。<br>　<strong>Trajectory Rollout</strong> 和 <strong>Dynamic Window Approaches</strong> 算法的主要思路如下：<br>　(1) 采样机器人当前的状态(dx, dy, dtheta)<br>　(2) 针对每个采样速度，计算机器人以该速度行驶一段时间后的状态，得出一条行驶路线<br>　(3) 利用一些评价标准为多条路线打分<br>　(4) 根据打分，选择最优路线<br>　(5) 重复上面的过程</p>
-</blockquote>
-<p>　<strong>move_base</strong> 有一下几个重要的配置文件：</p>
-<ul>
-<li>costmap_common_params.yaml(通用代价地图参数):<blockquote>
-<p> We define our laser to be an observation source, as a result, data published on the scan topic will be used to update the costmaps, both inserting obstacles(marking) and asserting free space(clearing).<br>　<font color="green">footprint; observation_source</font></p>
-</blockquote>
-</li>
-<li>global_common_params.yaml(全局规划代价地图参数):<blockquote>
-<p> Tell the global costmap to use a static map (to be provided by the map server) and that it should do its reasoning in the map frame, while it should consider the canonical(基底) frame of the robot to be base_link.<br>　<font color="green">global_frame; robot_base_frame; static_map</font></p>
-</blockquote>
-</li>
-<li>local_common_params.yaml(局部规划代价地图参数):<blockquote>
-<p> Tell the local costmap to use a small rolling window: the robot always remains at the center of the window, with obstacle data outside the window being discarded, and potentially reobserved later, as the robot moves.</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="costmap-2d"><a href="#costmap-2d" class="headerlink" title="costmap_2d"></a>costmap_2d</h3><blockquote>
-<ul>
-<li>Provides an implementation of a 2D costmap that takes in sensor data from the world, builds a 2D or 3D occupancy grid od the data and inflates costs in a 2D costmap based on the occupancy grid and a user specificed radius.</li>
-<li>Also provides support for map_server based intialization of a costmap, rolling window based costmaps, and parameter based subscription and configuration of sensor topics.</li>
-</ul>
-</blockquote>
-<p>　　在 ROS 的导航中，<strong>costmap_2d</strong> 这个包主要负责根据传感器的信息建立和更新二维或三维的地图。ROS 的地图(costmap) 采用网格(grid)的形式，每个网格的值从 <strong>0~255</strong> 分为三种状态: 占有(有障碍物)，无用(空闲的)，未知。因此有五种状态：</p>
-<blockquote>
-<p>　(1) Lethal(致命的)：机器人中心与该网格的中心重合，此时机器人必然与障碍物冲突<br>　(2) Possibly circumscribed(外切)：网格的外切圆与机器人的轮廓外切，此时机器人相当于靠在障碍物附近，所以不一定冲突<br>　(3) Inscribed(内切)：网格外切圆与机器人的轮廓内切，此时的机器人必然与障碍物冲突<br>　(4) Free space(自由空间)：没有障碍物的空间<br>　(5) Unknown：未知的空间</p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;　　To add navigation to a robot, we need to launch 3 nodes:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;map_server: to provide the static map {“*.yaml” &amp;amp; “*.pgm”}, against which the robot will localize and plan.&lt;/li&gt;
-&lt;li&gt;amcl: to localize the robot against the static map.&lt;/li&gt;
-&lt;li&gt;move_base: to handle global planning and local control for the robot.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;　　&lt;strong&gt;amcl&lt;/strong&gt; 是移动机器人二维环境下的概率定位系统，它实现了自适应(或 &lt;strong&gt;kdl&lt;/strong&gt; 采样)的 &lt;strong&gt;蒙特卡洛定位&lt;/strong&gt; 方法，其中针对已有的地图使用 &lt;strong&gt;粒子滤波器&lt;/strong&gt; 跟踪一个机器人的姿态。&lt;/p&gt;
-&lt;p&gt;　　&lt;strong&gt;move_base&lt;/strong&gt; 提供了 ROS 导航的配置，运行，交互接口，主要包括两个部分：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;　(1) 全局路径规划：根据给定的目标位置进行总体路径的规划&lt;br&gt;　(2) 局部路径规划：根据附近的障碍物信息进行躲避路线规划&lt;br&gt;
-    
-    </summary>
-    
-      <category term="软硬兼施" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/"/>
-    
-      <category term="ROS" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/ROS/"/>
-    
-    
-      <category term="ROS" scheme="http://durant35.github.io/tags/ROS/"/>
     
   </entry>
   
