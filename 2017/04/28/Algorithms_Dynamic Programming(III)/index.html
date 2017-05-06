@@ -15,21 +15,16 @@
 
 
 
-<meta name="description" content="无论是多标签还是分级目录，其最终目的都是为了更好的归档我们的文章，方便在查找时能够快速准确的翻开我们之前保存的博文。
-多标签　　多标签，就是想把一篇文章同时归档到多个标签里面，这样，通过任一个标签都能索引到我们的博文。而，用作标签的，显然是我们之前抒写的博文内容的 Keywords。　　可以通过以下方式实现 hexo 的多标签：1234567tags: #文章标签可，空，多标签请用格式[tag">
+<meta name="description" content="本文通过  516. Longest Palindromic Subsequence  分析。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo分级目录与多标签">
-<meta property="og:url" content="http://durant35.github.io/2016/07/16/hexo_hexo分级目录与多标签/index.html">
+<meta property="og:title" content="算法设计与分析[0010] Dynamic Programming(III)（动态规划）">
+<meta property="og:url" content="http://durant35.github.io/2017/04/28/Algorithms_Dynamic Programming(III)/index.html">
 <meta property="og:site_name" content="Tarantula-7's Blog">
-<meta property="og:description" content="无论是多标签还是分级目录，其最终目的都是为了更好的归档我们的文章，方便在查找时能够快速准确的翻开我们之前保存的博文。
-多标签　　多标签，就是想把一篇文章同时归档到多个标签里面，这样，通过任一个标签都能索引到我们的博文。而，用作标签的，显然是我们之前抒写的博文内容的 Keywords。　　可以通过以下方式实现 hexo 的多标签：1234567tags: #文章标签可，空，多标签请用格式[tag">
-<meta property="og:image" content="http://durant35.github.io/img/hexo/HierarchicalDirectory.png">
-<meta property="og:updated_time" content="2017-02-02T12:26:08.473Z">
+<meta property="og:description" content="本文通过  516. Longest Palindromic Subsequence  分析。">
+<meta property="og:updated_time" content="2017-05-02T08:15:24.066Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo分级目录与多标签">
-<meta name="twitter:description" content="无论是多标签还是分级目录，其最终目的都是为了更好的归档我们的文章，方便在查找时能够快速准确的翻开我们之前保存的博文。
-多标签　　多标签，就是想把一篇文章同时归档到多个标签里面，这样，通过任一个标签都能索引到我们的博文。而，用作标签的，显然是我们之前抒写的博文内容的 Keywords。　　可以通过以下方式实现 hexo 的多标签：1234567tags: #文章标签可，空，多标签请用格式[tag">
-<meta name="twitter:image" content="http://durant35.github.io/img/hexo/HierarchicalDirectory.png">
+<meta name="twitter:title" content="算法设计与分析[0010] Dynamic Programming(III)（动态规划）">
+<meta name="twitter:description" content="本文通过  516. Longest Palindromic Subsequence  分析。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -61,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>hexo分级目录与多标签 | Tarantula-7&#39;s Blog</title>
+<title>算法设计与分析[0010] Dynamic Programming(III)（动态规划） | Tarantula-7&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -254,11 +249,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-hexo_hexo分级目录与多标签" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Algorithms_Dynamic Programming(III)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/07/16/hexo_hexo分级目录与多标签/" class="article-date">
-      <time datetime="2016-07-16T08:11:05.000Z" itemprop="datePublished">2016-07-16</time>
+      <a href="/2017/04/28/Algorithms_Dynamic Programming(III)/" class="article-date">
+      <time datetime="2017-04-28T06:00:22.000Z" itemprop="datePublished">2017-04-28</time>
 </a>
 
 
@@ -273,7 +268,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      hexo分级目录与多标签
+      算法设计与分析[0010] Dynamic Programming(III)（动态规划）
     </h1>
   
 
@@ -282,13 +277,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -298,10 +293,20 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>　　无论是多标签还是分级目录，其最终目的都是为了更好的归档我们的文章，方便在查找时能够快速准确的翻开我们之前保存的博文。</p>
-<h2 id="多标签"><a href="#多标签" class="headerlink" title="多标签"></a><font color="#F40D64">多标签</font></h2><p>　　多标签，就是想把一篇文章同时归档到多个标签里面，这样，通过任一个标签都能索引到我们的博文。而，用作标签的，显然是我们之前抒写的博文内容的 <strong>Keywords</strong>。<br>　　可以通过以下方式实现 <strong>hexo</strong> 的多标签：<br><figure class="highlight md"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">tags: #文章标签可，空，多标签请用格式[tag1,tag2,tag3]，如下，注意!!"tags:"后面有个空格</div><div class="line">tags: [tag1, tag2, tag3, ...]</div><div class="line"><span class="section"># 下面这种方式似乎仅限于hexo 3.0，应该包括以上吧...</span></div><div class="line">tags: </div><div class="line"><span class="bullet">- </span>tags1</div><div class="line"><span class="bullet">- </span>tags2</div><div class="line"><span class="bullet">- </span>...</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<h2 id="分级目录"><a href="#分级目录" class="headerlink" title="分级目录"></a><font color="#F40D64">分级目录</font></h2><p>　　什么是分级目录呢？直接上图！<br>    <img src="/img/hexo/HierarchicalDirectory.png" /><br>　　上图就显示了一个两级目录(左图)，由绿线标注的是五个一级目录，通过 <strong>·</strong> 开启的分别是每个一级目录下的二级目录。（右图）则是一个五级目录，同时，包含一个二级目录。<br>　　可以通过以下方式实现 <strong>hexo</strong> 的分级目录：<br><figure class="highlight md"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="section"># 这种方式似乎仅限于hexo 3.0，应该包括以上吧...</span></div><div class="line">categories: </div><div class="line"><span class="bullet">- </span>tags<span class="emphasis">_level_</span>1</div><div class="line"><span class="bullet">- </span>tags<span class="emphasis">_level_</span>2</div><div class="line"><span class="bullet">- </span>tags<span class="emphasis">_level_</span>3</div><div class="line"><span class="bullet">- </span>...</div></pre></td></tr></table></figure></p>
+        <p>　本文通过 <strong><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a></strong> 分析。<br><a id="more"></a></p>
+<h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><ul>
+<li>两道题解决的问题相似，都是求解给定序列中满足某种数学特征（和最大/乘积最大）的子序列，虽然不需要将该子序列输出。</li>
+</ul>
+<blockquote>
+<p>Find the contiguous subarray within an array(containing at least one number) which has the largest sum/product.</p>
+<ul>
+<li>For example, given the array [-2,1,-3,4,-1,2,1,-5,4], the contiguous subarray [4,-1,2,1] has the largest sum = 6. </li>
+<li>For example, given the array [2,3,-2,4], the contiguous subarray [2,3] has the largest product = 6. </li>
+</ul>
+</blockquote>
+<h4 id="516-Longest-Palindromic-Subsequence-解题思路"><a href="#516-Longest-Palindromic-Subsequence-解题思路" class="headerlink" title=" 516. Longest Palindromic Subsequence  解题思路"></a><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a> 解题思路</h4><ul>
+<li>思路一：</li>
+</ul>
 
       
     </div>
@@ -310,18 +315,18 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a></p>
+        <p><span>本文标题:</span><a href="/2017/04/28/Algorithms_Dynamic Programming(III)/">算法设计与分析[0010] Dynamic Programming(III)（动态规划）</a></p>
 
         <!-- 
         <p><span>文章作者:</span><a href="/" title="回到主页">Tarantula-7</a></p>
         -->
-        <p><span>文章作者:</span>undefined</p>
+        <p><span>文章作者:</span>Gary</p>
 
-        <p><span>发布时间:</span>2016-07-16, 16:11:05</p>
-        <p><span>最后更新:</span>2017-02-02, 20:26:08</p>
+        <p><span>发布时间:</span>2017-04-28, 14:00:22</p>
+        <p><span>最后更新:</span>2017-05-02, 16:15:24</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/07/16/hexo_hexo分级目录与多标签/" title="hexo分级目录与多标签">http://durant35.github.io/2016/07/16/hexo_hexo分级目录与多标签/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2016/07/16/hexo_hexo分级目录与多标签/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/04/28/Algorithms_Dynamic Programming(III)/" title="算法设计与分析[0010] Dynamic Programming(III)（动态规划）">http://durant35.github.io/2017/04/28/Algorithms_Dynamic Programming(III)/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/04/28/Algorithms_Dynamic Programming(III)/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
 
@@ -336,16 +341,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/07/16/linux_瞎谈Socket编程_2/">
-                    瞎谈 Socket 编程(二)
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/07/15/linux_瞎谈Socket编程_1/">
-                    瞎谈 Socket 编程(一)
+                <a href="/2017/04/23/Algorithms_Dynamic Programming(II)/">
+                    算法设计与分析[0009] Dynamic Programming(II)（动态规划）
                 </a>
             </div>
         
@@ -357,7 +356,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#多标签"><span class="toc-number">1.</span> <span class="toc-text">多标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分级目录"><span class="toc-number">2.</span> <span class="toc-text">分级目录</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Problem-Description"><span class="toc-number">1.</span> <span class="toc-text">Problem Description</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#516-Longest-Palindromic-Subsequence-解题思路"><span class="toc-number">2.</span> <span class="toc-text"> 516. Longest Palindromic Subsequence  解题思路</span></a></li></ol>
         
     </div>
     <style>
@@ -397,7 +396,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"hexo分级目录与多标签　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"算法设计与分析[0010] Dynamic Programming(III)（动态规划）　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -416,8 +415,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://durant35.github.io/2016/07/16/hexo_hexo分级目录与多标签/';
-            this.page.identifier = '2016/07/16/hexo_hexo分级目录与多标签/';
+            this.page.url = 'http://durant35.github.io/2017/04/28/Algorithms_Dynamic Programming(III)/';
+            this.page.identifier = '2017/04/28/Algorithms_Dynamic Programming(III)/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -439,15 +438,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/07/16/linux_瞎谈Socket编程_2/" title="上一篇: 瞎谈 Socket 编程(二)">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/07/15/linux_瞎谈Socket编程_1/" title="下一篇: 瞎谈 Socket 编程(一)">
+            <a href="/2017/04/23/Algorithms_Dynamic Programming(II)/" title="下一篇: 算法设计与分析[0009] Dynamic Programming(II)（动态规划）">
                 <i class="fa fa-angle-right"></i>
             </a>
         
