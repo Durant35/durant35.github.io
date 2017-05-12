@@ -255,6 +255,253 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-tool_git几步走" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/26/tool_git几步走/" class="article-date">
+      <time datetime="2016-07-26T00:47:07.000Z" itemprop="datePublished">2016-07-26</time>
+</a>
+
+ 
+    <a href="/2016/07/26/tool_git几步走/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/07/26/tool_git几步走/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/26/tool_git几步走/">git几步走</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="git-快速入门"><a href="#git-快速入门" class="headerlink" title="git 快速入门"></a><strong>git</strong> 快速入门</h3><p>　　<strong>第一步:</strong> <strong>github.com</strong> 上添加新仓库 “Create New Repository”</p>
+<p>　　<strong>第二步:</strong> 本地关联远程库.添加后，远程库的名字就是 <strong>origin</strong>，这是 <strong>Git</strong> 默认的叫法，也可以改成别的，但是 <strong>origin</strong> 这个名字一看就知道是远程库。<br>　　　<font color="green"><strong>git remote add origin <a href="https://github.com/Durant35/[Repository">https://github.com/Durant35/[Repository</a> Name].git</strong></font></p>
+<p>　　把本地库的内容推送到远程，用 <strong>git push</strong> 命令，实际上是把当前分支 <strong>master</strong> 推送到远程。<br>　　由于远程库是空的，我们第一次推送 <strong>master</strong> 分支时，加上了 <strong>-u</strong> 参数，<strong>Git</strong> 不但会把本地的 <strong>master</strong> 分支内容推送的远程新的 <strong>master</strong> 分支，还会把本地的 <strong>master</strong> 分支和远程的 <strong>master</strong> 分支关联起来，在以后的推送或者拉取时就可以简化命令。<br>　　　<font color="green"><strong>git push -u origin master</strong></font></p>
+<p>　　把本地 <strong>master</strong> 分支的最新修改推送至 <strong>GitHub</strong>！<br>　　　<font color="green"><strong>git push origin master</strong></font><br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/小工具/">小工具</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/07/26/tool_git几步走/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_LongestIncreasingSubsequence" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/" class="article-date">
+      <time datetime="2017-04-28T06:00:22.000Z" itemprop="datePublished">2017-04-28</time>
+</a>
+
+ 
+    <a href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/04/28/Algorithms_LongestIncreasingSubsequence/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h4 id="300-Longest-Increasing-Subsequence"><a href="#300-Longest-Increasing-Subsequence" class="headerlink" title="300. Longest Increasing Subsequence"></a><a href="https://leetcode.com/problems/longest-increasing-subsequence/#/description">300. Longest Increasing Subsequence</a></h4><blockquote>
+<p>Given an unsorted array of integers, find the length of longest increasing subsequence.<br>For example, Given [10, 9, 2, 5, 3, 7, 101, 18], The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4. Note that there may be more than one LIS combination, it is only necessary for you to return the length. </p>
+</blockquote>
+<ul>
+<li>给出一个序列 $a_1, a_2, …, a_n$，求它的一个子序列（设为 $s_1, s_2, …, s_n$ ），使得这个子序列满足这样的性质：$ s_1 &lt; s_2 &lt; s_3 &lt;…&lt; s_n $ 并且这个子序列的长度最长，输出这个最长的长度。实际上，诸如最长下降子序列，最长不上升子序列等问题都可以看成同一个问题，仔细思考就会发现，这其实只是 $&lt;$ 符号定义上的问题，并不影响问题的实质。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_LongestPalindromicSubsequence" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/03/Algorithms_LongestPalindromicSubsequence/" class="article-date">
+      <time datetime="2017-05-03T06:00:22.000Z" itemprop="datePublished">2017-05-03</time>
+</a>
+
+ 
+    <a href="/2017/05/03/Algorithms_LongestPalindromicSubsequence/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/05/03/Algorithms_LongestPalindromicSubsequence/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/03/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0011] Longest Palindromic Subsequence（最长回文子序列）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　本文通过 <strong><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a></strong> 分析。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/05/03/Algorithms_LongestPalindromicSubsequence/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Algorithms_Minimum Spanning Tree" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -399,86 +646,6 @@
       
         <p class="article-more-link">
           <a href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_Dynamic Programming(III)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/28/Algorithms_Dynamic Programming(III)/" class="article-date">
-      <time datetime="2017-04-28T06:00:22.000Z" itemprop="datePublished">2017-04-28</time>
-</a>
-
- 
-    <a href="/2017/04/28/Algorithms_Dynamic Programming(III)/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/04/28/Algorithms_Dynamic Programming(III)/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/28/Algorithms_Dynamic Programming(III)/">算法设计与分析[0010] Dynamic Programming(III)（动态规划）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文通过 <strong><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a></strong> 分析。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/28/Algorithms_Dynamic Programming(III)/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -881,178 +1048,6 @@
       
         <p class="article-more-link">
           <a href="/2017/03/22/Algorithms_BFS/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-tool_git几步走" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/26/tool_git几步走/" class="article-date">
-      <time datetime="2016-07-26T00:47:07.000Z" itemprop="datePublished">2016-07-26</time>
-</a>
-
- 
-    <a href="/2016/07/26/tool_git几步走/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/07/26/tool_git几步走/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/26/tool_git几步走/">git几步走</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="git-快速入门"><a href="#git-快速入门" class="headerlink" title="git 快速入门"></a><strong>git</strong> 快速入门</h3><p>　　<strong>第一步:</strong> <strong>github.com</strong> 上添加新仓库 “Create New Repository”</p>
-<p>　　<strong>第二步:</strong> 本地关联远程库.添加后，远程库的名字就是 <strong>origin</strong>，这是 <strong>Git</strong> 默认的叫法，也可以改成别的，但是 <strong>origin</strong> 这个名字一看就知道是远程库。<br>　　　<font color="green"><strong>git remote add origin <a href="https://github.com/Durant35/[Repository">https://github.com/Durant35/[Repository</a> Name].git</strong></font></p>
-<p>　　把本地库的内容推送到远程，用 <strong>git push</strong> 命令，实际上是把当前分支 <strong>master</strong> 推送到远程。<br>　　由于远程库是空的，我们第一次推送 <strong>master</strong> 分支时，加上了 <strong>-u</strong> 参数，<strong>Git</strong> 不但会把本地的 <strong>master</strong> 分支内容推送的远程新的 <strong>master</strong> 分支，还会把本地的 <strong>master</strong> 分支和远程的 <strong>master</strong> 分支关联起来，在以后的推送或者拉取时就可以简化命令。<br>　　　<font color="green"><strong>git push -u origin master</strong></font></p>
-<p>　　把本地 <strong>master</strong> 分支的最新修改推送至 <strong>GitHub</strong>！<br>　　　<font color="green"><strong>git push origin master</strong></font><br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/小工具/">小工具</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/07/26/tool_git几步走/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-linux_Linux命令小纸条" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/04/linux_Linux命令小纸条/" class="article-date">
-      <time datetime="2017-02-04T07:20:59.000Z" itemprop="datePublished">2017-02-04</time>
-</a>
-
- 
-    <a href="/2017/02/04/linux_Linux命令小纸条/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/02/04/linux_Linux命令小纸条/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/04/linux_Linux命令小纸条/">Linux命令小纸条</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="压缩-解压"><a href="#压缩-解压" class="headerlink" title="压缩/解压"></a>压缩/解压</h3><ul>
-<li><strong>tar</strong> 压缩</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -zcvf dst.tar.gz /src-dir</div></pre></td></tr></table></figure>
-<ul>
-<li><strong>tar</strong> 解压</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -xvf src.tar.gz</div></pre></td></tr></table></figure>
-<ul>
-<li><strong>zip</strong> 压缩
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMD/">CMD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/02/04/linux_Linux命令小纸条/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-05-02T08:15:24.066Z</updated>
+  <updated>2017-05-10T09:04:30.766Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>算法设计与分析[0010] Dynamic Programming(III)（动态规划）</title>
-    <link href="http://durant35.github.io/2017/04/28/Algorithms_Dynamic%20Programming(III)/"/>
-    <id>http://durant35.github.io/2017/04/28/Algorithms_Dynamic Programming(III)/</id>
-    <published>2017-04-28T06:00:22.000Z</published>
-    <updated>2017-05-02T08:15:24.066Z</updated>
+    <title>算法设计与分析[0011] Longest Palindromic Subsequence（最长回文子序列）</title>
+    <link href="http://durant35.github.io/2017/05/03/Algorithms_LongestPalindromicSubsequence/"/>
+    <id>http://durant35.github.io/2017/05/03/Algorithms_LongestPalindromicSubsequence/</id>
+    <published>2017-05-03T06:00:22.000Z</published>
+    <updated>2017-05-10T09:04:30.766Z</updated>
     
     <content type="html"><![CDATA[<p>　本文通过 <strong><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a></strong> 分析。<br><a id="more"></a></p>
 <h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><ul>
@@ -41,6 +41,110 @@
     <summary type="html">
     
       &lt;p&gt;　本文通过 &lt;strong&gt;&lt;a href=&quot;https://leetcode.com/problems/longest-palindromic-subsequence/#/description&quot;&gt; 516. Longest Palindromic Subsequence &lt;/a&gt;&lt;/strong&gt; 分析。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
+    
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</title>
+    <link href="http://durant35.github.io/2017/04/28/Algorithms_LongestIncreasingSubsequence/"/>
+    <id>http://durant35.github.io/2017/04/28/Algorithms_LongestIncreasingSubsequence/</id>
+    <published>2017-04-28T06:00:22.000Z</published>
+    <updated>2017-05-12T06:51:26.100Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="300-Longest-Increasing-Subsequence"><a href="#300-Longest-Increasing-Subsequence" class="headerlink" title="300. Longest Increasing Subsequence"></a><a href="https://leetcode.com/problems/longest-increasing-subsequence/#/description">300. Longest Increasing Subsequence</a></h4><blockquote>
+<p>Given an unsorted array of integers, find the length of longest increasing subsequence.<br>For example, Given [10, 9, 2, 5, 3, 7, 101, 18], The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4. Note that there may be more than one LIS combination, it is only necessary for you to return the length. </p>
+</blockquote>
+<ul>
+<li>给出一个序列 $a_1, a_2, …, a_n$，求它的一个子序列（设为 $s_1, s_2, …, s_n$ ），使得这个子序列满足这样的性质：$ s_1 &lt; s_2 &lt; s_3 &lt;…&lt; s_n $ 并且这个子序列的长度最长，输出这个最长的长度。实际上，诸如最长下降子序列，最长不上升子序列等问题都可以看成同一个问题，仔细思考就会发现，这其实只是 $&lt;$ 符号定义上的问题，并不影响问题的实质。<a id="more"></a>
+<h4 id="转化为图的最长路径问题（-O-N-2-）"><a href="#转化为图的最长路径问题（-O-N-2-）" class="headerlink" title="转化为图的最长路径问题（$O(N^2)$）"></a>转化为图的最长路径问题（$O(N^2)$）</h4></li>
+<li>解决最长递增子序列的一种方法是将其转换为图的最长路径问题（可以说是一种归约思想）<ul>
+<li>为序列中的每个元素 $a_i$ 建立一个对应的节点 i。</li>
+<li>对于任意两个可能在某递增序列中存在递进关系的元素 $a_i$ 和 $a_j$（即，同时满足 $ i &lt; j $，且 $ a_i &lt; a_j $），增加一条连接二者对应节点的有向边 $i-&gt;j$。</li>
+<li>基于简单的动态规划，寻找转化后的图中的最长路径。如下图：<center><img src="/img/Algorithms/0010_LISGraph.png" width="640px"/></center></li>
+</ul>
+</li>
+<li>基于上述思路的代码实现如下：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> graph[<span class="number">10000</span>][<span class="number">10000</span>];</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span> </span>&#123;</div><div class="line">    <span class="comment">//sanity check</span></div><div class="line">    <span class="keyword">if</span>(numsSize &lt; <span class="number">1</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> fromIdx=<span class="number">0</span>; fromIdx&lt;numsSize; fromIdx++) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> toIdx=fromIdx+<span class="number">1</span>; toIdx&lt;numsSize; toIdx++) &#123;</div><div class="line">            graph[fromIdx][toIdx] = <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// convert the sequence into a directed graph</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> fromIdx=<span class="number">0</span>; fromIdx&lt;numsSize; fromIdx++) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> toIdx=fromIdx+<span class="number">1</span>; toIdx&lt;numsSize; toIdx++) &#123;</div><div class="line">            <span class="keyword">if</span>(nums[toIdx] &gt; nums[fromIdx]) &#123;</div><div class="line">                graph[fromIdx][toIdx] = <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// find the longest path &lt;--&gt; LIS</span></div><div class="line">    <span class="keyword">int</span> L[numsSize];</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> idx=<span class="number">0</span>; idx&lt;numsSize; idx++) &#123;</div><div class="line">        <span class="keyword">int</span> localMax = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> fromIdx=<span class="number">0</span>; fromIdx&lt;=idx; fromIdx++) &#123;</div><div class="line">            <span class="keyword">if</span>(graph[fromIdx][idx] == <span class="number">1</span>) &#123;</div><div class="line">                <span class="keyword">if</span>(L[fromIdx] &gt; localMax) &#123;</div><div class="line">                    localMax = L[fromIdx];</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        L[idx] = localMax + <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> globalMax = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> idx=<span class="number">0</span>; idx&lt;numsSize; idx++) &#123;</div><div class="line">        <span class="keyword">if</span>(L[idx] &gt; globalMax) &#123;</div><div class="line">            globalMax = L[idx];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> globalMax;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><font color="red">需要特别留意的是：</font>存储转换后的图的邻接矩阵 graph，实际上应该是一个动态大小的二维数组，然而，由于 <strong>堆栈内存限制</strong>，只能将其预设为足够大小的二维数组，作为 <strong>全局</strong> 或者 <strong>static</strong> 变量在堆中开辟内存，避免 <strong>Runtime Error</strong>（堆栈溢出）的错误。</li>
+<li>在求解转换后的图中的最长路径时，采用了动态规划的方法<ul>
+<li>$L[idx]$ ：第 idx 个元素对应的节点的最长路径（从根（序列的第一个元素）出发）；</li>
+<li>$L[idx+1]$ 显然为带有最大最长路径的前驱节点的最长路径+1。</li>
+</ul>
+</li>
+<li>算法是可行准确的，但是运行效率就不敢恭维了。<br><img src="/img/Algorithms/0010_LISGraph_result.png" width="720px"/></li>
+</ul>
+<h4 id="动态规划（-O-N-2-）"><a href="#动态规划（-O-N-2-）" class="headerlink" title="动态规划（$O(N^2)$）"></a>动态规划（$O(N^2)$）</h4><ul>
+<li>既然是动态规划法，那么最重要的自然就是寻找子问题，对于这个问题，我们找到他的子问题<ul>
+<li>用$dp[idx]$ 来存放以 $a_{idx}$ 结尾的最大递增子序列长度。</li>
+</ul>
+</li>
+<li>找到子问题之后，接下来就是关于子问题如何求解的问题（状态转移方程）<ul>
+<li>想求以 $a_{idx}$ 结尾的最大递增子序列的长度，我们就需要遍历 $idx$ 之前的所有位置 $ i, i \in [1, idx-1]$，在这些 $ i $ 中，找出 $ a[i] &lt; a[idx]$，计算能产生最大 $dp[i]$ 的 $i$，之后就可以求出 $dp[idx]$： $dp[idx] = max(dp[i]) + 1, i \in [1, idx-1]  \&amp;\&amp;  a_i &lt; a_{idx}$。</li>
+</ul>
+</li>
+<li>对序列中的每一个元素都计算以他们各自结尾的最大递增子序列的长度，这些长度的最大值，就是我们要求的问题 —— 序列的最大递增子序列。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span> </span>&#123;</div><div class="line">    <span class="comment">// sanity check</span></div><div class="line">    <span class="keyword">if</span>(numsSize &lt;= <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// dp[idx]: the length of the LIS ending with the idx-th element</span></div><div class="line">    <span class="keyword">int</span> dp[numsSize];</div><div class="line">    <span class="comment">// prev[idx]:record the previous index of the LIS ending with the idx-th element</span></div><div class="line">    <span class="keyword">int</span> prev[numsSize];</div><div class="line">    </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> idx=<span class="number">0</span>; idx&lt;numsSize; idx++) &#123;</div><div class="line">        <span class="comment">// the maximum length of previous index LIS ending with an element not greater than current element </span></div><div class="line">        <span class="keyword">int</span> localIdxMax = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;idx; i++) &#123;</div><div class="line">            <span class="keyword">if</span>(nums[i] &lt; nums[idx] &amp;&amp; dp[i] &gt; localIdxMax) &#123;</div><div class="line">                localIdxMax = dp[i];</div><div class="line">                prev[idx] = i;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        dp[idx] = localIdxMax + <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// the longest increasing subsequence should ending with one index-th element</span></div><div class="line">    <span class="keyword">int</span> totalMax = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> idx=<span class="number">0</span>; idx&lt;numsSize; idx++) &#123;</div><div class="line">        <span class="keyword">if</span>(dp[idx] &gt; totalMax) &#123;</div><div class="line">            totalMax = dp[idx];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> totalMax;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>因为避免了将问题转化为图这一繁琐的步骤，所以虽然同为 $O(N^2)$ 的复杂度，这种方法效率明显提升了。<br><img src="/img/Algorithms/0010_dp_result.png" width="720px"/></li>
+</ul>
+<h4 id="耐心排序法（-O-N-logN-）"><a href="#耐心排序法（-O-N-logN-）" class="headerlink" title="耐心排序法（$O(N logN)$）"></a>耐心排序法（$O(N logN)$）</h4><ul>
+<li>上面的解法时间复杂度仍然为 $O(N^2)$，仔细分析一下原因，之所以慢，是因为<font color="blue">对于每一个新的位置 $idx$ 都需要遍历 $idx$ 之前的所有位置 $ i, i \in [1, idx-1]$</font>，找出之前位置的最长递增子序列长度。我们是不是可以有一种方法能不用遍历之前所有的位置，而可以更快的确定 $i$ 的位置呢？<ul>
+<li>举个例子，比如序列 $1, 3, 5, 2, 8, 4, 6$ 这个例子中，当到 6 时，我们一共可以有四种(1)不同长度；(2)保证该升序序列在同长度升序序列中末尾最小的升序序列<ul>
+<li>1</li>
+<li>1,2</li>
+<li>1,2,4</li>
+<li>1,2,4,6</li>
+</ul>
+</li>
+<li>以上这些序列都是未来有可能成为最长序列的候选序列。这样，每来一个新的数，我们便按照以下规则更新这些序列：<ul>
+<li>如果 $idx$ 元素比所有序列的末尾都大，说明有一个更长的递增序列产生，我们把最长的序列复制一遍，并加上这个元素。</li>
+<li>如果 $idx$ 元素比所有序列的末尾都小，说明长度为1的序列可以更新了，更新为这个更小的末尾。</li>
+<li>如果刚好在中间，则更新那个末尾数字刚刚大于等于自己的那个序列，说明那个长度的序列可以更新了。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基于上面的例子，我们可以推导出这样的一种思路<ul>
+<li>$A[i]$ 数组用来记录长度为 $i$ 的递增子序列的末尾元素的最小值<ul>
+<li>其中$ i \leq numsSize$</li>
+<li>数组 $A[i]$ 的 size 为 $numsSize+1$</li>
+<li>我们很容易能够得到关于数组 $A[i]$ 的一个性质：$i &lt; j$ 时，$A[i] &lt; A[j]$</li>
+</ul>
+</li>
+<li>maxLen 变量记录当前的最长递增子序列的长度。</li>
+<li>上述的更新规则就转变成对 $A[1, 2, i, maxLen]$ 数组进行更新。<ul>
+<li>$A[1, 2, i, maxLen]$ 是有序的</li>
+<li>更新操作只需要进行替换而不需要挪动——也就是说，我们可以使用二分查找，将<font color="blue">每个 $idx$ 元素对 $A[1, 2, i, maxLen]$ 数组的更新时间优化到 $O(logN)$（不需要 $O(N)$ 了）</font>，算法的时间复杂度就降低到了$O(N logN)$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</div><div class="line"> * finds a minimum value greater than findingNum in findingArray[1, 2, ..., findingArraySize] and returns its position</div><div class="line"> *  findingArray should be in order</div><div class="line"> */</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>* findingArray, <span class="keyword">int</span> findingArraySize, <span class="keyword">int</span> findingNum)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> begin = <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> end = findingArraySize;</div><div class="line">    <span class="keyword">while</span>(begin &lt;= end) &#123;</div><div class="line">        <span class="keyword">int</span> mid = begin + (end - begin)/<span class="number">2</span>;</div><div class="line">        <span class="keyword">if</span>(findingArray[mid] &gt; findingNum) &#123;</div><div class="line">            end = mid - <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(findingArray[mid] &lt; findingNum) &#123;</div><div class="line">            begin = mid + <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="comment">// return the same value position for covering</span></div><div class="line">            <span class="keyword">return</span> mid;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// return postion to insert after</span></div><div class="line">    <span class="keyword">return</span> begin;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span> </span>&#123;</div><div class="line">    <span class="comment">// sanity check</span></div><div class="line">    <span class="keyword">if</span>(numsSize &lt; <span class="number">1</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// A[i=1, 2, ..., maxLen]: the minimum value of the end element of the i-length increasing sequence</span></div><div class="line">    <span class="keyword">int</span> A[numsSize+<span class="number">1</span>];</div><div class="line">    <span class="keyword">int</span> maxLen;</div><div class="line">    </div><div class="line">    maxLen = <span class="number">1</span>;</div><div class="line">    A[<span class="number">1</span>] = nums[<span class="number">0</span>];</div><div class="line">    </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> idx=<span class="number">1</span>; idx&lt;numsSize; idx++) &#123;</div><div class="line">        <span class="keyword">if</span>(nums[idx] &gt; A[maxLen]) &#123;</div><div class="line">            maxLen += <span class="number">1</span>;</div><div class="line">            A[maxLen] = nums[idx];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">int</span> pos = binarySearch(A, maxLen, nums[idx]);</div><div class="line">            A[pos] = nums[idx];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> maxLen;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>复杂度从 $O(N^2)$ 缩小到 $O(N logN)$，运行效率得到较大的提升。<br><img src="/img/Algorithms/0010_nlogn_result.png" width="720px"/></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;300-Longest-Increasing-Subsequence&quot;&gt;&lt;a href=&quot;#300-Longest-Increasing-Subsequence&quot; class=&quot;headerlink&quot; title=&quot;300. Longest Increasing Subsequence&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://leetcode.com/problems/longest-increasing-subsequence/#/description&quot;&gt;300. Longest Increasing Subsequence&lt;/a&gt;&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;Given an unsorted array of integers, find the length of longest increasing subsequence.&lt;br&gt;For example, Given [10, 9, 2, 5, 3, 7, 101, 18], The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4. Note that there may be more than one LIS combination, it is only necessary for you to return the length. &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;给出一个序列 $a_1, a_2, …, a_n$，求它的一个子序列（设为 $s_1, s_2, …, s_n$ ），使得这个子序列满足这样的性质：$ s_1 &amp;lt; s_2 &amp;lt; s_3 &amp;lt;…&amp;lt; s_n $ 并且这个子序列的长度最长，输出这个最长的长度。实际上，诸如最长下降子序列，最长不上升子序列等问题都可以看成同一个问题，仔细思考就会发现，这其实只是 $&amp;lt;$ 符号定义上的问题，并不影响问题的实质。
     
     </summary>
     
@@ -2095,109 +2199,6 @@
       <category term="Linux" scheme="http://durant35.github.io/tags/Linux/"/>
     
       <category term="pcap" scheme="http://durant35.github.io/tags/pcap/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Key Word Engineering</title>
-    <link href="http://durant35.github.io/2016/10/09/OverlappingSounds_Key%20Word%20Engineering/"/>
-    <id>http://durant35.github.io/2016/10/09/OverlappingSounds_Key Word Engineering/</id>
-    <published>2016-10-09T00:14:45.000Z</published>
-    <updated>2017-02-03T08:06:26.508Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="A"><a href="#A" class="headerlink" title="A"></a>A</h3><blockquote>
-<p><strong>AI</strong>（Artificial Intelligence），人工智能<br><strong>ATM</strong>（asynchronous transfer mode），异步传输模式<br><strong>ARPA</strong>（Advanced Research Projects Agency），（美国国防部）高级研究计划署<br><strong>AR</strong>（augmented reality），增强实现<br><strong>ADSL</strong>（Asymmetrical Dingital Subscriber Loop），非对称数字用户环线<a id="more"></a><br>acoustic coupler，声音耦合器<br>Active Directory，活动目录<br>affinity，绑定<br>affinity group，地缘组<br>agent，代理<br>agent-based interface，代理人界面<br>agility，敏捷性<br>air waves，无线电波<br>algorithm，算法<br>analog，模拟的<br>animation，动画<br>annotation，注解，注释<br>answering machine，电话应答机<br>antenna，天线<br>application pool，应用程序池<br>architecture decay，架构腐坏<br>ARPAnet，ARPA网<br>aspect ratio，屏幕高宽比<br>atomic opreation，原子操作<br>atomic transaction，原子事务<br>atomicity，原子性<br>authentication，身份验证<br>authorization，授权<br>automation，自动化<br>autonomous，独立性<br>availability，可用性<br>availability set，可用性集</p>
-</blockquote>
-<h3 id="B"><a href="#B" class="headerlink" title="B"></a>B</h3><blockquote>
-<p><strong>bps</strong>（bits per second），比特/秒<br><strong>BS</strong>（browser-server），浏览器-服务器<br>backpane，底板<br>backward compatibility，向后兼容性<br>bandwidth，带宽<br>bar code，条形码<br>baseline，准线<br>baud，波特<br>bit，比特<br>bitnik，比特族<br>bottleneck，瓶颈<br>broadcast，（无线电或电视）广播<br>bug，缺陷<br>built-in，内置的，内建的；嵌入的；内置<br>business layer，业务层<br>business intelligence，商业智能<br>byte，字节</p>
-</blockquote>
-<h3 id="C"><a href="#C" class="headerlink" title="C"></a>C</h3><blockquote>
-<p><strong>CC</strong>（carbon copy），复写本，副本；抄送<br><strong>CPU</strong>（Central Processing Unit），中央处理器<br><strong>CA</strong>（Certificate Authority），证书认证机构<br><strong>CS</strong>（client-server），客户端-服务器<br><strong>CRT</strong>（cathode ray tube），阴极射线管<br>Cache/Caching，缓存<br>call stack，调用堆栈<br>carriage return，回车<br>cell，单元<br>certificate，（数字）证书<br>channel，信道，频道<br>character，字符<br>check in，签入<br>check out，签出<br>chip，芯片<br>cipher，密码<br>claim，声明<br>clone，克隆，复制<br>cloud computing，云计算<br>cloud service，云服务<br>cluster，集群<br>clustered index，聚集索引<br>coaxial cable，同轴电缆<br>command，命令<br>command prompt，命令行提示<br>commingled bits，混合的比特<br>communication，通信<br>community，社区<br>committed，已提交（的）<br>compatibility，兼容性<br>comcurrency，并发<br>concurrency mode，并发模式<br>conditional compilation，条件编译<br>conditional compilation statement，条件编译语句<br>configuration，配置，设置<br>connection string，连接字符串<br>consistenct，一致性<br>constructor，构造函数<br>container，容器<br>context，上下文<br>continuous integration，持续集成<br>contribute，贡献<br>Contributor License Agreement，贡献者许可协议<br>convert，转换<br>cookie，Cookie<br>corruption，损毁<br>crash，（程序）崩溃<br>crash dump，故障转储<br>crytography，密码术<br>cursor，光标<br>cybraian，电脑族<br>cyberspace，电脑空间</p>
-</blockquote>
-<h3 id="D"><a href="#D" class="headerlink" title="D"></a>D</h3><blockquote>
-<p><strong>DL</strong>（Deep Learning），深度学习<br><strong>DM</strong>（data mining），数据挖掘<br><strong>DI</strong>（dependenct injection），依赖注入<br>dashboard，仪表盘<br>data layer，数据层<br>data integrity，数据完整性<br>deployment，部署<br>derives from 继承<br>diagnostics，诊断<br>directive，指令<br>discussion forum，论坛<br>distributed system，分布式系统<br>dummy function，虚构函数<br>durability，持久性</p>
-</blockquote>
-<h3 id="E"><a href="#E" class="headerlink" title="E"></a>E</h3><blockquote>
-<p><strong>EAP</strong>（Early Assessment Program），早期评估版本<br>Egress，流出<br>elasticity，弹性<br>entity，实体<br>erosion，侵蚀<br>exception handling，异常处理<br>explanatory figures，图示</p>
-</blockquote>
-<h3 id="F"><a href="#F" class="headerlink" title="F"></a>F</h3><blockquote>
-<p><strong>FDD</strong>（Floopy Disk Drive），软盘<br>failover，容错转移<br>failure domain，故障域<br>fat client，胖客户端<br>follow up，跟进<br>foreign key，外键<br>forward，转发<br>full-duplex，全双工<br><strong>FPP</strong>（Full Packaged Product），零售版</p>
-</blockquote>
-<h3 id="G"><a href="#G" class="headerlink" title="G"></a>G</h3><blockquote>
-<p>Geo-Replication，地域复制<br>Geo Redundant，地域冗余</p>
-</blockquote>
-<h3 id="H"><a href="#H" class="headerlink" title="H"></a>H</h3><blockquote>
-<p><strong>HDD</strong>（Hard Disk Drive），硬盘<br>handle，句柄<br>High Avaliability，高可用性<br>Homogeneous，同质化<br>Horizontal Scale，水平缩放<br>Hosting，宿主<br>Hybrid Cloud，混合云</p>
-</blockquote>
-<h3 id="I"><a href="#I" class="headerlink" title="I"></a>I</h3><blockquote>
-<p><strong>Iaas</strong>（Infrastructure as a Service），设施即服务<br>Idempotent Operation，幂等操作<br>Identity Provider，身份提供方<br>image，镜像<br>ingesting，摄取<br>ingress，流入<br>input endpoint，输入端点<br>Instance InputEndpoint，实例输入端点<br>Intercept，截取<br>Internal Endpoint，内部端点<br>Isolation，隔离性</p>
-</blockquote>
-<h3 id="J"><a href="#J" class="headerlink" title="J"></a>J</h3><blockquote>
-</blockquote>
-<h3 id="K"><a href="#K" class="headerlink" title="K"></a>K</h3><blockquote>
-</blockquote>
-<h3 id="L"><a href="#L" class="headerlink" title="L"></a>L</h3><blockquote>
-<p>Legacy system，遗留系统<br>license，许可证<br>lifetime，生命周期<br>linked resource，链接的资源<br>load-balancing，负载平衡<br>load balancer，负载平衡器<br>log，日志<br>loose coupling，松耦合</p>
-</blockquote>
-<h3 id="M"><a href="#M" class="headerlink" title="M"></a>M</h3><blockquote>
-<p>Mainframe，主机<br>Maintainability，可维护性<br>Management Key，管理密钥<br>Media Service，媒体服务<br>Merge，合并<br>Metadata，元数据<br>Middleware，中间件<br>Mobile Service，移动服务<br>Mock Object，模拟对象<br>Multitenancy，多租户<br>Multitier Architecture，多层体系结构<br>Multi-factor Authentication，多重验证</p>
-</blockquote>
-<h3 id="N"><a href="#N" class="headerlink" title="N"></a>N</h3><blockquote>
-<p>Namespace，命名空间，名称空间<br>Non-clustered Index，非聚集索引<br>node，节点<br>normalize，规格化，归一化<br>notification hub，通知中心<br>N-Tier，N 层（结构）</p>
-</blockquote>
-<h3 id="O"><a href="#O" class="headerlink" title="O"></a>O</h3><blockquote>
-<p>On-demand (media)，点播（媒体）<br>Optimistic Concurrency，乐观并发控制<br>Overview，概览<br>over-post，过度提交</p>
-</blockquote>
-<h3 id="P"><a href="#P" class="headerlink" title="P"></a>P</h3><blockquote>
-<p><strong>Paas</strong>（Platform as a Service），平台即服务<br>partition，分区<br>Pay as You Go，即用即付<br>peek，查看<br>performance counter，性能计数器<br>Pessimistic Concurrency，悲观并发控制<br>Point-to-Site，点到站点<br>polling，轮询<br>presentation layer，表现层<br>private cloud，私有云<br>priority queue，优先级队列<br>probe，探测器<br>process，进程<br>production，生产（环境）<br>protocol，协议<br>proxy，代理<br>public cloud，公有云<br>push，推送</p>
-</blockquote>
-<h3 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h3><blockquote>
-<p>Quota，配额</p>
-</blockquote>
-<h3 id="R"><a href="#R" class="headerlink" title="R"></a>R</h3><blockquote>
-<p>Rack，机架<br>real-time，即时、实时<br>Redundancy，冗余<br>Redundant，冗余（的）<br>Refactor，重构<br>relay，中继<br>Relevancy，适切性<br>Reliability，可靠性<br>Relying Party，依赖方<br>Repository，存储库；仓储；仓库<br>request pipeline，请求管道<br>reserved，专属<br>reverse proxy module，反向代理模块<br>retail，零售版<br>Rich Client，丰富客户端<br>Ripple Effect，涟漪效应<br>Rolling Upgrade，滚动升级<br>round-robin，轮流（分配）；轮叫<br>round-tripping，还原；回传；往返，往返切换<br>router，路由器</p>
-</blockquote>
-<h3 id="S"><a href="#S" class="headerlink" title="S"></a>S</h3><blockquote>
-<p><strong>Saas</strong>（Software as a Service），软件即服务<br><strong>SSL</strong>（Security Socket Layer），安全套接层<br><strong>SLA</strong>（Service Level Agreement），服务水平协议<br>Scalability，缩放性<br>Scale，缩放<br>Scale Out，向外缩放<br>Scale Up，向上缩放<br>Schema (database)，架构（数据）<br>Schema (xml)，架构（xml）<br>Security Token，安全令牌<br>Self-signed Certificate，自签名证书<br>Serializable，可序列化<br>Server Affinity，服务器绑定<br>Service Bus，服务总线<br>Service Contract，服务合同<br>Service Provider，服务提供方<br>Shopping cart，购物车<br>Signature，签名<br>snapshot，快照<br>Staging，过渡（环境）<br>Sticky Session，黏性会话<br>Stickyness，黏性；黏度<br>Sign in，登录<br>Sign out，注销<br>Site-to-Site，站点到站点<br>Storage Account，存储账户<br>Subnet，子网<br>Sub-region，子地域<br>Subscription，订阅</p>
-</blockquote>
-<h3 id="T"><a href="#T" class="headerlink" title="T"></a>T</h3><blockquote>
-<p>Tenant，租户<br>Terminus，端点<br>Thin Client，瘦客户端<br>Thread Pool，线程池<br>Thread Starvation，线程饥荒<br>Throttle，节流；限速<br>Timestamp，时间戳<br>Throughput，吞吐量<br>Topology，拓扑结构<br>Token，令牌<br>(Code) Tracing，（代码）追踪<br>Transaction，事务<br>Transient Error，瞬时错误</p>
-</blockquote>
-<h3 id="U"><a href="#U" class="headerlink" title="U"></a>U</h3><blockquote>
-<p>Ubiquitous Computing，普存计算<br>under-post，提交不足<br>Unit test，单元测试<br>Uncommitted，未提交（的）<br>Update Domain，更新域</p>
-</blockquote>
-<h3 id="V"><a href="#V" class="headerlink" title="V"></a>V</h3><blockquote>
-<p><strong>VOL</strong> 或 <strong>VLO</strong>（Volume Licensing for Organizations），团体批量许可证；大量采购授权合约<br>Vertical Scale，垂直缩放<br>VIP，虚拟 IP（或不译）<br>VIP Swap，VIP 交换<br>Virtual Network，虚拟网络<br>Virtual Machine，虚拟机</p>
-</blockquote>
-<h3 id="W"><a href="#W" class="headerlink" title="W"></a>W</h3><blockquote>
-<p><strong>WMI</strong>（Windows Management Instrumentation），Windows 管理规范<br><strong>WINS</strong>（Windows Internet Name Service），Windows Internet 命名服务<br>Wearable Device，可穿戴设备<br>Web Role，网站角色<br>Web Service，网络服务<br>Web Sites，网站<br>wireless communication，无线通讯<br>Worker Role，辅助角色<br>Workflow，工作流<br>workgroup，工作组</p>
-</blockquote>
-<h3 id="X"><a href="#X" class="headerlink" title="X"></a>X</h3><blockquote>
-<p><strong>XOR</strong>（Exclusive OR），异或<br>X.509v3 certificate，X.509 证书</p>
-</blockquote>
-<h3 id="Y"><a href="#Y" class="headerlink" title="Y"></a>Y</h3><blockquote>
-</blockquote>
-<h3 id="Z"><a href="#Z" class="headerlink" title="Z"></a>Z</h3><blockquote>
-<p>Zero-downtime Upgrade，零停机升级<br>zip disk，压缩磁盘<br>zone，区域<br>zone list，区域列表<br>zone transfer，区域传送</p>
-</blockquote>
-<p>　　</p>
-<blockquote>
-<p><strong>References:</strong></p>
-<ul>
-<li><a href="http://www.cnblogs.com/linJie1930906722/p/5768669.html">计算机专业术语对照</a></li>
-</ul>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;A&quot;&gt;&lt;a href=&quot;#A&quot; class=&quot;headerlink&quot; title=&quot;A&quot;&gt;&lt;/a&gt;A&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;AI&lt;/strong&gt;（Artificial Intelligence），人工智能&lt;br&gt;&lt;strong&gt;ATM&lt;/strong&gt;（asynchronous transfer mode），异步传输模式&lt;br&gt;&lt;strong&gt;ARPA&lt;/strong&gt;（Advanced Research Projects Agency），（美国国防部）高级研究计划署&lt;br&gt;&lt;strong&gt;AR&lt;/strong&gt;（augmented reality），增强实现&lt;br&gt;&lt;strong&gt;ADSL&lt;/strong&gt;（Asymmetrical Dingital Subscriber Loop），非对称数字用户环线
-    
-    </summary>
-    
-    
-      <category term="Key-words" scheme="http://durant35.github.io/tags/Key-words/"/>
     
   </entry>
   
