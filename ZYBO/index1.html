@@ -15,15 +15,33 @@
 
 
 
-<meta name="description" content="只管尽力，去建立某些好的特质和态度">
+<meta name="description" content="涉及的内容
+Presents the traditionally distinct fields of software and hardware design in a new unified approach（以新的统一方法呈现传统上不同的软硬件领域）
+OS for embedded computing: Linux
+“HW/SW bridges”: boot loader, device">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tarantula-7's Blog">
-<meta property="og:url" content="http://durant35.github.io/tags/Algorithm/index.html">
+<meta property="og:url" content="http://durant35.github.io/ZYBO/index1.html">
 <meta property="og:site_name" content="Tarantula-7's Blog">
-<meta property="og:description" content="只管尽力，去建立某些好的特质和态度">
+<meta property="og:description" content="涉及的内容
+Presents the traditionally distinct fields of software and hardware design in a new unified approach（以新的统一方法呈现传统上不同的软硬件领域）
+OS for embedded computing: Linux
+“HW/SW bridges”: boot loader, device">
+<meta property="og:image" content="http://durant35.github.io/../img/ZYBO/day01/ZynqLinuxSoftwareStack.png">
+<meta property="og:image" content="http://durant35.github.io/../img/ZYBO/day01/Zynq_PS&PL.png">
+<meta property="og:image" content="http://durant35.github.io/../img/ZYBO/day01/Zynq7000.jpg">
+<meta property="og:image" content="http://durant35.github.io/../img/ZYBO/day01/Which_license_should_I_use.png">
+<meta property="og:image" content="http://durant35.github.io/../img/ZYBO/day01/Structure4GCC.png">
+<meta property="og:image" content="http://durant35.github.io/../img/ZYBO/day01/GCC_execution.png">
+<meta property="og:image" content="http://durant35.github.io/../img/ZYBO/day01/Structure4Compiler.png">
+<meta property="og:updated_time" content="2017-02-21T08:57:13.613Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tarantula-7's Blog">
-<meta name="twitter:description" content="只管尽力，去建立某些好的特质和态度">
+<meta name="twitter:description" content="涉及的内容
+Presents the traditionally distinct fields of software and hardware design in a new unified approach（以新的统一方法呈现传统上不同的软硬件领域）
+OS for embedded computing: Linux
+“HW/SW bridges”: boot loader, device">
+<meta name="twitter:image" content="http://durant35.github.io/../img/ZYBO/day01/ZynqLinuxSoftwareStack.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -55,7 +73,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Tag: Algorithm | Tarantula-7&#39;s Blog</title>
+<title>Tarantula-7&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -67,7 +85,7 @@
         isHome: false,
         isPost: false,
         isArchive: false,
-        isTag: true,
+        isTag: false,
         isCategory: false,
         fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
         scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
@@ -248,13 +266,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-Algorithms_LongestPalindromicSubsequence" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/" class="article-date">
-      <time datetime="2017-05-12T06:00:22.000Z" itemprop="datePublished">2017-05-12</time>
+      <a href="/ZYBO/index1.html" class="article-date">
+      <time datetime="2017-02-16T14:16:48.000Z" itemprop="datePublished">2017-02-16</time>
 </a>
 
 
@@ -265,337 +281,210 @@
       <input type="hidden" class="isFancy" />
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Longest Palindromic Subsequence（最长回文子序列）</a>
-    </h1>
-  
-
-      </header>
-      
-    
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　本文通过 <strong><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a></strong> 分析。<br>
+              <style>
+    .article-meta { display: none; }
+    #container .article .article-title { padding-right: 0; }
+    .article-header {
+        padding: 0;
+        padding-top: 26px;
+        border-left: none;
+        text-align: center;
+    }
+    .article-header:hover { border-left: none; }
+    .article-title { font-size: 1.6em }
+    .article-entry hr { margin: 0;}
+    .article-meta,
+    #container .article-info-post.article-info { display: none;}
+    #container .article .article-title { padding: 0; }
+</style>
+
+<!-- 匹配页面 -->
+
           
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
+        <center><img src="../img/ZYBO/day01/ZynqLinuxSoftwareStack.png" width="800px"/></center>
 
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_LongestCommonSubsequence" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/05/03/Algorithms_LongestCommonSubsequence/" class="article-date">
-      <time datetime="2017-05-03T06:00:22.000Z" itemprop="datePublished">2017-05-03</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Longest Common Subsequence（最长公共子序列）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文通过 <strong><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a></strong> 分析。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/05/03/Algorithms_LongestCommonSubsequence/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_LongestIncreasingSubsequence" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/" class="article-date">
-      <time datetime="2017-04-28T06:00:22.000Z" itemprop="datePublished">2017-04-28</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h4 id="300-Longest-Increasing-Subsequence"><a href="#300-Longest-Increasing-Subsequence" class="headerlink" title="300. Longest Increasing Subsequence"></a><a href="https://leetcode.com/problems/longest-increasing-subsequence/#/description">300. Longest Increasing Subsequence</a></h4><blockquote>
-<p>Given an unsorted array of integers, find the length of longest increasing subsequence.<br>For example, Given [10, 9, 2, 5, 3, 7, 101, 18], The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4. Note that there may be more than one LIS combination, it is only necessary for you to return the length. </p>
+<h2 id="涉及的内容"><a href="#涉及的内容" class="headerlink" title="涉及的内容"></a>涉及的内容</h2><ul>
+<li>Presents the traditionally distinct fields of software and hardware design in a new unified approach（以新的统一方法呈现传统上不同的软硬件领域）</li>
+<li>OS for embedded computing: Linux</li>
+<li>“HW/SW bridges”: boot loader, device driver,  IP</li>
+</ul>
+<h2 id="Course-Objectives"><a href="#Course-Objectives" class="headerlink" title="Course Objectives"></a>Course Objectives</h2><ul>
+<li>After this course, you will be able to design an embedded system based on Xilinx ZYNQ</li>
+<li>You will be able to <strong>add customized IP</strong> in ZYNQ</li>
+<li>You will be able to <strong>develop device driver</strong> for customized IP</li>
+<li>You will be able to <strong>develop boot loader</strong> for Linux</li>
+<li>You will be able to <strong>develop applications on ZED board</strong></li>
+<li>Understand <strong>SW/HW Co-design</strong> and <strong>HLS</strong></li>
+</ul>
+<h2 id="Course-outline"><a href="#Course-outline" class="headerlink" title="Course outline"></a>Course outline</h2><ol>
+<li>Overview and GNU Tool Chain<ul>
+<li>Next Decade: All Programmable perspective</li>
+<li>Course Overview</li>
+<li>FPGA and ZYNQ Overview</li>
+<li>GNU Tool Chain</li>
+<li>Lab1-1 Ubuntu setup and ZED demo</li>
+<li>Lab1-2 hello world and GNU Tool Chain</li>
+<li>Lab1-3 Explore Zybo Linux</li>
+<li>Lab1-4 Cross Compile </li>
+</ul>
+</li>
+<li>User space topic<ul>
+<li>Process and thread</li>
+<li>Special files and Shell</li>
+<li>Busybox and Package</li>
+<li>Library and System Call</li>
+<li>Cross compile</li>
+<li>Lab2-1  UART read/write in two process</li>
+<li>Lab2-2  multi thread ZED LED flashing</li>
+<li>Lab2-3  Define your project </li>
+</ul>
+</li>
+<li>Device driver<ul>
+<li>Device driver overview</li>
+<li>Sysfs </li>
+<li>Interrupts</li>
+<li>Lab3-1  ZedBoard LED hello world</li>
+<li>Lab3-2  Cross compile xt.c then test it </li>
+<li>Lab3-3  Recompile your own kernel</li>
+<li>Lab3-4  Hack ZED LED device driver</li>
+<li>Lab3-5  Insert PWM kernel module</li>
+</ul>
+</li>
+<li>Drive the Customized  IP<ul>
+<li>ZYNQ Architecture</li>
+<li>EDK Overview</li>
+<li>ARM Instruction Set Overview</li>
+<li>ARM Instruction Set</li>
+<li>Lab4-1  ZYNQ PS C Hello World </li>
+<li>Lab4-2  ZYNQ IP and Stand alone C</li>
+<li>Lab4-3  SDK Debug</li>
+<li>Lab4-4  Assembly and BSP library</li>
+</ul>
+</li>
+<li>Bootloader<ul>
+<li>Bootloader Overview</li>
+<li>U-boot and Ramfs</li>
+<li>Linux Device Tree</li>
+<li>ZYNQ Boot Sequence</li>
+<li>Lab5-1  Build your U-boot </li>
+<li>Lab5-2  Create your FSBL </li>
+<li>Lab5-3  Ramfs for ZRobot</li>
+<li>Lab5-4  Post init</li>
+</ul>
+</li>
+<li>HW/SW Co-design &amp; Project Show<ul>
+<li>HW/SW Co-design overview</li>
+<li>OpenCV case study</li>
+<li>GNU Radio case study</li>
+<li>Software Defined Network </li>
+<li>Final Examination </li>
+<li>Lab6-1  Final project OpenHW.org submit</li>
+<li>Lab6-2  Project presentation</li>
+</ul>
+</li>
+</ol>
+<h2 id="Day01"><a href="#Day01" class="headerlink" title="Day01"></a>Day01</h2><h3 id="FPGA-and-ZYNQ-Overview"><a href="#FPGA-and-ZYNQ-Overview" class="headerlink" title="FPGA and ZYNQ Overview"></a>FPGA and ZYNQ Overview</h3><ul>
+<li>Embedded system: any device that includes a programmable computer but is not itself a general-purpose computer.</li>
+<li>嵌入式计算的三大技术特点：<ul>
+<li>数字信号处理（Digital Signal Processing）<ul>
+<li>Transforming data</li>
+</ul>
+</li>
+<li>联网能力（Packet Processing）<ul>
+<li>Transporting data</li>
+</ul>
+</li>
+<li>不亚于桌面系统的CPU处理能力（Tera Computing）<ul>
+<li>Analyzing data</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>双核ARM Cortex-A9 SOC + FPGA<br><center><img src="../img/ZYBO/day01/Zynq_PS&PL.png" width="800px"/></center><ul>
+<li>处理系统PS（Processor System）</li>
+<li>可编程逻辑PL（Programmable Logic）<br><center><img src="../img/ZYBO/day01/Zynq7000.jpg" width="640px"/></center><blockquote>
+<p>From：<a href="http://www.guyuehome.com/275">古月居～ROS探索总结（十六）——HRMRP机器人的设计</a><br>Zynq 由处理系统（Processor System， PS）与可编程逻辑（Programmable Logic， PL）两部分组成。其中 PS 基于 ARM Cortex-A9 双核处理器构建，包含常用的外设接口，例如网络、 USB、内存控制器等。而 PL 由 Xilinx 的 7 系列 FPGA 构成，支持动 态重配置，可以使用 Verilog 语言编程使用。在HRMRP （Hybrid Real-time Mobile Robot Platform，混合实时移动机器人平台）中，PS通过操作系统控制所有功能正常有序的实现，而 PL作为协处理器一方面可以对复杂的运算并行加速处理， 另一方面可以进行 I/O 接口扩展，为多传感器和执行器设计统一的接口，提高系统硬 件配置的灵活性。</p>
 </blockquote>
-<ul>
-<li>给出一个序列 $a_1, a_2, …, a_n$，求它的一个子序列（设为 $s_1, s_2, …, s_n$ ），使得这个子序列满足这样的性质：$ s_1 &lt; s_2 &lt; s_3 &lt;…&lt; s_n $ 并且这个子序列的长度最长，输出这个最长的长度。实际上，诸如最长下降子序列，最长不上升子序列等问题都可以看成同一个问题，仔细思考就会发现，这其实只是 $&lt;$ 符号定义上的问题，并不影响问题的实质。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="GNU-Tool-Chain"><a href="#GNU-Tool-Chain" class="headerlink" title="GNU Tool Chain"></a>GNU Tool Chain</h3><p>• Which license I should use ? </p>
+<blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io">阮一峰的网络日志~如何选择开源许可证？</a></p>
+<center><img src="../img/ZYBO/day01/Which_license_should_I_use.png" width="720px"/></center>
 
+</blockquote>
+<p>• GCC Options<br>　• -E: preprocessor output<br>　• -g: debug information<br>　• -O0~-O1: optimization level.<br>　　• default is -O1<br>　• -x language: input file’s language.<br>　　• Ex: gcc -x java test.java<br>　• -S: output assembly</p>
+<p>• The <strong>GNU Compiler Collection (GCC)</strong> is the most important piece of open source software in the world. Virtually all other open software is based on it at some level or another. Even other languages, such as Perl and Python, are written in C, which is compiled by the GNU compiler.</p>
+<center><img src="../img/ZYBO/day01/Structure4GCC.png" width="420px"/></center>
 
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
+<p>• Tool Chain</p>
+<p><center><img src="../img/ZYBO/day01/GCC_execution.png" width="420px"/></center><br>　• Compiler<br>　　• Convert source code to object modules<br>　　• The Structure of Compiler<br>　　　<center><img src="../img/ZYBO/day01/Structure4Compiler.png" width="420px"/></center><br>　　• .o: external references not yet resolved<br>    $ nm <em>.o<br>　• Linker<br>　• Advanced Topic（<em>*Binutils</em></em>）</p>
 
       
-        <p class="article-more-link">
-          <a href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
     </div>
     
   </div>
   
+    
+
+
+  
 </article>
 
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_Dynamic Programming(II)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/23/Algorithms_Dynamic Programming(II)/" class="article-date">
-      <time datetime="2017-04-23T06:00:22.000Z" itemprop="datePublished">2017-04-23</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（动态规划）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文通过 <strong><a href="https://leetcode.com/problems/maximum-subarray/#/description">53. Maximum Subarray</a> &amp; <a href="https://leetcode.com/problems/maximum-product-subarray/#/description">152. Maximum Product Subarray</a></strong> 分析根据动态规划思路进行问题求解中的一个关键环节：子问题的拆分和求解。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/23/Algorithms_Dynamic Programming(II)/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_Dynamic Programming(I)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/" class="article-date">
-      <time datetime="2017-04-13T06:00:22.000Z" itemprop="datePublished">2017-04-13</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#涉及的内容"><span class="toc-number">1.</span> <span class="toc-text">涉及的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Course-Objectives"><span class="toc-number">2.</span> <span class="toc-text">Course Objectives</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Course-outline"><span class="toc-number">3.</span> <span class="toc-text">Course outline</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Day01"><span class="toc-number">4.</span> <span class="toc-text">Day01</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FPGA-and-ZYNQ-Overview"><span class="toc-number">4.1.</span> <span class="toc-text">FPGA and ZYNQ Overview</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GNU-Tool-Chain"><span class="toc-number">4.2.</span> <span class="toc-text">GNU Tool Chain</span></a></li></ol></li></ol>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（动态规划）</a>
-    </h1>
-  
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
 
-      </header>
-      
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文通过 <strong>Unique Paths <a href="https://leetcode.com/problems/unique-paths/#/description">[I]</a> &amp; <a href="https://leetcode.com/problems/unique-paths-ii/#/description">[II]</a></strong> 两道题从普通的递归思路到动态规划两种方式的求解尝试，希望能够初步分析如何根据动态规划的思路，进行问题求解。<br>
-          
-      
-    </div>
+<div class="share">
     
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="bdsharebuttonbox">
+        <!--
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+        -->
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+        <!--
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+        -->
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
     
-  </div>
-  
-</article>
+
+    
+</div>
 
 
 
@@ -603,17 +492,40 @@
 
 
 
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/ZYBO/index1.html';
+            this.page.identifier = 'ZYBO/index1.html';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
 
 
 
 
 
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/tags/Algorithm/page/2/">2</a><a class="page-number" href="/tags/Algorithm/page/3/">3</a><a class="extend next" rel="next" href="/tags/Algorithm/page/2/">Next &raquo;</a>
-    </nav>
-  
+    <script>
+        
+    </script>
+
+
+
 </div>
       <footer id="footer">
     <div class="outer">

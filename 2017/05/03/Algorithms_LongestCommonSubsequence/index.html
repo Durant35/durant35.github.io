@@ -15,31 +15,16 @@
 
 
 
-<meta name="description" content="本文介绍了使用MFRC500射频芯片搭建射频读写模块的完整设计，其中包括电源部分的设计，PCB天线设计，以及天线电路设计及相关的理论依据，公式计算。">
+<meta name="description" content="本文通过  516. Longest Palindromic Subsequence  分析。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MFRC500 射频芯片射频读写模块完整设计">
-<meta property="og:url" content="http://durant35.github.io/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/index.html">
+<meta property="og:title" content="算法设计与分析[0011] Longest Common Subsequence（最长公共子序列）">
+<meta property="og:url" content="http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/index.html">
 <meta property="og:site_name" content="Tarantula-7's Blog">
-<meta property="og:description" content="本文介绍了使用MFRC500射频芯片搭建射频读写模块的完整设计，其中包括电源部分的设计，PCB天线设计，以及天线电路设计及相关的理论依据，公式计算。">
-<meta property="og:image" content="http://durant35.github.io/img/hsw/GraduateDesign/00-01.png">
-<meta property="og:image" content="http://durant35.github.io/img/hsw/GraduateDesign/00-02.png">
-<meta property="og:image" content="http://durant35.github.io/img/hsw/GraduateDesign/00-03.png">
-<meta property="og:image" content="http://durant35.github.io/img/hsw/GraduateDesign/00-04.png">
-<meta property="og:image" content="http://durant35.github.io/img/hsw/GraduateDesign/00-05.png">
-<meta property="og:image" content="http://durant35.github.io/img/hsw/GraduateDesign/00-06.png">
-<meta property="og:image" content="http://durant35.github.io/img/hsw/GraduateDesign/00-07.png">
-<meta property="og:image" content="http://durant35.github.io/img/hsw/GraduateDesign/00-08.png">
-<meta property="og:image" content="http://durant35.github.io/img/hsw/GraduateDesign/00-09.png">
-<meta property="og:image" content="http://durant35.github.io/img/hsw/GraduateDesign/00-10.png">
-<meta property="og:image" content="http://durant35.github.io/img/hsw/GraduateDesign/00-11.png">
-<meta property="og:image" content="http://durant35.github.io/img/hsw/GraduateDesign/00-12.png">
-<meta property="og:image" content="http://durant35.github.io/img/hsw/GraduateDesign/00-13.png">
-<meta property="og:image" content="http://durant35.github.io/img/hsw/GraduateDesign/00-14.png">
-<meta property="og:updated_time" content="2016-09-17T13:38:48.000Z">
+<meta property="og:description" content="本文通过  516. Longest Palindromic Subsequence  分析。">
+<meta property="og:updated_time" content="2017-05-12T12:17:17.324Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MFRC500 射频芯片射频读写模块完整设计">
-<meta name="twitter:description" content="本文介绍了使用MFRC500射频芯片搭建射频读写模块的完整设计，其中包括电源部分的设计，PCB天线设计，以及天线电路设计及相关的理论依据，公式计算。">
-<meta name="twitter:image" content="http://durant35.github.io/img/hsw/GraduateDesign/00-01.png">
+<meta name="twitter:title" content="算法设计与分析[0011] Longest Common Subsequence（最长公共子序列）">
+<meta name="twitter:description" content="本文通过  516. Longest Palindromic Subsequence  分析。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -71,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>MFRC500 射频芯片射频读写模块完整设计 | Tarantula-7&#39;s Blog</title>
+<title>算法设计与分析[0011] Longest Common Subsequence（最长公共子序列） | Tarantula-7&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -264,11 +249,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Algorithms_LongestCommonSubsequence" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/" class="article-date">
-      <time datetime="2015-10-03T00:59:14.000Z" itemprop="datePublished">2015-10-03</time>
+      <a href="/2017/05/03/Algorithms_LongestCommonSubsequence/" class="article-date">
+      <time datetime="2017-05-03T06:00:22.000Z" itemprop="datePublished">2017-05-03</time>
 </a>
 
 
@@ -283,7 +268,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      MFRC500 射频芯片射频读写模块完整设计
+      算法设计与分析[0011] Longest Common Subsequence（最长公共子序列）
     </h1>
   
 
@@ -292,13 +277,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/毕业设计/">毕业设计</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PCB/">PCB</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -308,17 +293,18 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>　　<strong>本文介绍了使用MFRC500射频芯片搭建射频读写模块的完整设计，其中包括电源部分的设计，PCB天线设计，以及天线电路设计及相关的理论依据，公式计算</strong>。<br><a id="more"></a></p>
-<h2 id="电源"><a href="#电源" class="headerlink" title="电源"></a><strong>电源</strong></h2><p>　　<strong>DVDD+DVSS；AVDD+AVSS；TVDD+TVSS</strong>分别为数字部分、模拟部分和天线激励部分提供电源。<br>　　　　1)、数字部分对数字信号进行处理和传输，一般为方波，<font color="#00CCFF"><strong>含有大量的高频谐波信号</strong></font>；<br>　　　　2)、模拟部分对从射频标签传输的微小信号进行处理，容易受到数字信号中的高频分量的干扰；<br>　　　　3)、天线激励部分将调制后的信号进行放大输出，可能会干扰到模拟部分。<br>　　芯片将数字、模拟和天线激励部分的电源分开，<strong>DVSS、AVSS、TVSS数字地和模拟地最好分开</strong>。<br>　　数字部分、模拟部分和天线激励部分的电源均接入了<strong>0.1uF的去耦电容</strong>，减少干扰，保证直流电压的稳定性。<br>    <center><img src="/img/hsw/GraduateDesign/00-01.png" width="700px"/></center><br>　　<strong>+A. </strong>模拟地和数字地的串接可以采用磁珠<strong>(BLM18AG601SNID磁珠)</strong>、电感<strong>(小电感几uH-几十uH)</strong>或最好使用<strong>0欧电阻</strong>的方式。<br>　　<strong>+B. </strong>数字电路中，一般要给每个芯片的电源引脚并联一个<strong>0.1uF的电容</strong>到地，越接近芯片越好；容量约为<strong>0.01uF-0.1uF的陶瓷电容</strong>，<font color="#00CCFF">一方面是蓄能元件，提供和吸收<strong>IC(芯片模块)</strong>开关时的充放电能量，另一方面是旁路高频噪声</font>。<br>　　<strong>+C. </strong>与数字电路相同，模拟器件也需要为电源提供高质量的射频旁路(去耦)，但同时也需要低频电源旁路，因为模拟器件对噪声的干扰更为敏感。<br>　　　　大容量电容(低频旁路)，如铝电解电容和钽电容，呈电感性，电容值取决于PCB板上的瞬态电流要求，一般在<strong>10-470uF</strong>；常使用的小电容为<strong>0.1uF的瓷片电容</strong>，当频率更高时，还可并联更小的电容，例如<strong>几pF，几百pF的</strong>。<br>　　　　多个去耦电容并联，不仅能提供更宽的频谱分布范围，降低电源网络产生的开关噪声，而且能<strong>降低ESL(等效串联电感)的影响</strong>，达到更佳的去耦效果<strong>(并联去耦电容反向放置，使内部电流引起的磁通量相互抵消，进一步降低ESL)</strong>。<br>　　　　<strong>电感是一种蓄能元件，用在LC振荡电路中低频的滤波电路等，其应用频率很少超过50MHz；电源引入高频器件时用磁珠，处理低频噪声，保证电源的稳定；电感在电流脉冲期间电源板和模拟电源管脚之间实现了一个相对的高阻抗路径，加强滤波，有效降低数字电路部分中的高频谐波。</strong></p>
-<h2 id="天线接口及其匹配电路设计"><a href="#天线接口及其匹配电路设计" class="headerlink" title="天线接口及其匹配电路设计"></a><strong>天线接口及其匹配电路设计</strong></h2><p>　　<strong>1）两种方式设计天线和匹配电路</strong><br>　　　　a. 直接匹配天线用于读卡器和天线距离较近的小型设备<strong>(&lt;30mm)</strong>;　　　　　　　　　　　　　　　　　<font color="#FF0000"><strong>选择使用的方式</strong></font><br>　　　　b. <strong>50Ω</strong>匹配天线用于读卡器和天线距离较远，需要通过同轴电缆连接的情况<strong>(10m左右)</strong>。　<br>　　<strong>2）副载波负载调制在频域产生两个边频带，高频在14.41MHz，低频的是在12.71MHz</strong>。</p>
-<h2 id="EMC低通滤波器"><a href="#EMC低通滤波器" class="headerlink" title="　　+ EMC低通滤波器"></a>　　<font size="5" color="#FF9999"><strong>+ EMC低通滤波器</strong></font></h2><p>　　<strong>石英振荡器</strong>产生<strong>13.56MHz</strong>的工作频率，同时也产生高次谐波；<strong>13.56MHz</strong>中的三次、五次和高次谐波需要被良好地抑制。<strong>13.56MHz</strong>作为载波频率驱动天线，为了满足国际EMC标准规定的辐射能量幅度，需要对输出信号进行滤波。<br>    <center><img src="/img/hsw/GraduateDesign/00-02.png" width="550px"/></center><br>　　如上图所示的<strong>EMC低通滤波电路</strong>。形成两个LC滤波电路；为了获得更好性能，EMC滤波器的谐振频率为<strong>14.41MHz(上述的上边带)</strong>，该频率为发送信号的副载波上边带中心频率 <strong>==&gt;</strong> 增大输出信号的信噪比，改善输出性能，同时，减少传输脉冲的过冲幅度，改善传输信号的质量。<br>    <center><img src="/img/hsw/GraduateDesign/00-03.png" width="580px"/></center><br>　　借助上述的<strong>LC电路分析</strong>，易知EMC滤波器的谐振频率：<br>    <center><img src="/img/hsw/GraduateDesign/00-04.png" width="350px"/></center><br>　　<strong>Lx</strong>的取值<strong>1uH</strong>，则<strong>Cx1||Cx2=122.2pF</strong>。<br>　　<strong>并联电容反向放置，可以进一步降低ESL，加强滤波效果。</strong>故可取<br>　　　　<strong>Cx1=68pF+Cx2=56pF</strong><br>　　　　或者<strong>Cx1=Cx2=68pF(推荐设计)</strong>。<br>　　<strong>另外还需要注意的是，L和C必须放置得很靠近Tx1和Tx2管脚；C的接地线必须很短，而且对TVSS管脚的阻抗非常低。</strong></p>
-<h2 id="接收电路"><a href="#接收电路" class="headerlink" title="　　+ 接收电路"></a>　　<font size="5" color="#FF9999"><strong>+ 接收电路</strong></font></h2><p>　　<strong>MFRC500射频芯片</strong>内部的接收电路可以对负载调制信号的副载波的两个边带进行解调，不需要增加外部滤波电路。<br>    <center><img src="/img/hsw/GraduateDesign/00-05.png" width="500px"/></center><br>　　<strong>VMID</strong>一定要有个<strong>0.01uF</strong>的去耦电容，可减少干扰，提供一个稳定的参考电压；<br>　　<strong>VMID引脚</strong>是内部的工作参考电压，为保证芯片正常工作，使用内部产生的<strong>VMID电势</strong>作为<strong>Rx管脚</strong>的输入电势；<br>　　<strong>R1=820Ω</strong>为定值，<strong>R2</strong>一般范围为<strong>820-2.7KΩ</strong>，电阻<strong>R1，R2</strong>作为分压电阻，保证<strong>Rx</strong>的直流工作点电压与<strong>VMID</strong>尽量相同，电压值过高会造成接收失败。<strong>15pF</strong>的电容也是定值，不用修改。</p>
-<h2 id="天线线圈"><a href="#天线线圈" class="headerlink" title="　　+ 天线线圈"></a>　　<font size="5" color="#FF9999"><strong>+ 天线线圈</strong></font></h2><p>　　这里的天线线圈采取<strong>PCB环形天线</strong>，形状一般为矩形或圆形。<br>　　<strong>说明：</strong>磁场强度大小<strong>H</strong>与天线线圈上的电流<strong>I</strong>，天线线圈的匝数<strong>N</strong>，天线线圈的半径<strong>R</strong>以及距离天线线圈的垂直距离<strong>x</strong>有关：<br>　　　　　　　　　　　　<img src="/img/hsw/GraduateDesign/00-06.png" width="210px"/><br>　　当<strong>I和x</strong>不便时，当<strong>R=x</strong>时，<strong>H</strong>有最大值，因此读卡器的工作范围和天线线圈的半径大致相等。<br>　　使用读卡器时，标签会紧贴读卡器，<strong>x≈0</strong>，<br>　　　　　　　　<img src="/img/hsw/GraduateDesign/00-07.png" width="200px"/>，天线线圈半径越大，<strong>H</strong>越小。<br>　　<strong>注意，若读卡器的工作范围过大，可能会出现多个读卡器可以同时操作一个标签的情况</strong>。综合考虑上述因素，我们采用如下图的<strong>矩形PCB环形天线</strong>，天线线圈<strong>边长5cm</strong>。<br>    <center><img src="/img/hsw/GraduateDesign/00-08.png" width="600px"/></center><br>　　　　<strong><font size="4">+1. </font></strong> <strong>PCB环形天线</strong>的等效电感值<strong>Lant</strong>可以通过下列公式推算：<br>    <center><img src="/img/hsw/GraduateDesign/00-09.png" width="500px"/></center>　　　　　　其中各参数含义如下：<br>　　　　　　　　　　<strong>l<sub>1</sub>: </strong>一匝导线环的长度<br>　　　　　　　　　　<strong>D<sub>1</sub>: </strong>线圈直径或PCB导线宽度<br>　　　　　　　　　　<strong>K: =1.07</strong>，环形天线；<strong>=1.47</strong>，方形天线<br>　　　　　　　　　　<strong>N<sub>1</sub>: </strong>线圈的匝数<br>　　　　　　　　　　<strong>ln: </strong>自然对数函数<br>　　结合我们设计的方形天线，其等效电感值<strong>L<sub>ant</sub> = 2 x 20 x[ln(20/0.1) - 1.47]x 4<sup>1.8</sup> ≈ 1856.84(nH)</strong><br>　　　　<strong><font size="4">+2. </font></strong>在下一节计算品质因子和天线的调谐时，线圈的等效电容<strong>C<sub>ant</sub>≈0.1pF</strong>可以忽略。<br>　　　　<strong><font size="4">+3. </font></strong>工作频率<strong>13.56MHz</strong>，这个频率下电阻的集肤效应<strong>(skin effect)</strong>不可忽略，不能只是用<strong>DC阻抗</strong>描述天线线圈，可用下面公式估计：<strong>R<sub>ant</sub> = 5 · R<sub>DC</sub></strong><br>　　　　<strong><font size="4">+4. </font></strong>利用<strong>PCB走线电阻在线计算</strong>，通过方块统计的方法，利用铜的电阻和重量的关系，有：<br>　　　　　　　　　　<strong>铜箔厚度(导体厚度)T: 35um</strong><br>　　　　　　　　　　<strong>线宽(导体宽度)W: 35mils</strong><br>　　　　　　　　　　<strong>线长L: =5x4x4=80cm</strong><br>　　　　　　　　　　<strong>计算的R<sub>DC</sub>: 0.44Ω</strong><br>　　　　　　　　　　<strong>R<sub>ant</sub>: 5·0.44=2.2Ω</strong></p>
-<h2 id="天线匹配电路"><a href="#天线匹配电路" class="headerlink" title="　　+ 天线匹配电路"></a>　　<font size="5" color="#FF9999"><strong>+ 天线匹配电路</strong></font></h2><p>　　为使得天线工作于<strong>13.56MHz</strong>，可在天线外部并联或者串联一个电容，使电容与天线线圈组成LC谐振电路。<strong>调整并联/串联电容大小使得谐振频率为工作频率的13.56MHz</strong>。此时，通过此谐振电路，读写器可将能量传至射频卡。<br>　　通过天线匹配电路，达到控制天线电路的：<br>　　　　<strong>+1. </strong>品质因数<br>　　　　<strong>+2. </strong>谐振频率<br>　　　　<strong>+3. </strong>阻抗匹配(输入阻抗典型值<strong>700Ω</strong>)<br>　　再次使用LC电路的<strong>汤姆逊公式</strong>，<br>    <center><img src="/img/hsw/GraduateDesign/00-10.png" width="400px"/></center><br>　　其中，<strong>L和C</strong>的取值要参考天线线圈的等效电路。电感取值范围在<strong>0.5~3uH</strong>，电容匹配较容易实现；天线的等效电感通常设计在<strong>1-2uH</strong>左右<strong>(如我们上述就设计为1857nH)</strong>。<br>    <center><img src="/img/hsw/GraduateDesign/00-11.png" width="600px"/></center><br>　　<strong>天线的品质因子，</strong><img src="/img/hsw/GraduateDesign/00-12.png" width="280px"/>，又带宽<strong>B=f<sub>R</sub>/Q</strong>，数据从<strong>RWD</strong>传输到射频卡使用脉宽<strong>T=3us</strong>的<strong>Miller编码</strong>，<strong>B·T ≥ 1</strong>，故<br>　　　　　　　　<strong>Q ≤ f<sub>R</sub>·T ≤ 13.56MHz·3us ≤ 40.68</strong>，<br>　　考虑到元件的容差和对温度的依赖，<strong>Q取35</strong>。<br>　　对于上图中所示的天线匹配电路，等价于两个下图所示的<strong>LC谐振电路</strong>，而右边所示的公式可以根据阻抗匹配经过一系列较为复杂的推导得到。<br>    <center><img src="/img/hsw/GraduateDesign/00-13.png" width="750px"/></center><br>　　到此，我们可以基于上述数据和公式计算<strong>串联/并联的匹配电容容值</strong>以及用于<strong>控制天线Q值的外部电阻R<sub>ext</sub>的阻值</strong>。<br>　　　　<strong><font size="4">+1. </font></strong>外部电阻<strong>R<sub>ext/2</sub> = (w<sub>R</sub>·L<sub>ant</sub>)/2 = (2πf<sub>R</sub>·L<sub>ant</sub>)/2</strong><br>　　　　<strong><font size="4">+2. </font></strong>各参数如下：<br>　　　　　　　　　<strong>工作频率f<sub>R</sub> = 13.56MHz</strong><br>　　　　　　　　　<strong>PCB天线等效电感L<sub>ant</sub> = 1857nH</strong><br>　　　　　　　　　<strong>PCB天线等效电阻R<sub>ant</sub> = 2.2Ω</strong><br>　　　　　　　　　<strong>天线匹配电路输入阻抗Z<sub>in</sub> = 700Ω(典型值)</strong><br>　　　　将上述各参数代入，使用<strong><font color="red">MATLAB</font></strong>进行计算，得到：<br>　　　　　　　　　<strong>串联的匹配电容容值C<sub>s</sub> = 12.7504pF</strong>　　　　<br>　　　　　　　　　<strong>并联的匹配电容容值C<sub>p</sub> = C<sub>p1</sub> || C<sub>p2</sub> = 137.1066pF</strong><br>　　　　　　　　　<strong>控制天线Q值的外部电阻的阻值R<sub>ext/2</sub> = 1.1602Ω</strong><br>　　参照NXP提供的官方计算表<br>　　　　<strong><em>NXP Semiconductors. Directly matched Antenna Excel calculation.xls</em></strong>，最终采用的参考设计是：<strong>R<sub>ext/2</sub> = 0Ω；C<sub>s</sub>=27pF；C<sub>p</sub>=120pF||27pF(尽量让使用的多种元件型号相同，比如电容)</strong>。</p>
-<h2 id="最终整个天线接口及其匹配电路设计如下："><a href="#最终整个天线接口及其匹配电路设计如下：" class="headerlink" title="　　最终整个天线接口及其匹配电路设计如下："></a>　　<strong><font size="5" color="blue">最终整个天线接口及其匹配电路设计如下：</font></strong></h2><center><img src="/img/hsw/GraduateDesign/00-14.png" width="750px"/></center>
-
-<h2 id="Version-Control"><a href="#Version-Control" class="headerlink" title="Version Control"></a><strong>Version Control</strong></h2><table border="3" cellpadding="4px" style="font-family: verdana,arial,sans-serif; font-size:18px; color:#333333; background-color:#c3dde0; margin: 0; border-color: #333333; border-collapse:collapse"><br><tr><td style="width: 60px; text-align: center">版本号</td><td style="width: 80px; text-align: center">日期</td><td style="width: 320px; text-align: center">内容</td><td style="width: 100px; text-align: center">作者</td></tr><tr text-align="center"><td style="text-align: center">V0.1</td><td style="text-align: center">2015.10.3</td><td style="text-align: center">起草博客</td><td style="text-align: center">Tarantula-7</td></tr></table>
-
+        <p>　本文通过 <strong><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a></strong> 分析。<br><a id="more"></a></p>
+<h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><ul>
+<li>两道题解决的问题相似，都是求解给定序列中满足某种数学特征（和最大/乘积最大）的子序列，虽然不需要将该子序列输出。</li>
+</ul>
+<blockquote>
+<p>Find the contiguous subarray within an array(containing at least one number) which has the largest sum/product.</p>
+<ul>
+<li>For example, given the array [-2,1,-3,4,-1,2,1,-5,4], the contiguous subarray [4,-1,2,1] has the largest sum = 6. </li>
+<li>For example, given the array [2,3,-2,4], the contiguous subarray [2,3] has the largest product = 6. </li>
+</ul>
+</blockquote>
+<h4 id="最长公共子串"><a href="#最长公共子串" class="headerlink" title="最长公共子串"></a>最长公共子串</h4>
       
     </div>
     
@@ -326,18 +312,18 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a></p>
+        <p><span>本文标题:</span><a href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Longest Common Subsequence（最长公共子序列）</a></p>
 
         <!-- 
         <p><span>文章作者:</span><a href="/" title="回到主页">Tarantula-7</a></p>
         -->
         <p><span>文章作者:</span>Gary</p>
 
-        <p><span>发布时间:</span>2015-10-03, 08:59:14</p>
-        <p><span>最后更新:</span>2016-09-17, 21:38:48</p>
+        <p><span>发布时间:</span>2017-05-03, 14:00:22</p>
+        <p><span>最后更新:</span>2017-05-12, 20:17:17</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/" title="MFRC500 射频芯片射频读写模块完整设计">http://durant35.github.io/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/05/03/Algorithms_LongestCommonSubsequence/" title="算法设计与分析[0011] Longest Common Subsequence（最长公共子序列）">http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
 
@@ -353,15 +339,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/">
-                    Windows下的静态库和动态库
+                <a href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">
+                    算法设计与分析[0012] Longest Palindromic Subsequence（最长回文子序列）
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/">
-                    MFC TabControl控件实现选项卡功能
+                <a href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">
+                    算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）
                 </a>
             </div>
         
@@ -373,7 +359,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#电源"><span class="toc-number">1.</span> <span class="toc-text">电源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#天线接口及其匹配电路设计"><span class="toc-number">2.</span> <span class="toc-text">天线接口及其匹配电路设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EMC低通滤波器"><span class="toc-number">3.</span> <span class="toc-text">　　+ EMC低通滤波器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接收电路"><span class="toc-number">4.</span> <span class="toc-text">　　+ 接收电路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#天线线圈"><span class="toc-number">5.</span> <span class="toc-text">　　+ 天线线圈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#天线匹配电路"><span class="toc-number">6.</span> <span class="toc-text">　　+ 天线匹配电路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最终整个天线接口及其匹配电路设计如下："><span class="toc-number">7.</span> <span class="toc-text">　　最终整个天线接口及其匹配电路设计如下：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Version-Control"><span class="toc-number">8.</span> <span class="toc-text">Version Control</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Problem-Description"><span class="toc-number">1.</span> <span class="toc-text">Problem Description</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最长公共子串"><span class="toc-number">2.</span> <span class="toc-text">最长公共子串</span></a></li></ol>
         
     </div>
     <style>
@@ -413,7 +399,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"MFRC500 射频芯片射频读写模块完整设计　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"算法设计与分析[0011] Longest Common Subsequence（最长公共子序列）　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -432,8 +418,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://durant35.github.io/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/';
-            this.page.identifier = '2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/';
+            this.page.url = 'http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/';
+            this.page.identifier = '2017/05/03/Algorithms_LongestCommonSubsequence/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -455,7 +441,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/" title="上一篇: Windows下的静态库和动态库">
+            <a href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/" title="上一篇: 算法设计与分析[0012] Longest Palindromic Subsequence（最长回文子序列）">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -463,7 +449,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/" title="下一篇: MFC TabControl控件实现选项卡功能">
+            <a href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/" title="下一篇: 算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）">
                 <i class="fa fa-angle-right"></i>
             </a>
         

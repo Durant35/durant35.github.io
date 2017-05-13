@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-05-10T09:04:30.766Z</updated>
+  <updated>2017-05-12T12:16:37.773Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>算法设计与分析[0011] Longest Palindromic Subsequence（最长回文子序列）</title>
-    <link href="http://durant35.github.io/2017/05/03/Algorithms_LongestPalindromicSubsequence/"/>
-    <id>http://durant35.github.io/2017/05/03/Algorithms_LongestPalindromicSubsequence/</id>
-    <published>2017-05-03T06:00:22.000Z</published>
-    <updated>2017-05-10T09:04:30.766Z</updated>
+    <title>算法设计与分析[0012] Longest Palindromic Subsequence（最长回文子序列）</title>
+    <link href="http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/"/>
+    <id>http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/</id>
+    <published>2017-05-12T06:00:22.000Z</published>
+    <updated>2017-05-12T12:16:37.773Z</updated>
     
     <content type="html"><![CDATA[<p>　本文通过 <strong><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a></strong> 分析。<br><a id="more"></a></p>
 <h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><ul>
@@ -37,6 +37,41 @@
 <li>思路一：</li>
 </ul>
 ]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;　本文通过 &lt;strong&gt;&lt;a href=&quot;https://leetcode.com/problems/longest-palindromic-subsequence/#/description&quot;&gt; 516. Longest Palindromic Subsequence &lt;/a&gt;&lt;/strong&gt; 分析。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
+    
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>算法设计与分析[0011] Longest Common Subsequence（最长公共子序列）</title>
+    <link href="http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/"/>
+    <id>http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/</id>
+    <published>2017-05-03T06:00:22.000Z</published>
+    <updated>2017-05-12T12:17:17.324Z</updated>
+    
+    <content type="html"><![CDATA[<p>　本文通过 <strong><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a></strong> 分析。<br><a id="more"></a></p>
+<h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><ul>
+<li>两道题解决的问题相似，都是求解给定序列中满足某种数学特征（和最大/乘积最大）的子序列，虽然不需要将该子序列输出。</li>
+</ul>
+<blockquote>
+<p>Find the contiguous subarray within an array(containing at least one number) which has the largest sum/product.</p>
+<ul>
+<li>For example, given the array [-2,1,-3,4,-1,2,1,-5,4], the contiguous subarray [4,-1,2,1] has the largest sum = 6. </li>
+<li>For example, given the array [2,3,-2,4], the contiguous subarray [2,3] has the largest product = 6. </li>
+</ul>
+</blockquote>
+<h4 id="最长公共子串"><a href="#最长公共子串" class="headerlink" title="最长公共子串"></a>最长公共子串</h4>]]></content>
     
     <summary type="html">
     
@@ -2139,66 +2174,6 @@
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>libpcap, 32-bit&amp;64-bit</title>
-    <link href="http://durant35.github.io/2016/10/10/linux_libpcap%2032-bit&amp;64-bit/"/>
-    <id>http://durant35.github.io/2016/10/10/linux_libpcap 32-bit&amp;64-bit/</id>
-    <published>2016-10-10T02:42:37.000Z</published>
-    <updated>2016-10-10T07:30:43.225Z</updated>
-    
-    <content type="html"><![CDATA[<p>　情况是这样的，在之前讲过的回播 <strong>.pcap</strong> 数据的 <strong>Velodyne_player</strong> 程序中，需要调用 <strong>Winpcap</strong> (其实就是 <strong>libpcap</strong> 的 Win挫版) 的 API 解析 <strong>.pcap</strong> 数据，再通过 UDP 发送出去。我们的 <strong>Velodyne_player</strong> 是一个 <strong>Win32</strong> 的程序，显然调用的就是32位的 <strong>Winpcap</strong> 库的 API； 后来我们也移植了一个 <strong>.pcap</strong> 采集程序的 Linux 版本，结果，用该 Linux 版本采集程序采集到的 <strong>.pcap</strong> 数据却没办法用我们 Win 下的 <strong>Velodyne_player</strong> 回播。后来发现，我们的 Linux 版本的采集程序用的是64位的 <strong>libpcap</strong> 库(因为系统是64位的 Ubuntu16.04，默认安装的就是64位的 <strong>libpcap</strong> 库)，64位和32位的 <strong>libpcap</strong>，在时间戳上有很关键的区别，下面是开源的 <strong>pcap.h</strong> 中的声明:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</div><div class="line"> * Generic per-packet information, as supplied by libpcap.</div><div class="line"> *</div><div class="line"> * The time stamp can and should be a "struct timeval", regardless of</div><div class="line"> * whether your system supports 32-bit tv_sec in "struct timeval",</div><div class="line"> * 64-bit tv_sec in "struct timeval", or both if it supports both 32-bit</div><div class="line"> * and 64-bit applications.  The on-disk format of savefiles uses 32-bit</div><div class="line"> * tv_sec (and tv_usec); this structure is irrelevant to that.  32-bit</div><div class="line"> * and 64-bit versions of libpcap, even if they're on the same platform,</div><div class="line"> * should supply the appropriate version of "struct timeval", even if</div><div class="line"> * that's not what the underlying packet capture mechanism supplies.</div><div class="line"> */</span></div><div class="line"><span class="keyword">struct</span> pcap_pkthdr &#123;</div><div class="line">  <span class="keyword">struct</span> timeval ts;	<span class="comment">/* time stamp */</span></div><div class="line">  bpf_u_int32 caplen;	<span class="comment">/* length of portion present */</span></div><div class="line">  bpf_u_int32 len;	<span class="comment">/* length this packet (off wire) */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>　对于上面遇到的问题，我们想到的解决办法是，移植的 Linux 版本采集程序生成32位的，而不是目前的64位。因为现在装的是64位的 <strong>libpcap</strong>(64位系统使然)，那接下来的问题便是，如何在64位的 <strong>Ubuntu16.04</strong> 上面安装32位的 <strong>libpcap</strong> 库，然后生成我们需要的32位数据采集程序(-m32 or -m64)。</p>
-<h3 id="Generate-32-bit-exes-depending-on-libpcap"><a href="#Generate-32-bit-exes-depending-on-libpcap" class="headerlink" title="Generate 32-bit exes depending on libpcap"></a>Generate 32-bit exes depending on libpcap</h3><ol>
-<li><p>64位系统默认安装的包都是64位的，所以，64位的 <strong>Ubuntu16.04</strong> 安装64位的 <strong>libpcap</strong> 库比较简单。</p>
-<blockquote>
-<p>Reference: <a href="http://askubuntu.com/questions/347788/how-can-i-install-libpcap-header-files-on-ubuntu-12-04">How can I install libpcap header files on Ubuntu 12.04?</a></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxx@...$ sudo apt-get install libpcap0.8 libpcap0.8-dev libpcap-dev</div></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><p>64位的 <strong>Ubuntu16.04</strong> 安装32位的 <strong>libpcap</strong> 库则比较麻烦一点。</p>
-<blockquote>
-<p>Reference: <a href="http://askubuntu.com/questions/654079/libpcap-32-bit-on-64-bit-ubuntu">libpcap 32 bit on 64 bit Ubuntu</a></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># enable multiarch support for i386 architecture</span></div><div class="line">xxx@...$ sudo dpkg --add-architecture i386</div><div class="line"><span class="comment"># update the source </span></div><div class="line">xxx@...$ sudo apt-get update</div><div class="line"><span class="comment"># now, you can install the pcap library</span></div><div class="line">xxx@...$ sudo apt-get install libpcap0.8:i386 libpcap0.8-dev:i386 libpcap-dev:i386</div></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><p>装了32位的 <strong>libpcap</strong> 库，并不意味着你就能编译32位的，<strong>libpcap</strong> 应用程序，因为，64位系统默认并没有32位应用程序需要的基本库(诸如<strong>C/C++标准库</strong>)，所以需要安装好基本库环境。</p>
-<blockquote>
-<p>Reference: <a href="http://askubuntu.com/questions/709893/14-04-01-32-bit-missing-g-64-bit-include-files-when-cross-compiling">14.04.01 32-bit: Missing g++ 64-bit include files when cross-compiling</a></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxx@...$ sudo apt-get install g++-multilib</div></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><p>安装好32位的基本库，还有 <strong>libpcap</strong> 后，我们就能生成需要的32位程序了。步骤很简单，源代码不需要修改，在 <strong>CodeBlocks</strong> 中只需要在项目对应的 <strong>Build Option</strong> 中将 <strong>-m64</strong> 调整为 <strong>-m32</strong>；对于其他构建方式(如 <strong>cmake</strong>)，方法应该类似，核心都是 <strong>-m32</strong> 还是 <strong>-m64</strong> 作为构建参数。</p>
-</li>
-</ol>
-<h3 id="Linux-下如何查看程序-库信息"><a href="#Linux-下如何查看程序-库信息" class="headerlink" title="Linux 下如何查看程序/库信息"></a>Linux 下如何查看程序/库信息</h3><p>1.查看导出信息<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">xxx@...$ nm -D xxx.so/xxx.out</div><div class="line">xxx@...$ nm -g xxx.a</div><div class="line"><span class="comment"># or using objdump</span></div><div class="line">xxx@...$ objdump -tT xxx.so</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p><strong>nm [option]:</strong><br>-A 在每个符号信息的前面打印所在对象文件名称；<br>-C 输出demangle过了的符号名称；<br>-D 打印动态符号；<br>-l 使用对象文件中的调试信息打印出所在源文件及行号；<br>-n 按照地址/符号值来排序；<br>-u 打印出那些未定义的符号</p>
-</blockquote>
-<p>2.查看依赖库信息<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看动态依赖库信息</span></div><div class="line">xxx@...$ ldd xxx.so/xxx.out</div></pre></td></tr></table></figure></p>
-<p>3.查看程序/库位数<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxx@...$ objdump <span class="_">-a</span> xxx.a/xxx.so/xxx.out</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>输出结果: elf32-i386或elf64-x86-64</p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;　情况是这样的，在之前讲过的回播 &lt;strong&gt;.pcap&lt;/strong&gt; 数据的 &lt;strong&gt;Velodyne_player&lt;/strong&gt; 程序中，需要调用 &lt;strong&gt;Winpcap&lt;/strong&gt; (其实就是 &lt;strong&gt;libpcap&lt;/strong&gt; 的 Win挫版) 的 API 解析 &lt;strong&gt;.pcap&lt;/strong&gt; 数据，再通过 UDP 发送出去。我们的 &lt;strong&gt;Velodyne_player&lt;/strong&gt; 是一个 &lt;strong&gt;Win32&lt;/strong&gt; 的程序，显然调用的就是32位的 &lt;strong&gt;Winpcap&lt;/strong&gt; 库的 API； 后来我们也移植了一个 &lt;strong&gt;.pcap&lt;/strong&gt; 采集程序的 Linux 版本，结果，用该 Linux 版本采集程序采集到的 &lt;strong&gt;.pcap&lt;/strong&gt; 数据却没办法用我们 Win 下的 &lt;strong&gt;Velodyne_player&lt;/strong&gt; 回播。后来发现，我们的 Linux 版本的采集程序用的是64位的 &lt;strong&gt;libpcap&lt;/strong&gt; 库(因为系统是64位的 Ubuntu16.04，默认安装的就是64位的 &lt;strong&gt;libpcap&lt;/strong&gt; 库)，64位和32位的 &lt;strong&gt;libpcap&lt;/strong&gt;，在时间戳上有很关键的区别，下面是开源的 &lt;strong&gt;pcap.h&lt;/strong&gt; 中的声明:&lt;br&gt;&lt;figure class=&quot;highlight c++&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;/*&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; * Generic per-packet information, as supplied by libpcap.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; *&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; * The time stamp can and should be a &quot;struct timeval&quot;, regardless of&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; * whether your system supports 32-bit tv_sec in &quot;struct timeval&quot;,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; * 64-bit tv_sec in &quot;struct timeval&quot;, or both if it supports both 32-bit&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; * and 64-bit applications.  The on-disk format of savefiles uses 32-bit&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; * tv_sec (and tv_usec); this structure is irrelevant to that.  32-bit&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; * and 64-bit versions of libpcap, even if they&#39;re on the same platform,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; * should supply the appropriate version of &quot;struct timeval&quot;, even if&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; * that&#39;s not what the underlying packet capture mechanism supplies.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; */&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;struct&lt;/span&gt; pcap_pkthdr &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;struct&lt;/span&gt; timeval ts;	&lt;span class=&quot;comment&quot;&gt;/* time stamp */&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  bpf_u_int32 caplen;	&lt;span class=&quot;comment&quot;&gt;/* length of portion present */&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  bpf_u_int32 len;	&lt;span class=&quot;comment&quot;&gt;/* length this packet (off wire) */&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
-    
-      <category term="Linux" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://durant35.github.io/tags/Linux/"/>
-    
-      <category term="pcap" scheme="http://durant35.github.io/tags/pcap/"/>
     
   </entry>
   

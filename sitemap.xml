@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/ZYBO/index.html</loc>
+    
+    <lastmod>2017-05-13T07:37:14.467Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/</loc>
+    
+    <lastmod>2017-05-12T12:17:17.324Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/</loc>
+    
+    <lastmod>2017-05-12T12:16:37.773Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2016/07/26/tool_git%E5%87%A0%E6%AD%A5%E8%B5%B0/</loc>
     
     <lastmod>2017-05-12T07:30:33.564Z</lastmod>
@@ -12,13 +33,6 @@
     <loc>http://durant35.github.io/2017/04/28/Algorithms_LongestIncreasingSubsequence/</loc>
     
     <lastmod>2017-05-12T06:51:26.100Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/05/03/Algorithms_LongestPalindromicSubsequence/</loc>
-    
-    <lastmod>2017-05-10T09:04:30.766Z</lastmod>
     
   </url>
   
@@ -107,7 +121,7 @@
   </url>
   
   <url>
-    <loc>http://durant35.github.io/ZYBO/index.html</loc>
+    <loc>http://durant35.github.io/ZYBO/index1.html</loc>
     
     <lastmod>2017-02-21T08:57:13.613Z</lastmod>
     
