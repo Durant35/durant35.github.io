@@ -2,6 +2,48 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/</loc>
+    
+    <lastmod>2017-05-15T13:06:15.880Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/</loc>
+    
+    <lastmod>2017-05-15T07:13:23.256Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/04/23/Algorithms_Dynamic%20Programming(II)/</loc>
+    
+    <lastmod>2017-05-15T07:05:05.488Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/04/13/Algorithms_Dynamic%20Programming(I)/</loc>
+    
+    <lastmod>2017-05-15T07:04:09.443Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/04/28/Algorithms_LongestIncreasingSubsequence/</loc>
+    
+    <lastmod>2017-05-15T06:31:11.744Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/05/13/hsw_UbuntuSystemBootSequence/</loc>
+    
+    <lastmod>2017-05-13T14:21:12.278Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/ZYBO/index.html</loc>
     
     <lastmod>2017-05-13T07:37:14.467Z</lastmod>
@@ -9,30 +51,9 @@
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/</loc>
-    
-    <lastmod>2017-05-12T12:17:17.324Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/</loc>
-    
-    <lastmod>2017-05-12T12:16:37.773Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://durant35.github.io/2016/07/26/tool_git%E5%87%A0%E6%AD%A5%E8%B5%B0/</loc>
     
     <lastmod>2017-05-12T07:30:33.564Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/04/28/Algorithms_LongestIncreasingSubsequence/</loc>
-    
-    <lastmod>2017-05-12T06:51:26.100Z</lastmod>
     
   </url>
   
@@ -47,20 +68,6 @@
     <loc>http://durant35.github.io/2017/03/29/Algorithms_Some%20Shortest-path%20Algorithms/</loc>
     
     <lastmod>2017-05-06T00:55:06.507Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/04/23/Algorithms_Dynamic%20Programming(II)/</loc>
-    
-    <lastmod>2017-04-23T13:18:12.921Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/04/13/Algorithms_Dynamic%20Programming(I)/</loc>
-    
-    <lastmod>2017-04-18T08:36:19.306Z</lastmod>
     
   </url>
   

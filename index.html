@@ -283,7 +283,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Longest Common Subsequence（最长公共子序列）</a>
+      <a class="article-title" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a>
     </h1>
   
 
@@ -293,7 +293,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　本文通过 <strong><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a></strong> 分析。<br>
+              <p>　　子序列和子字符串的不同之处在于，子序列不需要是原序列上连续的字符。对于 <a href="http://www.lintcode.com/en/problem/longest-common-substring/">Longest Common Substring</a> 以及 <a href="http://www.lintcode.com/en/problem/longest-common-subsequence/"> Longest Common Subsequence</a> 这类题目，大多数需要用到 DP 的思想，其中，状态转移是关键。<br>
           
       
     </div>
@@ -363,7 +363,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Longest Palindromic Subsequence（最长回文子序列）</a>
+      <a class="article-title" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a>
     </h1>
   
 
@@ -415,20 +415,20 @@
 
 
   
-    <article id="post-tool_git几步走" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_Dynamic Programming(II)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/07/26/tool_git几步走/" class="article-date">
-      <time datetime="2016-07-26T00:47:07.000Z" itemprop="datePublished">2016-07-26</time>
+      <a href="/2017/04/23/Algorithms_Dynamic Programming(II)/" class="article-date">
+      <time datetime="2017-04-23T06:00:22.000Z" itemprop="datePublished">2017-04-23</time>
 </a>
 
  
-    <a href="/2016/07/26/tool_git几步走/#comments" title="查看评论">
+    <a href="/2017/04/23/Algorithms_Dynamic Programming(II)/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/07/26/tool_git几步走/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/04/23/Algorithms_Dynamic Programming(II)/"></span>
         
     </a>
 
@@ -443,7 +443,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/26/tool_git几步走/">git几步走</a>
+      <a class="article-title" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</a>
     </h1>
   
 
@@ -453,10 +453,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h3 id="git-快速入门"><a href="#git-快速入门" class="headerlink" title="git 快速入门"></a><strong>git</strong> 快速入门</h3><p>　　<strong>第一步:</strong> <strong>github.com</strong> 上添加新仓库 “Create New Repository”</p>
-<p>　　<strong>第二步:</strong> 本地关联远程库.添加后，远程库的名字就是 <strong>origin</strong>，这是 <strong>Git</strong> 默认的叫法，也可以改成别的，但是 <strong>origin</strong> 这个名字一看就知道是远程库。<br>　　　<font color="green"><strong>git remote add origin <a href="https://github.com/Durant35/[Repository">https://github.com/Durant35/[Repository</a> Name].git</strong></font></p>
-<p>　　把本地库的内容推送到远程，用 <strong>git push</strong> 命令，实际上是把当前分支 <strong>master</strong> 推送到远程。<br>　　由于远程库是空的，我们第一次推送 <strong>master</strong> 分支时，加上了 <strong>-u</strong> 参数，<strong>Git</strong> 不但会把本地的 <strong>master</strong> 分支内容推送的远程新的 <strong>master</strong> 分支，还会把本地的 <strong>master</strong> 分支和远程的 <strong>master</strong> 分支关联起来，在以后的推送或者拉取时就可以简化命令。<br>　　　<font color="green"><strong>git push -u origin master</strong></font></p>
-<p>　　把本地 <strong>master</strong> 分支的最新修改推送至 <strong>GitHub</strong>！<br>　　　<font color="green"><strong>git push origin master</strong></font><br>
+              <p>　本文通过 <strong><a href="https://leetcode.com/problems/maximum-subarray/#/description">53. Maximum Subarray</a> &amp; <a href="https://leetcode.com/problems/maximum-product-subarray/#/description">152. Maximum Product Subarray</a></strong> 分析根据动态规划思路进行问题求解中的一个关键环节：子问题的拆分和求解。<br>
           
       
     </div>
@@ -465,18 +462,98 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/小工具/">小工具</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2016/07/26/tool_git几步走/#more">more >></a>
+          <a href="/2017/04/23/Algorithms_Dynamic Programming(II)/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_Dynamic Programming(I)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/" class="article-date">
+      <time datetime="2017-04-13T06:00:22.000Z" itemprop="datePublished">2017-04-13</time>
+</a>
+
+ 
+    <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/04/13/Algorithms_Dynamic Programming(I)/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　本文通过 <strong>Unique Paths <a href="https://leetcode.com/problems/unique-paths/#/description">[I]</a> &amp; <a href="https://leetcode.com/problems/unique-paths-ii/#/description">[II]</a></strong> 两道题从普通的递归思路到动态规划两种方式的求解尝试，希望能够初步分析如何根据动态规划的思路，进行问题求解。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -561,6 +638,165 @@
       
         <p class="article-more-link">
           <a href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hsw_UbuntuSystemBootSequence" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/13/hsw_UbuntuSystemBootSequence/" class="article-date">
+      <time datetime="2017-05-13T14:04:00.000Z" itemprop="datePublished">2017-05-13</time>
+</a>
+
+ 
+    <a href="/2017/05/13/hsw_UbuntuSystemBootSequence/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/05/13/hsw_UbuntuSystemBootSequence/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/13/hsw_UbuntuSystemBootSequence/">一张图带你看 Ubuntu(Linux) 系统启动过程</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><center><img src="/img/hsw/BootProcess4Ubuntu.png" width="1600px"/></center><br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/体系结构/">体系结构</a>
+    </div>
+
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2017/05/13/hsw_UbuntuSystemBootSequence/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-tool_git几步走" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/26/tool_git几步走/" class="article-date">
+      <time datetime="2016-07-26T00:47:07.000Z" itemprop="datePublished">2016-07-26</time>
+</a>
+
+ 
+    <a href="/2016/07/26/tool_git几步走/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/07/26/tool_git几步走/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/26/tool_git几步走/">git几步走</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="git-快速入门"><a href="#git-快速入门" class="headerlink" title="git 快速入门"></a><strong>git</strong> 快速入门</h3><p>　　<strong>第一步:</strong> <strong>github.com</strong> 上添加新仓库 “Create New Repository”</p>
+<p>　　<strong>第二步:</strong> 本地关联远程库.添加后，远程库的名字就是 <strong>origin</strong>，这是 <strong>Git</strong> 默认的叫法，也可以改成别的，但是 <strong>origin</strong> 这个名字一看就知道是远程库。<br>　　　<font color="green"><strong>git remote add origin <a href="https://github.com/Durant35/[Repository">https://github.com/Durant35/[Repository</a> Name].git</strong></font></p>
+<p>　　把本地库的内容推送到远程，用 <strong>git push</strong> 命令，实际上是把当前分支 <strong>master</strong> 推送到远程。<br>　　由于远程库是空的，我们第一次推送 <strong>master</strong> 分支时，加上了 <strong>-u</strong> 参数，<strong>Git</strong> 不但会把本地的 <strong>master</strong> 分支内容推送的远程新的 <strong>master</strong> 分支，还会把本地的 <strong>master</strong> 分支和远程的 <strong>master</strong> 分支关联起来，在以后的推送或者拉取时就可以简化命令。<br>　　　<font color="green"><strong>git push -u origin master</strong></font></p>
+<p>　　把本地 <strong>master</strong> 分支的最新修改推送至 <strong>GitHub</strong>！<br>　　　<font color="green"><strong>git push origin master</strong></font><br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/小工具/">小工具</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/07/26/tool_git几步走/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -747,166 +983,6 @@
 
 
   
-    <article id="post-Algorithms_Dynamic Programming(II)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/23/Algorithms_Dynamic Programming(II)/" class="article-date">
-      <time datetime="2017-04-23T06:00:22.000Z" itemprop="datePublished">2017-04-23</time>
-</a>
-
- 
-    <a href="/2017/04/23/Algorithms_Dynamic Programming(II)/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/04/23/Algorithms_Dynamic Programming(II)/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（动态规划）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文通过 <strong><a href="https://leetcode.com/problems/maximum-subarray/#/description">53. Maximum Subarray</a> &amp; <a href="https://leetcode.com/problems/maximum-product-subarray/#/description">152. Maximum Product Subarray</a></strong> 分析根据动态规划思路进行问题求解中的一个关键环节：子问题的拆分和求解。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/23/Algorithms_Dynamic Programming(II)/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_Dynamic Programming(I)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/" class="article-date">
-      <time datetime="2017-04-13T06:00:22.000Z" itemprop="datePublished">2017-04-13</time>
-</a>
-
- 
-    <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/04/13/Algorithms_Dynamic Programming(I)/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（动态规划）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文通过 <strong>Unique Paths <a href="https://leetcode.com/problems/unique-paths/#/description">[I]</a> &amp; <a href="https://leetcode.com/problems/unique-paths-ii/#/description">[II]</a></strong> 两道题从普通的递归思路到动态规划两种方式的求解尝试，希望能够初步分析如何根据动态规划的思路，进行问题求解。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-tool_vim几步走" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -966,87 +1042,6 @@
       
         <p class="article-more-link">
           <a href="/2017/02/04/tool_vim几步走/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_DFS" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/15/Algorithms_DFS/" class="article-date">
-      <time datetime="2017-03-15T06:00:22.000Z" itemprop="datePublished">2017-03-15</time>
-</a>
-
- 
-    <a href="/2017/03/15/Algorithms_DFS/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/03/15/Algorithms_DFS/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文主要介绍 <strong>DFS</strong> 的 <em>C++</em> 和 <em>C</em> 语言实现，并借助 <a href="https://leetcode.com/">LeetCode</a> 上的一道题，说说基本的 <strong>DFS</strong> 在问题求解中的应用。</p>
-<h3 id="What’s-D-epth-F-irst-S-earch"><a href="#What’s-D-epth-F-irst-S-earch" class="headerlink" title="What’s D(epth)F(irst)S(earch)"></a>What’s D(epth)F(irst)S(earch)</h3><p>　深度优先搜索算法（Depth First Search），是搜索算法的一种。是沿着树的深度遍历树的节点，尽可能深的搜索树的分支。当节点 <strong>N</strong> 的所有边都己被探寻过，搜索将回溯到发现节点 <strong>N</strong> 的那条边的起始节点，这一过程一直进行到已发现从源节点可达的所有节点为止。<br>　如果还存在未被发现的节点，则选择其中一个作为源节点并重复以上过程，整个进程反复进行直到所有节点都被访问为止。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/03/15/Algorithms_DFS/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

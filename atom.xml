@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-05-12T12:16:37.773Z</updated>
+  <updated>2017-05-13T14:21:12.278Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -16,11 +16,44 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>算法设计与分析[0012] Longest Palindromic Subsequence（最长回文子序列）</title>
+    <title>一张图带你看 Ubuntu(Linux) 系统启动过程</title>
+    <link href="http://durant35.github.io/2017/05/13/hsw_UbuntuSystemBootSequence/"/>
+    <id>http://durant35.github.io/2017/05/13/hsw_UbuntuSystemBootSequence/</id>
+    <published>2017-05-13T14:04:00.000Z</published>
+    <updated>2017-05-13T14:21:12.278Z</updated>
+    
+    <content type="html"><![CDATA[<p><center><img src="/img/hsw/BootProcess4Ubuntu.png" width="1600px"/></center><br><a id="more"></a></p>
+<h3 id="计算机系统的启动过程"><a href="#计算机系统的启动过程" class="headerlink" title="计算机系统的启动过程"></a>计算机系统的启动过程</h3><blockquote>
+<p><a href="https://blog.auroraka.com/2017/02/02/%e5%a4%9a%e7%b3%bb%e7%bb%9f%e6%8a%98%e8%85%be%e8%ae%b0/">Auroraka’s Blog：多系统折腾记——总结</a></p>
+</blockquote>
+<ol>
+<li>计算机通电</li>
+<li>CPU读取内置ROM芯片中的数据，BIOS或UEFI进行系统自检，并按照预先设置的优先级依次尝试寻找各储存器，并将控制权交给该储存设备(硬盘)</li>
+<li>如果是BIOS启动，系统确定储存器分区表的分区以及操作系统所在的分区，并将控制权转交给操作系统。如果是EFI启动，系统首先确定分区表的分区，接着寻找文件系统格式为FAT32的分区，并按照其中的内容启动EFI系统，接着按照情况启动操作系统的boot loader，将控制权转交给操作系统</li>
+<li>操作系统启动</li>
+</ol>
+<p>　　</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;center&gt;&lt;img src=&quot;/img/hsw/BootProcess4Ubuntu.png&quot; width=&quot;1600px&quot;/&gt;&lt;/center&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="软硬兼施" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/"/>
+    
+      <category term="体系结构" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</title>
     <link href="http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/"/>
     <id>http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/</id>
     <published>2017-05-12T06:00:22.000Z</published>
-    <updated>2017-05-12T12:16:37.773Z</updated>
+    <updated>2017-05-15T07:13:23.256Z</updated>
     
     <content type="html"><![CDATA[<p>　本文通过 <strong><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a></strong> 分析。<br><a id="more"></a></p>
 <h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><ul>
@@ -54,28 +87,73 @@
   </entry>
   
   <entry>
-    <title>算法设计与分析[0011] Longest Common Subsequence（最长公共子序列）</title>
+    <title>算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</title>
     <link href="http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/"/>
     <id>http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/</id>
     <published>2017-05-03T06:00:22.000Z</published>
-    <updated>2017-05-12T12:17:17.324Z</updated>
+    <updated>2017-05-15T13:06:15.880Z</updated>
     
-    <content type="html"><![CDATA[<p>　本文通过 <strong><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a></strong> 分析。<br><a id="more"></a></p>
-<h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><ul>
-<li>两道题解决的问题相似，都是求解给定序列中满足某种数学特征（和最大/乘积最大）的子序列，虽然不需要将该子序列输出。</li>
-</ul>
-<blockquote>
-<p>Find the contiguous subarray within an array(containing at least one number) which has the largest sum/product.</p>
+    <content type="html"><![CDATA[<p>　　子序列和子字符串的不同之处在于，子序列不需要是原序列上连续的字符。对于 <a href="http://www.lintcode.com/en/problem/longest-common-substring/">Longest Common Substring</a> 以及 <a href="http://www.lintcode.com/en/problem/longest-common-subsequence/"> Longest Common Subsequence</a> 这类题目，大多数需要用到 DP 的思想，其中，状态转移是关键。<br><a id="more"></a></p>
+<h4 id="最长公共子字符串"><a href="#最长公共子字符串" class="headerlink" title="最长公共子字符串"></a>最长公共子字符串</h4><blockquote>
+<p>Given two strings, find the longest common substring.<br>Return the length of it.</p>
 <ul>
-<li>For example, given the array [-2,1,-3,4,-1,2,1,-5,4], the contiguous subarray [4,-1,2,1] has the largest sum = 6. </li>
-<li>For example, given the array [2,3,-2,4], the contiguous subarray [2,3] has the largest product = 6. </li>
+<li><strong>Example</strong><br>　Given A = “ABCD”, B = “CBCE”, return 2.</li>
 </ul>
 </blockquote>
-<h4 id="最长公共子串"><a href="#最长公共子串" class="headerlink" title="最长公共子串"></a>最长公共子串</h4>]]></content>
+<ul>
+<li>$L(idxA, idxB)$：以 $A[idxA]$ 和 $B[idxB]$ 结尾的相同子字符串的最长长度。最长公共子字符串必然存在所有情况中以 A 序列中某个字符结尾，以 B 序列中某个字符结尾的一种情况，所以<strong>取所有可能情况中的最大值</strong>即为 Longest Common Substring 的长度。<ul>
+<li>因为要求子串连续，所以对于 $A_{idxA}$ 与 $B_{idxB}$ 来讲，它们要么与之前的公共子串构成新的公共子串；要么就是不构成公共子串。<br>$$ L(idxA, idxB) =  \begin{cases}<br>  if（idxA==0||idxB==0）: \begin{cases} 1, A[idxA]==B[idxB] \cr 0, others \end{cases} \cr<br>  else-if（A[idxA]==B[idxB]）: L(idxA-1, idxB-1) + 1 \cr<br>  else: 0<br>  \end{cases}<br>$$</li>
+<li>上述过程的示例图如下，可以看出只有对角线方向上的长度延伸，长度不能保留。<br><center><img src="/img/Algorithms/0011_LCStringProcessDemo.jpg" width="480px"/></center><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>: </div><div class="line">    <span class="comment">/**</div><div class="line">     * @param A, B: Two string.</div><div class="line">     * @return: the length of the longest common substring.</div><div class="line">     */</span></div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestCommonSubstring</span><span class="params">(<span class="built_in">string</span> &amp;A, <span class="built_in">string</span> &amp;B)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> lenA = A.length();</div><div class="line">        <span class="keyword">int</span> lenB = B.length();</div><div class="line">        <span class="keyword">if</span>(lenA==<span class="number">0</span> || lenB==<span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// L[idxA][idxB]: the largest length of LCS ending with A[idxA] and B[idxB] </span></div><div class="line">        <span class="keyword">int</span> L[lenA][lenB];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxB=<span class="number">0</span>; idxB&lt;lenB; idxB++) &#123;</div><div class="line">            L[<span class="number">0</span>][idxB] = B[idxB]==A[<span class="number">0</span>]? <span class="number">1</span> : <span class="number">0</span>; </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxA=<span class="number">0</span>; idxA&lt;lenA; idxA++) &#123;</div><div class="line">            L[idxA][<span class="number">0</span>] = A[idxA]==B[<span class="number">0</span>]? <span class="number">1</span> : <span class="number">0</span>; </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxA=<span class="number">1</span>; idxA&lt;lenA; idxA++)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> idxB=<span class="number">1</span>; idxB&lt;lenB; idxB++)&#123;</div><div class="line">                L[idxA][idxB] = A[idxA]==B[idxB]? L[idxA<span class="number">-1</span>][idxB<span class="number">-1</span>]+<span class="number">1</span> : <span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> maxLen = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> maxLenIdx = <span class="number">-1</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxA=<span class="number">0</span>; idxA&lt;lenA; idxA++)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> idxB=<span class="number">0</span>; idxB&lt;lenB; idxB++)&#123;</div><div class="line">                <span class="keyword">if</span>(L[idxA][idxB] &gt; maxLen) &#123;</div><div class="line">                    maxLen = L[idxA][idxB];</div><div class="line">                    maxLenIdx = idxA;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> maxLen;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><font color="blue">提取最长公共子串</font><ul>
+<li>使用变量 <code>maxLenIdx</code> 记录最长公共子串（长度 <code>maxLen</code> ）对应的结尾字符下标（序列 A/B 都可以），回退获取 <code>maxLen</code> 个字符即可。</li>
+</ul>
+</li>
+</ul>
+<h4 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h4><blockquote>
+<p>Given two strings, find the longest common subsequence (<em>LCS</em>).<br>Your code should return the length of <em>LCS</em>.</p>
+<ul>
+<li><strong>Example</strong><br>　For “ABCD” and “EDCA”, the LCS is “A” (or “D”, “C”), return 1.<br>　For “ABCD” and “EACB”, the LCS is “AC”, return 2.</li>
+</ul>
+</blockquote>
+<ul>
+<li>$L(idxA, idxB)$：以 $A_{idxA}$ 结尾的子串（$A[0, 1, …, idxA], 0 \leq idxA \lt len_A$） 和 $B_{idxB}$ 结尾的子串（$B[0, 1, …, idxB], 0 \leq idxB \lt len_B$）最长公共子序列的长度。自然地，$L(len_A-1, len_B-1)$ 即为所求的最长公共子序列长度。</li>
+<li>与子串不同，子序列可以是不连续的。<ul>
+<li>$L(idxA, idxB)$ 与 $L(idxA-1, idxB-1)$ 两者其实只差 $A_{idxA}$ 和 $B_{idxB}$ 这一对字符。</li>
+<li>如果 $A_{idxA}$ 和 $B_{idxB}$ 相同，那么就只要在以 $A_{idxA}$ 和以 $B_{idxB}$ 结尾的两个子串的最长公共子序列之后添上这个相同字符即可，这样就可以让长度增加一位。</li>
+<li>如果 $A_{idxA}$ 和 $B_{idxB}$ 不同，两个子串在末尾添加一个字符后最长公共子序列并不能得到延伸。考虑到 $A_{idxA}$ 可能与 $B_{idxB-1}$ 相同或者 $B_{idxB}$ 会与 $A_{idxA-1}$ 相同，没能延伸的最长公共子序列只能在 $L(idxA, idxB-1)$ 和 $L(idxA-1, idxB)$ 存在，取更长的那个。</li>
+<li>结合边界限制，最终得到的状态转移方程如下：<br>$$ L(idxA, idxB) =  \begin{cases}<br>  if（idxA==0）: \begin{cases} 1, B[idxB]==A[0] \cr L(0, idxB-1), others \end{cases} \cr<br>  else·if（idxB==0）: \begin{cases} 1, A[idxA]==B[0] \cr L(idxA-1, 0), others \end{cases} \cr<br>  else·if（A[idxA]==B[idxB]）: L(idxA-1, idxB-1) + 1 \cr<br>  else: max(L(idxA, idxB-1), L(idxA-1, idxB))<br>  \end{cases}<br>$$</li>
+<li>上述过程的示例图如下，可以看出同样只有对角线方向上的长度延伸，不过长度可以在 <strong>上→下</strong> 和 <strong>左→右</strong> 方向上得到保留。<br><center><img src="/img/Algorithms/0011_LCSequenceProcessDemo.png" width="450px"/></center><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> max(a,b) (a&gt;b?a:b)</span></div><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/**</div><div class="line">     * @param A, B: Two strings.</div><div class="line">     * @return: The length of longest common subsequence of A and B.</div><div class="line">     */</span></div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(<span class="built_in">string</span> A, <span class="built_in">string</span> B)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> lenA = A.length();</div><div class="line">        <span class="keyword">int</span> lenB = B.length();</div><div class="line">        <span class="keyword">if</span>(lenA==<span class="number">0</span> || lenB==<span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// L[idxA][idxB]: the length of the LCS ending with A[idxA] and B[idxB]</span></div><div class="line">        <span class="keyword">int</span> L[lenA][lenB];</div><div class="line">        <span class="comment">// for recording LCS's tail element index</span></div><div class="line">        <span class="keyword">int</span> maxLen = <span class="number">0</span>, maxLenIdxA = <span class="number">0</span>, maxLenIdxB = <span class="number">0</span>;</div><div class="line">        </div><div class="line">        L[<span class="number">0</span>][<span class="number">0</span>] = A[<span class="number">0</span>]==B[<span class="number">0</span>]? <span class="number">1</span> : <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxB=<span class="number">1</span>; idxB&lt;lenB; idxB++) &#123;</div><div class="line">            L[<span class="number">0</span>][idxB] = B[idxB]==A[<span class="number">0</span>]? <span class="number">1</span> : L[<span class="number">0</span>][idxB<span class="number">-1</span>];</div><div class="line">            </div><div class="line">            <span class="comment">// for recording LCS's tail element index</span></div><div class="line">            <span class="keyword">if</span>(L[<span class="number">0</span>][idxB] &gt; maxLen) &#123;</div><div class="line">                maxLen = L[<span class="number">0</span>][idxB];</div><div class="line">                maxLenIdxB = idxB;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxA=<span class="number">1</span>; idxA&lt;lenA; idxA++) &#123;</div><div class="line">            L[idxA][<span class="number">0</span>] = A[idxA]==B[<span class="number">0</span>]? <span class="number">1</span> : L[idxA<span class="number">-1</span>][<span class="number">0</span>];</div><div class="line">            </div><div class="line">            <span class="comment">// for recording LCS's tail element index</span></div><div class="line">            <span class="keyword">if</span>(L[idxA][<span class="number">0</span>] &gt; maxLen) &#123;</div><div class="line">                maxLen = L[idxA][<span class="number">0</span>];</div><div class="line">                maxLenIdxA = idxA;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxA=<span class="number">1</span>; idxA&lt;lenA; idxA++) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> idxB=<span class="number">1</span>; idxB&lt;lenB; idxB++) &#123;</div><div class="line">                <span class="keyword">if</span>(A[idxA] == B[idxB]) &#123;</div><div class="line">                    L[idxA][idxB] = L[idxA<span class="number">-1</span>][idxB<span class="number">-1</span>] + <span class="number">1</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> &#123;</div><div class="line">                    L[idxA][idxB] = max(L[idxA][idxB<span class="number">-1</span>], L[idxA<span class="number">-1</span>][idxB]);</div><div class="line">                &#125;</div><div class="line">                </div><div class="line">                <span class="comment">// for recording LCS's tail element index</span></div><div class="line">                <span class="keyword">if</span>(L[idxA][idxB] &gt; maxLen) &#123;</div><div class="line">                    maxLen = L[idxA][idxB];</div><div class="line">                    maxLenIdxA = idxA;</div><div class="line">                    maxLenIdxB = idxB;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> L[lenA<span class="number">-1</span>][lenB<span class="number">-1</span>];</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><font color="blue">提取最长公共子序列</font><ul>
+<li>使用变量 <code>maxLen</code> 记录最长公共子序列的长度，并通过变量 <code>maxLenIdxA</code> 和 <code>maxLenIdxB</code> 记录该最长长度序列末尾字符对应的序列 A 和序列 B 中的字符下标。</li>
+<li>在序列 A 和 B 中分别从下标 <code>maxLenIdxA</code> 和 <code>maxLenIdxB</code> 向左挪动，找出  <code>maxLen</code> 个相同字符，即为提取的最长公共子序列。</li>
+<li>如何在序列 A 和 B 中向左挪动呢？<ul>
+<li><code>A[maxLenIdxA]==B[maxLenIdxB]</code>，当前字符相同，同时左挪（因为公共子序列的特点，此时二者肯定均为到达边界）：<code>maxLenIdxA--</code> &amp; <code>maxLenIdxB--</code>。</li>
+<li><code>A[maxLenIdxA]!=B[maxLenIdxB]</code>，当前字符不相同<ul>
+<li>有挪动到边界（0）的，只能挪动另一个还没到边界的；假如同时挪动到边界，由于  <code>maxLen</code> 的准确性，说明已经提取出最长公共子序列。</li>
+<li><code>L[idxA][idxB-1]</code> 大，说明 <code>A[maxLenIdxA]</code> 可能与序列 B 中下一个字符相同，需要挪动序列 B：<code>maxLenIdxB--</code>；反之，则需要挪动序列 A：<code>maxLenIdxA--</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>具体的代码实现如下：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">string</span> LCS;</div><div class="line"><span class="keyword">while</span>(maxLenIdxA&gt;=<span class="number">0</span> &amp;&amp; maxLenIdxB&gt;=<span class="number">0</span>) &#123;</div><div class="line">    <span class="keyword">if</span>(A[maxLenIdxA] == B[maxLenIdxB]) &#123;</div><div class="line">        LCS += A[maxLenIdxA];</div><div class="line">        maxLenIdxA--;</div><div class="line">        maxLenIdxB--;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">if</span>(maxLenIdxA == <span class="number">0</span>) &#123;</div><div class="line">            maxLenIdxB--;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(maxLenIdxB == <span class="number">0</span>) &#123;</div><div class="line">            maxLenIdxA--;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">if</span>(L[maxLenIdxA][maxLenIdxB<span class="number">-1</span>] &lt; L[maxLenIdxA<span class="number">-1</span>][maxLenIdxB]) &#123;</div><div class="line">                maxLenIdxB--;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                maxLenIdxA--;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;　本文通过 &lt;strong&gt;&lt;a href=&quot;https://leetcode.com/problems/longest-palindromic-subsequence/#/description&quot;&gt; 516. Longest Palindromic Subsequence &lt;/a&gt;&lt;/strong&gt; 分析。&lt;br&gt;
+      &lt;p&gt;　　子序列和子字符串的不同之处在于，子序列不需要是原序列上连续的字符。对于 &lt;a href=&quot;http://www.lintcode.com/en/problem/longest-common-substring/&quot;&gt;Longest Common Substring&lt;/a&gt; 以及 &lt;a href=&quot;http://www.lintcode.com/en/problem/longest-common-subsequence/&quot;&gt; Longest Common Subsequence&lt;/a&gt; 这类题目，大多数需要用到 DP 的思想，其中，状态转移是关键。&lt;br&gt;
     
     </summary>
     
@@ -93,7 +171,7 @@
     <link href="http://durant35.github.io/2017/04/28/Algorithms_LongestIncreasingSubsequence/"/>
     <id>http://durant35.github.io/2017/04/28/Algorithms_LongestIncreasingSubsequence/</id>
     <published>2017-04-28T06:00:22.000Z</published>
-    <updated>2017-05-12T06:51:26.100Z</updated>
+    <updated>2017-05-15T06:31:11.744Z</updated>
     
     <content type="html"><![CDATA[<h4 id="300-Longest-Increasing-Subsequence"><a href="#300-Longest-Increasing-Subsequence" class="headerlink" title="300. Longest Increasing Subsequence"></a><a href="https://leetcode.com/problems/longest-increasing-subsequence/#/description">300. Longest Increasing Subsequence</a></h4><blockquote>
 <p>Given an unsorted array of integers, find the length of longest increasing subsequence.<br>For example, Given [10, 9, 2, 5, 3, 7, 101, 18], The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4. Note that there may be more than one LIS combination, it is only necessary for you to return the length. </p>
@@ -171,6 +249,21 @@
 <ul>
 <li>复杂度从 $O(N^2)$ 缩小到 $O(N logN)$，运行效率得到较大的提升。<br><img src="/img/Algorithms/0010_nlogn_result.png" width="720px"/></li>
 </ul>
+<h4 id="提取最长递增子序列"><a href="#提取最长递增子序列" class="headerlink" title="提取最长递增子序列"></a>提取最长递增子序列</h4><ul>
+<li>规约为图的最长路径问题<ul>
+<li>利用 $prev[numsSize]$ 数组记录每个最长路径 $L[idx]$ 的前驱节点元素下标 $prev[idx]$，通过 $prev[idx]$ 迭代还原出最长路径。</li>
+<li>具体实现与下面的动态规划类似。</li>
+</ul>
+</li>
+<li>动态规划  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// int totalMaxIdx = &lt;idx for toalMax element index&gt;;</span></div><div class="line"><span class="built_in">cout</span> &lt;&lt; nums[totalMaxIdx];</div><div class="line"><span class="keyword">int</span> prevIdx = prev[totalMaxIdx];</div><div class="line"><span class="keyword">while</span>(prevIdx != <span class="number">-1</span>) &#123;</div><div class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; nums[prevIdx];</div><div class="line">  prevIdx = prev[prevIdx];</div><div class="line">&#125;</div><div class="line"><span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>耐心排序法<ul>
+<li>$A[i=1, 2, …, maxLen]$ 就是满足要求的最长递增子序列。</li>
+</ul>
+</li>
+</ul>
 ]]></content>
     
     <summary type="html">
@@ -193,11 +286,11 @@
   </entry>
   
   <entry>
-    <title>算法设计与分析[0009] Dynamic Programming(II)（动态规划）</title>
+    <title>算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</title>
     <link href="http://durant35.github.io/2017/04/23/Algorithms_Dynamic%20Programming(II)/"/>
     <id>http://durant35.github.io/2017/04/23/Algorithms_Dynamic Programming(II)/</id>
     <published>2017-04-23T06:00:22.000Z</published>
-    <updated>2017-04-23T13:18:12.921Z</updated>
+    <updated>2017-05-15T07:05:05.488Z</updated>
     
     <content type="html"><![CDATA[<p>　本文通过 <strong><a href="https://leetcode.com/problems/maximum-subarray/#/description">53. Maximum Subarray</a> &amp; <a href="https://leetcode.com/problems/maximum-product-subarray/#/description">152. Maximum Product Subarray</a></strong> 分析根据动态规划思路进行问题求解中的一个关键环节：子问题的拆分和求解。<br><a id="more"></a></p>
 <h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><ul>
@@ -258,11 +351,11 @@
   </entry>
   
   <entry>
-    <title>算法设计与分析[0008] Dynamic Programming(I)（动态规划）</title>
+    <title>算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</title>
     <link href="http://durant35.github.io/2017/04/13/Algorithms_Dynamic%20Programming(I)/"/>
     <id>http://durant35.github.io/2017/04/13/Algorithms_Dynamic Programming(I)/</id>
     <published>2017-04-13T06:00:22.000Z</published>
-    <updated>2017-04-18T08:36:19.306Z</updated>
+    <updated>2017-05-15T07:04:09.443Z</updated>
     
     <content type="html"><![CDATA[<p>　本文通过 <strong>Unique Paths <a href="https://leetcode.com/problems/unique-paths/#/description">[I]</a> &amp; <a href="https://leetcode.com/problems/unique-paths-ii/#/description">[II]</a></strong> 两道题从普通的递归思路到动态规划两种方式的求解尝试，希望能够初步分析如何根据动态规划的思路，进行问题求解。<br><a id="more"></a></p>
 <h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><p><center><img src="/img/Algorithms/0008_robot_maze.png" width="380px"/></center></p>
@@ -2159,20 +2252,6 @@
       <category term="软硬兼施" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/"/>
     
       <category term="RaspberryPi" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/RaspberryPi/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>8 sort functions using python</title>
-    <link href="http://durant35.github.io/2017/01/24/python_sort-Functions/"/>
-    <id>http://durant35.github.io/2017/01/24/python_sort-Functions/</id>
-    <published>2017-01-24T08:18:38.000Z</published>
-    <updated>2017-02-02T07:15:24.072Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
     
     
   </entry>
