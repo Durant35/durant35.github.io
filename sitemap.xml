@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/</loc>
+    <loc>http://durant35.github.io/2017/05/16/hsw_CPUWipeoutIlliteracy/</loc>
     
-    <lastmod>2017-05-15T13:06:15.880Z</lastmod>
+    <lastmod>2017-05-16T08:02:16.497Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/</loc>
     
-    <lastmod>2017-05-15T07:13:23.256Z</lastmod>
+    <lastmod>2017-05-15T13:16:34.270Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/</loc>
+    
+    <lastmod>2017-05-15T13:06:15.880Z</lastmod>
     
   </url>
   

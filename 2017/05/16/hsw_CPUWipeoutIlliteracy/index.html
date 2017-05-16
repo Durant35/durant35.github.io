@@ -15,19 +15,22 @@
 
 
 
-<meta name="description" content="参考博文 《Java到底是不是一种纯面向对象语言？》
-　　JVM 在创建对象的时候，实际上会创建两个对象：　　　一个是实例对象。　　　另一个是 Class 对象。该 Class 对象在 JVM 内仅仅会装载一次，该类的静态方法和静态属性也一同装载，JVM 使用该 Class 对象来创建具体的实例对象。　　例如，在下面的 Java 语句中，将有两个对象被创建：　　　　Employee emp =">
+<meta name="description" content="处理器（CPU）决定了电脑的性能等级，是一个需要考虑的核心因素。CPU 从早期的单核，发展到现在的双核，多核。除了核心数之外，还有线程数之说，下面会对这两个概念进行扫盲。
+　　
+CPU 个数　CPU 的个数是指物理上，也就是硬件上存在着几颗物理 CPU，指的是真实存在的处理器的个数，1个代表1颗、2个代表2颗 CPU 处理器。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java到底是不是一种纯面向对象语言？">
-<meta property="og:url" content="http://durant35.github.io/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/index.html">
+<meta property="og:title" content="CPU 扫盲（核心数/线程数）">
+<meta property="og:url" content="http://durant35.github.io/2017/05/16/hsw_CPUWipeoutIlliteracy/index.html">
 <meta property="og:site_name" content="Tarantula-7's Blog">
-<meta property="og:description" content="参考博文 《Java到底是不是一种纯面向对象语言？》
-　　JVM 在创建对象的时候，实际上会创建两个对象：　　　一个是实例对象。　　　另一个是 Class 对象。该 Class 对象在 JVM 内仅仅会装载一次，该类的静态方法和静态属性也一同装载，JVM 使用该 Class 对象来创建具体的实例对象。　　例如，在下面的 Java 语句中，将有两个对象被创建：　　　　Employee emp =">
-<meta property="og:updated_time" content="2016-06-30T02:37:14.000Z">
+<meta property="og:description" content="处理器（CPU）决定了电脑的性能等级，是一个需要考虑的核心因素。CPU 从早期的单核，发展到现在的双核，多核。除了核心数之外，还有线程数之说，下面会对这两个概念进行扫盲。
+　　
+CPU 个数　CPU 的个数是指物理上，也就是硬件上存在着几颗物理 CPU，指的是真实存在的处理器的个数，1个代表1颗、2个代表2颗 CPU 处理器。">
+<meta property="og:updated_time" content="2017-05-16T08:02:16.497Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java到底是不是一种纯面向对象语言？">
-<meta name="twitter:description" content="参考博文 《Java到底是不是一种纯面向对象语言？》
-　　JVM 在创建对象的时候，实际上会创建两个对象：　　　一个是实例对象。　　　另一个是 Class 对象。该 Class 对象在 JVM 内仅仅会装载一次，该类的静态方法和静态属性也一同装载，JVM 使用该 Class 对象来创建具体的实例对象。　　例如，在下面的 Java 语句中，将有两个对象被创建：　　　　Employee emp =">
+<meta name="twitter:title" content="CPU 扫盲（核心数/线程数）">
+<meta name="twitter:description" content="处理器（CPU）决定了电脑的性能等级，是一个需要考虑的核心因素。CPU 从早期的单核，发展到现在的双核，多核。除了核心数之外，还有线程数之说，下面会对这两个概念进行扫盲。
+　　
+CPU 个数　CPU 的个数是指物理上，也就是硬件上存在着几颗物理 CPU，指的是真实存在的处理器的个数，1个代表1颗、2个代表2颗 CPU 处理器。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -59,7 +62,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Java到底是不是一种纯面向对象语言？ | Tarantula-7&#39;s Blog</title>
+<title>CPU 扫盲（核心数/线程数） | Tarantula-7&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -252,11 +255,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-programPearls_Java到底是不是一种纯面向对象语言？" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-hsw_CPUWipeoutIlliteracy" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/" class="article-date">
-      <time datetime="2016-06-30T02:26:22.000Z" itemprop="datePublished">2016-06-30</time>
+      <a href="/2017/05/16/hsw_CPUWipeoutIlliteracy/" class="article-date">
+      <time datetime="2017-05-16T07:33:00.000Z" itemprop="datePublished">2017-05-16</time>
 </a>
 
 
@@ -271,7 +274,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Java到底是不是一种纯面向对象语言？
+      CPU 扫盲（核心数/线程数）
     </h1>
   
 
@@ -280,7 +283,7 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/体系结构/">体系结构</a>
     </div>
 
 
@@ -292,10 +295,14 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>　　参考博文 <a href="http://www.codeceo.com/article/why-java-purely-object-oriented-language.html">《Java到底是不是一种纯面向对象语言？》</a></p>
-<p>　　<strong>JVM</strong> 在创建对象的时候，实际上会创建两个对象：<br>　　　一个是实例对象。<br>　　　另一个是 <strong>Class</strong> 对象。该 <strong>Class</strong> 对象在 <strong>JVM</strong> 内仅仅会装载一次，该类的静态方法和静态属性也一同装载，<strong>JVM</strong> 使用该 <strong>Class</strong> 对象来创建具体的实例对象。<br>　　例如，在下面的 <strong>Java</strong> 语句中，将有两个对象被创建：<br>　　　　Employee emp = new Employee();<br>　　一个是实例对象 emp ；另一个则是 Class 对象，我们可以通过 <strong>Employee.class</strong> 引用到它；这个 Class 对象拥有所有的这个类定义的静态变量和静态方法，同时，如果我们访问 通过 emp 对象来访问静态内容，会发现它其实指向的对象就是 <strong>Employee.class</strong> 。</p>
-<p>　　<font color="green">静态内容确实被证实属于一个对象</font><br>　　　为什么静态内容在一个对象中（不管是emp还是emp2）改变了，在另一个对象中也同时改变，因为这两个对象改变的都是在 Employee.class 同一个对象里面的内容。</p>
-<p>　　Java 官方为每一个原始类型推出了对应的包装类（比如：Integer 对应 int，Long 对应 long，Character 对应 char），所以，其实现在我们可以为原始类型创建一个包装对象，同时对它们做对象相关的操作。<br>　　　JVM看来它把所有的 “原始类型” 都是当作对象处理”</p>
+        <p>　　处理器（CPU）决定了电脑的性能等级，是一个需要考虑的核心因素。CPU 从早期的单核，发展到现在的双核，多核。除了<strong>核心数</strong>之外，还有<strong>线程数</strong>之说，下面会对这两个概念进行扫盲。
+　　</p>
+<h4 id="CPU-个数"><a href="#CPU-个数" class="headerlink" title="CPU 个数"></a>CPU 个数</h4><p>　CPU 的个数是指物理上，也就是硬件上存在着几颗物理 CPU，指的是真实存在的处理器的个数，1个代表1颗、2个代表2颗 CPU 处理器。<br><a id="more"></a></p>
+<h4 id="CPU-核心数"><a href="#CPU-核心数" class="headerlink" title="CPU 核心数"></a>CPU 核心数</h4><p>　一个核心就是一个物理线程，<strong>单核</strong>、<strong>双核</strong>、<strong>多核</strong>，指的就是物理核心的数目。
+　　</p>
+<h4 id="CPU-线程数"><a href="#CPU-线程数" class="headerlink" title="CPU 线程数"></a>CPU 线程数</h4><p>　CPU 的线程数概念仅仅只针对 Intel 的 CPU 才有用，因为它是通过 Intel 超线程技术来实现的，最早应用在 Pentium4 上。如果没有超线程技术，一个 CPU 核心对应一个线程（因此对于一个CPU，线程数总是大于或等于核心数的）。所以，对于 AMD 的 CPU 来说，只有核心数的概念，没有线程数的概念。<br>　CPU 之所以要增加线程数，是源于多任务处理的需要：线程数越多，越有利于同时运行多个程序，因为线程数等同于在某个瞬间 CPU 能同时并行处理的任务数。<br>　因此，线程数是一种逻辑的概念，简单地说，就是模拟出的 CPU 核心数。一个核心最少对应一个线程，但英特尔有个超线程技术可以把一个物理线程模拟出两个线程来用，充分发挥 CPU 性能，即一个核心可以有两个到多个线程。</p>
+<h4 id="Linux-中获取处理器信息"><a href="#Linux-中获取处理器信息" class="headerlink" title="Linux 中获取处理器信息"></a>Linux 中获取处理器信息</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看 cpu 型号</span></div><div class="line">sudo dmidecode <span class="_">-s</span> processor-version</div><div class="line"><span class="comment"># 查看 cpu 个数</span></div><div class="line">grep <span class="string">'physical id'</span> /proc/cpuinfo | sort -u | wc <span class="_">-l</span></div><div class="line"><span class="comment"># 查看核心数</span></div><div class="line">grep <span class="string">'core id'</span> /proc/cpuinfo | sort -u | wc <span class="_">-l</span></div><div class="line"><span class="comment"># 查看线程数</span></div><div class="line">grep <span class="string">'processor'</span> /proc/cpuinfo | sort -u | wc <span class="_">-l</span></div></pre></td></tr></table></figure>
+<p>　　</p>
 
       
     </div>
@@ -304,18 +311,18 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a></p>
+        <p><span>本文标题:</span><a href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a></p>
 
         <!-- 
         <p><span>文章作者:</span><a href="/" title="回到主页">Tarantula-7</a></p>
         -->
-        <p><span>文章作者:</span>undefined</p>
+        <p><span>文章作者:</span>Gary</p>
 
-        <p><span>发布时间:</span>2016-06-30, 10:26:22</p>
-        <p><span>最后更新:</span>2016-06-30, 10:37:14</p>
+        <p><span>发布时间:</span>2017-05-16, 15:33:00</p>
+        <p><span>最后更新:</span>2017-05-16, 16:02:16</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/" title="Java到底是不是一种纯面向对象语言？">http://durant35.github.io/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/" title="CPU 扫盲（核心数/线程数）">http://durant35.github.io/2017/05/16/hsw_CPUWipeoutIlliteracy/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/05/16/hsw_CPUWipeoutIlliteracy/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
 
@@ -330,16 +337,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/07/02/programPearls_C语言中结构体内存free/">
-                    C语言中结构体内存free
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/06/12/OverlappingSounds_写于幸运保研后/">
-                    写于幸运保研后
+                <a href="/2017/05/13/hsw_UbuntuSystemBootSequence/">
+                    一张图带你看 Ubuntu(Linux) 系统启动过程
                 </a>
             </div>
         
@@ -351,7 +352,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#CPU-个数"><span class="toc-number">1.</span> <span class="toc-text">CPU 个数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CPU-核心数"><span class="toc-number">2.</span> <span class="toc-text">CPU 核心数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CPU-线程数"><span class="toc-number">3.</span> <span class="toc-text">CPU 线程数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux-中获取处理器信息"><span class="toc-number">4.</span> <span class="toc-text">Linux 中获取处理器信息</span></a></li></ol>
         
     </div>
     <style>
@@ -391,7 +392,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Java到底是不是一种纯面向对象语言？　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"CPU 扫盲（核心数/线程数）　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -410,8 +411,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://durant35.github.io/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/';
-            this.page.identifier = '2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/';
+            this.page.url = 'http://durant35.github.io/2017/05/16/hsw_CPUWipeoutIlliteracy/';
+            this.page.identifier = '2017/05/16/hsw_CPUWipeoutIlliteracy/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -433,15 +434,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/07/02/programPearls_C语言中结构体内存free/" title="上一篇: C语言中结构体内存free">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/06/12/OverlappingSounds_写于幸运保研后/" title="下一篇: 写于幸运保研后">
+            <a href="/2017/05/13/hsw_UbuntuSystemBootSequence/" title="下一篇: 一张图带你看 Ubuntu(Linux) 系统启动过程">
                 <i class="fa fa-angle-right"></i>
             </a>
         

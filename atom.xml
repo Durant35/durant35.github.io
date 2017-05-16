@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-05-13T14:21:12.278Z</updated>
+  <updated>2017-05-16T08:02:16.497Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -14,6 +14,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CPU 扫盲（核心数/线程数）</title>
+    <link href="http://durant35.github.io/2017/05/16/hsw_CPUWipeoutIlliteracy/"/>
+    <id>http://durant35.github.io/2017/05/16/hsw_CPUWipeoutIlliteracy/</id>
+    <published>2017-05-16T07:33:00.000Z</published>
+    <updated>2017-05-16T08:02:16.497Z</updated>
+    
+    <content type="html"><![CDATA[<p>　　处理器（CPU）决定了电脑的性能等级，是一个需要考虑的核心因素。CPU 从早期的单核，发展到现在的双核，多核。除了<strong>核心数</strong>之外，还有<strong>线程数</strong>之说，下面会对这两个概念进行扫盲。
+　　</p>
+<h4 id="CPU-个数"><a href="#CPU-个数" class="headerlink" title="CPU 个数"></a>CPU 个数</h4><p>　CPU 的个数是指物理上，也就是硬件上存在着几颗物理 CPU，指的是真实存在的处理器的个数，1个代表1颗、2个代表2颗 CPU 处理器。<br><a id="more"></a></p>
+<h4 id="CPU-核心数"><a href="#CPU-核心数" class="headerlink" title="CPU 核心数"></a>CPU 核心数</h4><p>　一个核心就是一个物理线程，<strong>单核</strong>、<strong>双核</strong>、<strong>多核</strong>，指的就是物理核心的数目。
+　　</p>
+<h4 id="CPU-线程数"><a href="#CPU-线程数" class="headerlink" title="CPU 线程数"></a>CPU 线程数</h4><p>　CPU 的线程数概念仅仅只针对 Intel 的 CPU 才有用，因为它是通过 Intel 超线程技术来实现的，最早应用在 Pentium4 上。如果没有超线程技术，一个 CPU 核心对应一个线程（因此对于一个CPU，线程数总是大于或等于核心数的）。所以，对于 AMD 的 CPU 来说，只有核心数的概念，没有线程数的概念。<br>　CPU 之所以要增加线程数，是源于多任务处理的需要：线程数越多，越有利于同时运行多个程序，因为线程数等同于在某个瞬间 CPU 能同时并行处理的任务数。<br>　因此，线程数是一种逻辑的概念，简单地说，就是模拟出的 CPU 核心数。一个核心最少对应一个线程，但英特尔有个超线程技术可以把一个物理线程模拟出两个线程来用，充分发挥 CPU 性能，即一个核心可以有两个到多个线程。</p>
+<h4 id="Linux-中获取处理器信息"><a href="#Linux-中获取处理器信息" class="headerlink" title="Linux 中获取处理器信息"></a>Linux 中获取处理器信息</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看 cpu 型号</span></div><div class="line">sudo dmidecode <span class="_">-s</span> processor-version</div><div class="line"><span class="comment"># 查看 cpu 个数</span></div><div class="line">grep <span class="string">'physical id'</span> /proc/cpuinfo | sort -u | wc <span class="_">-l</span></div><div class="line"><span class="comment"># 查看核心数</span></div><div class="line">grep <span class="string">'core id'</span> /proc/cpuinfo | sort -u | wc <span class="_">-l</span></div><div class="line"><span class="comment"># 查看线程数</span></div><div class="line">grep <span class="string">'processor'</span> /proc/cpuinfo | sort -u | wc <span class="_">-l</span></div></pre></td></tr></table></figure>
+<p>　　</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;　　处理器（CPU）决定了电脑的性能等级，是一个需要考虑的核心因素。CPU 从早期的单核，发展到现在的双核，多核。除了&lt;strong&gt;核心数&lt;/strong&gt;之外，还有&lt;strong&gt;线程数&lt;/strong&gt;之说，下面会对这两个概念进行扫盲。
+　　&lt;/p&gt;
+&lt;h4 id=&quot;CPU-个数&quot;&gt;&lt;a href=&quot;#CPU-个数&quot; class=&quot;headerlink&quot; title=&quot;CPU 个数&quot;&gt;&lt;/a&gt;CPU 个数&lt;/h4&gt;&lt;p&gt;　CPU 的个数是指物理上，也就是硬件上存在着几颗物理 CPU，指的是真实存在的处理器的个数，1个代表1颗、2个代表2颗 CPU 处理器。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="软硬兼施" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/"/>
+    
+      <category term="体系结构" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>一张图带你看 Ubuntu(Linux) 系统启动过程</title>
@@ -53,7 +85,7 @@
     <link href="http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/"/>
     <id>http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/</id>
     <published>2017-05-12T06:00:22.000Z</published>
-    <updated>2017-05-15T07:13:23.256Z</updated>
+    <updated>2017-05-15T13:16:34.270Z</updated>
     
     <content type="html"><![CDATA[<p>　本文通过 <strong><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a></strong> 分析。<br><a id="more"></a></p>
 <h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><ul>
@@ -2203,49 +2235,6 @@
     <summary type="html">
     
       &lt;p&gt;　　树莓派3已经自带无线网卡，这是一种极大的便捷，真正将树莓派变成躲在一个角落里，安静地搞事情的计算机。然而对于树莓派B+或者树莓派2，除了少数免驱的外接无线网卡外（树莓派系统已经自带了驱动），大多数外接无线网卡还是需要经过配置才能使用的，下面就介绍使用过的一款无线网卡（&lt;a href=&quot;http://en.comfast.com.cn/product/WirelessAdapter/item-155.html&quot;&gt;ComFast-WU855P&lt;/a&gt;）的驱动配置过程，该无线网卡采用 &lt;strong&gt;REALTEK8192&lt;/strong&gt; 高阶芯片（从&lt;a href=&quot;https://detail.tmall.com/item.htm?spm=a230r.1.14.1.JY6QbF&amp;amp;id=37237024789&amp;amp;cm_id=140105335569ed55e27b&amp;amp;abbucket=6&amp;amp;skuId=57539293852&quot;&gt;淘宝&lt;/a&gt;上了解到的，不知道对不对），这是一款常用的芯片，本文安装的驱动理论上对采用该芯片的无线网卡都是可用的。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="软硬兼施" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/"/>
-    
-      <category term="RaspberryPi" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/RaspberryPi/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>RaspberryPi, enable ssh without UI</title>
-    <link href="http://durant35.github.io/2017/01/25/raspberry_enable-ssh-without-UI/"/>
-    <id>http://durant35.github.io/2017/01/25/raspberry_enable-ssh-without-UI/</id>
-    <published>2017-01-24T16:48:58.000Z</published>
-    <updated>2017-02-03T06:41:27.905Z</updated>
-    
-    <content type="html"><![CDATA[<p>　　可能是我写录的树莓派系统image有问题吧，小伙伴都说默认应该是打开22端口，支持ssh的；但是我做的几张SD卡的系统都是不打开的，我很纳闷，怀疑用的是假的镜像吧。前几次都发生在实验室，显示器，HDMI线应有尽有，启动系统，简单地通过界面在系统的 <strong>Preferences</strong> 中开启ssh端口即可。然而这一次，发生在家里（因为之前一直没空写个关于树莓派外置无线网卡驱动安装的教程，想着利用寒假回家弄一弄），家里哪有实验室那么好的环境，所以，甭想通过界面操作开启。</p>
-<p>　　那究竟能不能通过直接修改SD卡里面的image文件内容，不用UI的方式，开启ssh端口呢？通过下面的捣鼓发现，这是可行的。</p>
-<a id="more"></a> 
-<h4 id="SD卡里面就保存着树莓派系统"><a href="#SD卡里面就保存着树莓派系统" class="headerlink" title="SD卡里面就保存着树莓派系统"></a>SD卡里面就保存着树莓派系统</h4><p>　　SD卡里面有两个分区，系统文件保存在非 <strong>boot</strong> 分区中，如下图：</p>
-<center><img src="/img/raspberrypi/sd_card.png" width="480px"/></center><br>　　<strong>/usr/bin/raspi-config</strong> 就是树莓派<strong>Preferences</strong>操作对应的配置文件，我们用编辑器（Sublime-Text）打开该文件，<strong>CTRL+F</strong> 找到与 <strong>ssh</strong> 配置相关的部分，即下图显示的 <strong>do_ssh()</strong>。通过<strong>enable</strong>和<strong>start</strong>字段可以推测，该部分的两条命令应该是对应于界面操作里面勾选启用<strong>ssh</strong>对应的操作，通过这两条命令，应该可以开启系统的<strong>ssh</strong>端口！<br><br><center><img src="/img/raspberrypi/raspi-config.jpg" width="360px"/></center>
-
-<h4 id="将开启端口命令自启动"><a href="#将开启端口命令自启动" class="headerlink" title="将开启端口命令自启动"></a>将开启端口命令自启动</h4><p>　　我的想法是，要不让这两条命令开机启动吧，看看上一步的猜测是不是真的有效。<strong>/etc/rc.local</strong> 是配置系统自启动的文件，我们将与开启<strong>ssh</strong>端口相关的两条命令添加到 <strong>exit 0</strong> 之前，如下图所示。</p>
-<center><img src="/img/raspberrypi/rc.local.jpg" width="360px"/></center>
-
-<h4 id="nmap来检测"><a href="#nmap来检测" class="headerlink" title="nmap来检测"></a>nmap来检测</h4><p>　　上面的操作真的能得偿所愿吗？我们需要验证一下，看能否<strong>ssh</strong>进去已经启动的树莓派系统。然而问题又来了，树莓派的<strong>ip</strong>是哪一个呀？很不幸，我的树莓派是插在小米3路由器，笔记本连着小米3路由器的无线网络，不过，小米3路由器是通过无线桥接到一个信号还不错，通过<strong>WiFi万能钥匙</strong> 破解出密码的不知道是邻居哪家里面的网。无线桥接，<strong>DHCP</strong>全都由桥接的路由器管理，小弟不才，撞不出人家的管理密码。咋办呢？这里介绍一个强大的工具，<strong><a href="http://blog.csdn.net/keepsmi1e/article/details/9370049">nmap</a></strong>。</p>
-<p>　　通过下面的命令可以扫描出局域网内所有的ip地址（进行ping扫描，打印出对扫描做出响应的主机，这里通过笔记本的ip可以知道整个局域网是192.168.1.0网段）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nmap -sP 192.168.1.0/24</div></pre></td></tr></table></figure>
-<p>　　然后，把树莓派一拔一插，对比前后两次打印的ip地址列表的情况，就能找出树莓派的ip地址了。</p>
-<p>　　也可以通过 <strong>nmap</strong> 命令查看一台主机开放了哪些端口，如下图。    </p>
-<center><img src="/img/raspberrypi/nmap4ssh.jpg" width="360px"/></center>
-
-<p>　　树莓派确实把<strong>ssh</strong>端口开放了，直接<strong>ssh</strong>也能够顺利进入树莓派系统，问题解决了。</p>
-<h4 id="还原自启动，即可大功告成"><a href="#还原自启动，即可大功告成" class="headerlink" title="还原自启动，即可大功告成"></a>还原自启动，即可大功告成</h4><p>　　有必要每次系统启动都去开放 <strong>ssh</strong> 端口吗？可能没这个必要，因为经过两条命令的操作后，应该会修改系统的一些变量或者状态位，这些操作应该不是掉电还原的，否则，在第一节中，关闭ssh端口就不需要额外的两条命令了吧。我们不妨再试试。</p>
-<p>　　既可以直接在起来的系统中将自启动文件 <strong>/etc/rc.local</strong> 还原，当然也可以像第一节中那样，还是对SD卡的内容进行修改。</p>
-<p>　　还原<strong>rc.local</strong>，再把SD卡插回去或者<strong>reboot</strong>系统，还是能够顺利通过<strong>ssh</strong>进入树莓派系统的，大功告成。    </p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;　　可能是我写录的树莓派系统image有问题吧，小伙伴都说默认应该是打开22端口，支持ssh的；但是我做的几张SD卡的系统都是不打开的，我很纳闷，怀疑用的是假的镜像吧。前几次都发生在实验室，显示器，HDMI线应有尽有，启动系统，简单地通过界面在系统的 &lt;strong&gt;Preferences&lt;/strong&gt; 中开启ssh端口即可。然而这一次，发生在家里（因为之前一直没空写个关于树莓派外置无线网卡驱动安装的教程，想着利用寒假回家弄一弄），家里哪有实验室那么好的环境，所以，甭想通过界面操作开启。&lt;/p&gt;
-&lt;p&gt;　　那究竟能不能通过直接修改SD卡里面的image文件内容，不用UI的方式，开启ssh端口呢？通过下面的捣鼓发现，这是可行的。&lt;/p&gt;
     
     </summary>
     
