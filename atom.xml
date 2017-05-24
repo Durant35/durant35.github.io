@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-05-16T08:02:16.497Z</updated>
+  <updated>2017-05-24T06:44:48.026Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -14,6 +14,179 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>算法设计与分析[0013] 网络流：最大流（Max Flow）问题</title>
+    <link href="http://durant35.github.io/2017/05/19/Algorithms_MaximizingFlow/"/>
+    <id>http://durant35.github.io/2017/05/19/Algorithms_MaximizingFlow/</id>
+    <published>2017-05-19T02:54:22.000Z</published>
+    <updated>2017-05-24T06:44:48.026Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="网络流：最大流问题"><a href="#网络流：最大流问题" class="headerlink" title="网络流：最大流问题"></a>网络流：最大流问题</h4><ul>
+<li>所谓网络：<ul>
+<li>一个有向图 $G=(V, E)$</li>
+<li>G中有两个特殊节点 $s, t \in V$，分别称为 G 中的源点(source) 和汇点(sink)。</li>
+<li>G中每条边都有容量 $c_e \lt 0$。</li>
+</ul>
+</li>
+<li>所谓流是指一种特定的输送方式，其中对每条边赋予一个变量 $f_e$，使其满足如下三个基本性质：<a id="more"></a>
+<ul>
+<li>容量限制(Capacity Constraints)：不超过边的容量，即对所有 $e \in E, 0 \leq f_e \leq c_e$</li>
+<li>流量守恒(Flow Conservation)：对于 s 和 t  之外的任意节点 u，输入 u 的流量等于输出 u 的流量（流量是守恒的）：$\sum_{(w, u) \in E} f_{wu} = \sum_{(u, z) \in E} f_{uz} $</li>
+<li>斜对称性(Skew Symmetry)：$ f_{uv} = -f_{vu}$</li>
+</ul>
+</li>
+<li>网络流问题（NetWork Flow Problem）<ul>
+<li>给定指定的一个有向图，其中有两个特殊的点：源 S 和汇 T，每条边有指定的容量(Capacity)，求满足条件的从 S 到 T 的最大流(MaxFlow)。</li>
+</ul>
+</li>
+<li>最大流<ul>
+<li>流的规模为由 s 流向 t 的总流量，由上面的流量的守恒律，其等于离开 s 的流量。</li>
+<li>目标函数（最大化）：$ 规模(f) =  \sum_{(s, u) \in E} f_{su} = \sum_{(z, t) \in E} f_{zt} $</li>
+</ul>
+</li>
+<li>其他相关定义<ul>
+<li>容量网络(capacity network)&amp;流量网络(flow network)&amp;残留网络(residual network)<ul>
+<li>网络就是有源、汇的有向图，关于什么的网络就是指边权的含义是什么。<center><img src="/img/Algorithms/0013_networkGraphSketch.png" width="540px"/></center></li>
+<li>容量网络就是关于容量的网络。在求解问题的过程中，容量网络基本是不改变的。</li>
+<li>流量网络就是关于流量的网络。在求解问题的过程中，流量网络通常在不断改变，但是总是满足上述三个性质；调整到最后就是最大流网络，同时也可以得到最大流值。</li>
+<li>残量网络往往概括了容量网络和流量网络，是最为常用的，残量网络=容量网络-流量网络。</li>
+</ul>
+</li>
+<li>增广路径(Augmenting path)：增广路径顾名思义就是能够增加流量的路径。增广路径 p 是残量网络中一条从源点 s 到汇点 t 的简单路径，在一条增广路径 p 上能够为每条边增加的流量的最大值为路径 p 的 <strong>残存容量(remaining capacity)</strong>：$c_f(p) = min \verb|{| c_f(u,v):(u,v) \in p \verb|}|$</li>
+<li>割&amp;割集<ul>
+<li>一个无向连通网络，去掉一个边集可以使其变成两个连通分量，则这个边集就是割集<ul>
+<li>无向图的割集(Cut Set)：$C[A,B]$ 是将图 G 分为 A 和 B 两个点集（连通分量）的连接 A 和 B 之间的边的全集。</li>
+</ul>
+</li>
+<li>带权图的割(Cut) 就是割集中边或者有向边的权和。<ul>
+<li>最小割集当然就是权和最小的割集。</li>
+</ul>
+</li>
+<li>在有向图网络 $G(V, E)$ 中, 割(S, T) 将 V 划分为 S 和 T=V-S，使得 s 属于 S 集合，t 属于 T 集合，割(S, T) 的容量是指从集合 S 到集合 T 所有边的容量之和。<center><img src="/img/Algorithms/0013_cutSketch.png" width="540px"/></center>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="最大流问题与线性规划"><a href="#最大流问题与线性规划" class="headerlink" title="最大流问题与线性规划"></a>最大流问题与线性规划</h4><p>　最大流问题可以转换为线性规划问题，而线性规划问题最著名的解法自然就是 <strong>单纯形法</strong>。这种算法非常奇特，其复杂度为在最坏情况下是指数级的，但其在实践中绝大多数的情况下表现出的效率非常令人满意。</p>
+<ul>
+<li>设$c_{uv}$ 代表边 u 到 v 最大允许的流量（capacity），$f_{uv}$ 代表 u 到 v 当前流量。</li>
+<li>最大流可以表示为：<br>$$<br>  \Large{max}<br>  \normalsize{ \sum_{u:(s, u) \in E} f_{su} \quad }<br>  \Large{s.t.} \normalsize{<br>   \begin{cases} 0 \leq f_{uv} \leq c_{uv}, \forall (u, v) \in E \cr<br>   \sum_{w:(w, u) \in E} f_{wu} - \sum_{v:(u, v) \in E} f_{uv} = 0, \forall u \in V \backslash \verb|{| s, t \verb|}| \end{cases}<br>  }<br>$$</li>
+<li>事实上，使用 <strong>单纯形法</strong> 解决网络最大流问题非常直观：<ol>
+<li>从零流量开始</li>
+<li>重复下述过程：<ul>
+<li>选择一条从源点 s 到汇点 t 的合适路径</li>
+<li>将该路径的流量增加到无法增加为止</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>每次迭代单纯形法寻找到 s→t 的一条路径，路径中的边有两种类型（如下图(b)中右图所示，可以同时存在这两种类型的边）：<br>  　　① 边在最初的网络中，且未达到最大流量，如下图(b)右图中的边 <strong>a→d</strong>；<br>  　　② 边的反向边在最初的网络中，如下图(c)右图中的边 <strong>d→a</strong>。<br><center><img src="/img/Algorithms/0013_residualGraphSketch.png" width="540px"/></center><ul>
+<li>如果当前的流为 $f$，则对于第①种情况，边 $(u, v)$ 最多还能接受 $c_{uv} - f_{u, v}$ 的多余流量；而在第②种情况，最多增加的流量为 $f_{vu}$（取消 $(v, u)上的全部或部分流量$ ）。</li>
+<li>这类增加流量的机会可以由 <strong>残量网络</strong> $G^f=(V, E^f)$ 来判定，该网络包含了所有的以上两种边，并标出了每条边的剩余流量：<br>$$<br>c^f =<br> \begin{cases} c_{uv} - f_{uv}, \quad 若(u, v) \in E 且 f_{uv} \lt c_{uv} \cr<br>f_{vu}, \qquad \quad 若(v, u) \in E 且 f_{uv} \gt 0 \end{cases}<br>$$</li>
+</ul>
+</li>
+</ul>
+<h4 id="最大流基本方法（Ford-Fulkerson）"><a href="#最大流基本方法（Ford-Fulkerson）" class="headerlink" title="最大流基本方法（Ford-Fulkerson）"></a>最大流基本方法（Ford-Fulkerson）</h4><ul>
+<li>通过模拟单纯形法，我们得到了一个解决最大流问题的直接算法（Ford-Fulkerson）。该算法采取迭代的方式进行，每次先构造一个 $G^f$，然后在 $G^f$ 中寻找 s 到 t 的一条可行的增广（能够继续提高流量的）路径，找不到任何这样的路径时算法停止。</li>
+<li>Ford-Fulkerson 方法<ul>
+<li>Ford-Fulkerson 方法，即增广路方法，是一种迭代的方法，之所以称之为方法，而不是算法，因为FF(Ford-Fulkerson) 包含不同运行时间的几种实现。</li>
+<li>Ford-Fulkerson 方法伪代码如下，解决了以下三个子问题：①<strong>while</strong>：要增广多少次？②<strong>augmenting path</strong>：如何找到一条增广路径？③<strong>update</strong>：如何增广？<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">FORD-FULKERSON-METHOD(G, s, t): </div><div class="line">   initialize flow f to <span class="number">0</span></div><div class="line">   <span class="keyword">while</span> there exists an augmenting path p, path-flow as its remaining capacity</div><div class="line">     <span class="keyword">do</span> augment flow path-flow along p to flow f</div><div class="line">     update residual graph</div><div class="line">   <span class="keyword">return</span> flow f</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>最大流算法 Ford-Fulkerson 方法最优性验证<ul>
+<li>最大流最小割定理：设 $f$ 为流网络 $G = (V, E)$ 中的一个流，该流网络的源点为 s，汇点为t，则下面的条件是等价的：<ul>
+<li>$f$ 是 $G$ 的一个最大流</li>
+<li>残量网络 $G^f$ 不包含任何增广路径</li>
+<li>$|f| = |C(S, T)|$，即最大流流量等于割 $C$ 的容量，割 $C=(S, T)$ 是流网络 $G$ 的最小割</li>
+</ul>
+</li>
+<li>找到最大流 $f$ $\Longrightarrow$ 残量网络 $G^f$ 中已经无法找到任何由 s 到 t 的路径 $\Longrightarrow$ $(L, R)$ 为图 $G$ 的一个分割 $\begin{cases} L为 G^f 中 s 可达的所有节点集合 \cr R=V-L 为剩余的节点 \end{cases}$</li>
+<li>对于任意流 $f$ 和任意 $(s, t)$ 分割 $(L, R)$，$流量(f) \leq 容量(L, R)$，由最大流最小割定理，最大流算法产生最小割，最小割对应于流的上限，这就是所求得流的最优性的保证。</li>
+</ul>
+</li>
+<li>最大流算法的运行效率<ul>
+<li>FORD-FULKERSON-METHOD 每个单次循环都是效率很高的，无论通过使用 <a href="http://durant35.github.io/2017/03/15/Algorithms_DFS/">DFS</a> 还是 <a href="http://durant35.github.io/2017/03/22/Algorithms_BFS/">BFS</a>，每次循环都只需要 $O(|E|)$ 的时间，但问题是，我们一共需要循环多少次呢？可以看出，循环次数的上线是所有边流量的最大值 C（每次循环只能增加 1 个流量），算法最坏情况为 $O(C|E|)$，然而 C 可能是一个很大的值！</li>
+<li>采用广度优先搜索将使得找到的增广路径包含最少的边，则不管边的容量如何，C 如何，最终的迭代次数将不超过 $O(|V|·|E|)$（所有可能的路径总和）。因此，通过仔细地选择增广路径，可以将循环次数限制在 $O(|V|·|E|)$ 之内，在这种情况下，整个算法的时间复杂度为 $O(|V|·|E|^2)$。在 FORD-FULKERSON-METHOD 中通过 BFS 搜索增广路径，这就是<strong>Edmonds-Karp</strong> 算法（最短路径增广算法），其算法实现如下：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MaxFlow.cpp</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span>			<span class="comment">/* setw */</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span>			<span class="comment">/* stdin */</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;limits.h&gt;</span>			<span class="comment">/* INT_MAX */</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_VERTEX_NUM    26</span></div><div class="line"> </div><div class="line"><span class="keyword">struct</span> adjVertexNode &#123;</div><div class="line">  <span class="keyword">int</span> adjVertexIdx;</div><div class="line">  <span class="keyword">int</span> capacity;</div><div class="line">  adjVertexNode* next;</div><div class="line">&#125;;</div><div class="line"><span class="comment">// Alignment-requirement: the first char is expanded to 4(8) bytes in 32-bit(64-bit) machine</span></div><div class="line"><span class="comment">// sizeof(VertexNode) == 16(32)</span></div><div class="line"><span class="keyword">struct</span> VertexNode &#123;</div><div class="line">  <span class="keyword">char</span> data;</div><div class="line">  <span class="keyword">int</span> vertexIdx;</div><div class="line">  adjVertexNode* <span class="built_in">list</span>;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line"><span class="keyword">struct</span> Graph &#123;</div><div class="line">  VertexNode VertexNodes[MAX_VERTEX_NUM];</div><div class="line">  <span class="keyword">int</span> vertexNum;</div><div class="line">  <span class="keyword">int</span> edgeNum;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateGraph</span> <span class="params">(Graph&amp; g)</span> </span>&#123;</div><div class="line">  <span class="keyword">int</span> i, j, edgeStart, edgeEnd, capacity;</div><div class="line">  adjVertexNode* adjNode;</div><div class="line">  <span class="comment">//cout &lt;&lt; "Please input vertex and edge num (vertex-num edge-num):" &lt;&lt;endl;</span></div><div class="line">  <span class="built_in">cin</span> &gt;&gt; g.vertexNum &gt;&gt; g.edgeNum;</div><div class="line">  <span class="comment">//cout &lt;&lt; "Please input vertex information (v1)/n note: every vertex info end with Enter" &lt;&lt;endl;</span></div><div class="line">  <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;g.vertexNum; i++) &#123;</div><div class="line">    <span class="built_in">cin</span> &gt;&gt; g.VertexNodes[i].data; <span class="comment">// vertex data info.</span></div><div class="line">    g.VertexNodes[i].vertexIdx = i;</div><div class="line">    g.VertexNodes[i].<span class="built_in">list</span> = <span class="literal">NULL</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="comment">//cout &lt;&lt; "input edge information(start end):" &lt;&lt; endl;</span></div><div class="line">  <span class="keyword">for</span> (j=<span class="number">0</span>; j&lt;g.edgeNum; j++)	&#123;</div><div class="line">    <span class="built_in">cin</span> &gt;&gt; edgeStart &gt;&gt; edgeEnd &gt;&gt; capacity;</div><div class="line"> </div><div class="line">    <span class="comment">// insert new adjacent VertexNode at the begining of the adjacent list</span></div><div class="line">    adjNode = <span class="keyword">new</span> adjVertexNode;</div><div class="line">    adjNode-&gt;adjVertexIdx = edgeEnd;</div><div class="line">    adjNode-&gt;capacity = capacity;</div><div class="line">    adjNode-&gt;next = g.VertexNodes[edgeStart].<span class="built_in">list</span>;</div><div class="line">    g.VertexNodes[edgeStart].<span class="built_in">list</span> = adjNode;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintAdjList</span><span class="params">(<span class="keyword">const</span> Graph&amp; g)</span> </span>&#123;</div><div class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"The adjacent list for graph is:"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; g.vertexNum; i++) &#123;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; g.VertexNodes[i].data &lt;&lt; <span class="string">"-&gt;"</span>;</div><div class="line">    adjVertexNode* head = g.VertexNodes[i].<span class="built_in">list</span>;</div><div class="line">    <span class="keyword">if</span> (head == <span class="literal">NULL</span>)</div><div class="line">      <span class="built_in">cout</span> &lt;&lt; <span class="string">"NULL"</span>;</div><div class="line">    <span class="keyword">while</span> (head != <span class="literal">NULL</span>) &#123;</div><div class="line">      <span class="built_in">cout</span> &lt;&lt; g.VertexNodes[head-&gt;adjVertexIdx].data </div><div class="line">         &lt;&lt; <span class="string">"("</span> &lt;&lt; head-&gt;capacity &lt;&lt; <span class="string">")"</span> &lt;&lt; <span class="string">" "</span>;</div><div class="line">      head = head-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintPath</span><span class="params">(<span class="keyword">const</span> Graph&amp; g, <span class="keyword">int</span>* prevs, <span class="keyword">int</span> toIdx)</span> </span>&#123;</div><div class="line">  <span class="comment">// no previous node ==&gt; reach starting node </span></div><div class="line">  <span class="keyword">if</span> (prevs[toIdx] != <span class="number">-1</span>) &#123;</div><div class="line">    PrintPath(g, prevs, prevs[toIdx]);</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"-&gt;"</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">cout</span> &lt;&lt; g.VertexNodes[toIdx].data;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">DeleteGraph</span><span class="params">(Graph&amp; g)</span> </span>&#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;g.vertexNum; i++) &#123;</div><div class="line">    adjVertexNode* tmp = <span class="literal">NULL</span>;</div><div class="line">    <span class="keyword">while</span>(g.VertexNodes[i].<span class="built_in">list</span> != <span class="literal">NULL</span>) &#123;</div><div class="line">      tmp = g.VertexNodes[i].<span class="built_in">list</span>;</div><div class="line">      g.VertexNodes[i].<span class="built_in">list</span> = g.VertexNodes[i].<span class="built_in">list</span>-&gt;next;</div><div class="line">      <span class="keyword">delete</span> tmp;</div><div class="line">      tmp = <span class="literal">NULL</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">BFS</span><span class="params">(<span class="keyword">int</span>** graph, <span class="keyword">int</span> vertexNum, <span class="keyword">int</span> fromIdx, <span class="keyword">int</span> toIdx, <span class="keyword">int</span>* prevs)</span> </span>&#123;</div><div class="line">  <span class="comment">// cout &lt;&lt; "BFS" &lt;&lt; endl;</span></div><div class="line">  <span class="comment">// for(int u=0; u&lt;vertexNum; u++) &#123;</span></div><div class="line">  <span class="comment">// 	for(int v=0; v&lt;vertexNum; v++) &#123;</span></div><div class="line">  <span class="comment">// 		if(graph[u][v] &gt; 0) &#123;</span></div><div class="line">  <span class="comment">// 			cout &lt;&lt; u &lt;&lt; "-&gt;" &lt;&lt; v &lt;&lt; "(" &lt;&lt; graph[u][v] &lt;&lt; ") ";</span></div><div class="line">  <span class="comment">// 		&#125;</span></div><div class="line">  <span class="comment">// 	&#125;</span></div><div class="line">  <span class="comment">// 	cout &lt;&lt; endl;</span></div><div class="line">  <span class="comment">// &#125;</span></div><div class="line">  <span class="keyword">bool</span> visited[vertexNum];</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> vertexIdx=<span class="number">0</span>; vertexIdx&lt;vertexNum; vertexIdx++) &#123;</div><div class="line">    visited[vertexIdx] = <span class="literal">false</span>;</div><div class="line">    prevs[vertexIdx] = <span class="number">-1</span>;</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; vertexIdxQueue;</div><div class="line">  vertexIdxQueue.push(fromIdx);</div><div class="line">  visited[fromIdx] = <span class="literal">true</span>;</div><div class="line">  <span class="keyword">while</span> (!vertexIdxQueue.empty()) &#123;</div><div class="line">    <span class="keyword">int</span> u = vertexIdxQueue.front();</div><div class="line">    <span class="comment">// cout &lt;&lt; u &lt;&lt; " ";</span></div><div class="line">    <span class="keyword">if</span>(u == toIdx) &#123;</div><div class="line">      <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">    vertexIdxQueue.pop();</div><div class="line"> </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>; v&lt;vertexNum; v++) &#123;</div><div class="line">      <span class="keyword">if</span>(!visited[v] &amp;&amp; graph[u][v] &gt; <span class="number">0</span>) &#123;</div><div class="line">        vertexIdxQueue.push(v);</div><div class="line">        visited[v] = <span class="literal">true</span>;</div><div class="line">        prevs[v] = u;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  <span class="keyword">return</span> visited[toIdx];</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">FordFulkerson</span><span class="params">(<span class="keyword">const</span> Graph&amp; g, <span class="keyword">const</span> VertexNode&amp; source, <span class="keyword">const</span> VertexNode&amp; sink)</span> </span>&#123;</div><div class="line">  <span class="keyword">int</span> maxFlow = <span class="number">0</span>;</div><div class="line">  <span class="keyword">int</span> flowGraph[g.vertexNum][g.vertexNum];</div><div class="line">  <span class="comment">// initialize the residual graph</span></div><div class="line">  <span class="keyword">int</span>** residualGraph = <span class="keyword">new</span> <span class="keyword">int</span>*[g.vertexNum];</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> u=<span class="number">0</span>; u&lt;g.vertexNum; u++) &#123;</div><div class="line">    residualGraph[u] = <span class="keyword">new</span> <span class="keyword">int</span>[g.vertexNum];</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>; v&lt;g.vertexNum; v++) &#123;</div><div class="line">      residualGraph[u][v] = <span class="number">0</span>;</div><div class="line">      flowGraph[u][v] = <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> vertexIdx=<span class="number">0</span>; vertexIdx&lt;g.vertexNum; vertexIdx++) &#123;</div><div class="line">    adjVertexNode* head = g.VertexNodes[vertexIdx].<span class="built_in">list</span>;</div><div class="line">    <span class="keyword">while</span> (head != <span class="literal">NULL</span>) &#123;</div><div class="line">      <span class="comment">// cout &lt;&lt; vertexIdx &lt;&lt; "--&gt;" &lt;&lt; head-&gt;adjVertexIdx &lt;&lt; endl;</span></div><div class="line">      residualGraph[vertexIdx][head-&gt;adjVertexIdx] = head-&gt;capacity;</div><div class="line">      head = head-&gt;next;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  <span class="comment">// prevs array for storing the augmenting path</span></div><div class="line">  <span class="keyword">int</span> prevs[g.vertexNum];</div><div class="line">  <span class="keyword">int</span> iter = <span class="number">1</span>;</div><div class="line"> </div><div class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">" Maximum Flow Algorithm Process:"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">  <span class="comment">// Augment the flow while there is a path from source to sink</span></div><div class="line">  <span class="keyword">while</span>(BFS(residualGraph, g.vertexNum, source.vertexIdx, sink.vertexIdx, prevs)) &#123;</div><div class="line">    <span class="comment">// find the maximum flow(minimum residual capacity) through the path found</span></div><div class="line">    <span class="keyword">int</span> pathFlow = INT_MAX;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> v=sink.vertexIdx; v!=source.vertexIdx; v=prevs[v]) &#123;</div><div class="line">      <span class="keyword">int</span> u = prevs[v];</div><div class="line">      <span class="keyword">if</span>(residualGraph[u][v] &lt; pathFlow) &#123;</div><div class="line">        pathFlow = residualGraph[u][v];</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// update residual capacities of the edges &amp; reverse edges along the augmenting path</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> v=sink.vertexIdx; v!=source.vertexIdx; v=prevs[v]) &#123;</div><div class="line">      <span class="keyword">int</span> u = prevs[v];</div><div class="line">      residualGraph[u][v] -= pathFlow;</div><div class="line">      residualGraph[v][u] += pathFlow;</div><div class="line">      <span class="comment">// record flows</span></div><div class="line">      flowGraph[u][v] += pathFlow;</div><div class="line">    &#125;</div><div class="line">    maxFlow += pathFlow;</div><div class="line">    <span class="comment">// print current iteration's info</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"\t#"</span> &lt;&lt; iter++ &lt;&lt; <span class="string">" flow: "</span> &lt;&lt; setw(<span class="number">3</span>) &lt;&lt; pathFlow &lt;&lt; <span class="string">" Augmenting-path: "</span>;</div><div class="line">    PrintPath(g, prevs, sink.vertexIdx);</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  <span class="comment">// memory release</span></div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;g.vertexNum; i++) &#123;</div><div class="line">    <span class="keyword">delete</span>[] residualGraph[i];</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">delete</span>[] residualGraph;</div><div class="line"> </div><div class="line">  <span class="comment">// show the flows</span></div><div class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">" Maximum Flow Graph:"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">  <span class="keyword">bool</span> noflow;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> u=<span class="number">0</span>; u&lt;g.vertexNum; u++) &#123;</div><div class="line">    noflow = <span class="literal">true</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"   "</span> &lt;&lt; g.VertexNodes[u].data &lt;&lt; <span class="string">": "</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>; v&lt;g.vertexNum; v++) &#123;</div><div class="line">      <span class="keyword">if</span>(flowGraph[u][v] &gt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"-&gt;"</span> &lt;&lt; g.VertexNodes[v].data</div><div class="line">           &lt;&lt; <span class="string">"("</span> &lt;&lt; flowGraph[u][v] &lt;&lt; <span class="string">")\t"</span>;</div><div class="line">        noflow = <span class="literal">false</span>;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(noflow) &#123;</div><div class="line">      <span class="built_in">cout</span> &lt;&lt; <span class="string">"NULL"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  <span class="keyword">return</span> maxFlow;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span>** argv)</span> </span>&#123;</div><div class="line">  <span class="meta">#<span class="meta-keyword">ifdef</span> USE_FLOW1</span></div><div class="line">    freopen(<span class="string">"flow1.txt"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</div><div class="line">  <span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line">    freopen(<span class="string">"flow2.txt"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</div><div class="line">  <span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"> </div><div class="line">  Graph g;</div><div class="line">  CreateGraph(g);</div><div class="line">  PrintAdjList(g);</div><div class="line"> </div><div class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">  </div><div class="line">  <span class="meta">#<span class="meta-keyword">ifdef</span> USE_FLOW1</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" Maximum Flow: "</span> &lt;&lt; FordFulkerson(g, g.VertexNodes[<span class="number">0</span>], g.VertexNodes[<span class="number">6</span>]) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">  <span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" Maximum Flow: "</span> &lt;&lt; FordFulkerson(g, g.VertexNodes[<span class="number">0</span>], g.VertexNodes[<span class="number">5</span>]) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">  <span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">  </div><div class="line">  DeleteGraph(g);</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><font color="red">算法实现细节分析如下：</font><ul>
+<li><code>bool BFS(int** graph, int vertexNum, int fromIdx, int toIdx, int* prevs)</code> 函数通过广度优先搜索算法寻找边数目最少的增广路径，返回值表示能否寻找到这样的一条路径；假如存在这样的一条增广路径，<code>prevs</code> 数组则记录这样的一条增广路径：<strong>toIdx → prevs[toIdx] → prevs[prevs[toIdx]] → … → fromIdx</strong>。</li>
+<li><code>residualGraph[u][v]</code> 通过邻接矩阵的方式维护一个残量网络，<code>flowGraph</code>则维护了流量网络的情况。</li>
+<li><code>pathFlow</code> 则用于获取每次迭代寻找到的该增广路径的残存容量，用于更新残量网络和流量网络。<code>maxFlow</code> 则保留了最终的最大流量值。</li>
+</ul>
+</li>
+<li>算法运行实例（一）<br>  <center><img src="/img/Algorithms/0013_demoFlow1.png" width="540px"/></center><ul>
+<li>上图网络流对应的输入文件 <strong>flow1.txt</strong> 如下：</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="number">7</span> <span class="number">11</span></div><div class="line">s a b c d e t</div><div class="line"><span class="number">0</span> <span class="number">1</span> <span class="number">3</span></div><div class="line"><span class="number">0</span> <span class="number">2</span> <span class="number">3</span></div><div class="line"><span class="number">0</span> <span class="number">3</span> <span class="number">4</span></div><div class="line"><span class="number">1</span> <span class="number">4</span> <span class="number">2</span></div><div class="line"><span class="number">2</span> <span class="number">1</span> <span class="number">10</span></div><div class="line"><span class="number">2</span> <span class="number">4</span> <span class="number">1</span></div><div class="line"><span class="number">3</span> <span class="number">5</span> <span class="number">5</span></div><div class="line"><span class="number">4</span> <span class="number">3</span> <span class="number">1</span></div><div class="line"><span class="number">4</span> <span class="number">5</span> <span class="number">1</span></div><div class="line"><span class="number">4</span> <span class="number">6</span> <span class="number">2</span></div><div class="line"><span class="number">5</span> <span class="number">6</span> <span class="number">5</span></div></pre></td></tr></table></figure>
+<ul>
+<li>编译构建，运行结果如下，过程可视化如上图。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">$ g++ -DUSE_FLOW1 MaxFlow.cpp -o MaxFlow</div><div class="line">$ ./MaxFlow </div><div class="line">The adjacent list for graph is:</div><div class="line"> s-&gt;c(4) b(3) a(3) </div><div class="line"> a-&gt;d(2) </div><div class="line"> b-&gt;d(1) a(10) </div><div class="line"> c-&gt;e(5) </div><div class="line"> d-&gt;t(2) e(1) c(1) </div><div class="line"> e-&gt;t(5) </div><div class="line"> t-&gt;NULL</div><div class="line"> </div><div class="line"> Maximum Flow Algorithm Process:</div><div class="line">  #1 flow:   2 Augmenting-path: s-&gt;a-&gt;d-&gt;t</div><div class="line">  #2 flow:   4 Augmenting-path: s-&gt;c-&gt;e-&gt;t</div><div class="line">  #3 flow:   1 Augmenting-path: s-&gt;b-&gt;d-&gt;e-&gt;t</div><div class="line"> Maximum Flow Graph:</div><div class="line">   s: -&gt;a(2)	-&gt;b(1)	-&gt;c(4)	</div><div class="line">   a: -&gt;d(2)	</div><div class="line">   b: -&gt;d(1)	</div><div class="line">   c: -&gt;e(4)	</div><div class="line">   d: -&gt;e(1)	-&gt;t(2)	</div><div class="line">   e: -&gt;t(5)	</div><div class="line">   t: NULL</div><div class="line"> Maximum Flow: 7</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>算法运行实例（二）<br>  <center><img src="/img/Algorithms/0013_demoFlow2.png" width="420px"/></center><ul>
+<li>上图网络流对应的输入文件 <strong>flow2.txt</strong> 如下：</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="number">6</span> <span class="number">10</span></div><div class="line"><span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span></div><div class="line"><span class="number">0</span> <span class="number">1</span> <span class="number">16</span></div><div class="line"><span class="number">0</span> <span class="number">2</span> <span class="number">13</span></div><div class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">10</span></div><div class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">12</span></div><div class="line"><span class="number">2</span> <span class="number">1</span> <span class="number">4</span></div><div class="line"><span class="number">2</span> <span class="number">4</span> <span class="number">14</span></div><div class="line"><span class="number">3</span> <span class="number">2</span> <span class="number">9</span></div><div class="line"><span class="number">3</span> <span class="number">5</span> <span class="number">20</span></div><div class="line"><span class="number">4</span> <span class="number">3</span> <span class="number">7</span></div><div class="line"><span class="number">4</span> <span class="number">5</span> <span class="number">4</span></div></pre></td></tr></table></figure>
+<ul>
+<li>编译构建，运行结果如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">$ g++ MaxFlow.cpp -o MaxFlow</div><div class="line">$ ./MaxFlow </div><div class="line">The adjacent list for graph is:</div><div class="line"> 0-&gt;2(13) 1(16) </div><div class="line"> 1-&gt;3(12) 2(10) </div><div class="line"> 2-&gt;4(14) 1(4) </div><div class="line"> 3-&gt;5(20) 2(9) </div><div class="line"> 4-&gt;5(4) 3(7) </div><div class="line"> 5-&gt;NULL</div><div class="line"> </div><div class="line"> Maximum Flow Algorithm Process:</div><div class="line">  #1 flow:  12 Augmenting-path: 0-&gt;1-&gt;3-&gt;5</div><div class="line">  #2 flow:   4 Augmenting-path: 0-&gt;2-&gt;4-&gt;5</div><div class="line">  #3 flow:   7 Augmenting-path: 0-&gt;2-&gt;4-&gt;3-&gt;5</div><div class="line"> Maximum Flow Graph:</div><div class="line">   0: -&gt;1(12)	-&gt;2(11)	</div><div class="line">   1: -&gt;3(12)	</div><div class="line">   2: -&gt;4(11)	</div><div class="line">   3: -&gt;5(19)	</div><div class="line">   4: -&gt;3(7)	-&gt;5(4)	</div><div class="line">   5: NULL</div><div class="line"> Maximum Flow: 23</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li>基本概念：<ul>
+<li><a href="http://blog.csdn.net/xzz_hust/article/details/22041173">网络流：最大流，最小割 基本概念及算法</a></li>
+<li><a href="http://blog.csdn.net/smartxxyx/article/details/9275177">图的匹配问题与最大流问题(一)</a><ul>
+<li>最大流问题跟线性规划又是如何产生联系的呢？</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>算法涉及概念补充：<a href="http://www.jianshu.com/p/1451e70909c8">最大流, 最小割问题及算法实现</a></li>
+<li>算法实现细节：<ul>
+<li><a href="http://www.cnblogs.com/gaochundong/p/ford_fulkerson_maximum_flow_algorithm.html">Ford-Fulkerson 最大流算法</a></li>
+<li><a href="http://blog.csdn.net/smartxxyx/article/details/9293805">图的匹配问题与最大流问题（三）——最大流问题Ford-Fulkerson方法Java实现</a></li>
+</ul>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;网络流：最大流问题&quot;&gt;&lt;a href=&quot;#网络流：最大流问题&quot; class=&quot;headerlink&quot; title=&quot;网络流：最大流问题&quot;&gt;&lt;/a&gt;网络流：最大流问题&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;所谓网络：&lt;ul&gt;
+&lt;li&gt;一个有向图 $G=(V, E)$&lt;/li&gt;
+&lt;li&gt;G中有两个特殊节点 $s, t \in V$，分别称为 G 中的源点(source) 和汇点(sink)。&lt;/li&gt;
+&lt;li&gt;G中每条边都有容量 $c_e \lt 0$。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;所谓流是指一种特定的输送方式，其中对每条边赋予一个变量 $f_e$，使其满足如下三个基本性质：
+    
+    </summary>
+    
+      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
+    
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
+    
+  </entry>
   
   <entry>
     <title>CPU 扫盲（核心数/线程数）</title>
@@ -2161,87 +2334,6 @@
     
     
       <category term="Hexo" scheme="http://durant35.github.io/tags/Hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>RaspberryPi, Use an external wireless card(ComFast-WU855P)</title>
-    <link href="http://durant35.github.io/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/"/>
-    <id>http://durant35.github.io/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/</id>
-    <published>2017-01-24T16:52:41.000Z</published>
-    <updated>2017-02-03T07:00:54.057Z</updated>
-    
-    <content type="html"><![CDATA[<p>　　树莓派3已经自带无线网卡，这是一种极大的便捷，真正将树莓派变成躲在一个角落里，安静地搞事情的计算机。然而对于树莓派B+或者树莓派2，除了少数免驱的外接无线网卡外（树莓派系统已经自带了驱动），大多数外接无线网卡还是需要经过配置才能使用的，下面就介绍使用过的一款无线网卡（<a href="http://en.comfast.com.cn/product/WirelessAdapter/item-155.html">ComFast-WU855P</a>）的驱动配置过程，该无线网卡采用 <strong>REALTEK8192</strong> 高阶芯片（从<a href="https://detail.tmall.com/item.htm?spm=a230r.1.14.1.JY6QbF&amp;id=37237024789&amp;cm_id=140105335569ed55e27b&amp;abbucket=6&amp;skuId=57539293852">淘宝</a>上了解到的，不知道对不对），这是一款常用的芯片，本文安装的驱动理论上对采用该芯片的无线网卡都是可用的。</p>
-<a id="more"></a>
-<h4 id="COMFAST-WU855P"><a href="#COMFAST-WU855P" class="headerlink" title="COMFAST-WU855P"></a>COMFAST-WU855P</h4><p>　　本文使用的是与下图这款无线网卡类似的 <strong>COMFAST </strong> 的一款无线网卡产品。</p>
-<center><img src="/img/raspberrypi/COMFAST.jpg" width="320px"/></center>
-
-<h4 id="以内核模块的形式编译安装RTL8192驱动"><a href="#以内核模块的形式编译安装RTL8192驱动" class="headerlink" title="以内核模块的形式编译安装RTL8192驱动"></a>以内核模块的形式编译安装RTL8192驱动</h4><blockquote>
-<p>Reference：<a href="http://www.geek-workshop.com/thread-16077-1-1.html">树莓派2编译天猫魔盘驱动（8192eu）</a></p>
-</blockquote>
-<p>　　注意，下面的所有操作都是通过 <strong>ssh</strong> 直接在树莓派上进行构建，所以相对耗时。通过交叉编译环境进行构建则速度明显加快，不过配置交叉编译环境过程也不是那么简单，有兴趣的同学可以尝试一下。<br>　　具体的步骤如下：</p>
-<ol>
-<li><p>下载内核源代码，为编译 <strong>RTL8192</strong> 驱动模块做准备</p>
-<ul>
-<li>下载 <strong>rpi-source</strong> 程序</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> ~/Workspace</div><div class="line">$ mkdir wireless &amp;&amp; <span class="built_in">cd</span> wireless</div><div class="line">$ wget https://raw.githubusercontent.com/notro/rpi-source/master/rpi-source</div><div class="line">$ chmod a+x rpi-source</div></pre></td></tr></table></figure>
-<ul>
-<li>运行 <strong>rpi-source</strong>，这个程序会根据当前内核信息去官方github上下载相应的源码，下载根据网络需要一些时间（我大概等了15分钟）。</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./rpi-source</div></pre></td></tr></table></figure>
-<ul>
-<li>下载程序需要一些依赖，根据提示通过 <strong>apt-get</strong> 安装即可，</li>
-</ul>
-<blockquote>
-<p>ERROR:<br><strong>bc is NOT installed. Needed by ‘make modules_prepare’. On Raspbian, run ‘sudo apt-get install bc’ to install it.</strong><br><strong>*** ncurses-devel is NOT installed. Needed by ‘make menuconfig’. On Raspbian sudo apt-get install libncurses5-dev</strong><br>　　<br>这里我就需要安装下面几个依赖：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install bc</div><div class="line">$ sudo apt-get install libncurses5-dev</div><div class="line">$ ./rpi-source</div></pre></td></tr></table></figure>
-</blockquote>
-<ul>
-<li>下载程序运行中间的部分打印信息如下：</li>
-</ul>
-<blockquote>
-<p><strong>Saving to: ‘/home/pi/linux-fa00f31867d8f7b7bb2ad2eb6c35f32fa468ca1e.tar.gz’</strong><br><strong>/home/pi/linux-fa     [          &lt;=&gt;   ] 129.96M  1.92MB/s   in 73s</strong><br><strong>2017-02-03 05:46:58 (1.79 MB/s) - ‘/home/pi/linux-fa00f31867d8f7b7bb2ad2eb6c35f32fa468ca1e.tar.gz’ saved [136269962]</strong><br><strong>Unpack kernel source…</strong><br><strong>*** Create symlink: /home/pi/linux</strong><br><strong>*** Create /lib/modules/<ver>/{build,source} symlinks</strong><br><strong>*** Kernel source already installed: /home/pi/linux-fa00f31867d8f7b7bb2ad2eb6c35f32fa468ca1e</strong></p>
-</blockquote>
-<p>因此会在 <strong>“~ 目录”</strong> 下看到（如下图），此外还创建了一些快捷方式，总之，就是为下一步编译内核模块做好准备。</p>
-<center><img src="/img/raspberrypi/rpi-source_result.png" width="420px"/></center></li>
-<li><p>获取 <strong>RTL8192</strong> 驱动源代码，构建并安装  <strong>RTL8192</strong> 内核模块</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> ~/wireless</div><div class="line">$ git <span class="built_in">clone</span> https://github.com/Mange/rtl8192eu-linux-driver.git</div><div class="line"><span class="comment"># or</span></div><div class="line"><span class="comment"># git clone https://github.com/pvaret/rtl8192cu-fixes.git</span></div><div class="line">$ <span class="built_in">cd</span> &lt;your-git-clone-driver&gt;</div><div class="line">$ make</div><div class="line">$ sudo make install</div></pre></td></tr></table></figure>
-<p>注：亲测两个仓库的代码都可以编译构建。</p>
-<ul>
-<li>可能会出现的问题</li>
-</ul>
-<blockquote>
-<p>Makefile:616: arch/armv6l/Makefile: No such file or directory<br>make[1]: *** No rule to make target ‘arch/armv6l/Makefile’.  Stop.<br>make[1]: Leaving directory ‘/home/pi/linux-fa00f31867d8f7b7bb2ad2eb6c35f32fa468ca1e’<br>Makefile:1335: recipe for target ‘modules’ failed<br>make: *** [modules] Error 2</p>
-</blockquote>
-<ul>
-<li>解决的方法是，根据提示创建通过 <strong>arch/armv6l</strong> 到 <strong>arm</strong> 的软链接，</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># `uname -r`是uname -r命令返回的结果，会自适应到不同的内核版本</span></div><div class="line">$ <span class="built_in">cd</span> /lib/modules/`uname -r`/build</div><div class="line"><span class="comment"># 根据错误提示，参考博文是作 **arch/armv7l** 的软连接，我这里是 **arch/armv6l**</span></div><div class="line">$ ln -sf arm arch/armv6l</div></pre></td></tr></table></figure>
-<ul>
-<li>顺利进行编译构建（树莓派B+大约需要17分钟），然后安装到系统目录下：</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> &lt;your-git-clone-driver&gt;</div><div class="line">$ make</div><div class="line">$ sudo make install</div></pre></td></tr></table></figure>
-</li>
-<li><p>加载  <strong>RTL8192</strong> 内核模块</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo modprobe 8192eu</div></pre></td></tr></table></figure>
-<p>然后，插上USB无线网卡，<strong>ifconfig</strong> 或者 <strong>iwconfig</strong> 应该可以看到 <strong>wlan0</strong>，如下图：</p>
-<center><img src="/img/raspberrypi/wireless_result.png" width="540px"/></center>
-
-</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;　　树莓派3已经自带无线网卡，这是一种极大的便捷，真正将树莓派变成躲在一个角落里，安静地搞事情的计算机。然而对于树莓派B+或者树莓派2，除了少数免驱的外接无线网卡外（树莓派系统已经自带了驱动），大多数外接无线网卡还是需要经过配置才能使用的，下面就介绍使用过的一款无线网卡（&lt;a href=&quot;http://en.comfast.com.cn/product/WirelessAdapter/item-155.html&quot;&gt;ComFast-WU855P&lt;/a&gt;）的驱动配置过程，该无线网卡采用 &lt;strong&gt;REALTEK8192&lt;/strong&gt; 高阶芯片（从&lt;a href=&quot;https://detail.tmall.com/item.htm?spm=a230r.1.14.1.JY6QbF&amp;amp;id=37237024789&amp;amp;cm_id=140105335569ed55e27b&amp;amp;abbucket=6&amp;amp;skuId=57539293852&quot;&gt;淘宝&lt;/a&gt;上了解到的，不知道对不对），这是一款常用的芯片，本文安装的驱动理论上对采用该芯片的无线网卡都是可用的。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="软硬兼施" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/"/>
-    
-      <category term="RaspberryPi" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/RaspberryPi/"/>
-    
     
   </entry>
   
