@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/2015/05/24/opencl_%E5%86%99%E4%B8%A4%E4%B8%AA%E6%98%9F%E6%9C%9FOpenCL%E5%85%88-1/</loc>
+    
+    <lastmod>2017-05-27T04:08:15.057Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2015/05/24/opencl_win7-64%E4%BD%8D%E4%B8%8BVS%E6%90%AD%E5%BB%BAOpenCL%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-Intel%E6%98%BE%E5%8D%A1/</loc>
+    
+    <lastmod>2017-05-27T04:01:54.422Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/</loc>
+    
+    <lastmod>2017-05-25T13:27:37.091Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2017/05/19/Algorithms_MaximizingFlow/</loc>
     
     <lastmod>2017-05-24T06:44:48.026Z</lastmod>
@@ -12,13 +33,6 @@
     <loc>http://durant35.github.io/2017/05/16/hsw_CPUWipeoutIlliteracy/</loc>
     
     <lastmod>2017-05-16T08:02:16.497Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/</loc>
-    
-    <lastmod>2017-05-15T13:16:34.270Z</lastmod>
     
   </url>
   
@@ -411,20 +425,6 @@
     <loc>http://durant35.github.io/2015/06/16/opengl_%E6%95%B0%E5%AA%92HW4%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99/</loc>
     
     <lastmod>2016-11-12T09:41:56.185Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2015/05/24/opencl_%E5%86%99%E4%B8%A4%E4%B8%AA%E6%98%9F%E6%9C%9FOpenCL%E5%85%88-1/</loc>
-    
-    <lastmod>2016-11-12T09:39:37.854Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2015/05/24/opencl_win7-64%E4%BD%8D%E4%B8%8BVS%E6%90%AD%E5%BB%BAOpenCL%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-Intel%E6%98%BE%E5%8D%A1/</loc>
-    
-    <lastmod>2016-11-12T09:33:58.827Z</lastmod>
     
   </url>
   

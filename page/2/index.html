@@ -255,6 +255,169 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-tool_git几步走" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/26/tool_git几步走/" class="article-date">
+      <time datetime="2016-07-26T00:47:07.000Z" itemprop="datePublished">2016-07-26</time>
+</a>
+
+ 
+    <a href="/2016/07/26/tool_git几步走/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/07/26/tool_git几步走/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/26/tool_git几步走/">git几步走</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="git-快速入门"><a href="#git-快速入门" class="headerlink" title="git 快速入门"></a><strong>git</strong> 快速入门</h3><p>　　<strong>第一步:</strong> <strong>github.com</strong> 上添加新仓库 “Create New Repository”</p>
+<p>　　<strong>第二步:</strong> 本地关联远程库.添加后，远程库的名字就是 <strong>origin</strong>，这是 <strong>Git</strong> 默认的叫法，也可以改成别的，但是 <strong>origin</strong> 这个名字一看就知道是远程库。<br>　　　<font color="green"><strong>git remote add origin <a href="https://github.com/Durant35/[Repository">https://github.com/Durant35/[Repository</a> Name].git</strong></font></p>
+<p>　　把本地库的内容推送到远程，用 <strong>git push</strong> 命令，实际上是把当前分支 <strong>master</strong> 推送到远程。<br>　　由于远程库是空的，我们第一次推送 <strong>master</strong> 分支时，加上了 <strong>-u</strong> 参数，<strong>Git</strong> 不但会把本地的 <strong>master</strong> 分支内容推送的远程新的 <strong>master</strong> 分支，还会把本地的 <strong>master</strong> 分支和远程的 <strong>master</strong> 分支关联起来，在以后的推送或者拉取时就可以简化命令。<br>　　　<font color="green"><strong>git push -u origin master</strong></font></p>
+<p>　　把本地 <strong>master</strong> 分支的最新修改推送至 <strong>GitHub</strong>！<br>　　　<font color="green"><strong>git push origin master</strong></font><br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/小工具/">小工具</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/07/26/tool_git几步走/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_Minimum Spanning Tree" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/06/Algorithms_Minimum Spanning Tree/" class="article-date">
+      <time datetime="2017-04-06T06:00:22.000Z" itemprop="datePublished">2017-04-06</time>
+</a>
+
+ 
+    <a href="/2017/04/06/Algorithms_Minimum Spanning Tree/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/04/06/Algorithms_Minimum Spanning Tree/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　本文将介绍带权图的最小生成树（Minimum Spanning Tree）算法：给定一个无向图 G，并且它的每条边均有权值，则 MST 是一个包括 G 的所有顶点及边的子集的图，这个子集保证图是连通的，并且子集中所有边的权值之和为所有子集中最小的。<br>　本文中介绍两种求解图的最小生成树的算法：Prim 算法和 Kruskal 算法，这两种算法都是贪心算法。一般而言，贪心策略不一定能保证找到全局最优解，但是对最小生成树问题来说，贪心策略能获得具有最小权值的生成树。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/04/06/Algorithms_Minimum Spanning Tree/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Algorithms_Some Shortest-path Algorithms" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -897,173 +1060,6 @@
       
         <p class="article-more-link">
           <a href="/2016/10/02/ROS_ROS_Basics/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_Divide and Conquer" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/26/Algorithms_Divide and Conquer/" class="article-date">
-      <time datetime="2017-02-26T06:00:22.000Z" itemprop="datePublished">2017-02-26</time>
-</a>
-
- 
-    <a href="/2017/02/26/Algorithms_Divide and Conquer/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/02/26/Algorithms_Divide and Conquer/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本周的 part 是 <strong>Divide and Conquer（分而治之）</strong>。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/02/26/Algorithms_Divide and Conquer/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-cv_Digital-Image-Process(pg_2016)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/" class="article-date">
-      <time datetime="2017-02-04T09:53:31.000Z" itemprop="datePublished">2017-02-04</time>
-</a>
-
- 
-    <a href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/02/04/cv_Digital-Image-Process(pg_2016)/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>Books：<a href="http://durant35.github.io/pdf/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86(%E5%86%88%E8%90%A8%E9%9B%B7%E6%96%AF)%E4%B8%AD%E8%AF%91%E7%AC%AC%E4%B8%89%E7%89%88.pdf" alt="数字图像处理（冈萨雷斯）">数字图像处理（冈萨雷斯）</a><br>Codes：<a href="https://github.com/Durant35/Courses/tree/master/dip">https://github.com/Durant35/Courses/tree/master/dip</a></p>
-</blockquote>
-<h3 id="第2章-数字图像基础"><a href="#第2章-数字图像基础" class="headerlink" title="第2章 数字图像基础"></a>第2章 数字图像基础</h3><ul>
-<li>取样和量化</li>
-<li>空间和灰度分辨率<ul>
-<li>空间分辨率：空间分辨率是图像在单位面积内像素的个数，表示了图像的空间细节分辨能力</li>
-<li>灰度分辨率：灰度分辨率指的是在纯黑和纯白之间灰度级别的多少，指的是图像对灰度变化细节的分辨能力
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/CV/">CV</a><a class="article-category-link" href="/categories/CV/dip/">dip</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CV/">CV</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

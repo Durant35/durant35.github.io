@@ -21,7 +21,7 @@
 <meta property="og:url" content="http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/index.html">
 <meta property="og:site_name" content="Tarantula-7's Blog">
 <meta property="og:description" content="本文通过  516. Longest Palindromic Subsequence  分析。">
-<meta property="og:updated_time" content="2017-05-15T13:16:34.270Z">
+<meta property="og:updated_time" content="2017-05-25T13:27:37.091Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）">
 <meta name="twitter:description" content="本文通过  516. Longest Palindromic Subsequence  分析。">
@@ -294,18 +294,11 @@
       
           
         <p>　本文通过 <strong><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a></strong> 分析。<br><a id="more"></a></p>
-<h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><ul>
-<li>两道题解决的问题相似，都是求解给定序列中满足某种数学特征（和最大/乘积最大）的子序列，虽然不需要将该子序列输出。</li>
-</ul>
-<blockquote>
-<p>Find the contiguous subarray within an array(containing at least one number) which has the largest sum/product.</p>
+<h4 id="最长回文字符串"><a href="#最长回文字符串" class="headerlink" title="最长回文字符串"></a>最长回文字符串</h4><p><a href="https://leetcode.com/problems/longest-palindromic-substring/#/description">5. Longest Palindromic Substring</a></p>
+<h4 id="最长回文子序列"><a href="#最长回文子序列" class="headerlink" title="最长回文子序列"></a>最长回文子序列</h4><p><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a> 解题思路</p>
 <ul>
-<li>For example, given the array [-2,1,-3,4,-1,2,1,-5,4], the contiguous subarray [4,-1,2,1] has the largest sum = 6. </li>
-<li>For example, given the array [2,3,-2,4], the contiguous subarray [2,3] has the largest product = 6. </li>
-</ul>
-</blockquote>
-<h4 id="516-Longest-Palindromic-Subsequence-解题思路"><a href="#516-Longest-Palindromic-Subsequence-解题思路" class="headerlink" title=" 516. Longest Palindromic Subsequence  解题思路"></a><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a> 解题思路</h4><ul>
-<li>思路一：</li>
+<li>思路一：递归方法</li>
+<li>思路二：动态规划</li>
 </ul>
 
       
@@ -323,7 +316,7 @@
         <p><span>文章作者:</span>Gary</p>
 
         <p><span>发布时间:</span>2017-05-12, 14:00:22</p>
-        <p><span>最后更新:</span>2017-05-15, 21:16:34</p>
+        <p><span>最后更新:</span>2017-05-25, 21:27:37</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/" title="算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）">http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/</a>
             <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -362,7 +355,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Problem-Description"><span class="toc-number">1.</span> <span class="toc-text">Problem Description</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#516-Longest-Palindromic-Subsequence-解题思路"><span class="toc-number">2.</span> <span class="toc-text"> 516. Longest Palindromic Subsequence  解题思路</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#最长回文字符串"><span class="toc-number">1.</span> <span class="toc-text">最长回文字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最长回文子序列"><span class="toc-number">2.</span> <span class="toc-text">最长回文子序列</span></a></li></ol>
         
     </div>
     <style>

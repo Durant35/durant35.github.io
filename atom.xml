@@ -258,21 +258,14 @@
     <link href="http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/"/>
     <id>http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/</id>
     <published>2017-05-12T06:00:22.000Z</published>
-    <updated>2017-05-15T13:16:34.270Z</updated>
+    <updated>2017-05-25T13:27:37.091Z</updated>
     
     <content type="html"><![CDATA[<p>　本文通过 <strong><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a></strong> 分析。<br><a id="more"></a></p>
-<h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><ul>
-<li>两道题解决的问题相似，都是求解给定序列中满足某种数学特征（和最大/乘积最大）的子序列，虽然不需要将该子序列输出。</li>
-</ul>
-<blockquote>
-<p>Find the contiguous subarray within an array(containing at least one number) which has the largest sum/product.</p>
+<h4 id="最长回文字符串"><a href="#最长回文字符串" class="headerlink" title="最长回文字符串"></a>最长回文字符串</h4><p><a href="https://leetcode.com/problems/longest-palindromic-substring/#/description">5. Longest Palindromic Substring</a></p>
+<h4 id="最长回文子序列"><a href="#最长回文子序列" class="headerlink" title="最长回文子序列"></a>最长回文子序列</h4><p><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a> 解题思路</p>
 <ul>
-<li>For example, given the array [-2,1,-3,4,-1,2,1,-5,4], the contiguous subarray [4,-1,2,1] has the largest sum = 6. </li>
-<li>For example, given the array [2,3,-2,4], the contiguous subarray [2,3] has the largest product = 6. </li>
-</ul>
-</blockquote>
-<h4 id="516-Longest-Palindromic-Subsequence-解题思路"><a href="#516-Longest-Palindromic-Subsequence-解题思路" class="headerlink" title=" 516. Longest Palindromic Subsequence  解题思路"></a><a href="https://leetcode.com/problems/longest-palindromic-subsequence/#/description"> 516. Longest Palindromic Subsequence </a> 解题思路</h4><ul>
-<li>思路一：</li>
+<li>思路一：递归方法</li>
+<li>思路二：动态规划</li>
 </ul>
 ]]></content>
     
