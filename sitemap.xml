@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/2017/05/26/Algorithms_Dynamic%20Programming(V)/</loc>
+    
+    <lastmod>2017-05-29T05:46:08.630Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/</loc>
+    
+    <lastmod>2017-05-29T03:59:27.689Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2015/05/24/opencl_%E5%86%99%E4%B8%A4%E4%B8%AA%E6%98%9F%E6%9C%9FOpenCL%E5%85%88-1/</loc>
     
     <lastmod>2017-05-27T04:08:15.057Z</lastmod>
@@ -12,13 +26,6 @@
     <loc>http://durant35.github.io/2015/05/24/opencl_win7-64%E4%BD%8D%E4%B8%8BVS%E6%90%AD%E5%BB%BAOpenCL%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-Intel%E6%98%BE%E5%8D%A1/</loc>
     
     <lastmod>2017-05-27T04:01:54.422Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/05/12/Algorithms_LongestPalindromicSubsequence/</loc>
-    
-    <lastmod>2017-05-25T13:27:37.091Z</lastmod>
     
   </url>
   
