@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Tarantula-7" />
+
+
+
+<meta name="description" content="[系列文章]上一篇：《借Qt中文乱码谈谈Coding中的编码问题》 (可选择性阅读)[系列文章]下一篇：《Coding中的编码问题之系统学习》
+
+　　大家在看完《借Qt中文乱码谈谈Coding中的编码问题》后，估计对文章中提到的很多概念性的东西似懂非懂，本系列接下来的几篇文章会陆续为大家解释清楚 （没看过该文章也无所谓啦，hhhhhh）。由于本人也是通过零散阅读包括 开源中国 上《字符集编码系列》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Coding中的编码问题之入门&概览">
+<meta property="og:url" content="http://durant35.github.io/2016/02/21/programPearls_Coding中的编码问题之入门&概览/index.html">
+<meta property="og:site_name" content="Tarantula-7's Blog">
+<meta property="og:description" content="[系列文章]上一篇：《借Qt中文乱码谈谈Coding中的编码问题》 (可选择性阅读)[系列文章]下一篇：《Coding中的编码问题之系统学习》
+
+　　大家在看完《借Qt中文乱码谈谈Coding中的编码问题》后，估计对文章中提到的很多概念性的东西似懂非懂，本系列接下来的几篇文章会陆续为大家解释清楚 （没看过该文章也无所谓啦，hhhhhh）。由于本人也是通过零散阅读包括 开源中国 上《字符集编码系列》">
+<meta property="og:updated_time" content="2016-11-12T12:44:29.790Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Coding中的编码问题之入门&概览">
+<meta name="twitter:description" content="[系列文章]上一篇：《借Qt中文乱码谈谈Coding中的编码问题》 (可选择性阅读)[系列文章]下一篇：《Coding中的编码问题之系统学习》
+
+　　大家在看完《借Qt中文乱码谈谈Coding中的编码问题》后，估计对文章中提到的很多概念性的东西似懂非懂，本系列接下来的几篇文章会陆续为大家解释清楚 （没看过该文章也无所谓啦，hhhhhh）。由于本人也是通过零散阅读包括 开源中国 上《字符集编码系列》">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Tarantula-7&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Coding中的编码问题之入门&amp;概览 | Tarantula-7&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+</head>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Tarantula-7</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">My Body Knows It&#39;s Time to Say GoodBye... ---- Dear Basketball</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">Home</a></li>
+                        
+                            <li><a href="/tags">All-tags</a></li>
+                        
+                            <li><a href="/archives">All-lists</a></li>
+                        
+                            <li><a href="/Shengjie">Contact</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                                <a class="fa OSChina" href="https://my.oschina.net/love7zx/" title="OSChina"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMD/">CMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/">CV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DARPA/">DARPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DLL/">DLL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Key-words/">Key-words</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MFC/">MFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NotePad/">NotePad++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCL/">OpenCL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL/">OpenGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB/">PCB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32/">STM32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS2013/">VS2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dumpbin/">dumpbin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ini/">ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pcap/">pcap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件操作/">文件操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漫威电影/">漫威电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码/">编码</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Tarantula-7</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Tarantula-7</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">My Body Knows It&#39;s Time to Say GoodBye... ---- Dear Basketball</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/tags">All-tags</a></li>
+                
+                    <li><a href="/archives">All-lists</a></li>
+                
+                    <li><a href="/Shengjie">Contact</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                                <a class="fa OSChina" target="_blank" href="https://my.oschina.net/love7zx/" title="OSChina"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-programPearls_Coding中的编码问题之入门&amp;概览" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/21/programPearls_Coding中的编码问题之入门&概览/" class="article-date">
+      <time datetime="2016-02-21T04:11:03.000Z" itemprop="datePublished">2016-02-21</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Coding中的编码问题之入门&amp;概览
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/编码/">编码</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编码/">编码</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/02/programPearls_Qt_%E5%80%9FQt%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%B0%88%E8%B0%88Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/#more">《借Qt中文乱码谈谈Coding中的编码问题》</a> (<strong>可选择性阅读</strong>)<br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/22/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/#more">《Coding中的编码问题之系统学习》</a></font>
+
+<p>　　大家在看完<a href="http://durant35.github.io/2016/02/02/programPearls_Qt_%E5%80%9FQt%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%B0%88%E8%B0%88Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/#more">《借Qt中文乱码谈谈Coding中的编码问题》</a>后，估计对文章中提到的很多概念性的东西似懂非懂，本系列接下来的几篇文章会陆续为大家解释清楚 <strong>（没看过该文章也无所谓啦，hhhhhh）</strong>。由于本人也是通过零散阅读包括 <strong>开源中国</strong> 上<a href="http://my.oschina.net/goldenshaw/blog?disp=2&amp;p=1&amp;catalog=536953">《字符集编码系列》</a>等博文慢慢理解的，故本文及后续文章均会以阅读笔记的形式提供，会涵盖个人笔记以及个人小结，希望能对大家有所帮助。也方便日后自己回顾、学习。<br>　　本文借<a href="http://www.cnblogs.com/Kyzy/archive/2012/06/17/2552432.html">《学习程序设计的必要准备——稀里糊涂的说说各种字符编码到底是个怎么回事。》</a>为大家说说字符编码的大概起源和字符编码的大概发展，会再一次提及上一篇文章提到的几个<code>Key Word</code> (<strong>ASCII</strong>, <strong>GB2312</strong>, <strong>Big5</strong>, <strong>GBK</strong>, <strong>Unicode</strong>, <strong>UTF-8</strong>…)，希望能帮大家对字符编码有一个大概的认识，为下一步系统学习打下基础。<br><a id="more"></a></p>
+<h2 id="稀里糊涂的说说各种字符编码"><a href="#稀里糊涂的说说各种字符编码" class="headerlink" title="稀里糊涂的说说各种字符编码"></a><font color="#F40D64">稀里糊涂的说说各种字符编码</font></h2><p>　　原文地址：<a href="http://my.oschina.net/goldenshaw/blog/304493">http://my.oschina.net/goldenshaw/blog/304493</a><br>　　<font color="red">[红色部分]</font>为标注笔记</p>
+<p>　说起字符编码，相信做过一些开发的人都会接触过不止一种的字符编码，比如 <strong>ASCII</strong>，<strong>GB2312</strong>，<strong>Big5</strong>，<strong>Unicode</strong>，<strong>UTF-8</strong>，各种各样的编码常常把我们搞得不知所措，一不小心就会出现乱码问题，<br>　计算机这东西本质上是用来表示人类思维，帮助人类解决问题的一种机器，然而它是怎么表示人类思维的呢？我们知道计算机所能表示的只有 2 进制数字（靠高低电平实现），而我们人类的思维却是丰富多彩的，如何用简单的 2 进制数字来表示人类思维似乎成了一个不得不解决的复杂问题，人类思维这个话题是在太大了，我们很难对其做准确的定位，表示人类思维的问题就变得含糊不清，我们不妨把问题简单化，<font color="blue">如何用计算机的 2 进制数据表示人类所应用的语言和字符呢？</font>这样问题似乎变得简单了许多，我们知道二进制数据与十进制数据是可以互相转换的，也就说二进制数据与十进制数据本质上是没什么区别的，而十进制数据才是我们人类所熟悉的数据，在后面的内容中，我们常常会用十进制来代替二进制来进行说明（但是计算机内部可全部是由二进制表示的哦，我们用十进制只是为了说明起来方便，不要搞混了）。<br><span style="color:red">　作者借 <strong>计算机如何表示人类思维</strong> 做引入，引出 <strong>如何用计算机的 2 进制数据表示人类所应用的字符呢？</strong>，这个实际上就是 <strong>字符编码</strong>。<br></span><br>　接下来我们要进入编码的内部了，首先让我们举一个编码的简单例子，你知道 <strong>“520”</strong> 代表什么意思吗？呵呵，反应很快嘛，对的，<strong>“我爱你”</strong>，我们在网络上常常会用一些简单的数字来简化的表示一些词语，比如 “520” 代表“我爱你”，这其实就是一种简单的编码方式，<strong>“5”</strong> 代表 <strong>“我”</strong>、<strong>“2”</strong> 代表 <strong>“爱”</strong>、<strong>“0”</strong> 代表 <strong>“你”</strong>，这就是编码，没什么神奇的，以后无论多复杂的编码方式，其目的不过就像 <strong>“520”</strong> 代表 <strong>“我爱你”</strong> 一样，<font color="blue"> 用特定的数字来代表特定的字符，建立数字与字符间的对应关系。</font> 看到这也许聪明的你已经有了用计算机表示人类字符的解决办法了，既然计算机只能表示数字，那我们只需要 <font color="blue">将我们平时所用的字符一一对应成数字，在计算机内储存一大堆数字，到时候把这堆数字读出来，然后按照我们所规定的对应关系重新对应成字符</font> 不就 ok 了吗？是的，你想的没错，我们现在的计算机正是这么干的。<br><span style="color:red">　“将我们平时所用的字符一一对应成数字，在计算机内储存一大堆数字，到时候把这堆数字读出来，然后按照我们所规定的对应关系重新对应成字符” 简明扼要为大家形象生动展现了字符编码的两个方面：<br>　　(1)、一个是编码，如何建立这样一个字符和数字的表？这个表要收集哪些字符？最后这个数字可以按照上面形式保存在计算机里面，可能包括硬盘，也包括内存；<br>　　(2)、另一个则是解码，怎么知道这一堆数字对应哪张表？在一起的字符他们的数字会混淆在一起吗？<br></span><br>　老美有一帮大牛们按照我们上面的这种想法最早的发明了一种编码叫做 <strong>ASCII</strong>，这是一个单字节的字符编码方式（用一个字节来表示各种各样的字符，当然这时候只有英文字符，和少量的格式控制字符），<strong>ASCII</strong> 规定 0-127 (我们发现其实它只用了一个字节 8 位中的 7 位)分别表示不同的数字，英文字母大写，英文字母小写，各种符号和一些计算机内部必须用到的格式控制字符，这种编码方式在早期的计算机当中使用了很久，大家似乎已经觉得我们似乎已经解决用计算机来表示人类字符的问题，然后不久问题就来了。<br>　随着计算机的发展，慢慢不止老美们再用计算机了，很多使用希腊字符和拉丁字符的欧洲国家也开始使用计算机，这些大佬们发现目前的计算机有着严重的问题，居然不能表示希腊字符，和拉丁字符，这是严重不能接受的，后来 <strong>ASCII</strong> 就针对这个问题对自身进行了扩充，将原来用7位表示字符扩充到了 8 位，形成了完整单字节字符，所能表示的字符范围也从 128 个扩展到了 256 个。这种编码方式又继续使用了很多年。<br>　注： <font color="blue">以后的无论哪种编码方式都必须兼容 <strong>ASCII</strong>，不然以前所有用 <strong>ASCII</strong> 编码的程序全部不能使用了</font>。<br><span style="color:red">　这就是为什么代码是用英文写的的原因了。。。美国的计算机发展总是领先全球，所以他们最先想到文章开头提及的问题(中国人估计那时连计算机这种东西都还没听过吧)，制订了 <strong>ASCII</strong> 编码，编码的鼻祖。具体的 <strong>ASCII</strong> 编码后面会详细介绍，知道他用一个字节，而且只用了 7 位(也就是最高位始终为 0)表示，也就是有 2<sup>7</sup>=128 个字符。<br>　也提到了第一次扩展，那就是欧洲国家利用那一个字节剩下的空间补进去一些新的字符，当然是他们经常用的 <strong>希腊字符和拉丁字符</strong>，扩展到 2<sup>8</sup>=256 个字符。虽然作者没说，我觉得这个应该是 <strong>Latin-1</strong> 编码吧，学习完下一篇文章后你就知道了。<br></span><br>　但是事情并没有结束，不久人们就发现，一个字节的编码远远满足不了人类的需求，我们除了使用英文字符，希腊字符，拉丁字符以外，我们还使用韩文，日文，简体中文，繁体中文。暂且不说别的，单单一个简体中文的字符量就远远超出了 256，这时候我们迫切的希望有一种编码方式，能够解决我们的问题。后来 <font color="blue">各个国家就针对自己的语言做出了各自的编码方式</font>，别的国家我们暂且不去管它，我们就来说说中国所用到的编码方式，最早我们提出了两种主要的编码方式：一种叫 <strong>GB2312</strong> 用来表示简体中文，一种叫 <strong>Big5</strong> 用来表示繁体中文。其中 <strong>GB2312</strong> 采用两个字节的编码方式，兼容 <strong>Ascii</strong>，能够表示 6 千多个常用字（注意不是所有的汉字，仅仅是常用字），<font color="blue"> <strong>GB2312</strong> 做了这样的规定，如果发现一个单个字节小于 128，那么它表示一个英文字符（<strong>Ascii</strong> 字符），如果发现一个单个字节大于 128，那么这个字节就和他后面的字节一起构成一个双字节字符（很多情况是汉字），这样我们就一定程度上的解决了汉字的编码方式</font>，但显然 <strong>GB2312</strong> 有着严重的问题，缺字！缺字是个很严重的问题，为了解决这个问题，<strong>GB2312</strong> 规定了一些暂时不表示任何汉字的编码，如果你发现你所想表示的汉字在 <strong>GB2312</strong> 中没有，那么你可以利用这些空白编码自己造一个你所需要的汉字临时使用，不过这种方法显然是很麻烦的，后来到了 <strong>win95/98</strong> 的时代，人们将 <strong>GB2312</strong>进行了扩展，起名字叫 <strong>GBK</strong>，汉字扩展到了 21003 个，并且简体繁体融为一库，这时候很多不太常用的汉字也可以被表示了。<br>　然后问题并没有被完全解决，还有繁体中文呢，繁体中文也制定了一套编码叫做 <strong>Big5</strong>（台湾省全部在用这个编码），<strong>Big5</strong> 编码和 <strong>GB2312</strong> 编码编码方式是不同的，这就导致了一个很严重的问题，比如你在大陆用<strong>GB2312</strong> 编码写了一封 Email，这封 Email 发到台湾省，台湾省的同学们用 <strong>Big5</strong> 编码打开一看全是乱码，这种事情是很让人头疼的。类似的事情还有很多，比如日文韩文中也有很多的汉字（韩国历史甚至全部是用汉字写的），但日文韩文对汉字的编码和我们 <strong>GB2312</strong> 也是不一样的，也就是说韩国人全部用汉语写的东西发到大陆来，我们看到的还是乱码。<br><span style="color:red">　还是那个梗，随着国际化进程以及计算机的发展，越来越多的国家和 <strong>People</strong> 使用计算机了，这其中中国人绝对是始作俑者，哈哈。美国人越来越 hold 不住了，而且其他国家的人也有会弄计算机的了，那就是一个乱啊，没有就自己造，所以，好多种编码啊！！！为什么说中国人是始作俑者，我觉得中华文明博大精深，汉字应该是全世界最多的，人也是最多，一用起来啊，表示不了汉字字符肯定不行。中国人也是很聪明的，没有，咱们就山寨，也来弄一个，就出现 <strong>GB2312</strong>、<strong>Big5</strong> 和 <strong>GBK</strong> 编码，这些能有自己使用的字符了，爽。<br>　文中也提到，随着各种编码的出现，乱码也来了。原因很简单，因为沟通、因为懒。大陆人不学繁体字，就敲自己熟悉的简体字；台湾人则坚挺繁体字，不怎么学简体字，这样一来，大陆人用 <strong>GBK</strong> 编码的信息被台湾人用 <strong>Big5</strong> 解码了(反正不是编码时用的 <strong>GBK</strong>)，所以就出现乱码了。<br>　此外，我们开始觉得这个用数字表示字符不简单了，看看那个 <strong>GB2312</strong>，还真是巧妙；另外，也体会到兼不兼容实在很重要，要是有一种编码兼容所有编码，包括 N 个国家自己的编码，那用这种不就行了吗？有木有呀？还有就是上面也有提到的，特别要兼容 <strong>ASCII</strong>，不然可能会跪，很简单，美国人的程序是 <strong>ASCII</strong> 字符啊，他们又那么强，好多东西都是他们的，不兼容，万一用不了，怎么破。<br></span><br>　后来呢，中日韩一起专门搞了一个编码，叫 <strong>CJK编码</strong>，汉字在这个编码里变成了统一的编码，这样交流起来就不会有问题了，但这种问题不仅仅存在于中日韩，简体、繁体直接，这种问题在世界各国是广泛存在的。为了能统一解决这种问题，后来各大软件公司搞了一个联盟，叫做 <strong>Unicode联盟</strong>，这个联盟的思想很简单，就会创造一种全世界统一的编码，能够把全人类使用的所有字符全部包含进去，以后人类全部使用这张编码，就再也不会有什么编码方式不一致所导致的乱码问题了，这种编码就是强大的 <strong>Unicode编码</strong>。Unicode 的存在似乎解决以往我们存在的所有编码问题，然后事物的发展都是一步一步进行的，Unicode 也面临着挑战，这个挑战就是说服世界给地全部使用 <strong>Unicode编码</strong>，然而这个任务到今天为止还没有做到。打个比方，我们平常在 Visual Studio 中进行开发使用的是 Unicode编码，而我们平时使用记事本写一个文件，以保存默认使用的是 <strong>GB2312编码</strong> 方式保存的。<br><span style="color:red">　还真有这种编码，<strong>Unicode</strong> 带着我们的使命来了！不过，什么，竟然需要叫大家放弃之前的编码？怎么不能兼容所有编码呀？其实这是不可能的，比如，还有很多国家还没造个编码呢？怎么兼容他，开个玩笑啦。。。而且全世界真的很多个国家。<br>　另外，统一看来真是很重要，或者说定一个标准真的很重要。<br></span><br>　<strong>Unicode编码</strong> 与以往的编码是不太一样的，以往的编码都是一个字符对应一个数字，比如 <strong>Ascii</strong> 中 A 对应数字 65，但<font color="blue">在 <strong>Unicode</strong> 中，一个字符真正对应计算机中的那个数字是有好几种不同存储方法</font>的，也就是说一个字符有好几种不同的数字表示与之对应，这样做的好处是灵活，可以提供未来字符的扩展性（据说 Unicode 编码已经将未来宇宙统一所需要的编码都考虑进去了）。<br>　但目前，其实我们人类所使用的字符并不是很多，目前最常见的存储方法是双字节 16 位存储方式，两个字节最多可以表示 6 万多个字符，对于我们人类目前来说是足够用的了。<br>　由于存在着多种编码方式，当我们看到一堆十六进制、或者二进制字节，我们怎么知道它到底是哪种编码方式呢？以前的编码在内容中没有特殊的标记告诉你它用的是什么编码，看到字节的人必须提前知道它用的是什么编码方式才能对应的了解其中的内容，而 <font color="blue"><strong>Unicode</strong> 专门规定了一个特殊的标记 <strong>(BOM)</strong>，叫做 <strong>引导符也有叫引导续的</strong></font>，在开头用两个特殊的字节 <strong>（FF FE）</strong>，表示这个文件是用 <strong>Unicode</strong> 来进行编码的（你可以用任何二进制格式的工具打开一个 <strong>Unicode编码</strong> 的文件来检查一下，看看开头两个字节是不是 <code>FF FE</code>），这样我们就不用提前知道（往往我们也不可能提前知道）这个文件到底是用什么编码方式来进行编码的，在开头看到这两个字节 <strong>（FF FE）</strong> 我们就知道这是一个用 <strong>Unicode编码</strong> 的文件，让事情变得更加简单了。这种引导符只有在 <strong>Unicode</strong> 中才有，其他编码格式中都没有，所以我们平时在处理文件的时候强烈建议使用 <strong>Unicode</strong> 来进行编码。<br>　在我们平时所做的开发中比如 <strong>.net</strong>，所有的字符编码格式都是 <strong>UTF-8</strong>，这也是我们希望看到的，我们在平时做开发时强烈建议使用 <strong>UTF-8编码</strong>，这样可以避免很多编码上不必要的问题。至于如果我们碰到了不同的编码需要对其进行转换要怎么办，<strong>.net</strong> 中处理方法是非常方便的，利用 <strong>System.Text.Encoding</strong> 这个类来对字符进行编码解码，去 <strong>MSDN</strong>一下吧，简单易用。<br><span style="color:red">　<strong>Unicode</strong> 有好几种存储方式(<strong>UTF-8</strong> 得特别关注一下才行)，看来 <strong>Unicode</strong> 在努力的拯救着世界，不过，不增加编码，却增加存储方式，这不是一样乱吗？难道在做 <strong>trade-off</strong>？我们姑且相信这是真的吧。另外，<strong>Unicode</strong> 里面有个叫 <strong>BOM</strong> 的东西，应该是为了在各种 <strong>存储方式</strong> 间作区分。这个也是个办法！我用几种存储方式，我设定区分的标准，保证解码绝对能看出编码是什么。毕竟上面几种编码都没提到什么用作区分的东西，<strong>Unicode</strong> 的努力可见一斑。<br></span><br>　好了让我们做一个简单的总结，在上面的内容中我们稀里糊涂的说到了字符编码的大概起源，和字符编码的大概发展，<strong>从早期的 Ascii、GB2312、Big5 到后来的 GBK，CJK、Unicode，UTF-8</strong>，也稀里糊涂的说了说各个编码各自要解决的问题，我想现在聪明的你对字符编码已经有了一个大概的认识。<br><span style="color:red">　孰先孰后应该大致清楚了。起源、发展也有了了解。至于为什么有这样的发展，一个是用的人多了，形形色色的字符就多，需要对编码扩容；之前一段时间出现了几乎一个国家一套编码的混乱情况，迫切需要有一个统一的标准，那么 <strong>如何囊括世界所有的字符</strong>？ <strong>如何最好的兼容现存的编码(主要是 ASCII)</strong>？ <strong>如何让大家因为这种统一的好放弃原先的编码或者自然过渡到新编码</strong>？ 就是 <strong>Unicode</strong> 出现和亟需解决、正在解决的问题了。<br></span><br>　最后来分享一道我以前看到的面试题：有一个文本文件，用 <strong>GB2312编码</strong>，里边写了一大堆英文和中文的字符，要求写一个程序（当然不让用类似 <strong>System.Text.Encoding</strong> 这种类型），输出这个文本文件中，中文字符的个数，和英文字符的个数分别是多少？<br><span style="color:red">　回顾上面关于 <strong>GB2312编码</strong> 定义的说明，下面是我想到的方案：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</div><div class="line"> * Analysis_GB2312.cpp</div><div class="line"> *</div><div class="line"> *  Created on: 2016年1月27日</div><div class="line"> *      Author: Chen</div><div class="line"> */</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"> </div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">char</span>* <span class="title">readFileBytes</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* fileName, <span class="keyword">size_t</span>&amp; len)</span></span>&#123;</div><div class="line">　<span class="function">ifstream <span class="title">readFile</span><span class="params">(fileName, ios::in|ios::binary)</span></span>;</div><div class="line">　<span class="keyword">if</span>(!readFile)&#123;</div><div class="line">　　<span class="built_in">printf</span>(<span class="string">"文件打开失败!\n"</span>);</div><div class="line">　　<span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">　&#125;</div><div class="line">　readFile.seekg(<span class="number">0</span>, ios::end);</div><div class="line">　len = readFile.tellg();</div><div class="line">　<span class="keyword">char</span>* bytes = <span class="keyword">new</span> <span class="keyword">char</span>[len];</div><div class="line">　readFile.seekg(<span class="number">0</span>, ios::beg);</div><div class="line">　readFile.read(bytes, len);</div><div class="line">　readFile.close();</div><div class="line">　<span class="keyword">return</span> bytes;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">　<span class="keyword">const</span> <span class="keyword">char</span>* fileName = <span class="string">"your file name"</span>;</div><div class="line">　<span class="keyword">size_t</span> len;</div><div class="line">　<span class="keyword">char</span>* bytes = readFileBytes(fileName, len);</div><div class="line">　<span class="comment">//printf("len=%d\n", len);</span></div><div class="line">　<span class="keyword">size_t</span> countCN, countEN, countERR, countLine;</div><div class="line"> </div><div class="line">　countCN = <span class="number">0</span>;</div><div class="line">　countEN = <span class="number">0</span>;</div><div class="line">　countERR = <span class="number">0</span>;</div><div class="line">　countLine = <span class="number">0</span>;</div><div class="line">　<span class="keyword">for</span>(<span class="keyword">size_t</span> i=<span class="number">0</span>; i&lt;len; )&#123;</div><div class="line">　<span class="comment">/*</div><div class="line">　 * GB2312 做了这样的规定，</div><div class="line">　 *  如果发现一个单个字节小于 128(0x80)，那么它表示一个英文字符（Ascii 字符），</div><div class="line">　 *  如果发现一个单个字节大于 128，那么这个字节就和他后面的字节一起构成一个双字节字符（很多情况是汉字）</div><div class="line">　 * GB2312 要求汉字的每个字节均要大于 128，可能你需要以此为下面的代码做改进！！</div><div class="line">　 */</span></div><div class="line">　<span class="comment">//printf("%02x\n", (unsigned char)bytes[i]);</span></div><div class="line">　<span class="keyword">if</span>(((<span class="keyword">unsigned</span> <span class="keyword">char</span>)bytes[i]) &gt; <span class="number">0x80</span>)&#123;</div><div class="line">　　countCN++;</div><div class="line">　　i += <span class="number">2</span>;</div><div class="line">　&#125;<span class="keyword">else</span> <span class="keyword">if</span>(((<span class="keyword">unsigned</span> <span class="keyword">char</span>)bytes[i]) &lt; <span class="number">0x80</span>)&#123;</div><div class="line">　　<span class="keyword">if</span>(((<span class="keyword">unsigned</span> <span class="keyword">char</span>)bytes[i])==<span class="number">0x0d</span> &amp;&amp; ((<span class="keyword">unsigned</span> <span class="keyword">char</span>)bytes[i+<span class="number">1</span>])==<span class="number">0x0a</span>)&#123;</div><div class="line">　　　countLine++;</div><div class="line">　　　countEN += <span class="number">2</span>;</div><div class="line">　　　i += <span class="number">2</span>;</div><div class="line">　　&#125;</div><div class="line">　　<span class="keyword">else</span>&#123;</div><div class="line">　　　countEN++;</div><div class="line">　　　i++;</div><div class="line">　　&#125;</div><div class="line">　&#125;<span class="keyword">else</span>&#123;</div><div class="line">　　countERR++;</div><div class="line">　&#125;</div><div class="line">&#125;</div><div class="line">　<span class="built_in">printf</span>(<span class="string">"Summary:\n"</span>);</div><div class="line">　<span class="built_in">printf</span>(<span class="string">"\t本文包含中文字符: %d\n"</span>, countCN);</div><div class="line">　<span class="built_in">printf</span>(<span class="string">"\t本文包含英文字符: %d，其中换行符(2个字符): %d\n"</span>, countEN, countLine);</div><div class="line">　<span class="built_in">printf</span>(<span class="string">"\t本文包含不合法字符: %d\n"</span>, countERR);</div><div class="line"> </div><div class="line">　<span class="keyword">delete</span> []bytes;</div><div class="line">　<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p></span></p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a><span style="color:#F40D64">Summary</span></h2><blockquote>
+<ul>
+<li>这篇文章大致阐述了字符编码的起源、发展，以及各阶段出现的编码，有些我们耳熟能详，有些我们第一次听到。但是具体怎么实现的字符编码，除 <strong>ASCII</strong>、<strong>GB2312</strong> 外，甚至没有提及；关于这两种编码的叙述也是甚少。</li>
+<li>要直击问题所在，那就是需要表示的字符越来越多，需要不断对编码进行扩容；而且使用的人形形色色，字符使用频率也大小不一，造成编码方式有点泛滥，这就带来乱码的严重问题；如何进行扩容，最好能表示所有的字符，又不对现存的编码的过渡造成灾难，也就是兼容性，是一套统一的、国际的编码的最大难点，<strong>Unicode</strong> 为此在努力，我们需要好好学习一下他是怎么做的，毕竟是国际化的产物。</li>
+<li>除了 <strong>Unicode</strong> 编码体系外，作为中国人有必要了解一下国人都干了啥，需要好好学习一下 <strong>GB2312</strong> 和 <strong>GBK</strong>，毕竟我们生活中都在用，也很频繁遇见。</li>
+<li>这些，将在下一篇文章为大家详细阐述。</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/02/21/programPearls_Coding中的编码问题之入门&概览/">Coding中的编码问题之入门&amp;概览</a></p>
+
+        <!-- 
+        <p><span>文章作者:</span><a href="/" title="回到主页">Tarantula-7</a></p>
+        -->
+        <p><span>文章作者:</span>Gary</p>
+
+        <p><span>发布时间:</span>2016-02-21, 12:11:03</p>
+        <p><span>最后更新:</span>2016-11-12, 20:44:29</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/02/21/programPearls_Coding中的编码问题之入门&概览/" title="Coding中的编码问题之入门&amp;概览">http://durant35.github.io/2016/02/21/programPearls_Coding中的编码问题之入门&amp;概览/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2016/02/21/programPearls_Coding中的编码问题之入门&amp;概览/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+
+        <!-- not to show license information
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+        -->
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">
+                    Coding中的编码问题之系统学习
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">
+                    老顽童STM32开发板系列教程笔记
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#稀里糊涂的说说各种字符编码"><span class="toc-number">1.</span> <span class="toc-text">稀里糊涂的说说各种字符编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">2.</span> <span class="toc-text">Summary</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+        <!--
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+        -->
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+        <!--
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+        -->
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Coding中的编码问题之入门&概览　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/2016/02/21/programPearls_Coding中的编码问题之入门&amp;概览/';
+            this.page.identifier = '2016/02/21/programPearls_Coding中的编码问题之入门&amp;概览/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/" title="上一篇: Coding中的编码问题之系统学习">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/" title="下一篇: 老顽童STM32开发板系列教程笔记">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">DARPA[Boss]: Motion Planning in Urban Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_GraphMatching/">算法设计与分析[0016] 图匹配问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/Algorithms_Dynamic Programming(V)/">算法设计与分析[0014] Dynamic Programming(V) 一道习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/13/hsw_UbuntuSystemBootSequence/">一张图带你看 Ubuntu(Linux) 系统启动过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/linux_Linux命令小纸条/">Linux命令小纸条</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/tool_vim几步走/">vim几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/10/linux_libpcap 32-bit&64-bit/">libpcap, 32-bit&64-bit</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/OverlappingSounds_Key Word Engineering/">Key Word Engineering</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/07/hexo_Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/01/TACouses_Embedded_System_2016/">Embedded System 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/hexo_博客主题Yelee迁移笔记/">hexo博客主题Yelee迁移笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux下基本文件操作/">Win/Linux下基本文件操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/26/tool_git几步走/">git几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/09/OverlappingSounds_Basketball_Never_Stops/">Basketball Never Stops</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/25/programPearls_Coding中的编码问题之回顾&深入/">Coding中的编码问题之回顾&深入</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/21/programPearls_Coding中的编码问题之入门&概览/">Coding中的编码问题之入门&概览</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/11/movies_漫威电影/">漫威21部系列电影(持续更新)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/tool_NotePad/">NotePad++</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">在hexo new之后立即打开Markdown文稿</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_自定义主题/">hexo自定义主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&Win8.1(both 64-bit),其他仅供参考)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/09/graduatedesign_01 STM32_一-搭建STM32开发环境/">(一) 搭建STM32开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/16/opengl_数媒HW4参考资料/">数媒HW4参考资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/06/考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/hexo_win搭建hexo/">win搭建hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2017 Tarantula-7
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+            
+            
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

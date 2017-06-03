@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Tarantula-7" />
+
+
+
+<meta name="description" content="有时你会觉得hexo自带的主题不太顺眼，换了个主题，又觉得某个地方不太顺眼。有时看到别人hexo上的某个特性，就想到能不能也为自己的hexo添上。能够弄懂整个hexo的架构的前端攻城狮来说，这个肯定不难，但是，我只是想快速实现我的目的，鬼管他架构懂多少。这个时候，其实就是follow，看看有没有弄出来的亲们的笔记，此处就把本人这一过程搜集的或者自己积累的列在这里。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo自定义主题">
+<meta property="og:url" content="http://durant35.github.io/2016/01/26/hexo_自定义主题/index.html">
+<meta property="og:site_name" content="Tarantula-7's Blog">
+<meta property="og:description" content="有时你会觉得hexo自带的主题不太顺眼，换了个主题，又觉得某个地方不太顺眼。有时看到别人hexo上的某个特性，就想到能不能也为自己的hexo添上。能够弄懂整个hexo的架构的前端攻城狮来说，这个肯定不难，但是，我只是想快速实现我的目的，鬼管他架构懂多少。这个时候，其实就是follow，看看有没有弄出来的亲们的笔记，此处就把本人这一过程搜集的或者自己积累的列在这里。">
+<meta property="og:image" content="http://durant35.github.io/img/hexo/more_lichanglin.png">
+<meta property="og:updated_time" content="2016-11-12T10:15:31.971Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo自定义主题">
+<meta name="twitter:description" content="有时你会觉得hexo自带的主题不太顺眼，换了个主题，又觉得某个地方不太顺眼。有时看到别人hexo上的某个特性，就想到能不能也为自己的hexo添上。能够弄懂整个hexo的架构的前端攻城狮来说，这个肯定不难，但是，我只是想快速实现我的目的，鬼管他架构懂多少。这个时候，其实就是follow，看看有没有弄出来的亲们的笔记，此处就把本人这一过程搜集的或者自己积累的列在这里。">
+<meta name="twitter:image" content="http://durant35.github.io/img/hexo/more_lichanglin.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Tarantula-7&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>hexo自定义主题 | Tarantula-7&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+</head>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Tarantula-7</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">My Body Knows It&#39;s Time to Say GoodBye... ---- Dear Basketball</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">Home</a></li>
+                        
+                            <li><a href="/tags">All-tags</a></li>
+                        
+                            <li><a href="/archives">All-lists</a></li>
+                        
+                            <li><a href="/Shengjie">Contact</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                                <a class="fa OSChina" href="https://my.oschina.net/love7zx/" title="OSChina"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMD/">CMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/">CV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DARPA/">DARPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DLL/">DLL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Key-words/">Key-words</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MFC/">MFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NotePad/">NotePad++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCL/">OpenCL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL/">OpenGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB/">PCB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32/">STM32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS2013/">VS2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dumpbin/">dumpbin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ini/">ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pcap/">pcap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件操作/">文件操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漫威电影/">漫威电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码/">编码</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Tarantula-7</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Tarantula-7</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">My Body Knows It&#39;s Time to Say GoodBye... ---- Dear Basketball</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/tags">All-tags</a></li>
+                
+                    <li><a href="/archives">All-lists</a></li>
+                
+                    <li><a href="/Shengjie">Contact</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                                <a class="fa OSChina" target="_blank" href="https://my.oschina.net/love7zx/" title="OSChina"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-hexo_自定义主题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/26/hexo_自定义主题/" class="article-date">
+      <time datetime="2016-01-26T07:23:04.000Z" itemprop="datePublished">2016-01-26</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hexo自定义主题
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>　　有时你会觉得hexo自带的主题不太顺眼，换了个主题，又觉得某个地方不太顺眼。有时看到别人hexo上的某个特性，就想到能不能也为自己的hexo添上。能够弄懂整个hexo的架构的前端攻城狮来说，这个肯定不难，但是，我只是想快速实现我的目的，鬼管他架构懂多少。这个时候，其实就是follow，看看有没有弄出来的亲们的笔记，此处就把本人这一过程搜集的或者自己积累的列在这里。<br><a id="more"></a></p>
+<h2 id="如何获取主题"><a href="#如何获取主题" class="headerlink" title="如何获取主题"></a><font color="#F40D64"><strong>如何获取主题</strong></font></h2><p>　　hexo是开源的，hexo的主题也是开源的！只需要简单的命令<code>git clone</code>即可获取主题，至于主题的仓库在哪，你可以<a href="https://github.com/search?utf8=%E2%9C%93&amp;q=hexo-theme&amp;type=Repositories&amp;ref=searchresults">看这里</a>或者大可自己Github搜索。我就用以下命令获取了一个新的主题<code>light</code>，注意其中的clone保存路径，此处是位于hexo的根目录。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone git:<span class="comment">//github.com/tommy351/hexo-theme-light.git themes/light</span></div></pre></td></tr></table></figure></p>
+<p>　　此外，开源项目更新快是一个显著特点，那我们要更新已经获取的主题要应该怎么做呢？通过以下命令即可：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd themes/主题			#进入主题所在文件夹</div><div class="line">git pull</div></pre></td></tr></table></figure></p>
+<h2 id="Hexo根目录介绍"><a href="#Hexo根目录介绍" class="headerlink" title="Hexo根目录介绍"></a><font color="#F40D64"><strong>Hexo根目录介绍</strong></font></h2><p>　　为什么上述在更新主题的时候需要<code>cd themes/主题</code>，还有我们获取的主题为什么要保存在<code>themes/light</code>，这些都需要对整个Hexo的目录框架有一点认识，这一部分先为大家介绍Hexo的根目录。<a href="http://ibruce.info/2013/11/22/hexo-your-blog/">摘自《hexo你的博客》</a>—— 目录介绍。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── .deploy</div><div class="line">├── node_modules</div><div class="line">├── <span class="keyword">public</span></div><div class="line">├── scaffolds</div><div class="line">├── source</div><div class="line">|   ├── _posts</div><div class="line">|   └── img</div><div class="line">├── themes</div><div class="line">├── _config.yml</div><div class="line">├── db.json</div><div class="line">└── package.json</div></pre></td></tr></table></figure></p>
+<ul>
+<li>.deploy：执行hexo deploy命令部署到GitHub上的内容目录。</li>
+<li>node_modules：通过NPM命令安装的Node模块。</li>
+<li>public：执行hexo generate命令，输出的静态网页内容目录。</li>
+<li>scaffolds：layout模板文件目录，其中的md文件可以添加编辑。<br>　　draft.md：草稿源码文件模板<br>　　page.md：新网页源码文件模板<br>　　post.md：文章源码文件模板</li>
+<li>source：文章源码目录，该目录下的markdown和html文件均会被hexo处理。该页面对应repo的根目录，404文件、favicon.ico文件，CNAME文件等都应该放这里，该目录下可新建页面目录。<br>　　_posts：发布文章<br>　　　xxx.md：一系列源码文件<br>　　img：图片文件夹<br>　　about：新网页源码文件夹</li>
+<li>themes：主题文件目录<br>　　landscape：本人自带主题<br>　　light：获取的新主题</li>
+<li>_config.yml：全局配置文件，大多数的设置都在这里。</li>
+<li>db.json：缓存数据。</li>
+<li>package.json：应用程序数据，指明hexo的版本等信息，类似于一般软件中的关于按钮。</li>
+<li><h2 id="主题目录介绍"><a href="#主题目录介绍" class="headerlink" title="主题目录介绍"></a><font color="#F40D64"><strong>主题目录介绍</strong></font></h2>　　获取到主题后，将保存在<code>根目录/themes/获取主题</code>，下面是对该主题目录的相关介绍。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── layout             #布局，根目录下的*.ejs文件是对主页，分页，存档等的控制</div><div class="line">|   ├── _partial       #局部的布局，此目录下的*.ejs是对头尾等局部的控制</div><div class="line">|   └── _widget        #小挂件的布局，页面侧边栏的控制</div><div class="line">|   └── *.ejs</div><div class="line">├── source             #源码</div><div class="line">|   ├── css            <span class="meta">#css源码</span></div><div class="line">|   |   ├── _partial   #*.styl局部css </div><div class="line">|   |   ├── _util      #*.styl基础css</div><div class="line">|   |   ├── fonts      #字体</div><div class="line">|   |   ├── images     #图片，banner.jpg是header的背景图</div><div class="line">|   |   |   ├── banner.jpg</div><div class="line">|   |   └── style.styl #*.styl引入需要的css源码</div><div class="line">|   ├── fancybox       <span class="meta">#fancybox效果源码</span></div><div class="line">|   └── js             <span class="meta">#javascript源代码</span></div><div class="line">├── _config.yml        #主题配置文件</div><div class="line">└── README.md          #用GitHub的都知道</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="主题配置文件-config-yml扫盲"><a href="#主题配置文件-config-yml扫盲" class="headerlink" title="主题配置文件_config.yml扫盲"></a><font color="#F40D64"><strong>主题配置文件_config.yml扫盲</strong></font></h2><p>　　要想达到某个主题的效果，还需要对主题配置文件进行修改，下面是结合自身修改做的一些注释。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"># Header</div><div class="line">menu: 				#站点右上角导航栏，按照格式添加，右侧为<span class="keyword">public</span>文件夹下的路径，索引至index.html</div><div class="line">        #从上至下依次显示在右上角从左至右处</div><div class="line">  Home: /</div><div class="line">  All-lists: /archives</div><div class="line">  Resume: /Shengjie</div><div class="line">  About: /about</div><div class="line"> </div><div class="line"># Sidebar</div><div class="line">sidebar: left		<span class="meta">#right将侧边栏置于右侧</span></div><div class="line">widgets: 			#站点右边栏</div><div class="line">#- search 			# 搜索</div><div class="line">- category 			# 分类</div><div class="line">- tag 				# 标签</div><div class="line">##- archive			# 归档</div><div class="line">- blogroll 			# 友情链接</div><div class="line">- weibo 			# 微博秀</div><div class="line">- recent_posts			# 最新文章</div><div class="line"> </div><div class="line"># Content</div><div class="line"># 阅读全文按钮显示内容</div><div class="line">excerpt_link: Read More... </div><div class="line"># excerpt_link: 阅读全文	#替换为中文</div><div class="line">fancybox: <span class="literal">true</span> #图片效果，默认</div><div class="line"> </div><div class="line">favicon: /favicon.png		#网站的标志</div><div class="line"> </div><div class="line"># Miscellaneous</div><div class="line">duoshuo_shortname: Durant35	#用于加入多说评论的参数</div><div class="line">##</div><div class="line"><span class="meta">#twitter: #右边栏要显示twitter展示的话，需要在此设置</span></div><div class="line"><span class="meta">#  username:</span></div><div class="line">#  show_replies: <span class="literal">false</span></div><div class="line">#  tweet_count: <span class="number">5</span></div><div class="line"> </div><div class="line"><span class="meta">#addthis: #SNS分享，身在天朝，当然用“百度分享”，暂时默认，后面会介绍</span></div><div class="line"><span class="meta">#  enable: true</span></div><div class="line"><span class="meta">#  pubid:</span></div><div class="line"><span class="meta">#  facebook: true</span></div><div class="line"><span class="meta">#  twitter: true</span></div><div class="line"><span class="meta">#  google: true</span></div><div class="line"><span class="meta">#  pinterest: true</span></div><div class="line"> </div><div class="line">google_analytics: #要使用google_analytics进行统计的话，这里需要配置ID，暂时默认</div><div class="line">tongji: <span class="literal">true</span></div><div class="line">baidu_tongji: <span class="literal">true</span></div><div class="line"> </div><div class="line">#comment_provider: facebook</div><div class="line"># Facebook comment</div><div class="line"><span class="meta">#facebook:</span></div><div class="line"><span class="meta">#  appid: 123456789012345</span></div><div class="line">#  comment_count: <span class="number">5</span></div><div class="line">#  comment_width: <span class="number">840</span></div><div class="line">#  comment_colorscheme: light</div></pre></td></tr></table></figure></p>
+<p>　　<strong>Miscellaneous</strong>以下的参数其实都是一些自定义的键值对，或者说跟主题本身并无关系。此外，主题配置文件<strong>_config.yml</strong>中的参数都会在<code>/themes/主题</code>目录下<code>layout</code>文件夹中的<code>.ejs</code>文件中引用，方式是<code>theme.key</code>。<code>config.key</code>则是引用根目录下的<strong>_config.yml</strong>配置文件中的参数。</p>
+<h2 id="添加微博秀"><a href="#添加微博秀" class="headerlink" title="添加微博秀"></a><font color="#F40D64"><strong>添加微博秀</strong></font></h2><p>　　在上述的<strong>_config.yml</strong>主题配置文件中，启用了<code>weibo</code>微博秀这一侧边栏，但是原始的主题并没有包含这一特性，即<code>layout/_widget</code>下没有相应的<code>.ejs</code>文件。此处也许你也看出了个中奥妙，即主题配置文件中的参数索引至相应的<code>.ejs</code>文件。我们想要启用微博秀，需要在<code>layout/_widget</code>下创建相应的<code>.ejs</code>文件，新建txt文件，命名为<code>weibo.ejs</code>即可。那内容是什么，空肯定不行吧！此处需要获取<strong>微博第三方代码</strong>。进入<a href="http://open.weibo.com/widgets?cat=wb">微博组件平台</a>，登陆后点击<strong>微博秀</strong>，进行一些基础设置和样式设置，即可复制代码粘贴进<code>weibo.ejs</code>。</p>
+<h2 id="添加百度分享"><a href="#添加百度分享" class="headerlink" title="添加百度分享"></a><font color="#F40D64"><strong>添加百度分享</strong></font></h2><p>　　要在每篇文章结尾处添加百度分享按钮，需要修改<code>你的主题/layout/_partial/article.ejs</code>。找到<strong>footer</strong>标签，如下进行相应的修改<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">&lt;footer class="article-footer"&gt;</div><div class="line">  &lt;!-- Share按钮，注释掉，不显示Share按钮</div><div class="line">    landscape代码:</div><div class="line">    &lt;a data-url="&lt;%- post.permalink %&gt;" data-id="&lt;%= post._id %&gt;" class="article-share-link"&gt;Share&lt;/a&gt;</div><div class="line">    landscape-plus代码:</div><div class="line">    &lt;% if (config.baidushare || theme.baidushare)&#123; %&gt;</div><div class="line">      &lt;a data-url="&lt;%- post.permalink %&gt;" data-id="&lt;%= post._id %&gt;" class="article-share-link" data-share="baidu"&gt;&lt;%= __('share') %&gt;&lt;/a&gt;</div><div class="line">    &lt;% &#125; else &#123; %&gt;</div><div class="line">      &lt;a data-url="&lt;%- post.permalink %&gt;" data-id="&lt;%= post._id %&gt;" class="article-share-link"&gt;&lt;%= __('share') %&gt;&lt;/a&gt;</div><div class="line">    &lt;% &#125; %&gt;</div><div class="line">  --&gt;</div><div class="line"> </div><div class="line">  &lt;!-- Comment按钮，注释掉，不显示Comment按钮</div><div class="line">    landscape代码:</div><div class="line">    &lt;% if (post.comments &amp;&amp; config.disqus_shortname)&#123; %&gt;</div><div class="line">      &lt;a href="&lt;%- post.permalink %&gt;#disqus_thread" class="article-comment-link"&gt;Comments&lt;/a&gt;</div><div class="line">    &lt;% &#125; %&gt;</div><div class="line">    landscape-plus代码:</div><div class="line">    &lt;% if (post.comments &amp;&amp; (config.duoshuo_shortname || theme.duoshuo_shortname))&#123; %&gt;</div><div class="line">      &lt;a href="&lt;%- post.permalink %&gt;#ds-thread" class="article-comment-link"&gt;&lt;%= __('comments') %&gt;&lt;/a&gt;</div><div class="line">    &lt;% &#125; else if (post.comments &amp;&amp; config.disqus_shortname)&#123; %&gt;</div><div class="line">      &lt;a href="&lt;%- post.permalink %&gt;#disqus_thread" class="article-comment-link"&gt;&lt;%= __('comments') %&gt;&lt;/a&gt;</div><div class="line">    &lt;% &#125; %&gt;</div><div class="line">--&gt;</div><div class="line"> </div><div class="line">  &lt;!-- 百度分享 --&gt;</div><div class="line">  &lt;div class="bdsharebuttonbox"&gt;</div><div class="line">  &lt;a href="#" class="bds_more" data-cmd="more"&gt;&lt;/a&gt;</div><div class="line">  &lt;a href="#" class="bds_qzone" data-cmd="qzone"&gt;&lt;/a&gt;</div><div class="line">  &lt;a href="#" class="bds_tsina" data-cmd="tsina"&gt;&lt;/a&gt;</div><div class="line">  &lt;a href="#" class="bds_tqq" data-cmd="tqq"&gt;&lt;/a&gt;</div><div class="line">  &lt;a href="#" class="bds_renren" data-cmd="renren"&gt;&lt;/a&gt;</div><div class="line">  &lt;a href="#" class="bds_weixin" data-cmd="weixin"&gt;&lt;/a&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">  &lt;script&gt;</div><div class="line">    window._bd_share_config=&#123;"common":&#123;"bdSnsKey":&#123;&#125;,"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"&#125;,"share":&#123;&#125;,"image":&#123;"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"&#125;,"selectShare":&#123;"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]&#125;&#125;;with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</div><div class="line">  &lt;/script&gt; </div><div class="line">  &lt;%- partial('post/tag') %&gt;</div><div class="line">&lt;/footer&gt;</div></pre></td></tr></table></figure></p>
+<p>　　你可以参考上述的<strong>百度分享代码</strong>，也可以自己从<a href="http://share.baidu.com/code">百度分享</a>获取代码。此外，建议将上述<strong>百度分享代码</strong>独立放置在单独的<code>.ejs</code>文件中，即在<code>layout/_partial/post</code>目录下新建<code>baidushare.ejs</code>文件，粘贴<strong>百度分享代码</strong>，然后在上述文件中通过以下方式引用：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;footer class="article-footer"&gt;</div><div class="line">  &lt;%- partial('post/baidushare') %&gt;</div><div class="line">  &lt;%- partial('post/tag') %&gt;</div><div class="line">&lt;/footer&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="加入多说评论"><a href="#加入多说评论" class="headerlink" title="加入多说评论"></a><font color="#F40D64"><strong>加入多说评论</strong></font></h2><p>　　摘自<strong>多说官网</strong>的<a href="http://dev.duoshuo.com/threads/541d3b2b40b5abcd2e4df0e9">《Hexo使用多说教程》</a>。首先登陆<a href="http://duoshuo.com/">多说</a>进行相关配置。其次，在根目录下的全局配置文件<strong>_config.yml</strong>中添加参数<strong>duoshuo_shortname</strong>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># Extensions 插件</div><div class="line">## Plugins: http:<span class="comment">//hexo.io/plugins/</span></div><div class="line">## Themes: http:<span class="comment">//hexo.io/themes/</span></div><div class="line">#<span class="meta">#theme: light</span></div><div class="line">theme: tarantula7					# 自定义主题，from landscape</div><div class="line">duoshuo_shortname: 你站点的short_name			# 用于加入多说评论的参数</div><div class="line">baidushare: <span class="literal">true</span></div></pre></td></tr></table></figure></p>
+<p>　　<code>你的主题/layout/_partial/article.ejs</code>文件，将原先的<strong>Disqus评论</strong>，即<code>&lt;% if (!index &amp;&amp; post.comments &amp;&amp; config.disqus_shortname){ %&gt;</code>部分代码替换为<strong>多说评论</strong>：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;% if (!index &amp;&amp; post.comments &amp;&amp; config.duoshuo_shortname)&#123; %&gt;</div><div class="line">  &lt;section id="comments"&gt;</div><div class="line">    &lt;!-- 多说评论框 start --&gt;</div><div class="line">    &lt;div class="ds-thread" data-thread-key="&lt;%= post.layout %&gt;-&lt;%= post.slug %&gt;" data-title="&lt;%= post.title %&gt;" data-url="&lt;%= page.permalink %&gt;"&gt;&lt;/div&gt;</div><div class="line">    &lt;!-- 多说评论框 end --&gt;</div><div class="line">    &lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&gt;</div><div class="line">    &lt;script type="text/javascript"&gt;</div><div class="line">    var duoshuoQuery = &#123;short_name:'&lt;%= config.duoshuo_shortname %&gt;'&#125;;</div><div class="line">      (function() &#123;</div><div class="line">        var ds = document.createElement('script');</div><div class="line">        ds.type = 'text/javascript';ds.async = true;</div><div class="line">        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';</div><div class="line">        ds.charset = 'UTF-8';</div><div class="line">        (document.getElementsByTagName('head')[0] </div><div class="line">         || document.getElementsByTagName('body')[0]).appendChild(ds);</div><div class="line">      &#125;)();</div><div class="line">      &lt;/script&gt;</div><div class="line">    &lt;!-- 多说公共JS代码 end --&gt;</div><div class="line">  &lt;/section&gt;</div><div class="line">&lt;% &#125; %&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="修改归档页面的时间格式"><a href="#修改归档页面的时间格式" class="headerlink" title="修改归档页面的时间格式"></a><font color="#F40D64"><strong>修改归档页面的时间格式</strong></font></h2><p>　　摘自<strong>石佳劼的博客</strong><a href="http://blog.csdn.net/shi0090/article/details/48087353">《Hexo 官方主题 landscape-plus 优化》</a>。</p>
+<h2 id="添加文章目录"><a href="#添加文章目录" class="headerlink" title="添加文章目录"></a><font color="#F40D64"><strong>添加文章目录</strong></font></h2><p>　　转自<strong>The Bloom of Youth</strong>的<a href="http://kuangqi.me/tricks/enable-table-of-contents-on-hexo/">《为Hexo博客添加目录》</a>，两步走。第一步，修改<code>你的主题/layout/_partial/article.ejs</code>如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;div <span class="keyword">class</span>=<span class="string">"article-entry"</span> itemprop=<span class="string">"articleBody"</span>&gt;</div><div class="line">  &lt;% <span class="keyword">if</span> (post.excerpt &amp;&amp; index)&#123; %&gt;</div><div class="line">    &lt;%- post.excerpt %&gt;</div><div class="line">    &lt;% <span class="keyword">if</span> (theme.excerpt_link)&#123; %&gt;</div><div class="line">      &lt;p <span class="keyword">class</span>=<span class="string">"article-more-link"</span>&gt;</div><div class="line">      &lt;a href=<span class="string">"&lt;%- url_for(post.path) %&gt;#more"</span>&gt;&lt;%= theme.excerpt_link %&gt;&lt;/a&gt;</div><div class="line">     &lt;/p&gt;</div><div class="line">   &lt;% &#125; %&gt;</div><div class="line">  &lt;% &#125; <span class="keyword">else</span> &#123; %&gt;</div><div class="line">    &lt;!-- Table of Contents --&gt;</div><div class="line">    &lt;% <span class="keyword">if</span> (!index &amp;&amp; post.toc)&#123; %&gt;</div><div class="line">      &lt;div id=<span class="string">"toc"</span> <span class="keyword">class</span>=<span class="string">"toc-article"</span>&gt;</div><div class="line">      &lt;strong <span class="keyword">class</span>=<span class="string">"toc-title"</span>&gt;文章目录&lt;/strong&gt;</div><div class="line">      &lt;%- toc(post.content) %&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    &lt;% &#125; %&gt;</div><div class="line"> </div><div class="line">    &lt;%- post.content %&gt;</div><div class="line">  &lt;% &#125; %&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>　　在<strong>article-entry</strong>块中，<code>else</code>部分<code>&lt;%- post.content %&gt;</code>前加上<code>&lt;!-- Table of Contents --&gt;</code>部分代码，代码核心其实是<strong>toc()</strong>函数，该函数Hexo博客系统的核心是支持的。<code>post.toc</code>参数需要在每篇文章源代码文件<code>.md</code>开头加以配置，诸如<strong>categories</strong>、<strong>tags</strong>。第二部，需要定义相应的<strong>CSS样式</strong>。在<code>你的主题/source/css/_partial/article.styl</code>文件结尾处添加：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 文章目录CSS样式 */</span></div><div class="line"><span class="selector-class">.toc-article</span></div><div class="line">  <span class="selector-tag">background</span> <span class="selector-id">#eee</span></div><div class="line">  <span class="selector-tag">border</span> 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#bbb</span></div><div class="line">  <span class="selector-tag">border-radius</span> 10<span class="selector-tag">px</span></div><div class="line">  <span class="selector-tag">margin</span> 1<span class="selector-class">.5em</span> 0 0<span class="selector-class">.3em</span> 1<span class="selector-class">.5em</span></div><div class="line">  <span class="selector-tag">padding</span> 1<span class="selector-class">.2em</span> 1<span class="selector-tag">em</span> 0 1<span class="selector-tag">em</span></div><div class="line">  <span class="selector-tag">max-width</span> 28%</div><div class="line"> </div><div class="line"><span class="selector-class">.toc-title</span></div><div class="line">  <span class="selector-tag">font-size</span> 120%</div><div class="line"> </div><div class="line"><span class="selector-id">#toc</span></div><div class="line">  <span class="selector-tag">line-height</span> 1<span class="selector-tag">em</span></div><div class="line">  <span class="selector-tag">font-size</span> 0<span class="selector-class">.9em</span></div><div class="line">  <span class="selector-tag">float</span> <span class="selector-tag">right</span></div><div class="line">  <span class="selector-class">.toc</span></div><div class="line">    <span class="selector-tag">padding</span> 0</div><div class="line">    <span class="selector-tag">margin</span> 1<span class="selector-tag">em</span></div><div class="line">    <span class="selector-tag">line-height</span> 1<span class="selector-class">.8em</span></div><div class="line">    <span class="selector-tag">li</span></div><div class="line">      <span class="selector-tag">list-style-type</span> <span class="selector-tag">none</span></div><div class="line"> </div><div class="line">  <span class="selector-class">.toc-child</span> </div><div class="line">    <span class="selector-tag">margin-left</span> 1<span class="selector-tag">em</span></div></pre></td></tr></table></figure></p>
+<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a><font color="#F40D64"><strong>更多</strong></font></h2><p>　　摘自<a href="http://www.lichanglin.cn/categories/hexo/">奋进的大头</a>。<br>    <center><img src="/img/hexo/more_lichanglin.png" width="800px"/></center></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/01/26/hexo_自定义主题/">hexo自定义主题</a></p>
+
+        <!-- 
+        <p><span>文章作者:</span><a href="/" title="回到主页">Tarantula-7</a></p>
+        -->
+        <p><span>文章作者:</span>Gary</p>
+
+        <p><span>发布时间:</span>2016-01-26, 15:23:04</p>
+        <p><span>最后更新:</span>2016-11-12, 18:15:31</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/01/26/hexo_自定义主题/" title="hexo自定义主题">http://durant35.github.io/2016/01/26/hexo_自定义主题/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2016/01/26/hexo_自定义主题/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+
+        <!-- not to show license information
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+        -->
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">
+                    在hexo new之后立即打开Markdown文稿
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/01/26/hexo_添加about导航栏/">
+                    hexo添加about导航栏
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何获取主题"><span class="toc-number">1.</span> <span class="toc-text">如何获取主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo根目录介绍"><span class="toc-number">2.</span> <span class="toc-text">Hexo根目录介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#主题目录介绍"><span class="toc-number">3.</span> <span class="toc-text">主题目录介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#主题配置文件-config-yml扫盲"><span class="toc-number">4.</span> <span class="toc-text">主题配置文件_config.yml扫盲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加微博秀"><span class="toc-number">5.</span> <span class="toc-text">添加微博秀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加百度分享"><span class="toc-number">6.</span> <span class="toc-text">添加百度分享</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#加入多说评论"><span class="toc-number">7.</span> <span class="toc-text">加入多说评论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改归档页面的时间格式"><span class="toc-number">8.</span> <span class="toc-text">修改归档页面的时间格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加文章目录"><span class="toc-number">9.</span> <span class="toc-text">添加文章目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更多"><span class="toc-number">10.</span> <span class="toc-text">更多</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+        <!--
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+        -->
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+        <!--
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+        -->
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"hexo自定义主题　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/2016/01/26/hexo_自定义主题/';
+            this.page.identifier = '2016/01/26/hexo_自定义主题/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/" title="上一篇: 在hexo new之后立即打开Markdown文稿">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/01/26/hexo_添加about导航栏/" title="下一篇: hexo添加about导航栏">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">DARPA[Boss]: Motion Planning in Urban Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_GraphMatching/">算法设计与分析[0016] 图匹配问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/Algorithms_Dynamic Programming(V)/">算法设计与分析[0014] Dynamic Programming(V) 一道习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/13/hsw_UbuntuSystemBootSequence/">一张图带你看 Ubuntu(Linux) 系统启动过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/linux_Linux命令小纸条/">Linux命令小纸条</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/tool_vim几步走/">vim几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/10/linux_libpcap 32-bit&64-bit/">libpcap, 32-bit&64-bit</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/OverlappingSounds_Key Word Engineering/">Key Word Engineering</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/07/hexo_Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/01/TACouses_Embedded_System_2016/">Embedded System 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/hexo_博客主题Yelee迁移笔记/">hexo博客主题Yelee迁移笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux下基本文件操作/">Win/Linux下基本文件操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/26/tool_git几步走/">git几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/09/OverlappingSounds_Basketball_Never_Stops/">Basketball Never Stops</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/25/programPearls_Coding中的编码问题之回顾&深入/">Coding中的编码问题之回顾&深入</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/21/programPearls_Coding中的编码问题之入门&概览/">Coding中的编码问题之入门&概览</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/11/movies_漫威电影/">漫威21部系列电影(持续更新)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/tool_NotePad/">NotePad++</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">在hexo new之后立即打开Markdown文稿</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_自定义主题/">hexo自定义主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&Win8.1(both 64-bit),其他仅供参考)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/09/graduatedesign_01 STM32_一-搭建STM32开发环境/">(一) 搭建STM32开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/16/opengl_数媒HW4参考资料/">数媒HW4参考资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/06/考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/hexo_win搭建hexo/">win搭建hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2017 Tarantula-7
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+            
+            
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

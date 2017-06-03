@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Tarantula-7" />
+
+
+
+<meta name="description" content="[系列文章]上一篇：《Coding中的编码问题之系统学习》[系列文章]下一篇：《这是最后一篇》
+
+　　到这里，相信你已经完整看完《Coding中的编码问题之入门&amp;amp;概览》和《Coding中的编码问题之系统学习》，对字符编码已经有一个清晰的点到面的理解了，本文作为整个系列文章的完结篇，一来对之前所有内容进行一个回顾与总结，加深印象，扩宽理解；二来对没提及的剩下不多的几个细节进行补充说明，希望能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Coding中的编码问题之回顾&深入">
+<meta property="og:url" content="http://durant35.github.io/2016/02/25/programPearls_Coding中的编码问题之回顾&深入/index.html">
+<meta property="og:site_name" content="Tarantula-7's Blog">
+<meta property="og:description" content="[系列文章]上一篇：《Coding中的编码问题之系统学习》[系列文章]下一篇：《这是最后一篇》
+
+　　到这里，相信你已经完整看完《Coding中的编码问题之入门&amp;amp;概览》和《Coding中的编码问题之系统学习》，对字符编码已经有一个清晰的点到面的理解了，本文作为整个系列文章的完结篇，一来对之前所有内容进行一个回顾与总结，加深印象，扩宽理解；二来对没提及的剩下不多的几个细节进行补充说明，希望能">
+<meta property="og:updated_time" content="2016-11-12T14:14:16.211Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Coding中的编码问题之回顾&深入">
+<meta name="twitter:description" content="[系列文章]上一篇：《Coding中的编码问题之系统学习》[系列文章]下一篇：《这是最后一篇》
+
+　　到这里，相信你已经完整看完《Coding中的编码问题之入门&amp;amp;概览》和《Coding中的编码问题之系统学习》，对字符编码已经有一个清晰的点到面的理解了，本文作为整个系列文章的完结篇，一来对之前所有内容进行一个回顾与总结，加深印象，扩宽理解；二来对没提及的剩下不多的几个细节进行补充说明，希望能">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Tarantula-7&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Coding中的编码问题之回顾&amp;深入 | Tarantula-7&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+</head>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Tarantula-7</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">My Body Knows It&#39;s Time to Say GoodBye... ---- Dear Basketball</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">Home</a></li>
+                        
+                            <li><a href="/tags">All-tags</a></li>
+                        
+                            <li><a href="/archives">All-lists</a></li>
+                        
+                            <li><a href="/Shengjie">Contact</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                                <a class="fa OSChina" href="https://my.oschina.net/love7zx/" title="OSChina"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMD/">CMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/">CV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DARPA/">DARPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DLL/">DLL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Key-words/">Key-words</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MFC/">MFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NotePad/">NotePad++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCL/">OpenCL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL/">OpenGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB/">PCB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32/">STM32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS2013/">VS2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dumpbin/">dumpbin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ini/">ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pcap/">pcap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件操作/">文件操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漫威电影/">漫威电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码/">编码</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Tarantula-7</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Tarantula-7</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">My Body Knows It&#39;s Time to Say GoodBye... ---- Dear Basketball</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/tags">All-tags</a></li>
+                
+                    <li><a href="/archives">All-lists</a></li>
+                
+                    <li><a href="/Shengjie">Contact</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                                <a class="fa OSChina" target="_blank" href="https://my.oschina.net/love7zx/" title="OSChina"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-programPearls_Coding中的编码问题之回顾&amp;深入" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/25/programPearls_Coding中的编码问题之回顾&深入/" class="article-date">
+      <time datetime="2016-02-25T04:11:03.000Z" itemprop="datePublished">2016-02-25</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Coding中的编码问题之回顾&amp;深入
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/编码/">编码</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编码/">编码</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/22/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/#more">《Coding中的编码问题之系统学习》</a><br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/25/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%9B%9E%E9%A1%BE&amp;%E6%B7%B1%E5%85%A5/#more">《这是最后一篇》</a></font>
+
+<p>　　到这里，相信你已经完整看完<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a>和<a href="http://durant35.github.io/2016/02/22/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/#more">《Coding中的编码问题之系统学习》</a>，对字符编码已经有一个清晰的点到面的理解了，本文作为整个系列文章的完结篇，一来对之前所有内容进行一个回顾与总结，加深印象，扩宽理解；二来对没提及的剩下不多的几个细节进行补充说明，希望能在你的脑海里建立较为清晰的知识网络。非常希望你也能在阅读后有自己的理解，然后整理在你的笔记或博客中；也希望日后当某个知识点模糊不清时，还能帮到你、我。<br><a id="more"></a></p>
+<h2 id="字符编码笔记：-ASCII，Unicode-和-UTF-8"><a href="#字符编码笔记：-ASCII，Unicode-和-UTF-8" class="headerlink" title="字符编码笔记： ASCII，Unicode 和 UTF-8"></a><font color="#F40D64">字符编码笔记： ASCII，Unicode 和 UTF-8</font></h2><p>　　一开始，我们借 <strong>阮大神</strong> 的网络日志作一个回顾，<strong>阮大神</strong> 的介绍讲的非常通熟易懂，是学习的好文章，也是本人抒写博客的楷模，建议大家阅读原文。下面是阅读笔记，<font color="red">[红色部分]</font> 为注解笔记。<br>　　原文地址：<a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html">http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html</a><br>　　<br>　我们知道，在计算机内部，所有的信息最终都表示为一个二进制的字符串。每一个二进制位 <strong>（bit）</strong> 有 0 和 1 两种状态，因此八个二进制位就可以组合出 256 种状态，这被称为一个字节 <strong>（byte）</strong>。也就是说，一个字节一共可以用来表示 256 种不同的状态，每一个状态对应一个符号，就是 256 个符号，从 <code>0000000</code> 到 <code>11111111</code>。<br>　<span style="color:red">非常通熟易懂，讲述了字节与编码的关系，也就是我们前面一直说的，字符到最终，都是 <strong>“0101…”</strong>，而如何从字符演变过来，就是上面那一套套字符编码体系。<br></span><br>　世界上存在着多种编码方式，同一个二进制数字可以被解释成不同的符号。因此，要想打开一个文本文件，就必须知道它的编码方式，否则用错误的编码方式解读，就会出现乱码。<br>　<span style="color:red">这便是乱码机制。<br></span><br>　 <font color="blue"><strong>Unicode</strong> 只是一个符号集，它只规定了符号的二进制代码，却没有规定这个二进制代码应该如何存储。</font> 有两个严重的问题，<br>　　第一个问题是，如何才能区别 <strong>Unicode</strong> 和 <strong>ASCII</strong>？计算机怎么知道三个字节表示一个符号，而不是分别表示三个符号呢？<br>　　第二个问题是，我们已经知道，英文字母只用一个字节表示就够了，如果 <strong>Unicode</strong> 统一规定，每个符号用三个或四个字节表示，那么每个英文字母前都必然有二到三个字节是 0，这对于存储来说是极大的浪费，文本文件的大小会因此大出二三倍，这是无法接受的。<br>　它们造成的结果是：<br>　　1）出现了 <strong>Unicode</strong> 的多种存储方式，也就是说有许多种不同的二进制格式，可以用来表示 <strong>Unicode</strong>。<br>　　2）<strong>Unicode</strong> 在很长一段时间内无法推广，直到互联网的出现。<br>　<span style="color:red">这就是前面一直说的 <strong>Unicode</strong> 只是字符集，不是编码，编码是涉及具体的存储形式的；<strong>Unicode</strong> 有多种编码方式： <strong>UTF-8</strong>、<strong>UTF-16</strong>、<strong>UTF-32</strong>。这三种编码均在这上面两个问题中进行不同的折中，比如： <strong>UTF-8</strong> 就是唯一兼容 <strong>ASCII</strong> 的，不过，他存储汉字可需要三个字节，有点小浪费。<br></span><br>　<font color="blue"><strong>UTF-8</strong> 是 <strong>Unicode</strong> 的实现方式之一</font>。<br>　<strong>UTF-8</strong> 的 <font color="blue">编码规则很简单，只有二条：<br>　　1）对于单字节的符号，字节的第一位设为 0，后面 7 位为这个符号的 <strong>Unicode 码</strong>。故对于英语字母，<strong>UTF-8</strong> 编码和 <strong>ASCII</strong> 码是相同的。<br>　　2）对于 n 字节的符号（n&gt;1），第一个字节的前 n 位都设为 1，第 n+1 位设为 <code>0</code>，后面字节的前两位一律设为<code>10</code>。剩下的没有提及的二进制位，全部为这个符号的<strong>Unicode 码</strong></font>。<br>　下表总结了编码规则，字母 x 表示可用编码的位。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">　　　Unicode符号范围 | UTF<span class="number">-8</span>编码方式</div><div class="line">　　　　　　(十六进制) | （二进制）</div><div class="line">--------------------+---------------------------------------------</div><div class="line"><span class="number">0000</span> <span class="number">0000</span><span class="number">-0000</span> <span class="number">007F</span> | <span class="number">0</span>xxxxxxx</div><div class="line"><span class="number">0000</span> <span class="number">0080</span><span class="number">-0000</span> <span class="number">07F</span>F | <span class="number">110</span>xxxxx <span class="number">10</span>xxxxxx</div><div class="line"><span class="number">0000</span> <span class="number">0800</span><span class="number">-0000</span> FFFF | <span class="number">1110</span>xxxx <span class="number">10</span>xxxxxx <span class="number">10</span>xxxxxx</div><div class="line"><span class="number">0001</span> <span class="number">0000</span><span class="number">-0010</span> FFFF | <span class="number">11110</span>xxx <span class="number">10</span>xxxxxx <span class="number">10</span>xxxxxx <span class="number">10</span>xxxxxx</div></pre></td></tr></table></figure></p>
+<p>　根据上表，<font color="blue">解读 <strong>UTF-8 编码</strong> 非常简单。如果一个字节的第一位是 0，则这个字节单独就是一个字符；如果第一位是 1，则连续有多少个 1，就表示当前字符占用多少个字节</font>。<br>　<span style="color:red">回顾一下 <strong>UTF-8</strong> 的编码方案，再看一遍，还是觉得巧妙！<br></span><br>　这两个古怪的名称来自英国作家斯威夫特的《格列佛游记》。在该书中，小人国里爆发了内战，战争起因是人们争论，吃鸡蛋时究竟是从大头 <strong>(Big-Endian)</strong> 敲开还是从小头 <strong>(Little-Endian)</strong> 敲开。为了这件事情，前后爆发了六次战争，一个皇帝送了命，另一个皇帝丢了王位。<br>　<strong>UCS-2 编码</strong> 方式，即直接用两个字节存入字符的 <strong>Unicode 码</strong>。第一个字节在前，就是 <strong>“大头方式”（Big endian）</strong>，第二个字节在前就是 <strong>“小头方式”（Little endian）</strong><br>　如果一个文本文件的头两个字节是 <code>FE FF</code>，就表示该文件采用大头方式；如果头两个字节是 <code>FF FE</code>，就表示该文件采用小头方式。<strong>Unicode 规范</strong> 中定义，每一个文件的最前面分别加入一个表示编码顺序的字符，这个字符的名字叫做 <strong>“零宽度非换行空格”（ZERO WIDTH NO-BREAK SPACE）</strong>，用 <code>FEFF</code> 表示。这正好是两个字节，而且 FF 比 FE 大1。<br><span style="color:red">　<strong>UCS-2</strong> 好像是一种有别于 <strong>Unicode</strong> 的字符集；<br>　还有这个 <strong>BOM</strong> 被说得有点乱，不过这个这么有趣的故事，我必须贴在这里。大小头我们可以引申为高(大)低(小)字节，所以大端就是高字节在前，小端就是低字节在前；至于 <strong>BOM</strong>，其实是一个字符 <strong>“零宽度非换行空格”（ZERO WIDTH NO-BREAK SPACE）</strong>，不过类似 <strong>\0</strong> 是不可打印字符，但是字符就有对应的码点，这个字符对应的 <strong>Unicode</strong> 码点就是 <code>U+FEFF</code>，所以 “一个文本文件的头两个字节是 <code>FE FF</code>，就表示该文件采用大头方式”，反过来采用小端的话，低字节在前，就变成 <code>FF FE</code> 了。<br></span><br>　这篇网志中有两个地方需要补充一下，我忘了在原文中提到。<br>　　1. 国际标准化组织通过了一套 <strong>ISO-8859-1</strong> 的编码，规定了单字节 256 个符号的编码方式。目前，这是 8 位编码的国际标准。<br>　　2. <strong>Unicode 编码</strong> 中表示字节排列顺序的那个文件头，叫做 <strong>BOM（byte-order mark）</strong>，<code>FFFE</code> 和 <code>FEFF</code> 就是不同的 <strong>BOM</strong>。<strong>UTF-8</strong> 文件的 <strong>BOM</strong> 是 <strong>“EF BB BF”</strong>，但是 <strong>UTF-8</strong> 的字节顺序是不变的，因此这个文件头实际上不起作用。有一些编程语言是 <strong>ISO-8859-1 编码</strong>，所以如果用 <strong>UTF-8</strong> 针对这些语言编程序，就必须去掉 <strong>BOM</strong>，即保存成 <strong>“UTF-8—无 BOM”</strong> 的格式才可以，<strong>PHP</strong> 语言就是这样。<br>　<span style="color:red">这部分是我从该文章非常密集(很受欢迎的，这篇文章，热度可见一斑)的评论中找的。<br>　这个 <strong>ISO-8859-1</strong> 标准其实就是常说的，我们前面也提到的 <strong>Latin-1</strong> 编码；<br>　至于 <strong>UTF-8</strong> 的 <strong>BOM</strong>，前面已经说过，人家没有大小端，统一大端，只有 <strong>带不带 BOM</strong> 的区别，而且常常有些时候是不要带 <strong>BOM</strong> 的，官方也推荐不带 <strong>BOM</strong>，为啥？兼容我们伟大的 <strong>ASCII</strong> 嘛。这就是为什么我们之前在 <strong>Qt</strong> 遇到乱码时，有个解决方案是因为 <strong>UTF-8</strong> 带了 <strong>BOM</strong>，所以阉割了，带 <strong>BOM</strong> 人家反而不认识了。可是偏偏 <strong>Windows</strong> 的 <strong>UTF-8</strong> 偏偏要带 <strong>BOM</strong>，哎… <strong>Linux</strong> 的默认编码好像就是 <strong>UTF-8—无 BOM</strong>，这就是差距，为什么，相信你可以合理的分析了。<br></span><br>　UTF-8 文件的 BOM <strong>“EF BB BF”</strong>，它实际上就是 <code>FE FF</code> 用 <strong>UTF-8 编码</strong> 而得到的<br>　文中的 <strong>big endian</strong> 和 <strong>little endian</strong>，翻译成“大尾”和“小尾”是不是更恰当？理由如下：<br>　<code>FEFF</code>： FF 比 FE 大且 FF 在后面，显示就是 “大尾”<br>　<span style="color:red">同样来自评论区。<br>　这个是上面的补充吧，我们之前也说了。至于 <strong>big endian</strong>、<strong>little endian</strong> 你这样理解也行，不过，我现在倒觉得上面那种 <strong>“大小端~高低字节”</strong> 理解能记得更多知识点，也不乱。<br></span><br>　UTF-8 的表示算法： <font color="blue">既然第一个字节的 “1” 的数量就表示了整个当前字符的字节数，为什么后续字节还需要 “10” 作为前缀，这不是白白浪费了每个字节中的两个位吗</font>？<br>　　也许是出于容错的考虑，网络传输或者兼容不够不严谨的编辑器，删掉汉字等字节字符中的部分字节，会使得整串字符乱码；<br>　　当你处在一个字符串中间时，你不知道当前是一个什么字符，使用 UTF-8 能帮你在这种情况下同步到下一个合法字符，否则是不可能的。<br>　<span style="color:red">同样来自评论区。<br>　这个回答我觉得很准确，至于为什么能够区分，你不烦看一下 上一篇文章 <a href="http://durant35.github.io/2016/02/22/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/#Unicode"><strong>“Unicode”</strong></a> 这一节讲述 <strong>什么是 UTF？</strong> 这一部分。还有，就是在设计时考虑到这一点，或者说我们怎样做到在设计某个方案时考虑到某些容错细节，很重要！<br></span><br>　Windows 从 NT 开始，一开始的内码是 <strong>UCS-2</strong>，只支持 <strong>Unicode BMP</strong> 字符，后来做了扩充，目前的内码就是 <strong>UTF-16</strong>，通常不严格地称为 <strong>Unicode</strong>。<br>　<span style="color:red">同样来自评论区。<br>　立马打脸了，打得好！！！起码知道 <strong>UCS-2</strong> 是人家 <strong>UTF-16</strong> 的前身，那就是编码方式，不是字符集了，下面在<a href="http://blog.sina.com.cn/s/blog_4b4409c30100vw9t.html">《关于Unicode字符集 》</a> 这篇文章里面我要去打作者的脸啦，等着…<br>　此外，也确实验证了我们前面了解到的，<strong>Windows</strong> 系统现在的内码是 <strong>UTF-16</strong>。不过，内码是什么？下面在 <a href="http://polaris.blog.51cto.com/1146394/377468">《字符编码详解——彻底理解掌握编码知识，“乱码”不复存在 》</a> 这篇文章里会解释清楚。<br></span><br>　本文只是主要介绍了 <strong>UTF-8 编码</strong>，下面这篇文章对于 <strong>GB 码与 Big5</strong> 有更详细的介绍。<br>　　<font color="blue">汉字编码中现在主要用到的有三类，包括 <strong>GBK</strong>，<strong>GB2312</strong> 和 <strong>Big5</strong></font>。<br>　　1、<strong>GB2312 又称国标码</strong>，由国家标准总局发布，1981 年 5 月 1 日实施，通行于大陆。新加坡等地也使用此编码。它是一个简化字的编码规范，当然也包括其他的符号、字母、日文假名等，共 7445 个图形字符，其中汉字占 6763 个。我们平时说 6768 个汉字，实际上里边有 5 个编码为空白，所以总共有 6763 个汉字。<br>　　　<strong>GB2312</strong> 规定 “对任意一个图形字符都采用两个字节表示，每个字节均采用七位编码表示”，习惯上称第一个字节为 “高字节”，第二个字节为 “低字节”。<font color="blue"><strong>GB2312</strong> 中汉字的编码范围为，第一字节 <code>0xB0-0xF7</code> (对应十进制为 176-247 )，第二个字节 <code>0xA0-0xFE</code>（对应十进制为 160-254 ）</font>。<br>　　　<strong>GB2312</strong> 将代码表分为 94 个区，对应第一字节（0xa1-0xfe）；每个区 94 个位（0xa1-0xfe），对应第二字节，两个字节的值分别为区号值和位号值加 32（20H），因此也称为区位码。01-09 区为符号、数字区，16-87 区为汉字区（0xb0-0xf7），10-15 区、88-94 区是有待进一步标准化的空白区。<br>　　2、<strong>Big5</strong> 又称大五码，主要为香港与台湾使用，即是一个繁体字编码。每个汉字由两个字节构成，<font color="blue">第一个字节的范围从 0X81－0XFE（即 129-255），共 126 种。第二个字节的范围不连续，分别为 <code>0X40－0X7E</code>（即 64-126），<code>0XA1－0XFE</code>（即 161-254），共 157 种</font>。<br>　　3、<strong>GBK</strong> 是 <strong>GB2312</strong> 的扩展，是向上兼容的，因此 <strong>GB2312</strong> 中的汉字的编码与 <strong>GBK</strong> 中汉字的相同。另外，<font color="blue"><strong>GBK</strong> 中还包含繁体字的编码</font>，它与 <strong>Big5 编码</strong> 之间的关系我还没有弄明白，好像是不一致的。<font color="blue"><strong>GBK</strong> 中每个汉字仍然包含两个字节，第一个字节的范围是 <code>0x81-0xFE</code>（即 129-254），第二个字节的范围是 <code>0x40-0xFE</code>（即 64-254）</font>。<strong>GBK</strong> 中有码位 23940 个，包含汉字 21003 个。<br>　<span style="color:red">来自评论区。<br>　算是对 <strong>GB</strong> 系列编码的回顾吧。看来 <strong>GBK</strong> 还是 <strong>GB2312</strong> 和 <strong>Big5</strong> 的合体呀，不过，大陆人发(制)明(订)的嘛，肯定不兼容台湾人用熟的 <strong>Big5</strong>…所以，<strong>GBK</strong> 兼容 <strong>GB2312</strong>，后者兼容 <strong>ASCII</strong>，故也兼容 <strong>ASCII</strong>。<br>　此外，他们都是两个字节的，大概知道他们每个字节是有取值范围的，这样，像上一篇文章末尾的问题中，就可以用来判断非法字符的情况了。具体的取值范围，写代码的时候再查阅，太多要记的东西，不可能什么都记住呀。<strong>下面是对这篇网络日志的一个小结。</strong><br></span></p>
+<ul>
+<li>这篇文章算是对 <strong>Unicode</strong> 那一块的全方位回顾吧，此外，了解了除了上面提到的三种，<strong>UCS-2</strong> 也是其一种编码方式，而且是 <strong>UTF-16</strong> 弱化版(因为 <strong>UCS-2</strong> 只是定长的两个字节)。</li>
+<li>加深对 <strong>GB</strong> 系列编码的了解。</li>
+<li>内码是什么？看来还有一些小概念没遇到，还好，下面会讲解一下。</li>
+</ul>
+<h2 id="关于-Unicode-字符集"><a href="#关于-Unicode-字符集" class="headerlink" title="关于 Unicode 字符集"></a><font color="#F40D64">关于 Unicode 字符集</font></h2><p>　　原文地址：<a href="http://blog.sina.com.cn/s/blog_4b4409c30100vw9t.html">http://blog.sina.com.cn/s/blog_4b4409c30100vw9t.html</a></p>
+<p>　最初的 <strong>Unicode 编码</strong> 是固定长度的，16 位，也就是用两个字节代表一个字符，这样一共可以表示 65536 个字符。显然，这样要表示各种语言中所有的字符是远远不够的。<strong>Unicode4.0 </strong> 规范考虑到了这种情况，定义了一组附加字符编码，附加字符编码采用 2 个 16 位来表示，这样最多可以定义 1048576 个附加字符，目前 <strong>Unicode4.0</strong> 只定义了 45960 个附加字符。<br>　<font color="blue"><strong>Unicode</strong> 只是一个编码规范，目前实际实现的 <strong>Unicode 编码</strong> 主要有三种：<strong>UTF-8</strong>，<strong>UCS-2</strong> 和 <strong>UTF-16</strong>，三种 <strong>Unicode</strong> 字符集之间可以按照规范进行转换</font>。</p>
+<ol>
+<li><p><strong>UTF-8</strong><br>　<strong>UTF-8</strong> 是一种 8 位的 <strong>Unicode 字符集</strong>，编码长度是可变的，并且是 <strong>ASCII 字符集</strong> 的严格超集，也就是说 <font color="blue"><strong>ASCII</strong> 中每个字符的编码在 <strong>UTF-8</strong> 中是完全一样的</font>。<strong>UTF-8 字符集</strong> 中，一个字符可能是 1 个字节，2 个字节，3 个字节或者 4 个字节长。一般来说，欧洲的字母字符长度为 1 到 2 个字节，而亚洲的大部分字符则是 3 个字节，附加字符为 4 个字节长。<br>　<strong>Unix 平台</strong> 中普遍支持 <strong>UTF-8</strong> 字符集，HTML 和大多数浏览器也支持 <strong>UTF-8</strong>，而 <strong>Window</strong> 和 <strong>Java</strong> 则支持 <strong>UCS-2</strong>。<br>　<strong>UTF-8</strong> 的主要优点：<br>　　对于欧洲字母字符需要较少的存储空间。<br>　　容易从 <strong>ASCII 字符集</strong> 向 <strong>UTF-8</strong> 迁移。</p>
+</li>
+<li><p><strong>UCS-2</strong><br>　<strong>UCS-2</strong> 是固定长度为 16 位的 <strong>Unicode 字符集</strong>。每个字符都是 2 个字节，<strong>UCS-2</strong> 只支持 <strong>Unicode3.0</strong>，所以不支持附加字符。<br>　<strong>UCS-2</strong> 的优点：<br>　　对于亚洲字符的存储空间需求比 <strong>UTF-8</strong> 少，因为每个字符都是 2 个字节。<br>　　处理字符的速度比 <strong>UTF-8</strong> 更快，因为是固定长度编码的。<br>　　对于 <strong>Windows</strong> 和 <strong>Java</strong> 的支持更好。</p>
+</li>
+<li><p><strong>UTF-16</strong><br>　<strong>UTF-16</strong> 也是一种 16 位编码的字符集。实际上，<font color="blue"><strong>UTF-16</strong> 就是 <strong>UCS-2</strong> 加上附加字符的支持，也就是符合 <strong>Unicode4.0 规范</strong> 的 <strong>UCS-2</strong>。所以 <strong>UTF-16</strong> 是 <strong>UCS-2</strong> 的严格超集</font>。<br>　<strong>UTF-16</strong> 中的字符，要么是 2 个字节，要么是 4 个字节表示的。<strong>UTF-16</strong> 主要在 <strong>Windows2000</strong> 以上版本使用。<br>　<strong>UTF-16</strong> 相对 <strong>UTF-8</strong> 的优点，和 <strong>UCS-2</strong> 是一致的。</p>
+</li>
+</ol>
+<blockquote>
+<p><font color="blue" size="4"><strong>小结：</strong></font><br>1)、说 <strong>Unicode</strong> 是一种规范，这点确实，瞬间从字符集提升了一个 Level；所以说 <strong>Unicode3.0</strong>、<strong>Unicode4.0</strong> 以及其中的区别和不同编码方式支持的规范不同，都是合理，让人信服的。<br/><br>2)、不过作者字符集、编码一通说，我就不敢苟同了。你说 <strong>Unicode 字符集</strong>，很对；<strong>ASCII 字符集</strong>，也行，人家一种编码确实代表一个集合；但是说 <strong>UTF-8 字符集</strong>，那就大错特错了，你自己也说 <strong>UTF-8</strong> 是 <strong>Unicode</strong> 的一种实现，人家还有其他实现呢！而这些实现都是对应 <strong>Unicode</strong> 这种字符集，字符集下又有各种字符集，这不太好吧。所以，我们要再次明确，字符集和编码的区别，<strong>Unicode</strong> 是一种字符集，他有很多种实现方式，<strong>UTF-8</strong> 编码方式就是其中之一。<br/><br>3)、了解了 <strong>Unicode</strong> 字符集或者说 <strong>Unicode</strong> 规范制定和发展历程；通过对比各种 <strong>Unicode</strong> 编码方式的优点，再次回顾之前一直强调的 <strong>trade-off</strong>，也领会到 <strong>Unicode</strong> 在推动字符编码统一上采取的方案，值得借鉴和学习。<br/><br>4)、最后要明确的，<strong>UCS-2</strong> 是 <strong>UTF-16</strong> 的前身，是一种编码方式，现在基本都用 <strong>UTF-16</strong> 了，比如目前<strong>Window</strong> 内核和 <strong>Java</strong> 内存都采用 <strong>UTF-16</strong> 编码；<br>　　此外，<strong>UTF-8</strong> 仍是目前国际化上最受欢迎的编码方式，<strong>Unix</strong> 平台(<strong>Linux</strong> 应该就是其一)和 <strong>网页</strong> 都支持或者说默认就是采用 <strong>UTF-8</strong> 编码，而且好像除了 wei ruan，没人觉得带 <strong>BOM</strong> 有多大意思。所以，为了跨平台也好，国际化也好，建议采用 <strong>UTF-8</strong> 编码；至于带不带 <strong>BOM</strong>，建议还是带吧，毕竟人家市场大，我们也用的好好的(我是渣渣地在 Win 上…，大神请忽略)，另外我相信 <strong>Unix 平台</strong> 等这些好东西带不带 <strong>BOM</strong> 都能识别的！</p>
+</blockquote>
+<h2 id="字符编码详解"><a href="#字符编码详解" class="headerlink" title="字符编码详解"></a><font color="#F40D64">字符编码详解</font></h2><p>　　最后，借 <a href="http://polaris.blog.51cto.com/1146394/377468">《字符编码详解——彻底理解掌握编码知识，“乱码”不复存在》</a> 这篇文章作一个系统的总结，其中会引入几个新概念，有助于我们全面了解字符编码，也希望能进一步完善你脑海中的知识网络。原文总结的非常全面，可惜关于编码方式的诸多细节作者并没有过多提及；不过，在我们已经系统学习了字符编码之后，再进行阅读，是再好不过了。非常建议你能够有时间阅读一下原文，主要是文章末尾推荐的参考资料，至于其他内容，下面的笔记已经全面包括。<br>　　还是老样子，<font color="red">[红色部分]</font> 为注解笔记。</p>
+<p>　每一个程序员都不可避免的遇到字符编码的问题，特别是做 <strong>Web 开发的程序员</strong>，<strong>“乱码问题”</strong> 一直是让人头疼的问题，也许您已经很少遇到 “乱码” 问题，然而，对解决乱码的方法的内在原理，您是否明白？本人作为一个程序员，在字符编码方面同样遇到不少问题，而且一直对各种编码懵懵懂懂、不清不楚；在工作中也曾经遇到一个很烦人的编码问题。这两天在网上收集了大量编码方面的资料，对字符编码算是理解的比较清楚了。下面把我认为比较重要的知识点记录下来，一方面方便以后复习；另一方面也希望给跟我一样懵懵懂懂的人一个参考。不对或不妥之处，请批评指正。<br><span style="color:red">　这个引入完美，想写好博客的，我们一起学习一下。<br></span><br>　<strong>1、字符集与字符编码</strong><br>　　<font color="blue">字符是各种文字和符号的总称</font>，包括各个国家文字、标点符号、图形符号、数字等。</p>
+<p>　　<font color="blue">字符集是多个字符的集合</font>，字符集种类较多，每个字符集包含的字符个数不同，常见字符集有： <strong>ASCII 字符集</strong>、<strong>ISO 8859 字符集</strong>、<strong>GB2312 字符集</strong>、<strong>BIG5 字符集</strong>、<strong>GB18030 字符集</strong>、<strong>Unicode 字符集</strong> 等。计算机要准确的处理各种字符集文字，需要进行字符编码，以便计算机能够识别和存储各种文字。<br>　　<font color="blue">使用哪些字符，也就是说哪些汉字，字母和符号会被收入标准中。所包含 “字符” 的集合就叫做 <strong>“字符集”</strong></font>。</p>
+<p>　　<font color="blue">编码 <strong>(encoding)</strong> 和字符集不同。字符集只是字符的集合，不一定适合作网络传送、处理，有时须经编码后才能应用</font>。如 <strong>Unicode</strong> 字符集可依不同需要以 <strong>UTF-8</strong>、<strong>UTF-16</strong>、<strong>UTF-32</strong> 等方式编码。<br>　　<font color="blue">字符编码就是以二进制的数字来对应字符集的字符</font>。<br>　　因此，对字符进行编码，是信息交流的技术基础。<br>　　<font color="blue">规定每个 “字符” 分别用一个字节还是多个字节存储，用哪些字节来存储，这个规定就叫做 <strong>“编码”</strong>。</font></p>
+<p>　　各个国家和地区在制定编码标准的时候，“字符的集合” 和 “编码” 一般都是同时制定的。因此，平常我们所说的 “字符集”，比如：<strong>GB2312</strong>, <strong>GBK</strong>, <strong>JIS</strong> 等，除了有 “字符的集合” 这层含义外，同时也包含了 “编码” 的含义。</p>
+<p>　　注意： <strong>Unicode</strong> 字符集有多种编码方式，如 <strong>UTF-8</strong>、<strong>UTF-16</strong> 等；<strong>ASCII</strong> 只有一种；大多数 <strong>MBCS(Multi-Byte Chactacter System，多字节字符系统)</strong>（包括 <strong>GB2312</strong>）也只有一种。<br>　<span style="color:red">看完之后是不是对字符集、字符编码的关系有更深刻的理解呢？作者这些概念的定义确实言简意赅，不知道是摘录的还是自己总结的，让我们很容易理解。<br>　看过上面的文字，终于明白，为什么那么多人把 <strong>字符集</strong> 和 <strong>字符编码</strong> 两个概念给弄混了，原来这些是 <strong>Unicode</strong> 带来的颠覆性改变，科科。<br></span><br>　2、<strong>什么是内码？</strong><br>　　2.1 维基百科的解释<br>　　　在计算机科学及相关领域当中，<strong>内码</strong> 指的是 <font color="blue">“将资讯编码后，透过某种方式储存在特定记忆装置时，装置内部的编码形式”</font>。在不同的系统中，会有不同的 <strong>内码</strong>。<br>　　　在以往的英文系统中，内码为 ASCII。在繁体中文系统中，目前常用的内码为 <strong>大五码（Big5）</strong>。在简体中文系统中，内码则为国标码（国家标准代码：现在强制要求使用 <strong>GB18030 标准</strong>；较旧计算机仍然使用GB2312）。而 <strong>统一码（Unicode）</strong> 则为另一常见内码。</p>
+<p>　　2.2 百度百科的解释<br>　　　<font color="blue">内码是指整机系统中使用的二进制字符编码，是沟通输入、输出与系统平台之间的交换码，通过内码可以达到通用和高效率传输文本的目的</font>。比如 <strong>MS Word</strong> 中所存储和调用的就是内码而非图形文字。英文 <strong>ASCII 字符</strong> 采用一个字节的内码表示，中文字符如国标字符集中，<strong>GB2312</strong>、<strong>GB12345</strong>、<strong>GB13000</strong> 皆用双字节内码，<strong>GB18030</strong>（27,533 汉字）双字节内码汉字为 20,902 个，其余 6,631 个汉字用四字节内码。<br>　<span style="color:red">反复看了很多遍，好像弄懂了点：<br>　　(1)、内码指的仍是编码方式；<br>　　(2)、之所以叫内码，特殊在他特指的是系统用的编码方式，有别于如：<strong>Java</strong> 在内存中使用 <strong>UTF-16</strong> 保存数据、某个网页使用的是 <strong>UTF-8</strong> 编码。<br>　　(3)、英文系统内码为 <strong>ASCII</strong>、繁体中文系统常用的内码为 <strong>大五码（Big5）</strong>、简体中文系统内码则为国标码(我的 Windows 简体中文系统是 <strong>GBK</strong>，不知道文中后面那句话啥意思…)，内码作为系统层面的编码，应该就决定了某些系统软件的默认编码(如我的 <strong>CMD</strong> 还有 <strong>NotePad</strong> 用的就是 <strong>ANSI</strong> 编码，下面会说 <strong>ANSI</strong> 编码)。<br></span><br>　3、<strong>字符编码分类总结</strong><br>　　3.1 <strong>ASCII 编码</strong><br>　　　以下来自 “维基百科”：<br>　　　　<strong>ASCII（American Standard Code for Information Interchange，美国信息互换标准代码）</strong>是基于拉丁字母的一套电脑编码系统。它主要用于显示现代英语，而其扩展版本 <strong>EASCII</strong> 则可以勉强显示其他西欧语言。它是现今最通用的<font color="blue">单字节编码系统</font>（但是有被 <strong>Unicode</strong> 追上的迹象），并等同于 <strong>国际标准 ISO/IEC 646</strong>。<br>　　　　<strong>ASCII</strong> 第一次以规范标准的型态发表是在 1967 年，最后一次更新则是在 1986 年，至今为止共定义了 128 个字符；其中 33 个字符无法显示（这是以现今操作系统为依归，但在 <strong>DOS 模式</strong> 下可显示出一些诸如笑脸、扑克牌花式等 8-bit 符号），且这 33 个字符多数都已是陈废的控制字符。控制字符的用途主要是用来操控已经处理过的文字。在 33 个字符之外的是 95 个可显示的字符，包含用键盘敲下空白键所产生的空白字符也算 1 个可显示字符（显示为空白）。</p>
+<p>　　　<strong>ASCII</strong> 缺点：<br>　　　　<strong>ASCII</strong> 的最大缺点是只能显示 26 个基本拉丁字母、阿拉伯数字和英式标点符号，因此只能用于显示现代美国英语（而且在处理英语当中的外来词如： <strong>naïve、café、élite</strong> 等等时，所有重音符号都不得不去掉，即使这样做会违反拼写规则）。而 <strong>EASCII</strong> 虽然解决了部份西欧语言的显示问题，但对更多其他语言依然无能为力。因此现在的苹果电脑已经抛弃 <strong>ASCII</strong> 而转用 <strong>Unicode</strong>。</p>
+<p>　　　最早的 <strong>英文 DOS 操作系统</strong>的系统内码是：<strong>ASCII</strong>。计算机这时候只支持英语，其他语言不能够在计算机存储和显示。<br>　　　在该阶段，字符串使用一个字节存放一个字符 <strong>（SBCS，Single Byte Character System）</strong>。如： “Bob123” 占 6 个字节。</p>
+<p>　　3.2 <strong>ANSI 编码</strong><br>　　　为使计算机支持更多语言，通常使用 <code>0x80~0xFF</code> 范围的 2 个字节来表示 1 个字符。比如： 汉字 ‘中’ 在中文操作系统中，使用 <strong>[0xD6,0xD0]</strong> 这两个字节存储。</p>
+<p>　　　不同的国家和地区制定了不同的标准，由此产生了 <strong>GB2312</strong>，<strong>BIG5</strong>，<strong>JIS</strong> 等各自的编码标准。这些 <font color="blue">使用 2 个字节来代表一个字符的各种汉字延伸编码方式，称为 ANSI 编码</font>。在 <strong>简体中文系统下，ANSI 编码代表 GB2312 编码，在日文操作系统下，ANSI 编码代表 JIS 编码</strong>。</p>
+<p>　　　中文 DOS、中文/日文 Windows 95/98 时代系统内码使用的是 <strong>ANSI 编码</strong>（本地化）。<br>　　　在使用 <strong>ANSI 编码</strong> 支持多语言阶段，每个字符使用一个字节或多个字节来表示 <strong>（MBCS，Multi-Byte Character System）</strong>，因此，这种方式存放的字符也被称作多字节字符。比如，”中文 123” 在中文 Windows 95 内存中为 7 个字节，每个汉字占 2 个字节，每个英文和数字字符占 1 个字节。<br>　　　不同 <strong>ANSI 编码</strong> 之间互不兼容，当信息在国际间交流时，无法将属于两种语言的文字，存储在同一段  <strong>ANSI 编码</strong> 的文本中。</p>
+<p>　　　在非 <strong>Unicode</strong> 环境下，由于不同国家和地区采用的字符集不一致，很可能出现无法正常显示所有字符的情况。<font color="blue">微软公司使用了 <strong>代码页（Code page）转换表</strong> 的技术来过渡性的部分解决这一问题，即通过指定的转换表将非 <strong>Unicode</strong> 的字符编码转换为同一字符对应的系统内部使用的 <strong>Unicode 编码</strong></font>。可以在 “语言与区域设置” 中选择一个代码页作为 <strong>非 Unicode 编码</strong> 所采用的默认编码方式，如 <strong>936 为简体中文 GBK</strong>，<strong>950 为正体中文 Big5</strong>（皆指 PC 上使用的）。在这种情况下，一些非英语的欧洲语言编写的软件和文档很可能出现乱码。而将代码页设置为相应语言中文处理又会出现问题，这一情况无法避免。从根本上说，完全采用统一编码才是解决之道，但目前尚无法做到这一点。<br>　　　代码页技术现在广泛为各种平台所采用。UTF-7 的代码页是 65000，UTF-8 的代码页是 65001。<br>　<span style="color:red"><strong>ANSI 编码</strong> 其实是一个统称 <strong>（MBCS，Multi-Byte Character System）</strong>，或者说一个多面手，在什么系统(简体中文、繁体中文…)就能指什么编码，反正这东西，微软出品，…<br>　我了去，果然，<strong>代码页（Code page）转换表</strong> 这种东西又是微软出品。不过，说句老实话，<strong>Windows</strong> 确实在支持汉字方面做得挺好的(之前在 <strong>Ubuntu</strong> 上要变成简体中文，折腾了很久…)。可能也是因为这么多麻烦的转来转去，没根本解决上面说的问题，才老是会出现乱码的情况。<br>　看样子，应该是和之前说的一样，现在的 <strong>Windows 内核</strong> 使用的编码应该就是 <strong>UTF-16</strong> 吧，估计就是内码了吧；不过 <strong>非 Unicode 编码</strong> 就用代码页(简体中文下就是 <strong>936(GBK)</strong>)，这个也是内码吧；不过，大多数情况我觉得应该是 <strong>非 Unicode 编码</strong> 居多，也就是很多时候是 <strong>936(GBK)</strong> 或者说 <strong>ANSI 编码 (GBK)</strong>。好乱好乱，我们清楚一些不该说的，肯定错的就行，至于具体怎么理解，怎么说，我觉得本质的东西清楚就行。<br></span><br>　　3.3 <strong>Unicode 编码</strong><br>　　　为了使国际间信息交流更加方便，国际组织制定了 <strong>UNICODE 字符集</strong>，为各种语言中的每一个字符设定了统一并且唯一的数字编号，以满足跨语言、跨平台进行文本转换、处理的要求。</p>
+<p>　　　<strong>Unicode 字符集</strong> 可以简写为 <strong>UCS（Unicode Character Set）</strong>。早期的 <strong>Unicode 标准</strong> 有 <strong>UCS-2</strong>、<strong>UCS-4</strong> 的说法。<strong>UCS-2</strong> 用两个字节编码，<strong>UCS-4</strong> 用 4 个字节编码。</p>
+<p>　　　在 <strong>UNICODE</strong> 被采用之后，计算机存放字符串时，改为存放每个字符在 <strong>UNICODE 字符集</strong> 中的序号。目前计算机一般使用 2 个字节<strong>（UTF-16）</strong>来存放一个序号 <strong>（DBCS，Double Byte Character System）</strong>，因此，这种方式存放的字符也被称作宽字节字符。比如，字符串 “中文 123” 在 Windows 2000 下，内存中实际存放的是 5 个序号，一共 10 个字节。</p>
+<p>　　　<strong>Unicode 字符集</strong> 包含了各种语言中使用到的所有 “字符”。用来给 <strong>UNICODE 字符集</strong> 编码的标准有很多种，比如：<strong>UTF-8</strong>，<strong>UTF-7</strong>，<strong>UTF-16</strong>，<strong>UnicodeLittle</strong>，<strong>UnicodeBig</strong> 等。<br>　<span style="color:red">挺喜欢这样的分类的，单字节、复合字节、双字节，总结的挺好的，对 <strong>ANSI 编码</strong>、<strong>代码页</strong> 有新的认识，以后必要时加以区分就行。<br>　<strong>UCS</strong> 原来就是 <strong>Unicode 字符集</strong> 呀，那些 <strong>UCS-X</strong> 其实就是早期的 <strong>UTF-X</strong>，估计之前定长，现在有的变变长而已，改进了！<br>　关于 <strong>Windows</strong> 的内码，比如一个字符串的 <strong>sizeof</strong> 是多少，可能还真不好说，也许这就是 <strong>cl</strong> 编译器弄出个什么 <strong>执行字符集</strong> 的原因吧。不过我们要清楚，一个字符串在内存中究竟用几个字节保存，跟采用的编码方式是息息相关的，在目前已掌握的基础上，我们可以通过 <strong>sizeof</strong> 的大小推敲一下，也许就能解决一些乱码问题了。<br></span><br>　4、<strong>常用编码规则</strong><br>　　4.1 <strong>单字节字符编码</strong><br>　　（1）编码标准： <strong>ISO-8859-1</strong>。<br>　　（2）说明： <font color="blue">最简单的编码规则，每一个字节直接作为一个 <strong>UNICODE 字符</strong></font>。比如，<strong>[0xD6, 0xD0]</strong> 这两个字节，通过 <strong>ISO-8859-1</strong> 转化为字符串时，将直接得到 <strong>[U+00D6]</strong>、 <strong>[U+00D0]</strong> 两个 <strong>UNICODE</strong> 字符，即 <strong>“ÖÐ”</strong>。<br>　　　　 反之，将 UNICODE 字符串通过 <strong>ISO-8859-1</strong> 转化为字节串时，只能正常转化 0~255 范围的字符。</p>
+<p>　　4.2 <strong>ANSI 编码</strong><br>　　（1）编码标准： <strong>GB2312</strong>，<strong>BIG5</strong>，<strong>Shift_JIS</strong>，<strong>ISO-8859-2</strong>。<br>　　（2）把 <strong>UNICODE</strong> 字符串通过 <strong>ANSI 编码</strong> 转化为“字节串”时，根据各自编码的规定，一个 <strong>UNICODE</strong> 字符可能转化成一个字节或多个字节。<br>　　　　 反之，<font color="blue">将字节串转化成字符串时，也可能多个字节转化成一个字符</font>。比如，<strong>[0xD6, 0xD0]</strong> 这两个字节，通过 <strong>GB2312</strong> 转化为字符串时，将得到 <strong>[U+4E2D]</strong> 一个字符，即 ‘中’ 字。<br>　　<strong>“ANSI 编码”</strong> 的特点：<br>　　（1）这些 <strong>“ANSI 编码标准”</strong> 都只能处理各自语言范围之内的 <strong>UNICODE</strong> 字符。<br>　　（2）<strong>“UNICODE 字符”</strong> 与 <strong>“转换出来的字节”</strong> 之间的关系是人为规定的。</p>
+<p>　　4.3 <strong>UNICODE 编码</strong><br>　　（1）编码标准： <strong>UTF-8</strong>，<strong>UTF-16</strong>，<strong>UnicodeBig</strong>。<br>　　（2）与 <strong>“ANSI 编码”</strong> 类似的，把 <font color="blue">字符串通过 <strong>UNICODE</strong> 编码转化成 “字节串” 时，一个 <strong>UNICODE</strong> 字符可能转化成一个字节或多个字节</font>。<br>　　与 <strong>“ANSI 编码”</strong> 不同的是：<br>　　（1）这些 <strong>“UNICODE 编码”</strong> 能够处理所有的 <strong>UNICODE</strong> 字符。<br>　　（2）<strong>“UNICODE 字符”</strong> 与 <strong>“转换出来的字节”</strong> 之间是可以通过计算得到的。</p>
+<p>　　我们实际上没有必要去深究每一种编码具体把某一个字符编码成了哪几个字节，我们只需要知道 <font color="blue"><strong>“编码”</strong> 的概念就是把 <strong>“字符”</strong> 转化成 <strong>“字节”</strong></font> 就可以了。对于 <strong>“UNICODE 编码”</strong>，由于它们是可以通过计算得到的，因此，在特殊的场合，我们可以去了解某一种 <strong>“UNICODE 编码”</strong> 是怎样的规则。<br>　<span style="color:red">最后一段话的思路，我觉得是正确的： <strong>“编码”</strong> 的概念就是把 <strong>“字符”</strong> 转化成 <strong>“字节”</strong>，至于怎么转，不同的编码采取的方式不一样。但其实过程都是相似的，首先收录字符，组成一个字符集；字符集里面的每个字符都对应于一个数字(在 <strong>Unicode</strong> 里面叫做码点)；数字怎么转化为字节数据，遵循怎样的规则，这个就是编码。这就是每一套字符编码体系的共同之处。<br>　按照单字节、复合字节、<strong>Unicode</strong> 这样来划分编码方式也是可以的，反正我们根据上面 <strong>“编码”</strong> 的概念来进行理解。不过，对于 <strong>ANSI 编码</strong>，感觉还是不要和 <strong>Unicode</strong> 扯上关系，毕竟，<strong>ANSI 编码</strong> 都有各自的字符集，虽然这些字符集被收录在 <strong>Unicode</strong> 里面，但二者还是相对独立的。<br>　对 <strong>ISO-8859-1</strong>、<strong>ISO-8859-2</strong>、<strong>Shift_JIS</strong> 这些前面没提及的概念要有个了解，知道大概说的是什么，日后看到可以进行 <strong>推敲</strong>，更重要的是能够以此 <strong>构建搜索 (Google、Baidu) 的关键字</strong>。<br></span><br>　5、<strong>编码的区别</strong><br>　　5.1 <strong>GB2312</strong>、<strong>GBK</strong> 和 <strong>GB18030</strong><br>　　（1）<strong>GB2312</strong><br>　　　当中国人得到计算机时，已经没有可以利用的字节状态来表示汉字，况且有 6000 多个常用汉字需要保存，于是想到把那些 <strong>ASCII 码</strong> 中 127 号之后的奇异符号们直接取消掉, 规定： <font color="blue">一个小于 127 的字符的意义与原来相同，但两个大于 127 的字符连在一起时，就表示一个汉字，前面的一个字节（称之为高字节）从 <code>0xA1</code> 用到 <code>0xF7</code>，后面一个字节（低字节）从 <code>0xA1</code> 到 <code>0xFE</code></font>，这样我们就可以组合出大约 7000 多个简体汉字了。在这些编码里，我们还把数学符号、罗马希腊的字母、日文的假名们都编进去了，连 <font color="blue">在 <strong>ASCII</strong> 里本来就有的数字、标点、字母都统统重新编了两个字节长的编码，这就是常说的 <strong>“全角”</strong> 字符</font>，而原来在 127 号以下的那些就叫 “半角” 字符了。这种汉字方案叫做  <strong>“GB2312”</strong>。<strong>GB2312</strong> 是对 <strong>ASCII</strong> 的中文扩展。兼容 <strong>ASCII</strong>。</p>
+<p>　　（2）<strong>GBK</strong><br>　　　但是中国的汉字太多了，我们很快就就发现有许多人的人名没有办法在这里打出来，不得不继续把 <strong>GB2312</strong> 没有用到的码位找出来用上。后来还是不够用，于是干脆 <font color="blue">不再要求低字节一定是 127 号之后的内码，只要第一个字节是大于 127 就固定表示这是一个汉字的开始</font>，不管后面跟的是不是扩展字符集里的内容。结果扩展之后的编码方案被称为 <strong>“GBK” 标准</strong>，<strong>GBK</strong> 包括了 <strong>GB2312</strong> 的所有内容，同时又增加了近 20000 个新的汉字（包括繁体字）和符号。</p>
+<p>　　（3）<strong>GB18030</strong><br>　　　后来少数民族也要用电脑了，于是我们再扩展，又加了几千个新的少数民族的字，<strong>GBK</strong> 扩成了 <strong>GB18030</strong>。从此之后，中华民族的文化就可以在计算机时代中传承了。 </p>
+<p>　　中国的程序员们看到这一系列汉字编码的标准是好的，于是通称他们叫做 <strong>“DBCS”（Double Byte Charecter Set，双字节字符集）</strong>。在 <strong>DBCS</strong> 系列标准里，最大的特点是 <font color="blue">两字节长的汉字字符和一字节长的英文字符并存于同一套编码方案里</font>，因此他们写的程序为了支持中文处理，必须要注意字串里的每一个字节的值，如果这个值是大于 127 的，那么就认为一个双字节字符集里的字符出现了。在这种情况下，”一个汉字算两个英文字符！”。然而，在 <strong>Unicode</strong> 环境下却并非总是如此。<br><span style="color:red">　<strong>GB</strong> 系列的编码，进一步加深理解；另外，对于 <strong>全角/半角</strong>，有一定了解了吧。<strong>搜狗输入法</strong> 好像默认是通过 <strong>Shift + 空格键</strong> 进行 <strong>全角/半角</strong> 切换，有的话可以试试。</span><br>　　5.2 <strong>Unicode</strong> 和 <strong>BigEndianUnicode</strong><br>　　　这两个只是存储顺序不同，如 “A” 的 <strong>Unicode 编码</strong> 为 <code>6500</code>，而 <strong>BigEndianUnicode 编码</strong> 为 <code>0065</code>。<br>　<span style="color:red">其实就是大小端啦，还有这里的 <strong>Unicode 编码</strong> ，准确来说应该是 <strong>UTF-16 LE</strong>。</span><br>　　5.3 <strong>UTF-7</strong>、<strong>UTF-8</strong> 和 <strong>UTF-16</strong><br>　　　在 <strong>Unicode</strong> 里，所有的字符被一视同仁。<font color="blue">汉字不再使用 <strong>“两个扩展 ASCII”</strong>，而是使用 <strong>“1 个 Unicode”</strong></font>，注意，现在的汉字是 <strong>“一个字符”</strong> 了，于是，拆字、统计字数这些问题也就自然而然的解决了。</p>
+<p>　　　但是，这个世界不是理想的，不可能在一夜之间所有的系统都使用 <strong>Unicode</strong> 来处理字符，所以 <strong>Unicode</strong>  在诞生之日，就必须考虑一个严峻的问题：和 <strong>ASCII 字符集</strong> 之间的不兼容问题。<br>　　　　(1)、我们知道，<strong>ASCII</strong> 字符是单个字节的，比如 <strong>“A”</strong> 的 <strong>ASCII</strong> 是<code>65</code>。而 <strong>Unicode</strong> 是双字节的，比如 <strong>“A”</strong> 的 <strong>Unicode</strong> 是 <code>0065</code>，这就造成了一个非常大的问题： <font color="blue">以前处理 <strong>ASCII</strong> 的那套机制不能被用来处理 <strong>Unicode</strong> 了</font>。<br>　　　　(2)、另一个更加严重的问题是，C 语言使用 <strong>‘\0’</strong> 作为字符串结尾，而 <strong>Unicode</strong> 里恰恰有很多字符都有一个字节为 0，这样一来，<font color="blue">C 语言的字符串函数将无法正常处理 <strong>Unicode</strong></font>，除非把世界上所有用 C 写的程序以及他们所用的函数库全部换掉。</p>
+<p>　　　于是，比 <strong>Unicode</strong> 更伟大的东东诞生了，之所以说它更伟大是因为它让 <strong>Unicode</strong> 不再存在于纸上，而是真实的存在于我们大家的电脑中。那就是： <strong>UTF</strong>。<br>　　　<strong>UTF= UCS Transformation Format</strong>，即 <strong>UCS 转换(传输)格式</strong>。<br>　　　它是 <font color="blue">将 <strong>Unicode</strong> 编码规则和计算机的实际编码对应起来的一个规则</font>。现在流行的 <strong>UTF</strong> 有 2 种： <strong>UTF-8</strong> 和 <strong>UTF-16</strong>，这两种都是 <strong>Unicode</strong> 的编码实现。<br>　<span style="color:red"><strong>Unicode</strong> 是字符集，<strong>UTF-X</strong> 是具体的编码方式(规则)。<br>　还有，<strong>GB</strong> 系列编码还可以这样理解： <strong>“两个扩展 ASCII”</strong>，不过 <strong>GB</strong> 系列很多汉字单个字节根本就不在 <strong>ASCII</strong> 里面吧，我还是相信这种编码是通过定义一套兼容 <strong>ASCII</strong> 的规则，然后镂空某些编号的，她还是对应一张大表(字符集)，不是说人家有 94 个区嘛…<br>　<strong>“和 ASCII 字符集 之间的不兼容的两个问题”</strong> 确实很深刻，尤其是 <strong>“\0”</strong> 这一点，很多时候代码测试结果很奇怪，但看不出什么问题也许就跟这个有关，很少有人能想到这个点！</span><br>　　　5.3.1 <strong>UTF-8</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　　UCS<span class="number">-2</span>编码(<span class="number">16</span>进制)   UTF<span class="number">-8</span> 字节流(二进制)</div><div class="line">　　<span class="number">0000</span> - <span class="number">007F</span>         <span class="number">0</span>xxxxxxx</div><div class="line">　　<span class="number">0080</span> - <span class="number">07F</span>F         <span class="number">110</span>xxxxx <span class="number">10</span>xxxxxx</div><div class="line">　　<span class="number">0800</span> - FFFF         <span class="number">1110</span>xxxx <span class="number">10</span>xxxxxx <span class="number">10</span>xxxxxx</div></pre></td></tr></table></figure></p>
+<p>　　　　例如 “汉” 字的 <strong>Unicode 编码</strong> 是 <code>U+6C49</code>。<code>U+6C49</code> 在 <strong>0800-FFFF</strong> 之间，所以肯定要用 3 字节模板了： <code>1110xxxx 10xxxxxx 10xxxxxx</code>。将 <code>6C49</code> 写成二进制是： <strong>0110 110001 001001</strong>，用这个比特流依次代替模板中的 x，得到： <strong>11100110 10110001 10001001</strong>，即 <code>E6 B1 89</code>。</p>
+<p>　　　　可见 <strong>UTF-8</strong> 是变长的，<strong>Unicode 编码</strong> 为 <strong>00000000-0000007F</strong> 的字符，用单个字节来表示； <strong>00000080-000007FF</strong> 的字符用两个字节表示；<strong>00000800-0000FFFF</strong> 的字符用 3 字节表示。因为目前为止 <strong>Unicode-16 规范</strong> 没有指定 <code>U+FFFF</code> 以上的字符，所以 <strong>UTF-8</strong> 最多是使用 3 个字节来表示一个字符。但理论上来说，<strong>UTF-8</strong> 最多需要用 6 字节表示一个字符。</p>
+<p>　　　　<strong>UTF-8</strong> 兼容 <strong>ASCII</strong>。<br>　<span style="color:red">这个 “理论上来说，<strong>UTF-8</strong> 最多需要用 6 字节表示一个字符”，估计是 <strong>Unicode</strong> 字符集能表示的最多字符对应的数字吧，之前有提到过，目前 <strong>Unicode</strong> 表示的所有字符(码点就到 <code>U+10FFFF</code>)，<strong>UTF-8</strong> 用 1-4 字节即可表示。</span><br>　　　5.3.2 <strong>UTF-16（标准的 Unicode 成为 UTF-16）</strong><br>　　　　<strong>UTF-16</strong> 和上面提到的 <strong>Unicode</strong> 本身的编码规范是一致的。<br>　　　　<strong>UTF-16</strong> 以 16 位为单元对 <strong>UCS</strong> 进行编码。<font color="blue">对于小于 <code>0x10000</code> 的 <strong>UCS</strong>  码，<strong>UTF-16</strong> 编码就等于 <strong>UCS</strong> 码对应的 16 位无符号整数；对于不小于 <code>0x10000</code> 的 <strong>UCS</strong> 码，定义了一个算法</font>。不过由于实际使用的 <strong>UCS2</strong>，或者 <strong>UCS4</strong> 的 <strong>BMP</strong> 必然小于 <code>0x10000</code>，所以就目前而言，可以认为 <strong>UTF-16</strong> 和 <strong>UCS-2</strong> 基本相同。但 <font color="blue"><strong>UCS-2</strong> 只是一个编码方案，<strong>UTF-16</strong> 却要用于实际的传输，所以就不得不考虑字节序的问题</font>。<br>　　　　<strong>UTF-16</strong> 不兼容 <strong>ASCII</strong>。<br>　<span style="color:red">这个算法就是 <strong>使用代理区和代理对</strong>！另外，<strong>BMP</strong> 以内的字符能够使用 <strong>UCS-2</strong> 表示，和使用 <strong>UTF-16</strong> 是一样的，不过只有 <strong>UTF-16</strong> 能够表示 <strong>BMP</strong> 以外的字符。此外的区别，估计就是 <strong>“这个字节序的问题”</strong> ，<strong>UTF-16</strong> 有 <strong>BOM</strong>，<strong>UCS-2</strong> 应该没有带 <strong>BOM</strong> 之说。</span><br>　　　5.3.3 <strong>UTF-7</strong><br>　　　　<strong>UTF-7 (7-位元 Unicode 转换格式（Unicode Transformation Format，简写成 UTF）)</strong> 是一种可变长度字元编码方式，用以 <font color="blue">将 <strong>Unicode</strong> 字元以 <strong>ASCII</strong> 编码的字元串来呈现，可以应用在电子邮件传输之类的应用</font>。<br>　　　　<strong>UTF-7</strong> 并非<strong>Unicode</strong>标准之一。<br>　<span style="color:red">啊呀妈呀，<strong>UTF-7</strong> 不懂，这个估计没怎么会遇到，了解一下就行。</span></p>
+<p>　6、<strong>Unicode 与 UTF</strong><br>　　<font color="blue"><strong>Unicode</strong> 是内存编码表示方案（是规范），而 <strong>UTF</strong> 是如何保存和传输 <strong>Unicode</strong> 的方案（是实现）</font>。<br>　　6.1 <strong>UTF 的字节序和 BOM</strong><br>　　　6.1.1 <strong>字节序</strong><br>　　　　<strong>UTF-8</strong> 以字节为编码单元，没有字节序的问题。<strong>UTF-16</strong> 以两个字节为编码单元，在解释一个 <strong>UTF-16</strong> 文本前，首先要弄清楚每个编码单元的字节序。例如收到一个 <strong>“奎”</strong> 的 <strong>Unicode 编码</strong>  是 <code>594E</code>，<strong>“乙”</strong> 的 <strong>Unicode 编码</strong> 是 <code>4E59</code>。如果我们收到 <strong>UTF-16</strong> 字节流 <code>594E</code>，那么这是 <strong>“奎”</strong> 还是 <strong>“乙”</strong>？</p>
+<p>　　　　<strong>Unicode 规范</strong> 中推荐的标记字节顺序的方法是 <strong>BOM</strong>。<font color="blue"><strong>BOM</strong> 不是 <strong>“Bill Of Material”</strong> 的 <strong>BOM</strong> 表，而是 <strong>Byte Order Mark</strong></font>。<strong>BOM</strong> 是一个有点小聪明的想法：</p>
+<blockquote>
+<p>　　　　　在 <font color="blue"><strong>UCS 编码</strong> 中有一个叫做 <strong>“ZERO WIDTH NO-BREAK SPACE”</strong> 的字符，它的编码是 <code>U+FEFF</code>。而 <code>U+FFFE</code> 在 <strong>UCS</strong> 中是不存在的字符，所以不应该出现在实际传输中。<strong>UCS 规范</strong> 建议我们在传输字节流前，先传输字符 <strong>“ZERO WIDTH NO-BREAK SPACE”</strong></font>。</p>
+<p>　　　　　这样如果接收者收到 <code>FEFF</code>，就表明这个字节流是 <strong>Big-Endian</strong> 的；如果收到 <code>FFFE</code>，就表明这个字节流是 <strong>Little-Endian</strong> 的。因此字符 <strong>“ZERO WIDTH NO-BREAK SPACE”</strong> 又被称作 <strong>BOM</strong>。</p>
+</blockquote>
+<p>　　　　<font color="blue"><strong>UTF-8</strong> 不需要 <strong>BOM</strong> 来表明字节顺序，但可以用 <strong>BOM</strong> 来表明编码方式</font>。字符 <strong>“ZERO WIDTH NO-BREAK SPACE”</strong> 的 <strong>UTF-8</strong> 编码是 <code>EF BB BF</code>（读者可以用我们前面介绍的编码方法验证一下）。所以如果接收者收到以 <code>EF BB BF</code> 开头的字节流，就知道这是 <strong>UTF-8</strong> 编码了。<br><span style="color:red">　读完这段，相信你对 <strong>BOM</strong> 的来龙去脉应该比较清楚了，好玩！机智！！</span><br>　　　6.1.2 <strong>BOM</strong><br>　　　（1）<strong>BOM 的来历</strong><br>　　　　为了识别 <strong>Unicode</strong> 文件，<strong>Microsoft</strong> 建议所有的 <strong>Unicode</strong> 文件应该以 <strong>ZERO WIDTH NOBREAK SPACE</strong>（<code>U+FEFF</code>）字符开头。这作为一个 <strong>“特征符”</strong> 或 <strong>“字节顺序标记（byte-order mark，BOM）”</strong> 来识别文件中使用的编码和字节顺序。</p>
+<p>　　　（2）<strong>不同的系统对 BOM 的支持</strong><br>　　　　因为 <font color="blue">一些系统或程序不支持 <strong>BOM</strong>，因此带有 <strong>BOM</strong> 的 <strong>Unicode</strong> 文件有时会带来一些问题</font>。<br>　　　　　①<strong>JDK1.5</strong> 以及之前的 <strong>Reader</strong> 都不能处理带有 <strong>BOM</strong> 的 <strong>UTF-8</strong> 编码的文件，解析这种格式的 <strong>xml</strong> 文件时，会抛出 <strong>异常：Content is not allowed in prolog</strong>。<br>　　　　　②<strong>Linux/UNIX</strong> 并没有使用 <strong>BOM</strong>，因为它会破坏现有的 <strong>ASCII</strong> 文件的语法约定。<br>　　　　　③不同的编辑工具对 <strong>BOM</strong>的处理也各不相同。使用 <strong>Windows</strong> 自带的记事本将文件保存为 <strong>UTF-8</strong> 编码的时候，记事本会自动在文件开头插入 <strong>BOM</strong>（虽然 <strong>BOM</strong> 对 <strong>UTF-8</strong> 来说并不是必须的）。而其它很多编辑器用不用 <strong>BOM</strong> 是可以选择的。<strong>UTF-8</strong>、<strong>UTF-16</strong> 都是如此。<br>　　　（3）<strong>BOM 与 XML</strong><br>　　　　<strong>XML</strong> 解析读取 <strong>XML</strong> 文档时，<strong>W3C</strong> 定义了 3 条规则：<br>　　　　　①如果文档中有 <strong>BOM</strong>，就定义了文件编码；<br>　　　　　②如果文档中没有 <strong>BOM</strong>，就查看 <strong>XML</strong> 声明中的编码属性；<br>　　　　　③如果上述两者都没有，就假定 <strong>XML</strong> 文档采用 <strong>UTF-8</strong> 编码。<br>　<span style="color:red">自己弱，还要叫别人背锅，真是 wei ruan！现在我们可以分析，<strong>UTF-8</strong> 带不带 <strong>BOM</strong> 根本没什么区别也没什么影响，做得好的东西都这么认为。估计 wei ruan 在自动识别 <strong>UTF-8</strong> 碰壁，或者这个不带 <strong>BOM</strong> 的 <strong>UTF-8</strong> 让他们把之前补的坑都踩破了，无路可走了，厚着脸皮造了这个东西。(个人 YY…)<br>　为什么特别说 <strong>XML</strong>，个人认为本身 <strong>XML</strong> 就是用来传输数据的，用的编码方式肯定是最适合数据传输，兼容性最好的 <strong>UTF-8</strong> （你可以看到很多 <strong>XML</strong> 文件开头都有这样的声明 <strong>&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;</strong>），所以能不能很好解析带不或带 <strong>BOM</strong> 跟 <strong>XML</strong> 关系很密切！<br></span><br>　　6.2 <strong>决定文本的字符集与编码</strong><br>　　软件通常有三种途径来决定文本的字符集和编码。<br>　　（1）对于 <strong>Unicode</strong> 文本最标准的途径是检测文本最开头的几个字节。如：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">　开头字节       Charset/encoding</div><div class="line">　EF BB BF　　　 UTF-8</div><div class="line">　FE FF　　　 　 UTF-16/UCS-2, little endian(UTF-16LE)</div><div class="line">　FF FE　　　 　 UTF-16/UCS-2, big endian(UTF-16BE)</div><div class="line">　FF FE 00 00　  UTF-32/UCS-4, little endian</div><div class="line">　00 00 FE FF　  UTF-32/UCS-4, big-endian</div></pre></td></tr></table></figure></p>
+<p>　　（2）采取一种比较安全的方式来决定字符集及其编码，那就是弹出一个对话框来请示用户。<br>　　　然而 <strong>MBCS 文本（ANSI）</strong>没有这些位于开头的字符集标记，现在很多软件保存文本为 <strong>Unicode</strong> 时，可以选择是否保存这些位于开头的字符集标记。因此，软件不应该依赖于这种途径。这时，软件可以采取一种比较安全的方式来决定字符集及其编码，那就是弹出一个对话框来请示用户。<br>　　（3）采取自己 “猜” 的方法。<br>　　　如果软件不想麻烦用户，或者它不方便向用户请示，那它只能采取自己 “猜” 的方法，软件可以根据整个文本的特征来猜测它可能属于哪个 <strong>charset</strong>，这就很可能不准了。<br><span style="color:red">　不过说真的，<strong>BOM</strong> 在识别编码上，还是挺有用的！<br></span><br>　　6.3 <strong>记事本的几种编码</strong><br>　　（1）<strong>ANSI 编码</strong><br>　　　记事本默认保存的编码格式是： <strong>ANSI</strong>，即本地操作系统默认的内码，简体中文一般为 GB2312。这个怎么验证呢？用记事本保存后，使用 EmEditor、EditPlus 和 UltraEdit 之类的文本编辑器打开。推荐使用 EmEditor，打开后，在又下角会显示编码： <strong>GB2312</strong>。</p>
+<p>　　（2）<strong>Unicode 编码</strong><br>　　　用记事本另存为时，编码选择 <strong>“Unicode”</strong>，用 EmEditor 打开该文件，发现编码格式是： UTF-16LE+BOM（有签名）。用十六进制方式查看，发现开头两字节为： <code>FF FE</code>。这就是 <strong>BOM</strong>。</p>
+<p>　　（3）<strong>Unicode big endian</strong><br>　　　用记事本另存为时，编码选择 <strong>“Unicode”</strong>，用 EmEditor 打开该文件，发现编码格式是： UTF-16BE+BOM（有签名）。用十六进制方式查看，发现开头两字节为： <code>FE FF</code>。这就是 <strong>BOM</strong>。</p>
+<p>　　（4）<strong>UTF-8</strong><br>　　　用记事本另存为时，编码选择 <strong>“UTF-8”</strong>，用 EmEditor 打开该文件，发现编码格式是： UTF-8（有签名）。用十六进制方式查看，发现开头三个字节为： <code>EF BB BF</code>。这就是 <strong>BOM</strong>。<br><span style="color:red">　建议还是使用 <strong>NotePad++</strong>，上面那些，有些用过，个人感觉并不好用，关于 <strong>NotePad++</strong> 的使用可以看这里 <a href="http://durant35.github.io/2016/02/02/tool_NotePad/#more">《NotePad++》</a>；此外，通过 <strong>记事本另存为 ANSI 编码</strong>，以十六进制方式查看文件，可以更清楚的认识 <strong>ANSI</strong> 编码。<br></span><br>　7、<strong>几种误解，以及乱码产生的原因和解决办法</strong><br>　　7.1 误解一<br>　　　在将 <strong>“字节串”</strong> 转化成 <strong>“UNICODE 字符串”</strong> 时，比如在 <font color="blue">读取文本文件时，或者通过网络传输文本时，容易将 <strong>“字节串”</strong> 简单地作为单字节字符串，采用每 <strong>“一个字节”</strong> 就是 <strong>“一个字符”</strong> 的方法进行转化</font>。<br>　　　而实际上，在非英文的环境中，应该将 <strong>“字节串”</strong> 作为 <strong>ANSI 字符串</strong>，采用适当的编码来得到  <strong>UNICODE 字符串</strong>，有可能 <strong>“多个字节”</strong> 才能得到 <strong>“一个字符”</strong>。</p>
+<p>　　　通常，一直在英文环境下做开发的程序员们，容易有这种误解。</p>
+<p>　　7.2 误解二<br>　　　<font color="blue">在 <strong>DOS</strong>，<strong>Windows 98</strong> 等非 <strong>UNICODE</strong> 环境下，字符串都是以 <strong>ANSI 编码</strong> 的字节形式存在的。这种以字节形式存在的字符串，必须知道是哪种编码才能被正确地使用。</font> 这使我们形成了一个惯性思维： <strong>“字符串的编码”</strong>。<br>　　　当 <font color="blue"><strong>UNICODE</strong> 被支持后，<strong>Java</strong> 中的 <strong>String</strong> 是以字符的 “序号” 来存储的，不是以 <strong>“某种编码的字节”</strong> 来存储的</font>，因此已经不存在 <strong>“字符串的编码”</strong> 这个概念了。只有在 <strong>“字符串”</strong> 与 <strong>“字节串”</strong> 转化时，或者，将一个 <strong>“字节串”</strong> 当成一个 <strong>ANSI</strong> 字符串时，才有编码的概念。</p>
+<p>　　　不少的人都有这个误解。<br><span style="color:red">　我的理解是，非 <strong>UNICODE</strong> 环境下，字符采取 <strong>ANSI 编码</strong> 保存；<strong>UNICODE</strong> 被支持后，采用 <strong>UTF-16 编码</strong>（如前面说的，<strong>JVM</strong> 中字符是按照 <strong>UTF-16 编码</strong> 保存的）。不过我知道，<strong>Windows</strong> 似乎是 <strong>UNICODE</strong> 环境，但是人家可以通过修改 <strong>执行字符集</strong> 来按照不同方式保存，乱呀！<br>　这个问题的结果就是，对于相同字符，采取不同编码方式，他在内存中实际存储的字节数据，甚至长度是不一样的，这就造成 <strong>sizeof</strong>，<strong>string.getBytes()</strong>，<strong>string.getlength</strong> 这些代码在运行时的结果值得商榷。不过，注意一下就行，你都会那么多了，这个自然会分析。<br></span><br>　　7.3 分析与解决<br>　　　第一种误解，往往是导致乱码产生的原因。第二种误解，往往导致本来容易纠正的乱码问题变得更复杂。</p>
+<p>　　　在这里，我们可以看到，其中所讲的 “误解一”，即采用每 <strong>“一个字节”</strong> 就是 <strong>“一个字符”</strong> 的转化方法，实际上也就等同于采用 <strong>iso-8859-1</strong> 进行转化。因此，我们常常使用 <strong>bytes = string.getBytes(“iso-8859-1”)</strong> 来进行逆向操作，得到原始的 <strong>“字节串”</strong>。然后再使用正确的 <strong>ANSI</strong> 编码，比如 <strong>string = new String(bytes, “GB2312”)</strong>，来得到正确的 <strong>“UNICODE 字符串”</strong>。<br><span style="color:red">　整篇文章内容还是比较多的，而且总结的很全面；<br>　对 <strong>内码</strong>、<strong>代码页</strong>、<strong>半全角</strong> 等与字符编码相关的概念也能进一步了解；<br>　思路比较清晰，对我们建立相关的知识网络很有帮助。<br></span></p>
+<h2 id="最后的战役"><a href="#最后的战役" class="headerlink" title="最后的战役"></a><font color="#F40D64">最后的战役</font></h2><p>　整个系列的文章就是这么多，从一开始在 <strong>Qt</strong> 中出现问题，分析问题产生很多疑问（来自 <a href="http://durant35.github.io/2016/02/02/programPearls_Qt_%E5%80%9FQt%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%B0%88%E8%B0%88Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/#more">《借Qt中文乱码谈谈Coding中的编码问题》</a>，可能你没看过，关系不大）；到 <a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a> 一文对整个系列文章要阐述的内容—— <strong>字符编码</strong>，作一个 <strong>OverView</strong>；然后就是 <a href="http://durant35.github.io/2016/02/22/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/#more">《Coding中的编码问题之系统学习》</a> 一文中的系统学习，从点到面逐个击破；最后通过本文再总览性地回顾，加深印象，同时对最后几个知识点进行了解。希望看完本系列文章，能帮助你在脑海里形成字符编码的知识网络：</p>
+<blockquote>
+<ol>
+<li><p><strong>字符集、字符编码的联系</strong>，包括先有字符集，确定每个字符对应的编号，最后采用具体的字符编码存储这些编号，形成从符号到 “0101…”的映射。</p>
+</li>
+<li><p><strong>如何存储字符集中每个字符的编号其实是一个具体的问题</strong>。这个问题的解决可以有两条思路，定长或变长。其中还要考虑如何解决一个随时时间推移而产生的兼容性问题。</p>
+</li>
+</ol>
+<ul>
+<li>以上两点都是理论性指导，应用在具体实践上，就产生了 <strong>由简单到复杂</strong>，<strong>由容量小到容量大</strong>，<strong>由一到多再到一</strong> 的字符编码发展史。</li>
+</ul>
+<ol>
+<li>鼻祖 <strong>ASCII</strong> 奠定了字符编码的基调；随着欧洲国家的加入，<strong>Latin-1</strong> 自然需要对 <strong>ASCII</strong> 进行扩展；紧接着，以中国为首的来自世界各地的人们的加入，扩展显得迅捷但七零八落，<strong>GB</strong> 系列等编码不断出现和发展；直到目前，随着国际化的发展，统一的字符编码标准显得非常迫切，<strong>Unicode</strong> 来了！不过，统一的道路总是那么漫长，一方面要兼并（兼容 <strong>ASCII</strong>），一方面还要劝降（使用 <strong>UTF-16</strong>），所以 <strong>一国两制</strong> 就出现了，在不同领域，<strong>UTF-8</strong> 和 <strong>UTF-16</strong> 各领风骚。</li>
+<li><strong>GB</strong> 系列编码的发展是一部曲折史，<strong>GB2312</strong> 的横空出世，确定了 <strong>GB</strong> 系列编码兼容 <strong>ASCII</strong> 的优良传统；<strong>GBK</strong> 接过旗帜，延续优良传统，扩展字符容量；可惜，到最后，<strong>GB18030</strong> 因小失大，容量是大了很多，可惜兼容性上捉襟见肘，目前 <strong>GB</strong> 系列编码只能吃 <strong>GB2312/GBK</strong> 的老本了。</li>
+<li><strong>Unicode</strong> 一统大业也是历经波折。一开始的定长策略，<strong>UCS-X</strong> 方案纸上谈兵；接下来的变长方案打下江山。<strong>UTF-16</strong> 凭借 <strong>“代理区代理对”</strong> 的策略，给别人以震慑；<strong>UTF-8</strong> 借灵活、巧妙之法所向披靡，对 <strong>ASCII</strong> 的无缝衔接更是其最大威力。目前，<strong>UTF-16</strong> 和 <strong>UTF-8</strong> 同时在不同领域发挥着巨大的作用。统一大业，指日可待。</li>
+</ol>
+<ul>
+<li>除了这样一部发展史，还要熟记几个概念：<br>　(1)、跟 <strong>Unicode</strong> 码点相关的 <strong>BMP</strong>、<strong>SP</strong>；<br>　(2)、跟 <strong>UTF-16</strong> 编码相关的 <strong>代理区(Surrogate Area)</strong>、<strong>代理对(Surrogate Pair)</strong>；<br>　(3)、解决 wei ruan <strong>Unicode</strong> 环境与 <strong>ANSI</strong> 编码鸿沟的 <strong>代码页(Code Page)</strong>；<br>　(4)、<strong>UTF-8</strong> 的死对头 <strong>BOM</strong>；<br>　(5)、跟 <strong>GB</strong> 系列编码密切相关的 <strong>区位码</strong>、<strong>国际码</strong>、<strong>机内码</strong>；<br>　(6)、特指系统使用的编码方式—— <strong>内码</strong>。</li>
+<li>熟记几个算法：<br>　(1)、<strong>UTF-8</strong> 1-4 字节编码方案；<br>　(2)、<strong>UTF-16</strong> 2 或 4 字节编码方案，主要是 <strong>BMP</strong> 之外字符的编码方案；<br>　(3)、<strong>GB</strong> 系列编码兼容 <strong>ASCII</strong> 的策略，注意 <strong>GB2312</strong> 和 <strong>GBK</strong> 的异同点。</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/02/25/programPearls_Coding中的编码问题之回顾&深入/">Coding中的编码问题之回顾&amp;深入</a></p>
+
+        <!-- 
+        <p><span>文章作者:</span><a href="/" title="回到主页">Tarantula-7</a></p>
+        -->
+        <p><span>文章作者:</span>Gary</p>
+
+        <p><span>发布时间:</span>2016-02-25, 12:11:03</p>
+        <p><span>最后更新:</span>2016-11-12, 22:14:16</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/02/25/programPearls_Coding中的编码问题之回顾&深入/" title="Coding中的编码问题之回顾&amp;深入">http://durant35.github.io/2016/02/25/programPearls_Coding中的编码问题之回顾&amp;深入/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2016/02/25/programPearls_Coding中的编码问题之回顾&amp;深入/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+
+        <!-- not to show license information
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+        -->
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">
+                    .h中的#ifndef..#define..#endif
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">
+                    Coding中的编码问题之系统学习
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符编码笔记：-ASCII，Unicode-和-UTF-8"><span class="toc-number">1.</span> <span class="toc-text">字符编码笔记： ASCII，Unicode 和 UTF-8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于-Unicode-字符集"><span class="toc-number">2.</span> <span class="toc-text">关于 Unicode 字符集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符编码详解"><span class="toc-number">3.</span> <span class="toc-text">字符编码详解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后的战役"><span class="toc-number">4.</span> <span class="toc-text">最后的战役</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+        <!--
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+        -->
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+        <!--
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+        -->
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Coding中的编码问题之回顾&深入　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/2016/02/25/programPearls_Coding中的编码问题之回顾&amp;深入/';
+            this.page.identifier = '2016/02/25/programPearls_Coding中的编码问题之回顾&amp;深入/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/04/21/programPearls_.h中的ifndef..define..endif/" title="上一篇: .h中的#ifndef..#define..#endif">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/" title="下一篇: Coding中的编码问题之系统学习">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">DARPA[Boss]: Motion Planning in Urban Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_GraphMatching/">算法设计与分析[0016] 图匹配问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/Algorithms_Dynamic Programming(V)/">算法设计与分析[0014] Dynamic Programming(V) 一道习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/13/hsw_UbuntuSystemBootSequence/">一张图带你看 Ubuntu(Linux) 系统启动过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/linux_Linux命令小纸条/">Linux命令小纸条</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/tool_vim几步走/">vim几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/10/linux_libpcap 32-bit&64-bit/">libpcap, 32-bit&64-bit</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/OverlappingSounds_Key Word Engineering/">Key Word Engineering</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/07/hexo_Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/01/TACouses_Embedded_System_2016/">Embedded System 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/hexo_博客主题Yelee迁移笔记/">hexo博客主题Yelee迁移笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux下基本文件操作/">Win/Linux下基本文件操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/26/tool_git几步走/">git几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/09/OverlappingSounds_Basketball_Never_Stops/">Basketball Never Stops</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/25/programPearls_Coding中的编码问题之回顾&深入/">Coding中的编码问题之回顾&深入</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/21/programPearls_Coding中的编码问题之入门&概览/">Coding中的编码问题之入门&概览</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/11/movies_漫威电影/">漫威21部系列电影(持续更新)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/tool_NotePad/">NotePad++</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">在hexo new之后立即打开Markdown文稿</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_自定义主题/">hexo自定义主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&Win8.1(both 64-bit),其他仅供参考)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/09/graduatedesign_01 STM32_一-搭建STM32开发环境/">(一) 搭建STM32开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/16/opengl_数媒HW4参考资料/">数媒HW4参考资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/06/考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/hexo_win搭建hexo/">win搭建hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2017 Tarantula-7
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+            
+            
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

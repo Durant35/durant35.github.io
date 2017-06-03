@@ -171,14 +171,14 @@
     <link href="http://durant35.github.io/2017/06/01/Algorithms_UnionFindSet/"/>
     <id>http://durant35.github.io/2017/06/01/Algorithms_UnionFindSet/</id>
     <published>2017-06-01T06:00:22.000Z</published>
-    <updated>2017-06-03T05:51:00.061Z</updated>
+    <updated>2017-06-03T05:51:48.673Z</updated>
     
     <content type="html"><![CDATA[<h4 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h4><ul>
 <li>并查集：并查集处理的是集合之间的关系，即 union，find。在这种数据类型中，N个不同元素被分成若干个组，每组是一个集合，这种集合叫做分离集合。并查集支持查找一个元素所属的集合和两个元素分别所属的集合的合并。注意：并查集只能进行合并操作，不能进行分割操作。</li>
 <li>并查集支持以下操作：<ul>
 <li><code>makeset(x)</code>：创建一个仅包含 x 的独立集合（分离集）；最初每个节点单独构成了一个分离集 ==&gt; 一组分离集</li>
 <li><code>find(x)</code>：不断重复地检验节点对，判断其是否属于同一个集合？</li>
-<li><code>union(x, y)</code>：每当增加了一条边，将与之相关的两个集合合并。</li>
+<li><code>union(x, y)</code>：每当增加了一条边，将与之相关的两个集合合并。<a id="more"></a></li>
 </ul>
 </li>
 <li>并查集的实现原理<ul>
@@ -258,7 +258,11 @@
     <summary type="html">
     
       &lt;h4 id=&quot;并查集&quot;&gt;&lt;a href=&quot;#并查集&quot; class=&quot;headerlink&quot; title=&quot;并查集&quot;&gt;&lt;/a&gt;并查集&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;并查集：并查集处理的是集合之间的关系，即 union，find。在这种数据类型中，N个不同元素被分成若干个组，每组是一个
+&lt;li&gt;并查集：并查集处理的是集合之间的关系，即 union，find。在这种数据类型中，N个不同元素被分成若干个组，每组是一个集合，这种集合叫做分离集合。并查集支持查找一个元素所属的集合和两个元素分别所属的集合的合并。注意：并查集只能进行合并操作，不能进行分割操作。&lt;/li&gt;
+&lt;li&gt;并查集支持以下操作：&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;makeset(x)&lt;/code&gt;：创建一个仅包含 x 的独立集合（分离集）；最初每个节点单独构成了一个分离集 ==&amp;gt; 一组分离集&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;find(x)&lt;/code&gt;：不断重复地检验节点对，判断其是否属于同一个集合？&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;union(x, y)&lt;/code&gt;：每当增加了一条边，将与之相关的两个集合合并。
     
     </summary>
     

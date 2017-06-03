@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Tarantula-7" />
+
+
+
+<meta name="description" content="涉及的内容
+Presents the traditionally distinct fields of software and hardware design in a new unified approach（以新的统一方法呈现传统上不同的软硬件领域）
+OS for embedded computing: Linux
+“HW/SW bridges”: boot loader, device">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tarantula-7's Blog">
+<meta property="og:url" content="http://durant35.github.io/ZYBO/index1.html">
+<meta property="og:site_name" content="Tarantula-7's Blog">
+<meta property="og:description" content="涉及的内容
+Presents the traditionally distinct fields of software and hardware design in a new unified approach（以新的统一方法呈现传统上不同的软硬件领域）
+OS for embedded computing: Linux
+“HW/SW bridges”: boot loader, device">
+<meta property="og:image" content="http://durant35.github.io/../img/ZYBO/day01/ZynqLinuxSoftwareStack.png">
+<meta property="og:image" content="http://durant35.github.io/../img/ZYBO/day01/Zynq_PS&PL.png">
+<meta property="og:image" content="http://durant35.github.io/../img/ZYBO/day01/Zynq7000.jpg">
+<meta property="og:image" content="http://durant35.github.io/../img/ZYBO/day01/Which_license_should_I_use.png">
+<meta property="og:image" content="http://durant35.github.io/../img/ZYBO/day01/Structure4GCC.png">
+<meta property="og:image" content="http://durant35.github.io/../img/ZYBO/day01/GCC_execution.png">
+<meta property="og:image" content="http://durant35.github.io/../img/ZYBO/day01/Structure4Compiler.png">
+<meta property="og:updated_time" content="2017-02-21T08:57:13.613Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tarantula-7's Blog">
+<meta name="twitter:description" content="涉及的内容
+Presents the traditionally distinct fields of software and hardware design in a new unified approach（以新的统一方法呈现传统上不同的软硬件领域）
+OS for embedded computing: Linux
+“HW/SW bridges”: boot loader, device">
+<meta name="twitter:image" content="http://durant35.github.io/../img/ZYBO/day01/ZynqLinuxSoftwareStack.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Tarantula-7&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Tarantula-7&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: false,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+</head>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Tarantula-7</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">My Body Knows It&#39;s Time to Say GoodBye... ---- Dear Basketball</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">Home</a></li>
+                        
+                            <li><a href="/tags">All-tags</a></li>
+                        
+                            <li><a href="/archives">All-lists</a></li>
+                        
+                            <li><a href="/Shengjie">Contact</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                                <a class="fa OSChina" href="https://my.oschina.net/love7zx/" title="OSChina"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMD/">CMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/">CV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DARPA/">DARPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DLL/">DLL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Key-words/">Key-words</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MFC/">MFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NotePad/">NotePad++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCL/">OpenCL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL/">OpenGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB/">PCB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32/">STM32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS2013/">VS2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dumpbin/">dumpbin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ini/">ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pcap/">pcap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件操作/">文件操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漫威电影/">漫威电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码/">编码</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Tarantula-7</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Tarantula-7</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">My Body Knows It&#39;s Time to Say GoodBye... ---- Dear Basketball</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/tags">All-tags</a></li>
+                
+                    <li><a href="/archives">All-lists</a></li>
+                
+                    <li><a href="/Shengjie">Contact</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                                <a class="fa OSChina" target="_blank" href="https://my.oschina.net/love7zx/" title="OSChina"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/ZYBO/index1.html" class="article-date">
+      <time datetime="2017-02-16T14:16:48.000Z" itemprop="datePublished">2017-02-16</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <style>
+    .article-meta { display: none; }
+    #container .article .article-title { padding-right: 0; }
+    .article-header {
+        padding: 0;
+        padding-top: 26px;
+        border-left: none;
+        text-align: center;
+    }
+    .article-header:hover { border-left: none; }
+    .article-title { font-size: 1.6em }
+    .article-entry hr { margin: 0;}
+    .article-meta,
+    #container .article-info-post.article-info { display: none;}
+    #container .article .article-title { padding: 0; }
+</style>
+
+<!-- 匹配页面 -->
+
+          
+        <center><img src="../img/ZYBO/day01/ZynqLinuxSoftwareStack.png" width="800px"/></center>
+
+<h2 id="涉及的内容"><a href="#涉及的内容" class="headerlink" title="涉及的内容"></a>涉及的内容</h2><ul>
+<li>Presents the traditionally distinct fields of software and hardware design in a new unified approach（以新的统一方法呈现传统上不同的软硬件领域）</li>
+<li>OS for embedded computing: Linux</li>
+<li>“HW/SW bridges”: boot loader, device driver,  IP</li>
+</ul>
+<h2 id="Course-Objectives"><a href="#Course-Objectives" class="headerlink" title="Course Objectives"></a>Course Objectives</h2><ul>
+<li>After this course, you will be able to design an embedded system based on Xilinx ZYNQ</li>
+<li>You will be able to <strong>add customized IP</strong> in ZYNQ</li>
+<li>You will be able to <strong>develop device driver</strong> for customized IP</li>
+<li>You will be able to <strong>develop boot loader</strong> for Linux</li>
+<li>You will be able to <strong>develop applications on ZED board</strong></li>
+<li>Understand <strong>SW/HW Co-design</strong> and <strong>HLS</strong></li>
+</ul>
+<h2 id="Course-outline"><a href="#Course-outline" class="headerlink" title="Course outline"></a>Course outline</h2><ol>
+<li>Overview and GNU Tool Chain<ul>
+<li>Next Decade: All Programmable perspective</li>
+<li>Course Overview</li>
+<li>FPGA and ZYNQ Overview</li>
+<li>GNU Tool Chain</li>
+<li>Lab1-1 Ubuntu setup and ZED demo</li>
+<li>Lab1-2 hello world and GNU Tool Chain</li>
+<li>Lab1-3 Explore Zybo Linux</li>
+<li>Lab1-4 Cross Compile </li>
+</ul>
+</li>
+<li>User space topic<ul>
+<li>Process and thread</li>
+<li>Special files and Shell</li>
+<li>Busybox and Package</li>
+<li>Library and System Call</li>
+<li>Cross compile</li>
+<li>Lab2-1  UART read/write in two process</li>
+<li>Lab2-2  multi thread ZED LED flashing</li>
+<li>Lab2-3  Define your project </li>
+</ul>
+</li>
+<li>Device driver<ul>
+<li>Device driver overview</li>
+<li>Sysfs </li>
+<li>Interrupts</li>
+<li>Lab3-1  ZedBoard LED hello world</li>
+<li>Lab3-2  Cross compile xt.c then test it </li>
+<li>Lab3-3  Recompile your own kernel</li>
+<li>Lab3-4  Hack ZED LED device driver</li>
+<li>Lab3-5  Insert PWM kernel module</li>
+</ul>
+</li>
+<li>Drive the Customized  IP<ul>
+<li>ZYNQ Architecture</li>
+<li>EDK Overview</li>
+<li>ARM Instruction Set Overview</li>
+<li>ARM Instruction Set</li>
+<li>Lab4-1  ZYNQ PS C Hello World </li>
+<li>Lab4-2  ZYNQ IP and Stand alone C</li>
+<li>Lab4-3  SDK Debug</li>
+<li>Lab4-4  Assembly and BSP library</li>
+</ul>
+</li>
+<li>Bootloader<ul>
+<li>Bootloader Overview</li>
+<li>U-boot and Ramfs</li>
+<li>Linux Device Tree</li>
+<li>ZYNQ Boot Sequence</li>
+<li>Lab5-1  Build your U-boot </li>
+<li>Lab5-2  Create your FSBL </li>
+<li>Lab5-3  Ramfs for ZRobot</li>
+<li>Lab5-4  Post init</li>
+</ul>
+</li>
+<li>HW/SW Co-design &amp; Project Show<ul>
+<li>HW/SW Co-design overview</li>
+<li>OpenCV case study</li>
+<li>GNU Radio case study</li>
+<li>Software Defined Network </li>
+<li>Final Examination </li>
+<li>Lab6-1  Final project OpenHW.org submit</li>
+<li>Lab6-2  Project presentation</li>
+</ul>
+</li>
+</ol>
+<h2 id="Day01"><a href="#Day01" class="headerlink" title="Day01"></a>Day01</h2><h3 id="FPGA-and-ZYNQ-Overview"><a href="#FPGA-and-ZYNQ-Overview" class="headerlink" title="FPGA and ZYNQ Overview"></a>FPGA and ZYNQ Overview</h3><ul>
+<li>Embedded system: any device that includes a programmable computer but is not itself a general-purpose computer.</li>
+<li>嵌入式计算的三大技术特点：<ul>
+<li>数字信号处理（Digital Signal Processing）<ul>
+<li>Transforming data</li>
+</ul>
+</li>
+<li>联网能力（Packet Processing）<ul>
+<li>Transporting data</li>
+</ul>
+</li>
+<li>不亚于桌面系统的CPU处理能力（Tera Computing）<ul>
+<li>Analyzing data</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>双核ARM Cortex-A9 SOC + FPGA<br><center><img src="../img/ZYBO/day01/Zynq_PS&PL.png" width="800px"/></center><ul>
+<li>处理系统PS（Processor System）</li>
+<li>可编程逻辑PL（Programmable Logic）<br><center><img src="../img/ZYBO/day01/Zynq7000.jpg" width="640px"/></center><blockquote>
+<p>From：<a href="http://www.guyuehome.com/275">古月居～ROS探索总结（十六）——HRMRP机器人的设计</a><br>Zynq 由处理系统（Processor System， PS）与可编程逻辑（Programmable Logic， PL）两部分组成。其中 PS 基于 ARM Cortex-A9 双核处理器构建，包含常用的外设接口，例如网络、 USB、内存控制器等。而 PL 由 Xilinx 的 7 系列 FPGA 构成，支持动 态重配置，可以使用 Verilog 语言编程使用。在HRMRP （Hybrid Real-time Mobile Robot Platform，混合实时移动机器人平台）中，PS通过操作系统控制所有功能正常有序的实现，而 PL作为协处理器一方面可以对复杂的运算并行加速处理， 另一方面可以进行 I/O 接口扩展，为多传感器和执行器设计统一的接口，提高系统硬 件配置的灵活性。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="GNU-Tool-Chain"><a href="#GNU-Tool-Chain" class="headerlink" title="GNU Tool Chain"></a>GNU Tool Chain</h3><p>• Which license I should use ? </p>
+<blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io">阮一峰的网络日志~如何选择开源许可证？</a></p>
+<center><img src="../img/ZYBO/day01/Which_license_should_I_use.png" width="720px"/></center>
+
+</blockquote>
+<p>• GCC Options<br>　• -E: preprocessor output<br>　• -g: debug information<br>　• -O0~-O1: optimization level.<br>　　• default is -O1<br>　• -x language: input file’s language.<br>　　• Ex: gcc -x java test.java<br>　• -S: output assembly</p>
+<p>• The <strong>GNU Compiler Collection (GCC)</strong> is the most important piece of open source software in the world. Virtually all other open software is based on it at some level or another. Even other languages, such as Perl and Python, are written in C, which is compiled by the GNU compiler.</p>
+<center><img src="../img/ZYBO/day01/Structure4GCC.png" width="420px"/></center>
+
+<p>• Tool Chain</p>
+<p><center><img src="../img/ZYBO/day01/GCC_execution.png" width="420px"/></center><br>　• Compiler<br>　　• Convert source code to object modules<br>　　• The Structure of Compiler<br>　　　<center><img src="../img/ZYBO/day01/Structure4Compiler.png" width="420px"/></center><br>　　• .o: external references not yet resolved<br>    $ nm <em>.o<br>　• Linker<br>　• Advanced Topic（<em>*Binutils</em></em>）</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#涉及的内容"><span class="toc-number">1.</span> <span class="toc-text">涉及的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Course-Objectives"><span class="toc-number">2.</span> <span class="toc-text">Course Objectives</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Course-outline"><span class="toc-number">3.</span> <span class="toc-text">Course outline</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Day01"><span class="toc-number">4.</span> <span class="toc-text">Day01</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FPGA-and-ZYNQ-Overview"><span class="toc-number">4.1.</span> <span class="toc-text">FPGA and ZYNQ Overview</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GNU-Tool-Chain"><span class="toc-number">4.2.</span> <span class="toc-text">GNU Tool Chain</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+        <!--
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+        -->
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+        <!--
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+        -->
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/ZYBO/index1.html';
+            this.page.identifier = 'ZYBO/index1.html';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2017 Tarantula-7
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+            
+            
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

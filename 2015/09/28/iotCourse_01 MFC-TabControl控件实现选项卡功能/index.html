@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Tarantula-7" />
+
+
+
+<meta name="description" content="本文旨在指导大家如何通过使用Tab Control控件实现选项卡功能,构建整个读写器上位机软件的主要框架。在这个过程，大家将会初步接触并了解：　　　　+1.　 什么是基于对话框的MFC程序;　　　　+2.　 Tab Control控件如何使用;　　　　+3.　 Windows程序的消息处理机制。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MFC TabControl控件实现选项卡功能">
+<meta property="og:url" content="http://durant35.github.io/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/index.html">
+<meta property="og:site_name" content="Tarantula-7's Blog">
+<meta property="og:description" content="本文旨在指导大家如何通过使用Tab Control控件实现选项卡功能,构建整个读写器上位机软件的主要框架。在这个过程，大家将会初步接触并了解：　　　　+1.　 什么是基于对话框的MFC程序;　　　　+2.　 Tab Control控件如何使用;　　　　+3.　 Windows程序的消息处理机制。">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/00-00.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/00-01.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/00-02.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/00-03.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/00-04.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/00-05.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/00-06.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/00-07.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/00-08.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/00-09.png">
+<meta property="og:updated_time" content="2016-11-12T09:48:58.298Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MFC TabControl控件实现选项卡功能">
+<meta name="twitter:description" content="本文旨在指导大家如何通过使用Tab Control控件实现选项卡功能,构建整个读写器上位机软件的主要框架。在这个过程，大家将会初步接触并了解：　　　　+1.　 什么是基于对话框的MFC程序;　　　　+2.　 Tab Control控件如何使用;　　　　+3.　 Windows程序的消息处理机制。">
+<meta name="twitter:image" content="http://durant35.github.io/img/RFID/00-00.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Tarantula-7&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>MFC TabControl控件实现选项卡功能 | Tarantula-7&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+</head>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Tarantula-7</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">My Body Knows It&#39;s Time to Say GoodBye... ---- Dear Basketball</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">Home</a></li>
+                        
+                            <li><a href="/tags">All-tags</a></li>
+                        
+                            <li><a href="/archives">All-lists</a></li>
+                        
+                            <li><a href="/Shengjie">Contact</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                                <a class="fa OSChina" href="https://my.oschina.net/love7zx/" title="OSChina"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMD/">CMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/">CV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DARPA/">DARPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DLL/">DLL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Key-words/">Key-words</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MFC/">MFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NotePad/">NotePad++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCL/">OpenCL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL/">OpenGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB/">PCB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32/">STM32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS2013/">VS2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dumpbin/">dumpbin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ini/">ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pcap/">pcap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件操作/">文件操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漫威电影/">漫威电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码/">编码</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Tarantula-7</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Tarantula-7</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">My Body Knows It&#39;s Time to Say GoodBye... ---- Dear Basketball</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/tags">All-tags</a></li>
+                
+                    <li><a href="/archives">All-lists</a></li>
+                
+                    <li><a href="/Shengjie">Contact</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                                <a class="fa OSChina" target="_blank" href="https://my.oschina.net/love7zx/" title="OSChina"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-iotCourse_01 MFC-TabControl控件实现选项卡功能" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/" class="article-date">
+      <time datetime="2015-09-28T08:15:27.000Z" itemprop="datePublished">2015-09-28</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MFC TabControl控件实现选项卡功能
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/物联网技术导论实验课/">物联网技术导论实验课</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>　　本文旨在指导大家如何通过使用<strong>Tab Control控件</strong>实现选项卡功能,构建整个读写器上位机软件的主要框架。在这个过程，大家将会初步接触并了解：<br>　　　　<strong>+1.　</strong> 什么是<strong>基于对话框</strong>的MFC程序;<br>　　　　<strong>+2.　</strong> <strong>Tab Control控件</strong>如何使用;<br>　　　　<strong>+3.　</strong> Windows程序的<strong>消息处理机制</strong>。<br><a id="more"></a></p>
+<p>　　首先应该清楚的是，<strong>我们的读写器上位机软件是一个基于对话框的应用程序</strong>，使用VC++开发的MFC应用程序类型有以下三种<strong>单文档、多文档与基于对话框</strong>(摘自<a href="http://blog.csdn.net/shushuidewoniu/article/details/8631721">《MFC应用程序类型：单文档、多文档与基于对话框》</a>)。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">单文档：记事本类程序的标准模式，有菜单栏、工具栏等，只能进行一份文档的操作，即不能同时在同一个应用程序中打开两个文件;</div><div class="line"> </div><div class="line">多文档：WORD类或浏览器程序的标准模式，可多个窗口显示不同的信息，进行不同的任务，有过个视图环境，可同时操作多个文件。</div><div class="line">       多个文件共享同一菜单栏、工具栏等;</div><div class="line"> </div><div class="line">对话框：可方便的使用控件，所见即所得的编程，没有菜单栏、工具栏等;</div><div class="line"> </div><div class="line">怎样看出一个MFC应用程序是基于单文档、多文档还是对话框？</div><div class="line"><span class="number">1.</span>运行应用程序观看，对话框一般没有菜单栏、工具栏等，单文档和多文档有;</div><div class="line">                  另外多文档可产生子窗口，会有一个childframe <span class="keyword">class</span>.</div><div class="line"><span class="number">2.</span>从源码中的类观看：</div><div class="line">   基于对话框—&gt;一般含以下<span class="number">3</span>个类：CAboutDlg、程序名App、程序名Dlg;</div><div class="line">   基于单文档—&gt;一般含以下<span class="number">4</span>个类：CMainFrame、程序名App、程序名Doc、程序名View;</div><div class="line">   基于多文档—&gt;一般含以下<span class="number">5</span>个类：CMainFrame、CChildFrame、程序名App、程序名Doc、程序名View.</div></pre></td></tr></table></figure></p>
+<h2 id="第1步：-创建基于对话框的应用程序"><a href="#第1步：-创建基于对话框的应用程序" class="headerlink" title="第1步： 创建基于对话框的应用程序"></a><strong>第1步： 创建基于对话框的应用程序</strong></h2><p>　　所以，首先，我们要创建一个基于对话框的MFC应用程序。右上角<strong>File-&gt;New</strong>弹出以下对话框，选择应用程序的类型是<strong>MFC AppWizard(.exe)</strong>，输入工程名，选择工程存放路径，点击OK进入创建向导。最关键的一步是<strong>类型一定要选择Dialog based(基于对话框)</strong>，然后就可以<strong>Finish</strong>或者你也可以<strong>Next</strong>下去看有什么其他信息然后自定义进行修改，最后<strong>Finish</strong>，这样就创建了一个基于对话框的应用程序了。你可以执行一发看看效果。<br>    <center><img src="/img/RFID/00-00.png"/></center><br>　　接下来我们看一下通过上述操作，VC++悄悄帮我们做了哪些不可告人的事情。正如上面所说的，通过上述操作后自动生成了三个类(如下图)，其中<strong>“C工程名App”</strong>可以理解为整个应用程序的主体框架，由她去启动我们的主对话框<strong>“C工程名Dlg”</strong>。<strong>“CAboutDlg”</strong>是帮助对话框，运行程序后弹出主对话框，点击主对话框左上角小图标会弹出一个下拉菜单，点击<strong>“关于….”</strong>后弹出的对话框即是帮助对话框的内容。<strong>这里需要指出的是，MFC的编程惯例是类名都以C开头(ClassView视图查看类信息)，而该类相关的头文件、源文件(FileView视图查看文件信息)文件名则以去掉C之后的部分命名。</strong><br>    <center><img src="/img/RFID/00-01.png"/></center></p>
+<h2 id="第2步：-添加TabControl控件"><a href="#第2步：-添加TabControl控件" class="headerlink" title="第2步： 添加TabControl控件"></a><strong>第2步： 添加TabControl控件</strong></h2><p>　　把工具自动生成的控件(下图所示的按钮、静态文本)一一选中后<strong>Delete</strong>掉。然后点击右边工具栏中的<strong>Tab Control控件</strong>将其拖拽到主对话框上。<br>    <center><img src="/img/RFID/00-02.png" width="600px"/></center><br>　　调整<strong>Tab Control控件</strong>大小，使其布满整个主对话框(如下图所示)。<strong>选中Tab Control控件右键-&gt;Properties</strong>可以对控件的属性进行设置，需要注意的属性有：<br>    　　<strong>General</strong>下的<strong>控件ID</strong>(后面需要在代码中通过控件ID绑定控件变量进而达到控制控件的目的)；<br>    　　<strong>Styles</strong>下的<strong>N 对齐</strong>；<br>    　　<strong>More Styles</strong>下的<strong>B 底部</strong>(界面设计第二种参考方案通过修改这个属性达到选项卡切换条在内容区下方的效果)。<br>    <center><img src="/img/RFID/00-03.png" width="600px"/></center></p>
+<h2 id="第3步：-为TabControl控件绑定成员变量"><a href="#第3步：-为TabControl控件绑定成员变量" class="headerlink" title="第3步： 为TabControl控件绑定成员变量"></a><strong>第3步： 为TabControl控件绑定成员变量</strong></h2><p>　　<strong>选中控件-&gt;右键-&gt;ClassWizard</strong>弹出类向导对话框(如下图所示)。其中<strong>Messages Maps</strong>用于创建消息响应函数，例如点击某个按钮的响应函数；<strong>Member Variables</strong>则是类成员变量信息，主要是一些控件与其映射的类成员变量信息。我们选中<strong>Member Variables</strong>，选中<strong>IDC_TAB1</strong>(这个ID正是上述<strong>Tab Control控件</strong>对应的ID)，点击<strong>Add Variable…</strong>输入变量名进行添加。注意这里该变量是一个<strong>Control</strong>类别，<strong>CTabCtrl</strong>类型的变量，<strong>这些内容后续控件部分会进一步深入说明</strong>。另外，MFC编程惯例中成员变量要以<strong>m_</strong>开头。<br>    <center><img src="/img/RFID/00-04.png" width="600px"/></center><br>　　最后<strong>OK</strong>确认后，我们看到在主对话框类声明中多了一个<strong>public成员变量</strong>，另外，在该类源文件中的<strong>DoDataExchange函数</strong>里面通过<strong>DDX_Control(pDX, IDC_TAB1, m_xxx)</strong>将变量与控件ID绑定，最终达到通过成员变量来控制控件的目的。为我们后面通过代码控制该控件实现选项卡功能做好准备。<br>    <center><img src="/img/RFID/00-05.png" width="600px"/></center><br>　　<strong>注意：上面我们的控件对应的成员变量名是<code>m_MainFrame</code>，Tab Control控件的ID是<code>IDC_TAB1</code>，这些你都可以进行自定义修改，修改时ID一般字母全部大写，变量名以<code>m_</code>开头，另外请确保变量名具有可辨性。</strong></p>
+<h2 id="第4步：-在主对话框的OnInitDialog中初始化选项卡"><a href="#第4步：-在主对话框的OnInitDialog中初始化选项卡" class="headerlink" title="第4步： 在主对话框的OnInitDialog中初始化选项卡"></a><strong>第4步： 在主对话框的OnInitDialog中初始化选项卡</strong></h2><p>　　<strong>OnInitDialog</strong>函数是主对话框在显示之前调用的，用于对主对话框进行初始化设置，所以我们在其中对新添加的<strong>Tab Control控件</strong>进行初始化。想想实现一个选项卡功能，无非要解决以下问题：<br>　　　　<strong>+1.　</strong> 选项卡上面要显示几个标签，也就是几个选项条？<br>　　　　<strong>+2.　</strong> 每个标签怎么和对应的内容关联起来？<br>　　　　<strong>+3.　</strong> 选项卡的切换效果怎么实现的？<br>　　前面2个问题将在<strong>OnInitDialog</strong>函数中解决，最后1个问题将在最后1步中讲述。(<strong>注意，下面代码为了方便显示内容，并不按照C++规范，因此你需要仔细阅读<code>#</code>后面的说明内容，然后再将关键部分代码Copy到你的工程；另外，部分MFC API有做说明，你可以通过MSDN获取更多信息。详细的代码分析会在本节后面内容讲述。</strong>)<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">#<span class="comment">/********************** SetIcon一行代码之后 **********************/</span>	</div><div class="line"></div><div class="line"># <span class="number">1.</span> 插入Tab选项卡标签</div><div class="line"># m_MainMenu就是上述创建的TabControl控件对应的变量，注意上一步中的变量名是m_MainFrame!</div><div class="line">m_MainMenu.InsertItem(<span class="number">0</span>, <span class="string">"标签名"</span>);			# InsertItem(标签下标，标签名)	</div><div class="line"> </div><div class="line"># <span class="number">2.</span> 关联对话框，将TAB控件设为选项卡对应对话框的父窗口</div><div class="line"># m_MenuDebugger是调试助手对话框对应的变量</div><div class="line"># Create(m_MenuDebugger变量对应的对话框ID, GetDlgItem(Tab Control控件对应ID));</div><div class="line">m_MenuDebugger.Create(IDD_DEBUGGER, GetDlgItem(IDC_TAB));</div><div class="line"></div><div class="line"># <span class="number">3.</span> 获取TAB控件客户区大小，用于调整选项卡对话框在父窗口中的位置</div><div class="line">CRect rect;</div><div class="line">m_MainMenu.GetClientRect(&amp;rect);</div><div class="line"></div><div class="line"># 原点位于左上角，X轴Y轴分别指向右方和下方</div><div class="line"># 可以理解为距离上边框<span class="number">28</span>px;左、右边框<span class="number">5</span>px;下边框<span class="number">5</span>px，具体数值请自己调试、美化!</div><div class="line">rect.top += <span class="number">28</span>;</div><div class="line">rect.right -= <span class="number">5</span>;</div><div class="line">rect.bottom -= <span class="number">5</span>;</div><div class="line">rect.left += <span class="number">5</span>;</div><div class="line"></div><div class="line"># <span class="number">4.</span> 设置子对话框尺寸并移动到指定位置</div><div class="line">m_MenuDebugger.MoveWindow(&amp;rect);</div><div class="line"></div><div class="line"># <span class="number">5.</span> 设置默认选项卡，对选项卡对话框进行隐藏和显示</div><div class="line">m_MenuDebugger.ShowWindow(SW_SHOWNORMAL或SW_HIDE);	# 为SW_SHOWNORMAL设置显示窗口；为SW_HIDE设置隐藏窗口</div><div class="line">m_MainMenu.SetCurSel(<span class="number">0</span>);				# 为Tab Control控件设置显示窗口对应的下标，一般为：<span class="number">0</span></div><div class="line"></div><div class="line">#<span class="comment">/********************** return TRUE返回之前 **********************/</span></div></pre></td></tr></table></figure></p>
+<p>　　这里我们将<strong>每个标签对应的内容通过对话框呈现</strong>，这样只要我们<strong>将每个标签对应的对话框设计好，然后通过控制对话款的显示与隐藏对选项卡的切换做出响应</strong>，便能实现选项卡的功能了。不过前提是，我们需要先把每个标签对应的对话框设计好(这个<strong>通过使用基本控件可以实现，下节课将重点介绍</strong>)，并且将其关联到主对话框成员变量上，进而通过关联的成员变量控制对话框。所以在插入上述代码之前，我们需要为我们的每一个标签准备一个对话框。<br>　　<strong>ResourceView-&gt;Dialog右键-&gt;Insert Dialog</strong>插入新的对话框资源。<strong>(对对话框进行界面设计部分我们下一节再介绍)</strong>。新建好对话框之后我们需要对其属性进行设置，使其能达到实现我们功能的目的。<strong>选中对话框右键-&gt;Properties-&gt;弹出下方属性设置弹框</strong>：<br>　　        给对话框起一个容易辨识的ID(这里<strong>IDD_DEBUGGER</strong>是调试助手标签对应对话框的ID)；<br>　　        <strong>Styles</strong>中<strong>Styles改为Child(下层),Border改为None(无)</strong>；<br>　　        另外一个值得关注的属性是<strong>General</strong>下的字体。<br>    <center><img src="/img/RFID/00-06.png" width="600px"/></center><br>　　创建好一个标签对应的对话框后，我们需要为其创建对应的类。<strong>右键对话框-&gt;classWizard-&gt;便会提示您是否新建与该对话框对应的类-&gt;是</strong>之后便出现下面界面。类名建议符合惯例<strong>以C开头</strong>，类名最好能辨识关联的对话框，这里<strong>CDebugger类</strong>对应<strong>调试助手</strong>。另外需要留意的是<strong>Base class</strong>还有<strong>Dialog ID</strong>等信息，这里的基类是<strong>MFC API中的CDialog类</strong>，ID正是我们刚新建对话框的ID。<br>    <center><img src="/img/RFID/00-07.png" width="600px"/></center><br>　　为新建的对话框创建好对应类之后，我们就可以<strong>在主对话框中添加该新建对话框类型的成员变量</strong>了。在<strong>ClassView中选中主对话框类(C工程名Dlg类)-&gt;右键-&gt;Add Member Variables</strong>。注意(见下图)<strong>Variable Type</strong>要与新建的对话框对应类保持一致，变量名最好符合惯例以<strong>m_</strong>开头而且能够辨识，最好是私有成员变量。<br>    <center><img src="/img/RFID/00-08.png" width="550px"/></center><br>　　(这些就是C++的一些知识了，大家可以自己摸索，你也可以直接在主对话框类的头文件中直接添加以下声明，再将<strong>CDebugger类</strong>的头文件声明<strong>Debugger.h</strong>include进来，效果完全一样，通过<strong>Add Member Variables</strong>的方式实际上也只是通过工具自动生成如下声明，完成include操作)。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">  # 主对话框类其他声明</div><div class="line">  DECLARE_MESSAGE_MAP()</div><div class="line"><span class="keyword">private</span>:</div><div class="line">  CDebugger m_MenuDebugger;</div><div class="line">&#125;;	# 主对话框类声明结束</div></pre></td></tr></table></figure></p>
+<p>　　到这里，应该就能弄明白本节开头提供的代码中<strong>m_MenuDebugger.Create(IDD_DEBUGGER, GetDlgItem(IDC_TAB))</strong>一句的作用，即通过<strong>Create</strong>方法(<strong>MFC自带API，可以借助MSDN查找</strong>)，让成员变量与对应的对话框绑定，进而对其进行控制。<br>　　其他内容较为简单，请参见本节开头代码及里面的详细注释，这里不再赘述。</p>
+<h2 id="第5步：-主对话框中添加处理选项卡切换的响应函数"><a href="#第5步：-主对话框中添加处理选项卡切换的响应函数" class="headerlink" title="第5步： 主对话框中添加处理选项卡切换的响应函数"></a><strong>第5步： 主对话框中添加处理选项卡切换的响应函数</strong></h2><p>　　到这一步，我们已经完成选项卡的大部分功能，只是当选项卡切换时，其标签对应的内容并没有切换。这一块的实现需要涉及<strong>MFC程序的消息机制</strong>，这里就先举个例子给大家介绍一下，更为深入的内容后续课程会向大家讲解。比如我们<strong>点击界面上某个按钮，操作系统能够监听到我们鼠标的行为，会产生一个点击事件，并且将该事件与被点击的按钮绑定起来，然后将这个消息放入一个系统维护的消息队列中；有消息的产生必然需要对消息进行处理，应用程序会通过一个消息循环不断地从消息队列中取出消息，并做出响应</strong>。<br>　　在实际的MFC程序中，已经将上述过程的绝大部分进行封装，我们开发需要做的只是<strong>确定消息类型并为该消息编写响应函数</strong>即可(这一块后续也会进一步讲解)。<br>　　选中<strong>Tab Control控件</strong>右键-&gt;<strong>Class Wizard</strong>-&gt;选中该控件ID(这里是<strong>IDC_TAB1</strong>)，消息类型选择<strong>TCN_SELCHANGE</strong>(也就是控件标签改变事件)，然后<strong>Add Function</strong>添加消息响应函数<strong>OnSelchangeTab</strong>，然后<strong>Edit Code</strong>编辑该响应函数。<br>    <center><img src="/img/RFID/00-09.png" /></center><br>　　这样一来，当我们通过鼠标点击切换选项卡内容时，响应函数就会被调用，我们只要在其中完成<strong>响应标签对话框的显示与隐藏</strong>即能实现选项卡切换的效果。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"># <span class="number">6.</span> 处理选项卡切换</div><div class="line"><span class="keyword">void</span> CxxxDlg::OnSelchangeTab(NMHDR* pNMHDR, LRESULT* pResult) </div><div class="line">&#123;</div><div class="line">  *pResult = <span class="number">0</span>;</div><div class="line"> </div><div class="line">  <span class="keyword">int</span> cursel = m_MainMenu.GetCurSel();			#  获取当前点击选项卡标签下标</div><div class="line">                          #  根据下标将相应的对话框显示，其余隐藏</div><div class="line">  <span class="keyword">switch</span>(cursel)</div><div class="line">  &#123;</div><div class="line">  <span class="keyword">case</span> <span class="number">0</span>:</div><div class="line">    m_MenuDebugger.ShowWindow(SW_SHOWNORMAL);	#  调试助手对应对话框显示，其余隐藏</div><div class="line">                          #  m_MenuAppDev是应用开发对话框对应的变量</div><div class="line">    m_MenuAppDev.ShowWindow(SW_HIDE);</div><div class="line">    <span class="keyword">break</span>;</div><div class="line">  <span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">    m_MenuDebugger.ShowWindow(SW_HIDE);			#  应用开发对应对话框显示，其余隐藏</div><div class="line">    m_MenuAppDev.ShowWindow(SW_SHOWNORMAL);</div><div class="line">    <span class="keyword">break</span>;</div><div class="line">  <span class="keyword">default</span>:</div><div class="line">    <span class="keyword">break</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>　　到这里，我们已经能够实现选项卡的功能，整个流程也已经给大家详细介绍了。最后还想和大家分享的是，通过上述方式添加<strong>TCN_SELCHANGE</strong>消息响应函数<strong>OnSelchangeTab</strong>后，工具自动生成的代码主要有两部分(见下)。<br>　　　第一，类声明中增加了以<strong>afx_msg</strong>修饰的保护类型的响应函数声明；<br>　　　第二，源文件中，在<strong>BEGIN_MESSAGE_MAP</strong>和<strong>END_MESSAGE_MAP</strong>之间通过<strong>ON_NOTIFY</strong>(自带API)将消息，控件ID，响应函数关联起来。<br><strong>CxxxDlg.h头文件</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#  主对话框其他声明....</div><div class="line"> </div><div class="line"><span class="comment">// Implementation</span></div><div class="line"><span class="keyword">protected</span>:</div><div class="line">  HICON m_hIcon;</div><div class="line"> </div><div class="line">  <span class="comment">// Generated message map functions</span></div><div class="line">  <span class="comment">//&#123;&#123;AFX_MSG(CxxxDlg)</span></div><div class="line">  <span class="function">afx_msg <span class="keyword">void</span> <span class="title">OnSelchangeTab</span><span class="params">(NMHDR* pNMHDR, LRESULT* pResult)</span></span>;</div><div class="line">  <span class="comment">//&#125;&#125;AFX_MSG</span></div><div class="line">  DECLARE_MESSAGE_MAP()</div><div class="line"> </div><div class="line">#  主对话框其他声明....</div></pre></td></tr></table></figure></p>
+<p><strong>CxxxDlg.cpp源文件</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">BEGIN_MESSAGE_MAP(CxxxDlg, CDialog)</div><div class="line">  <span class="comment">//&#123;&#123;AFX_MSG_MAP(CxxxDlg)</span></div><div class="line">  ON_NOTIFY(TCN_SELCHANGE, IDC_TAB, OnSelchangeTab)</div><div class="line">  <span class="comment">//&#125;&#125;AFX_MSG_MAP</span></div><div class="line">END_MESSAGE_MAP()</div></pre></td></tr></table></figure></p>
+<h2 id="Version-Control"><a href="#Version-Control" class="headerlink" title="Version Control"></a><strong>Version Control</strong></h2><table border="3" cellpadding="4px" style="font-family: verdana,arial,sans-serif; font-size:18px; color:#333333; background-color:#c3dde0; margin: 0; border-color: #333333; border-collapse:collapse"><br><tr><td style="width: 60px; text-align: center">版本号</td><td style="width: 80px; text-align: center">日期</td><td style="width: 320px; text-align: center">内容</td><td style="width: 100px; text-align: center">作者</td></tr><tr text-align="center"><td style="text-align: center">V0.1</td><td style="text-align: center">2015.9.29</td><td style="text-align: center">起草博客</td><td style="text-align: center">Tarantula-7</td></tr><tr align="center"><td style="text-align: center">V0.7</td><td style="text-align: center">2015.10.2</td><td style="text-align: center">添加Create等API说明；强调几处易混淆点</td><td style="text-align: center">Tarantula-7</td></tr></table>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a></p>
+
+        <!-- 
+        <p><span>文章作者:</span><a href="/" title="回到主页">Tarantula-7</a></p>
+        -->
+        <p><span>文章作者:</span>csj</p>
+
+        <p><span>发布时间:</span>2015-09-28, 16:15:27</p>
+        <p><span>最后更新:</span>2016-11-12, 17:48:58</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/" title="MFC TabControl控件实现选项卡功能">http://durant35.github.io/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+
+        <!-- not to show license information
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+        -->
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">
+                    MFRC500 射频芯片射频读写模块完整设计
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">
+                    快速搭建Android ADT开发环境(基于Win7&amp;Win8.1(both 64-bit),其他仅供参考)
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第1步：-创建基于对话框的应用程序"><span class="toc-number">1.</span> <span class="toc-text">第1步： 创建基于对话框的应用程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第2步：-添加TabControl控件"><span class="toc-number">2.</span> <span class="toc-text">第2步： 添加TabControl控件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第3步：-为TabControl控件绑定成员变量"><span class="toc-number">3.</span> <span class="toc-text">第3步： 为TabControl控件绑定成员变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第4步：-在主对话框的OnInitDialog中初始化选项卡"><span class="toc-number">4.</span> <span class="toc-text">第4步： 在主对话框的OnInitDialog中初始化选项卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第5步：-主对话框中添加处理选项卡切换的响应函数"><span class="toc-number">5.</span> <span class="toc-text">第5步： 主对话框中添加处理选项卡切换的响应函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Version-Control"><span class="toc-number">6.</span> <span class="toc-text">Version Control</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+        <!--
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+        -->
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+        <!--
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+        -->
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"MFC TabControl控件实现选项卡功能　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/';
+            this.page.identifier = '2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/" title="上一篇: MFRC500 射频芯片射频读写模块完整设计">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/" title="下一篇: 快速搭建Android ADT开发环境(基于Win7&amp;Win8.1(both 64-bit),其他仅供参考)">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">DARPA[Boss]: Motion Planning in Urban Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_GraphMatching/">算法设计与分析[0016] 图匹配问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/Algorithms_Dynamic Programming(V)/">算法设计与分析[0014] Dynamic Programming(V) 一道习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/13/hsw_UbuntuSystemBootSequence/">一张图带你看 Ubuntu(Linux) 系统启动过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/linux_Linux命令小纸条/">Linux命令小纸条</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/tool_vim几步走/">vim几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/10/linux_libpcap 32-bit&64-bit/">libpcap, 32-bit&64-bit</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/OverlappingSounds_Key Word Engineering/">Key Word Engineering</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/07/hexo_Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/01/TACouses_Embedded_System_2016/">Embedded System 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/hexo_博客主题Yelee迁移笔记/">hexo博客主题Yelee迁移笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux下基本文件操作/">Win/Linux下基本文件操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/26/tool_git几步走/">git几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/09/OverlappingSounds_Basketball_Never_Stops/">Basketball Never Stops</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/25/programPearls_Coding中的编码问题之回顾&深入/">Coding中的编码问题之回顾&深入</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/21/programPearls_Coding中的编码问题之入门&概览/">Coding中的编码问题之入门&概览</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/11/movies_漫威电影/">漫威21部系列电影(持续更新)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/tool_NotePad/">NotePad++</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">在hexo new之后立即打开Markdown文稿</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_自定义主题/">hexo自定义主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&Win8.1(both 64-bit),其他仅供参考)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/09/graduatedesign_01 STM32_一-搭建STM32开发环境/">(一) 搭建STM32开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/16/opengl_数媒HW4参考资料/">数媒HW4参考资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/06/考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/hexo_win搭建hexo/">win搭建hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2017 Tarantula-7
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+            
+            
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

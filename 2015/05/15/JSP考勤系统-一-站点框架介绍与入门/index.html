@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Tarantula-7" />
+
+
+
+<meta name="description" content="本文只是本人对当前完成进度的一个总结，如有缺漏或误点，非常欢迎您通过下方评论指出。感谢开路人ansen，提供了很多参考信息。开发环境是MyEclipse8.0(Win8.1下)。点击获取安装包(内有MyEclipse8.0安装包及如何破解提示；同时有mysql-5.5.19-32位安装程序)，访问密码a690。　　基于当前的考勤系统网站点的实现，跟大家介绍一下(1)大概的MVC设计模式，以及可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSP考勤系统(一) 站点框架介绍与入门">
+<meta property="og:url" content="http://durant35.github.io/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/index.html">
+<meta property="og:site_name" content="Tarantula-7's Blog">
+<meta property="og:description" content="本文只是本人对当前完成进度的一个总结，如有缺漏或误点，非常欢迎您通过下方评论指出。感谢开路人ansen，提供了很多参考信息。开发环境是MyEclipse8.0(Win8.1下)。点击获取安装包(内有MyEclipse8.0安装包及如何破解提示；同时有mysql-5.5.19-32位安装程序)，访问密码a690。　　基于当前的考勤系统网站点的实现，跟大家介绍一下(1)大概的MVC设计模式，以及可">
+<meta property="og:image" content="http://durant35.github.io/img/MVC.png">
+<meta property="og:image" content="http://durant35.github.io/img/loginView.png">
+<meta property="og:image" content="http://durant35.github.io/img/loginTest.png">
+<meta property="og:updated_time" content="2016-11-12T09:32:11.570Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JSP考勤系统(一) 站点框架介绍与入门">
+<meta name="twitter:description" content="本文只是本人对当前完成进度的一个总结，如有缺漏或误点，非常欢迎您通过下方评论指出。感谢开路人ansen，提供了很多参考信息。开发环境是MyEclipse8.0(Win8.1下)。点击获取安装包(内有MyEclipse8.0安装包及如何破解提示；同时有mysql-5.5.19-32位安装程序)，访问密码a690。　　基于当前的考勤系统网站点的实现，跟大家介绍一下(1)大概的MVC设计模式，以及可">
+<meta name="twitter:image" content="http://durant35.github.io/img/MVC.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Tarantula-7&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>JSP考勤系统(一) 站点框架介绍与入门 | Tarantula-7&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+</head>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Tarantula-7</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">My Body Knows It&#39;s Time to Say GoodBye... ---- Dear Basketball</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">Home</a></li>
+                        
+                            <li><a href="/tags">All-tags</a></li>
+                        
+                            <li><a href="/archives">All-lists</a></li>
+                        
+                            <li><a href="/Shengjie">Contact</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                                <a class="fa OSChina" href="https://my.oschina.net/love7zx/" title="OSChina"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMD/">CMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/">CV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DARPA/">DARPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DLL/">DLL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Key-words/">Key-words</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MFC/">MFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NotePad/">NotePad++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCL/">OpenCL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL/">OpenGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB/">PCB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32/">STM32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS2013/">VS2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dumpbin/">dumpbin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ini/">ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pcap/">pcap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件操作/">文件操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漫威电影/">漫威电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码/">编码</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Tarantula-7</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Tarantula-7</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">My Body Knows It&#39;s Time to Say GoodBye... ---- Dear Basketball</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/tags">All-tags</a></li>
+                
+                    <li><a href="/archives">All-lists</a></li>
+                
+                    <li><a href="/Shengjie">Contact</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                                <a class="fa OSChina" target="_blank" href="https://my.oschina.net/love7zx/" title="OSChina"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-JSP考勤系统-一-站点框架介绍与入门" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/" class="article-date">
+      <time datetime="2015-05-15T15:40:35.000Z" itemprop="datePublished">2015-05-15</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JSP考勤系统(一) 站点框架介绍与入门
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/JSP考勤系统/">JSP考勤系统</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSP/">JSP</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>　　本文只是本人对当前完成进度的一个总结，如有缺漏或误点，非常欢迎您通过下方评论指出。<strong>感谢开路人ansen，提供了很多参考信息。</strong>开发环境是MyEclipse8.0(Win8.1下)。<a href="http://yunpan.cn/cjDdh4HCCAI6Y">点击获取</a>安装包(<strong>内有MyEclipse8.0安装包及如何破解提示；同时有mysql-5.5.19-32位安装程序</strong>)，访问密码<code>a690</code>。<br>　　基于当前的考勤系统网站点的实现，跟大家介绍一下(1)大概的MVC设计模式，以及可以如何遵照这种模式搭建自己的考勤系统网站；此外，会介绍一下(2)站点下如何指定路径引用资源(包括最主要的jsp文件以及少部分的image和css文件)；通过(3)几种跳转方式的实现引入Get/Post请求方式的介绍；最后，通过(4)分析web.xml配置文件来介绍有关通过url来制定Servlet控制器进行处理的匹配问题。<br><a id="more"></a></p>
+<h2 id="MVC与网站框架-部分参考百度百科"><a href="#MVC与网站框架-部分参考百度百科" class="headerlink" title="MVC与网站框架(部分参考百度百科)"></a><strong>MVC与网站框架</strong>(部分参考<a href="http://baike.baidu.com/link?url=aLp34njTqTxnzy3VhkL4BDdwmXZ8qSypz1x81mIcIPHClkzId3FgdnQfTK4PcycpsJ_AGL-oikl1LlSEcRusqC-VAXQxi0HgCANIEBuTs1zuECvMgoOiRcZai_JdIqIk">百度百科</a>)</h2><p>　　<img src="/img/MVC.png" align="center"/><br>　　上述图片显示了整个工程框架信息：<br>　　1. Model(模型)表示应用程序核心，包括一系列的java类，有system.database包中与数据库操作相关的数据库辅助类；system.entity中的数据实体类，主要是将数据库中的记录封装成实体(RFIDCard保存数据库单条记录，方便数据传送)；以及system.util中需要使用的工具类(MD5Util用于对密码进行MD5的加密)。Model是应用中用于处理应用程序数据逻辑的部分，这里主要就是与数据库操作相关的java类。<br>　　2. View(视图)用来显示数据，这里强调的是数据库记录，所有的jsp文件均属于这个范畴。工程中主要就涉及table的数据展示，表单内容的设计；辅佐上CSS对页面布局进行控制，JavaScript对表单内容进行验证或者响应某些外部事件(如鼠标点击等)。View是应用中处理数据显示的部分。WebRoot是整个网站的根目录，css目录中保存站点使用的外部样式文件，images则保存需要用到的图片文件。<br>　　3. Controller(控制器)用于处理输入，包括对数据库记录的增删改查，进一步进行相关的表单验证任务，包括登陆身份的验证，根据验证结果进行转发，实现页面间跳转。Controller是应用中处理用户交互的部分，负责从视图读取数据，调用模型里的功能函数，验证用户输入。这里的两个Servlet，LoginProcessServlet处理login.jsp登陆界面提交的表单数据，通过查询数据库，验证用户身份，从而决定转发到主界面还是退回到登录界面重新登陆；RegistProcessServlet则处理regist.jsp注册界面传送的数据，往数据库中插入注册信息，根据插入结果返回注册成功与否的提示信息。<br>　　小结一下，使用MVC分层主要是有助于管理复杂一点的应用，因为您可以在一个时间内专门关注一个方面(例如，您可以在不依赖业务逻辑的情况下专注于视图设计)。MVC分层同时也简化了分组开发，不同的开发人员可同时开发视图、控制器逻辑和业务逻辑。<br>　　假如，您还没有搭建好自己的框架，或者觉得自己的框架有点混乱，建议您可以按照这种思路开始或者进行二次修改。</p>
+<h2 id="资源路径怎么写"><a href="#资源路径怎么写" class="headerlink" title="资源路径怎么写"></a><strong>资源路径怎么写</strong></h2><p>　　当你需要插入一张图片，你把指定的图片放在了工程目录下，但是你却为src要怎么写犯困了，调整了很久，预览界面却还是一个碎了的图片，心都碎了。当你需要为表单填写一个action，你想让当前页面跳转到指定页面，却发现怎么也跳不过去…这些，都涉及到我们站点中的资源路径如何正确书写的问题。承接上文对WebRoot网站根目录文件系统的分析，我们根据上图给出的工程框架来进一步介绍一下有关资源路径书写的问题。<br><img src="/img/loginView.png" /><br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;td align="center"&gt;</div><div class="line">  &lt;img alt="注册会员" src="./images/login/regist.jpg" width="72px"; onclick="register();"&gt; </div><div class="line">&lt;/td&gt;</div></pre></td></tr></table></figure></p>
+<p>　　上述代码实现在login.jsp登陆界面中显示images/login/regist.jpg图片(如上图)。login.jsp文件与images文件夹在均在WebRoot网站根目录的一层目录下。属于同层目录，所以，我们通过 <strong>./</strong>表示login.jsp所在的当前目录，然后通过./images进入我们站点存放所有图片的文件夹。因为我们的注册会员图标存放在该文件夹下的login/登陆使用的图片目录下，所有最终通过./images/login/regist.jpg获取到指定的图片。<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;link type=<span class="string">"text/css"</span> rel=<span class="string">"stylesheet"</span> href=<span class="string">"./css/mystyle.css"</span> &gt;</div></pre></td></tr></table></figure></p>
+<p>　　同样的，在login.jsp文件，我们可以通过<strong>./css</strong>访问保存在css目录下的mystyle.css样式表。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;a href="./about.jsp" &gt;相关服务条款&lt;/a&gt;和</div><div class="line">&lt;a href="./privace.jsp" &gt;隐私政策&lt;/a&gt;</div></pre></td></tr></table></figure></p>
+<p>　　类似的，我们在jsp文件中要访问其他的jsp文件，比如超链接，只需要通过./xxxx.jsp即可访问。<br>　　也许你已经发现了，这里把所有的jsp文件放在站点根目录下，与images以及css文件夹同层，这样的话，jsp文件中的资源路径就比较容易书写。这里说的容易，主要是避免复杂的路径跳转。比如，如果你需要访问当前jsp文件上层目录下的images文件夹下的图片资源，这样要怎么办呢？<br><img src="/img/loginTest.png" /><br>　　我们在WebRoot站点根目录先新建一个test文件夹，把login.jsp登录界面扔到test/下，显然，这时候如果按照原先的路径肯定无法正确引用。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;link type="text/css" rel="stylesheet" href="../css/mystyle.css" &gt;</div><div class="line"> </div><div class="line">&lt;td align="center"&gt;</div><div class="line">  &lt;img alt="注册会员" src="../images/login/regist.jpg" width="72px"; onclick="register();"&gt; </div><div class="line">&lt;/td&gt;</div><div class="line"> </div><div class="line">&lt;a href="../about.jsp" &gt;相关服务条款&lt;/a&gt;和</div><div class="line">&lt;a href="../privace.jsp" &gt;隐私政策&lt;/a&gt;</div></pre></td></tr></table></figure></p>
+<p>　　这个时候，就需要按照上述的方式进行引用了，通过<strong>../</strong>退回到父目录，及test所在的目录，跟其他jsp文件、images文件夹还有css文件夹同级，这样，就可以按照上面提到的方式进行引用。<br>　　设想一下更复杂的情况，假如要退两层回到根目录呢？还是洗洗睡了，没必要折腾这个，只会让自己没事找事。所以，如何部署我们的站点，尽量让自己在资源引用上省事还是挺重要的。建议尽量不要出现超过一层的回退情况，只要放置资源的时候注意一下，就能轻松解决这个问题。</p>
+<h2 id="页面跳转与Get-Post请求方式"><a href="#页面跳转与Get-Post请求方式" class="headerlink" title="页面跳转与Get/Post请求方式"></a><strong>页面跳转与Get/Post请求方式</strong></h2><p>　　首先，介绍一下几种常见的跳转方式(这一块还涉及转发与重定向的区别，作为入门可以不深入理解，有兴趣的同学可以上网搜一下)。<br>　　<strong>1. 超链接</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;a href="./about.jsp" &gt;相关服务条款&lt;/a&gt;</div></pre></td></tr></table></figure></p>
+<p>href属性指定超链接跳转页面的url。</p>
+<p>　　<strong>2. 表单提交</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;form id="form" action="./regist.do" method="post"&gt;</div><div class="line">  ......</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p>通过action指定表单提交对象，method可以指定Get或者Post两种提交方式。</p>
+<p>　　<strong>3. JSP forward</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;jsp:forward page="main.jsp?cardId=12353022&amp;username=Durant35" &gt;&lt;/jsp:forward&gt;</div></pre></td></tr></table></figure></p>
+<p>page属性指定跳转页面url。</p>
+<p>　　<strong>4. Javascript location.href</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    location.href = <span class="string">"main.jsp?cardId=&lt;%= cardId %&gt;&amp;username=&lt;%= username %&gt;"</span>;</div><div class="line">  &#125;, <span class="number">1500</span>);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>loation.href设置跳转页面url，通过<strong>url?key1=value1&amp;key2=value2….</strong>附上传递的参数，这种方式属于get请求方式。此外，这里通过setTimeout实现延时跳转，延时时间为1500ms。</p>
+<p>　　<strong>5. Servlet的forward</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></div><div class="line">      <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">  ....</div><div class="line">  request.setAttribute(<span class="string">"username"</span>, username);</div><div class="line">  request.setAttribute(<span class="string">"cardId"</span>, cardId);</div><div class="line">  request.getRequestDispatcher(<span class="string">"./login.jsp"</span>).forward(request, response);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在Servlet中可以通过上述方式进行转发，比如根据条件满足情况跳转到不同的页面。另外，可以通过setAttribute(key, value)以键值对的方式把数据传递到目标界面，在目标界面中可以通过getAttribute(key)获取参数值。<br>　　上述就是几种常见的页面跳转的方式，足够应付本项目的功能需求。接下来介绍一下Get/Post两种请求方式的一些注意点。首先要从http协议的请求数据包说起(大致如下)。<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">请求行: 请求方式(GET/POST) 请求资源url 版本号HTTP <span class="number">1.0</span>/<span class="number">1.1</span></div><div class="line">若干消息头: </div><div class="line">Cookies:xxx</div><div class="line">Content-type:xxx</div><div class="line">.....</div><div class="line">空行:</div><div class="line">实体内容:</div><div class="line">.....</div></pre></td></tr></table></figure></p>
+<p>　　常见的Get方式有表单默认的提交方式；在浏览器地址栏直接输入网址回车后的提交方式；通过超链接访问的提交方式。Post方式则主要只有设置表单<strong>method=”post”</strong>后表单的提交方式。二者的主要区别在于Get方式会在地址栏显示请求数据参数，浏览器会缓存Get数据，相比之下，Post方式请求参数不会再地址栏显示，参数存放在实体内容中，可以向服务器提交较大数据量的参数，而且安全性比Get高，Get方式主要用于向服务器获取资源。</p>
+<h2 id="读懂web-xml配置文件"><a href="#读懂web-xml配置文件" class="headerlink" title="读懂web.xml配置文件"></a><strong>读懂web.xml配置文件</strong></h2><p>　　到这里，基本上可以开始搭建项目要求的网站，不过，这里还需要强调一点web.xml站点配置文件的内容。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">web-app</span> </div><div class="line">  <span class="attr">version</span>=<span class="string">"2.4"</span> </div><div class="line">  <span class="attr">xmlns</span>=<span class="string">"http://java.sun.com/xml/ns/j2ee"</span> </div><div class="line">  <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> </div><div class="line">  <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://java.sun.com/xml/ns/j2ee </div><div class="line">  http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"</span> &gt;</span></div><div class="line">   </div><div class="line">  <span class="comment">&lt;!-- 默认home page --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">welcome-file-list</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">welcome-file</span>&gt;</span>login.jsp<span class="tag">&lt;/<span class="name">welcome-file</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">welcome-file-list</span>&gt;</span></div><div class="line">   </div><div class="line">  <span class="comment">&lt;!-- 配置Servlet与其匹配的URL --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>LoginProcess<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>system.login.LoginProcessServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>LoginProcess<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/login.do<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">   </div><div class="line">  <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>RegistProcess<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>system.regist.RegistProcessServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line"> </div><div class="line">  <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>RegistProcess<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/regist.do<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">   </div><div class="line">  <span class="tag">&lt;<span class="name">error-page</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">error-code</span>&gt;</span>404<span class="tag">&lt;/<span class="name">error-code</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">location</span>&gt;</span>/error.jsp<span class="tag">&lt;/<span class="name">location</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></div><div class="line">   </div><div class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>　　<code>&lt;welcome-file-list&gt;</code>配置的是站点的默认主页，也就是<strong><a href="http://IP:port/AppName/">http://IP:port/AppName/</a></strong>对应的网页。其中AppName一般与你的工程名称一致，默认的主页都是index.jsp，这是MyEclipse为您自动生成的，我这里修改为login.jsp登录界面。<br>　　另外一个就是<code>&lt;error-page&gt;</code>错误页面配置，根据不同的error-code错误码，匹配相应的页面。这里通过配置404错误页面，当url标识的请求资源不存在时就会显示error.jsp页面。错误码这一块在http协议中提及，除了404，像常见的405禁止访问，500服务器崩溃等，都可以指定一个自定义的页面，这样就可以在错误发生的时候控制显示给用户的页面信息，而不是未知的系统提供的一大堆错误信息。404公益主要就是这方面的应用。<br>　　最后，要讲的一个也是比较重要的，就是关于url与我们Servlet控制器如何对应的问题。当服务器得到一个请求资源url的时候，她首先查看WebRoot目录下有没有对应的资源，如果没有找到对应项，接着通过web.xml配置文件中<servlet-mapping>下的<url-pattern>，寻找是否有对应项，假如有，便通过这个对应项的<servlet-name>找到与之对应的，<servlet-name>相同的<servlet>，然后交给该<servlet>的<servlet-class>指定的Servlet控制器处理。举个例子，如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;form id="form_login" action="./login.do" method="post"&gt;</div><div class="line">  ...</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p>　　在登录界面，当用户填写完登陆信息，准备登陆时，我们需要将表单数据提交给LoginProcessServlet这个处理器进行处理，确定用户是否能够登陆我们的主界面(具体信息可以参见第一部分网站框架的介绍)。这里的ation=”./login.do”其实就是<code>http://IP:port/AppName/login.do</code>，AppName后的url部分就是请求资源url。然后，服务器通过寻找login.do这个url-pattern对应的<servlet-mapping>最终准确找到system.login.LoginProcessServlet这个类来处理。<br><strong>注意： </strong><code>&lt;servlet-class&gt;</code>必须是完整的包名.类名。<code>&lt;url-pattern&gt;</code>一般为精确匹配，前面带/表示前缀匹配，没有/则表示后缀匹配；也可以通过通配符<code>*</code>实现模糊匹配，类似于<code>*.do</code>。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p>　　本文主要介绍了一些基本的，项目中会用到的一些东西，大到如框架，小到如web.xml配置文件。希望通过本文，能够让你对整个项目框架以及各部分轮廓有更加清晰的认识。那么，接下来，您需要做的就是，照着心里面的想法，遵从功能要求，开始搭建自己的框架；按照MVC的设计模式，逐个击破；然后让各部分跳转自然。最后阶段便是各部分的细节优化。<br>　　按照这种方式，也许能够有效提高效率，搭建出更加完善的站点。</p>
+<font size="5">[如对本文有什么建议或者错漏的地方，非常欢迎您通过评论指出，衷心感谢!]</font>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a></p>
+
+        <!-- 
+        <p><span>文章作者:</span><a href="/" title="回到主页">Tarantula-7</a></p>
+        -->
+        <p><span>文章作者:</span>undefined</p>
+
+        <p><span>发布时间:</span>2015-05-15, 23:40:35</p>
+        <p><span>最后更新:</span>2016-11-12, 17:32:11</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/" title="JSP考勤系统(一) 站点框架介绍与入门">http://durant35.github.io/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/　　作者: Tarantula-7" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+
+        <!-- not to show license information
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+        -->
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/">
+                    JSP考勤系统(二) JDBC连接MySQL数据库
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/">
+                    考勤系统(四) MFC UI控件之ListCtrl
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MVC与网站框架-部分参考百度百科"><span class="toc-number">1.</span> <span class="toc-text">MVC与网站框架(部分参考百度百科)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#资源路径怎么写"><span class="toc-number">2.</span> <span class="toc-text">资源路径怎么写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#页面跳转与Get-Post请求方式"><span class="toc-number">3.</span> <span class="toc-text">页面跳转与Get/Post请求方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#读懂web-xml配置文件"><span class="toc-number">4.</span> <span class="toc-text">读懂web.xml配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+        <!--
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+        -->
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+        <!--
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+        -->
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"JSP考勤系统(一) 站点框架介绍与入门　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/';
+            this.page.identifier = '2015/05/15/JSP考勤系统-一-站点框架介绍与入门/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/" title="上一篇: JSP考勤系统(二) JDBC连接MySQL数据库">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/" title="下一篇: 考勤系统(四) MFC UI控件之ListCtrl">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">DARPA[Boss]: Motion Planning in Urban Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_GraphMatching/">算法设计与分析[0016] 图匹配问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/Algorithms_Dynamic Programming(V)/">算法设计与分析[0014] Dynamic Programming(V) 一道习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/13/hsw_UbuntuSystemBootSequence/">一张图带你看 Ubuntu(Linux) 系统启动过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/linux_Linux命令小纸条/">Linux命令小纸条</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/tool_vim几步走/">vim几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/10/linux_libpcap 32-bit&64-bit/">libpcap, 32-bit&64-bit</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/OverlappingSounds_Key Word Engineering/">Key Word Engineering</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/07/hexo_Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/01/TACouses_Embedded_System_2016/">Embedded System 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/hexo_博客主题Yelee迁移笔记/">hexo博客主题Yelee迁移笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux下基本文件操作/">Win/Linux下基本文件操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/26/tool_git几步走/">git几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/09/OverlappingSounds_Basketball_Never_Stops/">Basketball Never Stops</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/25/programPearls_Coding中的编码问题之回顾&深入/">Coding中的编码问题之回顾&深入</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/21/programPearls_Coding中的编码问题之入门&概览/">Coding中的编码问题之入门&概览</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/11/movies_漫威电影/">漫威21部系列电影(持续更新)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/tool_NotePad/">NotePad++</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">在hexo new之后立即打开Markdown文稿</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_自定义主题/">hexo自定义主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&Win8.1(both 64-bit),其他仅供参考)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/09/graduatedesign_01 STM32_一-搭建STM32开发环境/">(一) 搭建STM32开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/16/opengl_数媒HW4参考资料/">数媒HW4参考资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/06/考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/hexo_win搭建hexo/">win搭建hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2017 Tarantula-7
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+            
+            
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
