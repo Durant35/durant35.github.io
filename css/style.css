@@ -118,7 +118,7 @@ button::-moz-focus-inner {
   padding: 0;
 }
 html {
-  font-size: 16px;
+  font-size: 15px;
 }
 body {
   font-family: "Lucida Grande", Verdana, "Helvetica Neue", Arial, "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
@@ -232,7 +232,7 @@ a {
 }
 #container .left-col {
   background: rgba(255,255,255,0.85);
-  width: 300px;
+  width: 256px;
   position: fixed;
   opacity: 1;
   -webkit-transition: all 0.2s ease-in;
@@ -263,7 +263,7 @@ a {
   right: 0;
   min-height: 100%;
   background: rgba(255,255,255,0.8);
-  left: 300px;
+  left: 256px;
   width: auto;
 }
 @media screen and (max-width: 800px) {
@@ -555,7 +555,7 @@ a {
   text-align: center;
   margin: 13px 0;
   font-family: Times, Georgia, serif;
-  font-size: 30px;
+  font-size: 29px;
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
   -ms-transition: 0.3s;
@@ -575,8 +575,8 @@ a {
   display: block;
   border: 5px solid #fff;
   border-radius: 50%;
-  width: 128px;
-  height: 128px;
+  width: 127px;
+  height: 127px;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
@@ -684,7 +684,7 @@ a {
 }
 #header .header-menu li a {
   font-size: 0.875rem;
-  min-width: 300px;
+  min-width: 256px;
 }
 #header .switch-area {
   position: relative;
@@ -754,13 +754,13 @@ a {
   font-family: Arial;
 }
 #header .header-nav .social a {
-  width: 37px;
-  height: 37px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   margin: 0 2px 6px;
   vertical-align: middle;
-  font-size: 24.42px;
-  line-height: 37px;
+  font-size: 23.76px;
+  line-height: 36px;
   text-align: center;
   color: #fff;
   background: #6f7170;
@@ -1036,7 +1036,7 @@ a {
 }
 .hide-labels {
   position: fixed;
-  left: 378px;
+  left: 334px;
   top: 30px;
   padding: 1px;
   border: none;
@@ -1056,7 +1056,7 @@ a {
   opacity: 1;
 }
 #post-nav-button {
-  left: 300px;
+  left: 256px;
   top: 61.8%;
 }
 #post-nav-button a {
@@ -1219,7 +1219,7 @@ color
   color: #999;
   position: relative;
   margin-right: 10px;
-  font: 16px FontAwesome;
+  font: 15px FontAwesome;
 }
 .archive-article-inner .article-meta .article-category:before {
   float: left;
@@ -1688,7 +1688,7 @@ li:hover {
 }
 #tocButton {
   position: fixed;
-  left: 220px;
+  left: 176px;
   top: 385px;
   font-size: 0.9em;
   font-weight: bold;
@@ -1705,12 +1705,12 @@ li:hover {
 }
 .toc-article {
   position: fixed;
-  width: 230px;
+  width: 186px;
   top: 378px;
   bottom: 1em;
   left: 0;
   margin-left: 0;
-  padding: 6px 10px 10px 50px;
+  padding: 6px 10px 10px 52px;
   border-radius: 2.8%;
   overflow: auto;
 }
@@ -2089,7 +2089,7 @@ aside.comment-bar:active {
   color: #999;
   position: relative;
   margin-right: 10px;
-  font: 16px FontAwesome;
+  font: 15px FontAwesome;
 }
 .archive-article-inner .article-meta .article-category:before {
   float: left;
@@ -2864,7 +2864,7 @@ pre .javascript .function {
 .article-category::before {
   float: left;
   color: #999;
-  font: 16px FontAwesome;
+  font: 15px FontAwesome;
   margin-right: 5px;
   margin-top: 0.333333333333333rem;
 }
@@ -2881,7 +2881,7 @@ pre .javascript .function {
 .article-pop-out:before {
   color: #999;
   content: "\f08d";
-  font: 16px FontAwesome;
+  font: 15px FontAwesome;
   float: left;
   margin-right: 5px;
   margin-top: 0.333333333333333rem;
