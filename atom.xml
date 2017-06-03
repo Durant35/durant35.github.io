@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-05-29T05:46:08.630Z</updated>
+  <updated>2017-06-02T07:01:52.872Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -14,6 +14,262 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>DARPA[Boss]: Boss and the Urban Challenge</title>
+    <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/"/>
+    <id>http://durant35.github.io/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/</id>
+    <published>2017-06-02T05:00:22.000Z</published>
+    <updated>2017-06-02T07:01:52.872Z</updated>
+    
+    <content type="html"><![CDATA[<p>　Boss 自动驾驶软硬件概述。</p>
+<h4 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h4><ul>
+<li>软件概述<ul>
+<li>Motion planning sub-system<br>==&gt; 2 planners: avoiding static and dynamic obstacles while achieving a desired goal（最终都是产生一条 trajectory）<ul>
+<li>structured driving(road following)</li>
+<li>unstructured driving(maneuvering in parking lots（停车场等的机动控制）)</li>
+</ul>
+</li>
+<li>Perception sub-system<ul>
+<li>static obstacle map</li>
+<li>moving obstacles</li>
+<li>location relative to the road</li>
+</ul>
+</li>
+<li>Mission planner<ul>
+<li>optimal path given knowledge of the road network</li>
+</ul>
+</li>
+<li>Behavioral sub-system<ul>
+<li>Lane Driving</li>
+<li>Intersection Handling</li>
+<li>Goal Selection：分配 execution tasks</li>
+</ul>
+</li>
+<li>Software infrastructure（软件基础框架） and tools<br>==&gt; online data logging, offline data log playback and visualization.<a id="more"></a></li>
+</ul>
+</li>
+<li>硬件概述<ul>
+<li>With electric motors to<ul>
+<li>转向</li>
+<li>踩刹车</li>
+<li>shift the transmission 换挡、变速器</li>
+</ul>
+</li>
+<li>保留 normal human driving controls：steering wheel、brake、gas pedal</li>
+<li>Two independent power busses<ul>
+<li>remaining 12VDC battery and harnesses（电池和线束）</li>
+<li>an upgraded high-output alternator：24VDC</li>
+</ul>
+</li>
+<li>Sensors 感知传感器<center><img src="/img/DARPA/Boss_sensorsOverview.png" width="540px"/></center>
+
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Motion-Planning"><a href="#Motion-Planning" class="headerlink" title="Motion Planning"></a>Motion Planning</h4>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;　Boss 自动驾驶软硬件概述。&lt;/p&gt;
+&lt;h4 id=&quot;Overview&quot;&gt;&lt;a href=&quot;#Overview&quot; class=&quot;headerlink&quot; title=&quot;Overview&quot;&gt;&lt;/a&gt;Overview&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;软件概述&lt;ul&gt;
+&lt;li&gt;Motion planning sub-system&lt;br&gt;==&amp;gt; 2 planners: avoiding static and dynamic obstacles while achieving a desired goal（最终都是产生一条 trajectory）&lt;ul&gt;
+&lt;li&gt;structured driving(road following)&lt;/li&gt;
+&lt;li&gt;unstructured driving(maneuvering in parking lots（停车场等的机动控制）)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Perception sub-system&lt;ul&gt;
+&lt;li&gt;static obstacle map&lt;/li&gt;
+&lt;li&gt;moving obstacles&lt;/li&gt;
+&lt;li&gt;location relative to the road&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Mission planner&lt;ul&gt;
+&lt;li&gt;optimal path given knowledge of the road network&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Behavioral sub-system&lt;ul&gt;
+&lt;li&gt;Lane Driving&lt;/li&gt;
+&lt;li&gt;Intersection Handling&lt;/li&gt;
+&lt;li&gt;Goal Selection：分配 execution tasks&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Software infrastructure（软件基础框架） and tools&lt;br&gt;==&amp;gt; online data logging, offline data log playback and visualization.
+    
+    </summary>
+    
+      <category term="自动驾驶" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/"/>
+    
+      <category term="DARPA" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/DARPA/"/>
+    
+    
+      <category term="DARPA" scheme="http://durant35.github.io/tags/DARPA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DARPA[Boss]: Motion Planning in Urban Environments</title>
+    <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/"/>
+    <id>http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</id>
+    <published>2017-06-02T05:00:22.000Z</published>
+    <updated>2017-06-02T05:42:28.766Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
+<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
+<li>long range plans<ul>
+<li>on-road planning</li>
+<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
+</ul>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）&lt;/li&gt;
+&lt;li&gt;long range plans&lt;ul&gt;
+&lt;li&gt;on-road planning&lt;/li&gt;
+&lt;li&gt;unstructured planning: parking lots/anomalous on-road scenarios（异常路况）
+    
+    </summary>
+    
+      <category term="自动驾驶" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/"/>
+    
+      <category term="DARPA" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/DARPA/"/>
+    
+    
+      <category term="DARPA" scheme="http://durant35.github.io/tags/DARPA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>算法设计与分析[0016] 图匹配问题</title>
+    <link href="http://durant35.github.io/2017/06/01/Algorithms_GraphMatching/"/>
+    <id>http://durant35.github.io/2017/06/01/Algorithms_GraphMatching/</id>
+    <published>2017-06-01T13:00:22.000Z</published>
+    <updated>2017-06-02T00:38:41.671Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
+    
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>算法设计与分析[0015] Union Find Set（并查集）</title>
+    <link href="http://durant35.github.io/2017/06/01/Algorithms_UnionFindSet/"/>
+    <id>http://durant35.github.io/2017/06/01/Algorithms_UnionFindSet/</id>
+    <published>2017-06-01T06:00:22.000Z</published>
+    <updated>2017-06-02T13:59:55.324Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h4><ul>
+<li>并查集：并查集处理的是集合之间的关系，即 union，find。在这种数据类型中，N个不同元素被分成若干个组，每组是一个集合，这种集合叫做分离集合。并查集支持查找一个元素所属的集合和两个元素分别所属的集合的合并。注意：并查集只能进行合并操作，不能进行分割操作。</li>
+<li>并查集支持以下操作：<ul>
+<li><code>makeset(x)</code>：创建一个仅包含 x 的独立集合（分离集）；最初每个节点单独构成了一个分离集 ==&gt; 一组分离集</li>
+<li><code>find(x)</code>：不断重复地检验节点对，判断其是否属于同一个集合？</li>
+<li><code>union(x, y)</code>：每当增加了一条边，将与之相关的两个集合合并。</li>
+</ul>
+</li>
+<li>并查集的实现原理<ul>
+<li>并查集是使用树结构实现的<ul>
+<li>初始化：准备 N 个节点来表示 N 个元素，最开始没有边。</li>
+<li>为避免树的退化，对于每棵树，记录其高度 rank。</li>
+<li>查询：查询两个节点是否在同一个集合，只需要查询他们是否具有相同的根。<center><img src="/img/Algorithms/0007_UnionFind_find.png" width="340px"/></center></li>
+<li>合并：从一个分离集的根向另一个分离集的根连边，这样两棵树就变为了一棵树，也就把两个集合合并为一个了；除非将要合并的树等高，否则将不会出现合并后总高度增加的情形；如果合并时两棵树高度不同，那么从 rank 小的向 rank 大的连边。<center><img src="/img/Algorithms/0007_UnionFind_union.png" width="580px"/></center></li>
+<li>路径压缩：每次 find 操作中，当循着一系列的父指针最终找到树的根后，改变所有这些父指针的目标，使其直接指向树根。<br><center><img src="/img/Algorithms/0007_UnionFind_find2.png" width="420px"/></center><ul>
+<li>通过路径压缩，所有节点的等级都不会发生改变；节点的 rank 不再能解释为其下方子树的高度</li>
+<li>union 操作只关注树的顶层，路径压缩不会对 union 操作产生影响，它将保持树的顶层不变</li>
+<li>find 操作（不论是否采用路径压缩）仅仅触及树的内部</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span>		<span class="comment">/* assert */</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_VERTEX_NUM    26</span></div><div class="line"> </div><div class="line"><span class="keyword">class</span> UnionFindSets &#123;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="keyword">int</span> PI[MAX_VERTEX_NUM];</div><div class="line">    <span class="keyword">int</span> rank[MAX_VERTEX_NUM];</div><div class="line">    <span class="keyword">int</span> size;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    UnionFindSets(<span class="keyword">int</span> size) &#123;</div><div class="line">    	<span class="keyword">this</span>-&gt;size = size;</div><div class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> vertexIdx=<span class="number">0</span>; vertexIdx&lt;size; vertexIdx++) &#123;</div><div class="line">    		PI[vertexIdx] = <span class="number">-1</span>;</div><div class="line">    		rank[vertexIdx] = <span class="number">-1</span>;</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeset</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">    	assert(x &gt;= <span class="number">0</span> &amp;&amp; x &lt; size);</div><div class="line">    	PI[x] = x;</div><div class="line">    	rank[x] = <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">    	assert(x &gt;= <span class="number">0</span> &amp;&amp; x &lt; size);</div><div class="line">    	</div><div class="line">        <span class="comment">// cout &lt;&lt; "&lt;find&gt;:" &lt;&lt; endl; </span></div><div class="line">        <span class="comment">// cout &lt;&lt; "\tPI[" &lt;&lt; x &lt;&lt; "]: " &lt;&lt; PI[x] &lt;&lt; endl;</span></div><div class="line">        <span class="comment">/*</div><div class="line">         * find(PI[x]): backtracking, finding the root node</div><div class="line">         * PI[x]=&lt;backtracking result&gt;: </div><div class="line">         *	directly connect the leaf node to the root node to achieve path compression</div><div class="line">         */</span></div><div class="line">        <span class="keyword">if</span>(x != PI[x]) &#123;</div><div class="line">        	PI[x] = find(PI[x]);</div><div class="line">        &#125;</div><div class="line">    	<span class="keyword">return</span> PI[x];</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unite</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</div><div class="line">    	assert(x &gt;= <span class="number">0</span> &amp;&amp; x &lt; size);</div><div class="line">    	assert(y &gt;= <span class="number">0</span> &amp;&amp; y &lt; size);</div><div class="line">        <span class="comment">// cout &lt;&lt; "&lt;unite&gt;: " &lt;&lt; endl;</span></div><div class="line">        <span class="keyword">int</span> rx = find(x);</div><div class="line">        <span class="keyword">int</span> ry = find(y);</div><div class="line">        <span class="comment">// cout &lt;&lt; "\t" &lt;&lt; x &lt;&lt; "["  &lt;&lt; rx &lt;&lt; "]" &lt;&lt; y &lt;&lt; "[" &lt;&lt; ry &lt;&lt; "]" &lt;&lt; endl;</span></div><div class="line">    	assert(rx &gt;= <span class="number">0</span> &amp;&amp; rx &lt; size);</div><div class="line">    	assert(ry &gt;= <span class="number">0</span> &amp;&amp; ry &lt; size);</div><div class="line">        <span class="keyword">if</span>(rx == ry) &#123;</div><div class="line">        	<span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(rank[rx] &gt; rank[ry]) &#123;</div><div class="line">        	PI[ry] = rx;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            PI[rx] = ry;</div><div class="line">            <span class="keyword">if</span>(rank[rx] == rank[ry]) &#123;</div><div class="line">            	rank[ry] += <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printset</span><span class="params">()</span> </span>&#123;</div><div class="line">    	<span class="built_in">cout</span> &lt;&lt; <span class="string">"&lt;Union&amp;Find set&gt;: "</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;size; i++) &#123;</div><div class="line">    		<span class="built_in">cout</span> &lt;&lt; <span class="string">"\tPI["</span> &lt;&lt; i &lt;&lt; <span class="string">"]: "</span> &lt;&lt; PI[i]</div><div class="line">    			 &lt;&lt; <span class="string">"   "</span></div><div class="line">    			 &lt;&lt; <span class="string">"rank["</span> &lt;&lt; i &lt;&lt; <span class="string">"]: "</span> &lt;&lt; rank[i] &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="Kruskal-算法"><a href="#Kruskal-算法" class="headerlink" title="Kruskal 算法"></a>Kruskal 算法</h4><ul>
+<li>Kruskal 最小生成树算法<br><center><img src="/img/Algorithms/0007_KruskalPseudo.png" width="720px"/></center><ul>
+<li>起始于一个空的图。</li>
+<li>通过逐条增加边来构造最小生成树：假如在构建最小生成树的过程中，我们已经选择了某些边并在向着正确的方向前进，下一步选择那条边呢？<ul>
+<li>不断重复地选择未被选中的边中权重最轻的且不会形成环的一条。<ul>
+<li>为保证连接等价类边的权值最短，算法首先对图中所有边按照权值进行排序。按权值由小到大依次选择边</li>
+<li>不会形成环：每次选择一条边加入到现有的部分解中 ===&gt; 需要检验每一条侯选边(u-&gt;v) 的端点是否属于不同的连通分量，一旦选定了某条边，则将这条边添加到 MST 并将两个相关的连通分量将被合并。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Kruskal 最小生成树算法关键数据结构：并查集/分离集 (union-find/disjoint sets)<ul>
+<li>Kruskal 算法开始有 n 个分别包含一个节点的集合（即 n 个分离集）；随着算法的进展，分离集的个数逐渐减少，直到算法的最后一步，分离集的个数变为 1，此时产生最小生成树。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基于并查集的 Kruskal 算法实现：</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span>		<span class="comment">/* stdin */</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;limits.h&gt;</span>		<span class="comment">/* INT_MAX */</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span>		<span class="comment">/* assert */</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span>			<span class="comment">/* priority_queue */</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_VERTEX_NUM    26</span></div><div class="line"> </div><div class="line"><span class="keyword">class</span> UnionFindSets &#123;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="keyword">int</span> PI[MAX_VERTEX_NUM];</div><div class="line">    <span class="keyword">int</span> rank[MAX_VERTEX_NUM];</div><div class="line">    <span class="keyword">int</span> size;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    UnionFindSets(<span class="keyword">int</span> size) &#123;</div><div class="line">    	<span class="keyword">this</span>-&gt;size = size;</div><div class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> vertexIdx=<span class="number">0</span>; vertexIdx&lt;size; vertexIdx++) &#123;</div><div class="line">    		PI[vertexIdx] = <span class="number">-1</span>;</div><div class="line">    		rank[vertexIdx] = <span class="number">-1</span>;</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeset</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">    	assert(x &gt;= <span class="number">0</span> &amp;&amp; x &lt; size);</div><div class="line">    	PI[x] = x;</div><div class="line">    	rank[x] = <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">    	assert(x &gt;= <span class="number">0</span> &amp;&amp; x &lt; size);</div><div class="line">        <span class="comment">// cout &lt;&lt; "&lt;find&gt;:" &lt;&lt; endl; </span></div><div class="line">        <span class="comment">// cout &lt;&lt; "\tPI[" &lt;&lt; x &lt;&lt; "]: " &lt;&lt; PI[x] &lt;&lt; endl;</span></div><div class="line">        <span class="comment">/*</div><div class="line">         * find(PI[x]): backtracking, finding the root node</div><div class="line">         * PI[x]=&lt;backtracking result&gt;: </div><div class="line">         *	directly connect the leaf node to the root node to achieve path compression</div><div class="line">         */</span></div><div class="line">        <span class="keyword">if</span>(x != PI[x]) &#123;</div><div class="line">        	PI[x] = find(PI[x]);</div><div class="line">        &#125;</div><div class="line">    	<span class="keyword">return</span> PI[x];</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unite</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</div><div class="line">    	assert(x &gt;= <span class="number">0</span> &amp;&amp; x &lt; size);</div><div class="line">    	assert(y &gt;= <span class="number">0</span> &amp;&amp; y &lt; size);</div><div class="line">        <span class="comment">// cout &lt;&lt; "&lt;unite&gt;: " &lt;&lt; endl;</span></div><div class="line">        <span class="keyword">int</span> rx = find(x);</div><div class="line">        <span class="keyword">int</span> ry = find(y);</div><div class="line">        <span class="comment">// cout &lt;&lt; "\t" &lt;&lt; x &lt;&lt; "["  &lt;&lt; rx &lt;&lt; "]" &lt;&lt; y &lt;&lt; "[" &lt;&lt; ry &lt;&lt; "]" &lt;&lt; endl;</span></div><div class="line">    	assert(rx &gt;= <span class="number">0</span> &amp;&amp; rx &lt; size);</div><div class="line">    	assert(ry &gt;= <span class="number">0</span> &amp;&amp; ry &lt; size);</div><div class="line">        <span class="keyword">if</span>(rx == ry) &#123;</div><div class="line">        	<span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(rank[rx] &gt; rank[ry]) &#123;</div><div class="line">        	PI[ry] = rx;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            PI[rx] = ry;</div><div class="line">            <span class="keyword">if</span>(rank[rx] == rank[ry]) &#123;</div><div class="line">            	rank[ry] += <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printset</span><span class="params">()</span> </span>&#123;</div><div class="line">    	<span class="built_in">cout</span> &lt;&lt; <span class="string">"&lt;Union&amp;Find set&gt;: "</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;size; i++) &#123;</div><div class="line">    		<span class="built_in">cout</span> &lt;&lt; <span class="string">"\tPI["</span> &lt;&lt; i &lt;&lt; <span class="string">"]: "</span> &lt;&lt; PI[i]</div><div class="line">    			 &lt;&lt; <span class="string">"   "</span></div><div class="line">    			 &lt;&lt; <span class="string">"rank["</span> &lt;&lt; i &lt;&lt; <span class="string">"]: "</span> &lt;&lt; rank[i] &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">  </div><div class="line"><span class="keyword">struct</span> adjVertexNode &#123;</div><div class="line">  <span class="keyword">int</span> adjVertexIdx;</div><div class="line">  <span class="keyword">int</span> weight;</div><div class="line">  adjVertexNode* next;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line"><span class="keyword">struct</span> VertexNode &#123;</div><div class="line">  <span class="keyword">char</span> data;</div><div class="line">  <span class="keyword">int</span> vertexIdx;</div><div class="line">  adjVertexNode* <span class="built_in">list</span>;</div><div class="line">  <span class="comment">// cost for VertexNode to reach current MST</span></div><div class="line">  <span class="keyword">int</span> cost;</div><div class="line">  <span class="comment">// recording the pre-visit VertexNode in the path --&gt; restore a MST</span></div><div class="line">  VertexNode* prev;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line"><span class="keyword">struct</span> Edge &#123;</div><div class="line">  <span class="keyword">int</span> fromIdx, toIdx;</div><div class="line">  <span class="keyword">int</span> weight;</div><div class="line">  <span class="keyword">bool</span> <span class="keyword">operator</span>&lt; (<span class="keyword">const</span> Edge&amp; right) <span class="keyword">const</span> &#123;</div><div class="line">    <span class="keyword">return</span> weight &gt; right.weight;</div><div class="line">  &#125;;</div><div class="line">&#125;;</div><div class="line">  </div><div class="line"><span class="keyword">struct</span> Graph &#123;</div><div class="line">  VertexNode VertexNodes[MAX_VERTEX_NUM];</div><div class="line">  <span class="keyword">int</span> vertexNum;</div><div class="line">  <span class="keyword">int</span> edgeNum;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateGraph</span> <span class="params">(Graph&amp; g)</span> </span>&#123;</div><div class="line">  <span class="keyword">int</span> i, j, edgeStart, edgeEnd, weight;</div><div class="line">  adjVertexNode* adjNode;</div><div class="line">  <span class="comment">//cout &lt;&lt; "Please input vertex and edge num (vertex-num edge-num):" &lt;&lt;endl;</span></div><div class="line">  <span class="built_in">cin</span> &gt;&gt; g.vertexNum &gt;&gt; g.edgeNum;</div><div class="line">  <span class="comment">//cout &lt;&lt; "Please input vertex information (v1)/n note: every vertex info end with Enter" &lt;&lt;endl;</span></div><div class="line">  <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;g.vertexNum; i++) &#123;</div><div class="line">    <span class="built_in">cin</span> &gt;&gt; g.VertexNodes[i].data; <span class="comment">// vertex data info.</span></div><div class="line">    g.VertexNodes[i].vertexIdx = i;</div><div class="line">    g.VertexNodes[i].<span class="built_in">list</span> = <span class="literal">NULL</span>;</div><div class="line">    g.VertexNodes[i].prev = <span class="literal">NULL</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="comment">//cout &lt;&lt; "input edge information(start end):" &lt;&lt; endl;</span></div><div class="line">  <span class="keyword">for</span> (j=<span class="number">0</span>; j&lt;g.edgeNum; j++)	&#123;</div><div class="line">    <span class="built_in">cin</span> &gt;&gt; edgeStart &gt;&gt; edgeEnd &gt;&gt; weight;</div><div class="line"> </div><div class="line">    <span class="comment">// insert new adjacent VertexNode at the begining of the adjacent list</span></div><div class="line">    adjNode = <span class="keyword">new</span> adjVertexNode;</div><div class="line">    adjNode-&gt;adjVertexIdx = edgeEnd;</div><div class="line">    adjNode-&gt;weight = weight;</div><div class="line">    adjNode-&gt;next = g.VertexNodes[edgeStart].<span class="built_in">list</span>;</div><div class="line">    g.VertexNodes[edgeStart].<span class="built_in">list</span> = adjNode;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintAdjList</span><span class="params">(<span class="keyword">const</span> Graph&amp; g)</span> </span>&#123;</div><div class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"The adjacent list for graph is:"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; g.vertexNum; i++) &#123;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; g.VertexNodes[i].data &lt;&lt; <span class="string">"-&gt;"</span>;</div><div class="line">    adjVertexNode* head = g.VertexNodes[i].<span class="built_in">list</span>;</div><div class="line">    <span class="keyword">if</span> (head == <span class="literal">NULL</span>)</div><div class="line">      <span class="built_in">cout</span> &lt;&lt; <span class="string">"NULL"</span>;</div><div class="line">    <span class="keyword">while</span> (head != <span class="literal">NULL</span>) &#123;</div><div class="line">      <span class="built_in">cout</span> &lt;&lt; g.VertexNodes[head-&gt;adjVertexIdx].data &lt;&lt; <span class="string">"("</span> &lt;&lt; head-&gt;weight &lt;&lt; <span class="string">") "</span>;</div><div class="line">      head = head-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">DeleteGraph</span><span class="params">(Graph&amp; g)</span> </span>&#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;g.vertexNum; i++) &#123;</div><div class="line">    adjVertexNode* tmp = <span class="literal">NULL</span>;</div><div class="line">    <span class="keyword">while</span>(g.VertexNodes[i].<span class="built_in">list</span> != <span class="literal">NULL</span>) &#123;</div><div class="line">      tmp = g.VertexNodes[i].<span class="built_in">list</span>;</div><div class="line">      g.VertexNodes[i].<span class="built_in">list</span> = g.VertexNodes[i].<span class="built_in">list</span>-&gt;next;</div><div class="line">      <span class="keyword">delete</span> tmp;</div><div class="line">      tmp = <span class="literal">NULL</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Kruskal</span><span class="params">(Graph&amp; g)</span> </span>&#123;</div><div class="line">  <span class="function">UnionFindSets <span class="title">sets</span><span class="params">(g.vertexNum)</span></span>;</div><div class="line">  <span class="comment">// use priority_queue for sorting the edges E by weight</span></div><div class="line">  priority_queue&lt;Edge&gt; EdgeQueue;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;g.vertexNum; i++) &#123;</div><div class="line">    sets.makeset(g.VertexNodes[i].vertexIdx);</div><div class="line">    adjVertexNode* head = g.VertexNodes[i].<span class="built_in">list</span>;</div><div class="line">    <span class="keyword">while</span> (head != <span class="literal">NULL</span>) &#123;</div><div class="line">      Edge e;</div><div class="line">      e.fromIdx = g.VertexNodes[i].vertexIdx;</div><div class="line">      e.toIdx = head-&gt;adjVertexIdx;</div><div class="line">      e.weight = head-&gt;weight;</div><div class="line">      EdgeQueue.push(e);</div><div class="line"></div><div class="line">      head = head-&gt;next;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"\nMST constructing: "</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">  <span class="keyword">while</span>(!EdgeQueue.empty()) &#123;</div><div class="line">    Edge e = EdgeQueue.top();</div><div class="line">    EdgeQueue.pop();</div><div class="line">    <span class="comment">// cout &lt;&lt; "\npop: " &lt;&lt; e.fromIdx &lt;&lt; "-&gt;" &lt;&lt; e.toIdx &lt;&lt; "(" &lt;&lt; e.weight &lt;&lt; ")" &lt;&lt; endl;</span></div><div class="line">    <span class="keyword">if</span>(sets.find(e.fromIdx) != sets.find(e.toIdx)) &#123;</div><div class="line">      <span class="comment">/*</div><div class="line">       * 2 edges with same vertex in an undirect graph</div><div class="line">       *	but every VertexNode can only have on prev.</div><div class="line">       */</span></div><div class="line">      <span class="keyword">if</span>(g.VertexNodes[e.toIdx].prev != <span class="literal">NULL</span>) &#123;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">      &#125;</div><div class="line">      g.VertexNodes[e.toIdx].prev = &amp;g.VertexNodes[e.fromIdx];</div><div class="line">      g.VertexNodes[e.toIdx].cost = e.weight;</div><div class="line">      <span class="built_in">cout</span> &lt;&lt; <span class="string">"\t+ "</span></div><div class="line">         &lt;&lt; g.VertexNodes[e.fromIdx].data &lt;&lt; <span class="string">"--&gt;"</span> &lt;&lt; g.VertexNodes[e.toIdx].data</div><div class="line">         &lt;&lt; <span class="string">"("</span> &lt;&lt; e.weight &lt;&lt; <span class="string">")"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">      sets.unite(e.fromIdx, e.toIdx);</div><div class="line">      <span class="comment">// sets.printset();</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">  </div><div class="line"><span class="comment">// backtracking for the path</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintMST</span><span class="params">(Graph&amp; g)</span> </span>&#123;</div><div class="line">  <span class="keyword">int</span> cost = <span class="number">0</span>;</div><div class="line">  <span class="comment">// MST always starts from 0</span></div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=g.vertexNum<span class="number">-1</span>; i&gt;=<span class="number">0</span>; i--) &#123;</div><div class="line">    <span class="keyword">if</span>(g.VertexNodes[i].prev != <span class="literal">NULL</span>) &#123;</div><div class="line">      <span class="built_in">cout</span> &lt;&lt; <span class="string">"\t+ "</span></div><div class="line">         &lt;&lt; g.VertexNodes[i].data &lt;&lt; <span class="string">"&lt;--"</span> &lt;&lt; g.VertexNodes[i].prev-&gt;data</div><div class="line">         &lt;&lt; <span class="string">"("</span> &lt;&lt; g.VertexNodes[i].cost &lt;&lt; <span class="string">")"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">       cost += g.VertexNodes[i].cost;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"   cost: "</span> &lt;&lt; cost &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span>** argv)</span> </span>&#123;</div><div class="line">  freopen(<span class="string">"Prim.txt"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</div><div class="line"> </div><div class="line">  Graph g;</div><div class="line">  CreateGraph(g);</div><div class="line">  PrintAdjList(g);</div><div class="line"> </div><div class="line">  Kruskal(g);</div><div class="line">  </div><div class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"Minimum Spanning Tree: "</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">  PrintMST(g);</div><div class="line">   </div><div class="line">  DeleteGraph(g);</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>构建并运行，结果如下：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">$ g++ Kruskal.cpp -o Kruskal</div><div class="line">$ ./Kruskal </div><div class="line">The adjacent list <span class="keyword">for</span> graph is:</div><div class="line"> 0-&gt;7(8) 1(4) </div><div class="line"> 1-&gt;2(8) 0(4) </div><div class="line"> 2-&gt;8(2) 5(4) 3(7) 1(8) </div><div class="line"> 3-&gt;5(14) 4(9) 2(7) </div><div class="line"> 4-&gt;5(10) 3(9) </div><div class="line"> 5-&gt;6(2) 4(10) 3(14) 2(4) </div><div class="line"> 6-&gt;8(6) 7(1) 5(2) </div><div class="line"> 7-&gt;8(7) 6(1) 0(8) </div><div class="line"> 8-&gt;7(7) 6(6) 2(2) </div><div class="line"> </div><div class="line">MST constructing: </div><div class="line">  + 6--&gt;7(1)</div><div class="line">  + 5--&gt;6(2)</div><div class="line">  + 8--&gt;2(2)</div><div class="line">  + 2--&gt;5(4)</div><div class="line">  + 1--&gt;0(4)</div><div class="line">  + 2--&gt;3(7)</div><div class="line">  + 2--&gt;1(8)</div><div class="line">  + 3--&gt;4(9)</div><div class="line"> </div><div class="line">Minimum Spanning Tree: </div><div class="line">  + 7&lt;--6(1)</div><div class="line">  + 6&lt;--5(2)</div><div class="line">  + 5&lt;--2(4)</div><div class="line">  + 4&lt;--3(9)</div><div class="line">  + 3&lt;--2(7)</div><div class="line">  + 2&lt;--8(2)</div><div class="line">  + 1&lt;--2(8)</div><div class="line">  + 0&lt;--1(4)</div><div class="line">   cost: 37</div></pre></td></tr></table></figure>
+<ul>
+<li>整棵最小生成树的构建过程如下：<center><img src="/img/Algorithms/0007_MSTKruskal.png" width="640px"/></center>
+
+</li>
+</ul>
+<h4 id="Number-of-Islands"><a href="#Number-of-Islands" class="headerlink" title="Number of Islands"></a><a href="https://leetcode.com/problems/number-of-islands/#/description">Number of Islands</a></h4><p>　下面使用并查集解决 <strong>岛屿数量</strong> 问题，该问题描述如下：</p>
+<blockquote>
+<p>　Given a 2d grid map of <strong>‘1’</strong>s (land) and <strong>‘0’</strong>s (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. <strong>You may assume all four edges of the grid are all surrounded by water</strong>.</p>
+<ul>
+<li><code>Example 1</code>:<br>　11110<br>　11010<br>　11000<br>　00000<br>Answer: 1</li>
+<li><code>Example 2</code>:<br>　11000<br>　11000<br>　00100<br>　00011<br>Answer: 3</li>
+</ul>
+</blockquote>
+<ul>
+<li>问题分析<ul>
+<li>问题实际就是寻找 0-1 2d 网格中由 1 表示的 land 的连通区域块的数目，所以首先是如何确定一个连通区域块，确定之后即可统计整个网格中的块数目即可。</li>
+<li>可以通过 DFS 确定寻找连通区域块：由上至下/从左及右从一块 land 开始，向右/向下进行 DFS 遍历，当遍历结束时，即到达本岛屿的每一块 land，可以寻找下一块岛屿；为了避免重复遍历，需要将每一块 land 打上标签，标注已属于某个岛屿。</li>
+<li>一个岛屿即为一个集合，通过遍历每块 land，通过集合的并操作将 land 依次并入各岛屿集合，最终统计岛屿集合的数目即可。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> UnionFindSets &#123;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; PI;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; rank;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    UnionFindSets(<span class="keyword">int</span> size) &#123;</div><div class="line">        PI.resize(size);</div><div class="line">        rank.resize(size);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;size; i++) &#123;</div><div class="line">            PI[i] = <span class="number">-1</span>;</div><div class="line">            rank[i] = <span class="number">-1</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeset</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">        PI[x] = x;</div><div class="line">        rank[x] = <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(PI[x] &lt; <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(x != PI[x]) &#123;</div><div class="line">            PI[x] = find(PI[x]);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> PI[x];</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unite</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> rx = find(x);</div><div class="line">        <span class="keyword">int</span> ry = find(y);</div><div class="line">        <span class="keyword">if</span>(rx==<span class="number">-1</span> || ry==<span class="number">-1</span>) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(rx == ry) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(rank[rx] &gt; rank[ry]) &#123;</div><div class="line">            PI[ry] = rx;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            PI[rx] = ry;</div><div class="line">            <span class="keyword">if</span>(rank[rx] == rank[ry]) &#123;</div><div class="line">                rank[ry] += <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numIslands</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; grid)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(grid.empty()) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> rowSize = grid.size();</div><div class="line">        <span class="keyword">int</span> colSize = grid[<span class="number">0</span>].size();</div><div class="line">        <span class="function">UnionFindSets <span class="title">sets</span><span class="params">(rowSize*colSize)</span></span>;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;rowSize; row++) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>; col&lt;colSize; col++) &#123;</div><div class="line">                <span class="keyword">int</span> gridSetIdx = row*colSize + col;</div><div class="line">                <span class="comment">// water grid not need to make set, still -1</span></div><div class="line">                <span class="keyword">if</span>(grid[row][col] == <span class="string">'0'</span>) &#123;</div><div class="line">                    <span class="keyword">continue</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> &#123;</div><div class="line">                    sets.makeset(gridSetIdx);</div><div class="line">                &#125;</div><div class="line">                <span class="comment">// upper grid is land, need to unite for enlarging land</span></div><div class="line">                <span class="keyword">if</span>(row&gt;<span class="number">0</span> &amp;&amp; grid[row<span class="number">-1</span>][col]==<span class="string">'1'</span>) &#123;</div><div class="line">                    <span class="keyword">int</span> upperSetIdx = (row<span class="number">-1</span>)*colSize + col;</div><div class="line">                    sets.unite(gridSetIdx, upperSetIdx);</div><div class="line">                &#125;</div><div class="line">                <span class="comment">// left grid is land, need to unite for enlarging land</span></div><div class="line">                <span class="keyword">if</span>(col&gt;<span class="number">0</span> &amp;&amp; grid[row][col<span class="number">-1</span>]==<span class="string">'1'</span>) &#123;</div><div class="line">                    <span class="keyword">int</span> leftSetIdx = row*colSize + (col<span class="number">-1</span>);</div><div class="line">                    sets.unite(gridSetIdx, leftSetIdx);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// count the number of united sets</span></div><div class="line">        <span class="keyword">int</span> unitedSetNum = <span class="number">0</span>;</div><div class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">bool</span>&gt; counted;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> setIdx=<span class="number">0</span>; setIdx&lt;rowSize*colSize; setIdx++) &#123;</div><div class="line">            <span class="keyword">int</span> unitedSetIdx = sets.find(setIdx);</div><div class="line">            <span class="keyword">if</span>(unitedSetIdx == <span class="number">-1</span>) &#123;</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(!counted[unitedSetIdx]) &#123;</div><div class="line">                unitedSetNum++;</div><div class="line">                counted[unitedSetIdx] = <span class="literal">true</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> unitedSetNum;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>代码实现细节<ul>
+<li><strong>“0”</strong> 网格（water）不作为并查集合元素，每一个 <strong>“1”</strong> 网格（land）一开始为一个集合。</li>
+<li>如果一个网格为 <strong>“1”</strong> ，那这个网格和它左方/上方为 <strong>“1”</strong> 的网格属于一个连通块，并到一个集合。</li>
+<li>最后，遍历并查集合中的每个元素（忽略了 water 未初始化集合），对其中存在的集合进行计数。</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;并查集&quot;&gt;&lt;a href=&quot;#并查集&quot; class=&quot;headerlink&quot; title=&quot;并查集&quot;&gt;&lt;/a&gt;并查集&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;并查集：并查集处理的是集合之间的关系，即 union，find。在这种数据类型中，N个不同元素被分成若干个组，每组是一个
+    
+    </summary>
+    
+      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
+    
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
+    
+  </entry>
   
   <entry>
     <title>算法设计与分析[0014] Dynamic Programming(V) 一道习题</title>
@@ -719,7 +975,7 @@
     <link href="http://durant35.github.io/2017/04/06/Algorithms_Minimum%20Spanning%20Tree/"/>
     <id>http://durant35.github.io/2017/04/06/Algorithms_Minimum Spanning Tree/</id>
     <published>2017-04-06T06:00:22.000Z</published>
-    <updated>2017-05-07T14:59:15.063Z</updated>
+    <updated>2017-06-02T13:22:06.491Z</updated>
     
     <content type="html"><![CDATA[<p>　本文将介绍带权图的最小生成树（Minimum Spanning Tree）算法：给定一个无向图 G，并且它的每条边均有权值，则 MST 是一个包括 G 的所有顶点及边的子集的图，这个子集保证图是连通的，并且子集中所有边的权值之和为所有子集中最小的。<br>　本文中介绍两种求解图的最小生成树的算法：Prim 算法和 Kruskal 算法，这两种算法都是贪心算法。一般而言，贪心策略不一定能保证找到全局最优解，但是对最小生成树问题来说，贪心策略能获得具有最小权值的生成树。<br><a id="more"></a></p>
 <h4 id="Minimum-spanning-trees"><a href="#Minimum-spanning-trees" class="headerlink" title="Minimum spanning trees"></a>Minimum spanning trees</h4><ul>
@@ -816,7 +1072,7 @@
 <li>起始于一个空的图。</li>
 <li>通过逐条增加边来构造最小生成树：假如在构建最小生成树的过程中，我们已经选择了某些边并在向着正确的方向前进，下一步选择那条边呢？<ul>
 <li>不断重复地选择未被选中的边中权重最轻的且不会形成环的一条。<ul>
-<li>为保证连接等价类边的权值最短，算法首先对图中所有边按照权值进行排序。按权值由小到大一次选择边</li>
+<li>为保证连接等价类边的权值最短，算法首先对图中所有边按照权值进行排序。按权值由小到大依次选择边</li>
 <li>不会形成环：每次选择一条边加入到现有的部分解中 ===&gt; 需要检验每一条侯选边(u-&gt;v) 的端点是否属于不同的连通分量，一旦选定了某条边，则将这条边添加到 MST 并将两个相关的连通分量将被合并。</li>
 </ul>
 </li>
@@ -1397,1002 +1653,6 @@
       <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
     
       <category term="leetcode" scheme="http://durant35.github.io/tags/leetcode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Digital Image Process</title>
-    <link href="http://durant35.github.io/2017/02/04/cv_Digital-Image-Process(pg_2016)/"/>
-    <id>http://durant35.github.io/2017/02/04/cv_Digital-Image-Process(pg_2016)/</id>
-    <published>2017-02-04T09:53:31.000Z</published>
-    <updated>2017-02-20T06:06:07.637Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>Books：<a href="http://durant35.github.io/pdf/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86(%E5%86%88%E8%90%A8%E9%9B%B7%E6%96%AF)%E4%B8%AD%E8%AF%91%E7%AC%AC%E4%B8%89%E7%89%88.pdf" alt="数字图像处理（冈萨雷斯）">数字图像处理（冈萨雷斯）</a><br>Codes：<a href="https://github.com/Durant35/Courses/tree/master/dip">https://github.com/Durant35/Courses/tree/master/dip</a></p>
-</blockquote>
-<h3 id="第2章-数字图像基础"><a href="#第2章-数字图像基础" class="headerlink" title="第2章 数字图像基础"></a>第2章 数字图像基础</h3><ul>
-<li>取样和量化</li>
-<li>空间和灰度分辨率<ul>
-<li>空间分辨率：空间分辨率是图像在单位面积内像素的个数，表示了图像的空间细节分辨能力</li>
-<li>灰度分辨率：灰度分辨率指的是在纯黑和纯白之间灰度级别的多少，指的是图像对灰度变化细节的分辨能力<a id="more"></a></li>
-</ul>
-</li>
-<li>图像内插</li>
-<li>像素间的一些基本关系<ul>
-<li>$N_4(p)$；$N_8(p) = N_4(p) + N_D(p)$（对角像素） 4领域/8领域</li>
-<li>距离度量 $D_e(p, q)$<ul>
-<li>城市街区距离：$p(x, y)$；$q(s, t)$；$D_4(p, q) = |x-s| + |y-t|$</li>
-<li>棋盘距离：$p(x, y)$；$q(s, t)$；$D_4(p, q) = |x-s| + |y-t|$</li>
-<li>邻接性：</li>
-<li>4 邻接；8邻接：二义性（像素到另一个像素有多条路径）</li>
-<li>m 邻接：p是q的m邻接，首先p，q具有V中的数值；<br>-（i）p在$N_4(q)$中或<br>-（ii）p在$N_D(q)$且$N_4(p)∩N_4(q)$中没有V值（为空或不为空但没有V值）</li>
-</ul>
-</li>
-<li>Path：从一个像素到另一个像素的一个像素序列<ul>
-<li>4-path：一个路径上的相邻像素互为4邻接</li>
-<li>8-path：一个路径上的相邻像素互为8-neighbors</li>
-<li>闭合通路：一个有限区域的边界形成一条闭合通路</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="第6章-彩色图像处理"><a href="#第6章-彩色图像处理" class="headerlink" title="第6章 彩色图像处理"></a>第6章 彩色图像处理</h3><ul>
-<li>人眼对彩色的敏感程度要远远高于对灰度级别的敏感程度</li>
-<li>CMY/CMYK（青色 深红色 黄色 黑色）$\begin{bmatrix} C\\ M \\Y \end{bmatrix} = \begin{bmatrix} 1 \\1 \\1\end{bmatrix} - \begin{bmatrix} R \\G \\B\end{bmatrix}$</li>
-<li>HSI（色调 饱和度 强度）<ul>
-<li>色调，饱和度和强度<ul>
-<li>色调（Hue）：与光波的波长有关，它表示人的感官对不同颜色的感受</li>
-<li>饱和度（Saturation）：表示颜色的纯度，纯光谱色是完全饱和的</li>
-<li>强度（Intensity）：颜色的明亮程度</li>
-</ul>
-</li>
-<li>强度轴：$(0, 0, 0) \rightarrow (1, 1, 1) $</li>
-<li>色调平面<ul>
-<li>$强度轴 + 彩色点 \Rightarrow 三角面$</li>
-<li>$R(0°) \rightarrow G(120°) \rightarrow B(240°)$</li>
-</ul>
-</li>
-<li>饱和度（纯度）<ul>
-<li>纯色被白光稀释的程度</li>
-<li>以与强度轴的距离为函数</li>
-</ul>
-</li>
-<li>$RGB \rightarrow HSI$　RGB归一化到$[0, 1]$<ul>
-<li>$ H[0, 360] = \begin{cases} \theta, &amp;B \leq G \cr 360 - \theta, &amp;B \gt G \end{cases} $，其中$ \theta = arccos\{\frac{\frac{1}{2}[(R-G)+(R-B])}{[(R-G)^2 + (R-B)(G-B)]^\frac{1}{2}} \}$</li>
-<li>$ S[0, 1] = 1 - \frac{3}{R+G+B}[min(R, G, B)] $，纯色值为 1</li>
-<li>$ I[0, 1] = \frac{1}{3}(R + G + B) $，黑色值为 0/白色值为 1</li>
-</ul>
-</li>
-<li>$HSI \rightarrow RGB$　$H[0, 360]; S[0, 1]; I[0, 1]$<ul>
-<li>$ 0° \leq H \le 120°，\begin{cases} B = I(1-S) \cr R = I[1 + \frac{ScosH}{cos(60° - H)}] \cr G = 3I - (R+B) \end{cases} $</li>
-<li>$ 120° \leq H \le 240°，H = H - 120°，\begin{cases} R = I(1-S) \cr G = I[1 + \frac{ScosH}{cos(60° - H)}] \cr B = 3I - (R+G) \end{cases} $</li>
-<li>$ 240° \leq H \le 360°，H = H - 240°，\begin{cases} G = I(1-S) \cr B = I[1 + \frac{ScosH}{cos(60° - H)}] \cr R = 3I - (G+B) \end{cases} $</li>
-</ul>
-</li>
-<li>HSI 模型更符合人眼对颜色的解释，该模型可以在彩色图像中从携带的彩色信息中将色度信息（色调和饱和度）和强度信息的分量分开</li>
-</ul>
-</li>
-<li>伪彩色：基于一种指定的规则对灰度值赋以颜色的处理<ul>
-<li>一幅单色图像<center><img src="/img/CV/dip/PseudoColorProcessing_single.png" width="360px"/></center></li>
-<li>多幅单色图像<center><img src="/img/CV/dip/PseudoColorProcessing_multiple.png" width="420px"/></center></li>
-</ul>
-</li>
-<li>全彩色图像：全彩色传感器采集的图像<br>$ \begin{cases} 分别处理每一个向量 \cr 直接处理彩色像素 \end{cases} \Longleftarrow[条件] \begin{cases} ①处理必须对于向量和标量都可用 \cr ②对向量的每一个分量的操作对于其他分量必须是独立的 \end{cases} $</li>
-<li>独立于设备的彩色模型：<code>CIEL*a*b*</code>（亮度；红减绿；绿减蓝）<ul>
-<li>没有可直接显示的格式（需要变换到另外的彩色空间），但其色域包括整个可见光谱，并可以准确地表示任何显示设备，打印设备或输入设备的颜色</li>
-<li>通常的彩色显设备是不能显示自然界所有颜色，仅限于该显示器的三原色所构成的三角形内，不能完全覆盖整个色度图</li>
-</ul>
-</li>
-<li>色调范围（主调类型）：颜色强度的基本分布<ul>
-<li>高主调：高（亮）强度处</li>
-<li>中主调</li>
-<li>低主调：低（暗）亮度处</li>
-</ul>
-</li>
-<li>单独对彩色图像的分量进行直方图均衡通常是不明智的，应当均匀地展开这种彩色灰度，而保持彩色本身（即色调）不变$ \Rightarrow $ 转换到HSI彩色空间进行直方图处理</li>
-<li>彩色图像的噪声内容在每个彩色通道中具有相同的特性，但噪声对不同的彩色通道所造成的影响不同</li>
-<li>彩色图像平滑<ul>
-<li>领域平均平滑可以在每个彩色平面的基础上执行，其结果与使用RGB彩色向量执行平均效果是相同的</li>
-</ul>
-</li>
-<li>彩色图像锐化<ul>
-<li>一个向量的拉普拉斯被定义为一个向量，其分量等于输入向量的各个标量分量的拉普拉斯</li>
-</ul>
-</li>
-</ul>
-<h3 id="第3章-灰度变换与空间滤波"><a href="#第3章-灰度变换与空间滤波" class="headerlink" title="第3章 灰度变换与空间滤波"></a>第3章 灰度变换与空间滤波</h3><ul>
-<li>空间域 vs 变换域<ul>
-<li>空间域：直接以图像中的像素操作为基础</li>
-<li>空间域处理$ \begin{cases} 灰度变换：在图像的单个像素上操作，主要以对比度/阈值处理为目的（图像增强/图像分割） \cr 空间滤波：图像中每一个像素的领域处理 \end{cases} $</li>
-<li>变换域：先把一幅图像变换到变换域，在变换域中进行处理，然后反变换把处理的结果返回到空间域</li>
-</ul>
-</li>
-<li>点处理技术 vs 领域处理技术</li>
-<li>图像增强<ul>
-<li>对图像进行加工，使其结果对于特定的应用比原始图像更合适的一种处理</li>
-<li>“特定”：面向问题，没有通用的“理论”；效果没办法量化</li>
-</ul>
-</li>
-<li>基本的灰度变换函数<ul>
-<li>图像反转<ul>
-<li>$ S = L - 1 - r，（r \in [0, L-1]）$</li>
-<li>增强嵌入在一幅图像的暗区域中的白色或灰色细节，特别是当黑色面积在尺寸上占主导地位时</li>
-</ul>
-</li>
-<li>对数变换<ul>
-<li>$ S = clog(1+r)，（c为常数，r \geq 0） $</li>
-<li>扩展图像中的暗像素的值，同时压缩更高灰度级的值 $\Longleftrightarrow$ 反对数</li>
-<li>压缩像素值变化较大的图像的动态范围，如傅里叶频谱$（0，10^6）\Longrightarrow$ 图像显示系统通常不能如实地再现如此大的范围</li>
-</ul>
-</li>
-<li>幂律（伽马）变换<ul>
-<li>$ S = cr^{\gamma}，（c，\gamma为正常数） $</li>
-<li>参数性质<ul>
-<li>$ \gamma \gt 1 $，（越大越）扩展高灰度级值（亮部的细节）</li>
-<li>$ \gamma \lt 1 $，（越小越）扩展低灰度级值（暗部的细节）</li>
-</ul>
-</li>
-<li>有些计算机系统内置部分伽马校正，因为计算机屏幕内部自带伽马校正，改变伽马值不仅会改变亮度，而且会改变彩色图像中的 R，G，B 比率<ul>
-<li>整体偏暗的对比度增强</li>
-<li>“冲淡”外观的灰度级压缩</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>分阶级性变换函数<ul>
-<li>对比度拉伸：特定灰度级范围斜率变化大（低于 k 的灰度级更暗，高于 k 的灰度级更亮）</li>
-<li>灰度级分层：特定灰度级范围的亮度进行不同赋值（例如二值化）</li>
-<li>比特平面分层<ul>
-<li>$ \begin{cases} 高阶比特：视觉上很重要的大部分数据 \cr 低阶比特：更精细的灰度细节 \end{cases} $ $\Longrightarrow$ 图像压缩：4个高阶比特平面将允许我们从可接受的细节来重建原图像</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>直方图处理<ul>
-<li>概述<ul>
-<li>灰度级范围为$[0, L-1]$的数字图像的直方图：$h(r_k) = n_k$，$r_k$ 是第 k 级灰度值，$n_k$ 是 $r_k$ 的像素个数</li>
-<li>归一化：$p(r_k) = \frac{n_k}{MN}$，灰度级 $r_k$ 在图像中出现的概率</li>
-<li>图像的直方图反映了图像的明暗程度以及对比强度，对比度适中的图像通常具有均匀分布的直方图<ul>
-<li>低对比度图像具有较窄的直方图，且集中于灰度级的中部；高对比度图像中直方图的分量覆盖了很宽的灰度级范围，而且像素的分布没有太不均匀</li>
-<li>若一幅图像的像素倾向于占据整个可能灰度级并且分布均匀，则该图像会有高对比度的外观并展示灰色调的较大变化</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>直方图均衡化<ul>
-<li>直方图均衡化变换（直方图线性变换）<br>　　$ S_k = T(r_k) = (L-1) \sum_{j=0}^k p_r(r_j) = \frac{L-1}{MN}  \sum_{j=0}^k n_j，k=0, 1, 2, 3, …, L-1$</li>
-<li>“自动的”：因为图像有相同的内容，直方图均衡导致的对比度增强足以补偿图像在视觉上难以区分灰度级的差别</li>
-</ul>
-</li>
-<li>直方图匹配（直方图规定化）<ul>
-<li>Histogram Matching（Specification）：是指对一副图像进行变换，使其直方图与另一幅图像的直方图或特定函数形式的直方图匹配；是用户处理图像后，产生特殊直方图的方法</li>
-<li>步骤<ol>
-<li>计算直方图 $p_r(r)$，获取直方图均衡变换 $S_k$，把 $S_k$ 四舍五入到 $[0, L-1]$ 范围内的整数</li>
-<li>计算变换函数：$G(z_q) = (L-1) \sum_{i=0}^{q} p_z(z_i)$，其中 $q=0, 1, 2, 3, …, L-1$，$p_z(z_i)$ 是规定的直方图</li>
-<li>把 G 的值四舍五入到 $[0, L-1]$ 范围整数，存储在查找表中</li>
-<li>满足最接近 $S_k$ 的 $G(z_q)$ 的 $z_q$ 值即为直方图规定化后的像素值（当满足给定的 $S_k$ 的 $z_q$ 值多于一个时，选择最小的 $z_q$ 值）</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>局部直方图均衡化：增强小区域的细节</li>
-<li>在图像增强中使用直方图统计<ul>
-<li>统计量<ul>
-<li>平均灰度：$m = \sum_{i=0}^{L-1} r_i p(r_i)$ 或（取样均值）$m = \frac{1}{MN} \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x, y)$</li>
-<li>灰度方差：$\mu_2(r) = \sum_{i=0}^{L-1} (r_i - m)^2 p(r_i)$ 或（取样方差）$\sigma^2 = \frac{1}{MN} \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} [f(x, y) - m]^2$</li>
-<li>n阶矩：$\mu_{n}(r) = \sum_{i=0}^{L-1} (r_i - m)^n p(r_i)$</li>
-</ul>
-</li>
-<li>根据统计量判断<ul>
-<li>判断一个区域在点 $(x, y)$ 是暗还是亮：$m_{S_{xy}} \leq km_G$，其中 $m_{S_{xy}}$ 为局部平均灰度，$m_G$ 为全局均值</li>
-<li>判断一个区域的对比度是否可作为低对比度区域：$k_1 \sigma_G \leq \sigma_{S_{xy}} \leq k_2 \sigma_G$（标准差为 0 的区域需排除）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>空间滤波（线性空间滤波器；非线性空间滤波器）<ul>
-<li>一个邻域（典型的是一个较小的矩形；奇数尺寸，最小 $3x3$）</li>
-<li>对该邻域包围的图像像素执行的预定义操作<ul>
-<li>一个 mxn 的滤波器 $\omega(x, y), m=2a+1, n=2b+1$</li>
-<li>操作：$g(x, y) = \sum_{s=-a}^a \sum_{t=-b}^b \omega(s, t)f(x+s, y+t) $（一般空间滤波器旋转180°后保持不变）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>相关 vs 卷积<ul>
-<li>1D<ul>
-<li>要求：n 必须满足 $g(n)$ 完全滑过 $f(n)$</li>
-<li>卷积需要将 $g(n)$ 旋转180°（怎么补零？）$ \Longleftarrow \begin{cases} 卷积：(f \otimes g)[n] = \sum_{m=0}^{N-1} f(m)g(n-m)  \cr 相关：(f \circ g)[n] = \sum_{m=0}^{N-1} f(m)g(n+m) \end{cases} $</li>
-</ul>
-</li>
-<li>2D<ul>
-<li>对所有位移变量 x 和 y 求值，以便 $\omega$ 的所有元素访问 $f$ 的每一个像素</li>
-<li>$ \Longrightarrow \begin{cases}  卷积：\omega (x, y) \otimes f(x, y) =  \sum_{s=-a}^a \sum_{t=-b}^b \omega(s, t)f(x-s, y-t) \cr  相关：\omega (x, y) \circ f(x, y) =  \sum_{s=-a}^a \sum_{t=-b}^b \omega(s, t)f(x+s, y+t)  \end{cases} $</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>平滑空间滤波器：用于模糊处理 $\Rightarrow$ 降低噪声<ul>
-<li>平滑线性滤波器（均值滤波器）：响应是包含在滤波器模板邻域内的像素的简单平均值</li>
-<li>降低了图像灰度的“尖锐”变化，比如典型的随机噪声就由灰度级急剧变化组成</li>
-<li>图像边缘也是由图像灰度尖锐变化带来的特性 $\Rightarrow$ 边缘模糊的负面效应</li>
-</ul>
-</li>
-<li>盒状滤波器 vs 加权平均<ul>
-<li>随着距中心点的距离的增加而减小系数值的加权策略 $\Rightarrow$ 降低模糊<br>　　$g(x, y) = \frac{\sum_{s=-a}^a \sum_{t=-b}^b \omega(s, t)f(x+s, y+t)}{\sum_{s=-a}^a \sum_{t=-b}^b \omega(s, t)}$</li>
-<li>空间均值处理：模糊图像，较小物体的灰度与背景混在一起，较大物体变得像“斑点”而易于检测</li>
-</ul>
-</li>
-<li>统计排序（非线性）滤波器<ul>
-<li>响应以滤波器包围的区域中所包含像素的排序为基础，使用统计排序结果决定的值代替中心像素的值</li>
-<li>中值滤波器 最大值滤波器</li>
-</ul>
-</li>
-<li>锐化空间滤波器：突出灰度的过渡部分<ul>
-<li>$ \begin{cases}  图像模糊：通过在空间域用像素邻域平均法实现 \Rightarrow 积分 \cr  锐化可以用空间微分来实现 \Rightarrow 增强边缘和其它突变（如噪声），而削弱灰度变化缓慢的区域 \end{cases} $<center><img src="/img/CV/dip/Grayscale_changes.png" width="540px"/></center></li>
-<li>微分<ul>
-<li>一阶微分：$\frac{\partial f}{\partial x} = f(x+1) - f(x)$，用到下一个点，“预测未来”</li>
-<li>二阶微分：$\frac{\partial^2 f}{\partial^2 x} = f(x+1) + f(x-1) - 2f(x)$</li>
-<li>数字图像中的边缘在灰度上常常类似于斜坡过渡，一阶微分会产生较粗的边缘，二阶微分产生由零分开的一个像素宽的双边缘。二阶微分在增强细节方面要比一阶微分好的多，适合锐化图像</li>
-</ul>
-</li>
-<li>拉普拉斯算子：$\nabla^2 f = \frac{\partial^2 f}{\partial^2 x} + \frac{\partial^2 f}{\partial^2 y}$<ul>
-<li>是一个各向同性滤波器：响应与作用的图像的突变方向无关；将原图像旋转后进行滤波处理给出的结果与先滤波再旋转的结果相同</li>
-<li>$\nabla^2 f(x, y) = f(x+1, y) + f(x-1, y) + f(x, y+1) + f(x, y-1) - 4f(x, y)$</li>
-<li>上面公式只是四种算子中的一个<br>　　$\begin{bmatrix} 0 &amp; 1 &amp; 0 \\  1 &amp; -4 &amp; 1 \\  0 &amp; 1 &amp; 0 \end{bmatrix}$ $\begin{bmatrix} 1 &amp; 1 &amp; 1 \\  1 &amp; -8 &amp; 1 \\  1 &amp; 1 &amp; 1 \end{bmatrix}$ $\begin{bmatrix} 0 &amp; -1 &amp; 0 \\  -1 &amp; 4 &amp; -1 \\  0 &amp; -1 &amp; 0 \end{bmatrix}$ $\begin{bmatrix} -1 &amp; -1 &amp; -1 \\  -1 &amp; 8 &amp; -1 \\  -1 &amp; -1 &amp; -1 \end{bmatrix}$</li>
-<li>输入图像 $f(x, y)$，锐化后的图像 $g(x, y)$：$g(x, y) = f(x, y) + c[\nabla^2 f(x, y)]$，c 的符号与中心系数 $[f(x, y)]$ 的符号相反<ol>
-<li>任意阶微分都是线性操作，$\nabla^2 f(x, y)$ 也是一个线性算子</li>
-<li>将原图像和拉普拉斯图像叠加，可以复原背景特性并保持拉普拉斯锐化处理的结果（强调灰度的突变，并不强调灰度缓慢变化的区域）</li>
-<li>通过拉普拉斯变换增强了图像中灰度突变处的对比度，使图像中的细节部分得到了增强，并良好地保留了图像的基本色调</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>非锐化掩蔽<ul>
-<li>从原图像中减去一幅非锐化（平滑/模糊过的）图像 $\bar{f}(x, y) \leftarrow$ 高斯滤波器模糊</li>
-<li>非锐化模板：$g_{mask}(x, y) = f(x, y) - \bar{f}(x, y)$</li>
-<li>$g(x, y) =  f(x, y) + k * g_{mask}(x, y)$<ul>
-<li>$k = 1$：非锐化掩蔽</li>
-<li>$k \gt 1$：高提升滤波</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>梯度与 Sobel 算子<ul>
-<li>梯度<ul>
-<li>$\nabla f = grad(f) = \begin{bmatrix} \frac{\partial f}{\partial x} \\ \frac{\partial f}{\partial y} \end{bmatrix}$</li>
-<li>$\nabla f $ 为向量，幅度值 $M(x, y) = mag(\nabla f) = \sqrt{g_x^2 + g_y^2}$，不是线性算子，因为做了平方和平方根操作</li>
-<li>$\Longrightarrow M(x, y) ≈|g_x| + |g_y|$，仍保留灰度的相对变化，虽然通常丢失了方向性</li>
-</ul>
-</li>
-<li>Sobel 算子<ul>
-<li>$M(x, y) ≈|(z_7 + 2z_8 + z_9) - (z_1 + 2z_2 + z_3)| + |(z_3 + 2z_6 + z_9) - (z_1 + 2z_4 + z_7)|$</li>
-<li>矩阵形式：$\begin{bmatrix} z_1 &amp; z_2 &amp; z_3 \\  z_4 &amp; z_5 &amp; z_6 \\  z_7 &amp; z_8 &amp; z_9 \end{bmatrix}$ $\begin{bmatrix} -1 &amp; -2 &amp; -1 \\  0 &amp; 0 &amp; 0 \\  1 &amp; 2 &amp; 1 \end{bmatrix}$ $\begin{bmatrix} -1 &amp; 0 &amp; 1 \\  -2 &amp; 0 &amp; 2 \\  -1 &amp; 0 &amp; 1 \end{bmatrix}$</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>应用多种互补的图像增强技术<ol>
-<li><font color="green">拉普拉斯操作</font>作为一种二阶微分算子在图像细节增强方面，它是最好的，但这会导致产生比梯度操作更多的噪声</li>
-<li><font color="green">梯度操作（Sobel 算子）</font>对噪声和小细节响应要比拉普拉斯变换操作的响应弱，而且可以通过<font color="green">均值滤波器</font>进行平滑而进一步降低</li>
-<li>拉普拉斯图像与平滑处理后的梯度图像相乘，<font color="green">乘积</font>会保留灰度变化强烈区域的细节，同时降低灰度变化相对平坦区域的噪声</li>
-<li>具有重要边缘内容的梯度图像，边缘要比拉普拉斯图像突出，乘积的关键目的：强边缘的优势和可见噪声的减少</li>
-<li>锐化/平滑过程从感知方法上没有影响图像灰度的动态变化，通过<font color="green">幂律变换</font>可以增大锐化后图像的动态范围</li>
-</ol>
-</li>
-</ul>
-<h3 id="第4章-频率域滤波"><a href="#第4章-频率域滤波" class="headerlink" title="第4章 频率域滤波"></a>第4章 频率域滤波</h3><ul>
-<li>一维连续<ul>
-<li>傅里叶变换对<br>$ F(\mu) = \zeta\{f(t)\} = \int_{-\infty}^{\infty} f(t) e^{-j2\pi \mu t}\, dt$<br>$ f(t) = \zeta^{-1}\{F(\mu)\} = \int_{-\infty}^{\infty} F(\mu) e^{j2\pi \mu t}\, d\mu$</li>
-<li>卷积<br>$ f(t) \bigotimes h(t) = \int_{-\infty}^{\infty} f(\tau) h(t- \tau) \, d\tau = F(\mu)H(\mu) = \sum_{n=-\infty}^{\infty}f(n\Delta T)h(t - n\Delta T)$</li>
-</ul>
-</li>
-<li>一维离散<ul>
-<li>$f(t)$ 的 M 个样本组成集合 $\{f_n\} = f(x)$</li>
-<li>$M$ 个复数离散值的傅里叶变换样本集合 ${f_m} = F(\mu)$<br>$ F(\mu) = \sum_{x=0}^{M-1} f(x) e^{-j2\pi \frac{\mu x}{M} }，\mu = 0, 1, 2, …, M-1$<br>$ f(x) = \frac{1}{M}\sum_{\mu =0}^{M-1} F(\mu) e^{j2\pi \frac{\mu x}{M} }，x = 0, 1, 2, …, M-1$</li>
-</ul>
-</li>
-<li>二维<ul>
-<li>连续<br>$ F(\mu, \nu) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) e^{-j2\pi(\mu t + \nu z)}\, dt\, dz$<br>$ f(t, z) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} F(\mu, \nu) e^{j2\pi(\mu t + \nu z)}\, d\mu \, d\nu$</li>
-<li>离散<br>$ F(\mu, \nu) = \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x, y) e^{-j2\pi(\frac{\mu x}{M} + \frac{\nu y}{N})}$<br>$ f(x, y) = \frac{1}{MN}\sum_{\mu =0}^{M-1} \sum_{\nu =0}^{N-1} F(\mu, \nu) e^{j2\pi(\frac{\mu x}{M} + \frac{\nu y}{N})}$</li>
-</ul>
-</li>
-<li>使用DFT时，图像和滤波器的大小必须相同<ol>
-<li>$MxN$ 的图像 $f$</li>
-<li>进行 $PxQ$ 填充成 $f_p$（$P\geq2M-1, Q\geq2N-1$）</li>
-<li>$(-1)^{x+y}$ 乘以 $f_p$</li>
-<li>$f_p$ 的傅里叶变换（DFT）生成 $F_p$</li>
-<li>滤波器扩容成 $PxQ$，关于中心对称化后生成 $H(u, v)$</li>
-<li>$H(u, v)F_p \Rightarrow G(u, v)$</li>
-<li>计算 $G(u, v)$ 的 IDFT，得到 $\zeta^{-1}[G(u, v)]$</li>
-<li>处理后得到图像 $g_p = \{ real[\zeta^{-1}[G(u, v)]] \}(-1)^{x+y}$</li>
-<li>裁剪 $g_p$ 的前 M 行和前 N 列得到最终的结果</li>
-</ol>
-</li>
-<li>空间模板 [转换]$\Longrightarrow$ 频率域滤波器 $H(u, v)$<ol>
-<li>$h(x, y)$ 扩充成 $h_p(x, y)$</li>
-<li>$(-1)^{x+y}$ 乘以 $h_p(x, y)$ 以便频率域滤波器“中心化”</li>
-<li>计算上述结果的 DFT</li>
-<li>滤波器 $H(u, v)$ 必须是纯虚函数，将得到的 DFT 实部置零</li>
-<li>$H(u, v)$ 等于 $(-1)^{x+y}$ 乘以上述结果，隐含着 $h(x, y)$ 被移到 $h_p(x, y)$ 的中心</li>
-</ol>
-</li>
-<li>傅里叶频谱<ul>
-<li>傅里叶频谱中心点对应于空间域的平均灰度或背景灰度</li>
-<li>从中心点离开，低频信息对应慢变化的分量，如大体轮廓，背景等平滑部分</li>
-<li>进一步离开中心点，较高频率对应变化越来越快的灰度级，如边缘，细节，噪声</li>
-</ul>
-</li>
-</ul>
-<h3 id="第5章-图像复原与重建"><a href="#第5章-图像复原与重建" class="headerlink" title="第5章 图像复原与重建"></a>第5章 图像复原与重建</h3><ul>
-<li>图像退化/复原过程的模型<ul>
-<li>$G(u, v) = H(u, v)F(u, v) + N(u, v)$<center><img src="/img/CV/dip/restoration_model.png" width="580px"/></center></li>
-</ul>
-</li>
-<li>图像增强 vs 图像复原<ul>
-<li>图像增强主要是一个主观过程，首要目标是处理图像，使其比原始图像更适合于特定应用，如对比度增强</li>
-<li>图像复原大部分过程是一个客观过程，利用退化现象的先验知识来重建或复原被退化的原始图像</li>
-</ul>
-</li>
-<li>噪声模型<ul>
-<li>高斯噪声<br><center><img src="/img/CV/dip/Noise_Gaussian.png" width="780px"/></center><ul>
-<li>去噪：均值，中点</li>
-</ul>
-</li>
-<li>瑞利噪声<br><center><img src="/img/CV/dip/Noise_Rayleigh.png" width="620px"/></center><ul>
-<li>近似歪斜，比较胖</li>
-<li>去噪：</li>
-</ul>
-</li>
-<li>伽马噪声<br><center><img src="/img/CV/dip/Noise_Gamma.png" width="640px"/></center><ul>
-<li>比较尖</li>
-<li>去噪：</li>
-</ul>
-</li>
-<li>指数噪声<br><center><img src="/img/CV/dip/Noise_Exp.png" width="580px"/></center><ul>
-<li>去噪：</li>
-</ul>
-</li>
-<li>均匀噪声<br><center><img src="/img/CV/dip/Noise_Uniform.png" width="580px"/></center><ul>
-<li>去噪：中点</li>
-</ul>
-</li>
-<li>脉冲噪声<br><center><img src="/img/CV/dip/Noise_Impulse.png" width="540px"/></center><ul>
-<li>去噪：谐波均值，逆谐波均值，中值，最大值/最小值</li>
-</ul>
-</li>
-<li>周期噪声<ul>
-<li>傅里叶共轭点，近似圆</li>
-<li>去噪：低通，带通……</li>
-</ul>
-</li>
-<li>如何获取$ N(u, v) $？<ul>
-<li>在图像的平坦区域取一小块自图像做直方图，与已有的噪声模型作对比</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>常见滤波器降噪情况<ul>
-<li>高斯或者均匀随机噪声 $ \Longleftarrow  \begin{cases} 均值滤波平滑一幅图像中的局部变化，虽然模糊了结果，但降低了噪声 \cr 几何均值丢失的图像细节更少 \end{cases} $ </li>
-<li>谐波均值对盐噪声较好，不适用于椒噪声，善于处理像高斯噪声</li>
-<li>逆谐波均值，$ Q \gt 0 $，椒噪声；$ Q \lt 0 $，盐噪声；$ Q = 0 $为算数均值滤波</li>
-<li>中值滤波器：比相同尺寸的线性平滑滤波器引起的模糊更小，在存在单极或双极脉冲噪声（椒噪声 and/or 盐噪声）的情况下，尤其有效</li>
-<li>最大值降椒噪声，最小值降盐噪声</li>
-<li>中点滤波器对于随机分布噪声工作得最好（高斯/均匀）</li>
-</ul>
-</li>
-<li>高斯噪声和椒盐噪声混合的情况<ol>
-<li>修正的阿尔法均值滤波器，降噪方面更好</li>
-<li>算术均值和几何均值由于脉冲噪声的存在并没有起到良好的作用</li>
-<li>使用中值滤波器重复地进行处理$\Longrightarrow$会使得图像变模糊，细节损失<br>$\Longrightarrow$ 自适应中值滤波器：<br><center><img src="/img/CV/dip/AdaptiveMidianFilter.png" width="580px"/></center><ul>
-<li>A层确保$Z_{med}（Z_{min} \lt Z_{med} \lt Z_{max}）$ 不是脉冲，B层确保$Z_{xy}（Z_{min} \lt Z_{xy} \lt Z_{max}）$不是脉冲</li>
-<li>动态增大窗口</li>
-<li>不改变“中心灰度级”，减少图像中的失真</li>
-<li>去除椒盐噪声（脉冲噪声），平滑其他非脉冲噪声，并减少诸如物体边界细化或粗化等失真</li>
-</ul>
-</li>
-<li>自适应局部降噪降噪：$\hat{f}(x, y) = g(x, y) \frac{ \sigma^2_{\eta} }{ \sigma^2_L }[g(x, y) - m_L]$<ul>
-<li>参数说明<ul>
-<li>滤波器作用于局部区域$S_{xy}$</li>
-<li>$\sigma^2_{\eta}$ ：污染 $f(x, y)$ 以形成 $g(x, y)$ 的噪声的方差</li>
-<li>$m_L$ ：$S_{xy}$中像素的局部均值</li>
-<li>$\sigma^2_L$ ：$S_{xy}$中像素的局部方差</li>
-</ul>
-</li>
-<li>计算结果为局部均值或保留原始像素</li>
-<li>高局部方差与边缘相关，因此能够保护边缘</li>
-</ul>
-</li>
-</ol>
-</li>
-<li>逆滤波存在的问题<br>$$ \hat{F}(u, v) = F(u, v) + \frac{N(u, v)}{H(u, v)} $$<ul>
-<li>$H(u, v)$ 为零或为非常小的值</li>
-<li>解决问题的一种方法是限制滤波的频率，使其接近于频谱原点</li>
-</ul>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;Books：&lt;a href=&quot;http://durant35.github.io/pdf/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86(%E5%86%88%E8%90%A8%E9%9B%B7%E6%96%AF)%E4%B8%AD%E8%AF%91%E7%AC%AC%E4%B8%89%E7%89%88.pdf&quot; alt=&quot;数字图像处理（冈萨雷斯）&quot;&gt;数字图像处理（冈萨雷斯）&lt;/a&gt;&lt;br&gt;Codes：&lt;a href=&quot;https://github.com/Durant35/Courses/tree/master/dip&quot;&gt;https://github.com/Durant35/Courses/tree/master/dip&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;第2章-数字图像基础&quot;&gt;&lt;a href=&quot;#第2章-数字图像基础&quot; class=&quot;headerlink&quot; title=&quot;第2章 数字图像基础&quot;&gt;&lt;/a&gt;第2章 数字图像基础&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;取样和量化&lt;/li&gt;
-&lt;li&gt;空间和灰度分辨率&lt;ul&gt;
-&lt;li&gt;空间分辨率：空间分辨率是图像在单位面积内像素的个数，表示了图像的空间细节分辨能力&lt;/li&gt;
-&lt;li&gt;灰度分辨率：灰度分辨率指的是在纯黑和纯白之间灰度级别的多少，指的是图像对灰度变化细节的分辨能力
-    
-    </summary>
-    
-      <category term="CV" scheme="http://durant35.github.io/categories/CV/"/>
-    
-      <category term="dip" scheme="http://durant35.github.io/categories/CV/dip/"/>
-    
-    
-      <category term="CV" scheme="http://durant35.github.io/tags/CV/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux命令小纸条</title>
-    <link href="http://durant35.github.io/2017/02/04/linux_Linux%E5%91%BD%E4%BB%A4%E5%B0%8F%E7%BA%B8%E6%9D%A1/"/>
-    <id>http://durant35.github.io/2017/02/04/linux_Linux命令小纸条/</id>
-    <published>2017-02-04T07:20:59.000Z</published>
-    <updated>2017-03-20T09:13:00.275Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="压缩-解压"><a href="#压缩-解压" class="headerlink" title="压缩/解压"></a>压缩/解压</h3><ul>
-<li><strong>tar</strong> 压缩</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -zcvf dst.tar.gz /src-dir</div></pre></td></tr></table></figure>
-<ul>
-<li><strong>tar</strong> 解压</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -xvf src.tar.gz</div></pre></td></tr></table></figure>
-<ul>
-<li><strong>zip</strong> 压缩<a id="more"></a></li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ zip -r dst.zip /src-dir</div></pre></td></tr></table></figure>
-<ul>
-<li><strong>zip</strong> 解压</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ unzip src.zip <span class="_">-d</span> .</div></pre></td></tr></table></figure>
-<h3 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h3><ul>
-<li><strong>scp</strong> 上传</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp  -P port-number -rp host-path-src user@remote:/path-dst</div></pre></td></tr></table></figure>
-<ul>
-<li><strong>scp</strong> 下载</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp -r user@remote:/path-src host-path-dst</div></pre></td></tr></table></figure>
-<h3 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h3><ul>
-<li>查看进程信息（如：<strong>PID</strong>）</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ps -aux [| grep key-word]</div></pre></td></tr></table></figure>
-<ul>
-<li>查看 线程-资源 使用情况</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ top -c <span class="_">-d</span> 1</div></pre></td></tr></table></figure>
-<h3 id="网络管理"><a href="#网络管理" class="headerlink" title="网络管理"></a>网络管理</h3><ul>
-<li><strong>端口</strong> 占用情况</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ netstat -anp [| grep target-port]</div></pre></td></tr></table></figure>
-<ul>
-<li>查看监听端口<center><img src="/img/programPearls/linux/netstat.jpg" alt="netstat" width="720px"/></center>
-
-</li>
-</ul>
-<h3 id="挂载-解挂"><a href="#挂载-解挂" class="headerlink" title="挂载/解挂"></a>挂载/解挂</h3><ul>
-<li>解挂</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo umount <span class="_">-l</span> mount-dir</div></pre></td></tr></table></figure>
-<ul>
-<li>挂载</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看挂载设备 /dev/sd?</span></div><div class="line">$ sudo fdisk <span class="_">-l</span></div><div class="line"><span class="comment"># 需要时创建挂载点</span></div><div class="line">$ mkdir mount-point-dir</div><div class="line"><span class="comment"># 挂载设备</span></div><div class="line">$ sudo mount /dev/sd? mount-point-dir</div></pre></td></tr></table></figure>
-<h3 id="快速查找"><a href="#快速查找" class="headerlink" title="快速查找"></a>快速查找</h3><ul>
-<li>文件名查找</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ find <span class="string">"name-string"</span> find-path</div></pre></td></tr></table></figure>
-<ul>
-<li>文件内容查找</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ grep -r -i <span class="string">"content-string"</span> find-path</div></pre></td></tr></table></figure>
-<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><ul>
-<li>批量重命名（<strong>*.cpp</strong>全部变成<strong>*.c</strong>）</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># "\" 指代相同内容</span></div><div class="line">$ rename -v s/\.cpp/\.c/ *</div></pre></td></tr></table></figure>
-<h3 id="系统信息"><a href="#系统信息" class="headerlink" title="系统信息"></a>系统信息</h3><ul>
-<li>内核版本信息</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ uname -r</div></pre></td></tr></table></figure>
-<h3 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h3><ul>
-<li>查看文件权限信息（注意文件夹和文件的区别）</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ ls -al</div><div class="line">total 36</div><div class="line">drwxrwxr-x 8 gary gary 4096 3月  17 15:19 .</div><div class="line">drwxrwxr-x 4 gary gary 4096 3月   9 14:13 ..</div><div class="line">drwxrwxr-x 3 gary gary 4096 3月  19 14:38 carControl</div><div class="line">-rw-rw-rw- 1 gary gary 1029 3月   9 14:15 emergencyBrake.ino</div><div class="line">[   权限 ][link][拥有者][群组][文件容量][修改日期][    文件名     ]</div></pre></td></tr></table></figure>
-<p><center><img src="/img/programPearls/linux/file_permission.png" alt="file permission" width="540px"/></center></p>
-<ul>
-<li>修改文件<code>rwx</code>权限，常见的有：777（所有权限）；666（可读写）；用户可执行</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo chmod 777 [-R] file-name</div><div class="line">$ sudo chmod u+x file-name</div></pre></td></tr></table></figure>
-<ul>
-<li>文件拥有者:群组</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo chown owner:group file-name</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;压缩-解压&quot;&gt;&lt;a href=&quot;#压缩-解压&quot; class=&quot;headerlink&quot; title=&quot;压缩/解压&quot;&gt;&lt;/a&gt;压缩/解压&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;tar&lt;/strong&gt; 压缩&lt;/li&gt;
-&lt;/ul&gt;
-&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;$ tar -zcvf dst.tar.gz /src-dir&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;tar&lt;/strong&gt; 解压&lt;/li&gt;
-&lt;/ul&gt;
-&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;$ tar -xvf src.tar.gz&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;zip&lt;/strong&gt; 压缩
-    
-    </summary>
-    
-      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
-    
-      <category term="Linux" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Linux/"/>
-    
-    
-      <category term="CMD" scheme="http://durant35.github.io/tags/CMD/"/>
-    
-      <category term="Linux" scheme="http://durant35.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vim几步走</title>
-    <link href="http://durant35.github.io/2017/02/04/tool_vim%E5%87%A0%E6%AD%A5%E8%B5%B0/"/>
-    <id>http://durant35.github.io/2017/02/04/tool_vim几步走/</id>
-    <published>2017-02-04T06:07:18.000Z</published>
-    <updated>2017-03-31T07:14:06.624Z</updated>
-    
-    <content type="html"><![CDATA[<p>　通过 <strong>sudo apt-get install vim</strong> 即可安装 <strong>vim</strong>，也能通过 <a href="https://github.com/amix/vimrc">vimrc</a> 之类安装大神们的各种自适配的高级 <strong>vim</strong>。<br>　本文旨在记录开发过程中用过的 <strong>vim</strong> 操作。　　<br><a id="more"></a></p>
-<blockquote>
-<p>Reference: <a href="http://www.cnblogs.com/wsine/p/5517005.html">Wsnie’s Linux之Vim学习</a></p>
-</blockquote>
-<h3 id="一般模式下的常见操作"><a href="#一般模式下的常见操作" class="headerlink" title="一般模式下的常见操作"></a>一般模式下的常见操作</h3><ul>
-<li>光标移动</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">按键</th>
-<th style="text-align:center">作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">j或down方向键</td>
-<td style="text-align:center">向下移动一个字符</td>
-</tr>
-<tr>
-<td style="text-align:center">k或up方向键</td>
-<td style="text-align:center">向上移动一个字符</td>
-</tr>
-<tr>
-<td style="text-align:center">h或left方向键</td>
-<td style="text-align:center">向左移动一个字符</td>
-</tr>
-<tr>
-<td style="text-align:center">l或right方向键</td>
-<td style="text-align:center">向右移动一个字符</td>
-</tr>
-<tr>
-<td style="text-align:center">Ctrl+f或PageUp键</td>
-<td style="text-align:center">屏幕向前移动一页</td>
-</tr>
-<tr>
-<td style="text-align:center">Ctrl+b或PageDown键</td>
-<td style="text-align:center">屏幕向后移动一页</td>
-</tr>
-<tr>
-<td style="text-align:center">w</td>
-<td style="text-align:center">向后移动一个词</td>
-</tr>
-<tr>
-<td style="text-align:center">e</td>
-<td style="text-align:center">向前移动一个词</td>
-</tr>
-<tr>
-<td style="text-align:center">e</td>
-<td style="text-align:center">向后移动一个词到词尾</td>
-</tr>
-<tr>
-<td style="text-align:center">ge</td>
-<td style="text-align:center">向前移动一个词到词头</td>
-</tr>
-<tr>
-<td style="text-align:center">g_</td>
-<td style="text-align:center">到本行最后一个不是blank字符的位置</td>
-</tr>
-<tr>
-<td style="text-align:center">0或Shift+6</td>
-<td style="text-align:center">移动到行首</td>
-</tr>
-<tr>
-<td style="text-align:center">$或Shift+4</td>
-<td style="text-align:center">移动到行尾</td>
-</tr>
-<tr>
-<td style="text-align:center">gg</td>
-<td style="text-align:center">移动到首行</td>
-</tr>
-<tr>
-<td style="text-align:center">G</td>
-<td style="text-align:center">移动到尾行</td>
-</tr>
-<tr>
-<td style="text-align:center">nG</td>
-<td style="text-align:center">移动到第n行</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>增删改查</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">按键</th>
-<th style="text-align:center">作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">x</td>
-<td style="text-align:center">向后删除一个字符</td>
-</tr>
-<tr>
-<td style="text-align:center">X</td>
-<td style="text-align:center">向前删除一个字符</td>
-</tr>
-<tr>
-<td style="text-align:center">dd</td>
-<td style="text-align:center">删除/剪切当前所在的行</td>
-</tr>
-<tr>
-<td style="text-align:center">ndd</td>
-<td style="text-align:center">删除/剪切当前行及其之后的共n行</td>
-</tr>
-<tr>
-<td style="text-align:center">dw</td>
-<td style="text-align:center">向后删除一个词</td>
-</tr>
-<tr>
-<td style="text-align:center">i</td>
-<td style="text-align:center">在当前字符前插入，按esc退出</td>
-</tr>
-<tr>
-<td style="text-align:center">a</td>
-<td style="text-align:center">在当前字符后插入，按esc退出</td>
-</tr>
-<tr>
-<td style="text-align:center">I</td>
-<td style="text-align:center">在当前行的行首插入，按esc退出</td>
-</tr>
-<tr>
-<td style="text-align:center">A</td>
-<td style="text-align:center">在当前行的行尾插入，按esc退出</td>
-</tr>
-<tr>
-<td style="text-align:center">o</td>
-<td style="text-align:center">在当前行的下一行插入新的一行，按esc退出</td>
-</tr>
-<tr>
-<td style="text-align:center">O</td>
-<td style="text-align:center">在当前行的上一行插入新的一行，按esc退出</td>
-</tr>
-<tr>
-<td style="text-align:center">r</td>
-<td style="text-align:center">再输入一个字符，向后替换一个字符</td>
-</tr>
-<tr>
-<td style="text-align:center">R</td>
-<td style="text-align:center">连续输入字符，向后连续替换字符，按esc退出</td>
-</tr>
-<tr>
-<td style="text-align:center">yy</td>
-<td style="text-align:center">复制当前行</td>
-</tr>
-<tr>
-<td style="text-align:center">nyy</td>
-<td style="text-align:center">在当前行开始，向下复制n行</td>
-</tr>
-<tr>
-<td style="text-align:center">np</td>
-<td style="text-align:center">在当前行开始，向下粘贴已经复制的内容n次</td>
-</tr>
-<tr>
-<td style="text-align:center">P</td>
-<td style="text-align:center">在当前行开始，向上粘贴已经复制的内容</td>
-</tr>
-<tr>
-<td style="text-align:center">v</td>
-<td style="text-align:center">进入选定模式，移动光标选定字符，可复制剪切删除，按esc退出</td>
-</tr>
-<tr>
-<td style="text-align:center">u</td>
-<td style="text-align:center">还原上一步的操作</td>
-</tr>
-</tbody>
-</table>
-<h3 id="命令模式下的常见操作"><a href="#命令模式下的常见操作" class="headerlink" title="命令模式下的常见操作"></a>命令模式下的常见操作</h3><table>
-<thead>
-<tr>
-<th style="text-align:center">命令</th>
-<th style="text-align:center">作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">/word</td>
-<td style="text-align:center">向后搜索字符串word，按n继续搜索</td>
-</tr>
-<tr>
-<td style="text-align:center">?word</td>
-<td style="text-align:center">向前搜索字符串word，按n继续搜索</td>
-</tr>
-<tr>
-<td style="text-align:center">:w</td>
-<td style="text-align:center">保存文本</td>
-</tr>
-<tr>
-<td style="text-align:center">:q</td>
-<td style="text-align:center">退出</td>
-</tr>
-<tr>
-<td style="text-align:center">:q!</td>
-<td style="text-align:center">放弃修改，强制退出</td>
-</tr>
-<tr>
-<td style="text-align:center">:wq</td>
-<td style="text-align:center">保存并退出</td>
-</tr>
-</tbody>
-</table>
-<h3 id="我的典型操作"><a href="#我的典型操作" class="headerlink" title="我的典型操作"></a>我的典型操作</h3><table>
-<thead>
-<tr>
-<th style="text-align:center">按键</th>
-<th style="text-align:center">作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">0y$</td>
-<td style="text-align:center">拷贝当前行</td>
-</tr>
-<tr>
-<td style="text-align:center">ye</td>
-<td style="text-align:center">从当前位置拷贝到本单词的最后一个字符</td>
-</tr>
-<tr>
-<td style="text-align:center">gU</td>
-<td style="text-align:center">变大写</td>
-</tr>
-<tr>
-<td style="text-align:center">gu</td>
-<td style="text-align:center">变小写</td>
-</tr>
-<tr>
-<td style="text-align:center">在 Insert 模式下，你可以输入一个词的开头，按如下组合键，ctrl+x ctrl+n 或者 ctrl+x ctrl+p</td>
-<td style="text-align:center">自动补齐</td>
-</tr>
-<tr>
-<td style="text-align:center">v<strong>→</strong>d/y<strong>→</strong>p</td>
-<td style="text-align:center">剪切/复制粘贴</td>
-</tr>
-</tbody>
-</table>
-<h3 id="第三方参考"><a href="#第三方参考" class="headerlink" title="第三方参考"></a>第三方参考</h3><ul>
-<li>RiHui-Song’s Blog 的 <a href="https://rh-song.github.io/2016/07/15/vim/#more">本文意在记录vim的使用以及相关的配置</a><ul>
-<li>在linux下vim中文出现乱码问题</li>
-<li>vim：MarkDown preview</li>
-<li>vim添加markdown语法高亮</li>
-</ul>
-</li>
-<li><a href="http://coolshell.cn/articles/5426.html">简明 VIM 练级攻略</a></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;　通过 &lt;strong&gt;sudo apt-get install vim&lt;/strong&gt; 即可安装 &lt;strong&gt;vim&lt;/strong&gt;，也能通过 &lt;a href=&quot;https://github.com/amix/vimrc&quot;&gt;vimrc&lt;/a&gt; 之类安装大神们的各种自适配的高级 &lt;strong&gt;vim&lt;/strong&gt;。&lt;br&gt;　本文旨在记录开发过程中用过的 &lt;strong&gt;vim&lt;/strong&gt; 操作。　　&lt;br&gt;
-    
-    </summary>
-    
-      <category term="技术留档" scheme="http://durant35.github.io/categories/%E6%8A%80%E6%9C%AF%E7%95%99%E6%A1%A3/"/>
-    
-      <category term="小工具" scheme="http://durant35.github.io/categories/%E6%8A%80%E6%9C%AF%E7%95%99%E6%A1%A3/%E5%B0%8F%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="vim" scheme="http://durant35.github.io/tags/vim/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Summer-trainning in July, 2016</title>
-    <link href="http://durant35.github.io/2017/02/04/TACourses_Summer-trainning-in-July,2016/"/>
-    <id>http://durant35.github.io/2017/02/04/TACourses_Summer-trainning-in-July,2016/</id>
-    <published>2017-02-04T03:21:01.000Z</published>
-    <updated>2017-02-04T06:05:48.070Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>摘自 <a href="https://rh-song.github.io/2016/07/18/Summer-training/#more">RiHui-Song’s Blog：Summer-training</a></p>
-</blockquote>
-<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>　本文主要记录SMIE最后一次初级实训学习的主要内容。包括了大概是三个阶段：</p>
-<ul>
-<li>准备阶段：学习测量仪器，回顾C语言编程；</li>
-<li>熟悉阶段：在FPGA上运行HelloWorld，开发小应用，如跑马灯等，最后还了解了uc/os这样一个实时操作系统；</li>
-<li>开发阶段：使用PWM波以及H桥控制车轮，使用超声模块控制让小车感知外界状况，从而进行控制，最后可以使用PID控制理论优化小车的控制。<a id="more"></a>
-</li>
-</ul>
-<h3 id="学习仪器"><a href="#学习仪器" class="headerlink" title="学习仪器"></a>学习仪器</h3><ul>
-<li>学会使用示波器，可以用来观察从ADC，PWM波等等信号。</li>
-<li>学会使用万用表测电压，电阻，电流。<center><img src="/img/TA-Cources/Summer-training2016/Oscilloscope.png" width="420px"/></center>
-
-</li>
-</ul>
-<h3 id="回顾c语言编程"><a href="#回顾c语言编程" class="headerlink" title="回顾c语言编程"></a>回顾c语言编程</h3><ul>
-<li>条件判断</li>
-<li>循环：for loop &amp; while loop</li>
-<li>数组：<ul>
-<li>使用下标访问</li>
-<li>使用指针访问</li>
-</ul>
-</li>
-<li>函数使用：<ul>
-<li>递归</li>
-<li>迭代</li>
-</ul>
-</li>
-<li>链表：<ul>
-<li>结构体声明和使用</li>
-<li>指针使用</li>
-<li>链表结构和基本操作</li>
-</ul>
-</li>
-<li>位操作<ul>
-<li>位操作将十进制表示成二进制数</li>
-<li>位操作实现某一位的反转，或者某一位不变其它位反转等</li>
-</ul>
-</li>
-</ul>
-<h3 id="C语言进阶"><a href="#C语言进阶" class="headerlink" title="C语言进阶"></a>C语言进阶</h3><ul>
-<li>使用header file，source file以及main file。尝试尽可能的复用。</li>
-<li>C语言与安全性<ul>
-<li>数组越界</li>
-<li>判断逻辑不全</li>
-<li>变量没有初始化</li>
-<li>内存泄露</li>
-<li>没有考虑非法输入</li>
-</ul>
-</li>
-</ul>
-<h3 id="FPGA编程"><a href="#FPGA编程" class="headerlink" title="FPGA编程"></a>FPGA编程</h3><ul>
-<li>FPGA：DE0-Nano board<center><img src="/img/TA-Cources/Summer-training2016/DE0-Nano.jpg" width="340px"/></center></li>
-<li>使用自带软件测试FPGA完好</li>
-<li>在FPGA上运行HelloWorld工程</li>
-<li>实现LED Sliding Pattern（闪烁模式之类）</li>
-<li>使用中断<ul>
-<li>中断的原理和运行机制</li>
-</ul>
-</li>
-</ul>
-<h3 id="FPGA上编程进阶"><a href="#FPGA上编程进阶" class="headerlink" title="FPGA上编程进阶"></a>FPGA上编程进阶</h3><ul>
-<li>在IDE：eclipse上进行Debug</li>
-<li>ADC:<ul>
-<li>FPDA上有一个ADC的硬件模块</li>
-</ul>
-</li>
-</ul>
-<h3 id="PWM-Pulse-Width-Modulation"><a href="#PWM-Pulse-Width-Modulation" class="headerlink" title="PWM(Pulse Width Modulation)"></a>PWM(Pulse Width Modulation)</h3><ul>
-<li>Duty cycle 占空比<center><img src="/img/TA-Cources/Summer-training2016/what_is_PWM.png"  width="640px"/></center></li>
-<li>Why PWM?<ul>
-<li>Digital voltage control: 只能控制1和0</li>
-<li>需要最大电压的x%则让占空比为x%</li>
-</ul>
-</li>
-<li>产生PWM的方法：<ul>
-<li>软件方法<ul>
-<li>使用计数器</li>
-<li>使用中断？</li>
-</ul>
-</li>
-<li>硬件方法<ul>
-<li>Hardware PWM IP &lt;– NIOS core</li>
-<li>moto_setting(),能产生2个PWM波</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="H桥"><a href="#H桥" class="headerlink" title="H桥"></a>H桥</h3><ul>
-<li>低电流做控制，产生大电流去驱动电机</li>
-<li>PWM波控制H桥驱动电机，使小车前进，后退，转弯等<center><img src="/img/TA-Cources/Summer-training2016/H-Bridge.png"  width="720px"/></center>
-
-</li>
-</ul>
-<h3 id="超声模块"><a href="#超声模块" class="headerlink" title="超声模块"></a>超声模块</h3><ul>
-<li>超声模块是：KS103<br><center><img src="/img/TA-Cources/Summer-training2016/KS103.png"  width="360px"/></center><ul>
-<li>VCC: Power Pin</li>
-<li>SDA/TX: data pin in I2C bus/TX pin in uart bus</li>
-<li>SCL/RX: clock pin in I2C bus/RX pin in uart bus</li>
-<li>GND: power ground pin</li>
-<li>Mode: Select the communication mode.<ul>
-<li>High Level(VCC): I2C</li>
-<li>Low Level (GND): Uart</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>使用流程：<center><img src="/img/TA-Cources/Summer-training2016/how_to_use_KS103.png"  width="480px"/></center></li>
-<li>接线：<ul>
-<li>使用Uart模式：<ul>
-<li>超声TX接入FPGA的RX，超声的RX接入FPGA的TX</li>
-</ul>
-</li>
-<li>使用I2C模式：<ul>
-<li>data pin &amp; clock pin</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>编程时的端口查找：<ul>
-<li>结合QSF文件以及FPGA用户手册</li>
-</ul>
-</li>
-</ul>
-<h3 id="uc-OS-实时嵌入式操作系统"><a href="#uc-OS-实时嵌入式操作系统" class="headerlink" title="uc/OS 实时嵌入式操作系统"></a>uc/OS 实时嵌入式操作系统</h3><ul>
-<li>以上都是bare metal hardware（裸跑）上编程，然后编译我们需要的程序</li>
-<li>如果需要完成复杂的多任务，可以考虑跑在一个操作系统上（嵌入式操作系统，如uc/OS）<ul>
-<li>多任务（线程）</li>
-<li>信号量</li>
-<li>临界区访问<center><img src="/img/TA-Cources/Summer-training2016/uc-OS.png"  width="480px"/></center>
-
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="PID控制"><a href="#PID控制" class="headerlink" title="PID控制"></a>PID控制</h3><ul>
-<li>p：比例系数，I：积分系数，D：微分系数</li>
-<li>使用PI控制，因为高阶噪声，所以不使用D</li>
-<li>如下图，其中e(t) = r(t) - y(t)<center><img src="/img/TA-Cources/Summer-training2016/PID.png"  width="480px"/></center>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘自 &lt;a href=&quot;https://rh-song.github.io/2016/07/18/Summer-training/#more&quot;&gt;RiHui-Song’s Blog：Summer-training&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h3&gt;&lt;p&gt;　本文主要记录SMIE最后一次初级实训学习的主要内容。包括了大概是三个阶段：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;准备阶段：学习测量仪器，回顾C语言编程；&lt;/li&gt;
-&lt;li&gt;熟悉阶段：在FPGA上运行HelloWorld，开发小应用，如跑马灯等，最后还了解了uc/os这样一个实时操作系统；&lt;/li&gt;
-&lt;li&gt;开发阶段：使用PWM波以及H桥控制车轮，使用超声模块控制让小车感知外界状况，从而进行控制，最后可以使用PID控制理论优化小车的控制。
-    
-    </summary>
-    
-      <category term="TA Cources" scheme="http://durant35.github.io/categories/TA-Cources/"/>
-    
     
   </entry>
   
