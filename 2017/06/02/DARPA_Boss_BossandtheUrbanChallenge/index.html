@@ -86,7 +86,7 @@ structured driving(road following)">
         isCategory: false,
         fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
         scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
-        search: undefined
+        search: true
     }
 </script>
 
@@ -120,6 +120,13 @@ structured driving(road following)">
         <p class="header-subtitle">　　你永远流淌在我的记忆里？River flows in you</p>
         
 
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
         
 
 
@@ -387,10 +394,16 @@ structured driving(road following)">
 
     <nav id="article-nav">
         
-        
-            <div id="article-nav-older" class="article-nav-title">
+            <div id="article-nav-newer" class="article-nav-title">
                 <a href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">
                     DARPA[Boss]: Motion Planning in Urban Environments
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/06/01/Algorithms_GraphMatching/">
+                    算法设计与分析[0016] 图匹配问题
                 </a>
             </div>
         
@@ -484,13 +497,15 @@ structured driving(road following)">
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/" title="上一篇: DARPA[Boss]: Motion Planning in Urban Environments">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/" title="下一篇: DARPA[Boss]: Motion Planning in Urban Environments">
+            <a href="/2017/06/01/Algorithms_GraphMatching/" title="下一篇: 算法设计与分析[0016] 图匹配问题">
                 <i class="fa fa-angle-right"></i>
             </a>
         
@@ -516,7 +531,7 @@ structured driving(road following)">
                 2014-2017 Gary
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by <a href="http://moxfive.xyz/" target="_blank"> MOxFIVE </a><i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         

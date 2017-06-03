@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-06-02T07:01:52.872Z</updated>
+  <updated>2017-06-02T05:42:28.766Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -14,6 +14,43 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>DARPA[Boss]: Motion Planning in Urban Environments</title>
+    <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/"/>
+    <id>http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</id>
+    <published>2017-06-02T05:00:22.000Z</published>
+    <updated>2017-06-02T05:42:28.766Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
+<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
+<li>long range plans<ul>
+<li>on-road planning</li>
+<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
+</ul>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）&lt;/li&gt;
+&lt;li&gt;long range plans&lt;ul&gt;
+&lt;li&gt;on-road planning&lt;/li&gt;
+&lt;li&gt;unstructured planning: parking lots/anomalous on-road scenarios（异常路况）
+    
+    </summary>
+    
+      <category term="自动驾驶" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/"/>
+    
+      <category term="DARPA" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/DARPA/"/>
+    
+    
+      <category term="DARPA" scheme="http://durant35.github.io/tags/DARPA/"/>
+    
+  </entry>
   
   <entry>
     <title>DARPA[Boss]: Boss and the Urban Challenge</title>
@@ -97,43 +134,6 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Software infrastructure（软件基础框架） and tools&lt;br&gt;==&amp;gt; online data logging, offline data log playback and visualization.
-    
-    </summary>
-    
-      <category term="自动驾驶" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/"/>
-    
-      <category term="DARPA" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/DARPA/"/>
-    
-    
-      <category term="DARPA" scheme="http://durant35.github.io/tags/DARPA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DARPA[Boss]: Motion Planning in Urban Environments</title>
-    <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/"/>
-    <id>http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</id>
-    <published>2017-06-02T05:00:22.000Z</published>
-    <updated>2017-06-02T05:42:28.766Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
-<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
-<li>long range plans<ul>
-<li>on-road planning</li>
-<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
-<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
-</ul>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）&lt;/li&gt;
-&lt;li&gt;long range plans&lt;ul&gt;
-&lt;li&gt;on-road planning&lt;/li&gt;
-&lt;li&gt;unstructured planning: parking lots/anomalous on-road scenarios（异常路况）
     
     </summary>
     
