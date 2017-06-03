@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Tarantula-7&#39;s Blog</title>
-  <subtitle>My Body Knows It&#39;s Time to Say GoodBye... ---- Dear Basketball</subtitle>
+  <subtitle>　　你永远流淌在我的记忆里？River flows in you</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
@@ -9,8 +9,8 @@
   <id>http://durant35.github.io/</id>
   
   <author>
-    <name>Tarantula-7</name>
-    <email>1109197209@qq.com</email>
+    <name>Gary</name>
+    <email>chenshj35@qq.com</email>
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
