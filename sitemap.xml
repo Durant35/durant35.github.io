@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/2017/06/01/Algorithms_BiGraphMatching/</loc>
+    
+    <lastmod>2017-06-07T09:22:55.985Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/</loc>
+    
+    <lastmod>2017-06-04T02:37:58.380Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</loc>
+    
+    <lastmod>2017-06-03T14:37:33.593Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2017/06/01/Algorithms_UnionFindSet/</loc>
     
     <lastmod>2017-06-03T05:53:41.360Z</lastmod>
@@ -12,27 +33,6 @@
     <loc>http://durant35.github.io/2017/04/06/Algorithms_Minimum%20Spanning%20Tree/</loc>
     
     <lastmod>2017-06-02T13:22:06.491Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/</loc>
-    
-    <lastmod>2017-06-02T07:01:52.872Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</loc>
-    
-    <lastmod>2017-06-02T05:42:28.766Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/06/01/Algorithms_GraphMatching/</loc>
-    
-    <lastmod>2017-06-02T00:38:41.671Z</lastmod>
     
   </url>
   
