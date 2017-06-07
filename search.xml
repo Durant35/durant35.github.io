@@ -301,6 +301,30 @@
 </ul>
 <h4 id="最大匹配与最大独立数"><a href="#最大匹配与最大独立数" class="headerlink" title="最大匹配与最大独立数"></a>最大匹配与最大独立数</h4><ul>
 <li>独立集问题：给定一个图和整数$g$，目标是求图中的$g$个相互独立的顶点，即在任意两个这样的顶点间都不存在相连的边（或者说导出的子图是零图（没有边）的点集）。</li>
+<li>简单证明：<strong>二分图最大独立集=顶点数-二分图最大匹配</strong><br><center><img src="/img/Algorithms/0016_Bigraph3MaxIndependentSet.png" width="480px" alt=""/></center><ul>
+<li>上图，我们用红圈圈住的三个点（$B$、$D$、$G$）覆盖了所有边，这是我们证明的前提条件：已经达到最小覆盖，即条件①已经覆盖所有边；条件②所用的点数最小。</li>
+<li>首先我们来证明其余点（$A$、$C$、$E$、$F$、$H$、$I$）组成的是一个独立集。<ul>
+<li>如果有两个蓝圈点间有边相连，那么这条边则没有被覆盖，则与条件①矛盾，因此是独立集。</li>
+</ul>
+</li>
+<li>再来证明这个独立集是最大的。<ul>
+<li>如果我们要再增加这个独立集中的点，则需要把某个红圈点变成蓝圈点。而由<strong>最小覆盖数=最大匹配数</strong>的证明我们知道，每一个红圈点是最大匹配中的一个匹配点，也就是说每个红圈点至少连接了一条边。因此当我们将某个红圈点变成蓝圈点时，我们需要牺牲的蓝圈点的个数是≥1的。也就是说，我们最多只能找到顶点数量相等的其他独立集，而无法找到数量更大的。因此蓝圈点集必定为最大独立集。</li>
+<li>蓝圈点数 = 总点数 - 红圈点数，即最大独立集=顶点数 - 最小覆盖集。</li>
+</ul>
+</li>
+<li>上面已经证明的<strong>König定理：最小点覆盖数=最大匹配数</strong>，故有<strong>二分图最大独立数=顶点数-二分图最大匹配数</strong>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li><a href="https://liam0205.me/2016/04/03/Hungarian-algorithm-in-the-maximum-matching-problem-of-bigraph/">二分图最大匹配问题与匈牙利算法的核心思想</a></li>
+<li><a href="http://blog.csdn.net/hackbuteer1/article/details/7398008">二分图的最大匹配</a></li>
+<li><a href="http://blog.csdn.net/smartxxyx/article/details/9672181">图的匹配问题与最大流问题(五)——计算二分图的最大匹配</a></li>
+<li><a href="https://www.renfei.org/blog/bipartite-matching.html">二分图的最大匹配、完美匹配和匈牙利算法</a></li>
+<li><a href="http://www.cnblogs.com/pony1993/archive/2012/07/25/2607738.html">二分图的最大匹配—匈牙利算法</a></li>
+<li><a href="http://www.matrix67.com/blog/archives/116">二分图最大匹配的König定理及其证明</a></li>
+<li><a href="http://dsqiu.iteye.com/blog/1689505">二分图大讲堂——彻底搞定最大匹配数（最小覆盖数）、最大独立数、最小路径覆盖、带权最优匹配</a></li>
+<li><a href="http://m.blog.csdn.net/article/details?id=50011363">最大独立集=总数-最小覆盖集证明</a></li>
 </ul>
 ]]></content>
       
