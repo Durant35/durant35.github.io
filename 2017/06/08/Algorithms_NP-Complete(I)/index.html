@@ -15,24 +15,16 @@
 
 
 
-<meta name="description" content="300. Longest Increasing Subsequence
-Given an unsorted array of integers, find the length of longest increasing subsequence.For example, Given [10, 9, 2, 5, 3, 7, 101, 18], The longest increasing subse">
+<meta name="description" content="在计算机算法求解问题当中，经常用时间复杂度和空间复杂度来表示一个算法的运行效率。空间复杂度表示一个算法在计算过程当中要占用的内存空间大小；时间复杂度则表示这个算法运行得到想要的解所需的计算工作量，并不是表示一个程序解决问题需要花多少时间，而是当问题规模扩大后，程序需要的时间长度增长得有多快，即探讨的是当输入值接近无穷时，算法所需工作量的变化快慢程度。也就是说，对于高速处理数据的计算机来说，处理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）">
-<meta property="og:url" content="http://durant35.github.io/2017/04/28/Algorithms_LongestIncreasingSubsequence/index.html">
+<meta property="og:title" content="算法设计与分析[0017] NP-完全问题：概述（两道证明习题）">
+<meta property="og:url" content="http://durant35.github.io/2017/06/08/Algorithms_NP-Complete(I)/index.html">
 <meta property="og:site_name" content="Tarantula-7's Blog">
-<meta property="og:description" content="300. Longest Increasing Subsequence
-Given an unsorted array of integers, find the length of longest increasing subsequence.For example, Given [10, 9, 2, 5, 3, 7, 101, 18], The longest increasing subse">
-<meta property="og:image" content="http://durant35.github.io/img/Algorithms/0010_LISGraph.png">
-<meta property="og:image" content="http://durant35.github.io/img/Algorithms/0010_LISGraph_result.png">
-<meta property="og:image" content="http://durant35.github.io/img/Algorithms/0010_dp_result.png">
-<meta property="og:image" content="http://durant35.github.io/img/Algorithms/0010_nlogn_result.png">
-<meta property="og:updated_time" content="2017-05-15T06:31:11.744Z">
+<meta property="og:description" content="在计算机算法求解问题当中，经常用时间复杂度和空间复杂度来表示一个算法的运行效率。空间复杂度表示一个算法在计算过程当中要占用的内存空间大小；时间复杂度则表示这个算法运行得到想要的解所需的计算工作量，并不是表示一个程序解决问题需要花多少时间，而是当问题规模扩大后，程序需要的时间长度增长得有多快，即探讨的是当输入值接近无穷时，算法所需工作量的变化快慢程度。也就是说，对于高速处理数据的计算机来说，处理">
+<meta property="og:updated_time" content="2017-06-10T07:38:17.327Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）">
-<meta name="twitter:description" content="300. Longest Increasing Subsequence
-Given an unsorted array of integers, find the length of longest increasing subsequence.For example, Given [10, 9, 2, 5, 3, 7, 101, 18], The longest increasing subse">
-<meta name="twitter:image" content="http://durant35.github.io/img/Algorithms/0010_LISGraph.png">
+<meta name="twitter:title" content="算法设计与分析[0017] NP-完全问题：概述（两道证明习题）">
+<meta name="twitter:description" content="在计算机算法求解问题当中，经常用时间复杂度和空间复杂度来表示一个算法的运行效率。空间复杂度表示一个算法在计算过程当中要占用的内存空间大小；时间复杂度则表示这个算法运行得到想要的解所需的计算工作量，并不是表示一个程序解决问题需要花多少时间，而是当问题规模扩大后，程序需要的时间长度增长得有多快，即探讨的是当输入值接近无穷时，算法所需工作量的变化快慢程度。也就是说，对于高速处理数据的计算机来说，处理">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -64,7 +56,7 @@ Given an unsorted array of integers, find the length of longest increasing subse
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列） | Tarantula-7&#39;s Blog</title>
+<title>算法设计与分析[0017] NP-完全问题：概述（两道证明习题） | Tarantula-7&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -264,11 +256,11 @@ Given an unsorted array of integers, find the length of longest increasing subse
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Algorithms_LongestIncreasingSubsequence" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Algorithms_NP-Complete(I)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/" class="article-date">
-      <time datetime="2017-04-28T06:00:22.000Z" itemprop="datePublished">2017-04-28</time>
+      <a href="/2017/06/08/Algorithms_NP-Complete(I)/" class="article-date">
+      <time datetime="2017-06-08T06:00:22.000Z" itemprop="datePublished">2017-06-08</time>
 </a>
 
 
@@ -283,7 +275,7 @@ Given an unsorted array of integers, find the length of longest increasing subse
         
   
     <h1 class="article-title" itemprop="name">
-      算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）
+      算法设计与分析[0017] NP-完全问题：概述（两道证明习题）
     </h1>
   
 
@@ -308,96 +300,82 @@ Given an unsorted array of integers, find the length of longest increasing subse
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h4 id="300-Longest-Increasing-Subsequence"><a href="#300-Longest-Increasing-Subsequence" class="headerlink" title="300. Longest Increasing Subsequence"></a><a href="https://leetcode.com/problems/longest-increasing-subsequence/#/description">300. Longest Increasing Subsequence</a></h4><blockquote>
-<p>Given an unsorted array of integers, find the length of longest increasing subsequence.<br>For example, Given [10, 9, 2, 5, 3, 7, 101, 18], The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4. Note that there may be more than one LIS combination, it is only necessary for you to return the length. </p>
+        <p>　　在计算机算法求解问题当中，经常用<code>时间复杂度</code>和<code>空间复杂度</code>来表示一个算法的运行效率。空间复杂度表示一个算法在计算过程当中要占用的内存空间大小；时间复杂度则表示这个算法运行得到想要的解所需的计算工作量，并不是表示一个程序解决问题需要花多少时间，而是当问题规模扩大后，程序需要的时间长度增长得有多快，即探讨的是当输入值接近无穷时，算法所需工作量的变化快慢程度。也就是说，对于高速处理数据的计算机来说，处理某一个特定数据的效率不能衡量一个程序的好坏，而应该看当这个数据的规模变大到数百倍后，程序运行时间是否还是一样，或者也跟着慢了数百倍，或者变慢了数万倍。<a id="more"></a><br>　　不管数据有多大，程序处理花的时间始终是那么多的，我们就说这个程序很好，具有$O(1)$的时间复杂度，也称常数级复杂度；数据规模变得有多大，花的时间也跟着变得有多长，这个程序的时间复杂度就是$O(N)$，比如找$N$个数中的最大值；而像冒泡排序、插入排序等，数据扩大2倍，时间变慢4倍的，属于$O(N^2)$的复杂度；还有一些穷举类的算法，所需时间长度成几何阶数上涨，这就是$O(a^N)$的指数级复杂度，甚至$O(N!)$的阶乘级复杂度。时间复杂度排序：$O(1) \lt O(N) \lt O(logN) \lt O(N^2) \lt O(N^a) \lt O(b^N) \lt O(N!)$（$a \gt 2, b \gt 1$，$N$表示输入的数据个数）。<br>　　容易看出，前面的几类复杂度被分为两种级别，其中后者的复杂度无论如何都远远大于前者：一种是$O(1), O(logN), O(N^a)$等，我们把它叫做多项式级（$ax^n - bx^{n-1} + … + c$）的时间复杂度，因为它的规模$N$出现在底数的位置；另一种是$O(a^N)$和$O(N!)$型复杂度，它是非多项式级的，其复杂度计算机往往不能承受。当我们在解决一个问题时，我们选择的算法通常都需要是多项式级的时间复杂度，非多项式级的时间复杂度需要的时间太多，往往会超时，除非是数据规模非常小。<br>　　自然地，人们会想到一个问题：会不会所有的问题都可以找到复杂度为多项式级的算法呢？很遗憾，答案是否定的。有些问题甚至根本不可能找到一个正确的算法来，这称之为<strong>“不可解问题”(Undecidable Decision Problem)</strong>。下面引入 <code>P问题</code>、<code>NP问题</code> 等概念对一个问题求解的复杂度进行不同等级的评估。</p>
+<h4 id="P-问题"><a href="#P-问题" class="headerlink" title="P 问题"></a>P 问题</h4><p>　如果一个问题可以找到一个能在多项式的时间里解决它的算法，那么这个问题就属于<code>P问题</code>，P(olynominal) 问题。</p>
+<h4 id="NP-问题"><a href="#NP-问题" class="headerlink" title="NP 问题"></a>NP 问题</h4><p>　能在多项式时间内验证给出的一个解的问题属于<code>NP问题</code>，Nondeterministic Polynominal，非确定性多项式问题。</p>
+<ul>
+<li>NP 问题不是非 P 类问题，NP问题的另一个定义是，可以在多项式的时间里猜出一个解的问题。之所以要定义NP问题，是因为通常只有 NP 问题才可能找到多项式时间复杂度的算法，因为我们不会指望一个连多项式地验证一个解都不行的问题存在一个解决它的多项式级的算法。</li>
+<li>NP 问题，实际上是在探讨 NP 问题与 P 问题的关系。<ul>
+<li>很显然，<strong>所有的 P 问题都是 NP 问题</strong>，也就是说，能多项式地解决一个问题，必然能多项式时间内验证一个问题的解（既然正解都出来了，验证任意给定的解也只需要比较一下就可以了）。</li>
+<li><strong>是否所有的 NP 问题都是 P 问题</strong>？我们可以用集合的观点来说明：如果把所有 P 类问题归为一个集合 P 中，把所有 NP 问题划进另一个集合 NP 中，那么，显然有P 属于 NP。现在，所有对 NP 问题的研究都集中在一个问题上，即究竟是否有 <code>P=NP</code>？在研究 NP 问题的过程中找出了一类非常特殊的 NP 问题叫做 <code>NP-完全问题</code>，也即所谓的 NPC 问题。正是 NPC 问题的存在，使人们相信 <code>P≠NP</code>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="NPC-NP-Complete-问题"><a href="#NPC-NP-Complete-问题" class="headerlink" title="NPC(NP-Complete) 问题"></a>NPC(NP-Complete) 问题</h4><p>　<code>NPC问题</code>的定义非常简单，同时满足下面两个条件的问题就是 NPC 问题：① 首先，它得是一个 NP 问题；②然后，所有的 NP 问题都可以在多项式时间内归约到它。即如果所有 NP 问题都能在多项式时间内归约到一个 NP 问题，则称该 NP 问题为 <code>NPC问题</code>，NP Complete，NP 完全问题。</p>
+<ul>
+<li>什么是 <strong>归约</strong>？<ul>
+<li>归约(Reducibility，有的资料上叫“约化”)。一个问题A可以归约到问题B的含义即是，可以用问题B的解法解决问题A，或者说，问题A可以“变成”问题B。<ul>
+<li>举个例子，一元一次方程的求解，跟二元一次方程的求解</li>
+<li>我们知道，只要能求解二元一次方程，那就可以用二元一次方程的解法来求解一元一次方程，只需要将一元一次方程加上y，并附加一个方程y=0就可以将一元一次方程变形为一个二元一次方程，然后用二元一次方程的解法来求解这个方程。</li>
+<li>注意，这里二元一次方程的解法会比一元一次的复杂。所以我们说，只需要找到解二元一次方程的规则性解法，那就能用这个规则性解法来求解一元一次方程。</li>
+</ul>
+</li>
+<li>“问题A可归约到问题B” 有一个重要的直观意义：B的时间复杂度≥A的时间复杂度，也就是说，问题A不比问题B难。<ul>
+<li>这很容易理解。既然问题A能用问题B来解决，倘若B的时间复杂度比A的时间复杂度还低了，那A的算法就可以改进为B的算法，两者的时间复杂度还是相同。</li>
+<li>正如解一元二次方程比解一元一次方程难，因为解决前者的方法可以用来解决后者。</li>
+</ul>
+</li>
+<li>很显然，归约具有一项重要的性质：归约具有传递性。如果问题A可归约到问题B，问题B可归约到问题C，则问题A一定归约到问题C。<ul>
+<li>不断归约下去，我们会发现一个很惊人的特性：就是一定会存在一个最大的问题，我们只需要解决了这个问题，那其下的所有问题也就解决啦！这个问题就是上面所说的 NPC 问题！！！</li>
+</ul>
+</li>
+<li>对于同一类的所有的 NP 问题，若他们都可以在多项式时间内归约到 NPC 问题（更复杂的时间复杂度），当我们针对这个时间复杂度最高的超级 NP 问题要是能找到他的多项式时间算法的话，那就等于变向地证明了其下的所有属于同一类的 NP 问题都是存在多项式算法的，即 <code>NP=P</code>！！！！</li>
+</ul>
+</li>
+<li>NPC 问题是 NP 问题的子集。</li>
+<li>证明一个问题是 NPC 问题也很简单：先证明它至少是一个 NP 问题，再证明一个已知的 NPC 问题能在多项式时间内归约到它（由归约的传递性，则 NPC 问题定义的第二条条件也得以满足；至于第一个 NPC 问题是怎么来的？），这样就可以说它是 NPC 问题了。</li>
+<li>既然所有的 NP 问题都能归约成 NPC 问题，那么只要任意一个 NPC 问题找到了一个多项式时间复杂度的算法，那么所有的 NP 问题都能用这个算法解决了，NP 也就等于 P 了。因此，给 NPC 找一个多项式时间复杂度算法太不可思议了。因此，上文才说，“正是 NPC 问题的存在，使人们相信 P≠NP”。</li>
+<li>我们可以直观地理解：NPC 问题目前没有多项式的有效算法，只能用指数级甚至阶乘级复杂度进行搜索求解。</li>
+</ul>
+<h4 id="两道习题：如何证明一个问题是-NPC-NP-Complete-问题"><a href="#两道习题：如何证明一个问题是-NPC-NP-Complete-问题" class="headerlink" title="两道习题：如何证明一个问题是 NPC(NP-Complete) 问题"></a>两道习题：如何证明一个问题是 NPC(NP-Complete) 问题</h4><ul>
+<li>证明一个问题是 NPC 问题<ul>
+<li>先证明它至少是一个 NP 问题；</li>
+<li>再证明一个已知的 NPC 问题能在多项式时间内归约到它。</li>
+</ul>
+</li>
+</ul>
+<h5 id="两道习题"><a href="#两道习题" class="headerlink" title="两道习题"></a>两道习题</h5><blockquote>
+<ul>
+<li>[8.3] <strong>STINGY SAT</strong> is the following problem: given a set of clauses (each a disjunction of literals) and an integer k, find a satisfying assignment in which at most k variables are true, if such an assignment exists. Prove that <strong>STINGY SAT</strong> is NP-complete.</li>
+</ul>
 </blockquote>
 <ul>
-<li>给出一个序列 $a_1, a_2, …, a_n$，求它的一个子序列（设为 $s_1, s_2, …, s_n$ ），使得这个子序列满足这样的性质：$ s_1 &lt; s_2 &lt; s_3 &lt;…&lt; s_n $ 并且这个子序列的长度最长，输出这个最长的长度。实际上，诸如最长下降子序列，最长不上升子序列等问题都可以看成同一个问题，仔细思考就会发现，这其实只是 $&lt;$ 符号定义上的问题，并不影响问题的实质。<a id="more"></a>
-<h4 id="转化为图的最长路径问题（-O-N-2-）"><a href="#转化为图的最长路径问题（-O-N-2-）" class="headerlink" title="转化为图的最长路径问题（$O(N^2)$）"></a>转化为图的最长路径问题（$O(N^2)$）</h4></li>
-<li>解决最长递增子序列的一种方法是将其转换为图的最长路径问题（可以说是一种归约思想）<ul>
-<li>为序列中的每个元素 $a_i$ 建立一个对应的节点 i。</li>
-<li>对于任意两个可能在某递增序列中存在递进关系的元素 $a_i$ 和 $a_j$（即，同时满足 $ i &lt; j $，且 $ a_i &lt; a_j $），增加一条连接二者对应节点的有向边 $i-&gt;j$。</li>
-<li>基于简单的动态规划，寻找转化后的图中的最长路径。如下图：<center><img src="/img/Algorithms/0010_LISGraph.png" width="640px"/></center></li>
+<li><strong>STINGY SAT</strong> 是这样的：给定一组子句（每个子句都是其中变量的析取）和整数$k$，求一个最多有$k$个变量为 true 的满足赋值——如果该赋值存在。证明 <strong>STINGY SAT</strong> 是一个 NP-完全问题。<ul>
+<li>首先，易知 <strong>STINGY SAT</strong> 的解是可在多项式时间内验证的，因此 <strong>STINGY SAT</strong> 是一个 NP 问题。</li>
+<li>另外，很容易可以将 <strong>SAT</strong> 归约到 <strong>STINGY SAT</strong>：将 k 设为 <strong>SAT</strong> 问题中所有变量的总个数即可，于是证明：<strong>STINGY SAT</strong> 是一个 NP 完全问题。</li>
 </ul>
 </li>
-<li>基于上述思路的代码实现如下：</li>
 </ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> graph[<span class="number">10000</span>][<span class="number">10000</span>];</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span> </span>&#123;</div><div class="line">    <span class="comment">//sanity check</span></div><div class="line">    <span class="keyword">if</span>(numsSize &lt; <span class="number">1</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> fromIdx=<span class="number">0</span>; fromIdx&lt;numsSize; fromIdx++) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> toIdx=fromIdx+<span class="number">1</span>; toIdx&lt;numsSize; toIdx++) &#123;</div><div class="line">            graph[fromIdx][toIdx] = <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// convert the sequence into a directed graph</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> fromIdx=<span class="number">0</span>; fromIdx&lt;numsSize; fromIdx++) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> toIdx=fromIdx+<span class="number">1</span>; toIdx&lt;numsSize; toIdx++) &#123;</div><div class="line">            <span class="keyword">if</span>(nums[toIdx] &gt; nums[fromIdx]) &#123;</div><div class="line">                graph[fromIdx][toIdx] = <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// find the longest path &lt;--&gt; LIS</span></div><div class="line">    <span class="keyword">int</span> L[numsSize];</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> idx=<span class="number">0</span>; idx&lt;numsSize; idx++) &#123;</div><div class="line">        <span class="keyword">int</span> localMax = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> fromIdx=<span class="number">0</span>; fromIdx&lt;=idx; fromIdx++) &#123;</div><div class="line">            <span class="keyword">if</span>(graph[fromIdx][idx] == <span class="number">1</span>) &#123;</div><div class="line">                <span class="keyword">if</span>(L[fromIdx] &gt; localMax) &#123;</div><div class="line">                    localMax = L[fromIdx];</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        L[idx] = localMax + <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> globalMax = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> idx=<span class="number">0</span>; idx&lt;numsSize; idx++) &#123;</div><div class="line">        <span class="keyword">if</span>(L[idx] &gt; globalMax) &#123;</div><div class="line">            globalMax = L[idx];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> globalMax;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <ul>
-<li><font color="red">需要特别留意的是：</font>存储转换后的图的邻接矩阵 graph，实际上应该是一个动态大小的二维数组，然而，由于 <strong>堆栈内存限制</strong>，只能将其预设为足够大小的二维数组，作为 <strong>全局</strong> 或者 <strong>static</strong> 变量在堆中开辟内存，避免 <strong>Runtime Error</strong>（堆栈溢出）的错误。</li>
-<li>在求解转换后的图中的最长路径时，采用了动态规划的方法<ul>
-<li>$L[idx]$ ：第 idx 个元素对应的节点的最长路径（从根（序列的第一个元素）出发）；</li>
-<li>$L[idx+1]$ 显然为带有最大最长路径的前驱节点的最长路径+1。</li>
+<li>[8.8] In the <strong>EXACT 4SAT</strong> problem, the input is a set of clauses, each of which is a disjunction of exactly four literals, and such that each variable occurs at most once in each clause. The goal is to find a satisfying assignment, if one exists. Prove that <strong>EXACT 4SAT</strong> is NP-complete.</li>
 </ul>
-</li>
-<li>算法是可行准确的，但是运行效率就不敢恭维了。<br><img src="/img/Algorithms/0010_LISGraph_result.png" width="720px"/></li>
-</ul>
-<h4 id="动态规划（-O-N-2-）"><a href="#动态规划（-O-N-2-）" class="headerlink" title="动态规划（$O(N^2)$）"></a>动态规划（$O(N^2)$）</h4><ul>
-<li>既然是动态规划法，那么最重要的自然就是寻找子问题，对于这个问题，我们找到他的子问题<ul>
-<li>用$dp[idx]$ 来存放以 $a_{idx}$ 结尾的最大递增子序列长度。</li>
-</ul>
-</li>
-<li>找到子问题之后，接下来就是关于子问题如何求解的问题（状态转移方程）<ul>
-<li>想求以 $a_{idx}$ 结尾的最大递增子序列的长度，我们就需要遍历 $idx$ 之前的所有位置 $ i, i \in [1, idx-1]$，在这些 $ i $ 中，找出 $ a[i] &lt; a[idx]$，计算能产生最大 $dp[i]$ 的 $i$，之后就可以求出 $dp[idx]$： $dp[idx] = max(dp[i]) + 1, i \in [1, idx-1]  \&amp;\&amp;  a_i &lt; a_{idx}$。</li>
-</ul>
-</li>
-<li>对序列中的每一个元素都计算以他们各自结尾的最大递增子序列的长度，这些长度的最大值，就是我们要求的问题 —— 序列的最大递增子序列。</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span> </span>&#123;</div><div class="line">    <span class="comment">// sanity check</span></div><div class="line">    <span class="keyword">if</span>(numsSize &lt;= <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// dp[idx]: the length of the LIS ending with the idx-th element</span></div><div class="line">    <span class="keyword">int</span> dp[numsSize];</div><div class="line">    <span class="comment">// prev[idx]:record the previous index of the LIS ending with the idx-th element</span></div><div class="line">    <span class="keyword">int</span> prev[numsSize];</div><div class="line">    </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> idx=<span class="number">0</span>; idx&lt;numsSize; idx++) &#123;</div><div class="line">        <span class="comment">// the maximum length of previous index LIS ending with an element not greater than current element </span></div><div class="line">        <span class="keyword">int</span> localIdxMax = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;idx; i++) &#123;</div><div class="line">            <span class="keyword">if</span>(nums[i] &lt; nums[idx] &amp;&amp; dp[i] &gt; localIdxMax) &#123;</div><div class="line">                localIdxMax = dp[i];</div><div class="line">                prev[idx] = i;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        dp[idx] = localIdxMax + <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// the longest increasing subsequence should ending with one index-th element</span></div><div class="line">    <span class="keyword">int</span> totalMax = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> idx=<span class="number">0</span>; idx&lt;numsSize; idx++) &#123;</div><div class="line">        <span class="keyword">if</span>(dp[idx] &gt; totalMax) &#123;</div><div class="line">            totalMax = dp[idx];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> totalMax;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</blockquote>
 <ul>
-<li>因为避免了将问题转化为图这一繁琐的步骤，所以虽然同为 $O(N^2)$ 的复杂度，这种方法效率明显提升了。<br><img src="/img/Algorithms/0010_dp_result.png" width="720px"/></li>
-</ul>
-<h4 id="耐心排序法（-O-N-logN-）"><a href="#耐心排序法（-O-N-logN-）" class="headerlink" title="耐心排序法（$O(N logN)$）"></a>耐心排序法（$O(N logN)$）</h4><ul>
-<li>上面的解法时间复杂度仍然为 $O(N^2)$，仔细分析一下原因，之所以慢，是因为<font color="blue">对于每一个新的位置 $idx$ 都需要遍历 $idx$ 之前的所有位置 $ i, i \in [1, idx-1]$</font>，找出之前位置的最长递增子序列长度。我们是不是可以有一种方法能不用遍历之前所有的位置，而可以更快的确定 $i$ 的位置呢？<ul>
-<li>举个例子，比如序列 $1, 3, 5, 2, 8, 4, 6$ 这个例子中，当到 6 时，我们一共可以有四种(1)不同长度；(2)保证该升序序列在同长度升序序列中末尾最小的升序序列<ul>
-<li>1</li>
-<li>1,2</li>
-<li>1,2,4</li>
-<li>1,2,4,6</li>
-</ul>
-</li>
-<li>以上这些序列都是未来有可能成为最长序列的候选序列。这样，每来一个新的数，我们便按照以下规则更新这些序列：<ul>
-<li>如果 $idx$ 元素比所有序列的末尾都大，说明有一个更长的递增序列产生，我们把最长的序列复制一遍，并加上这个元素。</li>
-<li>如果 $idx$ 元素比所有序列的末尾都小，说明长度为1的序列可以更新了，更新为这个更小的末尾。</li>
-<li>如果刚好在中间，则更新那个末尾数字刚刚大于等于自己的那个序列，说明那个长度的序列可以更新了。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>基于上面的例子，我们可以推导出这样的一种思路<ul>
-<li>$A[i]$ 数组用来记录长度为 $i$ 的递增子序列的末尾元素的最小值<ul>
-<li>其中$ i \leq numsSize$</li>
-<li>数组 $A[i]$ 的 size 为 $numsSize+1$</li>
-<li>我们很容易能够得到关于数组 $A[i]$ 的一个性质：$i &lt; j$ 时，$A[i] &lt; A[j]$</li>
-</ul>
-</li>
-<li>maxLen 变量记录当前的最长递增子序列的长度。</li>
-<li>上述的更新规则就转变成对 $A[1, 2, i, maxLen]$ 数组进行更新。<ul>
-<li>$A[1, 2, i, maxLen]$ 是有序的</li>
-<li>更新操作只需要进行替换而不需要挪动——也就是说，我们可以使用二分查找，将<font color="blue">每个 $idx$ 元素对 $A[1, 2, i, maxLen]$ 数组的更新时间优化到 $O(logN)$（不需要 $O(N)$ 了）</font>，算法的时间复杂度就降低到了$O(N logN)$</li>
+<li>在 <strong>EXACT 4SAT</strong> 问题中，输入为一组子句，每个字句都是恰好 4 个变量的析取，且每个变量最多在每个子句中出现一次；目标是求它的满足——如果该赋值存在。证明 <strong>EXACT 4SAT</strong> 是一个 NP-完全问题。<ul>
+<li>首先很显然，<strong>EXACT 4SAT</strong> 是一个 NP 问题。</li>
+<li>现在通过将 <strong>3SAT</strong> 归约到 <strong>EXACT 4SAT</strong> 来证明后者的 NP 完全性。<ul>
+<li>对于任意一个 <strong>3SAT</strong> 实例（一组子句），如果其中某个子句中包含了同一个变量多次，那么可以缩减为一次；如果同时包含了某个变量本身及其取反，那么可以将这个变量去掉。</li>
+<li>然后，再在每个子句中添加一些哑变量（即没用的辅助变量，赋值为 true），这样就可以将每个子句所包含的变量数目扩充到 4 个。至此，即已将该 <strong>3SAT</strong> 实例转化成了一个 <strong>EXACT 4SAT</strong> 实例，于是证明：<strong>EXACT 4SAT</strong> 是一个 NP-完全问题。</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</div><div class="line"> * finds a minimum value greater than findingNum in findingArray[1, 2, ..., findingArraySize] and returns its position</div><div class="line"> *  findingArray should be in order</div><div class="line"> */</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>* findingArray, <span class="keyword">int</span> findingArraySize, <span class="keyword">int</span> findingNum)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> begin = <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> end = findingArraySize;</div><div class="line">    <span class="keyword">while</span>(begin &lt;= end) &#123;</div><div class="line">        <span class="keyword">int</span> mid = begin + (end - begin)/<span class="number">2</span>;</div><div class="line">        <span class="keyword">if</span>(findingArray[mid] &gt; findingNum) &#123;</div><div class="line">            end = mid - <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(findingArray[mid] &lt; findingNum) &#123;</div><div class="line">            begin = mid + <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="comment">// return the same value position for covering</span></div><div class="line">            <span class="keyword">return</span> mid;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// return postion to insert after</span></div><div class="line">    <span class="keyword">return</span> begin;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span> </span>&#123;</div><div class="line">    <span class="comment">// sanity check</span></div><div class="line">    <span class="keyword">if</span>(numsSize &lt; <span class="number">1</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// A[i=1, 2, ..., maxLen]: the minimum value of the end element of the i-length increasing sequence</span></div><div class="line">    <span class="keyword">int</span> A[numsSize+<span class="number">1</span>];</div><div class="line">    <span class="keyword">int</span> maxLen;</div><div class="line">    </div><div class="line">    maxLen = <span class="number">1</span>;</div><div class="line">    A[<span class="number">1</span>] = nums[<span class="number">0</span>];</div><div class="line">    </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> idx=<span class="number">1</span>; idx&lt;numsSize; idx++) &#123;</div><div class="line">        <span class="keyword">if</span>(nums[idx] &gt; A[maxLen]) &#123;</div><div class="line">            maxLen += <span class="number">1</span>;</div><div class="line">            A[maxLen] = nums[idx];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">int</span> pos = binarySearch(A, maxLen, nums[idx]);</div><div class="line">            A[pos] = nums[idx];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> maxLen;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>复杂度从 $O(N^2)$ 缩小到 $O(N logN)$，运行效率得到较大的提升。<br><img src="/img/Algorithms/0010_nlogn_result.png" width="720px"/></li>
-</ul>
-<h4 id="提取最长递增子序列"><a href="#提取最长递增子序列" class="headerlink" title="提取最长递增子序列"></a>提取最长递增子序列</h4><ul>
-<li>规约为图的最长路径问题<ul>
-<li>利用 $prev[numsSize]$ 数组记录每个最长路径 $L[idx]$ 的前驱节点元素下标 $prev[idx]$，通过 $prev[idx]$ 迭代还原出最长路径。</li>
-<li>具体实现与下面的动态规划类似。</li>
-</ul>
-</li>
-<li>动态规划  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// int totalMaxIdx = &lt;idx for toalMax element index&gt;;</span></div><div class="line"><span class="built_in">cout</span> &lt;&lt; nums[totalMaxIdx];</div><div class="line"><span class="keyword">int</span> prevIdx = prev[totalMaxIdx];</div><div class="line"><span class="keyword">while</span>(prevIdx != <span class="number">-1</span>) &#123;</div><div class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; nums[prevIdx];</div><div class="line">  prevIdx = prev[prevIdx];</div><div class="line">&#125;</div><div class="line"><span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li>耐心排序法<ul>
-<li>$A[i=1, 2, …, maxLen]$ 就是满足要求的最长递增子序列。</li>
-</ul>
-</li>
+<h4 id="NPH-NP-Hard-问题"><a href="#NPH-NP-Hard-问题" class="headerlink" title="NPH(NP-Hard) 问题"></a>NPH(NP-Hard) 问题</h4><p>　假如一个问题，不是一个 NP 问题，但所有的 NPC 问题都可以在多项式时间内归约到它的话，我们就叫它 <code>NPH问题</code>，NP Hard，NP 难问题。</p>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li><a href="http://www.matrix67.com/blog/archives/105">什么是P问题、NP问题和NPC问题</a></li>
+<li><a href="http://blog.csdn.net/databatman/article/details/49304295">[总结]算法中的P问题、NP问题、NP完全问题和NP难问题</a></li>
 </ul>
 
       
@@ -407,18 +385,18 @@ Given an unsorted array of integers, find the length of longest increasing subse
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a></p>
+        <p><span>本文标题:</span><a href="/2017/06/08/Algorithms_NP-Complete(I)/">算法设计与分析[0017] NP-完全问题：概述（两道证明习题）</a></p>
 
         <!-- 
         <p><span>文章作者:</span><a href="/" title="回到主页">Gary</a></p>
         -->
         <p><span>文章作者:</span>Gary</p>
 
-        <p><span>发布时间:</span>2017-04-28, 14:00:22</p>
-        <p><span>最后更新:</span>2017-05-15, 14:31:11</p>
+        <p><span>发布时间:</span>2017-06-08, 14:00:22</p>
+        <p><span>最后更新:</span>2017-06-10, 15:38:17</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/" title="算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）">http://durant35.github.io/2017/04/28/Algorithms_LongestIncreasingSubsequence/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/04/28/Algorithms_LongestIncreasingSubsequence/　　作者: Gary" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/06/08/Algorithms_NP-Complete(I)/" title="算法设计与分析[0017] NP-完全问题：概述（两道证明习题）">http://durant35.github.io/2017/06/08/Algorithms_NP-Complete(I)/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/06/08/Algorithms_NP-Complete(I)/　　作者: Gary" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
 
@@ -433,16 +411,10 @@ Given an unsorted array of integers, find the length of longest increasing subse
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/05/03/Algorithms_LongestCommonSubsequence/">
-                    算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/04/23/Algorithms_Dynamic Programming(II)/">
-                    算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）
+                <a href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">
+                    DARPA[Boss]: Boss and the Urban Challenge
                 </a>
             </div>
         
@@ -454,7 +426,7 @@ Given an unsorted array of integers, find the length of longest increasing subse
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#300-Longest-Increasing-Subsequence"><span class="toc-number">1.</span> <span class="toc-text">300. Longest Increasing Subsequence</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#转化为图的最长路径问题（-O-N-2-）"><span class="toc-number">2.</span> <span class="toc-text">转化为图的最长路径问题（$O(N^2)$）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#动态规划（-O-N-2-）"><span class="toc-number">3.</span> <span class="toc-text">动态规划（$O(N^2)$）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#耐心排序法（-O-N-logN-）"><span class="toc-number">4.</span> <span class="toc-text">耐心排序法（$O(N logN)$）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提取最长递增子序列"><span class="toc-number">5.</span> <span class="toc-text">提取最长递增子序列</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#P-问题"><span class="toc-number">1.</span> <span class="toc-text">P 问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NP-问题"><span class="toc-number">2.</span> <span class="toc-text">NP 问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NPC-NP-Complete-问题"><span class="toc-number">3.</span> <span class="toc-text">NPC(NP-Complete) 问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#两道习题：如何证明一个问题是-NPC-NP-Complete-问题"><span class="toc-number">4.</span> <span class="toc-text">两道习题：如何证明一个问题是 NPC(NP-Complete) 问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#两道习题"><span class="toc-number">4.1.</span> <span class="toc-text">两道习题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NPH-NP-Hard-问题"><span class="toc-number">5.</span> <span class="toc-text">NPH(NP-Hard) 问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#References"><span class="toc-number">6.</span> <span class="toc-text">References</span></a></li></ol>
         
     </div>
     <style>
@@ -494,7 +466,7 @@ Given an unsorted array of integers, find the length of longest increasing subse
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"算法设计与分析[0017] NP-完全问题：概述（两道证明习题）　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -513,8 +485,8 @@ Given an unsorted array of integers, find the length of longest increasing subse
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://durant35.github.io/2017/04/28/Algorithms_LongestIncreasingSubsequence/';
-            this.page.identifier = '2017/04/28/Algorithms_LongestIncreasingSubsequence/';
+            this.page.url = 'http://durant35.github.io/2017/06/08/Algorithms_NP-Complete(I)/';
+            this.page.identifier = '2017/06/08/Algorithms_NP-Complete(I)/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -536,15 +508,13 @@ Given an unsorted array of integers, find the length of longest increasing subse
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/05/03/Algorithms_LongestCommonSubsequence/" title="上一篇: 算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/04/23/Algorithms_Dynamic Programming(II)/" title="下一篇: 算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）">
+            <a href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/" title="下一篇: DARPA[Boss]: Boss and the Urban Challenge">
                 <i class="fa fa-angle-right"></i>
             </a>
         

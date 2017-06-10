@@ -3,6 +3,136 @@
   
     
     <entry>
+      <title><![CDATA[算法设计与分析[0017] NP-完全问题：概述（两道证明习题）]]></title>
+      <url>/2017/06/08/Algorithms_NP-Complete(I)/</url>
+      <content type="html"><![CDATA[<p>　　在计算机算法求解问题当中，经常用<code>时间复杂度</code>和<code>空间复杂度</code>来表示一个算法的运行效率。空间复杂度表示一个算法在计算过程当中要占用的内存空间大小；时间复杂度则表示这个算法运行得到想要的解所需的计算工作量，并不是表示一个程序解决问题需要花多少时间，而是当问题规模扩大后，程序需要的时间长度增长得有多快，即探讨的是当输入值接近无穷时，算法所需工作量的变化快慢程度。也就是说，对于高速处理数据的计算机来说，处理某一个特定数据的效率不能衡量一个程序的好坏，而应该看当这个数据的规模变大到数百倍后，程序运行时间是否还是一样，或者也跟着慢了数百倍，或者变慢了数万倍。<a id="more"></a><br>　　不管数据有多大，程序处理花的时间始终是那么多的，我们就说这个程序很好，具有$O(1)$的时间复杂度，也称常数级复杂度；数据规模变得有多大，花的时间也跟着变得有多长，这个程序的时间复杂度就是$O(N)$，比如找$N$个数中的最大值；而像冒泡排序、插入排序等，数据扩大2倍，时间变慢4倍的，属于$O(N^2)$的复杂度；还有一些穷举类的算法，所需时间长度成几何阶数上涨，这就是$O(a^N)$的指数级复杂度，甚至$O(N!)$的阶乘级复杂度。时间复杂度排序：$O(1) \lt O(N) \lt O(logN) \lt O(N^2) \lt O(N^a) \lt O(b^N) \lt O(N!)$（$a \gt 2, b \gt 1$，$N$表示输入的数据个数）。<br>　　容易看出，前面的几类复杂度被分为两种级别，其中后者的复杂度无论如何都远远大于前者：一种是$O(1), O(logN), O(N^a)$等，我们把它叫做多项式级（$ax^n - bx^{n-1} + … + c$）的时间复杂度，因为它的规模$N$出现在底数的位置；另一种是$O(a^N)$和$O(N!)$型复杂度，它是非多项式级的，其复杂度计算机往往不能承受。当我们在解决一个问题时，我们选择的算法通常都需要是多项式级的时间复杂度，非多项式级的时间复杂度需要的时间太多，往往会超时，除非是数据规模非常小。<br>　　自然地，人们会想到一个问题：会不会所有的问题都可以找到复杂度为多项式级的算法呢？很遗憾，答案是否定的。有些问题甚至根本不可能找到一个正确的算法来，这称之为<strong>“不可解问题”(Undecidable Decision Problem)</strong>。下面引入 <code>P问题</code>、<code>NP问题</code> 等概念对一个问题求解的复杂度进行不同等级的评估。</p>
+<h4 id="P-问题"><a href="#P-问题" class="headerlink" title="P 问题"></a>P 问题</h4><p>　如果一个问题可以找到一个能在多项式的时间里解决它的算法，那么这个问题就属于<code>P问题</code>，P(olynominal) 问题。</p>
+<h4 id="NP-问题"><a href="#NP-问题" class="headerlink" title="NP 问题"></a>NP 问题</h4><p>　能在多项式时间内验证给出的一个解的问题属于<code>NP问题</code>，Nondeterministic Polynominal，非确定性多项式问题。</p>
+<ul>
+<li>NP 问题不是非 P 类问题，NP问题的另一个定义是，可以在多项式的时间里猜出一个解的问题。之所以要定义NP问题，是因为通常只有 NP 问题才可能找到多项式时间复杂度的算法，因为我们不会指望一个连多项式地验证一个解都不行的问题存在一个解决它的多项式级的算法。</li>
+<li>NP 问题，实际上是在探讨 NP 问题与 P 问题的关系。<ul>
+<li>很显然，<strong>所有的 P 问题都是 NP 问题</strong>，也就是说，能多项式地解决一个问题，必然能多项式时间内验证一个问题的解（既然正解都出来了，验证任意给定的解也只需要比较一下就可以了）。</li>
+<li><strong>是否所有的 NP 问题都是 P 问题</strong>？我们可以用集合的观点来说明：如果把所有 P 类问题归为一个集合 P 中，把所有 NP 问题划进另一个集合 NP 中，那么，显然有P 属于 NP。现在，所有对 NP 问题的研究都集中在一个问题上，即究竟是否有 <code>P=NP</code>？在研究 NP 问题的过程中找出了一类非常特殊的 NP 问题叫做 <code>NP-完全问题</code>，也即所谓的 NPC 问题。正是 NPC 问题的存在，使人们相信 <code>P≠NP</code>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="NPC-NP-Complete-问题"><a href="#NPC-NP-Complete-问题" class="headerlink" title="NPC(NP-Complete) 问题"></a>NPC(NP-Complete) 问题</h4><p>　<code>NPC问题</code>的定义非常简单，同时满足下面两个条件的问题就是 NPC 问题：① 首先，它得是一个 NP 问题；②然后，所有的 NP 问题都可以在多项式时间内归约到它。即如果所有 NP 问题都能在多项式时间内归约到一个 NP 问题，则称该 NP 问题为 <code>NPC问题</code>，NP Complete，NP 完全问题。</p>
+<ul>
+<li>什么是 <strong>归约</strong>？<ul>
+<li>归约(Reducibility，有的资料上叫“约化”)。一个问题A可以归约到问题B的含义即是，可以用问题B的解法解决问题A，或者说，问题A可以“变成”问题B。<ul>
+<li>举个例子，一元一次方程的求解，跟二元一次方程的求解</li>
+<li>我们知道，只要能求解二元一次方程，那就可以用二元一次方程的解法来求解一元一次方程，只需要将一元一次方程加上y，并附加一个方程y=0就可以将一元一次方程变形为一个二元一次方程，然后用二元一次方程的解法来求解这个方程。</li>
+<li>注意，这里二元一次方程的解法会比一元一次的复杂。所以我们说，只需要找到解二元一次方程的规则性解法，那就能用这个规则性解法来求解一元一次方程。</li>
+</ul>
+</li>
+<li>“问题A可归约到问题B” 有一个重要的直观意义：B的时间复杂度≥A的时间复杂度，也就是说，问题A不比问题B难。<ul>
+<li>这很容易理解。既然问题A能用问题B来解决，倘若B的时间复杂度比A的时间复杂度还低了，那A的算法就可以改进为B的算法，两者的时间复杂度还是相同。</li>
+<li>正如解一元二次方程比解一元一次方程难，因为解决前者的方法可以用来解决后者。</li>
+</ul>
+</li>
+<li>很显然，归约具有一项重要的性质：归约具有传递性。如果问题A可归约到问题B，问题B可归约到问题C，则问题A一定归约到问题C。<ul>
+<li>不断归约下去，我们会发现一个很惊人的特性：就是一定会存在一个最大的问题，我们只需要解决了这个问题，那其下的所有问题也就解决啦！这个问题就是上面所说的 NPC 问题！！！</li>
+</ul>
+</li>
+<li>对于同一类的所有的 NP 问题，若他们都可以在多项式时间内归约到 NPC 问题（更复杂的时间复杂度），当我们针对这个时间复杂度最高的超级 NP 问题要是能找到他的多项式时间算法的话，那就等于变向地证明了其下的所有属于同一类的 NP 问题都是存在多项式算法的，即 <code>NP=P</code>！！！！</li>
+</ul>
+</li>
+<li>NPC 问题是 NP 问题的子集。</li>
+<li>证明一个问题是 NPC 问题也很简单：先证明它至少是一个 NP 问题，再证明一个已知的 NPC 问题能在多项式时间内归约到它（由归约的传递性，则 NPC 问题定义的第二条条件也得以满足；至于第一个 NPC 问题是怎么来的？），这样就可以说它是 NPC 问题了。</li>
+<li>既然所有的 NP 问题都能归约成 NPC 问题，那么只要任意一个 NPC 问题找到了一个多项式时间复杂度的算法，那么所有的 NP 问题都能用这个算法解决了，NP 也就等于 P 了。因此，给 NPC 找一个多项式时间复杂度算法太不可思议了。因此，上文才说，“正是 NPC 问题的存在，使人们相信 P≠NP”。</li>
+<li>我们可以直观地理解：NPC 问题目前没有多项式的有效算法，只能用指数级甚至阶乘级复杂度进行搜索求解。</li>
+</ul>
+<h4 id="两道习题：如何证明一个问题是-NPC-NP-Complete-问题"><a href="#两道习题：如何证明一个问题是-NPC-NP-Complete-问题" class="headerlink" title="两道习题：如何证明一个问题是 NPC(NP-Complete) 问题"></a>两道习题：如何证明一个问题是 NPC(NP-Complete) 问题</h4><ul>
+<li>证明一个问题是 NPC 问题<ul>
+<li>先证明它至少是一个 NP 问题；</li>
+<li>再证明一个已知的 NPC 问题能在多项式时间内归约到它。</li>
+</ul>
+</li>
+</ul>
+<h5 id="两道习题"><a href="#两道习题" class="headerlink" title="两道习题"></a>两道习题</h5><blockquote>
+<ul>
+<li>[8.3] <strong>STINGY SAT</strong> is the following problem: given a set of clauses (each a disjunction of literals) and an integer k, find a satisfying assignment in which at most k variables are true, if such an assignment exists. Prove that <strong>STINGY SAT</strong> is NP-complete.</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>STINGY SAT</strong> 是这样的：给定一组子句（每个子句都是其中变量的析取）和整数$k$，求一个最多有$k$个变量为 true 的满足赋值——如果该赋值存在。证明 <strong>STINGY SAT</strong> 是一个 NP-完全问题。<ul>
+<li>首先，易知 <strong>STINGY SAT</strong> 的解是可在多项式时间内验证的，因此 <strong>STINGY SAT</strong> 是一个 NP 问题。</li>
+<li>另外，很容易可以将 <strong>SAT</strong> 归约到 <strong>STINGY SAT</strong>：将 k 设为 <strong>SAT</strong> 问题中所有变量的总个数即可，于是证明：<strong>STINGY SAT</strong> 是一个 NP 完全问题。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>[8.8] In the <strong>EXACT 4SAT</strong> problem, the input is a set of clauses, each of which is a disjunction of exactly four literals, and such that each variable occurs at most once in each clause. The goal is to find a satisfying assignment, if one exists. Prove that <strong>EXACT 4SAT</strong> is NP-complete.</li>
+</ul>
+</blockquote>
+<ul>
+<li>在 <strong>EXACT 4SAT</strong> 问题中，输入为一组子句，每个字句都是恰好 4 个变量的析取，且每个变量最多在每个子句中出现一次；目标是求它的满足——如果该赋值存在。证明 <strong>EXACT 4SAT</strong> 是一个 NP-完全问题。<ul>
+<li>首先很显然，<strong>EXACT 4SAT</strong> 是一个 NP 问题。</li>
+<li>现在通过将 <strong>3SAT</strong> 归约到 <strong>EXACT 4SAT</strong> 来证明后者的 NP 完全性。<ul>
+<li>对于任意一个 <strong>3SAT</strong> 实例（一组子句），如果其中某个子句中包含了同一个变量多次，那么可以缩减为一次；如果同时包含了某个变量本身及其取反，那么可以将这个变量去掉。</li>
+<li>然后，再在每个子句中添加一些哑变量（即没用的辅助变量，赋值为 true），这样就可以将每个子句所包含的变量数目扩充到 4 个。至此，即已将该 <strong>3SAT</strong> 实例转化成了一个 <strong>EXACT 4SAT</strong> 实例，于是证明：<strong>EXACT 4SAT</strong> 是一个 NP-完全问题。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="NPH-NP-Hard-问题"><a href="#NPH-NP-Hard-问题" class="headerlink" title="NPH(NP-Hard) 问题"></a>NPH(NP-Hard) 问题</h4><p>　假如一个问题，不是一个 NP 问题，但所有的 NPC 问题都可以在多项式时间内归约到它的话，我们就叫它 <code>NPH问题</code>，NP Hard，NP 难问题。</p>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li><a href="http://www.matrix67.com/blog/archives/105">什么是P问题、NP问题和NPC问题</a></li>
+<li><a href="http://blog.csdn.net/databatman/article/details/49304295">[总结]算法中的P问题、NP问题、NP完全问题和NP难问题</a></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程珠玑 </category>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Algorithm </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[DARPA[Boss]: Motion Planning in Urban Environments]]></title>
+      <url>/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</url>
+      <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
+<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
+<li>long range plans<ul>
+<li>on-road planning</li>
+<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
+</ul>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 自动驾驶 </category>
+            
+            <category> DARPA </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> DARPA </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[DARPA[Boss]: Boss and the Urban Challenge]]></title>
       <url>/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/</url>
       <content type="html"><![CDATA[<p>　Boss 自动驾驶软硬件概述。</p>
@@ -53,37 +183,6 @@
 </li>
 </ul>
 <h4 id="Motion-Planning"><a href="#Motion-Planning" class="headerlink" title="Motion Planning"></a>Motion Planning</h4>]]></content>
-      
-        <categories>
-            
-            <category> 自动驾驶 </category>
-            
-            <category> DARPA </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> DARPA </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[DARPA[Boss]: Motion Planning in Urban Environments]]></title>
-      <url>/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</url>
-      <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
-<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
-<li>long range plans<ul>
-<li>on-road planning</li>
-<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
-<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
-</ul>
-</li>
-</ul>
-]]></content>
       
         <categories>
             
