@@ -3,6 +3,108 @@
   
     
     <entry>
+      <title><![CDATA[算法设计与分析[0018] 图的点连通度和边连通度]]></title>
+      <url>/2017/06/24/Algorithms_Vertex&amp;Edge%20connectivity%20degree/</url>
+      <content type="html"><![CDATA[<h4 id="基本概念？"><a href="#基本概念？" class="headerlink" title="基本概念？"></a>基本概念？</h4><ul>
+<li>点连通度（图的连通度）：对应一个图 $G$，对于所有点集 $U \subset V_G$，也就是 $V_G$ 的子集中，使得 $G-U$（在图 $G$ 中删去 $U$ 和与 $U$ 关联的边）要么是一个非连通图，要么就是一个平凡图，其中最小的集合 $U$ 的大小 $|U|$ 就是图 $G$ 的<strong>点连通度</strong>（有时候也直接称为<strong>图的连通度</strong>）。<a id="more"></a><blockquote>
+<p>连通图&amp;非连通图（无向图）</p>
+<ul>
+<li>如果无向图 $G$ 中任意一对顶点都是连通的，此图是<code>连通图</code>；</li>
+<li>相反，如果一个无向图不是连通图，则称为<code>非连通图</code>。</li>
+</ul>
+<p>强连通&amp;单连通&amp;弱连通（有向图）</p>
+<ul>
+<li>如果对有向图 $G$ 中任意两个顶点 $u$ 和 $v$，既存在从 $u$ 到 $v$ 的路径，也存在从 $v$ 到 $u$ 的路径，则称该有向图 $G$ 为<code>强连通有向图</code>；</li>
+<li>如果仅存在从 $u$ 到 $v$ 的路径，或从 $v$ 到 $u$ 的路径，则称该有向图 $G$ 为<code>单连通有向图</code>；</li>
+<li>如果忽略有向图 $G$ 中每条有向边的方向，得到的无向图（即该有向图的基图）是连通图，则称该有向图 $G$ 为<code>弱连通有向图</code>。</li>
+</ul>
+<p>平凡图&amp;非平凡图</p>
+<ul>
+<li>只有一个节点，没有边的图为<code>平凡图</code>；</li>
+<li>有至少两个节点，一条边的图，为<code>非平凡图</code>。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p>　　只许删点，求至少要删掉几个点，即一个图 $G$ 最少要去掉多少个点会变成非连通图或者平凡图：对于一个完全图 $K_n$ 来说，它的（点）连通度为 $n-1$。</p>
+<blockquote>
+<p><code>完全图</code>：若一个图的每一对不同顶点恰有一条边相连。</p>
+</blockquote>
+<ul>
+<li>边连通度：同理，<strong>边连通度</strong>就是对于一个非平凡图 $G$，至少去掉多少条边才能使得该图变成非连通图。<br>　　只许删边，求至少要删掉几条边。</li>
+</ul>
+<h4 id="如何求解？"><a href="#如何求解？" class="headerlink" title="如何求解？"></a>如何求解？</h4><p>　　对于任意一个图，如何求该<strong>图的（点）连通度</strong>和<strong>边连通度</strong>呢？</p>
+<ul>
+<li><code>有向图的边连通度</code>其实就是一个<a href="https://durant35.github.io/2017/05/19/Algorithms_MaximizingFlow/">最小割问题</a>。<ul>
+<li>求解思路<ul>
+<li>将原图 $G$ 中每条边$\lt u, v \gt$设置为容量为1的边，其它都不需要修改，即可得到对应的流网络图</li>
+<li>任意选取一个节点 $u$ 作为源点，枚举其他所有与节点 $u$ 不相邻的节点作为汇点，求所有汇点情况下的各个最大流</li>
+<li>其中最小的那个最大流即为原图的边连通度</li>
+</ul>
+</li>
+<li>最小的最大流中，所有流量为1的边组成的边集即为最小的边割集（割边集/割集）<blockquote>
+<p>设 $E’$ 是连通图 $G$ 的边集的子集，在 $G$ 中删去 $E’$ 后图不连通，则称 $E’$ 是 $G$ 的<code>割边集</code></p>
+<ul>
+<li>如果割边集 $E’$ 的任何真子集都不是割边集，则称 $E’$ 为<code>极小割边集</code></li>
+<li>边的数目（图 $G$ 的边连通度）最小的极小割边集称为 <code>最小割边集</code></li>
+</ul>
+<p>如果割边集中只有一条边，则该边可以称为<code>割边</code>（或<code>桥</code>）</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><code>有向图的点连通度</code><ul>
+<li>求解思路<ul>
+<li>点连通度的流网络构造方法其实是将点连通度的求解转化为了边连通度的求解；<ul>
+<li>对于有向图 $G$，将每个节点 $u$ 拆分成 $u1$ 和 $u2$ 两个节点，并添加一条 $u1$ 到 $u2$ 容量为1的边$\lt u, v \gt$；</li>
+<li>对于原图 $G$ 中的边$\lt u, v \gt$，对应在新网络中有边$\lt u2, v1 \gt$，容量为正无穷，即可得到对应的流网络图。<blockquote>
+<p><font color="red">实际上：</font><br>　原图 $G$ 上节点 $u$，$v$ 和从 $u$ 到 $v$ 的边<code>&lt;u,v&gt;</code>在对应的流网络中为节点 $u1$，$u2$，$v1$ 和 $v2$ 以及边<code>&lt;u1,u2&gt;</code>（容量为1）；<code>&lt;u2,v1&gt;</code>（容量为正无穷）；<code>&lt;v1,v2&gt;</code>（容量为1），也是一条路径。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>也是在上述对应的流网络上任意选取一个节点 $u$ 作为源点，枚举所有其他不相邻的节点求最大流，其中最小的那个最大流即为原图 $G$ 的点连通度。</li>
+</ul>
+</li>
+<li>最小的最大流中，所有流量为1的边\lt u1, u2 \gt$对应的原图中的同一节点 $u$ 组成的点集即为最小的点割集（割顶集/割点集）<blockquote>
+<p>设 $V’$ 是连通图 $G$ 的一个顶点子集，在 $G$ 中删去 $V’$ 和与 $V’$ 关联的边后图不连通，则称 $V’$ 是 $G$ 的<code>割顶集</code></p>
+<ul>
+<li>如果割边顶集 $V’$ 的任何真子集都不是割顶集，则称 $V’$ 为<code>极小割顶集</code></li>
+<li>顶点个数（图 $G$ 的（点）连通度）最小的极小割顶集称为 <code>最小割顶集</code></li>
+</ul>
+<p>如果割顶集中只有一个顶点，则该顶点可以称为<code>割点</code>（或<code>关节点</code>）</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><code>关于无向图</code>：将图中的每条边 $(u, v)$ 拆成 $\lt u, v \gt$ 和 $\lt v, u \gt$ 两条边，即转成有向图处理。</li>
+</ul>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li><a href="http://blog.csdn.net/smartxxyx/article/details/9467709">图的匹配问题与最大流问题（四）——计算图的边连通度和点连通度</a> </li>
+<li><a href="http://www.cppblog.com/matono1/archive/2011/04/05/143449.html">图的连通度问题的求法</a></li>
+<li><a href="https://www.zybuluo.com/DATASOURCE/note/168108">图的连通性问题</a></li>
+<li><a href="https://github.com/zhaochenyou/Way-to-Algorithm/blob/master/5_GraphTheory/5_FlowNetwork/11_connectivity.cpp">Github: zhaochenyou/Way-to-Algorithm 连通度基础概念</a></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程珠玑 </category>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Algorithm </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[算法设计与分析[0017] NP-完全问题：概述（两道证明习题）]]></title>
       <url>/2017/06/08/Algorithms_NP-Complete(I)/</url>
       <content type="html"><![CDATA[<p>　　在计算机算法求解问题当中，经常用<code>时间复杂度</code>和<code>空间复杂度</code>来表示一个算法的运行效率。空间复杂度表示一个算法在计算过程当中要占用的内存空间大小；时间复杂度则表示这个算法运行得到想要的解所需的计算工作量，并不是表示一个程序解决问题需要花多少时间，而是当问题规模扩大后，程序需要的时间长度增长得有多快，即探讨的是当输入值接近无穷时，算法所需工作量的变化快慢程度。也就是说，对于高速处理数据的计算机来说，处理某一个特定数据的效率不能衡量一个程序的好坏，而应该看当这个数据的规模变大到数百倍后，程序运行时间是否还是一样，或者也跟着慢了数百倍，或者变慢了数万倍。<a id="more"></a><br>　　不管数据有多大，程序处理花的时间始终是那么多的，我们就说这个程序很好，具有$O(1)$的时间复杂度，也称常数级复杂度；数据规模变得有多大，花的时间也跟着变得有多长，这个程序的时间复杂度就是$O(N)$，比如找$N$个数中的最大值；而像冒泡排序、插入排序等，数据扩大2倍，时间变慢4倍的，属于$O(N^2)$的复杂度；还有一些穷举类的算法，所需时间长度成几何阶数上涨，这就是$O(a^N)$的指数级复杂度，甚至$O(N!)$的阶乘级复杂度。时间复杂度排序：$O(1) \lt O(N) \lt O(logN) \lt O(N^2) \lt O(N^a) \lt O(b^N) \lt O(N!)$（$a \gt 2, b \gt 1$，$N$表示输入的数据个数）。<br>　　容易看出，前面的几类复杂度被分为两种级别，其中后者的复杂度无论如何都远远大于前者：一种是$O(1), O(logN), O(N^a)$等，我们把它叫做多项式级（$ax^n - bx^{n-1} + … + c$）的时间复杂度，因为它的规模$N$出现在底数的位置；另一种是$O(a^N)$和$O(N!)$型复杂度，它是非多项式级的，其复杂度计算机往往不能承受。当我们在解决一个问题时，我们选择的算法通常都需要是多项式级的时间复杂度，非多项式级的时间复杂度需要的时间太多，往往会超时，除非是数据规模非常小。<br>　　自然地，人们会想到一个问题：会不会所有的问题都可以找到复杂度为多项式级的算法呢？很遗憾，答案是否定的。有些问题甚至根本不可能找到一个正确的算法来，这称之为<strong>“不可解问题”(Undecidable Decision Problem)</strong>。下面引入 <code>P问题</code>、<code>NP问题</code> 等概念对一个问题求解的复杂度进行不同等级的评估。</p>

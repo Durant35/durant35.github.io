@@ -2,6 +2,69 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/2017/06/24/Algorithms_Vertex&Edge%20connectivity%20degree/</loc>
+    
+    <lastmod>2017-06-24T07:57:34.582Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/papers/03_Vision%20meets%20Robotics:%20The%20KITTI%20Dataset.html</loc>
+    
+    <lastmod>2017-06-22T01:51:00.059Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/papers/02_Detecting%20Drivable%20Area%20for%20Self-driving%20Cars:%20An%20Unsupervised%20Approach.html</loc>
+    
+    <lastmod>2017-06-21T14:21:01.176Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/papers/01_3D%20Fully%20Convolutional%20Network%20for%20Vehicle%20Detection%20in%20Point%20Cloud.html</loc>
+    
+    <lastmod>2017-06-17T08:54:40.722Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/papers/template.html</loc>
+    
+    <lastmod>2017-06-17T08:53:29.910Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/papers/01_Fast%20LIDAR-based%20Road%20Detection%20Using%20Fully%20Convolutional%20Neural%20Networks.html</loc>
+    
+    <lastmod>2017-06-16T12:27:23.521Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/papers/index.html</loc>
+    
+    <lastmod>2017-06-13T09:00:13.272Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/papers/00_Detection,%20Classification%20and%20Tracking%20of%20Moving%20Objects%20in%20a%203D%20Environment.html</loc>
+    
+    <lastmod>2017-06-12T13:13:35.376Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/papers/02_Depth%20Clustering.html</loc>
+    
+    <lastmod>2017-06-11T02:41:04.420Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2017/06/08/Algorithms_NP-Complete(I)/</loc>
     
     <lastmod>2017-06-10T07:38:17.327Z</lastmod>
