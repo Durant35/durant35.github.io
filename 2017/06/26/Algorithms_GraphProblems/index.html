@@ -15,28 +15,40 @@
 
 
 
-<meta name="description" content="判断图是否连通？（一个图有几个连通分量）
+<meta name="description" content="有向图 vs 无向图
+有向图强调出入度的概念；无向图，其邻接矩阵 是一个对称矩阵。
+无向图边的两端是对称的，无向图讲究连通这个概念，没有方向，没有拓扑。
+
+判断图是否连通？（一个图有几个连通分量）
 从一个指定的点开始，通过不同的策略去遍历这个图，有深度遍历和广度遍历。
 每次经过一个节点的时候，首先判断一下这个节点是否已经访问过了，如果没有访问过，则这个节点可以作为下一次继续遍历的候选。
-如果这个图是连通的话，这种方法最终会覆盖到整个图。所以可以采用一种计数统计的方式来实现。
-比如说每次访问一个以前没有遍历的节点，则将对应的计数加一。这样当最后遍历结束">
+如果这个图">
 <meta property="og:type" content="article">
 <meta property="og:title" content="算法设计与分析[0020] 几个有关图的问题">
 <meta property="og:url" content="http://durant35.github.io/2017/06/26/Algorithms_GraphProblems/index.html">
 <meta property="og:site_name" content="Tarantula-7's Blog">
-<meta property="og:description" content="判断图是否连通？（一个图有几个连通分量）
+<meta property="og:description" content="有向图 vs 无向图
+有向图强调出入度的概念；无向图，其邻接矩阵 是一个对称矩阵。
+无向图边的两端是对称的，无向图讲究连通这个概念，没有方向，没有拓扑。
+
+判断图是否连通？（一个图有几个连通分量）
 从一个指定的点开始，通过不同的策略去遍历这个图，有深度遍历和广度遍历。
 每次经过一个节点的时候，首先判断一下这个节点是否已经访问过了，如果没有访问过，则这个节点可以作为下一次继续遍历的候选。
-如果这个图是连通的话，这种方法最终会覆盖到整个图。所以可以采用一种计数统计的方式来实现。
-比如说每次访问一个以前没有遍历的节点，则将对应的计数加一。这样当最后遍历结束">
-<meta property="og:updated_time" content="2017-07-02T07:51:44.938Z">
+如果这个图">
+<meta property="og:image" content="http://durant35.github.io/img/Algorithms/0020_DG_useless.png">
+<meta property="og:image" content="http://durant35.github.io/img/Algorithms/0020_KahnLoopOutput.png">
+<meta property="og:updated_time" content="2017-07-04T13:53:57.510Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法设计与分析[0020] 几个有关图的问题">
-<meta name="twitter:description" content="判断图是否连通？（一个图有几个连通分量）
+<meta name="twitter:description" content="有向图 vs 无向图
+有向图强调出入度的概念；无向图，其邻接矩阵 是一个对称矩阵。
+无向图边的两端是对称的，无向图讲究连通这个概念，没有方向，没有拓扑。
+
+判断图是否连通？（一个图有几个连通分量）
 从一个指定的点开始，通过不同的策略去遍历这个图，有深度遍历和广度遍历。
 每次经过一个节点的时候，首先判断一下这个节点是否已经访问过了，如果没有访问过，则这个节点可以作为下一次继续遍历的候选。
-如果这个图是连通的话，这种方法最终会覆盖到整个图。所以可以采用一种计数统计的方式来实现。
-比如说每次访问一个以前没有遍历的节点，则将对应的计数加一。这样当最后遍历结束">
+如果这个图">
+<meta name="twitter:image" content="http://durant35.github.io/img/Algorithms/0020_DG_useless.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -320,7 +332,11 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h4 id="判断图是否连通？（一个图有几个连通分量）"><a href="#判断图是否连通？（一个图有几个连通分量）" class="headerlink" title="判断图是否连通？（一个图有几个连通分量）"></a>判断图是否连通？（一个图有几个连通分量）</h4><ul>
+        <h4 id="有向图-vs-无向图"><a href="#有向图-vs-无向图" class="headerlink" title="有向图 vs 无向图"></a>有向图 vs 无向图</h4><ul>
+<li>有向图强调<strong>出入度</strong>的概念；无向图，其<strong>邻接矩阵</strong> 是一个对称矩阵。</li>
+<li>无向图边的两端是对称的，无向图讲究<strong>连通</strong>这个概念，没有<strong>方向</strong>，没有<strong>拓扑</strong>。</li>
+</ul>
+<h4 id="判断图是否连通？（一个图有几个连通分量）"><a href="#判断图是否连通？（一个图有几个连通分量）" class="headerlink" title="判断图是否连通？（一个图有几个连通分量）"></a>判断图是否连通？（一个图有几个连通分量）</h4><ul>
 <li>从一个指定的点开始，通过不同的策略去遍历这个图，有深度遍历和广度遍历。</li>
 <li>每次经过一个节点的时候，首先判断一下这个节点是否已经访问过了，如果没有访问过，则这个节点可以作为下一次继续遍历的候选。</li>
 <li>如果这个图是连通的话，这种方法最终会覆盖到整个图。所以可以采用一种计数统计的方式来实现。<ul>
@@ -328,13 +344,17 @@
 </ul>
 </li>
 <li>这种方法用来判断整个图是否为连通的时候，实际上只要给定一个点，然后按照给定的步骤可以把该点所连接的所有点都涵盖到。如果有其它分隔的部分则不会再处理了，所以，通过这种办法我们在图不是连通的情况下，它只需要涵盖图的一部分就执行结束了。最坏的情况时间复杂度也就是$O(V+E)$。<a id="more"></a></li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">连通分量标识符 counter = <span class="number">1</span>;</div><div class="line">visited[] = <span class="literal">false</span>;</div><div class="line"><span class="keyword">for</span> 所有节点 ?:</div><div class="line">  <span class="keyword">if</span>(!visited[?])</div><div class="line">    dfs(?, visited) 或 bfs(?, visited)</div><div class="line">  counter++;</div><div class="line"> </div><div class="line">counter 为连通分量数目</div></pre></td></tr></table></figure>
+</li>
 </ul>
 <h4 id="图中任意两个点的连通性"><a href="#图中任意两个点的连通性" class="headerlink" title="图中任意两个点的连通性"></a>图中任意两个点的连通性</h4><ul>
-<li>在某些情况下，我们需要考虑的不仅仅是判断整个图是否为连通这么简单，有时候我们需要考虑，给定两个节点$i,  j$，需要判断它们是否相互连接。</li>
+<li>在某些情况下，我们需要考虑的不仅仅是判断整个图是否为连通这么简单，有时候我们需要考虑，给定两个节点$i,  j$，需要判断它们是否相互连接。<ul>
 <li>给定两个点，看它们之间是否连通，可能有很多种情况：比如说当整个图是连通的，则它们必然是连通的；而如果整个图不是连通的，但是这两个点是在一个连通的块，它们也是相互连通的。</li>
 <li>光遍历一个连通的块是不够的，肯定要遍历完所有的块。另外，如果遍历完一个块仅仅用一个数组来标记是否被访问还是不够的，对于每个不同的连通区域，要进行不同的标识。<ul>
 <li>遍历图中间所有节点</li>
 <li>所有相通的块必须标识为相同：①遍历一遍所有的节点，对每个节点都调用遍历方法，对于已经访问过的节点则直接跳过；②不管是dfs还是bfs，只要给定一个节点遍历完，这一块连通块我们一路做同样的标记就可以了，只要它们相通那么标记也肯定是一样的</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>实现的细节上<ul>
@@ -343,56 +363,113 @@
 <li>给定任意两个节点，只要判断一下数组里对应的计数器值是否相同就可以判断图中任意两个点是否是连通的。</li>
 </ul>
 </li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">belongComponent[] = &#123;<span class="number">-1</span>&#125;;</div><div class="line">counter = <span class="number">1</span>;</div><div class="line">visited[] = <span class="literal">false</span>;</div><div class="line"><span class="keyword">for</span> 所有节点?:</div><div class="line">  <span class="keyword">if</span>(!visited[?])</div><div class="line">    dfs(?, visited, belongComponent, counter);</div><div class="line">  counter++;</div><div class="line"> </div><div class="line">判断 belongComponent[i] ?= belongComponent[j]</div><div class="line"> </div><div class="line"><span class="keyword">void</span> dfs(startIdx, visited, belongComponent, counter) &#123;</div><div class="line">  visited[startIdx] = <span class="literal">true</span>;</div><div class="line">  belongComponent[startIdx] = counter;</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="深度优先遍历先序-amp-后序"><a href="#深度优先遍历先序-amp-后序" class="headerlink" title="深度优先遍历先序&amp;后序"></a>深度优先遍历先序&amp;后序</h4><ul>
+<li>在访问图的时候，假定以深度优先遍历为例。当我们每次遍历到一个节点的时候就访问它，可以称其访问序为前序，而如果等它遍历后递归返回的时候再访问它，这就相当于一个后序。</li>
+<li>要实现这两种遍历的方法其实很简单，无非就是在深度优先遍历的时候在访问某个节点前或者在访问结束后将节点加入到队列里。每次在第一次访问某个节点时就往<code>preQueue</code>里面添加元素；而往<code>postQueue</code>里面添加元素，则是在通过该节点以及它所关联的节点都已经遍历结束递归返回的时候。</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(graph, startIdx)</span> </span>&#123;</div><div class="line">  <span class="comment">// 先序</span></div><div class="line">  preQueue.push(startIdx);</div><div class="line"> </div><div class="line">  visited[startIdx] = <span class="literal">true</span>;</div><div class="line"> </div><div class="line">  <span class="keyword">for</span> 邻接边 startIdx-&gt;?:</div><div class="line">    <span class="keyword">if</span>(!visited[?])</div><div class="line">      dfs(graph, ?)</div><div class="line"> </div><div class="line">  <span class="comment">// 后序</span></div><div class="line">  postQueue.push(startIdx);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
 </ul>
 <h4 id="图中环的检测"><a href="#图中环的检测" class="headerlink" title="图中环的检测"></a>图中环的检测</h4><ul>
-<li>还有一个常见的问题就是检测图中是否存在环？这也是一个很有意思的问题，因为在大多数图的结构中确实是存在环的。</li>
-<li>对于一个连通的图来说，如果它不存在环，则可以称其为树了，因此环检测的问题在判断一个图是否为树的问题上有很重要的应用。</li>
-<li>从图中构成环的任意一个节点开始，如果按照某个方向遍历，最终它某个可以访问的点是它前面已经遍历过的。<ul>
-<li>对于一些特殊的情况，比如两个相邻的节点之间的连接，它们不能定义为环，需要被排除：可以增加一个参数，表示访问的当前节点的前一个节点，<font color="green">如果从当前节点所能连接到的节点去遍历的时候，碰到的节点是已经访问过的节点，但是这个节点是它的前一个节点的话，这种情况不能定义为环，我们应该忽略</font>。</li>
+<li>还有一个常见的问题就是检测图中是否存在环？这也是一个很有意思的问题，因为在大多数图的结构中确实是存在环的。<ul>
+<li>对于一个连通的图来说，如果它不存在环，则可以称其为树了（如下文），因此环检测的问题在判断一个图是否为树的问题上有很重要的应用。</li>
 </ul>
 </li>
+<li>从图中构成环的任意一个节点开始，如果按照某个方向遍历，最终它某个可以访问的点是它前面已经遍历过的。<ul>
+<li>对于一些特殊的情况，比如两个相邻的节点之间的连接，它们不能定义为环，需要被排除：可以增加一个参数，表示访问的当前节点的前一个节点，<font color="green">如果从当前节点所能连接到的节点去遍历的时候，碰到的节点是已经访问过的节点，但是这个节点是它的前一个节点的话，这种情况不能定义为环，我们应该忽略</font>。</li>
 <li>如果对于图并不是完全连通的情况呢？为了避免遗漏，肯定要尝试去遍历所有的节点，和前面检测图连通性类似。</li>
 </ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">① 遍历所有连通块，记录 prev 节点，同时进行访问标记</div><div class="line">② 如果从当前节点所能连接的节点去遍历时，碰到的节点是已经访问过的</div><div class="line">  (<span class="number">1</span>) 这个节点是当前节点的 prev 节点，不是环</div><div class="line">  (<span class="number">2</span>) 不是 prev 节点，是环</div><div class="line">当环存在时，可以通过 prevs[] 数组返回这个环</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>上述方法仅使用于无向图，对于如下的有向图并不适用：利用上述算法会在节点⑥时检测到环，实际上并不存在环。<center><img src="/img/Algorithms/0020_DG_useless.png" width="420px" alt=""/></center></li>
+<li>因此对于有向图，需要对上述算法做以下的补充。  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">③ 找到一个还在遍历中的节点，同时在遍历的时候它如果再次被访问到了，则表示找到了环；如果它被访问完了之后返回，则再次碰到它的时候就不是环了</div><div class="line">  (<span class="number">1</span>) <span class="keyword">bool</span> onStack[]：</div><div class="line">    <span class="number">1.1</span> 对这个节点访问前设置，表示在一个递归顺序</div><div class="line">    <span class="number">1.2</span> 访问退出这个递归后，设置回来</div><div class="line">  (<span class="number">2</span>) <span class="keyword">bool</span> visited[]：记录访问过的节点</div><div class="line">  (<span class="number">3</span>) <span class="keyword">int</span> prevs[]：记录环的结果，通过记录前后访问的节点来回溯得到环</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>能够用拓扑排序（下一节）完成对图中所有节点的排序的话，就说明这个图中没有环；如果不能完成，则说明有环。</li>
+</ul>
+<h4 id="DAG-拓扑排序"><a href="#DAG-拓扑排序" class="headerlink" title="DAG: 拓扑排序"></a>DAG: 拓扑排序</h4><ul>
+<li>在一些任务安排和调度的问题里，不同的问题或者任务之间存在一些依赖关系：有的任务需要在某些任务完成之后才能做。像一些学校的教学课程安排：设置某一门课程需要依赖于一个前置的课程，只有学生学习了前置课程之后才能去学习该课程，如果将一门课程当做一个节点，从它引出一个指针指向后序依赖它的课程，就会得到一个有向图。<ul>
+<li>对于这种图来说，最大的特点就是它们肯定就不能存在环，不然就有逻辑上的错误。因此，前面检测一个图是否为DAG的方法就是看图中是否有环。</li>
+<li>拓扑排序则是在确定没有环的情况下，输出一个正常的序列，这个序列表示从一个不依赖任何元素的节点到后序的节点（这些序列正好符合课程安排或者任务调度的逻辑顺序）。</li>
+</ul>
+</li>
+<li>对于一个有向图来说，如果它不存在环，则它应该为<strong>DAG</strong>。现在的问题是怎么找出这个拓扑序列来？<ul>
+<li>基于DFS，结合堆栈的拓扑排序<ul>
+<li><strong>证明</strong>：假设对某一已知有向无回路图$G=(V,E)$运行DFS过程，以便确定其顶点的完成时刻。只要证明对任一对不同顶点$u、v∈V$，若$G$中存在一条从$u$到$v$的边，则$finish[v] \lt finish[u]$。考虑过程DFS所探寻的任何边$（u，v）$，当探寻到该边时，顶点$v$必然是已考察完成的顶点或者还未被访问到的顶点：①若$v$是还未被访问到的顶点，则它是$u$的后裔，$finish[v] \lt finish[u]$；②若$v$为已考察完成的顶点，则已完成探索，且$finish[v]$已经设置了。因为仍在探寻$u$，还要为$finish[u]$赋时间戳，同样有$finish[v] \lt finish[u]$。这样一来，对于有向无回路图中任意边$（u, v）$，都有$finish[v]&lt;finish[u]$。</li>
+<li><strong>简单解释</strong>：如果存在$u$到$v$的通路，则必然存在$finish[u]&gt;finish[v]$，即$u$肯定在$v$的前面（堆栈先进后出）。</li>
+</ul>
+</li>
+<li>拓扑序列要求的序列必然是开始于一系列入度为０的节点。如果没有入度为０的节点，则表示这个图不是DAG，这样连遍历都没有必要了（<font color="red">当然，如果这个图里有入度为０的节点，并不代表这个图就一定是DAG</font>）。<ul>
+<li>怎么来求这些节点的入度：增加一个数组int[] inDegrees，每次我们添加一个边<code>u-&gt;v</code>到图里时，<code>inDegrees[v]++</code>。</li>
+<li>取这些入度为０的节点，然后从这些节点遍历图。</li>
+</ul>
+</li>
+<li>实际上，对于深度优先遍历的后序序列，如果我们将它们的顺序完全倒过来，得到的序列就是拓扑排序序列。<ul>
+<li>在 DFS 中，依次访问所遍历到的节点；而在拓扑排序时，顶点必须比其邻接点先出现。</li>
+<li>用栈来保存拓扑排序的顶点序列，保证在某顶点入栈前，其所有邻接点已入栈。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">对所有入度为<span class="number">0</span>的点</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> startIdx)</span> </span>&#123;</div><div class="line">    visited[startIdx] = <span class="literal">true</span>;</div><div class="line">    <span class="keyword">for</span> startIdx-&gt;?:</div><div class="line">      <span class="keyword">if</span>(!visited[?])</div><div class="line">        dfs(?);</div><div class="line">    <span class="comment">// 后序深度优先遍历</span></div><div class="line">    topologicalStack.push(startIdx);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>上述算法显然不适用与 <strong>DAG</strong> 不确定的图，假如要检测图中是否存在环，则会最终变成与上一节类似的算法过程。</li>
+</ul>
+</li>
+<li><p>Kahn 算法</p>
+<ul>
+<li>计算图中所有点的入度，把入度为0的点加入栈</li>
+<li>如果栈非空：<ul>
+<li>取出栈顶顶点a，输出该顶点的值，删除该顶点</li>
+<li>从图中删除所有以a为起始点的边，如果删除边后另一个顶点入度为0，则把它入栈</li>
+</ul>
+</li>
+<li>如果图中还存在顶点，则表示图中存在环；否则输出的顶点就是一个拓扑排序序列</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; setOfZeroIndegree;</div><div class="line"><span class="comment">//stack&lt;int&gt; setOfZeroIndegree;</span></div><div class="line"><span class="comment">// push 所有入度为0的点</span></div><div class="line"><span class="keyword">while</span>(!setOfZeroIndegree.empty()) &#123;</div><div class="line">  <span class="keyword">int</span> vertexIdx = setOfZeroIndegree.front();</div><div class="line">  <span class="comment">//int vertexIdx = setOfZeroIndegree.top();</span></div><div class="line">  setOfZeroIndegree.pop();</div><div class="line"> </div><div class="line">  <span class="comment">// 维护一个拓扑排序序列</span></div><div class="line">  topologicalQueue.push(vertexIdx);</div><div class="line"> </div><div class="line">  <span class="comment">// 遍历由 vertexIdx 引出的所有边 vertexIdx-&gt;?</span></div><div class="line">  <span class="keyword">for</span> ...</div><div class="line">    <span class="comment">// 通过减少边的数量来模拟将邻边 vertexIdx-&gt;? 从图中移除</span></div><div class="line">    edgeNum--;</div><div class="line"> </div><div class="line">    <span class="keyword">if</span>(<span class="number">0</span> == --inDegrees[graph[vertexIdx][?]]) &#123;</div><div class="line">      setOfZeroIndegree.push(graph[vertexIdx][?]);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// 如果此时图中还存在边（点），说明图中含有环路</span></div></pre></td></tr></table></figure>
+<ul>
+<li>顶点进栈出栈，其复杂度为$O(V)$；删除顶点后将邻接点的入度减1，其复杂度为$O(E)$；整个算法的复杂度为$O(V+E)$</li>
+<li>如果利用上面的拓扑排序算法求环，可以判断是否有环，但是输出环时有点麻烦（还是上一节的方法比较直接）$Longrightarrow$ 并不是所有最后剩余的点都是环中的顶点，如下图。<center><img src="/img/Algorithms/0020_KahnLoopOutput.png" width="240px" alt=""/></center>
+
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="如何判断一个图是否是一棵树？"><a href="#如何判断一个图是否是一棵树？" class="headerlink" title="如何判断一个图是否是一棵树？"></a>如何判断一个图是否是一棵树？</h4><ul>
+<li>是连通图</li>
+<li>无环</li>
+</ul>
 <h4 id="判断一个图是否为二分图？"><a href="#判断一个图是否为二分图？" class="headerlink" title="判断一个图是否为二分图？"></a>判断一个图是否为二分图？</h4><ul>
-<li>假设我们有一个图，我们尝试用如下的方式去给每个节点着色，总共所有的节点只能着两种颜色中的一种（假设为红色或者蓝色）。对于一个节点来说，假设它着的是某一种颜色，和它相邻的节点只能着另一种颜色。给定一个图，如果这个图满足上述的特性的话，则这个图可以称之为<strong>二分图</strong>。</li>
+<li>假设我们有一个图，我们尝试用如下的方式去给每个节点着色，总共所有的节点只能着两种颜色中的一种（假设为红色或者蓝色）。对于一个节点来说，假设它着的是某一种颜色，和它相邻的节点只能着另一种颜色。给定一个图，如果这个图满足上述的特性的话，则这个图可以称之为<strong>二分图</strong>。<ul>
 <li>判断一个图是否为二分图必然会遍历这个图</li>
 <li>每次在判断的时候假定一个节点的颜色为某个值，那么再将它相邻的节点颜色都设置成不同的。因为只是两种颜色，可以直接用布尔值类型来处理。<ul>
 <li>对于不属于二分图的情况，肯定是<font color="red">某个节点访问到一个它可以连接到的节点，而这个节点已经被访问过了，但是这个被访问过的节点和当前节点颜色是一样</font>。这样表明它和前面二分图的定义有冲突，所以，我们遍历整个图就是为了判断是否存在这种情况。</li>
 </ul>
 </li>
-<li>实际实现中可以这样考虑。<ul>
+</ul>
+</li>
+<li>实际实现中需要考虑的细节。<ul>
 <li>对于所有节点对应的颜色需要定义一个<code>boolean[] color</code>数组</li>
 <li>最开始访问一个节点的时候，将其对应<code>color</code>位设置为<code>true</code>，每次访问一个关联的节点时，将关联节点设置成原来节点的相反值。也就是说，比如节点$v$它的颜色为<code>color[v]</code>，那么下一个它被关联的节点$w$的颜色则可以设置成<code>color[w] = !color[v]</code>，正好通过取反实现了颜色的变换。</li>
-<li>这里实现的要点还是通过dfs方法，每次碰到一个节点的时候就要判断一下是否已经访问过：①已经访问过的话，要判断颜色是否相同，相同则表明该图不是一个二分图；②没有访问过的话，则将新节点设置成当前节点的相反值。然后就是要遍历所有节点，防止遗漏未连接的节点情况。</li>
-</ul>
-</li>
-</ul>
-<h4 id="DAG-拓扑排序"><a href="#DAG-拓扑排序" class="headerlink" title="DAG: 拓扑排序"></a>DAG: 拓扑排序</h4><ul>
-<li>在一些任务安排和调度的问题里，不同的问题或者任务之间存在一些依赖关系：有的任务需要在某些任务完成之后才能做。像一些学校的教学课程安排：设置某一门课程需要依赖于一个前置的课程，只有学生学习了前置课程之后才能去学习该课程，如果将一门课程当做一个节点，从它引出一个指针指向后序依赖它的课程，就会得到一个有向图。</li>
-<li>对于这种图来说，最大的特点就是它们肯定就不能存在环，不然就有逻辑上的错误。因此，前面检测一个图是否为DAG的方法就是看图中是否有环。</li>
-<li>拓扑排序则是在确定没有环的情况下，输出一个正常的序列，这个序列表示从一个不依赖任何元素的节点到后序的节点（这些序列正好符合课程安排或者任务调度的逻辑顺序）。</li>
-<li>对于一个有向图来说，如果它不存在环，则它应该为DAG。现在的问题是怎么找出这个拓扑序列来呢？<ul>
-<li>实际上，对于深度优先遍历的后序序列，如果我们将它们的顺序完全倒过来，得到的序列就是满足我们要求的序列。</li>
-<li>拓扑序列要求的序列必然是开始于一系列入度为０的节点。如果没有入度为０的节点，则表示这个图不是DAG，这样连遍历都没有必要了（<font color="red">当然，如果只是因为这个图里有入度为０的节点，并不代表这个图就一定是DAG</font>）。<ul>
-<li>怎么来求这些节点的入度：增加一个数组int[] inDegrees，每次我们添加一个边<code>u-&gt;v</code>到图里时，<code>inDegrees[v]++</code>。</li>
-<li>取这些入度为０的节点，然后从这些节点遍历图，给出的序列就是拓扑排序的序列。</li>
+<li>这里实现的要点还是通过dfs方法<ul>
+<li>每次碰到一个节点的时候就要判断一下是否已经访问过：①已经访问过的话，要判断颜色是否相同，相同则表明该图不是一个二分图；②没有访问过的话，则将新节点设置成当前节点的相反值。</li>
+<li>然后就是要遍历所有节点，防止遗漏未连接的节点情况。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>基于DFS的拓扑排序<ul>
-<li><strong>证明</strong>：假设对某一已知有向无回路图G=(V,E)运行dfs_travel()过程，以便确定其顶点的完成时刻。只要证明对任一对不同顶点u、v∈V，若G中存在一条从u到v的边，则f[v]&lt;f[u]。考虑过程dfs_travel()所探寻的任何边（u，v），当探寻到该边时，顶点v必然是已考察完成的顶点或者还未被访问到的顶点。若v是还未被访问到的顶点，则它是u的后裔，f[v]&lt;f[u]。若v为已考察完成的顶点，则已完成探索，且f[v]已经设置了。因为仍在探寻u，还要为f[v]赋时间戳。一旦这么做后，就同样有f[v]&lt;f[u]，这样一来，对于有向无回路图中任意边（u,v），都有f[v]&lt;f[u]，从而定理得证。</li>
-<li><strong>简单解释</strong>：如果存在u到v的通路，则必然存在f[u]&gt;f[v]，即u肯定在v的前面。</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">bool</span>[] color;</div><div class="line">visited[] = <span class="literal">false</span>;</div><div class="line"> </div><div class="line"><span class="keyword">for</span> 所有节点 ?:</div><div class="line">  <span class="keyword">if</span>(!visited[?])</div><div class="line">    color[?] = <span class="literal">true</span>;</div><div class="line">    <span class="keyword">if</span>(!dfs(?, visited, color))</div><div class="line">      <span class="comment">// 不是二分图</span></div><div class="line"><span class="comment">// 为二分图</span></div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">dfs</span><span class="params">(startIdx, visited, color)</span> </span>&#123;</div><div class="line">  visited[startIdx] = <span class="literal">true</span>;</div><div class="line">  <span class="keyword">for</span> startIdx 邻接边 startIdx-&gt;?:</div><div class="line">    <span class="keyword">if</span>(!visited[?])&#123;</div><div class="line">      color[?] = !color[startIdx];</div><div class="line">      <span class="keyword">if</span>(!dfs(?, visited, color))</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(color[startIdx] == color[?]) &#123;</div><div class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>可以看出，<font color="red">一个图是不是二分图并不严格要求其必须是一个连通图</font>。</li>
 </ul>
 </li>
-<li>Kahn 算法<ul>
-<li>顶点进栈出栈，其复杂度为$O(V)$；删除顶点后将邻接点的入度减1，其复杂度为$O(E)$；整个算法的复杂度为$O(V+E)$</li>
-</ul>
-</li>
-</ul>
-<h4 id="深度优先遍历先序-amp-后序"><a href="#深度优先遍历先序-amp-后序" class="headerlink" title="深度优先遍历先序&amp;后序"></a>深度优先遍历先序&amp;后序</h4><ul>
-<li>在访问图的时候，假定以深度优先遍历为例。当我们每次遍历到一个节点的时候就访问它，也可以称其访问序为前序，而如果等它遍历递归后返回的时候再访问它，这就相当于一个后序。</li>
-<li>要实现这两种遍历的方法其实很简单，无非就是在深度优先遍历的时候在访问某个节点前或者访问结束后将节点加入到队列里。在pre里面添加元素的时候是每次刚第一次访问某个节点时。而在post里面添加元素的时候则表示通过该节点以及它所关联的节点都已经遍历结束了。</li>
 </ul>
 <h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
 <li><a href="http://shmilyaw-hotmail-com.iteye.com/blog/2113093">无向图的几个基本算法应用</a> </li>
@@ -417,7 +494,7 @@
         <p><span>文章作者:</span>Gary</p>
 
         <p><span>发布时间:</span>2017-06-26, 20:26:22</p>
-        <p><span>最后更新:</span>2017-07-02, 15:51:44</p>
+        <p><span>最后更新:</span>2017-07-04, 21:53:57</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/06/26/Algorithms_GraphProblems/" title="算法设计与分析[0020] 几个有关图的问题">http://durant35.github.io/2017/06/26/Algorithms_GraphProblems/</a>
             <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/06/26/Algorithms_GraphProblems/　　作者: Gary" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -456,7 +533,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#判断图是否连通？（一个图有几个连通分量）"><span class="toc-number">1.</span> <span class="toc-text">判断图是否连通？（一个图有几个连通分量）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#图中任意两个点的连通性"><span class="toc-number">2.</span> <span class="toc-text">图中任意两个点的连通性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#图中环的检测"><span class="toc-number">3.</span> <span class="toc-text">图中环的检测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#判断一个图是否为二分图？"><span class="toc-number">4.</span> <span class="toc-text">判断一个图是否为二分图？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAG-拓扑排序"><span class="toc-number">5.</span> <span class="toc-text">DAG: 拓扑排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#深度优先遍历先序-amp-后序"><span class="toc-number">6.</span> <span class="toc-text">深度优先遍历先序&后序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#References"><span class="toc-number">7.</span> <span class="toc-text">References</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#有向图-vs-无向图"><span class="toc-number">1.</span> <span class="toc-text">有向图 vs 无向图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#判断图是否连通？（一个图有几个连通分量）"><span class="toc-number">2.</span> <span class="toc-text">判断图是否连通？（一个图有几个连通分量）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#图中任意两个点的连通性"><span class="toc-number">3.</span> <span class="toc-text">图中任意两个点的连通性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#深度优先遍历先序-amp-后序"><span class="toc-number">4.</span> <span class="toc-text">深度优先遍历先序&后序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#图中环的检测"><span class="toc-number">5.</span> <span class="toc-text">图中环的检测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAG-拓扑排序"><span class="toc-number">6.</span> <span class="toc-text">DAG: 拓扑排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何判断一个图是否是一棵树？"><span class="toc-number">7.</span> <span class="toc-text">如何判断一个图是否是一棵树？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#判断一个图是否为二分图？"><span class="toc-number">8.</span> <span class="toc-text">判断一个图是否为二分图？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#References"><span class="toc-number">9.</span> <span class="toc-text">References</span></a></li></ol>
         
     </div>
     <style>
@@ -552,7 +629,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/Algorithms_BasicMiscs/">算法设计与分析[0021] Some Algorithms Basic Details Review（课程总结）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GraphProblems/">算法设计与分析[0020] 几个有关图的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GreedyAlgorithms/">算法设计与分析[0019] Greedy Algorithms（贪心策略）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/Algorithms_Vertex&Edge connectivity degree/">算法设计与分析[0018] 图的点连通度和边连通度</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/08/Algorithms_NP-Complete(I)/">算法设计与分析[0017] NP-完全问题：概述（两道证明习题）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">DARPA[Boss]: Motion Planning in Urban Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_BiGraphMatching/">算法设计与分析[0016] 二分图匹配问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/Algorithms_Dynamic Programming(V)/">算法设计与分析[0014] Dynamic Programming(V) 一道习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/13/hsw_UbuntuSystemBootSequence/">一张图带你看 Ubuntu(Linux) 系统启动过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/linux_Linux命令小纸条/">Linux命令小纸条</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/tool_vim几步走/">vim几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/10/linux_libpcap 32-bit&64-bit/">libpcap, 32-bit&64-bit</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/OverlappingSounds_Key Word Engineering/">Key Word Engineering</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/07/hexo_Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/01/TACouses_Embedded_System_2016/">Embedded System 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/hexo_博客主题Yelee迁移笔记/">hexo博客主题Yelee迁移笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux下基本文件操作/">Win/Linux下基本文件操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/26/tool_git几步走/">git几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/09/OverlappingSounds_Basketball_Never_Stops/">Basketball Never Stops</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/25/programPearls_Coding中的编码问题之回顾&深入/">Coding中的编码问题之回顾&深入</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/21/programPearls_Coding中的编码问题之入门&概览/">Coding中的编码问题之入门&概览</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/11/movies_漫威电影/">漫威21部系列电影(持续更新)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/tool_NotePad/">NotePad++</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">在hexo new之后立即打开Markdown文稿</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_自定义主题/">hexo自定义主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&Win8.1(both 64-bit),其他仅供参考)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/09/graduatedesign_01 STM32_一-搭建STM32开发环境/">(一) 搭建STM32开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/16/opengl_数媒HW4参考资料/">数媒HW4参考资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/06/考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/hexo_win搭建hexo/">win搭建hexo</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/Algorithms_BasicMiscs/">算法设计与分析[0021] Some Algorithms Basic Details Review（课程总结）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GraphProblems/">算法设计与分析[0020] 几个有关图的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GreedyAlgorithms/">算法设计与分析[0019] Greedy Algorithms（贪心策略）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/Algorithms_Vertex&Edge connectivity degree/">算法设计与分析[0018] 图的点连通度和边连通度</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/08/Algorithms_NP-Complete(I)/">算法设计与分析[0017] NP-完全问题：概述（两道证明习题）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">DARPA[Boss]: Motion Planning in Urban Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_BiGraphMatching/">算法设计与分析[0016] 二分图匹配问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/Algorithms_Dynamic Programming(V)/">算法设计与分析[0014] Dynamic Programming(V) 一道习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/13/hsw_UbuntuSystemBootSequence/">一张图带你看 Ubuntu(Linux) 系统启动过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/linux_Linux命令小纸条/">Linux命令小纸条</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/tool_vim几步走/">vim几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/10/linux_libpcap 32-bit&64-bit/">libpcap, 32-bit&64-bit</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/OverlappingSounds_Key Word Engineering/">Key Word Engineering</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/07/hexo_Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/01/TACouses_Embedded_System_2016/">Embedded System 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/hexo_博客主题Yelee迁移笔记/">hexo博客主题Yelee迁移笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux下基本文件操作/">Win/Linux下基本文件操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win&Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/26/tool_git几步走/">git几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/09/OverlappingSounds_Basketball_Never_Stops/">Basketball Never Stops</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/25/programPearls_Coding中的编码问题之回顾&深入/">Coding中的编码问题之回顾&深入</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/21/programPearls_Coding中的编码问题之入门&概览/">Coding中的编码问题之入门&概览</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/11/movies_漫威电影/">漫威21部系列电影(持续更新)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/tool_NotePad/">NotePad++</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">在hexo new之后立即打开Markdown文稿</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_自定义主题/">hexo自定义主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&Win8.1(both 64-bit),其他仅供参考)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/09/graduatedesign_01 STM32_一-搭建STM32开发环境/">(一) 搭建STM32开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/16/opengl_数媒HW4参考资料/">数媒HW4参考资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/06/考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/hexo_win搭建hexo/">win搭建hexo</a></li></ul>
 
 
 
