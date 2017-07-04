@@ -3,6 +3,366 @@
   
     
     <entry>
+      <title><![CDATA[算法设计与分析[0021] Some Algorithms Basic Details Review（课程总结）]]></title>
+      <url>/2017/07/02/Algorithms_BasicMiscs/</url>
+      <content type="html"><![CDATA[<h4 id="如何对-vector-初始化"><a href="#如何对-vector-初始化" class="headerlink" title="如何对 vector 初始化"></a>如何对 <strong>vector</strong> 初始化</h4><ul>
+<li>大小为<code>size</code>的一维向量，二位向量</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;what-type&gt; var-name(what-size);</div><div class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;what-type&gt;&gt; var-name(rowSize, <span class="built_in">vector</span>&lt;what-type&gt;(colSize));</div></pre></td></tr></table></figure>
+<ul>
+<li>数组转 vector</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> rowSize = ?;</div><div class="line"><span class="keyword">int</span> colSize = ?;</div><div class="line">what-type A_[rowSize][colSize] = &#123;</div><div class="line">  &#123;element1, elment2, ..., element&#125;,</div><div class="line">  &#123;&#125;,</div><div class="line">  ...</div><div class="line">  &#123;&#125;</div><div class="line">&#125;;</div><div class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;what-type&gt;&gt; A(rowSize, <span class="built_in">vector</span>&lt;what-type&gt;(colSize));</div><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;rowSize; row++) &#123;</div><div class="line">  A[row].assign(A_[row], A_[row] + colSize);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="对-vector-等-STL-标准容器进行排序操作"><a href="#对-vector-等-STL-标准容器进行排序操作" class="headerlink" title="对 vector 等 STL 标准容器进行排序操作"></a>对 vector 等 STL 标准容器进行排序操作</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#inlcude <span class="meta-string">&lt;algorithm&gt;</span>	<span class="comment">/* sort */</span></span></div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">compareFunc</span><span class="params">(<span class="keyword">int</span> before, <span class="keyword">int</span> after)</span> </span>&#123;</div><div class="line">  <span class="keyword">return</span> (before &lt; after);</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="keyword">struct</span> compareClass &#123;</div><div class="line">  <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span> <span class="params">(<span class="keyword">int</span> before, <span class="keyword">int</span> after)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> (before &lt; after);</div><div class="line">  &#125;</div><div class="line">&#125; compareObj;</div><div class="line"> </div><div class="line"><span class="comment">// using default comparison(operator &lt;)</span></div><div class="line">sort(<span class="built_in">vector</span>.begin(), <span class="built_in">vector</span>.end());</div><div class="line">sort(<span class="built_in">vector</span>.begin(), <span class="built_in">vector</span>.begin() + length);</div><div class="line"> </div><div class="line"><span class="comment">// using comparison function</span></div><div class="line">sort(<span class="built_in">vector</span>.begin(), <span class="built_in">vector</span>.end(), compareFunc);</div><div class="line"> </div><div class="line"> <span class="comment">// using comparison object</span></div><div class="line">sort(<span class="built_in">vector</span>.begin(), <span class="built_in">vector</span>.end(), compareObj);</div></pre></td></tr></table></figure>
+<ul>
+<li>上述的 <code>sort(begin, end, comparison)</code> 函数，其中<code>[before]</code>元素与<code>[after]</code>元素满足<code>comparison</code>关系</li>
+<li>一些自带的 comparison 函数</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 相等</span></div><div class="line">equal_to&lt;&gt;()</div><div class="line">not_equal_to&lt;&gt;()</div><div class="line">less&lt;&gt;() </div><div class="line">greater&lt;&gt;()</div><div class="line"><span class="comment">// ≤</span></div><div class="line">less_equal&lt;&gt;()</div><div class="line"><span class="comment">// ≥</span></div><div class="line">greater_equal&lt;&gt;()</div></pre></td></tr></table></figure>
+<h4 id="使用二维-vector-维护邻接列表"><a href="#使用二维-vector-维护邻接列表" class="headerlink" title="使用二维 vector 维护邻接列表"></a>使用二维 vector 维护邻接列表</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; graph;</div><div class="line">graph.resize(vertex-number);</div><div class="line"><span class="comment">// vector&lt;pair&lt;int, int&gt;&gt; edges;</span></div><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> edgeIdx=<span class="number">0</span>; edgeIdx&lt;edges.size(); edgeIdx++) &#123;</div><div class="line">  graph[edges[edgeIdx].first].push_back(edges[edgeIdx].second);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="STL-常见容器关键操作"><a href="#STL-常见容器关键操作" class="headerlink" title="STL 常见容器关键操作"></a>STL 常见容器关键操作</h4><ul>
+<li>vector $\begin{cases} push\_back \cr pop\_back \end{cases}$　　list $\begin{cases} push\_back \cr pop\_back \cr push\_front \cr pop\_front \end{cases}$</li>
+<li>stack $\begin{cases} push \cr pop \cr top \end{cases}$　　queue $\begin{cases} push \cr pop \cr front \cr back \end{cases}$</li>
+<li>map, set  $\begin{cases} insert \cr erase \cr \color{red}{find} \end{cases}$</li>
+</ul>
+<h4 id="DFS-amp-BFS-的快速实现"><a href="#DFS-amp-BFS-的快速实现" class="headerlink" title="DFS&amp;BFS 的快速实现"></a>DFS&amp;BFS 的快速实现</h4><ul>
+<li>DFS 递归</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="keyword">for</span> 节点 ? :</div><div class="line">    <span class="keyword">if</span>(!visited[?]) &#123;</div><div class="line">      dfs(?, visited);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(startIdx, visited[])</span> </span>&#123;</div><div class="line">  visited[startIdx] = <span class="literal">true</span>;</div><div class="line">  <span class="keyword">for</span> 节点 startIdx 的邻接边 startIdx-&gt;?:</div><div class="line">    <span class="keyword">if</span>(!visited[?]) &#123;</div><div class="line">      dfs(?, visited);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>DFS 堆栈</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(root)</span> </span>&#123;</div><div class="line">  nodeStack.push(root);</div><div class="line">  visited[root] = <span class="literal">true</span>;</div><div class="line">  <span class="keyword">while</span>(!nodeStack.empty()) &#123;</div><div class="line">    curNode = nodeStack.top();</div><div class="line">    nodeStack.pop();</div><div class="line">    <span class="keyword">for</span> curNode 的邻接边 curNode-&gt;?:</div><div class="line">      <span class="keyword">if</span>(!visited[?]) &#123;</div><div class="line">        nodeStack.push(?);</div><div class="line">        visited[?] = <span class="literal">true</span>;</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>BFS 队列</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">bfs</span><span class="params">(root)</span> </span>&#123;</div><div class="line">  nodeQueue.push(root);</div><div class="line">  visited[root] = <span class="literal">true</span>;</div><div class="line">  <span class="keyword">while</span>(!nodeQueue.empty()) &#123;</div><div class="line">    curNode = nodeQueue.front();</div><div class="line">    nodeStack.pop();</div><div class="line">    <span class="keyword">for</span> curNode 的邻接边 curNode-&gt;?:</div><div class="line">      <span class="keyword">if</span>(!visited[?]) &#123;</div><div class="line">        nodeQueue.push(?);</div><div class="line">        visited[?] = <span class="literal">true</span>;</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="最短路径问题"><a href="#最短路径问题" class="headerlink" title="最短路径问题"></a>最短路径问题</h4><ul>
+<li>带正权（不可带负权）的图</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dijkstra</span><span class="params">(source)</span> </span>&#123;</div><div class="line">  visited[] = <span class="literal">false</span>;</div><div class="line">  prevs[] = <span class="literal">NULL</span>;</div><div class="line">  dists[] = INT_MAX;</div><div class="line"> </div><div class="line">  dists[source] = <span class="number">0</span>;</div><div class="line"> </div><div class="line">  <span class="keyword">for</span> 完成所有节点挑选:</div><div class="line">    curMinDist = INT_MAX;</div><div class="line">    pickNode = <span class="literal">NULL</span>;</div><div class="line">    <span class="keyword">for</span> 所有节点?:</div><div class="line">      <span class="keyword">if</span>(!visited[?] &amp;&amp; dists[?] &lt; curMinDist) &#123;</div><div class="line">        curMinDist = dists[?];</div><div class="line">        pickNode = ?;</div><div class="line">      &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">if</span>(pickNode == <span class="literal">NULL</span>) &#123;</div><div class="line">      <span class="comment">// 存在节点不可达</span></div><div class="line">      <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    visited[pickNode] = <span class="literal">true</span>;</div><div class="line">    <span class="keyword">for</span> pickNode 所有邻接边 pickNode-&gt;?:</div><div class="line">      <span class="keyword">if</span>(!visited[?] </div><div class="line">        &amp;&amp; dists[?] &gt; (dists[pickNode] + 边权)) &#123;</div><div class="line">        dists[?] = dists[pickNode] + 边权;</div><div class="line">        prevs[?] = pickNode;</div><div class="line">      &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>可带负权的图 $\longrightarrow$ 可以检测是否有负环</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">BellmanFord</span><span class="params">(source)</span> </span>&#123;</div><div class="line">  visited[] = <span class="literal">false</span>;</div><div class="line">  prevs[] = <span class="literal">NULL</span>;</div><div class="line">  dists[] = INT_MAX;</div><div class="line"> </div><div class="line">  dists[source] = <span class="number">0</span>;</div><div class="line"> </div><div class="line">  <span class="keyword">for</span> 完成所有节点[<span class="number">0</span>-N<span class="number">-1</span>]挑选:</div><div class="line">    updated = <span class="literal">false</span>;</div><div class="line">    <span class="comment">// 更新所有节点</span></div><div class="line">    <span class="keyword">for</span> 所有节点?:</div><div class="line">      <span class="keyword">for</span> ?的所有邻接边?-&gt;△:</div><div class="line">        <span class="keyword">if</span>(dists[△] != INT_MAX </div><div class="line">          &amp;&amp; dists[△] &gt; (dists[?] + 边权)) &#123;</div><div class="line">          dists[△] = dists[?] + 边权;</div><div class="line">          prevs[△] = ?;</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">if</span>(!updated) &#123;</div><div class="line">      <span class="comment">// 完成最短路径搜索</span></div><div class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">if</span>(已经挑选了所有节点 &amp;&amp; updated) &#123;</div><div class="line">      <span class="comment">// 存在负环</span></div><div class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="最小生成树问题"><a href="#最小生成树问题" class="headerlink" title="最小生成树问题"></a>最小生成树问题</h4><ul>
+<li>Prim 算法，与 Dijkstra 类似，只不过代价是到当前生成树的，而不是到源的代价</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Prim</span><span class="params">(root = <span class="number">0</span>)</span> </span>&#123;</div><div class="line">  visited[] = <span class="literal">false</span>;</div><div class="line">  prevs[] = <span class="literal">NULL</span>;</div><div class="line">  costs[] = INT_MAX;</div><div class="line"> </div><div class="line">  costs[root] = <span class="number">0</span>;</div><div class="line"> </div><div class="line">  <span class="keyword">for</span> 完成所有节点挑选:</div><div class="line">    curMinCost = INT_MAX;</div><div class="line">    pickNode = <span class="literal">NULL</span>;</div><div class="line">    <span class="keyword">for</span> 所有节点?:</div><div class="line">      <span class="keyword">if</span>(!visited[?] &amp;&amp; costs[?] &lt; curMinCost) &#123;</div><div class="line">        curMinCost = costs[?];</div><div class="line">        pickNode = ?;</div><div class="line">      &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">if</span>(pickNode == <span class="literal">NULL</span>) &#123;</div><div class="line">      <span class="comment">// 节点不可达</span></div><div class="line">      <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    visited[pickNode] = <span class="literal">true</span>;</div><div class="line">    <span class="comment">// 更新 cost</span></div><div class="line">    <span class="keyword">for</span> pickNode 所有邻接边 pickNode-&gt;?:</div><div class="line">      <span class="keyword">if</span>(!visited[?] </div><div class="line">        &amp;&amp; costs[?] &gt; (dists[pickNode] + 边权)) &#123;</div><div class="line">        costs[?] = costs[pickNode] + 边权;</div><div class="line">        prevs[?] = pickNode;</div><div class="line">      &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="关于子串、子序列的动态规划问题"><a href="#关于子串、子序列的动态规划问题" class="headerlink" title="关于子串、子序列的动态规划问题"></a>关于子串、子序列的动态规划问题</h4><ul>
+<li><code>dp[i]</code>：转化到以 [i] 结尾或者 [0, …, i] 这样的子串/子序列的子问题</li>
+<li><code>dp[i][j]</code>：转化到 [i, …, j] 这样的子串/子序列的子问题<ul>
+<li>以长度递增为填表方向<ul>
+<li>长度为 1，需作为基单独计算</li>
+<li>长度为 2，可能需要作为基单独计算</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="动态规划：编辑距离（Edit-distance）"><a href="#动态规划：编辑距离（Edit-distance）" class="headerlink" title="动态规划：编辑距离（Edit distance）"></a>动态规划：编辑距离（Edit distance）</h4><ul>
+<li>设需要计算编辑距离的两个字符串分别为 <strong>x[1…m]</strong> 和 <strong>y[1…n]</strong></li>
+<li>$E(i, j)$：<strong>x[1…i]</strong> 和 <strong>y[1…j]</strong> 的编辑距离</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i = <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, ..., m</div><div class="line">  <span class="comment">// y 插入操作</span></div><div class="line">  j=<span class="number">0</span>: <span class="comment">// x 为空</span></div><div class="line">    E(i, j) = i;</div><div class="line"> </div><div class="line"><span class="keyword">for</span> j = <span class="number">1</span>, <span class="number">2</span>, ..., n</div><div class="line">  <span class="comment">// y 删除操作</span></div><div class="line">  i=<span class="number">0</span>: <span class="comment">// y 为空</span></div><div class="line">    E(i, j) = j;</div><div class="line"> </div><div class="line"><span class="keyword">for</span> i = <span class="number">1</span>, <span class="number">2</span>, ..., m</div><div class="line">  <span class="keyword">for</span> j = <span class="number">1</span>, <span class="number">2</span>, ..., n</div><div class="line">    E(i, j) = min&#123;</div><div class="line">      <span class="number">1</span> + E(i<span class="number">-1</span>, j),	<span class="comment">// y 删除操作</span></div><div class="line">      <span class="number">1</span> + E(i, j<span class="number">-1</span>),	<span class="comment">// y 插入操作</span></div><div class="line">      diff(i, j) + E(i<span class="number">-1</span>, j<span class="number">-1</span>),	<span class="comment">// y 替换操作</span></div><div class="line">    &#125;</div><div class="line"> </div><div class="line"><span class="keyword">return</span> E(m, n)</div></pre></td></tr></table></figure>
+<ul>
+<li>其中，$diff(i, j) = \begin{cases} 0, x[i]=y[j] \cr 1, else \end{cases}$</li>
+</ul>
+<h4 id="动态规划：最长路"><a href="#动态规划：最长路" class="headerlink" title="动态规划：最长路"></a>动态规划：最长路</h4><ul>
+<li>保证在计算<code>dist(v)</code>时，<code>v</code>的前驱节点<code>u</code>的最短/长路已经算出来 $\Longrightarrow$ 按照拓扑排序的顺序来计算每个点<code>v</code>的最长/短路<code>dist(v)</code></li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">initialize all dist(·) value to ∞</div><div class="line">dists[source] = 0</div><div class="line">for v∈V\&#123;source&#125;, in topological order:</div><div class="line">  dist(v) = max/min \_&#123;(u, v) ∈ E&#125; &#123;dist(u) + weight(u, v)&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>有点复杂的动态规划思路<ul>
+<li>$ans[j][i]$：以 j 点为起点，经过点集 i 中的点恰好一次而不经过其他点的路径长度的最大值，不存在则为-∞</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">A. i 只包含一个点，ans[j][i] = <span class="number">0</span></div><div class="line">B. 否则，ans[j][i] = max(graph[j][k] + ans[k][s])</div><div class="line">  S 表示 i 集合中去掉了 j 点的集合</div><div class="line">  k 遍历集合 S 中的点，点 j 到点 k 有边存在，权值为 graph[j][k]</div><div class="line">C. 所有 ans[j][i] 的最大值即为最长路</div></pre></td></tr></table></figure>
+<h4 id="动态规划：最短可靠路径"><a href="#动态规划：最短可靠路径" class="headerlink" title="动态规划：最短可靠路径"></a>动态规划：最短可靠路径</h4><ul>
+<li>从 s 到 t 的不超过 k 条边的最短路</li>
+<li><code>dist(v, i)</code>：从起点 s 到 v 点恰好经过 i 条边的最短路</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">i = 0, dist(s, i) = 0, 其他为∞</div><div class="line">for 所有顶点 v</div><div class="line">  dist(v, i) = min&#123;(u, v) \in E&#125; &#123;dist(u, i-1) + weight(u, v)&#125;</div></pre></td></tr></table></figure>
+<h4 id="动态规划：最长递增序列"><a href="#动态规划：最长递增序列" class="headerlink" title="动态规划：最长递增序列"></a>动态规划：最长递增序列</h4><ul>
+<li>转化为最长路径问题（容易提取）</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(fromIdx=<span class="number">0</span>; fromIdx&lt;n; fromIdx++) &#123;</div><div class="line">  <span class="keyword">for</span>(toIdx=fromIdx+<span class="number">1</span>; toIdx&lt;n; toIdx++) &#123;</div><div class="line">    <span class="keyword">if</span>(num[toIdx] &gt; num[fromIdx]) &#123;</div><div class="line">      graph[fromIdx].push_back(toIdx);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>动态规划（$O(N^2)$）<ul>
+<li>$L(j)$：以第 j 个数结尾的最长递增子序列的长度</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">L(<span class="number">0</span>) = <span class="number">1</span>;</div><div class="line">prevs[] = <span class="number">-1</span>;</div><div class="line"><span class="keyword">for</span> j = <span class="number">1.</span>..n<span class="number">-1</span>:</div><div class="line">  <span class="comment">// 最长递增序列只有 num[j]</span></div><div class="line">  <span class="keyword">int</span> localMax = <span class="number">0</span>;</div><div class="line">  </div><div class="line">  <span class="keyword">for</span> i = <span class="number">0.</span>..j:</div><div class="line">    <span class="comment">// 以比 num[j] 小的数结尾的最长递增子序列长度+1</span></div><div class="line">    <span class="keyword">if</span>(num[i] &lt; num[j] &amp;&amp; L(i) &gt; localMax) &#123;</div><div class="line">      localMax = L(i);</div><div class="line">      prevs[j] = i;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">  L(j) = localMax + <span class="number">1</span>;</div></pre></td></tr></table></figure>
+<h4 id="动态规划：矩阵连乘"><a href="#动态规划：矩阵连乘" class="headerlink" title="动态规划：矩阵连乘"></a>动态规划：矩阵连乘</h4><ul>
+<li>给定 n 个矩阵构成的一个链 <code>&lt;A1, A2, ..., An&gt;</code>，其中矩阵<code>Ai</code>的大小为 $P_{i-1} * P_{i}, i=1,…n$，找一个计算顺序，使得计算乘积<code>A1A2...An</code>的乘法次数最少。</li>
+<li>$m[i, j]$：表示计算 <code>Ai...Aj</code>的最小乘法次数<ul>
+<li>$min_{i \leq k \leq j} {m[i, k] + m[k+1, j] + P_{i-1}P_{k}P_{j}}$</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">n = length[p] - <span class="number">1</span></div><div class="line"> </div><div class="line"><span class="keyword">for</span> i = <span class="number">1.</span>..n:</div><div class="line">  m[i, i] = <span class="number">0</span></div><div class="line"> </div><div class="line"><span class="keyword">for</span> l = <span class="number">2.</span>..n:</div><div class="line">  <span class="keyword">for</span> i = <span class="number">1.</span>..(n-l+<span class="number">1</span>):</div><div class="line">    j = i + l - <span class="number">1</span></div><div class="line">    m[i, j] = ∞</div><div class="line">    <span class="keyword">for</span> k = i...j<span class="number">-1</span>:</div><div class="line">      q = m[i, k] + m[k+<span class="number">1</span>, j] + P[i<span class="number">-1</span>]*P[k]*P[j]</div><div class="line">      <span class="keyword">if</span>(q &lt; m[i, j]) &#123;</div><div class="line">        m[i, j] = q;</div><div class="line">        s[i, j] = k;</div><div class="line">      &#125;</div><div class="line"> </div><div class="line"><span class="keyword">return</span> m[<span class="number">1</span>, n], s[<span class="number">1</span>, n]</div></pre></td></tr></table></figure>
+<ul>
+<li><code>m[1, n]</code>为最终需要的最小乘法次数，通过<code>s[1, n]</code>可以回溯得到对应的计算顺序</li>
+</ul>
+<h4 id="期末机考错误题目反思"><a href="#期末机考错误题目反思" class="headerlink" title="期末机考错误题目反思"></a>期末机考错误题目反思</h4><ul>
+<li><a href="https://leetcode.com/problems/merge-two-binary-trees/#/description">617. Merge Two Binary Trees</a></li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function">TreeNode* <span class="title">mergeTrees</span><span class="params">(TreeNode* t1, TreeNode* t2)</span> </span>&#123;</div><div class="line">        <span class="comment">// t1==NULL or t1!=NULL</span></div><div class="line">        <span class="keyword">if</span>(t2 == <span class="literal">NULL</span>) &#123;</div><div class="line">        	<span class="keyword">return</span> t1;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// t2!=NULL t1==NULL</span></div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(t1 == <span class="literal">NULL</span>) &#123;</div><div class="line">        	t1 = <span class="keyword">new</span> TreeNode(t2-&gt;val);</div><div class="line">        	mergeTrees(t1-&gt;left, t2-&gt;left);</div><div class="line">        	mergeTrees(t1-&gt;right, t2-&gt;right);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// t2!=NULL t1!=NULL</span></div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">        	t1-&gt;val += t2-&gt;val;</div><div class="line">        	mergeTrees(t1-&gt;left, t2-&gt;left);</div><div class="line">        	mergeTrees(t1-&gt;right, t2-&gt;right);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> t1;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>反思：<code>t1 = new TreeNode(t2-&gt;val);</code> 之后，损失了该节点与 t1 树的连接关系；需要通过单独开一棵树的方式来解决这个问题。</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function">TreeNode* <span class="title">mergeTrees</span><span class="params">(TreeNode* t1, TreeNode* t2)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(t1 == <span class="literal">NULL</span>) &#123;</div><div class="line">        	<span class="keyword">return</span> t2;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(t2 == <span class="literal">NULL</span>) &#123;</div><div class="line">        	<span class="keyword">return</span> t1;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        TreeNode* result = <span class="keyword">new</span> TreeNode(t1-&gt;val + t2-&gt;val);</div><div class="line">        result-&gt;left = mergeTrees(t1-&gt;left, t2-&gt;left);</div><div class="line">        result-&gt;right = mergeTrees(t1-&gt;right, t2-&gt;right);</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><a href="https://leetcode.com/problems/01-matrix/#/description">542. 01 Matrix</a></li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">  <span class="function"><span class="keyword">int</span> <span class="title">BFS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> startRowIdx, <span class="keyword">int</span> startColIdx)</span> </span>&#123;</div><div class="line">    <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; queue_;</div><div class="line">    <span class="comment">// 这里已经很难处理，似乎没办法记录当前层（广度优先搜索的深度）层数，即步数</span></div><div class="line">  &#125;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; updateMatrix(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix) &#123;</div><div class="line">        <span class="keyword">int</span> rowSize = matrix.size();</div><div class="line">        <span class="keyword">int</span> colSize = matrix[<span class="number">0</span>].size();</div><div class="line"> </div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; stepMatrix(rowSize, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(colSize));</div><div class="line"> </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;rowSize; row++) &#123;</div><div class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>; col&lt;colSize; col++) &#123;</div><div class="line">        		<span class="keyword">if</span>(matrix[row][col] == <span class="number">0</span>) &#123;</div><div class="line">        			stepMatrix[row][col] = <span class="number">0</span>;</div><div class="line">        		&#125;</div><div class="line">        		<span class="keyword">else</span> &#123;</div><div class="line">        			stepMatrix[row][col] = BFS(matrix, row, col);</div><div class="line">        		&#125;</div><div class="line">        	&#125;</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        <span class="keyword">return</span> stepMatrix;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>反思：原先的想法是对于那些 1 的位置，进行DFS（现在想想应该BFS），寻找其到达最近的 0 需要的步数；会存在的一个问题（如上）就是，如何得到这些 1 到 0 的步数呢？而且无论是 DFS 还是 BFS，显然都存在重复的搜索操作。那假如换种思路，从那些 0 出发，一层一层向外扩张去更新那些 1 所在位置的步数呢？每一层的扩张显然可以利用上一层扩张的结果去更新，不存在重复的搜索操作。因此，一开始将那些 1 所在位置的到最近 0 所在位置的步数初始化为<code>INT_MAX</code>，然后从那些 0 所在位置开始通过 BFS 一层一层进行扩张，用更小的步数去更新 1 所在位置的值，最终，那些原先为 1 所在位置的值便是其到达最近 0 所在位置需要的步数了。</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; updateMatrix(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt;&amp; matrix) &#123;</div><div class="line">        <span class="keyword">int</span> rowSize = matrix.size();</div><div class="line">        <span class="keyword">int</span> colSize = matrix[<span class="number">0</span>].size();</div><div class="line"> </div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; stepMatrix(rowSize, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(colSize));</div><div class="line">        <span class="built_in">queue</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &gt; queue_;</div><div class="line"> </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;rowSize; row++) &#123;</div><div class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>; col&lt;colSize; col++) &#123;</div><div class="line">        		<span class="keyword">if</span>(matrix[row][col] == <span class="number">0</span>) &#123;</div><div class="line">        			stepMatrix[row][col] = <span class="number">0</span>;</div><div class="line">        			queue_.push(pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;(row, col));</div><div class="line">        		&#125;</div><div class="line">        		<span class="keyword">else</span> &#123;</div><div class="line">        			stepMatrix[row][col] = INT_MAX;</div><div class="line">        		&#125;</div><div class="line">        	&#125;</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        <span class="comment">// up; down; left; right</span></div><div class="line">        <span class="keyword">int</span> dirs[<span class="number">4</span>][<span class="number">2</span>] = &#123;</div><div class="line">        	&#123;<span class="number">-1</span>, <span class="number">0</span>&#125;, </div><div class="line">        	&#123;<span class="number">1</span>, <span class="number">0</span>&#125;, </div><div class="line">        	&#123;<span class="number">0</span>, <span class="number">-1</span>&#125;, </div><div class="line">        	&#123;<span class="number">0</span>, <span class="number">1</span>&#125;</div><div class="line">        &#125;;</div><div class="line"> </div><div class="line">        <span class="keyword">while</span>(!queue_.empty()) &#123;</div><div class="line">        	pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; curPos = queue_.front();</div><div class="line">        	queue_.pop();</div><div class="line"> </div><div class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">4</span>; i++) &#123;</div><div class="line">        		<span class="keyword">int</span> rowIdx = curPos.first + dirs[i][<span class="number">0</span>];</div><div class="line">        		<span class="keyword">int</span> colIdx = curPos.second + dirs[i][<span class="number">1</span>];</div><div class="line">        		<span class="keyword">if</span>(rowIdx&lt;<span class="number">0</span> || colIdx&lt;<span class="number">0</span> || rowIdx&gt;=rowSize || colIdx&gt;=colSize) &#123;</div><div class="line">        			<span class="keyword">continue</span>;</div><div class="line">        		&#125;</div><div class="line">        		<span class="keyword">if</span>(stepMatrix[curPos.first][curPos.second]+<span class="number">1</span> &lt; stepMatrix[rowIdx][colIdx]) &#123;</div><div class="line">        			stepMatrix[rowIdx][colIdx] = stepMatrix[curPos.first][curPos.second]+<span class="number">1</span>;</div><div class="line">        			queue_.push(pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;(rowIdx, colIdx));</div><div class="line">        		&#125;</div><div class="line">        	&#125;</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        <span class="keyword">return</span> stepMatrix;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><a href="http://www.lintcode.com/en/problem/longest-common-substring/">Longest Common Substring</a></li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/**</div><div class="line">     * @param A, B: Two string.</div><div class="line">     * @return: the length of the longest common substring.</div><div class="line">     */</span></div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestCommonSubstring</span><span class="params">(<span class="built_in">string</span> &amp;A, <span class="built_in">string</span> &amp;B)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> lenA = A.length();</div><div class="line">        <span class="keyword">int</span> lenB = B.length();</div><div class="line">        <span class="keyword">if</span>(lenA==<span class="number">0</span> || lenB==<span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// L[idxA][idxB]: the largest length of LCS ending with A[idxA] and B[idxB] </span></div><div class="line">        <span class="keyword">int</span> L[lenA][lenB];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxB=<span class="number">0</span>; idxB&lt;lenB; idxB++) &#123;</div><div class="line">            L[<span class="number">0</span>][idxB] = B[idxB]==A[<span class="number">0</span>]? <span class="number">1</span> : <span class="number">0</span>; </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxA=<span class="number">0</span>; idxA&lt;lenA; idxA++) &#123;</div><div class="line">            L[idxA][<span class="number">0</span>] = A[idxA]==B[<span class="number">0</span>]? <span class="number">1</span> : <span class="number">0</span>; </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxA=<span class="number">1</span>; idxA&lt;lenA; idxA++)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> idxB=<span class="number">1</span>; idxB&lt;lenB; idxB++)&#123;</div><div class="line">                L[idxA][idxB] = A[idxA]==B[idxB]? L[idxA<span class="number">-1</span>][idxB<span class="number">-1</span>]+<span class="number">1</span> : <span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> maxLen = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxA=<span class="number">0</span>; idxA&lt;lenA; idxA++)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> idxB=<span class="number">0</span>; idxB&lt;lenB; idxB++)&#123;</div><div class="line">                <span class="keyword">if</span>(L[idxA][idxB] &gt; maxLen) &#123;</div><div class="line">                    maxLen = L[idxA][idxB];</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> maxLen;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>反思：子问题定义的时候出现问题，应该是<code>L[idxA][idxB]</code>：the largest length of LCS <font color="red">ending with A[idxA] and B[idxB]</font>，而不是<font color="red">A[0…idxA]和B[0…idxB]</font>的最长公共子串。</li>
+</ul>
+</li>
+<li><a href="https://leetcode.com/problems/house-robber/#/description">198. House Robber</a><ul>
+<li>机考时是求数列：A[0], A[1], …, A[n-1] 的最小和，要求A[i]和A[i+1]至少选取一个；打家劫舍这道题类似，相当于在数列中取出一个或多个不相邻数，使其和最大。</li>
+<li>打家劫舍要求确保不出现连续相邻的两个数，下面两个子问题都能够保证这样的一个前提条件。<ul>
+<li>①<code>money[i]</code>：抢劫完房间 house[i] 后，能够获得的最大金钱数目。</li>
+<li>②<code>money[i]</code>：在房间 house[0], …, house[i] 中进行抢劫能够获得的最大金钱数目。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> max(a,b) (a&gt;b?a:b)</span></div><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</div><div class="line">        <span class="comment">// money[i]: max money after robbing house[i]</span></div><div class="line">        <span class="keyword">int</span> numSize = nums.size();</div><div class="line">        <span class="keyword">if</span>(numSize == <span class="number">0</span>) &#123;</div><div class="line">        	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; money(nums.size());</div><div class="line">        money[<span class="number">0</span>] = nums[<span class="number">0</span>];</div><div class="line">        <span class="keyword">if</span>(numSize &gt; <span class="number">1</span>) &#123;</div><div class="line">        	money[<span class="number">1</span>] = nums[<span class="number">1</span>];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(numSize &gt; <span class="number">2</span>) &#123;</div><div class="line">        	money[<span class="number">2</span>] = nums[<span class="number">0</span>] + nums[<span class="number">2</span>];</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">3</span>; i&lt;numSize; i++) &#123;</div><div class="line">        	money[i] = max(money[i<span class="number">-3</span>], money[i<span class="number">-2</span>]);</div><div class="line">        	money[i] += nums[i];</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        <span class="keyword">int</span> largestMoney = money[<span class="number">0</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;numSize; i++) &#123;</div><div class="line">        	<span class="keyword">if</span>(money[i] &gt; largestMoney) &#123;</div><div class="line">        		largestMoney = money[i];</div><div class="line">        	&#125;</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        <span class="keyword">return</span> largestMoney;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> max(a,b) (a&gt;b?a:b)</span></div><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</div><div class="line">        <span class="comment">// money[i]: max money after reaching house[i], may robbed house[i]</span></div><div class="line">        <span class="keyword">int</span> numSize = nums.size();</div><div class="line">        <span class="keyword">if</span>(numSize == <span class="number">0</span>) &#123;</div><div class="line">        	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; money(nums.size());</div><div class="line">        money[<span class="number">0</span>] = nums[<span class="number">0</span>];</div><div class="line">        <span class="keyword">if</span>(numSize &gt; <span class="number">1</span>) &#123;</div><div class="line">        	money[<span class="number">1</span>] = max(nums[<span class="number">0</span>], nums[<span class="number">1</span>]);</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;numSize; i++) &#123;</div><div class="line">        	money[i] = max(money[i<span class="number">-2</span>]+nums[i], money[i<span class="number">-1</span>]);</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        <span class="keyword">return</span> money[numSize<span class="number">-1</span>];</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>然而，机考时的最小和问题必须满足：不存在相邻两个数不选的情况；显然对于转化为子问题②很难保证这个前提条件。</li>
+</ul>
+</li>
+<li>  <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">#define min(a,b) (a&lt;b?a:b)</div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int minSum(vector&lt;int&gt;&amp; nums) &#123;</div><div class="line">        // sums[i]: minimum sum ending with nums[i]</div><div class="line">        int numSize = nums.size();</div><div class="line">        if(numSize == 0) &#123;</div><div class="line">        	return 0;</div><div class="line">        &#125;</div><div class="line">        vector&lt;int&gt; sums(nums.size());</div><div class="line">        sums[0] = nums[0];</div><div class="line">        if(numSize &gt; 1) &#123;</div><div class="line">        	sums[1] = nums[1];</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        for(int i=2; i&lt;numSize; i++) &#123;</div><div class="line">        	sums[i] = min(sums[i-2], sums[i-1]);</div><div class="line">        	sums[i] += nums[i];</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        return min(sums[numSize-2], sums[numSize-1]);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程珠玑 </category>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Algorithm </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[算法设计与分析[0020] 几个有关图的问题]]></title>
+      <url>/2017/06/26/Algorithms_GraphProblems/</url>
+      <content type="html"><![CDATA[<h4 id="判断图是否连通？（一个图有几个连通分量）"><a href="#判断图是否连通？（一个图有几个连通分量）" class="headerlink" title="判断图是否连通？（一个图有几个连通分量）"></a>判断图是否连通？（一个图有几个连通分量）</h4><ul>
+<li>从一个指定的点开始，通过不同的策略去遍历这个图，有深度遍历和广度遍历。</li>
+<li>每次经过一个节点的时候，首先判断一下这个节点是否已经访问过了，如果没有访问过，则这个节点可以作为下一次继续遍历的候选。</li>
+<li>如果这个图是连通的话，这种方法最终会覆盖到整个图。所以可以采用一种计数统计的方式来实现。<ul>
+<li>比如说每次访问一个以前没有遍历的节点，则将对应的计数加一。这样当最后遍历结束后，如果统计的节点和图本身的节点一样的话，表示这个图是连通的，否则表示不连通。</li>
+</ul>
+</li>
+<li>这种方法用来判断整个图是否为连通的时候，实际上只要给定一个点，然后按照给定的步骤可以把该点所连接的所有点都涵盖到。如果有其它分隔的部分则不会再处理了，所以，通过这种办法我们在图不是连通的情况下，它只需要涵盖图的一部分就执行结束了。最坏的情况时间复杂度也就是$O(V+E)$。<a id="more"></a></li>
+</ul>
+<h4 id="图中任意两个点的连通性"><a href="#图中任意两个点的连通性" class="headerlink" title="图中任意两个点的连通性"></a>图中任意两个点的连通性</h4><ul>
+<li>在某些情况下，我们需要考虑的不仅仅是判断整个图是否为连通这么简单，有时候我们需要考虑，给定两个节点$i,  j$，需要判断它们是否相互连接。</li>
+<li>给定两个点，看它们之间是否连通，可能有很多种情况：比如说当整个图是连通的，则它们必然是连通的；而如果整个图不是连通的，但是这两个点是在一个连通的块，它们也是相互连通的。</li>
+<li>光遍历一个连通的块是不够的，肯定要遍历完所有的块。另外，如果遍历完一个块仅仅用一个数组来标记是否被访问还是不够的，对于每个不同的连通区域，要进行不同的标识。<ul>
+<li>遍历图中间所有节点</li>
+<li>所有相通的块必须标识为相同：①遍历一遍所有的节点，对每个节点都调用遍历方法，对于已经访问过的节点则直接跳过；②不管是dfs还是bfs，只要给定一个节点遍历完，这一块连通块我们一路做同样的标记就可以了，只要它们相通那么标记也肯定是一样的</li>
+</ul>
+</li>
+<li>实现的细节上<ul>
+<li>考虑用一个计数器和一个数组，对于某个块给计数器设定一个值，然后对应的这个值也放到对应数组的索引的位置里</li>
+<li>下一次遍历一个新的块时，对这个计数器加一，这样每次遍历的块的计数器值不同。</li>
+<li>给定任意两个节点，只要判断一下数组里对应的计数器值是否相同就可以判断图中任意两个点是否是连通的。</li>
+</ul>
+</li>
+</ul>
+<h4 id="图中环的检测"><a href="#图中环的检测" class="headerlink" title="图中环的检测"></a>图中环的检测</h4><ul>
+<li>还有一个常见的问题就是检测图中是否存在环？这也是一个很有意思的问题，因为在大多数图的结构中确实是存在环的。</li>
+<li>对于一个连通的图来说，如果它不存在环，则可以称其为树了，因此环检测的问题在判断一个图是否为树的问题上有很重要的应用。</li>
+<li>从图中构成环的任意一个节点开始，如果按照某个方向遍历，最终它某个可以访问的点是它前面已经遍历过的。<ul>
+<li>对于一些特殊的情况，比如两个相邻的节点之间的连接，它们不能定义为环，需要被排除：可以增加一个参数，表示访问的当前节点的前一个节点，<font color="green">如果从当前节点所能连接到的节点去遍历的时候，碰到的节点是已经访问过的节点，但是这个节点是它的前一个节点的话，这种情况不能定义为环，我们应该忽略</font>。</li>
+</ul>
+</li>
+<li>如果对于图并不是完全连通的情况呢？为了避免遗漏，肯定要尝试去遍历所有的节点，和前面检测图连通性类似。</li>
+</ul>
+<h4 id="判断一个图是否为二分图？"><a href="#判断一个图是否为二分图？" class="headerlink" title="判断一个图是否为二分图？"></a>判断一个图是否为二分图？</h4><ul>
+<li>假设我们有一个图，我们尝试用如下的方式去给每个节点着色，总共所有的节点只能着两种颜色中的一种（假设为红色或者蓝色）。对于一个节点来说，假设它着的是某一种颜色，和它相邻的节点只能着另一种颜色。给定一个图，如果这个图满足上述的特性的话，则这个图可以称之为<strong>二分图</strong>。</li>
+<li>判断一个图是否为二分图必然会遍历这个图</li>
+<li>每次在判断的时候假定一个节点的颜色为某个值，那么再将它相邻的节点颜色都设置成不同的。因为只是两种颜色，可以直接用布尔值类型来处理。<ul>
+<li>对于不属于二分图的情况，肯定是<font color="red">某个节点访问到一个它可以连接到的节点，而这个节点已经被访问过了，但是这个被访问过的节点和当前节点颜色是一样</font>。这样表明它和前面二分图的定义有冲突，所以，我们遍历整个图就是为了判断是否存在这种情况。</li>
+</ul>
+</li>
+<li>实际实现中可以这样考虑。<ul>
+<li>对于所有节点对应的颜色需要定义一个<code>boolean[] color</code>数组</li>
+<li>最开始访问一个节点的时候，将其对应<code>color</code>位设置为<code>true</code>，每次访问一个关联的节点时，将关联节点设置成原来节点的相反值。也就是说，比如节点$v$它的颜色为<code>color[v]</code>，那么下一个它被关联的节点$w$的颜色则可以设置成<code>color[w] = !color[v]</code>，正好通过取反实现了颜色的变换。</li>
+<li>这里实现的要点还是通过dfs方法，每次碰到一个节点的时候就要判断一下是否已经访问过：①已经访问过的话，要判断颜色是否相同，相同则表明该图不是一个二分图；②没有访问过的话，则将新节点设置成当前节点的相反值。然后就是要遍历所有节点，防止遗漏未连接的节点情况。</li>
+</ul>
+</li>
+</ul>
+<h4 id="DAG-拓扑排序"><a href="#DAG-拓扑排序" class="headerlink" title="DAG: 拓扑排序"></a>DAG: 拓扑排序</h4><ul>
+<li>在一些任务安排和调度的问题里，不同的问题或者任务之间存在一些依赖关系：有的任务需要在某些任务完成之后才能做。像一些学校的教学课程安排：设置某一门课程需要依赖于一个前置的课程，只有学生学习了前置课程之后才能去学习该课程，如果将一门课程当做一个节点，从它引出一个指针指向后序依赖它的课程，就会得到一个有向图。</li>
+<li>对于这种图来说，最大的特点就是它们肯定就不能存在环，不然就有逻辑上的错误。因此，前面检测一个图是否为DAG的方法就是看图中是否有环。</li>
+<li>拓扑排序则是在确定没有环的情况下，输出一个正常的序列，这个序列表示从一个不依赖任何元素的节点到后序的节点（这些序列正好符合课程安排或者任务调度的逻辑顺序）。</li>
+<li>对于一个有向图来说，如果它不存在环，则它应该为DAG。现在的问题是怎么找出这个拓扑序列来呢？<ul>
+<li>实际上，对于深度优先遍历的后序序列，如果我们将它们的顺序完全倒过来，得到的序列就是满足我们要求的序列。</li>
+<li>拓扑序列要求的序列必然是开始于一系列入度为０的节点。如果没有入度为０的节点，则表示这个图不是DAG，这样连遍历都没有必要了（<font color="red">当然，如果只是因为这个图里有入度为０的节点，并不代表这个图就一定是DAG</font>）。<ul>
+<li>怎么来求这些节点的入度：增加一个数组int[] inDegrees，每次我们添加一个边<code>u-&gt;v</code>到图里时，<code>inDegrees[v]++</code>。</li>
+<li>取这些入度为０的节点，然后从这些节点遍历图，给出的序列就是拓扑排序的序列。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基于DFS的拓扑排序<ul>
+<li><strong>证明</strong>：假设对某一已知有向无回路图G=(V,E)运行dfs_travel()过程，以便确定其顶点的完成时刻。只要证明对任一对不同顶点u、v∈V，若G中存在一条从u到v的边，则f[v]&lt;f[u]。考虑过程dfs_travel()所探寻的任何边（u，v），当探寻到该边时，顶点v必然是已考察完成的顶点或者还未被访问到的顶点。若v是还未被访问到的顶点，则它是u的后裔，f[v]&lt;f[u]。若v为已考察完成的顶点，则已完成探索，且f[v]已经设置了。因为仍在探寻u，还要为f[v]赋时间戳。一旦这么做后，就同样有f[v]&lt;f[u]，这样一来，对于有向无回路图中任意边（u,v），都有f[v]&lt;f[u]，从而定理得证。</li>
+<li><strong>简单解释</strong>：如果存在u到v的通路，则必然存在f[u]&gt;f[v]，即u肯定在v的前面。</li>
+</ul>
+</li>
+<li>Kahn 算法<ul>
+<li>顶点进栈出栈，其复杂度为$O(V)$；删除顶点后将邻接点的入度减1，其复杂度为$O(E)$；整个算法的复杂度为$O(V+E)$</li>
+</ul>
+</li>
+</ul>
+<h4 id="深度优先遍历先序-amp-后序"><a href="#深度优先遍历先序-amp-后序" class="headerlink" title="深度优先遍历先序&amp;后序"></a>深度优先遍历先序&amp;后序</h4><ul>
+<li>在访问图的时候，假定以深度优先遍历为例。当我们每次遍历到一个节点的时候就访问它，也可以称其访问序为前序，而如果等它遍历递归后返回的时候再访问它，这就相当于一个后序。</li>
+<li>要实现这两种遍历的方法其实很简单，无非就是在深度优先遍历的时候在访问某个节点前或者访问结束后将节点加入到队列里。在pre里面添加元素的时候是每次刚第一次访问某个节点时。而在post里面添加元素的时候则表示通过该节点以及它所关联的节点都已经遍历结束了。</li>
+</ul>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li><a href="http://shmilyaw-hotmail-com.iteye.com/blog/2113093">无向图的几个基本算法应用</a> </li>
+<li><a href="http://shmilyaw-hotmail-com.iteye.com/blog/2116275">有向图的几个算法分析总结</a></li>
+<li><a href="http://www.cnblogs.com/dzkang2011/p/toplogicalSort_1.html">图基本算法 拓扑排序（基于dfs)</a></li>
+<li><a href="http://www.cnblogs.com/TenosDoIt/p/3644225.html">JustDoIT：判断一个图是否有环</a></li>
+<li><a href="http://blog.csdn.net/dm_vincent/article/details/7714519">拓扑排序的原理及其实现</a></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程珠玑 </category>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Algorithm </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[算法设计与分析[0019] Greedy Algorithms（贪心策略）]]></title>
+      <url>/2017/06/26/Algorithms_GreedyAlgorithms/</url>
+      <content type="html"><![CDATA[<h4 id="基本概念？"><a href="#基本概念？" class="headerlink" title="基本概念？"></a>基本概念？</h4><ul>
+<li>贪心算法采取步步逼近的方式构造问题的解，其下一步的选择总是在当前看来收敛最快和效果最明显的那一个。<br>贪心算法以迭代的方式作出相继的贪心选择，每作一次贪心选择就将所求问题简化为规模更小的子问题<a id="more"></a></li>
+</ul>
+<h4 id="贪心-vs-DP"><a href="#贪心-vs-DP" class="headerlink" title="贪心 vs DP"></a>贪心 vs DP</h4><p>DP和贪心的区别就是做选择的时候贪心所做出的选择是当前最佳，要依赖已经做出的所有贪心选择，而不依赖有待于做出选择的子问题的解。而DP具有无后效性，未来与过去无关，当前的状态是此前历史的一个完整总结，不会依赖已经得到子问题的解，只是和以后的子问题有关系，这点和贪心刚好相反。<font color="red">DP是通过小问题来得到大问题的解，而贪心是一次一次做出贪心选择，然后不断将给定的问题规约为更小的子问题</font>。<strong>DP要自底向上，贪心可以自顶向下</strong>的解决问题。DP还具有重叠子问题的性质，这点是贪心不具备的。</p>
+<h4 id="经自己总结的贪心算法几大经典问题"><a href="#经自己总结的贪心算法几大经典问题" class="headerlink" title="经自己总结的贪心算法几大经典问题"></a>经自己总结的贪心算法几大经典问题</h4><ul>
+<li>活动选择问题<ul>
+<li>问题描述<blockquote>
+<p>假设有一个需要使用某个资源的$n$个活动组成的集合$S= {a1，a2，···，an }$，该资源每次只能由一个活动占用。每个活动$a[i]$都有一个开始时间$s[i]$和结束时间$f[i]$，且$0&lt;= s[i] &lt; f[i] &lt;∞$。一旦被选择后，活动$a[i]$就占据半开时间区间$[s[i], f[i])$。若时间区间$[s[i], f[i])$与区间$[s[j], f[j])$互不重叠，则称活动$a[i]$与活动$a[j]$是兼容的。也就是说，当$s[i]≥f[j]$或$s[j]≥f[i]$时，活动$a[i]$与活动$a[j]$兼容。活动选择问题就是要选择一个由兼容活动构成的最大集合。</p>
+</blockquote>
+</li>
+<li>活动选择问题就是要选择一个由兼容活动构成的最大集合。子问题是什么，兼容活动集合，这样的子问题有$2^n$。所以我们才用DP来优化它，如果子问题的最优解可以构造成原问题的最优解，那么此问题就具有最优子结构。<ul>
+<li>定义$S[i, j] = {a[k]∈S: f[i] &lt;= s[k] &lt; f[k] &lt;= s[j] }$，（$S$是所有活动集合）。$S[i, j]$ 就是原问题集合 $S$ 的子问题，其中的每个活动都是在活动 $a[i]$ 结束之后开始，且在 $a[j]$ 开始之前结束，更重要的是 $S[i,j]$ 中的活动都要相互兼容。</li>
+<li>为了表示完整的问题结合，虚构两个活动 $a[0], a[n+1], f[0]=0, s[n+1]=∞$，这样 $S=S[0，n+1]$。</li>
+</ul>
+</li>
+<li>为了减少问题的处理量，给所有活动按结束时间递增的顺序排序。这样的话如果 $i&gt;=j, S[i,j] = ∅$。<ul>
+<li>假设有一个 $a[k]∈S[i,j], 则 f[i] &lt;= s[k] &lt; f[k] &lt;= s[j]$。说明 $a[i]$ 活动排在 $a[j]$ 活动前面，也即是 $i<j$，这与 $i>=j$ 矛盾。所以来说，如果将<font color="red">活动按结束时间非递减排序</font>的话，则子问题就是 $S[i,j]$，$0 &lt;= i&lt; j &lt;= n+1$，其他的 $S[i,j]$ 是空集。</li>
+</ul>
+</li>
+<li>针对于 $S[i,j]$ 中的 $a[k]$，我们把子问题分成 $S[i,k], S[k,j]$ 和 $a[k]$。则 $S[i,j]$ 的最优解就是 $S[i,k]$ 的最优解加上 $S[k,j]$ 的最优解捎带一个 $a[k]$ 的并集。设 $C[i,j]$ 是 $S[i,j]$ 的最优解，即是 $S[i,j]$ 中最大兼容活动数。<br>$$ C[i, j]  = \begin{case} 0, S[i, j] = \emptyset \cr max_{i &lt; k &lt; j} {},  S[i, j] != \emptyset \end{case}$$</li>
+<li>贪心策略：最早结束的活动肯定就是当前子问题的最优活动。对于任何非空$S[i,j]$，设 $a[m]$ 是 $S[i,j]$ 中最早结束的一个活动，$f[m] = min{f[k]:a[k]∈S[i,j]}$，则<ul>
+<li>贪心选择性质（贪心策略是安全的）：活动 $a[m]$ 被包含在 $S[i,j]$ 的一个（可能有多个）最大兼容活动的子集中<ul>
+<li>假设 $a[k]$ 是 $S[i,j]$ 最优解 $C[i,j]$ 的第一个活动（排序之后），如果 $a[m]=a[k]$，结论得证</li>
+<li>如果 $a[m], a[k]$ 不相等，那么就用 $a[m]$ 替换 $a[k]$（因为 $a[m]$ 是最早结束的活动，替换之后肯定和其他的兼容），原问题的最大兼容活动数目没变，结论得证。</li>
+</ul>
+</li>
+<li>最早结束的活动 $a[m]$ 肯定就是当前子问题的最优活动！你选择了 $a[m]$，那么剩余问题的最优解就是 $S[m, j]$ 的最优解。</li>
+<li>这就是贪心算法，每次都选择当前最好的选择。意思就是已经选定是最优活动，那么之后选择的最优要和之前选定的活动兼容，这样每次选择的活动都是和之前兼容，那所有的活动也就是只是考虑一次而已。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>活动时间安排的问题<ul>
+<li><a href="#">Sicily1001. 会议安排</a><blockquote>
+<p>N个会议要同时举行，参会人数分别为$A[0], A[1], …, A[N-1]$. 现有M个会议室，会议室可容纳人数分别为$B[0], B[1], …, B[M-1]$. 当$A[i]&lt;=B[j]$时，可以把会议$i$安排在会议室$j$，每间会议室最多安排一个会议，每个会议最多只能安排一个会议室. 求最多安排多少个会议？</p>
+<ul>
+<li>贪心策略：参会人数少的会议先安排，怎么安排呢？安排到能满足容纳人数的最小的会议室。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>背包问题<ul>
+<li>问题描述<blockquote>
+<p>有一个背包，背包容量是$M$。有$N$个任意大小 $wi$，价值 $pi$ 的物品。要求尽可能让装入背包中的物品总价值最大，但不能超过背包总容量。<br>目标函数： $\sum_i^N pi$最大<br>约束条件：装入的物品总重量不超过背包容量：$\sum_i^N wi&lt;=M$。</p>
+</blockquote>
+</li>
+<li>根据贪心的策略<ul>
+<li>每次挑选价值最大的物品装入背包，得到的结果是否最优？</li>
+<li>每次挑选所占重量最小的物品装入是否能得到最优解？</li>
+<li>每次选取单位重量价值最大的物品，成为解本题的策略。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>贪心实例之线段覆盖（lines cover）</li>
+<li>数字组合问题</li>
+</ul>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li><a href="http://www.cnblogs.com/steven_oyj/archive/2010/05/22/1741375.html">五大常用算法之三：贪心算法</a></li>
+<li><a href="http://www.hahack.com/wiki/algorithms-greedy.html">HaHack：贪婪算法</a></li>
+<li><a href="http://blog.csdn.net/effective_coder/article/details/8736718">K神丶的专栏：贪心算法详解</a><ul>
+<li>活动选择问题：<a href="http://blog.csdn.net/liangbopirates/article/details/10044463">承续缘的信仰：贪心算法详解</a></li>
+</ul>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程珠玑 </category>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Algorithm </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[算法设计与分析[0018] 图的点连通度和边连通度]]></title>
       <url>/2017/06/24/Algorithms_Vertex&amp;Edge%20connectivity%20degree/</url>
       <content type="html"><![CDATA[<h4 id="基本概念？"><a href="#基本概念？" class="headerlink" title="基本概念？"></a>基本概念？</h4><ul>
@@ -204,37 +564,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[DARPA[Boss]: Motion Planning in Urban Environments]]></title>
-      <url>/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</url>
-      <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
-<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
-<li>long range plans<ul>
-<li>on-road planning</li>
-<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
-<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
-</ul>
-</li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> 自动驾驶 </category>
-            
-            <category> DARPA </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> DARPA </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[DARPA[Boss]: Boss and the Urban Challenge]]></title>
       <url>/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/</url>
       <content type="html"><![CDATA[<p>　Boss 自动驾驶软硬件概述。</p>
@@ -285,6 +614,37 @@
 </li>
 </ul>
 <h4 id="Motion-Planning"><a href="#Motion-Planning" class="headerlink" title="Motion Planning"></a>Motion Planning</h4>]]></content>
+      
+        <categories>
+            
+            <category> 自动驾驶 </category>
+            
+            <category> DARPA </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> DARPA </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[DARPA[Boss]: Motion Planning in Urban Environments]]></title>
+      <url>/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</url>
+      <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
+<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
+<li>long range plans<ul>
+<li>on-road planning</li>
+<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
+</ul>
+</li>
+</ul>
+]]></content>
       
         <categories>
             

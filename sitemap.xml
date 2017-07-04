@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/2017/07/02/Algorithms_BasicMiscs/</loc>
+    
+    <lastmod>2017-07-04T09:03:14.419Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/06/26/Algorithms_GreedyAlgorithms/</loc>
+    
+    <lastmod>2017-07-02T07:52:02.990Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/06/26/Algorithms_GraphProblems/</loc>
+    
+    <lastmod>2017-07-02T07:51:44.938Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2017/06/24/Algorithms_Vertex&Edge%20connectivity%20degree/</loc>
     
     <lastmod>2017-06-24T07:57:34.582Z</lastmod>
