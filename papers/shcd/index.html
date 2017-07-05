@@ -15,15 +15,39 @@
 
 
 
-<meta name="description" content="只管尽力，去建立某些好的特质和态度">
+<meta name="description" content="A Model-Based Design Methodology for Cyber-Physical Systems
+关于 design→analyze→verify→validate 的一套工程方法论，授课那会阅读的时候觉得实践意义不强
+
+
+II. MODEL-BASED DESIGN IN TEN STEPS
+Step 1: State the Problem
+Step 2: Model P">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Tarantula-7's Blog">
-<meta property="og:url" content="http://durant35.github.io/archives/2017/06/index.html">
+<meta property="og:title" content="Software Hardware Co-design Paper Lists">
+<meta property="og:url" content="http://durant35.github.io/papers/shcd/index.html">
 <meta property="og:site_name" content="Tarantula-7's Blog">
-<meta property="og:description" content="只管尽力，去建立某些好的特质和态度">
+<meta property="og:description" content="A Model-Based Design Methodology for Cyber-Physical Systems
+关于 design→analyze→verify→validate 的一套工程方法论，授课那会阅读的时候觉得实践意义不强
+
+
+II. MODEL-BASED DESIGN IN TEN STEPS
+Step 1: State the Problem
+Step 2: Model P">
+<meta property="og:image" content="http://durant35.github.io/img/papers/shcd/DOL_Overview.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2016/dol_basic_structure.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2016/MPARM_simulation.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2016/dse_cycle.png">
+<meta property="og:updated_time" content="2017-07-05T03:42:49.165Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tarantula-7's Blog">
-<meta name="twitter:description" content="只管尽力，去建立某些好的特质和态度">
+<meta name="twitter:title" content="Software Hardware Co-design Paper Lists">
+<meta name="twitter:description" content="A Model-Based Design Methodology for Cyber-Physical Systems
+关于 design→analyze→verify→validate 的一套工程方法论，授课那会阅读的时候觉得实践意义不强
+
+
+II. MODEL-BASED DESIGN IN TEN STEPS
+Step 1: State the Problem
+Step 2: Model P">
+<meta name="twitter:image" content="http://durant35.github.io/img/papers/shcd/DOL_Overview.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -55,7 +79,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Archives: 2017/6 | Tarantula-7&#39;s Blog</title>
+<title>Software Hardware Co-design Paper Lists | Tarantula-7&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -66,7 +90,7 @@
         animate: true,
         isHome: false,
         isPost: false,
-        isArchive: true,
+        isArchive: false,
         isTag: false,
         isCategory: false,
         fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
@@ -263,318 +287,243 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
   
+    <div class="article-meta">
+      <a href="/papers/shcd/index.html" class="article-date">
+      <time datetime="2016-07-05T02:29:17.000Z" itemprop="datePublished">2016-07-05</time>
+</a>
+
+
+    </div>
   
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Software Hardware Co-design Paper Lists
+    </h1>
+  
+
+      </header>
       
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2017/06/26/Algorithms_GraphProblems/" class="archive-article-date">
-      <time datetime="2017-06-26T12:26:22.000Z" itemprop="datePublished">06-26</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/26/Algorithms_GraphProblems/">算法设计与分析[0020] 几个有关图的问题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
+    <div class="article-entry" itemprop="articleBody">
+      
           
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
+              <style>
+    .article-meta { display: none; }
+    #container .article .article-title { padding-right: 0; }
+    .article-header {
+        padding: 0;
+        padding-top: 26px;
+        border-left: none;
+        text-align: center;
+    }
+    .article-header:hover { border-left: none; }
+    .article-title { font-size: 1.6em }
+    .article-entry hr { margin: 0;}
+    .article-meta,
+    #container .article-info-post.article-info { display: none;}
+    #container .article .article-title { padding: 0; }
+</style>
 
+<!-- 匹配页面 -->
 
           
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
+        <h4 id="A-Model-Based-Design-Methodology-for-Cyber-Physical-Systems"><a href="#A-Model-Based-Design-Methodology-for-Cyber-Physical-Systems" class="headerlink" title="A Model-Based Design Methodology for Cyber-Physical Systems"></a><a href="https://chess.eecs.berkeley.edu/pubs/837/JensenEtAl_CPS_CyPhy.pdf">A Model-Based Design Methodology for Cyber-Physical Systems</a></h4><blockquote>
+<p>关于 design→analyze→verify→validate 的一套工程方法论，授课那会阅读的时候觉得实践意义不强</p>
+</blockquote>
+<ul>
+<li>II. MODEL-BASED DESIGN IN TEN STEPS<ul>
+<li>Step 1: State the Problem</li>
+<li>Step 2: Model Physical Processes</li>
+<li>Step 3: Characterize the Problem</li>
+<li>Step 4: Derive a Control Algorithm</li>
+<li>Step 5: Select Models of Computation</li>
+<li>Step 6: Specify Hardware</li>
+<li>Step 7: Simulate</li>
+<li>Step 8: Construct</li>
+<li>Step 9: Synthesize Software</li>
+<li>Step 10: Verify, and Validate, and Test</li>
+</ul>
+</li>
+</ul>
+<h4 id="Distributed-Operation-Layer"><a href="#Distributed-Operation-Layer" class="headerlink" title="Distributed Operation Layer"></a><a href="http://www.tik.ee.ethz.ch/~shapes/dol.html">Distributed Operation Layer</a></h4><blockquote>
+<p>一个类似Xilinx的ISE/Vivado的软硬件协同设计开发工具</p>
+</blockquote>
+<center><img src="/img/papers/shcd/DOL_Overview.png" width="540px" alt=""/></center>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<h5 id="Part-A-实践操作指南"><a href="#Part-A-实践操作指南" class="headerlink" title="Part A: 实践操作指南"></a>Part A: 实践操作指南</h5><blockquote>
+<p>详细的操作指南已经整理在如下的博客：<a href="https://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/">Embedded System 2016</a></p>
+</blockquote>
+<ul>
+<li><a href="ftp://ftp.tik.ee.ethz.ch/pub/students/2008-HS/SA-2008-26.pdf">MPSoC Testbed for Analyzing Execution of Process Networks</a><ul>
+<li>MPSoC Testbed<ul>
+<li>Structure of the Testbed<center><img src="/img/TA-Cources/ES2016/dol_basic_structure.png" width="520px"/></center><br><center><img src="/img/TA-Cources/ES2016/MPARM_simulation.png" width="540px"/></center></li>
+<li>Required Input: DOL Specification</li>
+<li>Functional Simulation（基于SystemC的功能仿真）</li>
+<li>MPARM Simulation（基于MPARM虚拟硬件平台的Cycle Accurate Simulation）<ul>
+<li>得到在虚拟硬件平台上的运行日志</li>
+</ul>
+</li>
+<li>Parsing of the Log File（日志分析与信息提取）</li>
+<li>MPA Model（生成供MATLAB模型，进行RTC分析）</li>
+</ul>
+</li>
+<li>Workloads（基于上述过程得到的数据的RTC分析）<ul>
+<li>以期得到一个好的关于应用程序（application）到硬件资源（architecture）的高效映射（mapping）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="https://pdfs.semanticscholar.org/9b88/c90c1fd3e0f62a8db56bee6836354582bcb8.pdf?_ga=2.260478212.82102109.1499224643-1731244988.1499224643">Coupling MPARM with DOL</a><ul>
+<li>DOL 模型到 MPARM虚拟硬件平台代码自动转化（综合）</li>
+</ul>
+</li>
+<li><a href="https://pdfs.semanticscholar.org/5633/e7f63d408aee51b6523f6ad7bc90f4fd4d1a.pdf">MPARM: Exploring the Multi-Processor SoC Design Space with SystemC</a><ul>
+<li>Multiprocessor Simulation Platform<ul>
+<li>Processing Modules：SWARM (software ARM) simulator $\Longrightarrow$ emulates an ARM CPU（仿真）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="Part-B-理论研究"><a href="#Part-B-理论研究" class="headerlink" title="Part B: 理论研究"></a>Part B: 理论研究</h5><ul>
+<li><a href="http://ieeexplore.ieee.org/abstract/document/4276262/">Mapping Applications to Tiled Multiprocessor Embedded Systems</a><ul>
+<li>充分利用硬件计算能力</li>
+<li>Simulation<ul>
+<li>hybrid trace-based</li>
+<li>SystemC based MPARM simulation tool</li>
+<li>trace-driven hw/sw cosimulation（协同仿真）</li>
+</ul>
+</li>
+<li>Application, Platform and Mapping<ul>
+<li>Programming Model and Application Specification</li>
+<li>Platform Specification</li>
+<li>Mapping Specification</li>
+</ul>
+</li>
+<li>Design Space Exploration Cycle<ul>
+<li>EXPO<center><img src="/img/TA-Cources/ES2016/dse_cycle.png" width="420px" alt=""/></center></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
   </div>
+  
+    
+
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2017/06/26/Algorithms_GreedyAlgorithms/" class="archive-article-date">
-      <time datetime="2017-06-26T06:00:22.000Z" itemprop="datePublished">06-26</time>
-</a>
 
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/26/Algorithms_GreedyAlgorithms/">算法设计与分析[0019] Greedy Algorithms（贪心策略）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#A-Model-Based-Design-Methodology-for-Cyber-Physical-Systems"><span class="toc-number">1.</span> <span class="toc-text">A Model-Based Design Methodology for Cyber-Physical Systems</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Distributed-Operation-Layer"><span class="toc-number">2.</span> <span class="toc-text">Distributed Operation Layer</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Part-A-实践操作指南"><span class="toc-number">2.1.</span> <span class="toc-text">Part A: 实践操作指南</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Part-B-理论研究"><span class="toc-number">2.2.</span> <span class="toc-text">Part B: 理论研究</span></a></li></ol></li></ol>
+        
     </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
 
 
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2017/06/24/Algorithms_Vertex&Edge connectivity degree/" class="archive-article-date">
-      <time datetime="2017-06-24T06:00:22.000Z" itemprop="datePublished">06-24</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/24/Algorithms_Vertex&Edge connectivity degree/">算法设计与分析[0018] 图的点连通度和边连通度</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2017/06/08/Algorithms_NP-Complete(I)/" class="archive-article-date">
-      <time datetime="2017-06-08T06:00:22.000Z" itemprop="datePublished">06-08</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/08/Algorithms_NP-Complete(I)/">算法设计与分析[0017] NP-完全问题：概述（两道证明习题）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/" class="archive-article-date">
-      <time datetime="2017-06-02T05:00:22.000Z" itemprop="datePublished">06-02</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">DARPA[Boss]: Motion Planning in Urban Environments</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/DARPA/">DARPA</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DARPA/">DARPA</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/" class="archive-article-date">
-      <time datetime="2017-06-02T05:00:22.000Z" itemprop="datePublished">06-02</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/DARPA/">DARPA</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DARPA/">DARPA</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2017/06/01/Algorithms_BiGraphMatching/" class="archive-article-date">
-      <time datetime="2017-06-01T13:00:22.000Z" itemprop="datePublished">06-01</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/01/Algorithms_BiGraphMatching/">算法设计与分析[0016] 二分图匹配问题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2017/06/01/Algorithms_UnionFindSet/" class="archive-article-date">
-      <time datetime="2017-06-01T06:00:22.000Z" itemprop="datePublished">06-01</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
     
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+        <!--
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+        -->
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+        <!--
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+        -->
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Software Hardware Co-design Paper Lists　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/papers/shcd/index.html';
+            this.page.identifier = 'papers/shcd/index.html';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+
+    <script>
+        
+    </script>
+
+
 
 </div>
       <footer id="footer">
