@@ -15,22 +15,58 @@
 
 
 
-<meta name="description" content="Github: niosus/depth_clustering
+<meta name="description" content="System Overview基于嵌入式系统的室内移动机器人定位与导航（中文版）
+详细的博客介绍 ROS探索总结（十六）——HRMRP机器人的设计
 
-Fast Range Image-Based Segmentation of Sparse 3D Laser Scans for Online OperationAbstractEfficient Online Segmentation for Sparse 3D Laser Scans">
+
+三个重点
+地图精确建模：即时定位与地图构建
+机器人准确定位：蒙特卡罗定位算法
+路径实时规划：动态窗口逼近避障算法
+
+
+HRMRP(Hybrid Real-time Mobile Robot Platform) 系统架构
+HRMRP 定位与导航框架">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Depth Clustering">
-<meta property="og:url" content="http://durant35.github.io/papers/02_Depth Clustering.html">
+<meta property="og:title" content="2D SLAM Paper Lists">
+<meta property="og:url" content="http://durant35.github.io/papers/slam2d/index.html">
 <meta property="og:site_name" content="Tarantula-7's Blog">
-<meta property="og:description" content="Github: niosus/depth_clustering
+<meta property="og:description" content="System Overview基于嵌入式系统的室内移动机器人定位与导航（中文版）
+详细的博客介绍 ROS探索总结（十六）——HRMRP机器人的设计
 
-Fast Range Image-Based Segmentation of Sparse 3D Laser Scans for Online OperationAbstractEfficient Online Segmentation for Sparse 3D Laser Scans">
-<meta property="og:updated_time" content="2017-06-11T02:41:04.420Z">
+
+三个重点
+地图精确建模：即时定位与地图构建
+机器人准确定位：蒙特卡罗定位算法
+路径实时规划：动态窗口逼近避障算法
+
+
+HRMRP(Hybrid Real-time Mobile Robot Platform) 系统架构
+HRMRP 定位与导航框架">
+<meta property="og:image" content="http://durant35.github.io/img/papers/slam2d/HRMRP_Architecture.png">
+<meta property="og:image" content="http://durant35.github.io/img/papers/slam2d/HRMRP_Framework.png">
+<meta property="og:image" content="http://durant35.github.io/img/papers/slam2d/HRMRP_Framework2.png">
+<meta property="og:image" content="http://durant35.github.io/img/papers/slam2d/HRMRP_Dataflow.png">
+<meta property="og:image" content="http://durant35.github.io/img/papers/slam2d/2DSLAM_Evaluation1.png">
+<meta property="og:image" content="http://durant35.github.io/img/papers/slam2d/2DSLAM_Evaluation2.png">
+<meta property="og:image" content="http://durant35.github.io/img/papers/slam2d/2DSLAM_Evaluation3.png">
+<meta property="og:image" content="http://durant35.github.io/img/papers/slam2d/2DSLAM_Evaluation_performance.png">
+<meta property="og:updated_time" content="2017-07-05T09:22:30.199Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Depth Clustering">
-<meta name="twitter:description" content="Github: niosus/depth_clustering
+<meta name="twitter:title" content="2D SLAM Paper Lists">
+<meta name="twitter:description" content="System Overview基于嵌入式系统的室内移动机器人定位与导航（中文版）
+详细的博客介绍 ROS探索总结（十六）——HRMRP机器人的设计
 
-Fast Range Image-Based Segmentation of Sparse 3D Laser Scans for Online OperationAbstractEfficient Online Segmentation for Sparse 3D Laser Scans">
+
+三个重点
+地图精确建模：即时定位与地图构建
+机器人准确定位：蒙特卡罗定位算法
+路径实时规划：动态窗口逼近避障算法
+
+
+HRMRP(Hybrid Real-time Mobile Robot Platform) 系统架构
+HRMRP 定位与导航框架">
+<meta name="twitter:image" content="http://durant35.github.io/img/papers/slam2d/HRMRP_Architecture.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -62,7 +98,7 @@ Fast Range Image-Based Segmentation of Sparse 3D Laser Scans for Online Operatio
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Depth Clustering | Tarantula-7&#39;s Blog</title>
+<title>2D SLAM Paper Lists | Tarantula-7&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -273,8 +309,8 @@ Fast Range Image-Based Segmentation of Sparse 3D Laser Scans for Online Operatio
       <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/papers/02_Depth Clustering.html" class="article-date">
-      <time datetime="2016-06-11T02:39:17.000Z" itemprop="datePublished">2016-06-11</time>
+      <a href="/papers/slam2d/index.html" class="article-date">
+      <time datetime="2016-07-05T06:29:17.000Z" itemprop="datePublished">2016-07-05</time>
 </a>
 
 
@@ -289,7 +325,7 @@ Fast Range Image-Based Segmentation of Sparse 3D Laser Scans for Online Operatio
         
   
     <h1 class="article-title" itemprop="name">
-      Depth Clustering
+      2D SLAM Paper Lists
     </h1>
   
 
@@ -326,10 +362,110 @@ Fast Range Image-Based Segmentation of Sparse 3D Laser Scans for Online Operatio
 <!-- 匹配页面 -->
 
           
-        <blockquote>
-<p>Github: <a href="https://github.com/niosus/depth_clustering">niosus/depth_clustering</a></p>
+        <h3 id="System-Overview"><a href="#System-Overview" class="headerlink" title="System Overview"></a>System Overview</h3><h4 id="基于嵌入式系统的室内移动机器人定位与导航（中文版）"><a href="#基于嵌入式系统的室内移动机器人定位与导航（中文版）" class="headerlink" title="基于嵌入式系统的室内移动机器人定位与导航（中文版）"></a>基于嵌入式系统的室内移动机器人定位与导航（中文版）</h4><blockquote>
+<p>详细的博客介绍 <a href="http://www.guyuehome.com/275">ROS探索总结（十六）——HRMRP机器人的设计</a></p>
 </blockquote>
-<h3 id="Fast-Range-Image-Based-Segmentation-of-Sparse-3D-Laser-Scans-for-Online-Operation"><a href="#Fast-Range-Image-Based-Segmentation-of-Sparse-3D-Laser-Scans-for-Online-Operation" class="headerlink" title="Fast Range Image-Based Segmentation of Sparse 3D Laser Scans for Online Operation"></a>Fast Range Image-Based Segmentation of Sparse 3D Laser Scans for Online Operation</h3><h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><h3 id="Efficient-Online-Segmentation-for-Sparse-3D-Laser-Scans"><a href="#Efficient-Online-Segmentation-for-Sparse-3D-Laser-Scans" class="headerlink" title="Efficient Online Segmentation for Sparse 3D Laser Scans"></a>Efficient Online Segmentation for Sparse 3D Laser Scans</h3>
+<ul>
+<li>三个重点<ul>
+<li>地图精确建模：即时定位与地图构建</li>
+<li>机器人准确定位：蒙特卡罗定位算法</li>
+<li>路径实时规划：动态窗口逼近避障算法</li>
+</ul>
+</li>
+<li>HRMRP(Hybrid Real-time Mobile Robot Platform) 系统架构<center><img src="/img/papers/slam2d/HRMRP_Architecture.png" width="360px" alt=""/></center></li>
+<li>HRMRP 定位与导航框架<center><img src="/img/papers/slam2d/HRMRP_Framework.png" width="420px" alt=""/></center>
+
+</li>
+</ul>
+<h4 id="A-New-ROS-based-Hybrid-Architecture-for-Heterogeneous-Multi-Robot-Systems（英文版）"><a href="#A-New-ROS-based-Hybrid-Architecture-for-Heterogeneous-Multi-Robot-Systems（英文版）" class="headerlink" title="A New ROS-based Hybrid Architecture for Heterogeneous Multi-Robot Systems（英文版）"></a>A New ROS-based Hybrid Architecture for Heterogeneous Multi-Robot Systems（英文版）</h4><blockquote>
+<p>详细的博客介绍 <a href="http://www.guyuehome.com/277">ROS探索总结（十七）——构建完整的机器人应用系统</a></p>
+</blockquote>
+<center><img src="/img/papers/slam2d/HRMRP_Framework2.png" width="720px" alt=""/></center><br><center><img src="/img/papers/slam2d/HRMRP_Dataflow.png" width="720px" alt=""/></center>
+
+<h3 id="2D-SLAM-Overview"><a href="#2D-SLAM-Overview" class="headerlink" title="2D SLAM Overview"></a>2D SLAM Overview</h3><h4 id="An-Evaluation-of-2D-SLAM-Techniques-Available-in-Robot-Operating-System"><a href="#An-Evaluation-of-2D-SLAM-Techniques-Available-in-Robot-Operating-System" class="headerlink" title="An Evaluation of 2D SLAM Techniques Available in Robot Operating System"></a><a href="https://pdfs.semanticscholar.org/6b9c/afcf9aef5b4c0c338c44a581236d54caddbd.pdf">An Evaluation of 2D SLAM Techniques Available in Robot Operating System</a></h4><blockquote>
+<p>关于 ROS 上可用的几种 2D SLAM 方法的概述与评估</p>
+</blockquote>
+<ul>
+<li>II. RELATED WORK（SLAM核心思路演变）<ul>
+<li>Kalman filters (KF) , EKF-based solution to the nonlinear 2D SLAM problem</li>
+<li>Particle filters (PF)</li>
+<li>Graph-based SLAM algorithms</li>
+</ul>
+</li>
+<li>III. 2D SLAM ALGORITHMS<ul>
+<li>HectorSLAM<blockquote>
+<p>High update rate; low distance measurement noise; odometric information is not used<br>Scan matching: finds the rigid transformation that best fits the laser beams with the map</p>
+</blockquote>
+</li>
+<li>Gmapping<blockquote>
+<p>Taking into account not only the movement of the robotic platform, but also the most recent observations.</p>
+</blockquote>
+</li>
+<li>KartoSLAM</li>
+<li>CoreSLAM<blockquote>
+<p>CoreSLAM 5 is a ROS wrapper for the original 200-lines-of-code tinySLAM algorithm<br>Two different steps: distance calculation and update of the map.</p>
+</blockquote>
+</li>
+<li>LagoSLAM<blockquote>
+<p>The basis of graph-based SLAM algorithms is the minimization of a <strong>nonlinear non-convex cost function</strong>; The process is repeated until a local minimum of the cost function is reached<br>The optimization process requires no initial guess<br>The algorithm available in ROS has the possibility to choose between three different optimizers: Tree-based netwORk Optimizer (TORO), g2o and LAGO optimizer</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>IV. RESULTS &amp; DISCUSSION<ul>
+<li>Stage <strong>simulations</strong> were performed using two different maps: the MRL Arena and the 1r5map<center><img src="/img/papers/slam2d/2DSLAM_Evaluation1.png" width="480px" alt=""/><br><img src="/img/papers/slam2d/2DSLAM_Evaluation2.png" width="480px" alt=""/></center></li>
+<li>Real World Tests<center><img src="/img/papers/slam2d/2DSLAM_Evaluation3.png" width="480px" alt=""/><br><img src="/img/papers/slam2d/2DSLAM_Evaluation_performance.png" width="480px" alt=""/></center></li>
+<li>Discussion<ul>
+<li><strong>HectorSLAM</strong> relies only in scan matching and it does not make use of odometry</li>
+<li><strong>Gmapping</strong> combines both scan matching and odometry in order to minimize the number of particles</li>
+<li><strong>KartoSLAM</strong> and <strong>LagoSLAM</strong> are graph-based SLAM approaches</li>
+<li><strong>CoreSLAM</strong> uses a simple PF which requires more particles, but has a lower computation power; uses a very simple PF to match LFR readings with the map, which could lead to an erroneous position estimation.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="CoreSLAM-tinySLAM"><a href="#CoreSLAM-tinySLAM" class="headerlink" title="CoreSLAM/tinySLAM"></a><a href="http://wiki.ros.org/coreslam">CoreSLAM/tinySLAM</a></h3><h4 id="tinySLAM-a-SLAM-Algorithm-in-less-than-200-lines-C-Language-Program"><a href="#tinySLAM-a-SLAM-Algorithm-in-less-than-200-lines-C-Language-Program" class="headerlink" title="tinySLAM: a SLAM Algorithm in less than 200 lines C-Language Program"></a><a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=5707402">tinySLAM: a SLAM Algorithm in less than 200 lines C-Language Program</a></h4><ul>
+<li>III. PLATFORM DESCRIPTION<ul>
+<li>The laser sensor used is a Hokuyo URG-04LX</li>
+</ul>
+</li>
+<li>IV. METHODOLOGY<ul>
+<li>Operation A: <strong>The distance calculation</strong> is made between the result of a laser scan and the map<blockquote>
+<p>For each incoming scan, calculates the distance based on a very simple <font color="red">PF(Particle Filter 粒子滤波)</font> algorithm.<br>① The PF matches each scan from the <font color="red">LRF(Laser Range Finder)</font> with the map and each particle of the filter represents a possible pose and has an associated weight, which depends on the previous iterations. （粒子权重更新）<br>② After the selection of the best hypothesis（假设）, the particles with lower weight are eliminated and new particles are generated（粒子消亡与再生）</p>
+</blockquote>
+</li>
+<li>Operation B: <strong>The update of the map</strong> of the environment is performed using a modified Bresenham algorithm<blockquote>
+<p>The lines corresponding to the received scans are drawn in the map: drawing a single point when an obstacle; drawing an adjustable set of points surrounding the obstacle</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="GMapping"><a href="#GMapping" class="headerlink" title="GMapping"></a><a href="http://wiki.ros.org/gmapping">GMapping</a></h3><h4 id="Improved-Techniques-for-Grid-Mapping-with-Rao-Blackwellized-Particle-Filters"><a href="#Improved-Techniques-for-Grid-Mapping-with-Rao-Blackwellized-Particle-Filters" class="headerlink" title="Improved Techniques for Grid Mapping with Rao-Blackwellized Particle Filters"></a><a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4084563">Improved Techniques for Grid Mapping with Rao-Blackwellized Particle Filters</a></h4><blockquote>
+<p><a href="https://www.openslam.org/gmapping.html">GMapping</a>：基于某种Rao-Blackwellized粒子滤波的SLAM<br>Recently, <strong>Rao-Blackwellized particle filters (RBPF)</strong> have been introduced as an effective means to solve the simultaneous localization and mapping problem.<br>This approach uses a particle filter（粒子滤波） in which each particle carries an individual map of the environment.<br>Accordingly, a key question is how to reduce the number of particles（粒子更新与收敛）. In this paper, we present adaptive techniques for reducing this number in a RBPF for learning grid maps. We propose an approach to compute an accurate proposal distribution, taking into account not only the movement of the robot, but also the most recent observation. This drastically decreases the uncertainty about the robot’s pose in the prediction step of the filter.<br>Furthermore, we present an approach to selectively carry out resampling operations（粒子生成）, which seriously reduces the problem of particle depletion（粒子耗尽问题）.<br>Experimental results carried out with real mobile robots in large-scale indoor, as well as outdoor, environments illustrate the advantages of our methods over previous approaches.</p>
+</blockquote>
+<h4 id="Improving-Grid-based-SLAM-with-Rao-Blackwellized-Particle-Filters-by-Adaptive-Proposals-and-Selective-Resampling"><a href="#Improving-Grid-based-SLAM-with-Rao-Blackwellized-Particle-Filters-by-Adaptive-Proposals-and-Selective-Resampling" class="headerlink" title="Improving Grid-based SLAM with Rao-Blackwellized Particle Filters by Adaptive Proposals and Selective Resampling"></a><a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=1570477">Improving Grid-based SLAM with Rao-Blackwellized Particle Filters by Adaptive Proposals and Selective Resampling</a></h4><blockquote>
+<p>上一篇论文《Improved Techniques for Grid Mapping with Rao-Blackwellized Particle Filters》的浓缩版</p>
+</blockquote>
+<h3 id="Cartographer"><a href="#Cartographer" class="headerlink" title="Cartographer"></a><a href="http://wiki.ros.org/cartographer">Cartographer</a></h3><h4 id="Real-Time-Loop-Closure-in-2D-LIDAR-SLAM"><a href="#Real-Time-Loop-Closure-in-2D-LIDAR-SLAM" class="headerlink" title="Real-Time Loop Closure in 2D LIDAR SLAM"></a>Real-Time Loop Closure in 2D LIDAR SLAM</h4><blockquote>
+<p><a href="https://github.com/googlecartographer/cartographer">Github: googlecartographer/cartographer</a></p>
+</blockquote>
+<ul>
+<li>Abstract（本文主要贡献）<ul>
+<li>real-time mapping and loop closure at a 5cm resolution</li>
+<li>branch-and-bound approach for computing scan-to-submap matches</li>
+</ul>
+</li>
+<li>Introduction：手工标图 vs SLAM</li>
+<li>Related Work<ul>
+<li>scan-to-scan matching $\Longrightarrow$ relative pose changes 　　<font color="red">quickly accumulate error</font></li>
+<li>scan-to-map matching $\Longrightarrow$ limit error accumulation</li>
+<li>pixel-accurate scan matching</li>
+</ul>
+</li>
+</ul>
+
       
     </div>
     
@@ -340,6 +476,29 @@ Fast Range Image-Based Segmentation of Sparse 3D Laser Scans for Online Operatio
 
   
 </article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#System-Overview"><span class="toc-number">1.</span> <span class="toc-text">System Overview</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基于嵌入式系统的室内移动机器人定位与导航（中文版）"><span class="toc-number">1.1.</span> <span class="toc-text">基于嵌入式系统的室内移动机器人定位与导航（中文版）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#A-New-ROS-based-Hybrid-Architecture-for-Heterogeneous-Multi-Robot-Systems（英文版）"><span class="toc-number">1.2.</span> <span class="toc-text">A New ROS-based Hybrid Architecture for Heterogeneous Multi-Robot Systems（英文版）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2D-SLAM-Overview"><span class="toc-number">2.</span> <span class="toc-text">2D SLAM Overview</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#An-Evaluation-of-2D-SLAM-Techniques-Available-in-Robot-Operating-System"><span class="toc-number">2.1.</span> <span class="toc-text">An Evaluation of 2D SLAM Techniques Available in Robot Operating System</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CoreSLAM-tinySLAM"><span class="toc-number">3.</span> <span class="toc-text">CoreSLAM/tinySLAM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#tinySLAM-a-SLAM-Algorithm-in-less-than-200-lines-C-Language-Program"><span class="toc-number">3.1.</span> <span class="toc-text">tinySLAM: a SLAM Algorithm in less than 200 lines C-Language Program</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GMapping"><span class="toc-number">4.</span> <span class="toc-text">GMapping</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Improved-Techniques-for-Grid-Mapping-with-Rao-Blackwellized-Particle-Filters"><span class="toc-number">4.1.</span> <span class="toc-text">Improved Techniques for Grid Mapping with Rao-Blackwellized Particle Filters</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Improving-Grid-based-SLAM-with-Rao-Blackwellized-Particle-Filters-by-Adaptive-Proposals-and-Selective-Resampling"><span class="toc-number">4.2.</span> <span class="toc-text">Improving Grid-based SLAM with Rao-Blackwellized Particle Filters by Adaptive Proposals and Selective Resampling</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cartographer"><span class="toc-number">5.</span> <span class="toc-text">Cartographer</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Real-Time-Loop-Closure-in-2D-LIDAR-SLAM"><span class="toc-number">5.1.</span> <span class="toc-text">Real-Time Loop Closure in 2D LIDAR SLAM</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
 
 
 
@@ -361,7 +520,7 @@ Fast Range Image-Based Segmentation of Sparse 3D Laser Scans for Online Operatio
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Depth Clustering　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"2D SLAM Paper Lists　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -380,8 +539,8 @@ Fast Range Image-Based Segmentation of Sparse 3D Laser Scans for Online Operatio
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://durant35.github.io/papers/02_Depth Clustering.html';
-            this.page.identifier = 'papers/02_Depth Clustering.html';
+            this.page.url = 'http://durant35.github.io/papers/slam2d/index.html';
+            this.page.identifier = 'papers/slam2d/index.html';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');

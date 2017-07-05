@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/papers/slam2d/index.html</loc>
+    
+    <lastmod>2017-07-05T09:22:30.199Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/papers/index.html</loc>
+    
+    <lastmod>2017-07-05T04:54:13.109Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/papers/shcd/index.html</loc>
     
     <lastmod>2017-07-05T03:42:49.165Z</lastmod>
@@ -72,23 +86,9 @@
   </url>
   
   <url>
-    <loc>http://durant35.github.io/papers/index.html</loc>
-    
-    <lastmod>2017-06-13T09:00:13.272Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://durant35.github.io/papers/00_Detection,%20Classification%20and%20Tracking%20of%20Moving%20Objects%20in%20a%203D%20Environment.html</loc>
     
     <lastmod>2017-06-12T13:13:35.376Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/papers/02_Depth%20Clustering.html</loc>
-    
-    <lastmod>2017-06-11T02:41:04.420Z</lastmod>
     
   </url>
   
