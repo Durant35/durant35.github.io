@@ -270,20 +270,20 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-Algorithms_FFT" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-opencl_写两个星期OpenCL先-1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/04/Algorithms_FFT/" class="article-date">
-      <time datetime="2017-03-04T06:00:22.000Z" itemprop="datePublished">2017-03-04</time>
+      <a href="/2015/05/24/opencl_写两个星期OpenCL先-1/" class="article-date">
+      <time datetime="2015-05-24T13:05:27.000Z" itemprop="datePublished">2015-05-24</time>
 </a>
 
  
-    <a href="/2017/03/04/Algorithms_FFT/#comments" title="查看评论">
+    <a href="/2015/05/24/opencl_写两个星期OpenCL先-1/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/03/04/Algorithms_FFT/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/24/opencl_写两个星期OpenCL先-1/"></span>
         
     </a>
 
@@ -298,7 +298,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a>
+      <a class="article-title" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a>
     </h1>
   
 
@@ -308,12 +308,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　本文介绍 <strong>Divide and Conquer（分而治之）</strong> 的一种典型算法，<strong>FFT</strong>（快速傅里叶变换）。</p>
-<h3 id="DFT"><a href="#DFT" class="headerlink" title="DFT"></a>DFT</h3><p>DFT：$X[k] = \sum_{n=0}^{N-1} x[n] e^{-j \frac{2 \pi k}{N} n}, k = 0, 1, 2, …, N-1$</p>
-<ul>
-<li>for each k: <strong>N</strong> complex mults, <strong>N-1</strong> complex adds</li>
-<li>$e^{-j \frac{2 \pi k}{N} n}$ 预计算并保存在计算机中</li>
-<li>$O(N^2)$ computations for direct <strong>DFT</strong> $\Longrightarrow$ $O(N log_2 N)$ for <strong>FFT</strong>
+              <p>　　本文基于对有关资料的理解，同时通过代码测试验证，为大家讲述OpenCL入门时几个比较重要但又令人困惑的小知识点，包括：<br>　　1. <a href="#part1">NDRange如何设置(work-item&amp;work-group)?</a><br>　　2. <a href="#part2">如何获取kernel执行时间?</a><br>　　3. <a href="#part3">如何获取kernel编译信息?</a><br>
           
       
     </div>
@@ -322,18 +317,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/OpenCL/">OpenCL</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCL/">OpenCL</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/03/04/Algorithms_FFT/#more">more >></a>
+          <a href="/2015/05/24/opencl_写两个星期OpenCL先-1/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -355,20 +350,20 @@
 
 
   
-    <article id="post-ROS_ROS_Basics" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-programPearls_dumpbin指南" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/10/02/ROS_ROS_Basics/" class="article-date">
-      <time datetime="2016-10-02T13:18:03.000Z" itemprop="datePublished">2016-10-02</time>
+      <a href="/2016/09/16/programPearls_dumpbin指南/" class="article-date">
+      <time datetime="2016-09-16T05:23:16.000Z" itemprop="datePublished">2016-09-16</time>
 </a>
 
  
-    <a href="/2016/10/02/ROS_ROS_Basics/#comments" title="查看评论">
+    <a href="/2016/09/16/programPearls_dumpbin指南/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/10/02/ROS_ROS_Basics/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/16/programPearls_dumpbin指南/"></span>
         
     </a>
 
@@ -383,168 +378,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　ROS 基本概念以及经常使用的命令。</p>
-<h3 id="ROS-文件系统"><a href="#ROS-文件系统" class="headerlink" title="ROS 文件系统"></a>ROS 文件系统</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 获取软件包有关信息</span></div><div class="line">xxx@...$ rospack find [package-name]</div><div class="line"><span class="comment"># 查看环境变量(ROS_PACKAGE_PATH)</span></div><div class="line">xxx@...$ <span class="built_in">export</span> | grep ROS</div></pre></td></tr></table></figure>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/ROS/">ROS</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/10/02/ROS_ROS_Basics/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_Divide and Conquer" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/26/Algorithms_Divide and Conquer/" class="article-date">
-      <time datetime="2017-02-26T06:00:22.000Z" itemprop="datePublished">2017-02-26</time>
-</a>
-
- 
-    <a href="/2017/02/26/Algorithms_Divide and Conquer/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/02/26/Algorithms_Divide and Conquer/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本周的 part 是 <strong>Divide and Conquer（分而治之）</strong>。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/02/26/Algorithms_Divide and Conquer/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-cv_Digital-Image-Process(pg_2016)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/" class="article-date">
-      <time datetime="2017-02-04T09:53:31.000Z" itemprop="datePublished">2017-02-04</time>
-</a>
-
- 
-    <a href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/02/04/cv_Digital-Image-Process(pg_2016)/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a>
+      <a class="article-title" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a>
     </h1>
   
 
@@ -555,182 +389,14 @@
       
           
               <blockquote>
-<p>Books：<a href="http://durant35.github.io/pdf/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86(%E5%86%88%E8%90%A8%E9%9B%B7%E6%96%AF)%E4%B8%AD%E8%AF%91%E7%AC%AC%E4%B8%89%E7%89%88.pdf" alt="数字图像处理（冈萨雷斯）">数字图像处理（冈萨雷斯）</a><br>Codes：<a href="https://github.com/Durant35/Courses/tree/master/dip">https://github.com/Durant35/Courses/tree/master/dip</a></p>
-</blockquote>
-<h3 id="第2章-数字图像基础"><a href="#第2章-数字图像基础" class="headerlink" title="第2章 数字图像基础"></a>第2章 数字图像基础</h3><ul>
-<li>取样和量化</li>
-<li>空间和灰度分辨率<ul>
-<li>空间分辨率：空间分辨率是图像在单位面积内像素的个数，表示了图像的空间细节分辨能力</li>
-<li>灰度分辨率：灰度分辨率指的是在纯黑和纯白之间灰度级别的多少，指的是图像对灰度变化细节的分辨能力
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/CV/">CV</a><a class="article-category-link" href="/categories/CV/dip/">dip</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CV/">CV</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_Coding中的编码问题之系统学习" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/" class="article-date">
-      <time datetime="2016-02-22T04:11:03.000Z" itemprop="datePublished">2016-02-22</time>
-</a>
-
- 
-    <a href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/02/22/programPearls_Coding中的编码问题之系统学习/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a><br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/25/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%9B%9E%E9%A1%BE&amp;%E6%B7%B1%E5%85%A5/#more">《Coding中的编码问题之回顾&amp;深入》</a></font>
-
-<p>　　大家在看完<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a>后，估计对字符编码应该有一个总览性的理解了。本文借 <strong>开源中国</strong> 上<a href="http://my.oschina.net/goldenshaw/blog?disp=2&amp;p=1&amp;catalog=536953">《字符集编码系列》</a>系列博文为大家详细介绍字符编码的诸多细节，相信看完本文后，一定能一一解决你到目前积累的绝大多数疑问，让我们带着疑问现在就开始吧！<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/编码/">编码</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编码/">编码</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-TACourses_Summer-trainning-in-July,2016" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/" class="article-date">
-      <time datetime="2017-02-04T03:21:01.000Z" itemprop="datePublished">2017-02-04</time>
-</a>
-
- 
-    <a href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/02/04/TACourses_Summer-trainning-in-July,2016/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>摘自 <a href="https://rh-song.github.io/2016/07/18/Summer-training/#more">RiHui-Song’s Blog：Summer-training</a></p>
-</blockquote>
-<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>　本文主要记录SMIE最后一次初级实训学习的主要内容。包括了大概是三个阶段：</p>
+<p>近几个月的 <strong>Windows</strong> 高空作业让我发现，<strong>dumpbin</strong> 这个小工具往往能解决一些关键问题。目前发现并且使用过的这个小家伙的功能有:</p>
 <ul>
-<li>准备阶段：学习测量仪器，回顾C语言编程；</li>
-<li>熟悉阶段：在FPGA上运行HelloWorld，开发小应用，如跑马灯等，最后还了解了uc/os这样一个实时操作系统；</li>
-<li>开发阶段：使用PWM波以及H桥控制车轮，使用超声模块控制让小车感知外界状况，从而进行控制，最后可以使用PID控制理论优化小车的控制。
+<li>查看 DLL 动态链接库导入导出信息，解决动态链接库导出和可执行程序引用对接问题、程序缺失库问题</li>
+<li>查看可执行程序的依赖库信息，解决各种程序运行时报错</li>
+<li>查看程序、库位数信息，找到库引用位数不匹配等尴尬问题</li>
+</ul>
+</blockquote>
+<p>　下面就来快速学习一下，怎么把这个小家伙用起来。<br>
           
       
     </div>
@@ -739,326 +405,660 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-OverlappingSounds_Key Word Engineering" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/09/OverlappingSounds_Key Word Engineering/" class="article-date">
-      <time datetime="2016-10-09T00:14:45.000Z" itemprop="datePublished">2016-10-09</time>
-</a>
-
- 
-    <a href="/2016/10/09/OverlappingSounds_Key Word Engineering/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/10/09/OverlappingSounds_Key Word Engineering/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/09/OverlappingSounds_Key Word Engineering/">Key Word Engineering</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="A"><a href="#A" class="headerlink" title="A"></a>A</h3><blockquote>
-<p><strong>AI</strong>（Artificial Intelligence），人工智能<br><strong>ATM</strong>（asynchronous transfer mode），异步传输模式<br><strong>ARPA</strong>（Advanced Research Projects Agency），（美国国防部）高级研究计划署<br><strong>AR</strong>（augmented reality），增强实现<br><strong>ADSL</strong>（Asymmetrical Dingital Subscriber Loop），非对称数字用户环线
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Key-words/">Key-words</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/10/09/OverlappingSounds_Key Word Engineering/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-raspberry_using_an_external_wireless_card(CF-WU855P)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/" class="article-date">
-      <time datetime="2017-01-24T16:52:41.000Z" itemprop="datePublished">2017-01-25</time>
-</a>
-
- 
-    <a href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　树莓派3已经自带无线网卡，这是一种极大的便捷，真正将树莓派变成躲在一个角落里，安静地搞事情的计算机。然而对于树莓派B+或者树莓派2，除了少数免驱的外接无线网卡外（树莓派系统已经自带了驱动），大多数外接无线网卡还是需要经过配置才能使用的，下面就介绍使用过的一款无线网卡（<a href="http://en.comfast.com.cn/product/WirelessAdapter/item-155.html">ComFast-WU855P</a>）的驱动配置过程，该无线网卡采用 <strong>REALTEK8192</strong> 高阶芯片（从<a href="https://detail.tmall.com/item.htm?spm=a230r.1.14.1.JY6QbF&amp;id=37237024789&amp;cm_id=140105335569ed55e27b&amp;abbucket=6&amp;skuId=57539293852">淘宝</a>上了解到的，不知道对不对），这是一款常用的芯片，本文安装的驱动理论上对采用该芯片的无线网卡都是可用的。</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/RaspberryPi/">RaspberryPi</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-raspberry_enable-ssh-without-UI" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/01/25/raspberry_enable-ssh-without-UI/" class="article-date">
-      <time datetime="2017-01-24T16:48:58.000Z" itemprop="datePublished">2017-01-25</time>
-</a>
-
- 
-    <a href="/2017/01/25/raspberry_enable-ssh-without-UI/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/01/25/raspberry_enable-ssh-without-UI/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　可能是我写录的树莓派系统image有问题吧，小伙伴都说默认应该是打开22端口，支持ssh的；但是我做的几张SD卡的系统都是不打开的，我很纳闷，怀疑用的是假的镜像吧。前几次都发生在实验室，显示器，HDMI线应有尽有，启动系统，简单地通过界面在系统的 <strong>Preferences</strong> 中开启ssh端口即可。然而这一次，发生在家里（因为之前一直没空写个关于树莓派外置无线网卡驱动安装的教程，想着利用寒假回家弄一弄），家里哪有实验室那么好的环境，所以，甭想通过界面操作开启。</p>
-<p>　　那究竟能不能通过直接修改SD卡里面的image文件内容，不用UI的方式，开启ssh端口呢？通过下面的捣鼓发现，这是可行的。</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/RaspberryPi/">RaspberryPi</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2017/01/25/raspberry_enable-ssh-without-UI/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo-md源文件内容修改预览页面刷新无效" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/" class="article-date">
-      <time datetime="2017-02-02T12:42:12.000Z" itemprop="datePublished">2017-02-02</time>
-</a>
-
- 
-    <a href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/02/02/hexo-md源文件内容修改预览页面刷新无效/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　之前在 <strong>Window</strong> 下面通过 <strong>hexo s</strong> 启动本地服务器，通过浏览器预览，对md源文件的当前修改能够通过网页刷新出来。这段时间在 <strong>Linux</strong> 上部署，就一直出现刷新页面无效的情况，必须重新启动服务器才能刷新，有时甚至还需要通过 <strong>hexo g</strong> 重新解析源文件才能成功刷新。之前有段时间也以为是 <strong>Linux</strong> 对带有中文名称的md源文件支持不好的缘故，因为将那些不能成功刷新的源文件的文件名修改下，去掉所有的中文字符后，就可以刷新有效了。</p>
-<p>　　不过，今天尝试了这个方法，居然不行了，不知道是不是因为升级了 <strong>Hexo</strong> 的缘故，不过，却发现了更有效的解决方法，可以不用考虑源文件文件名的问题。</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/链接/">链接</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dumpbin/">dumpbin</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/#more">more >></a>
+          <a href="/2016/09/16/programPearls_dumpbin指南/#more">more >></a>
         </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-programPearls_Windows下的静态库和动态库" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/16/programPearls_Windows下的静态库和动态库/" class="article-date">
+      <time datetime="2015-10-16T12:29:02.000Z" itemprop="datePublished">2015-10-16</time>
+</a>
+
+ 
+    <a href="/2015/10/16/programPearls_Windows下的静态库和动态库/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/10/16/programPearls_Windows下的静态库和动态库/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/16/programPearls_Windows下的静态库和动态库/">Windows下的静态库和动态库</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　本文旨在指导大家如何创建和使用<strong>Windows下的DLL动态链接库</strong>以及通过<strong>DLL动态链接库导出导入</strong>这一过程介绍一些<strong>编译链接、动态加载</strong>的小知识。本章内容作为本学期项目开发的延伸扩展，目的是让大家对项目中使用的读写器接口函数库由来以及如何在项目中使用该函数库有更深入的理解。在这个过程，大家将会初步接触并了解：<br>　　　　<strong>+1.　</strong> <strong>Windows静态链接库和动态链接库</strong>的一些背景知识;<br>　　　　<strong>+2.　</strong> 如何创建和使用<strong>DLL动态链接库</strong>。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/链接/">链接</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DLL/">DLL</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/10/16/programPearls_Windows下的静态库和动态库/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-iotCourse_03_ADO连接MySQL数据库" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/" class="article-date">
+      <time datetime="2015-11-29T01:50:30.000Z" itemprop="datePublished">2015-11-29</time>
+</a>
+
+ 
+    <a href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/11/29/iotCourse_03_ADO连接MySQL数据库/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　本文旨在指导大家如何通过使用<strong>ADO数据库访问技术</strong>实现对<strong>MySQL数据库</strong>的访问和<strong>CURD</strong>等相关操作。在这个过程中，大家将会初步接触并了解：<br>　　　　<strong>+1.　</strong> 存在哪些<strong>数据库访问技术</strong>;<br>　　　　<strong>+2.　</strong> 什么是<strong>Windows COM编程</strong>;<br>　　　　<strong>+3.　</strong> 如何为<strong>MySQL数据库</strong>配置<strong>ODBC数据源</strong>;<br>　　　　<strong>+4.　</strong> <strong>ADO编程</strong>如何实现访问和操作<strong>MySQL数据库</strong>。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-iotCourse_02 Windows下的静态库和动态库" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/" class="article-date">
+      <time datetime="2015-10-16T12:29:02.000Z" itemprop="datePublished">2015-10-16</time>
+</a>
+
+ 
+    <a href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/10/16/iotCourse_02 Windows下的静态库和动态库/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　本文旨在指导大家如何创建和使用<strong>Windows下的DLL动态链接库</strong>以及通过<strong>DLL动态链接库导出导入</strong>这一过程介绍一些<strong>编译链接、动态加载</strong>的小知识。本章内容作为本学期项目开发的延伸扩展，目的是让大家对项目中使用的读写器接口函数库由来以及如何在项目中使用该函数库有更深入的理解。在这个过程，大家将会初步接触并了解：<br>　　　　<strong>+1.　</strong> <strong>Windows静态链接库和动态链接库</strong>的一些背景知识;<br>　　　　<strong>+2.　</strong> 如何创建和使用<strong>DLL动态链接库</strong>。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DLL/">DLL</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-iotCourse_01 MFC-TabControl控件实现选项卡功能" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/" class="article-date">
+      <time datetime="2015-09-28T08:15:27.000Z" itemprop="datePublished">2015-09-28</time>
+</a>
+
+ 
+    <a href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　本文旨在指导大家如何通过使用<strong>Tab Control控件</strong>实现选项卡功能,构建整个读写器上位机软件的主要框架。在这个过程，大家将会初步接触并了解：<br>　　　　<strong>+1.　</strong> 什么是<strong>基于对话框</strong>的MFC程序;<br>　　　　<strong>+2.　</strong> <strong>Tab Control控件</strong>如何使用;<br>　　　　<strong>+3.　</strong> Windows程序的<strong>消息处理机制</strong>。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-考勤系统-四-MFC-UI控件之ListCtrl" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/" class="article-date">
+      <time datetime="2015-05-11T07:52:40.000Z" itemprop="datePublished">2015-05-11</time>
+</a>
+
+ 
+    <a href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>To Be Done…<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-JSP考勤系统-一-站点框架介绍与入门" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/" class="article-date">
+      <time datetime="2015-05-15T15:40:35.000Z" itemprop="datePublished">2015-05-15</time>
+</a>
+
+ 
+    <a href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/15/JSP考勤系统-一-站点框架介绍与入门/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　本文只是本人对当前完成进度的一个总结，如有缺漏或误点，非常欢迎您通过下方评论指出。<strong>感谢开路人ansen，提供了很多参考信息。</strong>开发环境是MyEclipse8.0(Win8.1下)。<a href="http://yunpan.cn/cjDdh4HCCAI6Y">点击获取</a>安装包(<strong>内有MyEclipse8.0安装包及如何破解提示；同时有mysql-5.5.19-32位安装程序</strong>)，访问密码<code>a690</code>。<br>　　基于当前的考勤系统网站点的实现，跟大家介绍一下(1)大概的MVC设计模式，以及可以如何遵照这种模式搭建自己的考勤系统网站；此外，会介绍一下(2)站点下如何指定路径引用资源(包括最主要的jsp文件以及少部分的image和css文件)；通过(3)几种跳转方式的实现引入Get/Post请求方式的介绍；最后，通过(4)分析web.xml配置文件来介绍有关通过url来制定Servlet控制器进行处理的匹配问题。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSP/">JSP</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-考勤系统-三-MFC-UI控件之ComboBox" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/" class="article-date">
+      <time datetime="2015-05-11T07:42:37.000Z" itemprop="datePublished">2015-05-11</time>
+</a>
+
+ 
+    <a href="/2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>To Be Done…</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-考勤系统-一-搭建起项目需要的开发环境" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/06/考勤系统-一-搭建起项目需要的开发环境/" class="article-date">
+      <time datetime="2015-05-06T12:37:22.000Z" itemprop="datePublished">2015-05-06</time>
+</a>
+
+ 
+    <a href="/2015/05/06/考勤系统-一-搭建起项目需要的开发环境/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/06/考勤系统-一-搭建起项目需要的开发环境/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/06/考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <ul>
+<li>从这里获取配置需要的安装文件<a href="http://yunpan.cn/cjqxCLtCfLNvW">点击获取</a>访问密码 <strong>a89b</strong></li>
+<li>安装MySQL数据库（按照一般的软件安装进行安装）</li>
+<li>安装MySQL ODBC驱动并进行数据源的配置(参见共享中的pdf教程)</li>
+<li>安装VC6.0++进行开发(win7以上的请参考.txt文件)</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
+    </div>
+
       
       <div class="clearfix"></div>
     </div>
@@ -1081,7 +1081,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
   
 </div>

@@ -265,11 +265,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-Algorithms_Divide and Conquer" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_BasicMiscs" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/02/26/Algorithms_Divide and Conquer/" class="article-date">
-      <time datetime="2017-02-26T06:00:22.000Z" itemprop="datePublished">2017-02-26</time>
+      <a href="/2017/07/02/Algorithms_BasicMiscs/" class="article-date">
+      <time datetime="2017-07-02T07:26:22.000Z" itemprop="datePublished">2017-07-02</time>
 </a>
 
 
@@ -284,7 +284,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a>
+      <a class="article-title" href="/2017/07/02/Algorithms_BasicMiscs/">算法设计与分析[0021] Some Algorithms Basic Details Review（课程总结）</a>
     </h1>
   
 
@@ -294,7 +294,14 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　本周的 part 是 <strong>Divide and Conquer（分而治之）</strong>。<br>
+              <h4 id="如何对-vector-初始化"><a href="#如何对-vector-初始化" class="headerlink" title="如何对 vector 初始化"></a>如何对 <strong>vector</strong> 初始化</h4><ul>
+<li>大小为<code>size</code>的一维向量，二位向量</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;what-type&gt; var-name(what-size);</div><div class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;what-type&gt;&gt; var-name(rowSize, <span class="built_in">vector</span>&lt;what-type&gt;(colSize));</div></pre></td></tr></table></figure>
+<ul>
+<li>数组转 vector</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> rowSize = ?;</div><div class="line"><span class="keyword">int</span> colSize = ?;</div><div class="line">what-type A_[rowSize][colSize] = &#123;</div><div class="line">  &#123;element1, elment2, ..., element&#125;,</div><div class="line">  &#123;&#125;,</div><div class="line">  ...</div><div class="line">  &#123;&#125;</div><div class="line">&#125;;</div><div class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;what-type&gt;&gt; A(rowSize, <span class="built_in">vector</span>&lt;what-type&gt;(colSize));</div><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;rowSize; row++) &#123;</div><div class="line">  A[row].assign(A_[row], A_[row] + colSize);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
           
       
     </div>
@@ -314,7 +321,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/02/26/Algorithms_Divide and Conquer/#more">more >></a>
+          <a href="/2017/07/02/Algorithms_BasicMiscs/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -336,6 +343,303 @@
 
 
   
+    <article id="post-Algorithms_GreedyAlgorithms" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/26/Algorithms_GreedyAlgorithms/" class="article-date">
+      <time datetime="2017-06-26T06:00:22.000Z" itemprop="datePublished">2017-06-26</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/26/Algorithms_GreedyAlgorithms/">算法设计与分析[0019] Greedy Algorithms（贪心策略）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h4 id="何为贪心？"><a href="#何为贪心？" class="headerlink" title="何为贪心？"></a>何为贪心？</h4><ul>
+<li>贪心算法在解决问题的策略上目光短浅，只根据当前已有的信息就作出选择（下一步的选择总是在当前看来收敛最快和效果最明显的那一个），而且一旦做出了选择，不管将来有什么结果，这个选择策略都不会改变（以迭代的方式作出相继的贪心选择，每作一次贪心选择就将所求问题简化为规模更小的子问题）。</li>
+<li>贪心算法并不是从整体最优考虑，它所做出的选择只是在某种意义上的局部最优。</li>
+<li>贪心算法对于大部分的优化问题都能产生最优解（如单源最短路径问题，最小生成树等），但不能总获得整体最优解，通常可以获得近似最优解。</li>
+<li>贪心策略一旦经过证明成立后，它就是一种高效的算法。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/06/26/Algorithms_GreedyAlgorithms/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_UnionFindSet" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/01/Algorithms_UnionFindSet/" class="article-date">
+      <time datetime="2017-06-01T06:00:22.000Z" itemprop="datePublished">2017-06-01</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h4 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h4><ul>
+<li>并查集：并查集处理的是集合之间的关系，即 union，find。在这种数据类型中，N个不同元素被分成若干个组，每组是一个集合，这种集合叫做分离集合。并查集支持查找一个元素所属的集合和两个元素分别所属的集合的合并。注意：并查集只能进行合并操作，不能进行分割操作。</li>
+<li>并查集支持以下操作：<ul>
+<li><code>makeset(x)</code>：创建一个仅包含 x 的独立集合（分离集）；最初每个节点单独构成了一个分离集 ==&gt; 一组分离集</li>
+<li><code>find(x)</code>：不断重复地检验节点对，判断其是否属于同一个集合？</li>
+<li><code>union(x, y)</code>：每当增加了一条边，将与之相关的两个集合合并。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/06/01/Algorithms_UnionFindSet/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_LongestPalindromicSubsequence" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/" class="article-date">
+      <time datetime="2017-05-12T06:00:22.000Z" itemprop="datePublished">2017-05-12</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　所谓 <strong>回文（palindrome）</strong>，指的是正读和反读都是一样的。而 <strong>字符子串</strong> 和 <strong>字符子序列</strong> 的区别，在前面 <a href="http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a> 中也有提到过，字符字串指的是字符串中连续的n个字符，而字符子序列指的是字符串中不一定连续但先后顺序与原字符串一致的n个字符。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_LongestCommonSubsequence" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/03/Algorithms_LongestCommonSubsequence/" class="article-date">
+      <time datetime="2017-05-03T06:00:22.000Z" itemprop="datePublished">2017-05-03</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　子序列和子字符串的不同之处在于，子序列不需要是原序列上连续的字符。对于 <a href="http://www.lintcode.com/en/problem/longest-common-substring/">Longest Common Substring</a> 以及 <a href="http://www.lintcode.com/en/problem/longest-common-subsequence/"> Longest Common Subsequence</a> 这类题目，大多数需要用到 DP 的思想，其中，状态转移是关键。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/05/03/Algorithms_LongestCommonSubsequence/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/tags/leetcode/page/2/">2</a><a class="page-number" href="/tags/leetcode/page/3/">3</a><a class="extend next" rel="next" href="/tags/leetcode/page/2/">Next &raquo;</a>
+    </nav>
   
 </div>
       <footer id="footer">
