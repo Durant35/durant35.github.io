@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/2017/07/06/programPearls_inline&static&const&extern&volatile/</loc>
+    
+    <lastmod>2017-07-06T08:08:06.697Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2016/09/16/programPearls_dumpbin%E6%8C%87%E5%8D%97/</loc>
+    
+    <lastmod>2017-07-06T08:05:04.162Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2017/06/26/Algorithms_GreedyAlgorithms/</loc>
     
     <lastmod>2017-07-06T07:56:24.196Z</lastmod>
@@ -677,13 +691,6 @@
     <loc>http://durant35.github.io/2015/10/03/graduatedesign_02%20MFRC500-%E5%B0%84%E9%A2%91%E8%8A%AF%E7%89%87%E5%B0%84%E9%A2%91%E8%AF%BB%E5%86%99%E6%A8%A1%E5%9D%97%E5%AE%8C%E6%95%B4%E8%AE%BE%E8%AE%A1/</loc>
     
     <lastmod>2016-09-17T13:38:48.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2016/09/16/programPearls_dumpbin%E6%8C%87%E5%8D%97/</loc>
-    
-    <lastmod>2016-09-17T13:32:46.000Z</lastmod>
     
   </url>
   
