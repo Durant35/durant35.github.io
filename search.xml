@@ -3,19 +3,119 @@
   
     
     <entry>
+      <title><![CDATA[声明/定义/初始化/赋值]]></title>
+      <url>/2017/07/07/programPearls_declaration&amp;definition&initialization&assignment/</url>
+      <content type="html"><![CDATA[<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义（定义性声明）</span></div><div class="line"><span class="keyword">int</span> i;</div><div class="line"><span class="comment">// 声明（引用性声明）</span></div><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> j;</div><div class="line"><span class="comment">// 初始化</span></div><div class="line"><span class="keyword">int</span> k = <span class="number">7</span>;</div><div class="line"><span class="comment">// 默认初始化</span></div><div class="line"><span class="keyword">int</span> l;</div><div class="line"><span class="comment">// 赋值</span></div><div class="line">l = <span class="number">100</span>;</div></pre></td></tr></table></figure>
+<ul>
+<li>引用性<font color="red">声明</font>不分配存储空间，如：<code>extern int x;</code>只是告诉编译器变量<code>x</code>是整型，已经在其它地方定义了。</li>
+<li><font color="red">定义</font>是在内存中确定变量的位置、大小。</li>
+<li><font color="red">初始化</font>是定义变量的时候赋给变量的值，强调从无到有这一过程。</li>
+<li><font color="red">赋值</font>是初始化后用到该变量，赋给该变量新的值。<a id="more"></a>
+</li>
+</ul>
+<h4 id="定义-vs-声明"><a href="#定义-vs-声明" class="headerlink" title="定义 vs 声明"></a>定义 vs 声明</h4><ul>
+<li>变量的声明有两种情况<ul>
+<li>一种是需要建立存储空间的：<code>int a;</code></li>
+<li>另一种是不需要建立存储空间的：<code>extern int b;</code></li>
+<li>前者是<strong>定义性声明(defining declaration)</strong>，或者称为<strong>定义(definition)</strong>，而后者是<strong>引用性声明(referencing declaration)</strong>。从广义的角度讲，声明中包含着定义，但不是所有的声明都是定义，因此这里所说的声明和定义，都是狭义上的，声明特指不需要建立存储空间的引用性声明；定义则指需要建立存储空间的定义性声明。</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">// 声明</span></div><div class="line">  <span class="keyword">extern</span> <span class="keyword">int</span> a;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func2</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">// 声明</span></div><div class="line">  <span class="keyword">extern</span> <span class="keyword">int</span> a;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// 定义</span></div><div class="line"><span class="keyword">int</span> a;</div></pre></td></tr></table></figure>
+<ul>
+<li>外部变量（普通全局变量）的定义只能有一次，其位置肯定在函数之外；而同一个文件中对一个外部变量的声明可以有多次，既可以在函数之内（哪个函数要用到就在那个函数中声明），也可以在函数之外（在外部变量的定义点之前）。</li>
+</ul>
+</li>
+<li>函数的声明和定义则相对区分明显。</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 函数声明</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getStringLen</span><span class="params">()</span></span>;</div><div class="line"><span class="comment">// 函数定义（实现）</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getStringLen</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li><a href="http://boyishachang.blog.51cto.com/3485129/1285493">声明、定义、初始化、赋值的区别</a></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程珠玑 </category>
+            
+            <category> C/C++ </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> C/C++ </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[C/C++常见修饰符（inline&static&const&extern&volatile）]]></title>
       <url>/2017/07/06/programPearls_inline&amp;static&const&extern&volatile/</url>
-      <content type="html"><![CDATA[<blockquote>
-<p>近几个月的 <strong>Windows</strong> 高空作业让我发现，<strong>dumpbin</strong> 这个小工具往往能解决一些关键问题。目前发现并且使用过的这个小家伙的功能有:</p>
-<ul>
-<li>查看 DLL 动态链接库导入导出信息，解决动态链接库导出和可执行程序引用对接问题、程序缺失库问题</li>
-<li>查看可执行程序的依赖库信息，解决各种程序运行时报错</li>
-<li>查看程序、库位数信息，找到库引用位数不匹配等尴尬问题</li>
+      <content type="html"><![CDATA[<p>　本文是关于C/C++语言中常见的五个修饰符：<code>static</code>、<code>const</code>、<code>extern</code>、<code>inline</code>、<code>volatile</code>的含义和用法，在阅读本文前，建议先通过<a href="">《》</a>了解有关C/C++中定义、声明等概念以及变量声明和定义的区别。<br><a id="more"></a></p>
+<h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><ul>
+<li>关键字static有着不同不同寻常的历史。起初，在C中引入关键字<code>static</code>是为了表示退出一个块后仍然存在的局部变量；随后，<code>static</code>在C中有了第二种含义：用来表示不能被其它文件访问的全局变量和函数。为了避免引入新的关键字，所以仍使用static关键字来表示这第二种含义。</li>
+<li>静态全局变量，作用域仅限于变量被定义的文件中，其它文件中即使用<code>extern</code>声明也无法使用它；准确地说，作用域是从声明之处开始，到文件结尾处结束：在定义之处前面的那些代码行也不能使用它，想要使用就得在前面再加<code>extern</code>。</li>
+<li>修饰局部变量<ul>
+<li>一般情况下，局部变量是放在栈区的，并且局部变量的生命周期在该语句块执行结束时便结束了；如果用static进行修饰的话，该变量便存放在静态数据区，其生命周期一直持续到整个程序执行结束 $\Longrightarrow$ 生命周期及其存储空间发生了变化，但是其作用域并没有改变，其仍然是一个局部变量，作用域仅限于该语句块。</li>
+<li>在用static修饰局部变量后，该变量只在初次运行时进行初始化工作，且只进行一次。</li>
 </ul>
-</blockquote>
-<p>　下面就来快速学习一下，怎么把这个小家伙用起来。<br><a id="more"></a></p>
-<h2 id="配置-path"><a href="#配置-path" class="headerlink" title="配置 path"></a>配置 path</h2><p>　首先，<strong>DUMPBIN.EXE</strong> 程序可以在 <strong><your-VS>/VC/bin/</strong> 目录下找到(32位系统)，该路径下的 amd64 则用于64位系统，参考<a href="">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64…</a>；对于 <strong>VC++6.0</strong> 则可以在安装目录的 <strong>/Bin/</strong> 目录下(中文版则是<strong>/VC98/Bin/</strong>) 找到。为了在 <strong>cmd命令行</strong> 里面方便使用，我们将其所在的全局路径加入到环境变量 <strong>Path</strong> 中，如下图。<br>    <center><img src="/img/RFID/01-01.png" width="1024px"/></center></p>
-]]></content>
+</li>
+<li>static修饰函数和修饰全局变量<ul>
+<li>函数/全局变量只能用在它所在的编译单元</li>
+<li><strong>编译单元</strong>：当一个<code>.c</code>或<code>.cpp</code>文件在编译时，预处理器首先递归包含头文件，形成一个含有所有必要信息的单个源文件，这个源文件就是一个编译单元。这个编译单元会被编译成为一个同名的目标文件（<code>.o</code>或<code>.obj</code>），链接程序把不同编译单元中产生的符号联系起来，构成一个可执行程序。</li>
+</ul>
+</li>
+<li>static全局变量 vs 普通全局变量<ul>
+<li>全局变量本身就是静态存储方式，两者在存储方式上并无不同</li>
+<li>普通全局变量的作用域是整个源程序，当一个源程序由多个源文件组成时，普通（非静态的）全局变量在各个源文件中都是有效的；静态全局变量限制了其作用域，只在定义该变量的源文件内有效，在同一源程序的其它源文件中无效；由于静态全局变量的作用域局限于一个源文件内，只能为该源文件内的函数公用，因此可以避免在其它源文件中引起的错误。 <font color="blue">如果在不同源文件中出现了用static修饰的同名全局变量，那么这些变量互不干扰。</font></li>
+<li>把全局变量改变成静态变量后改变了变量的作用域，限制了变量的使用范围。</li>
+<li><font color="red">static全局变量只初始化一次，防止在其它文件单元中被引用？？？？</font></li>
+</ul>
+</li>
+<li>static局部变量 vs 普通局部变量<ul>
+<li>把局部变量改变为静态变量后改变了变量的存储方式，即改变了变量的生存期。</li>
+<li>static局部变量只被初始化一次，下一次访问依据上一次结果值。</li>
+</ul>
+</li>
+<li>static函数 vs 普通函数<ul>
+<li>只在当前源文件中使用的函数应该声明为内部函数（static函数），内部函数应该在当前源文件中声明和实现；对于可在当前源文件以外使用的函数，应该在一个头文件中声明，要使用这些函数的源文件（包括函数实现）要包含这个头文件</li>
+<li><font color="red">static函数在内存中只有一份，普通函数在每个被调动中维持一份拷贝？？？？</font>
+
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="const"><a href="#const" class="headerlink" title="const"></a>const</h4><h4 id="extern"><a href="#extern" class="headerlink" title="extern"></a>extern</h4><ul>
+<li>  <figure class="highlight cpp"><figcaption><span>file1.c</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 声明全局变量</span></div><div class="line"><span class="keyword">int</span> i, j;</div><div class="line"><span class="keyword">char</span> c;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li>  <figure class="highlight cpp"><figcaption><span>file2.c</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 外部变量声明</span></div><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> i, j;</div><div class="line"><span class="keyword">extern</span> <span class="keyword">char</span> c;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>对外部变量的声明和定义不是一回事。对外部变量的声明，只是声明该变量是在外部定义过的</li>
+</ul>
+</li>
+<li>在C语言中，修饰符<code>extern</code>用在变量或者函数的声明前，用来说明“此变量/函数是在别处定义的，要在此处<font color="red">引用</font>”<ul>
+<li><code>extern</code>置于变量或者函数前，标识变量或者函数的定义在别的文件中，提示编译器遇到此变量或函数时在其他模块（其他<code>.o</code>文件）中寻找其定义。</li>
+<li>为啥要用<code>extern</code>？因为用<code>extern</code>会加速程序的编译过程，这样能节省时间。</li>
+<li><code>extern</code>声明的位置对其作用域也有关系，例如在某个函数中的声明就只能在该函数中调用，在其它函数中不能调用。</li>
+<li>供其他文件调用的外部函数和变量在<code>.h</code>文件中通过<code>extern</code>修饰进行声明，<code>.c</code>/<code>.cpp</code>文件与普通实现一致；要调用该文件中的函数和变量，只需要把<code>.h</code>文件用<code>#include</code>包含进来即可。</li>
+</ul>
+</li>
+<li>在C++中<code>extern</code>还有另外一个作用：用于指示C或者C++函数的调用规范。<ul>
+<li>C++和C程序编译完成后在目标代码中命名规则不同，用此来解决名字匹配的问题。<ul>
+<li>C++语言在编译的时候为了解决函数的多态问题，会<font color="blue">将函数名和参数联合起来生成一个中间的函数名称（重命名）</font>，而C语言则不会，因此会造成链接时找不到对应函数的情况。</li>
+</ul>
+</li>
+<li><font color="red">在C++中调用C库函数，需要在C++程序中<code>extern &quot;C&quot;{...}</code>声明要引用的函数？？？？</font>，这是给链接器用的，告诉链接器在链接的时候用C函数规范来链接。</li>
+<li>在C++中导出C函数，用<code>extern &quot;C&quot;{...}</code>进行链接指定，告诉编译器，请保持我的函数名，不要进行任何重命名。</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</div><div class="line">  <span class="function"><span class="keyword">int</span> <span class="title">func1</span><span class="params">()</span></span>;</div><div class="line">  <span class="comment">// ....</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="inline"><a href="#inline" class="headerlink" title="inline"></a>inline</h4><h4 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h4>]]></content>
       
         <categories>
             
@@ -734,6 +834,37 @@
     </entry>
     
     <entry>
+      <title><![CDATA[DARPA[Boss]: Motion Planning in Urban Environments]]></title>
+      <url>/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</url>
+      <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
+<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
+<li>long range plans<ul>
+<li>on-road planning</li>
+<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
+</ul>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 自动驾驶 </category>
+            
+            <category> DARPA </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> DARPA </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[DARPA[Boss]: Boss and the Urban Challenge]]></title>
       <url>/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/</url>
       <content type="html"><![CDATA[<p>　Boss 自动驾驶软硬件概述。</p>
@@ -784,37 +915,6 @@
 </li>
 </ul>
 <h4 id="Motion-Planning"><a href="#Motion-Planning" class="headerlink" title="Motion Planning"></a>Motion Planning</h4>]]></content>
-      
-        <categories>
-            
-            <category> 自动驾驶 </category>
-            
-            <category> DARPA </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> DARPA </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[DARPA[Boss]: Motion Planning in Urban Environments]]></title>
-      <url>/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</url>
-      <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
-<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
-<li>long range plans<ul>
-<li>on-road planning</li>
-<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
-<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
-</ul>
-</li>
-</ul>
-]]></content>
       
         <categories>
             
@@ -4156,7 +4256,7 @@
 <li><a href="http://moxfive.xyz/2016/01/10/hexo-post-version-control/">关联 GitHub, 让 Hexo 支持查看文章更新历史</a></li>
 </ul>
 </blockquote>
-<p>　　默认主题每篇文章末尾都会有版权信息，相关代码在 <strong>…/yelee/layout/_partial/post/nav.ejs</strong>。<br>　　　a. 去除最末尾的许可协议说明<br>　　　b. 将文章作者信息与 <strong>.md</strong> 博文源文件关联<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"copyright"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">__</span>('<span class="attr">copyright_info.title</span>') %&gt;</span>:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&lt;%- url_for(post.path) %&gt;"</span>&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">post.title</span> %&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"> </div><div class="line">    <span class="comment">&lt;!-- modify author information</div><div class="line">    &lt;p&gt;&lt;span&gt;&lt;%= __('copyright_info.author') %&gt;:...</div><div class="line">    --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">__</span>('<span class="attr">copyright_info.author</span>') %&gt;</span>:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">%=post.author%</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"> </div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">__</span>('<span class="attr">copyright_info.date</span>') %&gt;</span>:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">post.date.format</span>("<span class="attr">YYYY-MM-DD</span>, <span class="attr">HH:mm:ss</span>") %&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">__</span>('<span class="attr">copyright_info.updated</span>') %&gt;</span>:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">post.updated.format</span>("<span class="attr">YYYY-MM-DD</span>, <span class="attr">HH:mm:ss</span>") %&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>...</div><div class="line">        <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"> <span class="keyword">var</span> clipboard = <span class="keyword">new</span> Clipboard(<span class="string">'.copy-path'</span>); </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"> </div><div class="line">    <span class="comment">&lt;!-- not to show license information</div><div class="line">    &lt;p&gt;</div><div class="line">        &lt;span&gt;...</div><div class="line">    &lt;/p&gt;</div><div class="line">    --&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>　　默认主题每篇文章末尾都会有版权信息，相关代码在 <strong>…/yelee/layout/_partial/post/nav.ejs</strong>。<br>　　　a. 去除最末尾的许可协议说明<br>　　　b. 将文章作者信息与 <strong>.md</strong> 博文源文件关联<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"copyright"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">__</span>('<span class="attr">copyright_info.title</span>') %&gt;</span>:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&lt;%- url_for(post.path) %&gt;"</span>&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">post.title</span> %&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"> </div><div class="line">    <span class="comment">&lt;!-- modify author information</div><div class="line">    &lt;p&gt;&lt;span&gt;&lt;%= __('copyright_info.author') %&gt;:...</div><div class="line">    --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">__</span>('<span class="attr">copyright_info.author</span>') %&gt;</span>:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">%=post.author%</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"> </div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">__</span>('<span class="attr">copyright_info.date</span>') %&gt;</span>:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">post.date.format</span>("<span class="attr">YYYY-MM-DD</span>, <span class="attr">HH:mm:ss</span>") %&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">__</span>('<span class="attr">copyright_info.updated</span>') %&gt;</span>:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">post.updated.format</span>("<span class="attr">YYYY-MM-DD</span>, <span class="attr">HH:mm:ss</span>") %&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>...</div><div class="line">        <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="actionscript"> <span class="keyword">var</span> clipboard = <span class="keyword">new</span> Clipboard(<span class="string">'.copy-path'</span>); </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"> </div><div class="line">    <span class="comment">&lt;!-- not to show license information</div><div class="line">    &lt;p&gt;</div><div class="line">        &lt;span&gt;...</div><div class="line">    &lt;/p&gt;</div><div class="line">    --&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
 <p>　　<strong>post.author</strong> 指代每篇 <strong>.md</strong> 文章开头的参数声明。<br><figure class="highlight md"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">title: hexo博客主题Yelee迁移笔记</div><div class="line">date: 2016-09-16 14:54:28</div><div class="line">categories: </div><div class="line"><span class="bullet">- </span>技术留档</div><div class="line"><span class="bullet">- </span>Hexo</div><div class="line">tags: Hexo</div><div class="line"><span class="section">author: &lt;author-name&gt;</div><div class="line">---</span></div></pre></td></tr></table></figure></p>
 <h2 id="分类-amp-标签"><a href="#分类-amp-标签" class="headerlink" title="分类&amp;标签"></a>分类&amp;标签</h2><blockquote>
 <p>References</p>
@@ -4167,7 +4267,7 @@
 <p>　效果: <a href="http://durant35.github.io/tags">http://durant35.github.io/tags</a><br>　　1. 使用 Hexo 命令新建一个名为 tags 的页面<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new page tags</div></pre></td></tr></table></figure></p>
 <p>　　2. 修改该页面 <strong><your-hexo-ws>/source/tags/index.md</strong><br><figure class="highlight md"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">title: 分类&amp;标签</div><div class="line"><span class="section">date: 2016-09-17 15:43:55</div><div class="line">---</span></div></pre></td></tr></table></figure></p>
 <p>　　3. 分类&amp;标签页面相关的代码有 <strong>…/yelee/layout/_partial/page.ejs</strong>，通过 <strong>partial()</strong> 函数引入 <strong>…/yelee/layout/_partial/tag-cloud-page.ejs</strong><br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line"><span class="comment">&lt;!-- 匹配页面 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span> (<span class="attr">page.path</span> === <span class="string">"tags/index.html"</span>)&#123; %&gt;</span></div><div class="line">    <span class="comment">&lt;!-- Tag Cloud Page --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">%-</span> <span class="attr">partial</span>('<span class="attr">tag-cloud-page</span>') %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></div></pre></td></tr></table></figure></p>
-<p>　　 <strong>tag-cloud-page.ejs</strong> 代码如下，主要改变是根据需求调整分类的层数。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">hr</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 显示分类 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%-</span> <span class="attr">list_categories</span>(&#123;<span class="attr">depth:</span> <span class="attr">0</span>&#125;) %&gt;</span></div><div class="line"> </div><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"count"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 显示标签 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"tags"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">%-</span> <span class="attr">tagcloud</span>(&#123;</div><div class="line">        <span class="attr">min_font:</span> <span class="attr">16</span>, </div><div class="line">        <span class="attr">max_font:</span> <span class="attr">35</span>, </div><div class="line">        <span class="attr">amount:</span> <span class="attr">999</span>, </div><div class="line">        <span class="attr">color:</span> <span class="attr">true</span>, </div><div class="line">        <span class="attr">start_color:</span> '<span class="attr">gray</span>', </div><div class="line">        <span class="attr">end_color:</span> '<span class="attr">black</span>',</div><div class="line">    &#125;) %&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></div><div class="line">    .category-list li&#123;</div><div class="line">        display: inline-block;</div><div class="line">        margin: 0 1em .5em 0;</div><div class="line">        padding: 4px;</div><div class="line">        border: 1px solid lightgray;</div><div class="line">        font-size: 1.2rem;</div><div class="line">    &#125;</div><div class="line">    .category-list a &#123; color: gray; &#125;</div><div class="line">    .category-list-item:hover a &#123;</div><div class="line">        color: gray;</div><div class="line">        text-decoration: none;</div><div class="line">    &#125;</div><div class="line">    .category-list-count &#123;</div><div class="line">        margin-left: 2px;</div><div class="line">        font-size: .9rem;</div><div class="line">    &#125;</div><div class="line">    .article-entry ul li:before&#123; display: none; &#125;</div><div class="line">    .article-inner &#123; text-align: center; &#125;</div><div class="line">    .tags &#123;</div><div class="line">        max-width: 42em;</div><div class="line">        margin: 2em auto;</div><div class="line">        margin-top: 0em;</div><div class="line">    &#125;</div><div class="line">    .tags a &#123;</div><div class="line">        margin-right: 1em;</div><div class="line">        line-height: 65px;</div><div class="line">        border-bottom: 1px solid gray;</div><div class="line">        white-space: nowrap;</div><div class="line">        transition: border-bottom .5s;</div><div class="line">    &#125;</div><div class="line">    .tags a:hover &#123;</div><div class="line">        border-bottom: 3px dotted gray;</div><div class="line">        text-decoration: none;</div><div class="line">    &#125;</div><div class="line">    #count &gt; span &#123;</div><div class="line">        margin: auto .2em;</div><div class="line">        font-weight: bold;</div><div class="line">    &#125;</div><div class="line"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- Count tags and categories --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"count"</span>&gt;</span></div><div class="line">    ...</div><div class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></div><div class="line">    $(<span class="string">'#count'</span>).appendTo(<span class="string">'.count'</span>);</div><div class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>　　 <strong>tag-cloud-page.ejs</strong> 代码如下，主要改变是根据需求调整分类的层数。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">hr</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 显示分类 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%-</span> <span class="attr">list_categories</span>(&#123;<span class="attr">depth:</span> <span class="attr">0</span>&#125;) %&gt;</span></div><div class="line"> </div><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"count"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 显示标签 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"tags"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">%-</span> <span class="attr">tagcloud</span>(&#123;</div><div class="line">        <span class="attr">min_font:</span> <span class="attr">16</span>, </div><div class="line">        <span class="attr">max_font:</span> <span class="attr">35</span>, </div><div class="line">        <span class="attr">amount:</span> <span class="attr">999</span>, </div><div class="line">        <span class="attr">color:</span> <span class="attr">true</span>, </div><div class="line">        <span class="attr">start_color:</span> '<span class="attr">gray</span>', </div><div class="line">        <span class="attr">end_color:</span> '<span class="attr">black</span>',</div><div class="line">    &#125;) %&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></div><div class="line">    <span class="selector-class">.category-list</span> <span class="selector-tag">li</span>&#123;</div><div class="line">        <span class="attribute">display</span>: inline-block;</div><div class="line">        <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">1em</span> .<span class="number">5em</span> <span class="number">0</span>;</div><div class="line">        <span class="attribute">padding</span>: <span class="number">4px</span>;</div><div class="line">        <span class="attribute">border</span>: <span class="number">1px</span> solid lightgray;</div><div class="line">        <span class="attribute">font-size</span>: <span class="number">1.2rem</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="selector-class">.category-list</span> <span class="selector-tag">a</span> &#123; <span class="attribute">color</span>: gray; &#125;</div><div class="line">    <span class="selector-class">.category-list-item</span><span class="selector-pseudo">:hover</span> <span class="selector-tag">a</span> &#123;</div><div class="line">        <span class="attribute">color</span>: gray;</div><div class="line">        <span class="attribute">text-decoration</span>: none;</div><div class="line">    &#125;</div><div class="line">    <span class="selector-class">.category-list-count</span> &#123;</div><div class="line">        <span class="attribute">margin-left</span>: <span class="number">2px</span>;</div><div class="line">        <span class="attribute">font-size</span>: .<span class="number">9rem</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="selector-class">.article-entry</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span><span class="selector-pseudo">:before</span>&#123; <span class="attribute">display</span>: none; &#125;</div><div class="line">    <span class="selector-class">.article-inner</span> &#123; <span class="attribute">text-align</span>: center; &#125;</div><div class="line">    <span class="selector-class">.tags</span> &#123;</div><div class="line">        <span class="attribute">max-width</span>: <span class="number">42em</span>;</div><div class="line">        <span class="attribute">margin</span>: <span class="number">2em</span> auto;</div><div class="line">        <span class="attribute">margin-top</span>: <span class="number">0em</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="selector-class">.tags</span> <span class="selector-tag">a</span> &#123;</div><div class="line">        <span class="attribute">margin-right</span>: <span class="number">1em</span>;</div><div class="line">        <span class="attribute">line-height</span>: <span class="number">65px</span>;</div><div class="line">        <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid gray;</div><div class="line">        <span class="attribute">white-space</span>: nowrap;</div><div class="line">        <span class="attribute">transition</span>: border-bottom .<span class="number">5s</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="selector-class">.tags</span> <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</div><div class="line">        <span class="attribute">border-bottom</span>: <span class="number">3px</span> dotted gray;</div><div class="line">        <span class="attribute">text-decoration</span>: none;</div><div class="line">    &#125;</div><div class="line">    <span class="selector-id">#count</span> &gt; <span class="selector-tag">span</span> &#123;</div><div class="line">        <span class="attribute">margin</span>: auto .<span class="number">2em</span>;</div><div class="line">        <span class="attribute">font-weight</span>: bold;</div><div class="line">    &#125;</div><div class="line"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- Count tags and categories --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"count"</span>&gt;</span></div><div class="line">    ...</div><div class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></div><div class="line">    $(<span class="string">'#count'</span>).appendTo(<span class="string">'.count'</span>);</div><div class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
 <p>　　<strong>list_categories()</strong> 和 <strong>tagcloud()</strong> 均为 <strong>hexo</strong> 的 API，可以参考这里 <a href="https://hexo.io/zh-cn/docs/helpers.html">API|hexo</a></p>
 ]]></content>
       

@@ -265,6 +265,82 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-programPearls_declaration&amp;definition&amp;initialization&amp;assignment" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/07/programPearls_declaration&definition&initialization&assignment/" class="article-date">
+      <time datetime="2017-07-07T06:02:16.000Z" itemprop="datePublished">2017-07-07</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/07/programPearls_declaration&definition&initialization&assignment/">声明/定义/初始化/赋值</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义（定义性声明）</span></div><div class="line"><span class="keyword">int</span> i;</div><div class="line"><span class="comment">// 声明（引用性声明）</span></div><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> j;</div><div class="line"><span class="comment">// 初始化</span></div><div class="line"><span class="keyword">int</span> k = <span class="number">7</span>;</div><div class="line"><span class="comment">// 默认初始化</span></div><div class="line"><span class="keyword">int</span> l;</div><div class="line"><span class="comment">// 赋值</span></div><div class="line">l = <span class="number">100</span>;</div></pre></td></tr></table></figure>
+<ul>
+<li>引用性<font color="red">声明</font>不分配存储空间，如：<code>extern int x;</code>只是告诉编译器变量<code>x</code>是整型，已经在其它地方定义了。</li>
+<li><font color="red">定义</font>是在内存中确定变量的位置、大小。</li>
+<li><font color="red">初始化</font>是定义变量的时候赋给变量的值，强调从无到有这一过程。</li>
+<li><font color="red">赋值</font>是初始化后用到该变量，赋给该变量新的值。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/C-C/">C/C++</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/">C/C++</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/07/07/programPearls_declaration&definition&initialization&assignment/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-programPearls_inline&amp;static&amp;const&amp;extern&amp;volatile" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -294,15 +370,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <blockquote>
-<p>近几个月的 <strong>Windows</strong> 高空作业让我发现，<strong>dumpbin</strong> 这个小工具往往能解决一些关键问题。目前发现并且使用过的这个小家伙的功能有:</p>
-<ul>
-<li>查看 DLL 动态链接库导入导出信息，解决动态链接库导出和可执行程序引用对接问题、程序缺失库问题</li>
-<li>查看可执行程序的依赖库信息，解决各种程序运行时报错</li>
-<li>查看程序、库位数信息，找到库引用位数不匹配等尴尬问题</li>
-</ul>
-</blockquote>
-<p>　下面就来快速学习一下，怎么把这个小家伙用起来。<br>
+              <p>　本文是关于C/C++语言中常见的五个修饰符：<code>static</code>、<code>const</code>、<code>extern</code>、<code>inline</code>、<code>volatile</code>的含义和用法，在阅读本文前，建议先通过<a href="">《》</a>了解有关C/C++中定义、声明等概念以及变量声明和定义的区别。<br>
           
       
     </div>

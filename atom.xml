@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-07-06T08:52:08.228Z</updated>
+  <updated>2017-07-07T06:36:05.935Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -16,35 +16,134 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>C/C++常见修饰符（inline&amp;static&amp;const&amp;extern&amp;volatile）</title>
-    <link href="http://durant35.github.io/2017/07/06/programPearls_inline&amp;static&amp;const&amp;extern&amp;volatile/"/>
-    <id>http://durant35.github.io/2017/07/06/programPearls_inline&amp;static&amp;const&amp;extern&amp;volatile/</id>
-    <published>2017-07-06T08:02:16.000Z</published>
-    <updated>2017-07-06T08:52:08.228Z</updated>
+    <title>声明/定义/初始化/赋值</title>
+    <link href="http://durant35.github.io/2017/07/07/programPearls_declaration&amp;definition&amp;initialization&amp;assignment/"/>
+    <id>http://durant35.github.io/2017/07/07/programPearls_declaration&amp;definition&amp;initialization&amp;assignment/</id>
+    <published>2017-07-07T06:02:16.000Z</published>
+    <updated>2017-07-07T06:36:05.935Z</updated>
     
-    <content type="html"><![CDATA[<blockquote>
-<p>近几个月的 <strong>Windows</strong> 高空作业让我发现，<strong>dumpbin</strong> 这个小工具往往能解决一些关键问题。目前发现并且使用过的这个小家伙的功能有:</p>
+    <content type="html"><![CDATA[<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义（定义性声明）</span></div><div class="line"><span class="keyword">int</span> i;</div><div class="line"><span class="comment">// 声明（引用性声明）</span></div><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> j;</div><div class="line"><span class="comment">// 初始化</span></div><div class="line"><span class="keyword">int</span> k = <span class="number">7</span>;</div><div class="line"><span class="comment">// 默认初始化</span></div><div class="line"><span class="keyword">int</span> l;</div><div class="line"><span class="comment">// 赋值</span></div><div class="line">l = <span class="number">100</span>;</div></pre></td></tr></table></figure>
 <ul>
-<li>查看 DLL 动态链接库导入导出信息，解决动态链接库导出和可执行程序引用对接问题、程序缺失库问题</li>
-<li>查看可执行程序的依赖库信息，解决各种程序运行时报错</li>
-<li>查看程序、库位数信息，找到库引用位数不匹配等尴尬问题</li>
+<li>引用性<font color="red">声明</font>不分配存储空间，如：<code>extern int x;</code>只是告诉编译器变量<code>x</code>是整型，已经在其它地方定义了。</li>
+<li><font color="red">定义</font>是在内存中确定变量的位置、大小。</li>
+<li><font color="red">初始化</font>是定义变量的时候赋给变量的值，强调从无到有这一过程。</li>
+<li><font color="red">赋值</font>是初始化后用到该变量，赋给该变量新的值。<a id="more"></a>
+</li>
 </ul>
-</blockquote>
-<p>　下面就来快速学习一下，怎么把这个小家伙用起来。<br><a id="more"></a></p>
-<h2 id="配置-path"><a href="#配置-path" class="headerlink" title="配置 path"></a>配置 path</h2><p>　首先，<strong>DUMPBIN.EXE</strong> 程序可以在 <strong><your-VS>/VC/bin/</strong> 目录下找到(32位系统)，该路径下的 amd64 则用于64位系统，参考<a href="">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64…</a>；对于 <strong>VC++6.0</strong> 则可以在安装目录的 <strong>/Bin/</strong> 目录下(中文版则是<strong>/VC98/Bin/</strong>) 找到。为了在 <strong>cmd命令行</strong> 里面方便使用，我们将其所在的全局路径加入到环境变量 <strong>Path</strong> 中，如下图。<br>    <center><img src="/img/RFID/01-01.png" width="1024px"/></center></p>
+<h4 id="定义-vs-声明"><a href="#定义-vs-声明" class="headerlink" title="定义 vs 声明"></a>定义 vs 声明</h4><ul>
+<li>变量的声明有两种情况<ul>
+<li>一种是需要建立存储空间的：<code>int a;</code></li>
+<li>另一种是不需要建立存储空间的：<code>extern int b;</code></li>
+<li>前者是<strong>定义性声明(defining declaration)</strong>，或者称为<strong>定义(definition)</strong>，而后者是<strong>引用性声明(referencing declaration)</strong>。从广义的角度讲，声明中包含着定义，但不是所有的声明都是定义，因此这里所说的声明和定义，都是狭义上的，声明特指不需要建立存储空间的引用性声明；定义则指需要建立存储空间的定义性声明。</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">// 声明</span></div><div class="line">  <span class="keyword">extern</span> <span class="keyword">int</span> a;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func2</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">// 声明</span></div><div class="line">  <span class="keyword">extern</span> <span class="keyword">int</span> a;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// 定义</span></div><div class="line"><span class="keyword">int</span> a;</div></pre></td></tr></table></figure>
+<ul>
+<li>外部变量（普通全局变量）的定义只能有一次，其位置肯定在函数之外；而同一个文件中对一个外部变量的声明可以有多次，既可以在函数之内（哪个函数要用到就在那个函数中声明），也可以在函数之外（在外部变量的定义点之前）。</li>
+</ul>
+</li>
+<li>函数的声明和定义则相对区分明显。</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 函数声明</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getStringLen</span><span class="params">()</span></span>;</div><div class="line"><span class="comment">// 函数定义（实现）</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getStringLen</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li><a href="http://boyishachang.blog.51cto.com/3485129/1285493">声明、定义、初始化、赋值的区别</a></li>
+</ul>
 ]]></content>
     
     <summary type="html">
     
-      &lt;blockquote&gt;
-&lt;p&gt;近几个月的 &lt;strong&gt;Windows&lt;/strong&gt; 高空作业让我发现，&lt;strong&gt;dumpbin&lt;/strong&gt; 这个小工具往往能解决一些关键问题。目前发现并且使用过的这个小家伙的功能有:&lt;/p&gt;
+      &lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 定义（定义性声明）&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; i;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 声明（引用性声明）&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;extern&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; j;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 初始化&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; k = &lt;span class=&quot;number&quot;&gt;7&lt;/span&gt;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 默认初始化&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; l;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 赋值&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;l = &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;ul&gt;
-&lt;li&gt;查看 DLL 动态链接库导入导出信息，解决动态链接库导出和可执行程序引用对接问题、程序缺失库问题&lt;/li&gt;
-&lt;li&gt;查看可执行程序的依赖库信息，解决各种程序运行时报错&lt;/li&gt;
-&lt;li&gt;查看程序、库位数信息，找到库引用位数不匹配等尴尬问题&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;　下面就来快速学习一下，怎么把这个小家伙用起来。&lt;br&gt;
+&lt;li&gt;引用性&lt;font color=&quot;red&quot;&gt;声明&lt;/font&gt;不分配存储空间，如：&lt;code&gt;extern int x;&lt;/code&gt;只是告诉编译器变量&lt;code&gt;x&lt;/code&gt;是整型，已经在其它地方定义了。&lt;/li&gt;
+&lt;li&gt;&lt;font color=&quot;red&quot;&gt;定义&lt;/font&gt;是在内存中确定变量的位置、大小。&lt;/li&gt;
+&lt;li&gt;&lt;font color=&quot;red&quot;&gt;初始化&lt;/font&gt;是定义变量的时候赋给变量的值，强调从无到有这一过程。&lt;/li&gt;
+&lt;li&gt;&lt;font color=&quot;red&quot;&gt;赋值&lt;/font&gt;是初始化后用到该变量，赋给该变量新的值。
+    
+    </summary>
+    
+      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    
+      <category term="C/C++" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/C-C/"/>
+    
+    
+      <category term="C/C++" scheme="http://durant35.github.io/tags/C-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C/C++常见修饰符（inline&amp;static&amp;const&amp;extern&amp;volatile）</title>
+    <link href="http://durant35.github.io/2017/07/06/programPearls_inline&amp;static&amp;const&amp;extern&amp;volatile/"/>
+    <id>http://durant35.github.io/2017/07/06/programPearls_inline&amp;static&amp;const&amp;extern&amp;volatile/</id>
+    <published>2017-07-06T08:02:16.000Z</published>
+    <updated>2017-07-07T07:07:50.350Z</updated>
+    
+    <content type="html"><![CDATA[<p>　本文是关于C/C++语言中常见的五个修饰符：<code>static</code>、<code>const</code>、<code>extern</code>、<code>inline</code>、<code>volatile</code>的含义和用法，在阅读本文前，建议先通过<a href="">《》</a>了解有关C/C++中定义、声明等概念以及变量声明和定义的区别。<br><a id="more"></a></p>
+<h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><ul>
+<li>关键字static有着不同不同寻常的历史。起初，在C中引入关键字<code>static</code>是为了表示退出一个块后仍然存在的局部变量；随后，<code>static</code>在C中有了第二种含义：用来表示不能被其它文件访问的全局变量和函数。为了避免引入新的关键字，所以仍使用static关键字来表示这第二种含义。</li>
+<li>静态全局变量，作用域仅限于变量被定义的文件中，其它文件中即使用<code>extern</code>声明也无法使用它；准确地说，作用域是从声明之处开始，到文件结尾处结束：在定义之处前面的那些代码行也不能使用它，想要使用就得在前面再加<code>extern</code>。</li>
+<li>修饰局部变量<ul>
+<li>一般情况下，局部变量是放在栈区的，并且局部变量的生命周期在该语句块执行结束时便结束了；如果用static进行修饰的话，该变量便存放在静态数据区，其生命周期一直持续到整个程序执行结束 $\Longrightarrow$ 生命周期及其存储空间发生了变化，但是其作用域并没有改变，其仍然是一个局部变量，作用域仅限于该语句块。</li>
+<li>在用static修饰局部变量后，该变量只在初次运行时进行初始化工作，且只进行一次。</li>
+</ul>
+</li>
+<li>static修饰函数和修饰全局变量<ul>
+<li>函数/全局变量只能用在它所在的编译单元</li>
+<li><strong>编译单元</strong>：当一个<code>.c</code>或<code>.cpp</code>文件在编译时，预处理器首先递归包含头文件，形成一个含有所有必要信息的单个源文件，这个源文件就是一个编译单元。这个编译单元会被编译成为一个同名的目标文件（<code>.o</code>或<code>.obj</code>），链接程序把不同编译单元中产生的符号联系起来，构成一个可执行程序。</li>
+</ul>
+</li>
+<li>static全局变量 vs 普通全局变量<ul>
+<li>全局变量本身就是静态存储方式，两者在存储方式上并无不同</li>
+<li>普通全局变量的作用域是整个源程序，当一个源程序由多个源文件组成时，普通（非静态的）全局变量在各个源文件中都是有效的；静态全局变量限制了其作用域，只在定义该变量的源文件内有效，在同一源程序的其它源文件中无效；由于静态全局变量的作用域局限于一个源文件内，只能为该源文件内的函数公用，因此可以避免在其它源文件中引起的错误。 <font color="blue">如果在不同源文件中出现了用static修饰的同名全局变量，那么这些变量互不干扰。</font></li>
+<li>把全局变量改变成静态变量后改变了变量的作用域，限制了变量的使用范围。</li>
+<li><font color="red">static全局变量只初始化一次，防止在其它文件单元中被引用？？？？</font></li>
+</ul>
+</li>
+<li>static局部变量 vs 普通局部变量<ul>
+<li>把局部变量改变为静态变量后改变了变量的存储方式，即改变了变量的生存期。</li>
+<li>static局部变量只被初始化一次，下一次访问依据上一次结果值。</li>
+</ul>
+</li>
+<li>static函数 vs 普通函数<ul>
+<li>只在当前源文件中使用的函数应该声明为内部函数（static函数），内部函数应该在当前源文件中声明和实现；对于可在当前源文件以外使用的函数，应该在一个头文件中声明，要使用这些函数的源文件（包括函数实现）要包含这个头文件</li>
+<li><font color="red">static函数在内存中只有一份，普通函数在每个被调动中维持一份拷贝？？？？</font>
+
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="const"><a href="#const" class="headerlink" title="const"></a>const</h4><h4 id="extern"><a href="#extern" class="headerlink" title="extern"></a>extern</h4><ul>
+<li>  <figure class="highlight cpp"><figcaption><span>file1.c</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 声明全局变量</span></div><div class="line"><span class="keyword">int</span> i, j;</div><div class="line"><span class="keyword">char</span> c;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li>  <figure class="highlight cpp"><figcaption><span>file2.c</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 外部变量声明</span></div><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> i, j;</div><div class="line"><span class="keyword">extern</span> <span class="keyword">char</span> c;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>对外部变量的声明和定义不是一回事。对外部变量的声明，只是声明该变量是在外部定义过的</li>
+</ul>
+</li>
+<li>在C语言中，修饰符<code>extern</code>用在变量或者函数的声明前，用来说明“此变量/函数是在别处定义的，要在此处<font color="red">引用</font>”<ul>
+<li><code>extern</code>置于变量或者函数前，标识变量或者函数的定义在别的文件中，提示编译器遇到此变量或函数时在其他模块（其他<code>.o</code>文件）中寻找其定义。</li>
+<li>为啥要用<code>extern</code>？因为用<code>extern</code>会加速程序的编译过程，这样能节省时间。</li>
+<li><code>extern</code>声明的位置对其作用域也有关系，例如在某个函数中的声明就只能在该函数中调用，在其它函数中不能调用。</li>
+<li>供其他文件调用的外部函数和变量在<code>.h</code>文件中通过<code>extern</code>修饰进行声明，<code>.c</code>/<code>.cpp</code>文件与普通实现一致；要调用该文件中的函数和变量，只需要把<code>.h</code>文件用<code>#include</code>包含进来即可。</li>
+</ul>
+</li>
+<li>在C++中<code>extern</code>还有另外一个作用：用于指示C或者C++函数的调用规范。<ul>
+<li>C++和C程序编译完成后在目标代码中命名规则不同，用此来解决名字匹配的问题。<ul>
+<li>C++语言在编译的时候为了解决函数的多态问题，会<font color="blue">将函数名和参数联合起来生成一个中间的函数名称（重命名）</font>，而C语言则不会，因此会造成链接时找不到对应函数的情况。</li>
+</ul>
+</li>
+<li><font color="red">在C++中调用C库函数，需要在C++程序中<code>extern &quot;C&quot;{...}</code>声明要引用的函数？？？？</font>，这是给链接器用的，告诉链接器在链接的时候用C函数规范来链接。</li>
+<li>在C++中导出C函数，用<code>extern &quot;C&quot;{...}</code>进行链接指定，告诉编译器，请保持我的函数名，不要进行任何重命名。</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</div><div class="line">  <span class="function"><span class="keyword">int</span> <span class="title">func1</span><span class="params">()</span></span>;</div><div class="line">  <span class="comment">// ....</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="inline"><a href="#inline" class="headerlink" title="inline"></a>inline</h4><h4 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h4>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;　本文是关于C/C++语言中常见的五个修饰符：&lt;code&gt;static&lt;/code&gt;、&lt;code&gt;const&lt;/code&gt;、&lt;code&gt;extern&lt;/code&gt;、&lt;code&gt;inline&lt;/code&gt;、&lt;code&gt;volatile&lt;/code&gt;的含义和用法，在阅读本文前，建议先通过&lt;a href=&quot;&quot;&gt;《》&lt;/a&gt;了解有关C/C++中定义、声明等概念以及变量声明和定义的区别。&lt;br&gt;
     
     </summary>
     
@@ -1914,78 +2013,6 @@
     <summary type="html">
     
       &lt;p&gt;　本文通过 &lt;strong&gt;&lt;a href=&quot;https://leetcode.com/problems/maximum-subarray/#/description&quot;&gt;53. Maximum Subarray&lt;/a&gt; &amp;amp; &lt;a href=&quot;https://leetcode.com/problems/maximum-product-subarray/#/description&quot;&gt;152. Maximum Product Subarray&lt;/a&gt;&lt;/strong&gt; 分析根据动态规划思路进行问题求解中的一个关键环节：子问题的拆分和求解。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
-    
-      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
-    
-    
-      <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
-    
-      <category term="leetcode" scheme="http://durant35.github.io/tags/leetcode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</title>
-    <link href="http://durant35.github.io/2017/04/13/Algorithms_Dynamic%20Programming(I)/"/>
-    <id>http://durant35.github.io/2017/04/13/Algorithms_Dynamic Programming(I)/</id>
-    <published>2017-04-13T06:00:22.000Z</published>
-    <updated>2017-07-06T08:44:27.931Z</updated>
-    
-    <content type="html"><![CDATA[<p>　本文通过 <strong>Unique Paths <a href="https://leetcode.com/problems/unique-paths/#/description">[I]</a> &amp; <a href="https://leetcode.com/problems/unique-paths-ii/#/description">[II]</a></strong> 两道题从普通的递归思路到动态规划两种方式的求解尝试，希望能够初步分析如何根据动态规划的思路，进行问题求解。<br><a id="more"></a></p>
-<h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><p><center><img src="/img/Algorithms/0008_robot_maze.png" width="380px"/></center></p>
-<ul>
-<li>两道题解决的问题相似，都是求解从格网图左上角（Start）→ 右下角（Finish）可行的路径总数，而且行走方向只有向下或者向右移动两种方式，只是在以下两个地方存在一些区别：<ul>
-<li><a href="https://leetcode.com/problems/unique-paths/#/description">Unique Paths [I]</a> 行走的格网图不设立障碍，而 <a href="https://leetcode.com/problems/unique-paths-ii/#/description">Unique Paths [[II]</a> 中行走的格网图存在障碍，在可行路径选取上需要考虑避开障碍物的问题。</li>
-<li>由于上面的区别，导致在输入上两道题有所不同：前者只需要输入格网图的大小（#row*#column）；后者则需要提供格网图的0-1矩阵（1表示网格存在障碍物）</li>
-</ul>
-</li>
-</ul>
-<h4 id="递归思想解答"><a href="#递归思想解答" class="headerlink" title="递归思想解答"></a>递归思想解答</h4><ul>
-<li>由于每一步的行走策略只有两种，不是向下走就是向右走，因此，假设当前这一步完成后到达右下角（#row，#column），那么只有（#row-1，#column）向下走和（#row，#column-1）向右走这两种方式，所以可行的路径总数显然就是从起点（1，1）到这两个中间点的可行路径总数之和。</li>
-<li>按照上述的思路，很容易通过递归的方式最终会退到起点（递归基），并通过递归函数返回得到总的可行路径数目。</li>
-<li>需要注意的一点是，由于每一步只有向右或者向下两种策略，所以，并不需要递归回起点（1，1），当回退到（1，？）或（？，1）时，从起点到当前中间点，有且只有一条路径（一直向右走或者一直想下走）。</li>
-<li><a href="https://leetcode.com/problems/unique-paths/#/description">Unique Paths [I]</a>  按照递归思路的解答如下：</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePaths</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="comment">// sanity check</span></div><div class="line">        <span class="keyword">if</span>(m&lt;<span class="number">1</span> || n&lt;<span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// when m==1 or n==1, only directly down or directly right</span></div><div class="line">        <span class="keyword">if</span>(m==<span class="number">1</span> || n==<span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">// left to right + up to down</span></div><div class="line">        <span class="keyword">return</span> uniquePaths(m, n<span class="number">-1</span>) + uniquePaths(m<span class="number">-1</span>, n);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<ul>
-<li><a href="https://leetcode.com/problems/unique-paths-ii/#/description">Unique Paths [[II]</a> 则需要进一步考虑当前步是否可行的问题，倘若存在障碍物，显然此路不通，不应计入可行路径的统计，<code>return 0</code>。</li>
-<li>另外，与 <a href="https://leetcode.com/problems/unique-paths/#/description">Unique Paths [I]</a> 不同，只有回退到起点，才能判断通过递归历经的网格所构成的路径是可行的。因为，只是回退到（1，？）或（？，1），一旦起点到该中间点的<code>向右直走路径</code>或<code>向下直走路径</code>中间出现任何一个障碍物，该路径都是不可行的。</li>
-<li>以下是递归解答，留意与前一道题目在输入上的区别。</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; obstacleGrid, <span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(obstacleGrid[m<span class="number">-1</span>][n<span class="number">-1</span>] == <span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// obstacleGrid[0][0] == 0</span></div><div class="line">        <span class="keyword">if</span>(m==<span class="number">1</span> &amp;&amp; n==<span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// left to right</span></div><div class="line">        <span class="keyword">if</span>(m==<span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> uniquePathsWithObstacles(obstacleGrid, m, n<span class="number">-1</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// up to down</span></div><div class="line">        <span class="keyword">if</span>(n==<span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> uniquePathsWithObstacles(obstacleGrid, m<span class="number">-1</span>, n);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// up to down + left to right</span></div><div class="line">        <span class="keyword">return</span> uniquePathsWithObstacles(obstacleGrid, m<span class="number">-1</span>, n) + uniquePathsWithObstacles(obstacleGrid, m, n<span class="number">-1</span>);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; obstacleGrid)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> rowSize = obstacleGrid.size();</div><div class="line">        <span class="keyword">int</span> colSize = obstacleGrid[<span class="number">0</span>].size();</div><div class="line">        </div><div class="line">        <span class="comment">// sanity check</span></div><div class="line">        <span class="keyword">if</span>((colSize &lt; <span class="number">1</span>) || (obstacleGrid[<span class="number">0</span>][<span class="number">0</span>] == <span class="number">1</span>) || (obstacleGrid[rowSize<span class="number">-1</span>][colSize<span class="number">-1</span>] == <span class="number">1</span>)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> uniquePathsWithObstacles(obstacleGrid, rowSize, colSize);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<ul>
-<li><font color="red">递归思路解答对上述问题并不可行</font><ul>
-<li>我们都知道，直接的递归实现，可读性强，但频繁的函数调用会造成一定的时间损耗，因此上述两题都存在 <code>Time Limit Exceeded</code> 的错误。</li>
-<li>另一个更为关键的问题是，上述简单的递归实现，每次递归的时候都对从起点到达当前中间网格的可行路径数进行了重复计算，这种重复计算的代价是巨大的，往往需要好几层回退；假如能够避免这种冗余，肯定会带来巨大的提升。</li>
-</ul>
-</li>
-</ul>
-<h4 id="动态规划思路解答"><a href="#动态规划思路解答" class="headerlink" title="动态规划思路解答"></a>动态规划思路解答</h4><ul>
-<li>动态规划思路就能很好解决上述的问题：回退的方式不好避免重复计算的问题（可能需要维护从起点到达每个网格可行路径总数的表，另外通过是否为<code>Inf</code>避免重复计算，为了让每次递归均能访问操作该表，需要将其置为全局变量），我们干脆换个方向，从起点出发，直到到达右下角；动态规划的过程就像是在填上述这样一个表。</li>
-<li>通过递归回退+维护从起点到达每个网格可行路径总数的表避免冗余计算的方式（记忆化搜索），因为只有在右下角到起点的可行路径上的网格才会被计算，能够避开其他不必要的网格；但是，函数的调用显然有一定损耗。</li>
-<li>动态规划这种填表的思路，会将所有网格对应的表项填满，但这种顺序进行的操作实现简易（通过一个数组，两三层循环即可实现），耗时也较少，因此在大多数问题（动态规划多余的计算数目并不算多）下较记忆化搜索有一定优势。</li>
-<li><a href="https://leetcode.com/problems/unique-paths-ii/#/description">Unique Paths [[II]</a> 的动态规划解答关键已经在递归思路中体现，即：从起点到当前网格的可行路径总数为到左方网格（向右移动到达当前网格）及上方网格（向下移动达到当前网格）可行路径总数之和。<ul>
-<li>需要注意的是，从起点到（1，？）或（？，1）的可行路径显然都只有一条（一直向右移动/一直向下移动）。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePaths</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="comment">// sanity check</span></div><div class="line">        <span class="keyword">if</span>(m&lt;<span class="number">1</span> || n&lt;<span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> paths[m][n];</div><div class="line">        <span class="comment">// paths(1, 1...n), left to right</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>; col&lt;n; col++) &#123;</div><div class="line">            paths[<span class="number">0</span>][col] = <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// paths(1...n, 1), up to down</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;m; row++) &#123;</div><div class="line">            paths[row][<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">1</span>; row&lt;m; row++) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">1</span>; col&lt;n; col++) &#123;</div><div class="line">                <span class="comment">// left to right + up to down</span></div><div class="line">                paths[row][col] = paths[row][col<span class="number">-1</span>] + paths[row<span class="number">-1</span>][col];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> paths[m<span class="number">-1</span>][n<span class="number">-1</span>];</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<ul>
-<li><a href="https://leetcode.com/problems/unique-paths-ii/#/description">Unique Paths [[II]</a> 思路基本一致，只是当当前网格存在障碍物，其到起点的可行路径显然不存在。<ul>
-<li>另外，对于从起点到（1，？）或（？，1）可行路径的分析与递归思路解答时一致。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; obstacleGrid)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> rowSize = obstacleGrid.size();</div><div class="line">        <span class="keyword">int</span> colSize = obstacleGrid[<span class="number">0</span>].size();</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>((rowSize &lt; <span class="number">1</span>) || (obstacleGrid[<span class="number">0</span>][<span class="number">0</span>] == <span class="number">1</span>) || (obstacleGrid[rowSize<span class="number">-1</span>][colSize<span class="number">-1</span>] == <span class="number">1</span>)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> paths[rowSize][colSize];</div><div class="line">        <span class="comment">// obstacleGrid[0][0] == 0 from above</span></div><div class="line">        paths[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">        </div><div class="line">        <span class="comment">// paths(1, 1...n)</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">1</span>; col&lt;colSize; col++) &#123;</div><div class="line">            paths[<span class="number">0</span>][col] = obstacleGrid[<span class="number">0</span>][col]==<span class="number">0</span> ? paths[<span class="number">0</span>][col<span class="number">-1</span>] : <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// paths(1...n, 1)</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">1</span>; row&lt;rowSize; row++) &#123;</div><div class="line">            paths[row][<span class="number">0</span>] = obstacleGrid[row][<span class="number">0</span>]==<span class="number">0</span> ? paths[row<span class="number">-1</span>][<span class="number">0</span>] : <span class="number">0</span>;;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">1</span>; row&lt;rowSize; row++) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">1</span>; col&lt;colSize; col++) &#123;</div><div class="line">                <span class="comment">// left to right + up to down</span></div><div class="line">                paths[row][col] = obstacleGrid[row][col]==<span class="number">0</span> ? (paths[row][col<span class="number">-1</span>] + paths[row<span class="number">-1</span>][col]) : <span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> paths[rowSize<span class="number">-1</span>][colSize<span class="number">-1</span>];</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;　本文通过 &lt;strong&gt;Unique Paths &lt;a href=&quot;https://leetcode.com/problems/unique-paths/#/description&quot;&gt;[I]&lt;/a&gt; &amp;amp; &lt;a href=&quot;https://leetcode.com/problems/unique-paths-ii/#/description&quot;&gt;[II]&lt;/a&gt;&lt;/strong&gt; 两道题从普通的递归思路到动态规划两种方式的求解尝试，希望能够初步分析如何根据动态规划的思路，进行问题求解。&lt;br&gt;
     
     </summary>
     

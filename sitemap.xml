@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://durant35.github.io/2017/07/06/Algorithms_R-B%20Tree/</loc>
+    <loc>http://durant35.github.io/2017/07/06/programPearls_inline&static&const&extern&volatile/</loc>
     
-    <lastmod>2017-07-06T08:55:04.594Z</lastmod>
+    <lastmod>2017-07-07T07:07:50.350Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2017/07/06/programPearls_inline&static&const&extern&volatile/</loc>
+    <loc>http://durant35.github.io/2017/07/07/programPearls_declaration&definition&initialization&assignment/</loc>
     
-    <lastmod>2017-07-06T08:52:08.228Z</lastmod>
+    <lastmod>2017-07-07T06:36:05.935Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/07/06/Algorithms_R-B%20Tree/</loc>
+    
+    <lastmod>2017-07-06T08:55:04.594Z</lastmod>
     
   </url>
   
