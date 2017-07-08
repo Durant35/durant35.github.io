@@ -54,25 +54,50 @@
     <entry>
       <title><![CDATA[C/C++常见修饰符（inline&static&const&extern&volatile）]]></title>
       <url>/2017/07/06/programPearls_inline&amp;static&const&extern&volatile/</url>
-      <content type="html"><![CDATA[<p>　本文是关于C/C++语言中常见的五个修饰符：<code>static</code>、<code>const</code>、<code>extern</code>、<code>inline</code>、<code>volatile</code>的含义和用法，在阅读本文前，建议先通过<a href="">《》</a>了解有关C/C++中定义、声明等概念以及变量声明和定义的区别。<br><a id="more"></a></p>
+      <content type="html"><![CDATA[<p>　本文是关于C/C++语言中常见的五个修饰符：<code>static</code>、<code>const</code>、<code>extern</code>、<code>inline</code>、<code>volatile</code>的含义和用法，在阅读本文前，建议先通过<a href="https://durant35.github.io/2017/07/07/programPearls_declaration&amp;definition&amp;initialization&amp;assignment/">《声明/定义/初始化/赋值》</a>了解有关C/C++中定义、声明等概念以及变量声明和定义的区别。<br><a id="more"></a></p>
 <h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><ul>
 <li>关键字static有着不同不同寻常的历史。起初，在C中引入关键字<code>static</code>是为了表示退出一个块后仍然存在的局部变量；随后，<code>static</code>在C中有了第二种含义：用来表示不能被其它文件访问的全局变量和函数。为了避免引入新的关键字，所以仍使用static关键字来表示这第二种含义。</li>
-<li>静态全局变量，作用域仅限于变量被定义的文件中，其它文件中即使用<code>extern</code>声明也无法使用它；准确地说，作用域是从声明之处开始，到文件结尾处结束：在定义之处前面的那些代码行也不能使用它，想要使用就得在前面再加<code>extern</code>。</li>
-<li>修饰局部变量<ul>
-<li>一般情况下，局部变量是放在栈区的，并且局部变量的生命周期在该语句块执行结束时便结束了；如果用static进行修饰的话，该变量便存放在静态数据区，其生命周期一直持续到整个程序执行结束 $\Longrightarrow$ 生命周期及其存储空间发生了变化，但是其作用域并没有改变，其仍然是一个局部变量，作用域仅限于该语句块。</li>
-<li>在用static修饰局部变量后，该变量只在初次运行时进行初始化工作，且只进行一次。</li>
+<li>static的三个作用<ul>
+<li>①控制存储方式（生命周期）：函数内部的<code>static</code>变量，即静态局部变量，因为是局部变量，已经是内部连接了。<ul>
+<li>控制存储方式 $\Longrightarrow$ 静态存储区：持久性+默认值为0。<ul>
+<li>①存储在静态数据区的变量会在程序刚开始运行时就完成初始化，也是唯一的一次初始化。</li>
+<li>②在静态数据区，内存中所有的字节默认值都是<code>0x00</code>（对于整型为0；对于字符数组为<code>&#39;\0&#39;</code>），某些时候这一特点可以减少程序员的工作量。</li>
 </ul>
 </li>
-<li>static修饰函数和修饰全局变量<ul>
+<li><code>static</code>修饰局部变量<ul>
+<li>一般情况下，局部变量是放在栈区的，并且局部变量的生命周期在该语句块执行结束时便结束了；如果用static进行修饰的话，该变量便存放在静态数据区，其生命周期一直持续到整个程序执行结束 $\Longrightarrow$ 生命周期及其存储空间发生了变化，但是其作用域并没有改变，其仍然是一个局部变量，作用域仅限于该语句块。</li>
+<li>在用<code>static</code>修饰局部变量后，该变量只在初次运行时进行初始化工作，且只进行一次。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>②控制可见性与连接类型（作用域）：<code>static</code>全局变量，因为是全局变量，已经是静态存储了。<ul>
+<li>控制可见性 $\Longrightarrow$ 隐藏<ul>
+<li>当我们同时编译多个文件时，所有未加<code>static</code>前缀的全局变量和函数都具有全局可见性（源程序中的其它文件也能访问）。</li>
+<li><code>static</code>修饰函数和修饰全局变量<ul>
 <li>函数/全局变量只能用在它所在的编译单元</li>
 <li><strong>编译单元</strong>：当一个<code>.c</code>或<code>.cpp</code>文件在编译时，预处理器首先递归包含头文件，形成一个含有所有必要信息的单个源文件，这个源文件就是一个编译单元。这个编译单元会被编译成为一个同名的目标文件（<code>.o</code>或<code>.obj</code>），链接程序把不同编译单元中产生的符号联系起来，构成一个可执行程序。</li>
 </ul>
 </li>
+</ul>
+</li>
+<li>利用这一特性可以在不同的文件中定义同名函数和同名变量，而不必担心命名冲突；对于函数来讲，<code>static</code>的作用仅限于隐藏。</li>
+<li>静态全局变量，作用域仅限于变量被定义的文件中，其它文件中即使用<code>extern</code>（下文会介绍）声明也无法使用它；准确地说，作用域是从声明之处开始，到文件结尾处结束：在定义之处前面的同一文件的那些代码行也不能使用它，想要使用就得在前面再加<code>extern</code>。</li>
+</ul>
+</li>
+<li>③C++类中的static成员<ul>
+<li>设计思路：将和某些类紧密相关的全局变量或函数写在类里面，使其看上去像一个整体，易于理解和维护。</li>
+<li>访问方式：可以想访问普通成员函数和变量一样通过对象访问，但常直接用<code>类名::???</code>的方式访问。</li>
+<li>静态成员变量：必须在类声明体外的某个地方（一般是实现文件<code>.cpp</code>）初始化。静态成员变量本质上是全局变量，在类的所有实例对象中共享一份。</li>
+<li>静态成员函数：本质上是全局函数，并不具体作用于某个对象，不需要对象也可以访问。静态成员函数中不能访问非静态成员变量，也不能调用非静态成员函数。</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>static全局变量 vs 普通全局变量<ul>
 <li>全局变量本身就是静态存储方式，两者在存储方式上并无不同</li>
-<li>普通全局变量的作用域是整个源程序，当一个源程序由多个源文件组成时，普通（非静态的）全局变量在各个源文件中都是有效的；静态全局变量限制了其作用域，只在定义该变量的源文件内有效，在同一源程序的其它源文件中无效；由于静态全局变量的作用域局限于一个源文件内，只能为该源文件内的函数公用，因此可以避免在其它源文件中引起的错误。 <font color="blue">如果在不同源文件中出现了用static修饰的同名全局变量，那么这些变量互不干扰。</font></li>
+<li>普通全局变量的作用域是整个源程序，当一个源程序由多个源文件组成时，普通（非静态的）全局变量在各个源文件中都是有效的；静态全局变量限制了其作用域，只在定义该变量的源文件内有效，在同一源程序的其它源文件中无效；由于静态全局变量的作用域局限于一个源文件内，只能为该源文件内的函数公用，因此可以避免在其它源文件中引起的错误。 <font color="blue">如果在不同源文件中出现了用<code>static</code>修饰的同名全局变量，那么这些变量互不干扰。</font></li>
 <li>把全局变量改变成静态变量后改变了变量的作用域，限制了变量的使用范围。</li>
-<li><font color="red">static全局变量只初始化一次，防止在其它文件单元中被引用？？？？</font></li>
 </ul>
 </li>
 <li>static局部变量 vs 普通局部变量<ul>
@@ -82,25 +107,82 @@
 </li>
 <li>static函数 vs 普通函数<ul>
 <li>只在当前源文件中使用的函数应该声明为内部函数（static函数），内部函数应该在当前源文件中声明和实现；对于可在当前源文件以外使用的函数，应该在一个头文件中声明，要使用这些函数的源文件（包括函数实现）要包含这个头文件</li>
-<li><font color="red">static函数在内存中只有一份，普通函数在每个被调动中维持一份拷贝？？？？</font>
-
-</li>
 </ul>
 </li>
 </ul>
-<h4 id="const"><a href="#const" class="headerlink" title="const"></a>const</h4><h4 id="extern"><a href="#extern" class="headerlink" title="extern"></a>extern</h4><ul>
+<h4 id="const"><a href="#const" class="headerlink" title="const"></a>const</h4><ul>
+<li>被<code>const</code>修饰的东西（变量/函数）都受到强制保护，程序中使用<code>const</code>可以预防意外的变动，在一定程度上提高程序的健壮性，但是程序中使用过多的<code>const</code>，可能加大代码的阅读难度。</li>
+<li><code>const</code>修饰普通变量<ul>
+<li>C的<code>#define</code>预处理指令，只是简单的值替代，缺乏类型的检测机制；C++引入<code>const</code>关键字：</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> datatype name=value;</div></pre></td></tr></table></figure>
+<ul>
+<li>不仅满足了使用预处理指令的要求：①不可变性；②避免意义模糊的数字出现，方便参数调整和修改，同时：③编译器不为普通<code>const</code>常量分配存储空间，而是将它们保存在符号表中 $\Longrightarrow$ 编译期间的常量，没有了内存存储等操作，效率更高。</li>
+<li>用<code>const</code>修饰的变量（用来修饰函数的形参除外）必须在声明时进行初始化；一旦一个变量被<code>const</code>修饰，在程序中除初始化外对这个变量进行的赋值都是错误的。</li>
+</ul>
+</li>
+<li><code>const</code>修饰指针：指针常量 vs 常量指针<ul>
+<li>指针本身也是一个变量，只不过这个变量存放的是地址而已。</li>
+<li>指针常量：是一个常量，这个常量本身是一个指针，即指针本身的值不可变，指针只能指向固定的存储单元 $\Longrightarrow$ 指针指向的变量的值（这个固定存储单元保存的值）是可以改变的。</li>
+<li>常量指针：是一个指针，这个指针指向的变量是一个常量，该变量的值不可变 $\Longrightarrow$ 指针本身的值是可以改变的，即指针可以指向其它存储单元。</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 指针常量</span></div><div class="line"><span class="keyword">int</span>* <span class="keyword">const</span> a;</div><div class="line"><span class="comment">// 常量指针</span></div><div class="line"><span class="keyword">int</span> <span class="keyword">const</span> *a;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span>* a;</div></pre></td></tr></table></figure>
+<ul>
+<li><code>const</code>是一个左结合的类型修饰符，它与其左侧的类型合为一个类型修饰符。</li>
+</ul>
+</li>
+<li><code>const</code>修饰函数的参数</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 常量指针：以防意外改动指针指向数据内容</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">stringCopy</span><span class="params">(<span class="keyword">char</span>* strDest, <span class="keyword">const</span> <span class="keyword">char</span>* strSrc)</span></span>;</div><div class="line"><span class="comment">// 指针常量：以防意外改动指针本身</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>* <span class="keyword">const</span> p1, <span class="keyword">int</span>* <span class="keyword">const</span> p2)</span></span>;</div><div class="line"><span class="comment">// 非内部数据类型的引用传递</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Func</span><span class="params">(<span class="keyword">const</span> MyClass&amp; a)</span></span>;</div></pre></td></tr></table></figure>
+<ul>
+<li>“值传递”函数将自动产生临时变量用于复制该参数，该输入参数无需保护；临时对象的构造、复制、析构都将消耗时间；内部数据类型不存在构造析构的过程，复制也非常快。</li>
+<li>“引用传递”仅借用一下参数的别名而已，不需要产生临时对象；“引用传递”有可能会改变参数，可以通过<code>const</code>限定。</li>
+</ul>
+</li>
+<li><code>const</code>修饰函数的返回值</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="title">getString</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line"><span class="comment">// 函数返回值采用值传递，加 const 没有任何意义</span></div><div class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">int</span> <span class="title">getWidth</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line"><span class="function"><span class="keyword">const</span> Myclass&amp; <span class="title">getObj</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div></pre></td></tr></table></figure>
+<ul>
+<li><code>const</code>限定类的成员函数</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> MyClass &#123;</div><div class="line">  <span class="function"><span class="keyword">int</span> <span class="title">getXXX</span><span class="params">()</span> <span class="keyword">const</span></span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li><code>const</code>只能放在函数声明的尾部，大概是因为其它地方被占用了。</li>
+<li>只读函数：函数不能改变类对象的状态（只能由常量对象（实例）调用）；不能修改类的数据成员，不能在函数中调用其它非<code>const</code>函数。</li>
+</ul>
+</li>
+<li>C和C++中的<code>const</code>有很大区别：在C语言中用<code>const</code>修饰的变量仍然是一个变量；而在C++中用<code>const</code>修饰后，就变成常量了。</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> n=<span class="number">5</span>;</div><div class="line"><span class="keyword">int</span> a[n];</div></pre></td></tr></table></figure>
+<ul>
+<li>这种方式在C语言中会报错，原因是声明数组时其长度必须为一个常量；但是在C++中就不会报错。</li>
+</ul>
+</li>
+</ul>
+<h4 id="extern"><a href="#extern" class="headerlink" title="extern"></a>extern</h4><ul>
+<li>在C语言中，修饰符<code>extern</code>用在变量或者函数的声明前，用来说明“此变量/函数是在别处定义的，要在此处<font color="red">引用</font>”<ul>
+<li><code>extern</code>置于变量或者函数前，标识变量或者函数的定义在别的文件中，提示编译器遇到此变量或函数时在其他模块（其他<code>.o</code>文件）中寻找其定义。</li>
+<li>关于<code>extern</code>的作用域<ul>
+<li>对外部变量的引用不只是取决于<code>extern</code>声明，还取决于外部变量本身是否能够被引用到，即变量的作用域：要求被引用的变量的链接属性必须是外链接的，通常是全局变量。<ul>
+<li><code>extern</code>声明的位置对其作用域也有关系，例如在某个函数中的声明就只能在该函数中调用，在其它函数中不能调用。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>为啥要用<code>extern</code>？因为用<code>extern</code>会加速程序的编译过程，这样能节省时间。<ul>
+<li>对其它模块中函数的引用，最常用的方法是<code>#include</code>这些函数声明的头文件，<code>extern</code>的引用方式要直截了当、简洁的多：想引用哪个函数就用<code>extern</code>声明哪个函数，这会加速程序编译，确切的说预处理过程，节省时间；在大型C程序编译过程中，这种加速会更加明显。</li>
+</ul>
+</li>
+<li>正确使用<code>extern</code>共享全局函数/全局变量<ul>
+<li>供其他文件调用的外部函数和变量在<code>.h</code>文件中通过<code>extern</code>修饰进行声明，在<code>.c</code>/<code>.cpp</code>文件的变量定义与函数实现与普通变量、普通函数一致；要调用该文件中的函数和变量，只需要把<code>.h</code>文件用<code>#include</code>包含进来即可。</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>  <figure class="highlight cpp"><figcaption><span>file1.c</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 声明全局变量</span></div><div class="line"><span class="keyword">int</span> i, j;</div><div class="line"><span class="keyword">char</span> c;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 <li>  <figure class="highlight cpp"><figcaption><span>file2.c</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 外部变量声明</span></div><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> i, j;</div><div class="line"><span class="keyword">extern</span> <span class="keyword">char</span> c;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
-<li>对外部变量的声明和定义不是一回事。对外部变量的声明，只是声明该变量是在外部定义过的</li>
-</ul>
-</li>
-<li>在C语言中，修饰符<code>extern</code>用在变量或者函数的声明前，用来说明“此变量/函数是在别处定义的，要在此处<font color="red">引用</font>”<ul>
-<li><code>extern</code>置于变量或者函数前，标识变量或者函数的定义在别的文件中，提示编译器遇到此变量或函数时在其他模块（其他<code>.o</code>文件）中寻找其定义。</li>
-<li>为啥要用<code>extern</code>？因为用<code>extern</code>会加速程序的编译过程，这样能节省时间。</li>
-<li><code>extern</code>声明的位置对其作用域也有关系，例如在某个函数中的声明就只能在该函数中调用，在其它函数中不能调用。</li>
-<li>供其他文件调用的外部函数和变量在<code>.h</code>文件中通过<code>extern</code>修饰进行声明，<code>.c</code>/<code>.cpp</code>文件与普通实现一致；要调用该文件中的函数和变量，只需要把<code>.h</code>文件用<code>#include</code>包含进来即可。</li>
+<li>对外部变量的声明和定义不是一回事。对外部变量的声明，只是声明该变量是在外部定义过的一个全局变量，在这里引用；而外部变量的定义，即对该全局变量的定义，则要分配存储空间；一个全局变量只能定义一次，却可以有多次外部引用。</li>
 </ul>
 </li>
 <li>在C++中<code>extern</code>还有另外一个作用：用于指示C或者C++函数的调用规范。<ul>
@@ -108,14 +190,95 @@
 <li>C++语言在编译的时候为了解决函数的多态问题，会<font color="blue">将函数名和参数联合起来生成一个中间的函数名称（重命名）</font>，而C语言则不会，因此会造成链接时找不到对应函数的情况。</li>
 </ul>
 </li>
-<li><font color="red">在C++中调用C库函数，需要在C++程序中<code>extern &quot;C&quot;{...}</code>声明要引用的函数？？？？</font>，这是给链接器用的，告诉链接器在链接的时候用C函数规范来链接。</li>
+<li><font color="red">在C++中调用C库函数，需要在C++程序中<code>extern &quot;C&quot;{...}</code>声明要引用的函数</font>，这是给链接器用的，告诉链接器在链接的时候用C函数规范来链接。</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><figcaption><span>main.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</div><div class="line">  <span class="function"><span class="keyword">int</span> <span class="title">func1</span><span class="params">()</span></span>;</div><div class="line">  <span class="comment">// 或者</span></div><div class="line">  <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"func1.h"</span></span></div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">  func1();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
 <li>在C++中导出C函数，用<code>extern &quot;C&quot;{...}</code>进行链接指定，告诉编译器，请保持我的函数名，不要进行任何重命名。</li>
 </ul>
 </li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</div><div class="line">  <span class="function"><span class="keyword">int</span> <span class="title">func1</span><span class="params">()</span></span>;</div><div class="line">  <span class="comment">// ....</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<li>  <figure class="highlight cpp"><figcaption><span>xxx.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</div><div class="line">  <span class="function"><span class="keyword">int</span> <span class="title">func1</span><span class="params">()</span></span>;</div><div class="line">  <span class="comment">// ....</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="inline"><a href="#inline" class="headerlink" title="inline"></a>inline</h4><h4 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h4>]]></content>
+<h4 id="inline"><a href="#inline" class="headerlink" title="inline"></a>inline</h4><ul>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> expression(x,y) (x+y)*(x-y)</span></div></pre></td></tr></table></figure>
+<ul>
+<li>A. 形式和使用上像一个函数，<font color="blue">使用预处理器实现，没有参数压栈等一系列操作 $\Longrightarrow$ 效率很高</font></li>
+<li>B. 使用（说调用不太准确）它时，只是做预处理器符号表中的简单替换 $\Longrightarrow$ 无严格类型检查，返回值也不能被强制转换为可转换的合适的类型。</li>
+<li>C. C++类及类的访问控制的存在，这种方式无法访问类的保护成员或私有成员。</li>
+</ul>
+</li>
+<li><code>inline</code>修饰全局函数，保留了上述方式的优点，又能有效避免相应的不足。<ul>
+<li><code>inline</code>内联函数代码被<font color="blue">放入符号表中，调用时直接进行替换（像宏一样展开）</font>，没有了调用的开销，效率也很高。<ul>
+<li><font color="red">栈空间</font>是指放置程序局部数据也就是函数内数据的内存空间，系统下的栈空间是有限的，假如频繁大量地使用（递归死循环调用）就会造成因栈空间不足所造成的程序出错。</li>
+<li>函数被调用，函数入栈，即函数栈，会消耗栈空间（栈内存）。</li>
+</ul>
+</li>
+<li>编译器像对待普通函数一样 $\Longrightarrow$ 参数类型检测…</li>
+<li><code>inline</code>成员函数 $\Longrightarrow$ 访问保护成员或私有成员</li>
+</ul>
+</li>
+<li><code>inline</code>内联函数函数体应简单<ul>
+<li><code>inline</code>函数足够简单：不能包含复杂的结构控制语句（while/switch），不能出现递归。</li>
+<li>原因：内联函数会在任何调用它的地方展开，如果太复杂，代码膨胀（程序总代码量增大，消耗更多的内存空间）$\Longrightarrow$ 效率反而得不偿失。</li>
+<li>内联函数常用在类的<code>set/get</code>函数。</li>
+</ul>
+</li>
+<li><code>inline</code>函数声明和定义（实现）放在头文件中最合适<ul>
+<li>省却每个文件实现一次的麻烦</li>
+<li>避免实现存在不一致的问题</li>
+</ul>
+</li>
+</ul>
+<h4 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h4><ul>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">volatile</span> <span class="keyword">int</span> i=<span class="number">10</span>;</div><div class="line"><span class="keyword">int</span> a=i;</div><div class="line"><span class="comment">// 其他代码，并未明确告诉编译器，对 i 进行过操作</span></div><div class="line">...</div><div class="line"><span class="keyword">int</span> b=i;</div></pre></td></tr></table></figure>
+<ul>
+<li><code>volatile</code>指出变量是随时可能发生变化的，每次使用该变量的时候都必须从其地址中读取，因此编译器生成的<code>int b=i;</code>的汇编代码会重新从变量 i 的地址读取数据放在变量 b 中；优化的做法（没有<code>volatile</code>）是：编译器发现两次从变量 i 读数据的代码间没有对 i 进行过操作，会自动把上次读的 i 的数据（一般的编译器可能会将其拷贝放在寄存器中以加快指令的执行速度）放在变量 b 中 $\Longrightarrow$ <code>volatile</code>可以保证对特殊地址的稳定访问。</li>
+</ul>
+</li>
+<li><code>volatile</code>与编译器优化<ul>
+<li>提高执行速度的两个方面<ul>
+<li>硬件级别的优化：由于内存访问速度远不及CPU处理速度，为提高机器整体性能，在硬件上引入高速缓存cache，加速对内存的访问；另外在现代CPU中指令的执行并不一定按照顺序执行（in-order），没有相关性的指令可以乱序执行（out-of-order），以充分利用CPU的指令流水线，提高执行速度</li>
+<li>软件级别的优化：一种是在编写代码时由程序员优化；另一种则是由编译器进行优化。编译器优化常用的方法有：<ul>
+<li>①将内存变量缓存到寄存器；</li>
+<li>②调整指令顺序以充分利用CPU指令流水线，常见的是重新排序读写指令（可能是<code>load</code>/<code>store</code>指令）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>volatile</code>总是与优化有关，编译器有一项技术叫做<strong>数据流分析</strong>，分析程序中的变量在哪里赋值？在哪里使用？在哪里失效，分析结果可以用于常量合并、常量传播等优化，进一步可以死代码消除。编译器对常规内存进行优化的时候，这些优化是透明的，而且效率很好；但有时候这些优化不是程序所需要的，这时可以用<code>volatile</code>禁止这些优化：<ul>
+<li>不要在两个操作之间把<code>volatile</code>变量缓存在寄存器中：在多任务、中断等环境下，变量可能被其他程序改变。</li>
+<li>不做常量合并、常量传播等优化。</li>
+<li>对<code>volatile</code>变量的读写不会被优化掉：如果你对一个变量赋值但后面没用到，编译器常常可以省略那个赋值操作，然而万一这个赋值是对 Memory Mapped的 IO 资源（比如LEDs）进行操作呢！</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>一般说来，<code>volatile</code>用在如下几个地方：<ul>
+<li>中断服务程序中修改的供其它程序检测的变量需要加<code>volatile</code>。</li>
+<li>多任务环境下各任务间共享的标志应该加<code>volatile</code>。</li>
+<li>存储器映射（Memory Mapped）的硬件寄存器通常也要加<code>volatile</code>说明，因为每次对它的读写都可能有不同的意义。</li>
+</ul>
+</li>
+<li>频繁地使用<code>volatile</code>很可能会增加代码尺寸和降低性能！</li>
+<li>一个参数可能既是<code>const</code>又是<code>volatile</code>，比如只读的状态寄存器。</li>
+</ul>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li><a href="http://blog.csdn.net/zqixiao_09/article/details/50877383">内联函数 —— C 中关键字 inline 用法解析</a></li>
+<li><a href="http://blog.csdn.net/lemonrabbit1987/article/details/48621149">C++类的const, static 和inline成员函数（变量）</a></li>
+<li><a href="http://www.cnblogs.com/stoneJin/archive/2011/09/21/2183313.html">C语言static作用（修饰函数、局部变量、全局变量）</a></li>
+<li><a href="http://c.biancheng.net/cpp/html/436.html">C语static关键字—言最名不符实的关键字</a></li>
+<li><a href="http://developer.51cto.com/art/201104/256820.htm">浅谈C/C++中的static和extern关键字</a></li>
+<li><a href="http://www.cnblogs.com/yc_sunniwell/archive/2010/07/14/1777431.html">C/C++中extern关键字详解</a></li>
+<li><a href="http://blog.csdn.net/zcywell/article/details/7416488">C语言中extern修饰符的用法</a></li>
+<li><a href="http://www.cnblogs.com/dolphin0520/archive/2011/04/18/2020248.html">浅谈C和C++中的const关键字</a></li>
+<li><a href="http://blog.xieyc.com/const-in-detail/">const 详解（修饰变量、输入参数、返回值、成员函数</a></li>
+<li><a href="http://www.cnblogs.com/yc_sunniwell/archive/2010/07/14/1777432.html">C/C++中volatile关键字详解</a></li>
+<li><a href="http://blog.csdn.net/tigerjibo/article/details/7427366">C语言中volatile关键字的作用</a></li>
+<li><a href="http://www.cnblogs.com/yc_sunniwell/archive/2010/06/24/1764231.html">详解C中volatile关键字</a></li>
+</ul>
+]]></content>
       
         <categories>
             
