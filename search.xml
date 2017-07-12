@@ -174,14 +174,16 @@
             
             <category> 编程珠玑 </category>
             
-            <category> C/C++ </category>
+            <category> Algorithm </category>
             
         </categories>
         
         
         <tags>
             
-            <tag> C/C++ </tag>
+            <tag> JPEG </tag>
+            
+            <tag> LZW </tag>
             
         </tags>
         
@@ -223,14 +225,16 @@
             
             <category> 编程珠玑 </category>
             
-            <category> C/C++ </category>
+            <category> Algorithm </category>
             
         </categories>
         
         
         <tags>
             
-            <tag> C/C++ </tag>
+            <tag> DES </tag>
+            
+            <tag> AES </tag>
             
         </tags>
         

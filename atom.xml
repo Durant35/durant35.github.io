@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-07-12T09:28:34.375Z</updated>
+  <updated>2017-07-12T09:35:02.215Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -16,11 +16,69 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>密码学：DES、3DES、AES</title>
+    <link href="http://durant35.github.io/2017/07/11/programPearls_DES&amp;3DES&amp;AES/"/>
+    <id>http://durant35.github.io/2017/07/11/programPearls_DES&amp;3DES&amp;AES/</id>
+    <published>2017-07-11T10:02:16.000Z</published>
+    <updated>2017-07-12T09:35:02.215Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义（定义性声明）</span></div><div class="line"><span class="keyword">int</span> i;</div><div class="line"><span class="comment">// 声明（引用性声明）</span></div><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> j;</div><div class="line"><span class="comment">// 初始化</span></div><div class="line"><span class="keyword">int</span> k = <span class="number">7</span>;</div><div class="line"><span class="comment">// 默认初始化</span></div><div class="line"><span class="keyword">int</span> l;</div><div class="line"><span class="comment">// 赋值</span></div><div class="line">l = <span class="number">100</span>;</div></pre></td></tr></table></figure>
+<ul>
+<li>引用性<font color="red">声明</font>不分配存储空间，如：<code>extern int x;</code>只是告诉编译器变量<code>x</code>是整型，已经在其它地方定义了。</li>
+<li><font color="red">定义</font>是在内存中确定变量的位置、大小。</li>
+<li><font color="red">初始化</font>是定义变量的时候赋给变量的值，强调从无到有这一过程。</li>
+<li><font color="red">赋值</font>是初始化后用到该变量，赋给该变量新的值。<a id="more"></a>
+</li>
+</ul>
+<h4 id="定义-vs-声明"><a href="#定义-vs-声明" class="headerlink" title="定义 vs 声明"></a>定义 vs 声明</h4><ul>
+<li>变量的声明有两种情况<ul>
+<li>一种是需要建立存储空间的：<code>int a;</code></li>
+<li>另一种是不需要建立存储空间的：<code>extern int b;</code></li>
+<li>前者是<strong>定义性声明(defining declaration)</strong>，或者称为<strong>定义(definition)</strong>，而后者是<strong>引用性声明(referencing declaration)</strong>。从广义的角度讲，声明中包含着定义，但不是所有的声明都是定义，因此这里所说的声明和定义，都是狭义上的，声明特指不需要建立存储空间的引用性声明；定义则指需要建立存储空间的定义性声明。</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">// 声明</span></div><div class="line">  <span class="keyword">extern</span> <span class="keyword">int</span> a;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func2</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">// 声明</span></div><div class="line">  <span class="keyword">extern</span> <span class="keyword">int</span> a;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// 定义</span></div><div class="line"><span class="keyword">int</span> a;</div></pre></td></tr></table></figure>
+<ul>
+<li>外部变量（普通全局变量）的定义只能有一次，其位置肯定在函数之外；而同一个文件中对一个外部变量的声明可以有多次，既可以在函数之内（哪个函数要用到就在那个函数中声明），也可以在函数之外（在外部变量的定义点之前）。</li>
+</ul>
+</li>
+<li>函数的声明和定义则相对区分明显。</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 函数声明</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getStringLen</span><span class="params">()</span></span>;</div><div class="line"><span class="comment">// 函数定义（实现）</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getStringLen</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li><a href="http://boyishachang.blog.51cto.com/3485129/1285493">声明、定义、初始化、赋值的区别</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 定义（定义性声明）&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; i;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 声明（引用性声明）&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;extern&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; j;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 初始化&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; k = &lt;span class=&quot;number&quot;&gt;7&lt;/span&gt;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 默认初始化&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; l;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 赋值&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;l = &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;引用性&lt;font color=&quot;red&quot;&gt;声明&lt;/font&gt;不分配存储空间，如：&lt;code&gt;extern int x;&lt;/code&gt;只是告诉编译器变量&lt;code&gt;x&lt;/code&gt;是整型，已经在其它地方定义了。&lt;/li&gt;
+&lt;li&gt;&lt;font color=&quot;red&quot;&gt;定义&lt;/font&gt;是在内存中确定变量的位置、大小。&lt;/li&gt;
+&lt;li&gt;&lt;font color=&quot;red&quot;&gt;初始化&lt;/font&gt;是定义变量的时候赋给变量的值，强调从无到有这一过程。&lt;/li&gt;
+&lt;li&gt;&lt;font color=&quot;red&quot;&gt;赋值&lt;/font&gt;是初始化后用到该变量，赋给该变量新的值。
+    
+    </summary>
+    
+      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
+    
+    
+      <category term="DES" scheme="http://durant35.github.io/tags/DES/"/>
+    
+      <category term="AES" scheme="http://durant35.github.io/tags/AES/"/>
+    
+  </entry>
+  
+  <entry>
     <title>JPEG编码&amp;算术编码、LZW编码</title>
     <link href="http://durant35.github.io/2017/07/11/programPearls_JPEG&amp;Arithmetic&amp;LZW/"/>
     <id>http://durant35.github.io/2017/07/11/programPearls_JPEG&amp;Arithmetic&amp;LZW/</id>
     <published>2017-07-11T10:02:16.000Z</published>
-    <updated>2017-07-12T09:28:34.375Z</updated>
+    <updated>2017-07-12T09:35:22.643Z</updated>
     
     <content type="html"><![CDATA[<p>　　本文介绍 JPEG 编解码过程（附简单的<code>cpp</code>实现）。JPEG 中常用到的熵编码是变长编码：Huffman 编码，本文也对算术编码（附<code>cpp</code>实现）、LZW 编码（附<code>py</code>实现）两种熵编码进行介绍。<a id="more"></a></p>
 <h4 id="JPEG-编解码过程"><a href="#JPEG-编解码过程" class="headerlink" title="JPEG 编解码过程"></a>JPEG 编解码过程</h4><ul>
@@ -195,66 +253,12 @@
     
       <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
     
-      <category term="C/C++" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/C-C/"/>
+      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
     
     
-      <category term="C/C++" scheme="http://durant35.github.io/tags/C-C/"/>
+      <category term="JPEG" scheme="http://durant35.github.io/tags/JPEG/"/>
     
-  </entry>
-  
-  <entry>
-    <title>密码学：DES、3DES、AES</title>
-    <link href="http://durant35.github.io/2017/07/11/programPearls_DES&amp;3DES&amp;AES/"/>
-    <id>http://durant35.github.io/2017/07/11/programPearls_DES&amp;3DES&amp;AES/</id>
-    <published>2017-07-11T10:02:16.000Z</published>
-    <updated>2017-07-12T01:09:42.750Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义（定义性声明）</span></div><div class="line"><span class="keyword">int</span> i;</div><div class="line"><span class="comment">// 声明（引用性声明）</span></div><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> j;</div><div class="line"><span class="comment">// 初始化</span></div><div class="line"><span class="keyword">int</span> k = <span class="number">7</span>;</div><div class="line"><span class="comment">// 默认初始化</span></div><div class="line"><span class="keyword">int</span> l;</div><div class="line"><span class="comment">// 赋值</span></div><div class="line">l = <span class="number">100</span>;</div></pre></td></tr></table></figure>
-<ul>
-<li>引用性<font color="red">声明</font>不分配存储空间，如：<code>extern int x;</code>只是告诉编译器变量<code>x</code>是整型，已经在其它地方定义了。</li>
-<li><font color="red">定义</font>是在内存中确定变量的位置、大小。</li>
-<li><font color="red">初始化</font>是定义变量的时候赋给变量的值，强调从无到有这一过程。</li>
-<li><font color="red">赋值</font>是初始化后用到该变量，赋给该变量新的值。<a id="more"></a>
-</li>
-</ul>
-<h4 id="定义-vs-声明"><a href="#定义-vs-声明" class="headerlink" title="定义 vs 声明"></a>定义 vs 声明</h4><ul>
-<li>变量的声明有两种情况<ul>
-<li>一种是需要建立存储空间的：<code>int a;</code></li>
-<li>另一种是不需要建立存储空间的：<code>extern int b;</code></li>
-<li>前者是<strong>定义性声明(defining declaration)</strong>，或者称为<strong>定义(definition)</strong>，而后者是<strong>引用性声明(referencing declaration)</strong>。从广义的角度讲，声明中包含着定义，但不是所有的声明都是定义，因此这里所说的声明和定义，都是狭义上的，声明特指不需要建立存储空间的引用性声明；定义则指需要建立存储空间的定义性声明。</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">// 声明</span></div><div class="line">  <span class="keyword">extern</span> <span class="keyword">int</span> a;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func2</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">// 声明</span></div><div class="line">  <span class="keyword">extern</span> <span class="keyword">int</span> a;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// 定义</span></div><div class="line"><span class="keyword">int</span> a;</div></pre></td></tr></table></figure>
-<ul>
-<li>外部变量（普通全局变量）的定义只能有一次，其位置肯定在函数之外；而同一个文件中对一个外部变量的声明可以有多次，既可以在函数之内（哪个函数要用到就在那个函数中声明），也可以在函数之外（在外部变量的定义点之前）。</li>
-</ul>
-</li>
-<li>函数的声明和定义则相对区分明显。</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 函数声明</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getStringLen</span><span class="params">()</span></span>;</div><div class="line"><span class="comment">// 函数定义（实现）</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getStringLen</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
-<li><a href="http://boyishachang.blog.51cto.com/3485129/1285493">声明、定义、初始化、赋值的区别</a></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 定义（定义性声明）&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; i;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 声明（引用性声明）&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;extern&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; j;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 初始化&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; k = &lt;span class=&quot;number&quot;&gt;7&lt;/span&gt;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 默认初始化&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; l;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 赋值&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;l = &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;ul&gt;
-&lt;li&gt;引用性&lt;font color=&quot;red&quot;&gt;声明&lt;/font&gt;不分配存储空间，如：&lt;code&gt;extern int x;&lt;/code&gt;只是告诉编译器变量&lt;code&gt;x&lt;/code&gt;是整型，已经在其它地方定义了。&lt;/li&gt;
-&lt;li&gt;&lt;font color=&quot;red&quot;&gt;定义&lt;/font&gt;是在内存中确定变量的位置、大小。&lt;/li&gt;
-&lt;li&gt;&lt;font color=&quot;red&quot;&gt;初始化&lt;/font&gt;是定义变量的时候赋给变量的值，强调从无到有这一过程。&lt;/li&gt;
-&lt;li&gt;&lt;font color=&quot;red&quot;&gt;赋值&lt;/font&gt;是初始化后用到该变量，赋给该变量新的值。
-    
-    </summary>
-    
-      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
-    
-      <category term="C/C++" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/C-C/"/>
-    
-    
-      <category term="C/C++" scheme="http://durant35.github.io/tags/C-C/"/>
+      <category term="LZW" scheme="http://durant35.github.io/tags/LZW/"/>
     
   </entry>
   
@@ -1596,43 +1600,6 @@
   </entry>
   
   <entry>
-    <title>DARPA[Boss]: Motion Planning in Urban Environments</title>
-    <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/"/>
-    <id>http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</id>
-    <published>2017-06-02T05:00:22.000Z</published>
-    <updated>2017-06-03T14:37:33.593Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
-<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
-<li>long range plans<ul>
-<li>on-road planning</li>
-<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
-<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
-</ul>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）&lt;/li&gt;
-&lt;li&gt;long range plans&lt;ul&gt;
-&lt;li&gt;on-road planning&lt;/li&gt;
-&lt;li&gt;unstructured planning: parking lots/anomalous on-road scenarios（异常路况）
-    
-    </summary>
-    
-      <category term="自动驾驶" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/"/>
-    
-      <category term="DARPA" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/DARPA/"/>
-    
-    
-      <category term="DARPA" scheme="http://durant35.github.io/tags/DARPA/"/>
-    
-  </entry>
-  
-  <entry>
     <title>DARPA[Boss]: Boss and the Urban Challenge</title>
     <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/"/>
     <id>http://durant35.github.io/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/</id>
@@ -1699,6 +1666,43 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Perception sub-system
+    
+    </summary>
+    
+      <category term="自动驾驶" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/"/>
+    
+      <category term="DARPA" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/DARPA/"/>
+    
+    
+      <category term="DARPA" scheme="http://durant35.github.io/tags/DARPA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DARPA[Boss]: Motion Planning in Urban Environments</title>
+    <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/"/>
+    <id>http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</id>
+    <published>2017-06-02T05:00:22.000Z</published>
+    <updated>2017-06-03T14:37:33.593Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
+<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
+<li>long range plans<ul>
+<li>on-road planning</li>
+<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
+</ul>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）&lt;/li&gt;
+&lt;li&gt;long range plans&lt;ul&gt;
+&lt;li&gt;on-road planning&lt;/li&gt;
+&lt;li&gt;unstructured planning: parking lots/anomalous on-road scenarios（异常路况）
     
     </summary>
     
