@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-07-12T09:35:02.215Z</updated>
+  <updated>2017-07-13T02:36:48.276Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -16,49 +16,38 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>密码学：DES、3DES、AES</title>
-    <link href="http://durant35.github.io/2017/07/11/programPearls_DES&amp;3DES&amp;AES/"/>
-    <id>http://durant35.github.io/2017/07/11/programPearls_DES&amp;3DES&amp;AES/</id>
-    <published>2017-07-11T10:02:16.000Z</published>
-    <updated>2017-07-12T09:35:02.215Z</updated>
+    <title>算法设计与分析[0023] 秋招华为在线笔试</title>
+    <link href="http://durant35.github.io/2017/07/13/Algorithms_OnlineJudge4Huawei2017/"/>
+    <id>http://durant35.github.io/2017/07/13/Algorithms_OnlineJudge4Huawei2017/</id>
+    <published>2017-07-13T00:55:22.000Z</published>
+    <updated>2017-07-13T02:36:48.276Z</updated>
     
-    <content type="html"><![CDATA[<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义（定义性声明）</span></div><div class="line"><span class="keyword">int</span> i;</div><div class="line"><span class="comment">// 声明（引用性声明）</span></div><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> j;</div><div class="line"><span class="comment">// 初始化</span></div><div class="line"><span class="keyword">int</span> k = <span class="number">7</span>;</div><div class="line"><span class="comment">// 默认初始化</span></div><div class="line"><span class="keyword">int</span> l;</div><div class="line"><span class="comment">// 赋值</span></div><div class="line">l = <span class="number">100</span>;</div></pre></td></tr></table></figure>
+    <content type="html"><![CDATA[<p>　昨晚华为在线笔试，三道编程题，结果倒在第二题上，刷了两题半，没能 AK。</p>
+<h4 id="第一题"><a href="#第一题" class="headerlink" title="第一题"></a>第一题</h4><p>　第一题是括号（“(”、“[”、“{”）匹配，想法也比较简单，就通过栈<code>stack</code>模拟，遇到开括号推入堆栈，每当遇到闭括号（“)”、“]”、“}”），就进行配对，满足配对就将栈顶的开括号弹出。假如最终的栈是空的，说明输入表达式不存在括号或者括号能够完全匹配。<br>　需要注意的是：①满足配对并不是<code>stack.top()==inputStr[currentIdx]</code>，而需要分上述三种括号进行一一配对；②当存在闭括号，但栈为空或者栈顶元素并不是配对的开括号，已经能够证明输入表达式括号不匹配了，此时可以跳出循环。<a id="more"></a></p>
+<h4 id="第二题"><a href="#第二题" class="headerlink" title="第二题"></a>第二题</h4><ul>
+<li>问题背景是打印机任务打印，给一个任务打印队列，不过是每个任务对应的优先级的一个优先级队列<code>int tasksPriority[MAX_TASK_NUM];</code>，每个任务通过其在优先级队列的下标唯一标识<code>0...tasksNum-1</code>；此外还有补充条件：任务的优先级只有 1~9 这九种，优先级数值越高优先级越大。要求：任务打印时，假如等待队列中有优先级更大的，该任务不能被打印，需要重新回到队列中（重新插入队尾），求通过下标标识的一个任务打印队列的最终打印顺序。</li>
+<li>一开始的想法是，用一位数组<code>tasksIdx[]</code>维护一个优先级和任务下标标识的对应关系，因为优先级只有 1~9，可以开一个大小为 10 的数组，与<code>tasksIdx[1...9]</code>对应；打印顺序即是优先级的一个由大到小排序，通过<code>sort(vector.begin(), vector.end(), greater&lt;int&gt;())</code>实现，需要先将<code>tasksPriority[]</code>通过<code>vector.assign(tasksPriority, tasksPriority+tasksNum)</code>转为 vector。排序后对应的优先级下标<code>tasksIdx[tasksPriority[0...tasksNum-1]]</code>顺序即为最终的打印顺序。</li>
+<li>可惜的是，第一种想法并没有考虑到一个优先级可能有多个重复任务。现在想想，这种应该维护一个<code>vector&lt;vector&lt;int&gt;&gt; tasksIdx(10, vector&lt;int&gt;())</code>的二维向量，按照优先级队列中的先后顺序插入在每个优先级下标对应的那个向量中。不过，就需要跳过降序排列的优先级队列中重复的优先级。</li>
+<li>另一种想法，因为优先级和任务下标的这种关系，想到用<code>pair&lt;int, int&gt;</code>保存（<code>first</code>记录优先级，<code>second</code>记录任务下标），又因为排序，所以想到了优先级队列<code>priority_queue</code>，以优先级<code>first</code>作为键值，可怕的是，<code>priority_queue</code>驾驭不了那种存在多个键值相同的情形，不能保证顺序的稳定：相同优先级的多个任务，其打印顺序与其在输入的优先级队列中的顺序一致。</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> cmp &#123;</div><div class="line">  <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span> <span class="params">(pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; a, pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; b)</span> </span>&#123;</div><div class="line">    <span class="comment">// fitst: tasksPriority[]</span></div><div class="line">    <span class="comment">// second: tasksIdx[]</span></div><div class="line">    <span class="keyword">return</span> a.first&gt;b.first;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">priority_queue&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, <span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &gt;, cmp&gt; tasksQueue;</div></pre></td></tr></table></figure>
+</li>
+</ul>
 <ul>
-<li>引用性<font color="red">声明</font>不分配存储空间，如：<code>extern int x;</code>只是告诉编译器变量<code>x</code>是整型，已经在其它地方定义了。</li>
-<li><font color="red">定义</font>是在内存中确定变量的位置、大小。</li>
-<li><font color="red">初始化</font>是定义变量的时候赋给变量的值，强调从无到有这一过程。</li>
-<li><font color="red">赋值</font>是初始化后用到该变量，赋给该变量新的值。<a id="more"></a>
-</li>
-</ul>
-<h4 id="定义-vs-声明"><a href="#定义-vs-声明" class="headerlink" title="定义 vs 声明"></a>定义 vs 声明</h4><ul>
-<li>变量的声明有两种情况<ul>
-<li>一种是需要建立存储空间的：<code>int a;</code></li>
-<li>另一种是不需要建立存储空间的：<code>extern int b;</code></li>
-<li>前者是<strong>定义性声明(defining declaration)</strong>，或者称为<strong>定义(definition)</strong>，而后者是<strong>引用性声明(referencing declaration)</strong>。从广义的角度讲，声明中包含着定义，但不是所有的声明都是定义，因此这里所说的声明和定义，都是狭义上的，声明特指不需要建立存储空间的引用性声明；定义则指需要建立存储空间的定义性声明。</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">// 声明</span></div><div class="line">  <span class="keyword">extern</span> <span class="keyword">int</span> a;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func2</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">// 声明</span></div><div class="line">  <span class="keyword">extern</span> <span class="keyword">int</span> a;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// 定义</span></div><div class="line"><span class="keyword">int</span> a;</div></pre></td></tr></table></figure>
+<li>最后，现在想想，似乎应该回到问题的本质：其实就是一种稳定排序吧。所以想到了 Bubble Sort；因为交换的存在，干脆将需要进行冒泡排序的打印任务优先级队列与对应的打印任务下标队列（新建这样一个队列）通过二者下标绑定，交换优先级队列位置的时候，也将下标队列对应位置进行交换。最终得到排好序的优先级队列满足打印要求，下标队列也能与之一一对应，下标队列即为最终的打印顺序。</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"> </div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"> </div><div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> MAX_TASK_NUM=<span class="number">100</span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOrder</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> input[], <span class="keyword">int</span> len, <span class="keyword">int</span> output[])</span> </span>&#123;</div><div class="line">  <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; input_(len);</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> idx=<span class="number">0</span>; idx&lt;len; idx++) &#123;</div><div class="line">    output[idx] = idx;</div><div class="line">    input_[idx] = input[idx];</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  <span class="keyword">bool</span> isSorted;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;len; i++) &#123;</div><div class="line">    isSorted = <span class="literal">true</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=len<span class="number">-1</span>; j&gt;i; j--) &#123;</div><div class="line">      <span class="keyword">if</span>(input_[j] &gt; input_[j<span class="number">-1</span>]) &#123;</div><div class="line">        isSorted = <span class="literal">false</span>;</div><div class="line">        <span class="keyword">int</span> tmpPriority = input_[j];</div><div class="line">        input_[j] = input_[j<span class="number">-1</span>];</div><div class="line">        input_[j<span class="number">-1</span>] = tmpPriority;</div><div class="line"> </div><div class="line">        <span class="keyword">int</span> tmpIdx = output[j];</div><div class="line">        output[j] = output[j<span class="number">-1</span>];</div><div class="line">        output[j<span class="number">-1</span>] = tmpIdx;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(isSorted) &#123;</div><div class="line">      <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="built_in">string</span> inputStr;</div><div class="line"> </div><div class="line">  <span class="keyword">while</span>(getline(<span class="built_in">cin</span>, inputStr)) &#123;</div><div class="line">    <span class="comment">// cout &lt;&lt; inputStr &lt;&lt; endl;</span></div><div class="line">    <span class="keyword">int</span> strLen = inputStr.length();</div><div class="line">    <span class="keyword">int</span> taskNum = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> tasks[MAX_TASK_NUM];</div><div class="line">    <span class="keyword">int</span> printTasks[MAX_TASK_NUM];</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;strLen; i++) &#123;</div><div class="line">      <span class="comment">// cout &lt;&lt; inputStr[i] &lt;&lt; endl;</span></div><div class="line">      <span class="keyword">if</span>(inputStr[i]&gt;<span class="string">'0'</span> &amp;&amp; inputStr[i]&lt;=<span class="string">'9'</span>) &#123;</div><div class="line">        tasks[taskNum++] = inputStr[i] - <span class="string">'0'</span>;</div><div class="line">        <span class="comment">// cout &lt;&lt; inputStr[i] - '0' &lt;&lt; endl;</span></div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">if</span>(taskNum&gt;=<span class="number">1</span>) &#123;</div><div class="line">      printOrder(tasks, taskNum, printTasks);</div><div class="line">      <span class="built_in">cout</span> &lt;&lt; printTasks[<span class="number">0</span>];</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;taskNum; i++) &#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">", "</span> &lt;&lt; printTasks[i];</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
-<li>外部变量（普通全局变量）的定义只能有一次，其位置肯定在函数之外；而同一个文件中对一个外部变量的声明可以有多次，既可以在函数之内（哪个函数要用到就在那个函数中声明），也可以在函数之外（在外部变量的定义点之前）。</li>
+<li>需要注意的是：①冒泡排序原理的正确实现，只有只比较相邻的元素，才能保证排序的稳定性；②输入输出格式的要求，输入格式“1, 1, 1, 1, 1”，除了上面这种获取方式，也可以通过<code>cin &gt;&gt; int &gt;&gt; char</code>获取，不过还得注意<code>cin</code>的空格自动结束，可能还是比上面的方式麻烦；输出格式的满足还是比较简单的。</li>
 </ul>
 </li>
-<li>函数的声明和定义则相对区分明显。</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 函数声明</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getStringLen</span><span class="params">()</span></span>;</div><div class="line"><span class="comment">// 函数定义（实现）</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getStringLen</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
 </ul>
-<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
-<li><a href="http://boyishachang.blog.51cto.com/3485129/1285493">声明、定义、初始化、赋值的区别</a></li>
-</ul>
+<h4 id="第三题"><a href="#第三题" class="headerlink" title="第三题"></a>第三题</h4><p>　第三题是输入平安果矩阵，即一个 row×col 的二维矩阵<code>appleGrids</code>，只不过矩阵的每个元素<code>appleGrids[rowIdx][colIdx]</code>表示当前格子中平安果数目；要求只能在二维网格中向下或者向右移动，求从网格左上角移动到网格右下角能收获的平安果的最大数目。<br>　显然通过 DP 可以很快速求解，<code>dp[rowIdx][colIdx]</code>表示从网格左上角移动到格子<code>[rowIdx][colIdx]</code>能收获的平安果最大数目，显然<code>dp[row-1][col-1]</code>便是最终的答案；又由于只能向下或者向右移动，动态转移方程，直观说就是<code>dp</code>二维表格从左到右（<code>[rowIdx-1][colIdx]</code>→<code>[rowIdx][colIdx]</code>）、从上到下（<code>[rowIdx][colIdx-1]</code>→<code>[rowIdx][colIdx]</code>）的填表过程，易知这个转移方程：$$ dp[rowIdx][colIdx] = max(dp[rowIdx-1][colIdx], dp[rowIdx][colIdx-1]) + appleGrids[rowIdx][colIdx] $$<br>　需要注意的是：①<code>dp[0][0]</code>、<code>dp[0][1...col-1]</code>、<code>dp[1...row-1][0]</code>需要单独初始化；<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123; <span class="keyword">return</span> (a&gt;b?a:b); &#125;</div><div class="line"> </div><div class="line"><span class="comment">// dp[i][j]: the largest collected apple number reach appleGrids[i][j]</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; dp(row, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(col, <span class="number">0</span>));</div><div class="line">dp[<span class="number">0</span>][<span class="number">0</span>] = appleGrids[<span class="number">0</span>][<span class="number">0</span>];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> colIdx=<span class="number">1</span>; colIdx&lt;col; colIdx++) &#123;</div><div class="line">  dp[<span class="number">0</span>][colIdx] = dp[<span class="number">0</span>][colIdx<span class="number">-1</span>] + appleGrids[<span class="number">0</span>][colIdx];</div><div class="line">&#125;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> rowIdx=<span class="number">1</span>; rowIdx&lt;row; rowIdx++) &#123;</div><div class="line">  dp[rowIdx][<span class="number">0</span>] = dp[rowIdx<span class="number">-1</span>][<span class="number">0</span>] + appleGrids[rowIdx][<span class="number">0</span>];</div><div class="line">&#125;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> rowIdx=<span class="number">1</span>; rowIdx&lt;row; rowIdx++) &#123;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> colIdx=<span class="number">1</span>; colIdx&lt;col; colIdx++) &#123;</div><div class="line">    <span class="comment">// max(up-&gt;down, left-&gt;right)</span></div><div class="line">    dp[rowIdx][colIdx] = max(dp[rowIdx<span class="number">-1</span>][colIdx], dp[rowIdx][colIdx<span class="number">-1</span>]) + appleGrids[rowIdx][colIdx];</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>　②二维平安果矩阵如何初始化<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> row, col;</div><div class="line"><span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; row &gt;&gt; col) &#123;</div><div class="line">  <span class="keyword">if</span>(row&gt;<span class="number">1</span> &amp;&amp; col&gt;<span class="number">1</span>) &#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; appleGrids(row, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(col, <span class="number">-1</span>));</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> rowIdx=<span class="number">0</span>; rowIdx&lt;row; rowIdx++) &#123;</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> colIdx=<span class="number">0</span>; colIdx&lt;col; colIdx++) &#123;</div><div class="line">        <span class="built_in">cin</span> &gt;&gt; appleGrids[rowIdx][colIdx];</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//...</span></div><div class="line">  &#125;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 定义（定义性声明）&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; i;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 声明（引用性声明）&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;extern&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; j;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 初始化&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; k = &lt;span class=&quot;number&quot;&gt;7&lt;/span&gt;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 默认初始化&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; l;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 赋值&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;l = &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;ul&gt;
-&lt;li&gt;引用性&lt;font color=&quot;red&quot;&gt;声明&lt;/font&gt;不分配存储空间，如：&lt;code&gt;extern int x;&lt;/code&gt;只是告诉编译器变量&lt;code&gt;x&lt;/code&gt;是整型，已经在其它地方定义了。&lt;/li&gt;
-&lt;li&gt;&lt;font color=&quot;red&quot;&gt;定义&lt;/font&gt;是在内存中确定变量的位置、大小。&lt;/li&gt;
-&lt;li&gt;&lt;font color=&quot;red&quot;&gt;初始化&lt;/font&gt;是定义变量的时候赋给变量的值，强调从无到有这一过程。&lt;/li&gt;
-&lt;li&gt;&lt;font color=&quot;red&quot;&gt;赋值&lt;/font&gt;是初始化后用到该变量，赋给该变量新的值。
+      &lt;p&gt;　昨晚华为在线笔试，三道编程题，结果倒在第二题上，刷了两题半，没能 AK。&lt;/p&gt;
+&lt;h4 id=&quot;第一题&quot;&gt;&lt;a href=&quot;#第一题&quot; class=&quot;headerlink&quot; title=&quot;第一题&quot;&gt;&lt;/a&gt;第一题&lt;/h4&gt;&lt;p&gt;　第一题是括号（“(”、“[”、“{”）匹配，想法也比较简单，就通过栈&lt;code&gt;stack&lt;/code&gt;模拟，遇到开括号推入堆栈，每当遇到闭括号（“)”、“]”、“}”），就进行配对，满足配对就将栈顶的开括号弹出。假如最终的栈是空的，说明输入表达式不存在括号或者括号能够完全匹配。&lt;br&gt;　需要注意的是：①满足配对并不是&lt;code&gt;stack.top()==inputStr[currentIdx]&lt;/code&gt;，而需要分上述三种括号进行一一配对；②当存在闭括号，但栈为空或者栈顶元素并不是配对的开括号，已经能够证明输入表达式括号不匹配了，此时可以跳出循环。
     
     </summary>
     
@@ -67,9 +56,9 @@
       <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
     
     
-      <category term="DES" scheme="http://durant35.github.io/tags/DES/"/>
+      <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
     
-      <category term="AES" scheme="http://durant35.github.io/tags/AES/"/>
+      <category term="HUAWEI" scheme="http://durant35.github.io/tags/HUAWEI/"/>
     
   </entry>
   
@@ -259,6 +248,64 @@
       <category term="JPEG" scheme="http://durant35.github.io/tags/JPEG/"/>
     
       <category term="LZW" scheme="http://durant35.github.io/tags/LZW/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>密码学：DES、3DES、AES</title>
+    <link href="http://durant35.github.io/2017/07/11/programPearls_DES&amp;3DES&amp;AES/"/>
+    <id>http://durant35.github.io/2017/07/11/programPearls_DES&amp;3DES&amp;AES/</id>
+    <published>2017-07-11T10:02:16.000Z</published>
+    <updated>2017-07-12T09:35:02.215Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义（定义性声明）</span></div><div class="line"><span class="keyword">int</span> i;</div><div class="line"><span class="comment">// 声明（引用性声明）</span></div><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> j;</div><div class="line"><span class="comment">// 初始化</span></div><div class="line"><span class="keyword">int</span> k = <span class="number">7</span>;</div><div class="line"><span class="comment">// 默认初始化</span></div><div class="line"><span class="keyword">int</span> l;</div><div class="line"><span class="comment">// 赋值</span></div><div class="line">l = <span class="number">100</span>;</div></pre></td></tr></table></figure>
+<ul>
+<li>引用性<font color="red">声明</font>不分配存储空间，如：<code>extern int x;</code>只是告诉编译器变量<code>x</code>是整型，已经在其它地方定义了。</li>
+<li><font color="red">定义</font>是在内存中确定变量的位置、大小。</li>
+<li><font color="red">初始化</font>是定义变量的时候赋给变量的值，强调从无到有这一过程。</li>
+<li><font color="red">赋值</font>是初始化后用到该变量，赋给该变量新的值。<a id="more"></a>
+</li>
+</ul>
+<h4 id="定义-vs-声明"><a href="#定义-vs-声明" class="headerlink" title="定义 vs 声明"></a>定义 vs 声明</h4><ul>
+<li>变量的声明有两种情况<ul>
+<li>一种是需要建立存储空间的：<code>int a;</code></li>
+<li>另一种是不需要建立存储空间的：<code>extern int b;</code></li>
+<li>前者是<strong>定义性声明(defining declaration)</strong>，或者称为<strong>定义(definition)</strong>，而后者是<strong>引用性声明(referencing declaration)</strong>。从广义的角度讲，声明中包含着定义，但不是所有的声明都是定义，因此这里所说的声明和定义，都是狭义上的，声明特指不需要建立存储空间的引用性声明；定义则指需要建立存储空间的定义性声明。</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">// 声明</span></div><div class="line">  <span class="keyword">extern</span> <span class="keyword">int</span> a;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func2</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">// 声明</span></div><div class="line">  <span class="keyword">extern</span> <span class="keyword">int</span> a;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// 定义</span></div><div class="line"><span class="keyword">int</span> a;</div></pre></td></tr></table></figure>
+<ul>
+<li>外部变量（普通全局变量）的定义只能有一次，其位置肯定在函数之外；而同一个文件中对一个外部变量的声明可以有多次，既可以在函数之内（哪个函数要用到就在那个函数中声明），也可以在函数之外（在外部变量的定义点之前）。</li>
+</ul>
+</li>
+<li>函数的声明和定义则相对区分明显。</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 函数声明</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getStringLen</span><span class="params">()</span></span>;</div><div class="line"><span class="comment">// 函数定义（实现）</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getStringLen</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li><a href="http://boyishachang.blog.51cto.com/3485129/1285493">声明、定义、初始化、赋值的区别</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 定义（定义性声明）&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; i;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 声明（引用性声明）&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;extern&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; j;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 初始化&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; k = &lt;span class=&quot;number&quot;&gt;7&lt;/span&gt;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 默认初始化&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; l;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 赋值&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;l = &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;引用性&lt;font color=&quot;red&quot;&gt;声明&lt;/font&gt;不分配存储空间，如：&lt;code&gt;extern int x;&lt;/code&gt;只是告诉编译器变量&lt;code&gt;x&lt;/code&gt;是整型，已经在其它地方定义了。&lt;/li&gt;
+&lt;li&gt;&lt;font color=&quot;red&quot;&gt;定义&lt;/font&gt;是在内存中确定变量的位置、大小。&lt;/li&gt;
+&lt;li&gt;&lt;font color=&quot;red&quot;&gt;初始化&lt;/font&gt;是定义变量的时候赋给变量的值，强调从无到有这一过程。&lt;/li&gt;
+&lt;li&gt;&lt;font color=&quot;red&quot;&gt;赋值&lt;/font&gt;是初始化后用到该变量，赋给该变量新的值。
+    
+    </summary>
+    
+      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    
+      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
+    
+    
+      <category term="DES" scheme="http://durant35.github.io/tags/DES/"/>
+    
+      <category term="AES" scheme="http://durant35.github.io/tags/AES/"/>
     
   </entry>
   
@@ -1600,6 +1647,43 @@
   </entry>
   
   <entry>
+    <title>DARPA[Boss]: Motion Planning in Urban Environments</title>
+    <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/"/>
+    <id>http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</id>
+    <published>2017-06-02T05:00:22.000Z</published>
+    <updated>2017-06-03T14:37:33.593Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
+<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
+<li>long range plans<ul>
+<li>on-road planning</li>
+<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
+</ul>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）&lt;/li&gt;
+&lt;li&gt;long range plans&lt;ul&gt;
+&lt;li&gt;on-road planning&lt;/li&gt;
+&lt;li&gt;unstructured planning: parking lots/anomalous on-road scenarios（异常路况）
+    
+    </summary>
+    
+      <category term="自动驾驶" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/"/>
+    
+      <category term="DARPA" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/DARPA/"/>
+    
+    
+      <category term="DARPA" scheme="http://durant35.github.io/tags/DARPA/"/>
+    
+  </entry>
+  
+  <entry>
     <title>DARPA[Boss]: Boss and the Urban Challenge</title>
     <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/"/>
     <id>http://durant35.github.io/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/</id>
@@ -1666,43 +1750,6 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Perception sub-system
-    
-    </summary>
-    
-      <category term="自动驾驶" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/"/>
-    
-      <category term="DARPA" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/DARPA/"/>
-    
-    
-      <category term="DARPA" scheme="http://durant35.github.io/tags/DARPA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DARPA[Boss]: Motion Planning in Urban Environments</title>
-    <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/"/>
-    <id>http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</id>
-    <published>2017-06-02T05:00:22.000Z</published>
-    <updated>2017-06-03T14:37:33.593Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
-<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
-<li>long range plans<ul>
-<li>on-road planning</li>
-<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
-<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
-</ul>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）&lt;/li&gt;
-&lt;li&gt;long range plans&lt;ul&gt;
-&lt;li&gt;on-road planning&lt;/li&gt;
-&lt;li&gt;unstructured planning: parking lots/anomalous on-road scenarios（异常路况）
     
     </summary>
     
@@ -2452,88 +2499,6 @@
     <summary type="html">
     
       &lt;p&gt;　所谓 &lt;strong&gt;回文（palindrome）&lt;/strong&gt;，指的是正读和反读都是一样的。而 &lt;strong&gt;字符子串&lt;/strong&gt; 和 &lt;strong&gt;字符子序列&lt;/strong&gt; 的区别，在前面 &lt;a href=&quot;http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/&quot;&gt;算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）&lt;/a&gt; 中也有提到过，字符字串指的是字符串中连续的n个字符，而字符子序列指的是字符串中不一定连续但先后顺序与原字符串一致的n个字符。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="编程珠玑" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
-    
-      <category term="Algorithm" scheme="http://durant35.github.io/categories/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/Algorithm/"/>
-    
-    
-      <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
-    
-      <category term="leetcode" scheme="http://durant35.github.io/tags/leetcode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</title>
-    <link href="http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/"/>
-    <id>http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/</id>
-    <published>2017-05-03T06:00:22.000Z</published>
-    <updated>2017-07-06T08:45:26.627Z</updated>
-    
-    <content type="html"><![CDATA[<p>　　子序列和子字符串的不同之处在于，子序列不需要是原序列上连续的字符。对于 <a href="http://www.lintcode.com/en/problem/longest-common-substring/">Longest Common Substring</a> 以及 <a href="http://www.lintcode.com/en/problem/longest-common-subsequence/"> Longest Common Subsequence</a> 这类题目，大多数需要用到 DP 的思想，其中，状态转移是关键。<br><a id="more"></a></p>
-<h4 id="最长公共子字符串"><a href="#最长公共子字符串" class="headerlink" title="最长公共子字符串"></a>最长公共子字符串</h4><blockquote>
-<p>Given two strings, find the longest common substring.<br>Return the length of it.</p>
-<ul>
-<li><strong>Example</strong><br>　Given A = “ABCD”, B = “CBCE”, return 2.</li>
-</ul>
-</blockquote>
-<ul>
-<li>$L(idxA, idxB)$：以 $A[idxA]$ 和 $B[idxB]$ 结尾的相同子字符串的最长长度。最长公共子字符串必然存在所有情况中以 A 序列中某个字符结尾，以 B 序列中某个字符结尾的一种情况，所以<strong>取所有可能情况中的最大值</strong>即为 Longest Common Substring 的长度。<ul>
-<li>因为要求子串连续，所以对于 $A_{idxA}$ 与 $B_{idxB}$ 来讲，它们要么与之前的公共子串构成新的公共子串；要么就是不构成公共子串。<br>$$ L(idxA, idxB) =  \begin{cases}<br>  if（idxA==0||idxB==0）: \begin{cases} 1, A[idxA]==B[idxB] \cr 0, others \end{cases} \cr<br>  else-if（A[idxA]==B[idxB]）: L(idxA-1, idxB-1) + 1 \cr<br>  else: 0<br>  \end{cases}<br>$$</li>
-<li>上述过程的示例图如下，可以看出只有对角线方向上的长度延伸，长度不能保留。<br><center><img src="/img/Algorithms/0011_LCStringProcessDemo.jpg" width="480px"/></center><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>: </div><div class="line">    <span class="comment">/**</div><div class="line">     * @param A, B: Two string.</div><div class="line">     * @return: the length of the longest common substring.</div><div class="line">     */</span></div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestCommonSubstring</span><span class="params">(<span class="built_in">string</span> &amp;A, <span class="built_in">string</span> &amp;B)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> lenA = A.length();</div><div class="line">        <span class="keyword">int</span> lenB = B.length();</div><div class="line">        <span class="keyword">if</span>(lenA==<span class="number">0</span> || lenB==<span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// L[idxA][idxB]: the largest length of LCS ending with A[idxA] and B[idxB] </span></div><div class="line">        <span class="keyword">int</span> L[lenA][lenB];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxB=<span class="number">0</span>; idxB&lt;lenB; idxB++) &#123;</div><div class="line">            L[<span class="number">0</span>][idxB] = B[idxB]==A[<span class="number">0</span>]? <span class="number">1</span> : <span class="number">0</span>; </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxA=<span class="number">0</span>; idxA&lt;lenA; idxA++) &#123;</div><div class="line">            L[idxA][<span class="number">0</span>] = A[idxA]==B[<span class="number">0</span>]? <span class="number">1</span> : <span class="number">0</span>; </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxA=<span class="number">1</span>; idxA&lt;lenA; idxA++)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> idxB=<span class="number">1</span>; idxB&lt;lenB; idxB++)&#123;</div><div class="line">                L[idxA][idxB] = A[idxA]==B[idxB]? L[idxA<span class="number">-1</span>][idxB<span class="number">-1</span>]+<span class="number">1</span> : <span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> maxLen = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> maxLenIdx = <span class="number">-1</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxA=<span class="number">0</span>; idxA&lt;lenA; idxA++)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> idxB=<span class="number">0</span>; idxB&lt;lenB; idxB++)&#123;</div><div class="line">                <span class="keyword">if</span>(L[idxA][idxB] &gt; maxLen) &#123;</div><div class="line">                    maxLen = L[idxA][idxB];</div><div class="line">                    maxLenIdx = idxA;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> maxLen;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><font color="blue">提取最长公共子串</font><ul>
-<li>使用变量 <code>maxLenIdx</code> 记录最长公共子串（长度 <code>maxLen</code> ）对应的结尾字符下标（序列 A/B 都可以），回退获取 <code>maxLen</code> 个字符即可。</li>
-</ul>
-</li>
-</ul>
-<h4 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h4><blockquote>
-<p>Given two strings, find the longest common subsequence (<em>LCS</em>).<br>Your code should return the length of <em>LCS</em>.</p>
-<ul>
-<li><strong>Example</strong><br>　For “ABCD” and “EDCA”, the LCS is “A” (or “D”, “C”), return 1.<br>　For “ABCD” and “EACB”, the LCS is “AC”, return 2.</li>
-</ul>
-</blockquote>
-<ul>
-<li>$L(idxA, idxB)$：以 $A_{idxA}$ 结尾的子串（$A[0, 1, …, idxA], 0 \leq idxA \lt len_A$） 和 $B_{idxB}$ 结尾的子串（$B[0, 1, …, idxB], 0 \leq idxB \lt len_B$）最长公共子序列的长度。自然地，$L(len_A-1, len_B-1)$ 即为所求的最长公共子序列长度。</li>
-<li>与子串不同，子序列可以是不连续的。<ul>
-<li>$L(idxA, idxB)$ 与 $L(idxA-1, idxB-1)$ 两者其实只差 $A_{idxA}$ 和 $B_{idxB}$ 这一对字符。</li>
-<li>如果 $A_{idxA}$ 和 $B_{idxB}$ 相同，那么就只要在以 $A_{idxA}$ 和以 $B_{idxB}$ 结尾的两个子串的最长公共子序列之后添上这个相同字符即可，这样就可以让长度增加一位。</li>
-<li>如果 $A_{idxA}$ 和 $B_{idxB}$ 不同，两个子串在末尾添加一个字符后最长公共子序列并不能得到延伸。考虑到 $A_{idxA}$ 可能与 $B_{idxB-1}$ 相同或者 $B_{idxB}$ 会与 $A_{idxA-1}$ 相同，没能延伸的最长公共子序列只能在 $L(idxA, idxB-1)$ 和 $L(idxA-1, idxB)$ 存在，取更长的那个。</li>
-<li>结合边界限制，最终得到的状态转移方程如下：<br>$$ L(idxA, idxB) =  \begin{cases}<br>  if（idxA==0）: \begin{cases} 1, B[idxB]==A[0] \cr L(0, idxB-1), others \end{cases} \cr<br>  else·if（idxB==0）: \begin{cases} 1, A[idxA]==B[0] \cr L(idxA-1, 0), others \end{cases} \cr<br>  else·if（A[idxA]==B[idxB]）: L(idxA-1, idxB-1) + 1 \cr<br>  else: max(L(idxA, idxB-1), L(idxA-1, idxB))<br>  \end{cases}<br>$$</li>
-<li>上述过程的示例图如下，可以看出同样只有对角线方向上的长度延伸，不过长度可以在 <strong>上→下</strong> 和 <strong>左→右</strong> 方向上得到保留。<br><center><img src="/img/Algorithms/0011_LCSequenceProcessDemo.png" width="450px"/></center><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> max(a,b) (a&gt;b?a:b)</span></div><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/**</div><div class="line">     * @param A, B: Two strings.</div><div class="line">     * @return: The length of longest common subsequence of A and B.</div><div class="line">     */</span></div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(<span class="built_in">string</span> A, <span class="built_in">string</span> B)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> lenA = A.length();</div><div class="line">        <span class="keyword">int</span> lenB = B.length();</div><div class="line">        <span class="keyword">if</span>(lenA==<span class="number">0</span> || lenB==<span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// L[idxA][idxB]: the length of the LCS ending with A[idxA] and B[idxB]</span></div><div class="line">        <span class="keyword">int</span> L[lenA][lenB];</div><div class="line">        <span class="comment">// for recording LCS's tail element index</span></div><div class="line">        <span class="keyword">int</span> maxLen = <span class="number">0</span>, maxLenIdxA = <span class="number">0</span>, maxLenIdxB = <span class="number">0</span>;</div><div class="line">        </div><div class="line">        L[<span class="number">0</span>][<span class="number">0</span>] = A[<span class="number">0</span>]==B[<span class="number">0</span>]? <span class="number">1</span> : <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxB=<span class="number">1</span>; idxB&lt;lenB; idxB++) &#123;</div><div class="line">            L[<span class="number">0</span>][idxB] = B[idxB]==A[<span class="number">0</span>]? <span class="number">1</span> : L[<span class="number">0</span>][idxB<span class="number">-1</span>];</div><div class="line">            </div><div class="line">            <span class="comment">// for recording LCS's tail element index</span></div><div class="line">            <span class="keyword">if</span>(L[<span class="number">0</span>][idxB] &gt; maxLen) &#123;</div><div class="line">                maxLen = L[<span class="number">0</span>][idxB];</div><div class="line">                maxLenIdxB = idxB;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxA=<span class="number">1</span>; idxA&lt;lenA; idxA++) &#123;</div><div class="line">            L[idxA][<span class="number">0</span>] = A[idxA]==B[<span class="number">0</span>]? <span class="number">1</span> : L[idxA<span class="number">-1</span>][<span class="number">0</span>];</div><div class="line">            </div><div class="line">            <span class="comment">// for recording LCS's tail element index</span></div><div class="line">            <span class="keyword">if</span>(L[idxA][<span class="number">0</span>] &gt; maxLen) &#123;</div><div class="line">                maxLen = L[idxA][<span class="number">0</span>];</div><div class="line">                maxLenIdxA = idxA;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> idxA=<span class="number">1</span>; idxA&lt;lenA; idxA++) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> idxB=<span class="number">1</span>; idxB&lt;lenB; idxB++) &#123;</div><div class="line">                <span class="keyword">if</span>(A[idxA] == B[idxB]) &#123;</div><div class="line">                    L[idxA][idxB] = L[idxA<span class="number">-1</span>][idxB<span class="number">-1</span>] + <span class="number">1</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> &#123;</div><div class="line">                    L[idxA][idxB] = max(L[idxA][idxB<span class="number">-1</span>], L[idxA<span class="number">-1</span>][idxB]);</div><div class="line">                &#125;</div><div class="line">                </div><div class="line">                <span class="comment">// for recording LCS's tail element index</span></div><div class="line">                <span class="keyword">if</span>(L[idxA][idxB] &gt; maxLen) &#123;</div><div class="line">                    maxLen = L[idxA][idxB];</div><div class="line">                    maxLenIdxA = idxA;</div><div class="line">                    maxLenIdxB = idxB;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> L[lenA<span class="number">-1</span>][lenB<span class="number">-1</span>];</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><font color="blue">提取最长公共子序列</font><ul>
-<li>使用变量 <code>maxLen</code> 记录最长公共子序列的长度，并通过变量 <code>maxLenIdxA</code> 和 <code>maxLenIdxB</code> 记录该最长长度序列末尾字符对应的序列 A 和序列 B 中的字符下标。</li>
-<li>在序列 A 和 B 中分别从下标 <code>maxLenIdxA</code> 和 <code>maxLenIdxB</code> 向左挪动，找出  <code>maxLen</code> 个相同字符，即为提取的最长公共子序列。</li>
-<li>如何在序列 A 和 B 中向左挪动呢？<ul>
-<li><code>A[maxLenIdxA]==B[maxLenIdxB]</code>，当前字符相同，同时左挪（因为公共子序列的特点，此时二者肯定均为到达边界）：<code>maxLenIdxA--</code> &amp; <code>maxLenIdxB--</code>。</li>
-<li><code>A[maxLenIdxA]!=B[maxLenIdxB]</code>，当前字符不相同<ul>
-<li>有挪动到边界（0）的，只能挪动另一个还没到边界的；假如同时挪动到边界，由于  <code>maxLen</code> 的准确性，说明已经提取出最长公共子序列。</li>
-<li><code>L[idxA][idxB-1]</code> 大，说明 <code>A[maxLenIdxA]</code> 可能与序列 B 中下一个字符相同，需要挪动序列 B：<code>maxLenIdxB--</code>；反之，则需要挪动序列 A：<code>maxLenIdxA--</code>。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>具体的代码实现如下：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">string</span> LCS;</div><div class="line"><span class="keyword">while</span>(maxLenIdxA&gt;=<span class="number">0</span> &amp;&amp; maxLenIdxB&gt;=<span class="number">0</span>) &#123;</div><div class="line">    <span class="keyword">if</span>(A[maxLenIdxA] == B[maxLenIdxB]) &#123;</div><div class="line">        LCS += A[maxLenIdxA];</div><div class="line">        maxLenIdxA--;</div><div class="line">        maxLenIdxB--;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">if</span>(maxLenIdxA == <span class="number">0</span>) &#123;</div><div class="line">            maxLenIdxB--;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(maxLenIdxB == <span class="number">0</span>) &#123;</div><div class="line">            maxLenIdxA--;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">if</span>(L[maxLenIdxA][maxLenIdxB<span class="number">-1</span>] &lt; L[maxLenIdxA<span class="number">-1</span>][maxLenIdxB]) &#123;</div><div class="line">                maxLenIdxB--;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                maxLenIdxA--;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;　　子序列和子字符串的不同之处在于，子序列不需要是原序列上连续的字符。对于 &lt;a href=&quot;http://www.lintcode.com/en/problem/longest-common-substring/&quot;&gt;Longest Common Substring&lt;/a&gt; 以及 &lt;a href=&quot;http://www.lintcode.com/en/problem/longest-common-subsequence/&quot;&gt; Longest Common Subsequence&lt;/a&gt; 这类题目，大多数需要用到 DP 的思想，其中，状态转移是关键。&lt;br&gt;
     
     </summary>
     
