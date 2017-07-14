@@ -3,6 +3,74 @@
   
     
     <entry>
+      <title><![CDATA[hexo：告别多说，拥抱 Disqus]]></title>
+      <url>/2017/07/14/hexo_DisqusInsteadofDuoshuo/</url>
+      <content type="html"><![CDATA[<p>　　首先说说，换了 Disqus 之后的体验吧，除了需要翻墙外，都挺好的。<font color="blue">最重要的是，以前一直希望多说有的邮件提醒（一直没有），Disqus 自带就有这个功能</font>。anyway，反正多说已经阵亡了，选择 Disqus 还挺不错的。<br>　　怎么从多说迁移到 Disqus 呢？配置上很简单，主要难题是如何迁移原先多说评论的数据。<a id="more"></a></p>
+<h4 id="配置很简单"><a href="#配置很简单" class="headerlink" title="配置很简单"></a>配置很简单</h4><ul>
+<li>只需要修改 <code>./themes/&lt;对应主题&gt;/</code>下的 <strong>_config.yml</strong> 文件即可，通过注释掉<code>#on: true</code>即可关闭多说。</li>
+<li>  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="attr">disqus:</span> </div><div class="line"><span class="attr">  on:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  shortname:</span> ？？？</div><div class="line">  <span class="comment"># https://help.disqus.com/customer/en/portal/articles/466208-what-s-a-shortname-</span></div><div class="line">  <span class="comment"># It is unnecessary to enable disqus here if </span></div><div class="line">  <span class="comment"># you have set "disqus_shortname" in your site's "_config.yml" </span></div><div class="line"> </div><div class="line"><span class="attr">duoshuo:</span> </div><div class="line">  <span class="comment">#on: true</span></div><div class="line"><span class="attr">  domain:</span> ？？？</div><div class="line">  <span class="comment"># 是否开启多说评论，http://duoshuo.com/create-site/</span></div><div class="line">  <span class="comment"># 使用上面网址登陆你的多说，然后创建站点，在 domain 中填入你设定的域名前半部分</span></div><div class="line">  <span class="comment"># http://&lt;要填的部分&gt;.duoshuo.com (domain只填上&lt;&gt;里的内容，不要填整个网址)</span></div></pre></td></tr></table></figure>
+<ul>
+<li>显然，在此之前，你需要注册一个 Disqus 账号。</li>
+</ul>
+</li>
+</ul>
+<h4 id="迁移有办法"><a href="#迁移有办法" class="headerlink" title="迁移有办法"></a>迁移有办法</h4><ul>
+<li>数据迁移的步骤：从多说导出数据→数据格式转换（Disqus可用数据格式）→向 Disqus 导入数据。</li>
+<li>参考 <a href="https://github.com/JamesPan/duoshuo-migrator#duoshuo2disqus">Github: JamesPan/duoshuo-migrator</a> 即可。</li>
+<li>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install lxml</div><div class="line">python duoshuo-migrator.py -i duoshuo_export.json  -o disqus.xml</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li><a href="https://blog.jamespan.me/2015/04/18/goodbye-duoshuo">JAMES PAN’S BLOG：告别多说，拥抱 Disqus</a></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 技术留档 </category>
+            
+            <category> Hexo </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[32-bit program on 64-bit OS & 64-bit program on 32-bit OS]]></title>
+      <url>/2017/07/14/programPearls_32-bit%20program%20on%2064-bit%20OS%20&amp;%2064-bit%20program%20on%2032-bit%20OS/</url>
+      <content type="html"><![CDATA[<h4 id="32-bit-program-on-64-bit-OS"><a href="#32-bit-program-on-64-bit-OS" class="headerlink" title="32-bit program on 64-bit OS"></a>32-bit program on 64-bit OS</h4><blockquote>
+<p><a href="https://www.viva64.com/en/k/0004/">Is it possible to run 64-bit applications in a 32-bit OS?</a></p>
+</blockquote>
+<p>　　还是有一定的现实意义，比如经常有一些开源库只有 32-bit 版本，为了对其进行构建，需要在 64-bit 系统上配置 32-bit 环境（通常是 32-bit 的 C/C++ 基本库）。<a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo dpkg --add-architecture i386</div><div class="line">sudo apt-get install multiarch-support</div></pre></td></tr></table></figure></p>
+<h4 id="64-bit-program-on-32-bit-OS"><a href="#64-bit-program-on-32-bit-OS" class="headerlink" title="64-bit program on 32-bit OS"></a>64-bit program on 32-bit OS</h4><blockquote>
+<p><a href="https://www.viva64.com/en/k/0004/">Is it possible to run 64-bit applications in a 32-bit OS?</a></p>
+</blockquote>
+<p>　　不太现实，也没多大意义的一件事。不过可以通过虚拟化技术实现。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 技术留档 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 系统 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[算法设计与分析[0023] 秋招华为在线笔试]]></title>
       <url>/2017/07/13/Algorithms_OnlineJudge4Huawei2017/</url>
       <content type="html"><![CDATA[<p>　　昨晚华为在线笔试，三道编程题，结果倒在第二题上，刷了两题半，没能 AK。</p>
@@ -5339,7 +5407,7 @@
     
     <entry>
       <title><![CDATA[使用 select 函数实现更为精确的延时]]></title>
-      <url>/2016/09/08/programPearls_precise%20delay%20using%20select/</url>
+      <url>/2016/09/08/programPearls_precise%20delay%20using%20select%20(copy)/</url>
       <content type="html"><![CDATA[<h3 id="select-初识"><a href="#select-初识" class="headerlink" title="select 初识"></a>select 初识</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(</div><div class="line">  _In_    <span class="keyword">int</span>                  nfds,         <span class="comment">// 忽略,仅是为了与Berkeley套接字兼容</span></div><div class="line">  _Inout_ fd_set               *readfds,     <span class="comment">// 指向一个套接字集合,用来检查其可读性</span></div><div class="line">  _Inout_ fd_set               *writefds,    <span class="comment">// 指向一个套接字集合,用来检查其可写性</span></div><div class="line">  _Inout_ fd_set               *exceptfds,   <span class="comment">// 指向一个套接字集合,用来检查错误</span></div><div class="line">  _In_    <span class="keyword">const</span> <span class="keyword">struct</span> timeval *timeout      <span class="comment">// 指定此函数等待的最长时间,如果为NULL,则最长时间为无限大</span></div><div class="line">)</span></span>;</div><div class="line"> </div><div class="line">返回值: </div><div class="line">  函数调用成功，返回发生网络事件的所有套接字数量的总和</div><div class="line">  如果超时返回<span class="number">0</span>，代表在描述词状态改变前已超过timeout时间;</div><div class="line">  当有错误发生时则返回SOCKET_ERROR(<span class="number">-1</span>).</div></pre></td></tr></table></figure>
 <a id="more"></a>
 <ul>
