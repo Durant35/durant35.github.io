@@ -294,7 +294,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　昨晚华为在线笔试，三道编程题，结果倒在第二题上，刷了两题半，没能 AK。</p>
+              <p>　　昨晚华为在线笔试，三道编程题，结果倒在第二题上，刷了两题半，没能 AK。</p>
 <h4 id="第一题"><a href="#第一题" class="headerlink" title="第一题"></a>第一题</h4><p>　第一题是括号（“(”、“[”、“{”）匹配，想法也比较简单，就通过栈<code>stack</code>模拟，遇到开括号推入堆栈，每当遇到闭括号（“)”、“]”、“}”），就进行配对，满足配对就将栈顶的开括号弹出。假如最终的栈是空的，说明输入表达式不存在括号或者括号能够完全匹配。<br>　需要注意的是：①满足配对并不是<code>stack.top()==inputStr[currentIdx]</code>，而需要分上述三种括号进行一一配对；②当存在闭括号，但栈为空或者栈顶元素并不是配对的开括号，已经能够证明输入表达式括号不匹配了，此时可以跳出循环。
           
       
@@ -366,12 +366,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义（定义性声明）</span></div><div class="line"><span class="keyword">int</span> i;</div><div class="line"><span class="comment">// 声明（引用性声明）</span></div><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> j;</div><div class="line"><span class="comment">// 初始化</span></div><div class="line"><span class="keyword">int</span> k = <span class="number">7</span>;</div><div class="line"><span class="comment">// 默认初始化</span></div><div class="line"><span class="keyword">int</span> l;</div><div class="line"><span class="comment">// 赋值</span></div><div class="line">l = <span class="number">100</span>;</div></pre></td></tr></table></figure>
-<ul>
-<li>引用性<font color="red">声明</font>不分配存储空间，如：<code>extern int x;</code>只是告诉编译器变量<code>x</code>是整型，已经在其它地方定义了。</li>
-<li><font color="red">定义</font>是在内存中确定变量的位置、大小。</li>
-<li><font color="red">初始化</font>是定义变量的时候赋给变量的值，强调从无到有这一过程。</li>
-<li><font color="red">赋值</font>是初始化后用到该变量，赋给该变量新的值。
+              <p>　　加密方法可以分为两大类：一类是对称密码体制，又称单钥或私钥密码体制（private key cryptography）；还有一类是非对称密码体制，也称双钥或公开密钥体制（public key cryptography）。前者的加密和解密过程都用同一套密码，后者的加密和解密过程用的是两套密码。<br>　　在单钥加密的情况下，密钥只有一把，所以密钥的保存变得很重要，一旦秘钥泄露，密文也就被破解了；在双钥加密的情况下，秘钥有两把，一把是公开的公钥，还有一把是不公开的私钥，公钥与私钥是一一对应的关系，有一把公钥就必然有一把与之对应的、独一无二的私钥，反之亦成立。此外，①同时生成公钥和私钥应该是相对比较容易的：所有的公钥、私钥对都不同，用公钥可以解开私钥加密的信息，反之用私钥也可以解开公钥加密的信息；但是②从公钥推算出私钥，应该是很困难或者是不可能的。<br>　　目前，通用的单钥加密算法有 DES（Data Encryption Standard），通用的双钥加密算法为 RSA（Rivest-Shamir-Adleman），本文主要介绍三种常用的单钥加密算法：DES、3DES（Triple DES） 以及 AES（Advanced Encryption Standard）。
           
       
     </div>
