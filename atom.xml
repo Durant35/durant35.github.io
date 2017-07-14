@@ -62,7 +62,7 @@
     <link href="http://durant35.github.io/2017/07/14/programPearls_32-bit%20program%20on%2064-bit%20OS%20&amp;%2064-bit%20program%20on%2032-bit%20OS/"/>
     <id>http://durant35.github.io/2017/07/14/programPearls_32-bit program on 64-bit OS &amp; 64-bit program on 32-bit OS/</id>
     <published>2017-07-14T03:51:14.000Z</published>
-    <updated>2017-07-14T11:37:09.222Z</updated>
+    <updated>2017-07-14T11:39:17.362Z</updated>
     
     <content type="html"><![CDATA[<h4 id="32-bit-program-on-64-bit-OS"><a href="#32-bit-program-on-64-bit-OS" class="headerlink" title="32-bit program on 64-bit OS"></a>32-bit program on 64-bit OS</h4><blockquote>
 <p><a href="https://www.viva64.com/en/k/0004/">Is it possible to run 64-bit applications in a 32-bit OS?</a></p>
@@ -85,8 +85,8 @@
     
       <category term="技术留档" scheme="http://durant35.github.io/categories/%E6%8A%80%E6%9C%AF%E7%95%99%E6%A1%A3/"/>
     
+      <category term="系统" scheme="http://durant35.github.io/categories/%E6%8A%80%E6%9C%AF%E7%95%99%E6%A1%A3/%E7%B3%BB%E7%BB%9F/"/>
     
-      <category term="系统" scheme="http://durant35.github.io/tags/%E7%B3%BB%E7%BB%9F/"/>
     
   </entry>
   
@@ -1880,43 +1880,6 @@
   </entry>
   
   <entry>
-    <title>DARPA[Boss]: Motion Planning in Urban Environments</title>
-    <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/"/>
-    <id>http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</id>
-    <published>2017-06-02T05:00:22.000Z</published>
-    <updated>2017-06-03T14:37:33.593Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
-<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
-<li>long range plans<ul>
-<li>on-road planning</li>
-<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
-<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
-</ul>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）&lt;/li&gt;
-&lt;li&gt;long range plans&lt;ul&gt;
-&lt;li&gt;on-road planning&lt;/li&gt;
-&lt;li&gt;unstructured planning: parking lots/anomalous on-road scenarios（异常路况）
-    
-    </summary>
-    
-      <category term="自动驾驶" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/"/>
-    
-      <category term="DARPA" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/DARPA/"/>
-    
-    
-      <category term="DARPA" scheme="http://durant35.github.io/tags/DARPA/"/>
-    
-  </entry>
-  
-  <entry>
     <title>DARPA[Boss]: Boss and the Urban Challenge</title>
     <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/"/>
     <id>http://durant35.github.io/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/</id>
@@ -1983,6 +1946,43 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Perception sub-system
+    
+    </summary>
+    
+      <category term="自动驾驶" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/"/>
+    
+      <category term="DARPA" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/DARPA/"/>
+    
+    
+      <category term="DARPA" scheme="http://durant35.github.io/tags/DARPA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DARPA[Boss]: Motion Planning in Urban Environments</title>
+    <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/"/>
+    <id>http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</id>
+    <published>2017-06-02T05:00:22.000Z</published>
+    <updated>2017-06-03T14:37:33.593Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
+<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
+<li>long range plans<ul>
+<li>on-road planning</li>
+<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
+</ul>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）&lt;/li&gt;
+&lt;li&gt;long range plans&lt;ul&gt;
+&lt;li&gt;on-road planning&lt;/li&gt;
+&lt;li&gt;unstructured planning: parking lots/anomalous on-road scenarios（异常路况）
     
     </summary>
     
