@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-07-14T11:27:44.942Z</updated>
+  <updated>2017-07-14T13:46:17.634Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -14,6 +14,101 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ROS launch file: &lt;arg&gt; vs &lt;param&gt; vs &lt;rosparam&gt;</title>
+    <link href="http://durant35.github.io/2017/07/14/ROS_%3Carg%3E&amp;%3Cparam%3E&amp;%3Crosparam%3E/"/>
+    <id>http://durant35.github.io/2017/07/14/ROS_&lt;arg&gt;&amp;&lt;param&gt;&amp;&lt;rosparam&gt;/</id>
+    <published>2017-07-14T12:18:03.000Z</published>
+    <updated>2017-07-14T13:46:17.634Z</updated>
+    
+    <content type="html"><![CDATA[<p>　　本文介绍在 ROS 的 launch 文件中经常被使用到的三个与参数设置有关的标签 <code>&lt;arg&gt;</code>、<code>&lt;param&gt;</code>、<code>rosparam</code>。<a id="more"></a>
+　　</p>
+<h4 id="lt-arg-gt"><a href="#lt-arg-gt" class="headerlink" title="$\lt arg \gt$"></a>$\lt arg \gt$</h4><ul>
+<li>声明 argument</li>
+<li>  <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">"arg-name"</span> <span class="attr">...</span>/&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>指定 argument 的值</li>
+<li>  <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 在命令行赋值</div><div class="line">roslaunch package-name launch-file-name arg-name:=arg-value</div><div class="line"># 在声明 argument 时赋值</div><div class="line"><span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">"arg-name"</span> <span class="attr">default</span>=<span class="string">"arg-value"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">"arg-name"</span> <span class="attr">value</span>=<span class="string">"arg-value"</span> /&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li><strong>default</strong> 和 <strong>value</strong> 的区别在于，在命令行中赋值的参数可以覆盖 default，但是不能重写 value 的值。</li>
+</ul>
+</li>
+<li>获取变量值</li>
+<li>  <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(arg arg-name)</div></pre></td></tr></table></figure>
+<ul>
+<li>我们可以通过 $arg$ 来使用该变量，<strong>roslaunch</strong> 会用给定的参数 $arg-name$ 的值替换整个表达式的值。</li>
+</ul>
+</li>
+<li>将 argument 值传递给 <strong>included launch 文件</strong></li>
+<li>  <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">include</span> <span class="attr">file</span>=<span class="string">"path-to-file"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">"arg-name"</span> <span class="attr">value</span>=<span class="string">"arg-value"</span> /&gt;</span></div><div class="line">  ...</div><div class="line"><span class="tag">&lt;/<span class="name">include</span>&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li><font color="red">注意：</font>若 launch 文件及其 include 的 launch 文件出现相同的 argument，通过如下方式传递给 include launch 文件</li>
+</ul>
+</li>
+<li>  <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">"arg-name"</span> <span class="attr">value</span>=<span class="string">"$(arg arg-name)"</span> /&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>第一个 <strong>arg-name</strong> 表示 include launch 文件中的变量；第二个则表示当前 launch 文件中的变量 $\Longrightarrow$ 指定的变量在当前 launch 文件以及 included launch 文件中都有相同的值。</li>
+</ul>
+</li>
+</ul>
+<h4 id="lt-rosparam-gt"><a href="#lt-rosparam-gt" class="headerlink" title="$\lt rosparam \gt$"></a><a href="http://wiki.ros.org/roslaunch/XML/rosparam">$\lt rosparam \gt$</a></h4><ul>
+<li><font color="blue">尽管 argument（变量）和 parameter（参数）优势可互换，但二者在 ROS 中的意义完全不同：<strong>parameters</strong> 是 ROS 系统使用的数值，存在 parameter server 上，nodes 可通过<code>ros::param::get</code>函数编程得到，用户可通过<code>rosparam</code>命令获取；与之不同，<strong>arguments</strong> 仅在 launch 文件内部有意义，nodes 不能直接获取它们的值</font></li>
+<li>前面介绍的<code>&lt;arg&gt;</code>用于设置变量；接下来介绍的两个<code>&lt;param&gt;</code>和<code>&lt;rosparam&gt;</code>标签用于设置参数。</li>
+<li>参数访问有三种方式<ul>
+<li>命令行：<code>rosparam set</code>、<code>rosparam get</code></li>
+<li>launch 文件：<code>&lt;param&gt;</code>、<code>&lt;rosparam&gt;</code></li>
+<li>API<ul>
+<li>roscpp: <code>ros::param::set</code>、<code>ros::param::get</code></li>
+<li>rospy: <code>set_param</code>、<code>set_param</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>&lt;rosparam&gt;</code> 通过配置文件<code>*.yaml</code>文件加载参数</li>
+<li>  <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">rosparam</span> <span class="attr">file</span>=<span class="string">"$(find navigation_launch)/config/costmap_common_params.yaml"</span> <span class="attr">command</span>=<span class="string">"load"</span> <span class="attr">ns</span>=<span class="string">"global_costmap"</span> /&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><code>&lt;rosparam&gt;</code> 其他常见方式</li>
+<li>  <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">rosparam</span> <span class="attr">command</span>=<span class="string">"delete"</span> <span class="attr">param</span>=<span class="string">"my/param"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">rosparam</span> <span class="attr">param</span>=<span class="string">"a_list"</span>&gt;</span>[1, 2, 3, 4]<span class="tag">&lt;/<span class="name">rosparam</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">rosparam</span>&gt;</span></div><div class="line">  a: 1</div><div class="line">  b: 2</div><div class="line"><span class="tag">&lt;/<span class="name">rosparam</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="lt-param-gt"><a href="#lt-param-gt" class="headerlink" title="$\lt param \gt$"></a>$\lt param \gt$</h4><ul>
+<li><code>&lt;param&gt;</code>更像是 define 宏，必须在本地 launch 文件中赋值，无法用于在 launch 文件中获取命令中的参数（但可以通过下面介绍 <strong>rosrun</strong> 方式），通过以下方式接收和传递。定义的参数均会保留在 ROS 参数服务器(PARAMETERS)中，该参数会被节点(NODES)使用进行节点配置。</li>
+<li>  <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">"param-name-1"</span> <span class="attr">value</span>=<span class="string">"false"</span> /&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">....</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">"param-name-2"</span> <span class="attr">value</span>=<span class="string">"..."</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">node</span>&gt;</span></div><div class="line">...</div><div class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>第一个参数 <strong>param-name-1</strong> 是整个 launch 全局（global）有效；第二个参数 <strong>param-name-2</strong> 相对（relative）节点局部（private）有效。</li>
+</ul>
+</li>
+<li><strong>rosrun</strong> 本身的设计是可以让使用者直接修改节点内的参数，通过以下的方式：</li>
+<li>  <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rosrun package-name node-name _param-name:=param-value</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><a href="http://answers.ros.org/question/37916/when-to-use-param-and-rosparam-on-launch-file/">ROS ANSWERS: When to use param and rosparam on launch file?</a><blockquote>
+<p>　　I believe that the main difference is that <font color="red"><code>&lt;param&gt;</code> may be used to set a single command on the ROS parameter server, while <code>&lt;rosparam&gt;</code> can be used to evaluate groups of parameters</font>.<br>　　So, in the cases above, <code>&lt;param&gt;</code> is setting a single parameter, and that parameter is an entire URDF file. The <code>&lt;rosparam&gt;</code> tag is reading in the rosparam yaml format from within the launch file.<br>　　<font color="red">The value set by the <code>&lt;param&gt;</code> tag may only be a string, int, bool, or double</font>, which may be set through the xml attribute value, or by reading in from a text file, bin file, or the output of a command line command.<br>　　<font color="red">The value set by the <code>&lt;rosparam&gt;</code> tag is most commonly a batch of related parameters</font>, read in from a YAML file (or from the output of rosparam dump). You can think of it as a programmatic way to access the functionality of rosparam from a launch file. </p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;　　本文介绍在 ROS 的 launch 文件中经常被使用到的三个与参数设置有关的标签 &lt;code&gt;&amp;lt;arg&amp;gt;&lt;/code&gt;、&lt;code&gt;&amp;lt;param&amp;gt;&lt;/code&gt;、&lt;code&gt;rosparam&lt;/code&gt;。
+    
+    </summary>
+    
+      <category term="软硬兼施" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/"/>
+    
+      <category term="ROS" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/ROS/"/>
+    
+    
+      <category term="ROS" scheme="http://durant35.github.io/tags/ROS/"/>
+    
+  </entry>
   
   <entry>
     <title>hexo：告别多说，拥抱 Disqus</title>
@@ -1880,6 +1975,43 @@
   </entry>
   
   <entry>
+    <title>DARPA[Boss]: Motion Planning in Urban Environments</title>
+    <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/"/>
+    <id>http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</id>
+    <published>2017-06-02T05:00:22.000Z</published>
+    <updated>2017-06-03T14:37:33.593Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
+<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
+<li>long range plans<ul>
+<li>on-road planning</li>
+<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
+</ul>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）&lt;/li&gt;
+&lt;li&gt;long range plans&lt;ul&gt;
+&lt;li&gt;on-road planning&lt;/li&gt;
+&lt;li&gt;unstructured planning: parking lots/anomalous on-road scenarios（异常路况）
+    
+    </summary>
+    
+      <category term="自动驾驶" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/"/>
+    
+      <category term="DARPA" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/DARPA/"/>
+    
+    
+      <category term="DARPA" scheme="http://durant35.github.io/tags/DARPA/"/>
+    
+  </entry>
+  
+  <entry>
     <title>DARPA[Boss]: Boss and the Urban Challenge</title>
     <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/"/>
     <id>http://durant35.github.io/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/</id>
@@ -1946,43 +2078,6 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Perception sub-system
-    
-    </summary>
-    
-      <category term="自动驾驶" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/"/>
-    
-      <category term="DARPA" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/DARPA/"/>
-    
-    
-      <category term="DARPA" scheme="http://durant35.github.io/tags/DARPA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DARPA[Boss]: Motion Planning in Urban Environments</title>
-    <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/"/>
-    <id>http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</id>
-    <published>2017-06-02T05:00:22.000Z</published>
-    <updated>2017-06-03T14:37:33.593Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
-<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
-<li>long range plans<ul>
-<li>on-road planning</li>
-<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
-<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
-</ul>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）&lt;/li&gt;
-&lt;li&gt;long range plans&lt;ul&gt;
-&lt;li&gt;on-road planning&lt;/li&gt;
-&lt;li&gt;unstructured planning: parking lots/anomalous on-road scenarios（异常路况）
     
     </summary>
     
@@ -2594,38 +2689,6 @@
     
     
       <category term="Algorithm" scheme="http://durant35.github.io/tags/Algorithm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CPU 扫盲（核心数/线程数）</title>
-    <link href="http://durant35.github.io/2017/05/16/hsw_CPUWipeoutIlliteracy/"/>
-    <id>http://durant35.github.io/2017/05/16/hsw_CPUWipeoutIlliteracy/</id>
-    <published>2017-05-16T07:33:00.000Z</published>
-    <updated>2017-07-06T08:37:37.170Z</updated>
-    
-    <content type="html"><![CDATA[<p>　　处理器（CPU）决定了电脑的性能等级，是一个需要考虑的核心因素。CPU 从早期的单核，发展到现在的双核，多核。除了<strong>核心数</strong>之外，还有<strong>线程数</strong>之说，下面会对这两个概念进行扫盲。
-　　</p>
-<h4 id="CPU-个数"><a href="#CPU-个数" class="headerlink" title="CPU 个数"></a>CPU 个数</h4><p>　CPU 的个数是指物理上，也就是硬件上存在着几颗物理 CPU，指的是真实存在的处理器的个数，1个代表1颗、2个代表2颗 CPU 处理器。<br><a id="more"></a></p>
-<h4 id="CPU-核心数"><a href="#CPU-核心数" class="headerlink" title="CPU 核心数"></a>CPU 核心数</h4><p>　一个核心就是一个物理线程，<strong>单核</strong>、<strong>双核</strong>、<strong>多核</strong>，指的就是物理核心的数目。
-　　</p>
-<h4 id="CPU-线程数"><a href="#CPU-线程数" class="headerlink" title="CPU 线程数"></a>CPU 线程数</h4><p>　CPU 的线程数概念仅仅只针对 Intel 的 CPU 才有用，因为它是通过 Intel 超线程技术来实现的，最早应用在 Pentium4 上。如果没有超线程技术，一个 CPU 核心对应一个线程（因此对于一个CPU，线程数总是大于或等于核心数的）。所以，对于 AMD 的 CPU 来说，只有核心数的概念，没有线程数的概念。<br>　CPU 之所以要增加线程数，是源于多任务处理的需要：线程数越多，越有利于同时运行多个程序，因为线程数等同于在某个瞬间 CPU 能同时并行处理的任务数。<br>　因此，线程数是一种逻辑的概念，简单地说，就是模拟出的 CPU 核心数。一个核心最少对应一个线程，但英特尔有个超线程技术可以把一个物理线程模拟出两个线程来用，充分发挥 CPU 性能，即一个核心可以有两个到多个线程。</p>
-<h4 id="Linux-中获取处理器信息"><a href="#Linux-中获取处理器信息" class="headerlink" title="Linux 中获取处理器信息"></a>Linux 中获取处理器信息</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看 cpu 型号</span></div><div class="line">sudo dmidecode <span class="_">-s</span> processor-version</div><div class="line"><span class="comment"># 查看 cpu 个数</span></div><div class="line">grep <span class="string">'physical id'</span> /proc/cpuinfo | sort -u | wc <span class="_">-l</span></div><div class="line"><span class="comment"># 查看核心数</span></div><div class="line">grep <span class="string">'core id'</span> /proc/cpuinfo | sort -u | wc <span class="_">-l</span></div><div class="line"><span class="comment"># 查看线程数</span></div><div class="line">grep <span class="string">'processor'</span> /proc/cpuinfo | sort -u | wc <span class="_">-l</span></div></pre></td></tr></table></figure>
-<p>　　</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;　　处理器（CPU）决定了电脑的性能等级，是一个需要考虑的核心因素。CPU 从早期的单核，发展到现在的双核，多核。除了&lt;strong&gt;核心数&lt;/strong&gt;之外，还有&lt;strong&gt;线程数&lt;/strong&gt;之说，下面会对这两个概念进行扫盲。
-　　&lt;/p&gt;
-&lt;h4 id=&quot;CPU-个数&quot;&gt;&lt;a href=&quot;#CPU-个数&quot; class=&quot;headerlink&quot; title=&quot;CPU 个数&quot;&gt;&lt;/a&gt;CPU 个数&lt;/h4&gt;&lt;p&gt;　CPU 的个数是指物理上，也就是硬件上存在着几颗物理 CPU，指的是真实存在的处理器的个数，1个代表1颗、2个代表2颗 CPU 处理器。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="软硬兼施" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/"/>
-    
-      <category term="Architecture" scheme="http://durant35.github.io/categories/%E8%BD%AF%E7%A1%AC%E5%85%BC%E6%96%BD/Architecture/"/>
-    
     
   </entry>
   

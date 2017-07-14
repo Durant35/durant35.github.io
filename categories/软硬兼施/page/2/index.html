@@ -265,6 +265,88 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-ROS_ROS_Navigation_GettingStarted" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/" class="article-date">
+      <time datetime="2016-10-03T09:43:09.000Z" itemprop="datePublished">2016-10-03</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　To add navigation to a robot, we need to launch 3 nodes:</p>
+<blockquote>
+<ul>
+<li>map_server: to provide the static map {“*.yaml” &amp; “*.pgm”}, against which the robot will localize and plan.</li>
+<li>amcl: to localize the robot against the static map.</li>
+<li>move_base: to handle global planning and local control for the robot.</li>
+</ul>
+</blockquote>
+<p>　　<strong>amcl</strong> 是移动机器人二维环境下的概率定位系统，它实现了自适应(或 <strong>kdl</strong> 采样)的 <strong>蒙特卡洛定位</strong> 方法，其中针对已有的地图使用 <strong>粒子滤波器</strong> 跟踪一个机器人的姿态。</p>
+<p>　　<strong>move_base</strong> 提供了 ROS 导航的配置，运行，交互接口，主要包括两个部分：</p>
+<blockquote>
+<p>　(1) 全局路径规划：根据给定的目标位置进行总体路径的规划<br>　(2) 局部路径规划：根据附近的障碍物信息进行躲避路线规划<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/ROS/">ROS</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-ROS_ROS_Basics" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -525,77 +607,6 @@
       
         <p class="article-more-link">
           <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-graduatedesign_01 STM32_一-搭建STM32开发环境" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/07/09/graduatedesign_01 STM32_一-搭建STM32开发环境/" class="article-date">
-      <time datetime="2015-07-09T08:57:30.000Z" itemprop="datePublished">2015-07-09</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/09/graduatedesign_01 STM32_一-搭建STM32开发环境/">(一) 搭建STM32开发环境</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　在正式开展STM32开发之前，我们需要花1-3天搭建开发环境和熟悉开发流程。本文为整个博客系列的第一篇，将带你按照以下几个步骤完成开发环境的搭建的测试，下一篇将为你介绍如何创建项目，通过这两讲熟悉开发流程，为后面的开发打下基础：<br>　　1. 安装JLink驱动，用于下载程序到开发板上；<br>　　2. 安装MDK-KEIL，用于开发程序；<br>　　3. 破解MDK-KEIL；<br>　　4. 使用开发板标准测试测试开发环境。<br>所有安装程序均可以从这里下载获取 <a href="http://yunpan.cn/ccKyYhhC56rGg">http://yunpan.cn/ccKyYhhC56rGg</a> 访问密码 <strong>eb4f</strong><br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/MCU/">MCU</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32/">STM32</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2015/07/09/graduatedesign_01 STM32_一-搭建STM32开发环境/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
