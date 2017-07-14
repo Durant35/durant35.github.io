@@ -270,6 +270,86 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-hexo_2.0x hexo迁移至最新版本笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/" class="article-date">
+      <time datetime="2016-01-24T01:56:14.000Z" itemprop="datePublished">2016-01-24</time>
+</a>
+
+ 
+    <a href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　今天看到<strong><a href="http://zhiqiu.github.io">zhiqiu</a></strong>的hexo有<strong>年/月视图</strong>的特性，<br>    <center><img src="/img/hexo/view_archive.png" width="800px"/></center><br>心想这是自己需要的功能，这样会让All-list里面的归档更为清晰，就按照网上提示，只需修改根目录下<strong>_config.yml</strong>，添加如下配置：<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-programPearls_.h中的ifndef..define..endif" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -962,86 +1042,6 @@
       
         <p class="article-more-link">
           <a href="/2016/10/10/linux_libpcap 32-bit&64-bit/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_precise delay using select (copy)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/08/programPearls_precise delay using select (copy)/" class="article-date">
-      <time datetime="2016-09-08T03:51:14.000Z" itemprop="datePublished">2016-09-08</time>
-</a>
-
- 
-    <a href="/2016/09/08/programPearls_precise delay using select (copy)/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/programPearls_precise delay using select (copy)/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/08/programPearls_precise delay using select (copy)/">使用 select 函数实现更为精确的延时</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="select-初识"><a href="#select-初识" class="headerlink" title="select 初识"></a>select 初识</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(</div><div class="line">  _In_    <span class="keyword">int</span>                  nfds,         <span class="comment">// 忽略,仅是为了与Berkeley套接字兼容</span></div><div class="line">  _Inout_ fd_set               *readfds,     <span class="comment">// 指向一个套接字集合,用来检查其可读性</span></div><div class="line">  _Inout_ fd_set               *writefds,    <span class="comment">// 指向一个套接字集合,用来检查其可写性</span></div><div class="line">  _Inout_ fd_set               *exceptfds,   <span class="comment">// 指向一个套接字集合,用来检查错误</span></div><div class="line">  _In_    <span class="keyword">const</span> <span class="keyword">struct</span> timeval *timeout      <span class="comment">// 指定此函数等待的最长时间,如果为NULL,则最长时间为无限大</span></div><div class="line">)</span></span>;</div><div class="line"> </div><div class="line">返回值: </div><div class="line">  函数调用成功，返回发生网络事件的所有套接字数量的总和</div><div class="line">  如果超时返回<span class="number">0</span>，代表在描述词状态改变前已超过timeout时间;</div><div class="line">  当有错误发生时则返回SOCKET_ERROR(<span class="number">-1</span>).</div></pre></td></tr></table></figure>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/09/08/programPearls_precise delay using select (copy)/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

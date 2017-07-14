@@ -15,21 +15,16 @@
 
 
 
-<meta name="description" content="可能是我写录的树莓派系统image有问题吧，小伙伴都说默认应该是打开22端口，支持ssh的；但是我做的几张SD卡的系统都是不打开的，我很纳闷，怀疑用的是假的镜像吧。前几次都发生在实验室，显示器，HDMI线应有尽有，启动系统，简单地通过界面在系统的 Preferences 中开启ssh端口即可。然而这一次，发生在家里（因为之前一直没空写个关于树莓派外置无线网卡驱动安装的教程，想着利用寒假回家弄一">
+<meta name="description" content="本文介绍 CMake 中两种查找库的方式：find_package 以及 pkg_check_modules 的用法与区别。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RaspberryPi, enable ssh without UI">
-<meta property="og:url" content="http://durant35.github.io/2017/01/25/raspberry_enable-ssh-without-UI/index.html">
+<meta property="og:title" content="CMake 查找库: find_package vs pkg_check_modules">
+<meta property="og:url" content="http://durant35.github.io/2017/07/14/tool_CMake_find_package$pkg_check_module/index.html">
 <meta property="og:site_name" content="Tarantula-7's Blog">
-<meta property="og:description" content="可能是我写录的树莓派系统image有问题吧，小伙伴都说默认应该是打开22端口，支持ssh的；但是我做的几张SD卡的系统都是不打开的，我很纳闷，怀疑用的是假的镜像吧。前几次都发生在实验室，显示器，HDMI线应有尽有，启动系统，简单地通过界面在系统的 Preferences 中开启ssh端口即可。然而这一次，发生在家里（因为之前一直没空写个关于树莓派外置无线网卡驱动安装的教程，想着利用寒假回家弄一">
-<meta property="og:image" content="http://durant35.github.io/img/raspberrypi/sd_card.png">
-<meta property="og:image" content="http://durant35.github.io/img/raspberrypi/raspi-config.jpg">
-<meta property="og:image" content="http://durant35.github.io/img/raspberrypi/rc.local.jpg">
-<meta property="og:image" content="http://durant35.github.io/img/raspberrypi/nmap4ssh.jpg">
-<meta property="og:updated_time" content="2017-02-03T06:41:27.905Z">
+<meta property="og:description" content="本文介绍 CMake 中两种查找库的方式：find_package 以及 pkg_check_modules 的用法与区别。">
+<meta property="og:updated_time" content="2017-07-14T14:27:45.539Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RaspberryPi, enable ssh without UI">
-<meta name="twitter:description" content="可能是我写录的树莓派系统image有问题吧，小伙伴都说默认应该是打开22端口，支持ssh的；但是我做的几张SD卡的系统都是不打开的，我很纳闷，怀疑用的是假的镜像吧。前几次都发生在实验室，显示器，HDMI线应有尽有，启动系统，简单地通过界面在系统的 Preferences 中开启ssh端口即可。然而这一次，发生在家里（因为之前一直没空写个关于树莓派外置无线网卡驱动安装的教程，想着利用寒假回家弄一">
-<meta name="twitter:image" content="http://durant35.github.io/img/raspberrypi/sd_card.png">
+<meta name="twitter:title" content="CMake 查找库: find_package vs pkg_check_modules">
+<meta name="twitter:description" content="本文介绍 CMake 中两种查找库的方式：find_package 以及 pkg_check_modules 的用法与区别。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -61,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>RaspberryPi, enable ssh without UI | Tarantula-7&#39;s Blog</title>
+<title>CMake 查找库: find_package vs pkg_check_modules | Tarantula-7&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -269,11 +264,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-raspberry_enable-ssh-without-UI" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-tool_CMake_find_package$pkg_check_module" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/01/25/raspberry_enable-ssh-without-UI/" class="article-date">
-      <time datetime="2017-01-24T16:48:58.000Z" itemprop="datePublished">2017-01-25</time>
+      <a href="/2017/07/14/tool_CMake_find_package$pkg_check_module/" class="article-date">
+      <time datetime="2017-07-14T13:45:13.000Z" itemprop="datePublished">2017-07-14</time>
 </a>
 
 
@@ -288,7 +283,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      RaspberryPi, enable ssh without UI
+      CMake 查找库: find_package vs pkg_check_modules
     </h1>
   
 
@@ -297,11 +292,15 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/RaspberryPi/">RaspberryPi</a>
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/小工具/">小工具</a>
     </div>
 
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMake/">CMake</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -309,26 +308,30 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>　　可能是我写录的树莓派系统image有问题吧，小伙伴都说默认应该是打开22端口，支持ssh的；但是我做的几张SD卡的系统都是不打开的，我很纳闷，怀疑用的是假的镜像吧。前几次都发生在实验室，显示器，HDMI线应有尽有，启动系统，简单地通过界面在系统的 <strong>Preferences</strong> 中开启ssh端口即可。然而这一次，发生在家里（因为之前一直没空写个关于树莓派外置无线网卡驱动安装的教程，想着利用寒假回家弄一弄），家里哪有实验室那么好的环境，所以，甭想通过界面操作开启。</p>
-<p>　　那究竟能不能通过直接修改SD卡里面的image文件内容，不用UI的方式，开启ssh端口呢？通过下面的捣鼓发现，这是可行的。</p>
-<a id="more"></a> 
-<h4 id="SD卡里面就保存着树莓派系统"><a href="#SD卡里面就保存着树莓派系统" class="headerlink" title="SD卡里面就保存着树莓派系统"></a>SD卡里面就保存着树莓派系统</h4><p>　　SD卡里面有两个分区，系统文件保存在非 <strong>boot</strong> 分区中，如下图：</p>
-<center><img src="/img/raspberrypi/sd_card.png" width="480px"/></center><br>　　<strong>/usr/bin/raspi-config</strong> 就是树莓派<strong>Preferences</strong>操作对应的配置文件，我们用编辑器（Sublime-Text）打开该文件，<strong>CTRL+F</strong> 找到与 <strong>ssh</strong> 配置相关的部分，即下图显示的 <strong>do_ssh()</strong>。通过<strong>enable</strong>和<strong>start</strong>字段可以推测，该部分的两条命令应该是对应于界面操作里面勾选启用<strong>ssh</strong>对应的操作，通过这两条命令，应该可以开启系统的<strong>ssh</strong>端口！<br><br><center><img src="/img/raspberrypi/raspi-config.jpg" width="360px"/></center>
-
-<h4 id="将开启端口命令自启动"><a href="#将开启端口命令自启动" class="headerlink" title="将开启端口命令自启动"></a>将开启端口命令自启动</h4><p>　　我的想法是，要不让这两条命令开机启动吧，看看上一步的猜测是不是真的有效。<strong>/etc/rc.local</strong> 是配置系统自启动的文件，我们将与开启<strong>ssh</strong>端口相关的两条命令添加到 <strong>exit 0</strong> 之前，如下图所示。</p>
-<center><img src="/img/raspberrypi/rc.local.jpg" width="360px"/></center>
-
-<h4 id="nmap来检测"><a href="#nmap来检测" class="headerlink" title="nmap来检测"></a>nmap来检测</h4><p>　　上面的操作真的能得偿所愿吗？我们需要验证一下，看能否<strong>ssh</strong>进去已经启动的树莓派系统。然而问题又来了，树莓派的<strong>ip</strong>是哪一个呀？很不幸，我的树莓派是插在小米3路由器，笔记本连着小米3路由器的无线网络，不过，小米3路由器是通过无线桥接到一个信号还不错，通过<strong>WiFi万能钥匙</strong> 破解出密码的不知道是邻居哪家里面的网。无线桥接，<strong>DHCP</strong>全都由桥接的路由器管理，小弟不才，撞不出人家的管理密码。咋办呢？这里介绍一个强大的工具，<strong><a href="http://blog.csdn.net/keepsmi1e/article/details/9370049">nmap</a></strong>。</p>
-<p>　　通过下面的命令可以扫描出局域网内所有的ip地址（进行ping扫描，打印出对扫描做出响应的主机，这里通过笔记本的ip可以知道整个局域网是192.168.1.0网段）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nmap -sP 192.168.1.0/24</div></pre></td></tr></table></figure>
-<p>　　然后，把树莓派一拔一插，对比前后两次打印的ip地址列表的情况，就能找出树莓派的ip地址了。</p>
-<p>　　也可以通过 <strong>nmap</strong> 命令查看一台主机开放了哪些端口，如下图。    </p>
-<center><img src="/img/raspberrypi/nmap4ssh.jpg" width="360px"/></center>
-
-<p>　　树莓派确实把<strong>ssh</strong>端口开放了，直接<strong>ssh</strong>也能够顺利进入树莓派系统，问题解决了。</p>
-<h4 id="还原自启动，即可大功告成"><a href="#还原自启动，即可大功告成" class="headerlink" title="还原自启动，即可大功告成"></a>还原自启动，即可大功告成</h4><p>　　有必要每次系统启动都去开放 <strong>ssh</strong> 端口吗？可能没这个必要，因为经过两条命令的操作后，应该会修改系统的一些变量或者状态位，这些操作应该不是掉电还原的，否则，在第一节中，关闭ssh端口就不需要额外的两条命令了吧。我们不妨再试试。</p>
-<p>　　既可以直接在起来的系统中将自启动文件 <strong>/etc/rc.local</strong> 还原，当然也可以像第一节中那样，还是对SD卡的内容进行修改。</p>
-<p>　　还原<strong>rc.local</strong>，再把SD卡插回去或者<strong>reboot</strong>系统，还是能够顺利通过<strong>ssh</strong>进入树莓派系统的，大功告成。    </p>
+        <p>　　本文介绍 CMake 中两种查找库的方式：<strong>find_package</strong> 以及 <strong>pkg_check_modules</strong> 的用法与区别。<a id="more"></a></p>
+<h4 id="find-package"><a href="#find-package" class="headerlink" title="find_package"></a><strong>find_package</strong></h4><ul>
+<li>如果编译软件使用了外部库，事先并不知道它的头文件和链接库的位置，得在编译和链接命令中加上包含它们的查找路径，CMake 使用 <code>find_package</code> 命令来解决这个问题。</li>
+<li>  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FIND_PACKAGE</span>( &lt;name&gt; [version] [EXACT] [QUIET] [NO_MODULE] [ [ REQUIRED | COMPONENTS ] [ componets... ] ] )</div></pre></td></tr></table></figure>
+<ul>
+<li>这条命令执行后，CMake 会到变量<code>CMAKE_MODULE_PATH</code> 指示的目录下查找文件 <strong>Findname.cmake</strong> 并执行；</li>
+<li>只要找到包，就会定义下面这些变量（都在 <strong>Findname.cmake</strong> 文件中设置）：</li>
+</ul>
+</li>
+<li>  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;NAME&gt;_FOUND</div><div class="line">&lt;NAME&gt;_INCLUDE_DIRS <span class="keyword">or</span> &lt;NAME&gt;_INCLUDES</div><div class="line">&lt;NAME&gt;_LIBRARIES <span class="keyword">or</span> &lt;NAME&gt;_LIBRARIES <span class="keyword">or</span> &lt;NAME&gt;_LIBS</div><div class="line">&lt;NAME&gt;_DEFINITIONS</div></pre></td></tr></table></figure>
+<ul>
+<li>要使用库<code>name</code>，我们在顶层目录中的 <strong>CMakeLists.txt</strong> 文件中，检查变量<code>NAME_FOUND</code> 来确定包是否被找到（大部分包的这些变量中的包名是全大写的，有些包则使用包的实际大小写）</li>
+<li>如果找到这个包，我们用<code>NAME_INCLUDE_DIRS</code>调用 <strong>include_directories()</strong> 命令，用<code>NAME_LIBRARIES</code>调用 <strong>target_link_libraries()</strong> 命令。</li>
+</ul>
+</li>
+</ul>
+<h4 id="pkg-check-modules"><a href="#pkg-check-modules" class="headerlink" title="pkg_check_modules"></a><strong>pkg_check_modules</strong></h4><ul>
+<li><a href="https://stackoverflow.com/questions/25959972/what-is-the-difference-between-find-package-and-pkg-search-module">what is the difference between find_package and pkg_search_module</a><blockquote>
+<p>　　<strong>find_package</strong> is CMake’s very own mechanism for solving the same problem. For this to work you either need a CMake find script for the requested library (CMake already ships with a couple of those, but you can easily write your own) or alternatively a package config script provided by the requested library itself. In either case you might have to adjust your <code>CMAKE_MODULE_PATH</code> for CMake to be able to find the respective script.<br>　　<strong>pkg_search_module</strong> uses the <strong>pkg-config tool</strong> to determine the location of the requested library. This is mostly useful on systems where <strong>pkg-config</strong> is already in use, so you do not need to replicate all the information for CMake. Note that this approach has potential portability issues, since <font color="blue">it requires pkg-config to be setup correctly on the build machine</font>.</p>
+</blockquote>
+</li>
+<li><strong>pkg_check_modules</strong> 是 CMake 自己的 <strong>pkg-config 模块</strong> 的一个用来简化的封装：你不用再检查 CMake 的版本，加载合适的模块，检查是否被加载，等等，参数和传给 <strong>find_package</strong> 的一样：先是待返回变量的前缀，然后是包名（pkg-config 的）。这样就定义了<code>&lt;prefix&gt;_INCLUDE_DIRS</code>和其他的这类变量，后续的用法就与 <strong>find_package</strong> 一致。</li>
+<li><strong>pkg_check_modules</strong> 实质上是检测系统中的 <strong>pkg-config</strong> 是否存在制定的 <strong>.pc</strong> 文件。</li>
+</ul>
 
       
     </div>
@@ -337,18 +340,18 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a></p>
+        <p><span>本文标题:</span><a href="/2017/07/14/tool_CMake_find_package$pkg_check_module/">CMake 查找库: find_package vs pkg_check_modules</a></p>
 
         <!-- 
         <p><span>文章作者:</span><a href="/" title="回到主页">Gary</a></p>
         -->
         <p><span>文章作者:</span>Gary</p>
 
-        <p><span>发布时间:</span>2017-01-25, 00:48:58</p>
-        <p><span>最后更新:</span>2017-02-03, 14:41:27</p>
+        <p><span>发布时间:</span>2017-07-14, 21:45:13</p>
+        <p><span>最后更新:</span>2017-07-14, 22:27:45</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/01/25/raspberry_enable-ssh-without-UI/" title="RaspberryPi, enable ssh without UI">http://durant35.github.io/2017/01/25/raspberry_enable-ssh-without-UI/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/01/25/raspberry_enable-ssh-without-UI/　　作者: Gary" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/07/14/tool_CMake_find_package$pkg_check_module/" title="CMake 查找库: find_package vs pkg_check_modules">http://durant35.github.io/2017/07/14/tool_CMake_find_package$pkg_check_module/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/07/14/tool_CMake_find_package$pkg_check_module/　　作者: Gary" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
 
@@ -363,16 +366,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">
-                    RaspberryPi, Use an external wireless card(ComFast-WU855P)
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/01/24/python_sort-Functions/">
-                    8 sort functions using python
+                <a href="/2017/07/14/ROS_<arg>&<param>&<rosparam>/">
+                    ROS launch file: &lt;arg&gt; vs &lt;param&gt; vs &lt;rosparam&gt;
                 </a>
             </div>
         
@@ -384,7 +381,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#SD卡里面就保存着树莓派系统"><span class="toc-number">1.</span> <span class="toc-text">SD卡里面就保存着树莓派系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#将开启端口命令自启动"><span class="toc-number">2.</span> <span class="toc-text">将开启端口命令自启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#nmap来检测"><span class="toc-number">3.</span> <span class="toc-text">nmap来检测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#还原自启动，即可大功告成"><span class="toc-number">4.</span> <span class="toc-text">还原自启动，即可大功告成</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#find-package"><span class="toc-number">1.</span> <span class="toc-text">find_package</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pkg-check-modules"><span class="toc-number">2.</span> <span class="toc-text">pkg_check_modules</span></a></li></ol>
         
     </div>
     <style>
@@ -424,7 +421,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"RaspberryPi, enable ssh without UI　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"CMake 查找库: find_package vs pkg_check_modules　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -443,8 +440,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://durant35.github.io/2017/01/25/raspberry_enable-ssh-without-UI/';
-            this.page.identifier = '2017/01/25/raspberry_enable-ssh-without-UI/';
+            this.page.url = 'http://durant35.github.io/2017/07/14/tool_CMake_find_package$pkg_check_module/';
+            this.page.identifier = '2017/07/14/tool_CMake_find_package$pkg_check_module/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -466,15 +463,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/" title="上一篇: RaspberryPi, Use an external wireless card(ComFast-WU855P)">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/01/24/python_sort-Functions/" title="下一篇: 8 sort functions using python">
+            <a href="/2017/07/14/ROS_<arg>&<param>&<rosparam>/" title="下一篇: ROS launch file: &lt;arg&gt; vs &lt;param&gt; vs &lt;rosparam&gt;">
                 <i class="fa fa-angle-right"></i>
             </a>
         
