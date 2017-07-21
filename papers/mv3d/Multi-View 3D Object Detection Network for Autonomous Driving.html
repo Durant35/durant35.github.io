@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Gary" />
+
+
+
+<meta name="description" content="Multi-View 3D Object Detection Network for Autonomous Driving, Xiaozhi Chen, Huimin Ma, Ji Wan, Bo Li, Tian Xia, International Conference on Computer Vision and Pattern Recognition (CVPR), 2017 (Spot">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Multi-View 3D Object Detection Network for Autonomous Driving">
+<meta property="og:url" content="http://durant35.github.io/papers/mv3d/Multi-View 3D Object Detection Network for Autonomous Driving.html">
+<meta property="og:site_name" content="Tarantula-7's Blog">
+<meta property="og:description" content="Multi-View 3D Object Detection Network for Autonomous Driving, Xiaozhi Chen, Huimin Ma, Ji Wan, Bo Li, Tian Xia, International Conference on Computer Vision and Pattern Recognition (CVPR), 2017 (Spot">
+<meta property="og:image" content="http://durant35.github.io/img/papers/mv3d/MV3D_Diagram.png">
+<meta property="og:updated_time" content="2017-07-19T07:33:25.346Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Multi-View 3D Object Detection Network for Autonomous Driving">
+<meta name="twitter:description" content="Multi-View 3D Object Detection Network for Autonomous Driving, Xiaozhi Chen, Huimin Ma, Ji Wan, Bo Li, Tian Xia, International Conference on Computer Vision and Pattern Recognition (CVPR), 2017 (Spot">
+<meta name="twitter:image" content="http://durant35.github.io/img/papers/mv3d/MV3D_Diagram.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Tarantula-7&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Multi-View 3D Object Detection Network for Autonomous Driving | Tarantula-7&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: false,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+</head>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Gary</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">　　你永远流淌在我的记忆里？River flows in you</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">Home</a></li>
+                        
+                            <li><a href="/tags">All-tags</a></li>
+                        
+                            <li><a href="/archives">All-lists</a></li>
+                        
+                            <li><a href="/Shengjie">Contact</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AES/">AES</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/">C/C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMD/">CMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/">CV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DARPA/">DARPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DES/">DES</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DLL/">DLL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HUAWEI/">HUAWEI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPEG/">JPEG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Key-words/">Key-words</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LZW/">LZW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MFC/">MFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NotePad/">NotePad++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCL/">OpenCL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL/">OpenGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB/">PCB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32/">STM32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS2013/">VS2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dumpbin/">dumpbin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ini/">ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pcap/">pcap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件操作/">文件操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漫威电影/">漫威电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码/">编码</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://wiki.ros.org/">ROS</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://zhiqiu.github.io/">Zhiqiu&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.ruanyifeng.com/blog/">阮一峰的网络日志</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://rh-song.github.io/">RiHui-Song&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://goshin.github.io/">Goshin&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://blog.csdn.net/u014593748">Kangdk&#39;s CSDN</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Gary</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Gary</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">　　你永远流淌在我的记忆里？River flows in you</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/tags">All-tags</a></li>
+                
+                    <li><a href="/archives">All-lists</a></li>
+                
+                    <li><a href="/Shengjie">Contact</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/papers/mv3d/Multi-View 3D Object Detection Network for Autonomous Driving.html" class="article-date">
+      <time datetime="2017-07-18T01:20:17.000Z" itemprop="datePublished">2017-07-18</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Multi-View 3D Object Detection Network for Autonomous Driving
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <style>
+    .article-meta { display: none; }
+    #container .article .article-title { padding-right: 0; }
+    .article-header {
+        padding: 0;
+        padding-top: 26px;
+        border-left: none;
+        text-align: center;
+    }
+    .article-header:hover { border-left: none; }
+    .article-title { font-size: 1.6em }
+    .article-entry hr { margin: 0;}
+    .article-meta,
+    #container .article-info-post.article-info { display: none;}
+    #container .article .article-title { padding: 0; }
+</style>
+
+<!-- 匹配页面 -->
+
+          
+        <blockquote>
+<p>Multi-View 3D Object Detection Network for Autonomous Driving, Xiaozhi Chen, Huimin Ma, Ji Wan, Bo Li, Tian Xia, International Conference on Computer Vision and Pattern Recognition (CVPR), 2017 (Spotlight)<br>Github: <a href="https://github.com/leeyevi/MV3D_TF">leeyevi/MV3D_TF</a><br>Demo: <a href="https://www.youtube.com/watch?v=POqBiiLaslk">https://www.youtube.com/watch?v=POqBiiLaslk</a></p>
+</blockquote>
+<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
+<li>Multi-View 3D networks (MV3D)</li>
+<li>LIDAR point cloud + RGB images<ul>
+<li>generates 3D candidate boxes efficiently from the <strong>bird’s eye view representation of 3D point cloud</strong></li>
+<li><strong>deep fusion scheme</strong> to combine <strong>region-wise features</strong> from multiple views</li>
+</ul>
+</li>
+<li>KITTI 结果（本论文的主要贡献）<ul>
+<li>3D：outperforms the state-of-the-art by around 25% and 30% <strong>$AP_{loc}$</strong>、<strong>$AP_{3D}$</strong>（Average Precision 平均精度） on the tasks of <strong>3D localization</strong> and <strong>3D detection</strong>（比当前效果最好的还屌）</li>
+<li>2D：for <strong>2D detection</strong>, our approach obtains 14.9% higher <strong>$AP_{2D}$</strong> than the state-of-the-art on the hard data among the LIDAR-based methods</li>
+</ul>
+</li>
+</ul>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4><ul>
+<li>本文课题有急切的需求：Modern self-driving cars are commonly equipped with <strong>multiple sensors</strong><ul>
+<li>laser scanners：accurate <strong>depth information</strong></li>
+<li>cameras：much more detailed <strong>semantic information</strong></li>
+<li>fusion of LIDAR point cloud and RGB images $\Longrightarrow$ higher performance and safty to self-driving cars</li>
+</ul>
+</li>
+<li>本文课题研究现状演变与本文提出方案的 focus：utilizing both LIDAR and image data $\Longrightarrow$ highly accurate 3D localization and recognition of objects in the road scene<ul>
+<li>LIDAR-based methods vs Image-based method<ul>
+<li>Recent LIDAR-based methods 思路<ul>
+<li>一种：3D windows in 3D voxel grids to score the point cloud</li>
+<li>一种：convolutional networks to the front view point map in a dense box prediction scheme</li>
+</ul>
+</li>
+<li>Image-based method 主要思路<ul>
+<li>首先：generate 3D box proposals</li>
+<li>接着：perform region-based recognition using the Fast RCNN pipeline</li>
+</ul>
+</li>
+<li>优势对比，各有千秋<ul>
+<li>Methods based on LIDAR point cloud achieve more accurate 3D locations</li>
+<li>image-based methods have higher accuracy in terms of 2D box evaluation</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>已经在尝试的 early or late fusion schemes（传统融合方式）：combine LIDAR and images for 2D detection<ul>
+<li>存在问题（本文遇到的挑战）$\Longrightarrow$ well-designed model is required to <strong>make use of the strength of multiple modalities</strong>（多模态数据）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>本文提出的解决方案：Multi-View 3D object detection network (MV3D)<ul>
+<li>利用多模态信息的核心：region-based feature fusion<center><img src="/img/papers/mv3d/MV3D_Diagram.png" width="880px" alt=""/></center></li>
+<li>multi-view 3D detection network：3D Proposal Network and a Region-based Fusion Network<ul>
+<li>① generates 3D object proposals from <strong>bird’s eye view map</strong> $\Longrightarrow$ generate highly accurate 3D candidate boxes（候选框）</li>
+<li>② projecting 3D proposals to the feature maps from mulitple views（多视角） + ROI <strong>pooling</strong> + deep fusion network $\Longrightarrow$ region-wise fused features<ul>
+<li>superior performance over the early/late fusion scheme（早期或晚期的融合方案）<ul>
+<li>drop-path training：会在训练的迭代过程中随机地删除一些分支</li>
+<li>auxiliary loss：辅助损失（可能是一种损失函数？？？）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>③ fused features jointly $\Longrightarrow$ (1).predict object class (2).do oriented 3D box regression（predict accurate 3D location, size and orientation of objects in 3D space）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>本文提出的方法评估：evaluate our approach<ul>
+<li>recent 3D proposal methods <strong>3DOP</strong> and <strong>Mono3D</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h4><ul>
+<li>3D Object Detection in Point Cloud</li>
+<li>3D Object Detection in Images</li>
+<li>Multimodal Fusion（多模融合）</li>
+<li>3D Object Proposals（3D 物体提取/检测）</li>
+</ul>
+<h4 id="MV3D-Network"><a href="#MV3D-Network" class="headerlink" title="MV3D Network"></a>MV3D Network</h4><ul>
+<li>3D Point Cloud Representation<ul>
+<li>Bird’s Eye View Representation</li>
+<li>Front View Representation</li>
+</ul>
+</li>
+<li>3D Proposal Network（3D 提取/检测网络）<ul>
+<li>避免多检测点（bounding box’s 8 points）冗余的方法：Non-Maximum Suppression(NMS)：非极大抑制<ul>
+<li>本文使用的：IoU threshold of 0.7 for NMS<blockquote>
+<p><a href="http://blog.csdn.net/danieljianfeng/article/details/43084875"> 非极大抑制（Non-Maximum Suppression）</a></p>
+<ul>
+<li>在物体检测非极大值抑制应用十分广泛，主要目的是为了消除多余的框，找到最佳的物体检测的位置。</li>
+<li><strong>Non-Maximum Suppression</strong> 就是需要根据 region 属于某个类的 score 矩阵和 region 的坐标信息，从中找到置信度比较高的 bounding box。<ul>
+<li>①首先，NMS 计算出每一个 bounding box 的面积，然后根据 score 进行排序，把 score 最大的 bounding box 放在队列中。</li>
+<li>②接下来，计算其余 bounding box 与当前最大 score 的 box 的 IoU，去除 IoU 大于设定的阈值的 bounding box。</li>
+<li>③然后重复上面的①②过程，直至候选 bounding box 为空。</li>
+</ul>
+</li>
+<li>检测 bounding box 的过程中有<strong>两个阈值</strong>，一个就是 IoU，另一个是在过程之后，从候选的 bounding box 中剔除 score 小于阈值的 bounding box。</li>
+<li>需要注意的是：Non-Maximum Suppression一次处理一个类别，如果有 N 个类别，Non-Maximum Suppression 就需要执行 N 次</li>
+</ul>
+</blockquote>
+</li>
+<li>什么是 IoU(Intersection-over-Union) overlap 呢？<blockquote>
+<p><a href="http://blog.csdn.net/hjimce/article/details/50187029">深度学习（十八）基于R-CNN的物体检测</a></p>
+<ul>
+<li>物体检测需要定位出物体的 bounding box，对于 bounding box 的定位精度，有一个很重要的概念，IoU，IoU 定义了两个 bounding box 的重叠度</li>
+<li>矩形框 A、B 的一个重合度 IoU 计算公式为：$ IoU = \frac{A∩B}{A∪B} $，就是矩形框 A、B 的重叠面积占 A、B 并集的面积比例：$ IoU = \frac{S_{A∩B}}{S_A + S_B - S_{A∩B}} $</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Region-based Fusion Network<ul>
+<li>Refer<blockquote>
+<p><a href="Bo Li[3D CNN]_3D Fully Convolutional Network for Vehicle Detection in Point Cloud.html">Bo Li[3D CNN]_3D Fully Convolutional Network for Vehicle Detection in Point Cloud</a></p>
+</blockquote>
+</li>
+<li>Multi-View ROI Pooling</li>
+<li>Deep Fusion<blockquote>
+<p>feature transformation functions：特征变换函数（传递函数）<br>join operation：多模态特征连接操作</p>
+<ul>
+<li>concatenation：级联连接</li>
+<li>element-wise mean：元素级别的均值</li>
+<li>summation：Summation 是一种流行的合并分支的方式。在 ResNets 中，使用求和作为连接机制可以让每一个分支都能计算残差和整体近似。如果输入跳跃连接始终存在，那么 Summation 会让每一层学到正确地东西（例如：输入的差别）。在任何分支都可以被丢弃的网络（例如 FractalNet）中，你应该使用这种方式保持输出的平滑（<a href="http://imgtec.eetrend.com/blog/9779">想改进你的卷积神经网络？看看这14种设计模式！</a>）</li>
+</ul>
+</blockquote>
+</li>
+<li>Oriented 3D Box Regression</li>
+<li>Network Regularization（网络正则化）<blockquote>
+<p><a href="https://hit-scir.gitbooks.io/neural-networks-and-deep-learning-zh_cn/content/chap3/c3s5ss1.html">神经网络与深度学习-正则化</a><br>$\quad$ 避免过拟合的方法之一是增加训练数据数量。那么，还有没有别的方法能让我们避免过拟合呢？一种可能的方法是减小网络的规模。然而，我们并不情愿减小规模，因为大型网络比小型网络有更大的潜力。<br>$\quad$ 幸好，哪怕使用固定的网络和固定的训练数据，我们还有别的方法来避免过拟合。这就是所谓的正则化（regularization）技术。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>Implementation<ul>
+<li>Network Architecture</li>
+<li>Input Representation</li>
+<li>Training</li>
+</ul>
+</li>
+</ul>
+<h4 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h4><ul>
+<li>Metrics</li>
+<li>Baslines</li>
+<li>3D Proposal Recall</li>
+<li>3D Localization</li>
+<li>3D Object Detection</li>
+<li>Ablation Studies（消融研究）</li>
+<li>2D Object Detection</li>
+<li>Qualitative Results（定性结果）</li>
+</ul>
+<h4 id="Conclusion-and-Future-Work"><a href="#Conclusion-and-Future-Work" class="headerlink" title="Conclusion and Future Work"></a>Conclusion and Future Work</h4><ul>
+<li>Conclusion<ul>
+<li>multi-view sensory-fusion model for 3D object detection in the road scene<ul>
+<li>takes advantage of both <strong>LIDAR point cloud</strong> and <strong>images</strong>. </li>
+<li>align different modalities（多模态） by generating 3D proposals and projecting them to multiple views for feature extraction（特征提取）.</li>
+<li>region-based fusion network is presented to deeply fuse multi-view information and do oriented 3D box regression</li>
+</ul>
+</li>
+<li>在 3D 定位、3D 检测以及 2D 检测都超过 state-of-the-art（目前最先进的方法）<ul>
+<li>outperforms existing LIDAR- based and image-based methods on tasks of 3D localization and 3D detection on KITTI benchmark</li>
+<li>2D box results obtained from 3D detections also show competitive performance compared with the state-of-the-art 2D detection methods.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="参考阅读"><a href="#参考阅读" class="headerlink" title="参考阅读"></a>参考阅读</h4><ul>
+<li><a href="http://lufo.me/2016/10/detection/">目标检测方法简介:RPN(Region Proposal Network) and SSD(Single Shot MultiBox Detector)</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Introduction"><span class="toc-number">2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Related-Work"><span class="toc-number">3.</span> <span class="toc-text">Related Work</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MV3D-Network"><span class="toc-number">4.</span> <span class="toc-text">MV3D Network</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Experiments"><span class="toc-number">5.</span> <span class="toc-text">Experiments</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Conclusion-and-Future-Work"><span class="toc-number">6.</span> <span class="toc-text">Conclusion and Future Work</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考阅读"><span class="toc-number">7.</span> <span class="toc-text">参考阅读</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+        <!--
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+        -->
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+        <!--
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+        -->
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Multi-View 3D Object Detection Network for Autonomous Driving　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/papers/mv3d/Multi-View 3D Object Detection Network for Autonomous Driving.html';
+            this.page.identifier = 'papers/mv3d/Multi-View 3D Object Detection Network for Autonomous Driving.html';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2017 Gary
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by <a href="http://moxfive.xyz/" target="_blank"> MOxFIVE </a><i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+            
+            
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
