@@ -76,12 +76,12 @@
 </blockquote>
 <p>　Java and C# evaluate expressions <strong>from left to right</strong>, and the <strong>side-effects</strong> are visible immediately.<br>　Java 语法对<code>i = i++;</code>这样的表达式有着明确的执行定义 —— 从左到右。</p>
 <blockquote>
-<p>　　At run time, the expression is evaluated in one of two ways. If the left-hand operand expression is not an array access expression（即使左操作数存在数组访问，也是满足先左后右）, then four steps are required:</p>
+<p>　　At run time, the expression is evaluated in one of two ways. If the left-hand operand expression is not an array access expression（即使左操作数存在数组访问，也是满足先左后右）, then four steps are required:<br>　　率先按照从左到右的顺序对左右操作数进行 evaluation（计算），并保存下来。</p>
 <ul>
 <li>First, the left-hand operand is evaluated to produce a variable. If this evaluation completes abruptly, then the assignment expression completes abruptly for the same reason; the right-hand operand is not evaluated and no assignment occurs.</li>
 <li>Otherwise, the value of the left-hand operand is saved and then the right-hand operand is evaluated. If this evaluation completes abruptly, then the assignment expression completes abruptly for the same reason and no assignment occurs.</li>
 <li>Otherwise, the saved value of the left-hand variable and the value of the right-hand operand are used to perform the binary operation indicated by the compound assignment operator. If this operation completes abruptly, then the assignment expression completes abruptly for the same reason and no assignment occurs.</li>
-<li>Otherwise, the result of the binary operation is converted to the type of the left-hand variable, subjected to value set conversion (§5.1.13) to the appropriate standard value set (not an extended-exponent value set), and the result of the conversion is stored into the variable.</li>
+<li>Otherwise, the result of the binary operation is converted to the type of the left-hand variable, subjected to value set conversion（数据类型转换） to the appropriate standard value set (not an extended-exponent value set), and the result of the conversion is stored into the variable.</li>
 </ul>
 </blockquote>
 <ul>
