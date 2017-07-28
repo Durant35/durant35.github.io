@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/papers/slam2d/index.html</loc>
+    
+    <lastmod>2017-07-28T02:23:52.547Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2017/07/21/Algorithms_ICP/</loc>
     
     <lastmod>2017-07-24T12:18:16.807Z</lastmod>
@@ -432,13 +439,6 @@
     <loc>http://durant35.github.io/papers/slam3d/index.html</loc>
     
     <lastmod>2017-07-05T13:02:29.658Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/papers/slam2d/index.html</loc>
-    
-    <lastmod>2017-07-05T09:22:30.199Z</lastmod>
     
   </url>
   
