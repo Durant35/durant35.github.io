@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/papers/Fast%20Segmentation%20of%203D%20Point%20Clouds%20for%20Ground%20Vehicles.html</loc>
+    
+    <lastmod>2017-08-03T08:32:57.607Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/papers/index.html</loc>
+    
+    <lastmod>2017-08-03T03:48:43.854Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/papers/slam2d/index.html</loc>
     
     <lastmod>2017-07-28T02:23:52.547Z</lastmod>
@@ -26,13 +40,6 @@
     <loc>http://durant35.github.io/papers/mv3d/Bo%20Li%5B2D%20CNN%5D_Vehicle%20Detection%20from%203D%20Lidar%20Using%20Fully%20Convolutional%20Network.html</loc>
     
     <lastmod>2017-07-20T01:53:47.669Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/papers/index.html</loc>
-    
-    <lastmod>2017-07-19T07:43:57.773Z</lastmod>
     
   </url>
   
@@ -79,14 +86,14 @@
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2017/07/14/ROS_%3Carg%3E&%3Cparam%3E&%3Crosparam%3E/</loc>
+    <loc>http://durant35.github.io/2017/07/14/ROS_%3Carg%3E$%3Cparam%3E$%3Crosparam%3E/</loc>
     
     <lastmod>2017-07-14T13:46:17.634Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2017/07/14/programPearls_32-bit%20program%20on%2064-bit%20OS%20&%2064-bit%20program%20on%2032-bit%20OS/</loc>
+    <loc>http://durant35.github.io/2017/07/14/programPearls_32-bit%20program%20on%2064-bit%20OS%20$%2064-bit%20program%20on%2032-bit%20OS/</loc>
     
     <lastmod>2017-07-14T11:39:17.362Z</lastmod>
     
@@ -114,35 +121,35 @@
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2017/07/11/programPearls_DES&3DES&AES/</loc>
+    <loc>http://durant35.github.io/2017/07/11/programPearls_DES$3DES$AES/</loc>
     
     <lastmod>2017-07-14T09:21:43.589Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2017/07/11/programPearls_JPEG&Arithmetic&LZW/</loc>
+    <loc>http://durant35.github.io/2017/07/11/programPearls_JPEG$Arithmetic$LZW/</loc>
     
     <lastmod>2017-07-12T09:35:22.643Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2017/07/08/Algorithms_BST&R-B%20Tree/</loc>
+    <loc>http://durant35.github.io/2017/07/08/Algorithms_BST$R-B%20Tree/</loc>
     
     <lastmod>2017-07-11T03:52:16.963Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2017/07/06/programPearls_inline&static&const&extern&volatile/</loc>
+    <loc>http://durant35.github.io/2017/07/06/programPearls_inline$static$const$extern$volatile/</loc>
     
     <lastmod>2017-07-08T00:58:08.415Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2017/07/07/programPearls_declaration&definition&initialization&assignment/</loc>
+    <loc>http://durant35.github.io/2017/07/07/programPearls_declaration$definition$initialization$assignment/</loc>
     
     <lastmod>2017-07-07T06:36:05.935Z</lastmod>
     
@@ -170,7 +177,7 @@
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2017/06/24/Algorithms_Vertex&Edge%20connectivity%20degree/</loc>
+    <loc>http://durant35.github.io/2017/06/24/Algorithms_Vertex$Edge%20connectivity%20degree/</loc>
     
     <lastmod>2017-07-06T08:49:40.478Z</lastmod>
     
@@ -597,14 +604,14 @@
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2016/02/25/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%9B%9E%E9%A1%BE&%E6%B7%B1%E5%85%A5/</loc>
+    <loc>http://durant35.github.io/2016/02/25/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%9B%9E%E9%A1%BE$%E6%B7%B1%E5%85%A5/</loc>
     
     <lastmod>2016-11-12T14:14:16.211Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&%E6%A6%82%E8%A7%88/</loc>
+    <loc>http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8$%E6%A6%82%E8%A7%88/</loc>
     
     <lastmod>2016-11-12T12:44:29.790Z</lastmod>
     
@@ -632,7 +639,7 @@
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2016/09/08/programPearls_Win&Linux%20Operate%20ini%20configuration%20files(API)/</loc>
+    <loc>http://durant35.github.io/2016/09/08/programPearls_Win$Linux%20Operate%20ini%20configuration%20files(API)/</loc>
     
     <lastmod>2016-11-12T10:26:04.696Z</lastmod>
     
@@ -751,7 +758,7 @@
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2016/10/10/linux_libpcap%2032-bit&64-bit/</loc>
+    <loc>http://durant35.github.io/2016/10/10/linux_libpcap%2032-bit$64-bit/</loc>
     
     <lastmod>2016-10-10T07:30:43.225Z</lastmod>
     
@@ -800,14 +807,14 @@
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2016/09/08/programPearls_Win&Linux%E4%B8%8B%E5%9F%BA%E6%9C%AC%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</loc>
+    <loc>http://durant35.github.io/2016/09/08/programPearls_Win$Linux%E4%B8%8B%E5%9F%BA%E6%9C%AC%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</loc>
     
     <lastmod>2016-09-08T04:05:30.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2016/09/08/programPearls_Win&Linux%E4%B8%8B%E6%93%8D%E4%BD%9Cini%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(DIY)/</loc>
+    <loc>http://durant35.github.io/2016/09/08/programPearls_Win$Linux%E4%B8%8B%E6%93%8D%E4%BD%9Cini%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(DIY)/</loc>
     
     <lastmod>2016-09-08T04:05:22.000Z</lastmod>
     

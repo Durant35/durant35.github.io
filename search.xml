@@ -402,7 +402,7 @@
     
     <entry>
       <title><![CDATA[ROS launch file: <arg> vs <param> vs <rosparam>]]></title>
-      <url>/2017/07/14/ROS_%3Carg%3E&amp;%3Cparam%3E&%3Crosparam%3E/</url>
+      <url>/2017/07/14/ROS_%3Carg%3E$%3Cparam%3E$%3Crosparam%3E/</url>
       <content type="html"><![CDATA[<p>　　本文介绍在 ROS 的 launch 文件中经常被使用到的三个与参数设置有关的标签 <code>&lt;arg&gt;</code>、<code>&lt;param&gt;</code>、<code>rosparam</code>。<a id="more"></a>
 　　</p>
 <h4 id="lt-arg-gt"><a href="#lt-arg-gt" class="headerlink" title="$\lt arg \gt$"></a>$\lt arg \gt$</h4><ul>
@@ -535,7 +535,7 @@
     
     <entry>
       <title><![CDATA[32-bit program on 64-bit OS & 64-bit program on 32-bit OS]]></title>
-      <url>/2017/07/14/programPearls_32-bit%20program%20on%2064-bit%20OS%20&amp;%2064-bit%20program%20on%2032-bit%20OS/</url>
+      <url>/2017/07/14/programPearls_32-bit%20program%20on%2064-bit%20OS%20$%2064-bit%20program%20on%2032-bit%20OS/</url>
       <content type="html"><![CDATA[<h4 id="32-bit-program-on-64-bit-OS"><a href="#32-bit-program-on-64-bit-OS" class="headerlink" title="32-bit program on 64-bit OS"></a>32-bit program on 64-bit OS</h4><blockquote>
 <p><a href="https://www.viva64.com/en/k/0004/">Is it possible to run 64-bit applications in a 32-bit OS?</a></p>
 </blockquote>
@@ -603,7 +603,7 @@
     
     <entry>
       <title><![CDATA[密码学：DES、3DES、AES]]></title>
-      <url>/2017/07/11/programPearls_DES&amp;3DES&AES/</url>
+      <url>/2017/07/11/programPearls_DES$3DES$AES/</url>
       <content type="html"><![CDATA[<p>　　加密方法可以分为两大类：一类是对称密码体制，又称单钥或私钥密码体制（private key cryptography）；还有一类是非对称密码体制，也称双钥或公开密钥体制（public key cryptography）。前者的加密和解密过程都用同一套密码，后者的加密和解密过程用的是两套密码。<br>　　在单钥加密的情况下，密钥只有一把，所以密钥的保存变得很重要，一旦秘钥泄露，密文也就被破解了；在双钥加密的情况下，秘钥有两把，一把是公开的公钥，还有一把是不公开的私钥，公钥与私钥是一一对应的关系，有一把公钥就必然有一把与之对应的、独一无二的私钥，反之亦成立。此外，①同时生成公钥和私钥应该是相对比较容易的：所有的公钥、私钥对都不同，用公钥可以解开私钥加密的信息，反之用私钥也可以解开公钥加密的信息；但是②从公钥推算出私钥，应该是很困难或者是不可能的。<br>　　目前，通用的单钥加密算法有 DES（Data Encryption Standard），通用的双钥加密算法为 RSA（Rivest-Shamir-Adleman），本文主要介绍三种常用的单钥加密算法：DES、3DES（Triple DES） 以及 AES（Advanced Encryption Standard）。<a id="more"></a></p>
 <h3 id="DES-算法"><a href="#DES-算法" class="headerlink" title="DES 算法"></a>DES 算法</h3><ul>
 <li>DES 算法简介<ul>
@@ -817,7 +817,7 @@
     
     <entry>
       <title><![CDATA[JPEG编码&算术编码、LZW编码]]></title>
-      <url>/2017/07/11/programPearls_JPEG&amp;Arithmetic&LZW/</url>
+      <url>/2017/07/11/programPearls_JPEG$Arithmetic$LZW/</url>
       <content type="html"><![CDATA[<p>　　本文介绍 JPEG 编解码过程（附简单的<code>cpp</code>实现）。JPEG 中常用到的熵编码是变长编码：Huffman 编码，本文也对算术编码（附<code>cpp</code>实现）、LZW 编码（附<code>py</code>实现）两种熵编码进行介绍。<a id="more"></a></p>
 <h4 id="JPEG-编解码过程"><a href="#JPEG-编解码过程" class="headerlink" title="JPEG 编解码过程"></a>JPEG 编解码过程</h4><ul>
 <li>JPEG 编码过程<br>  <center><img src="/img/programPearls/jpeg/JPEG_Diagram.jpg" width="480px" alt=""/></center><ul>
@@ -1004,7 +1004,7 @@
     
     <entry>
       <title><![CDATA[算法设计与分析[0022] BST（二叉查找树）和 R-B Tree（红黑树）]]></title>
-      <url>/2017/07/08/Algorithms_BST&amp;R-B%20Tree/</url>
+      <url>/2017/07/08/Algorithms_BST$R-B%20Tree/</url>
       <content type="html"><![CDATA[<p>　一些计算机程序设计中常用的线性数据结构：<code>Array</code>、<code>ArrayList</code>、<code>LinkedList</code>、<code>List</code>、<code>Stack</code>、<code>Queue</code>、<code>Hashtable</code> 和<code>Dictionary</code>。为了更高效的进行数据的查找和访问，例如避免普通数据查找的 $O(N)$ 线性时间复杂度，常用树这种数据结构保存数据。<br>　树（Tree）是由多个节点（Node）的集合组成，每个节点又有多个与其关联的子节点（Child Node）；子节点就是直接处于节点之下的节点，而父节点（Parent Node）则位于节点直接关联的上方；树的根（Root）指的是一个没有父节点的单独的节点。所有的树都呈现了一些共有的性质：<font color="blue">①只有一个根节点；②除了根节点，所有节点都有且只有一个父节点；③无环。将任意一个节点作为起始节点，都不存在任何回到该起始节点的路径（正是前两个性质保证了无环的成立）</font>。<br>　更高效同时也相对更加复杂的树型数据结构包括 <strong>BST</strong>（二叉查找树）、<strong>R-B Tree</strong>（红黑树）、<strong>AVL Tree</strong>（平衡二叉树：父节点的左子树和右子树的高度之差不能大于1）、<strong>Treap</strong>（树堆：满足①二叉查找树的性质；满足②堆的性质）、<strong>Splay Tree</strong>（伸展树：在一次搜索后，会对树进行一些特殊的操作，这些操作的理念与AVL树有些类似，即通过旋转，来改变树节点的分布，并减小树的深度；伸展树并没有AVL树的平衡要求，任意节点的左右子树可以相差任意深度）、<strong>B-Tree</strong>（B树：多叉平衡查找树，<strong>B$^{+}$-Tree</strong>（B+树）是B树的变体）等。<br>　本文主要介绍基础的 <font color="red">BST（二叉查找树）</font>以及提升搜索效率的更高级的数据结构：<font color="red">R-B Tree（红黑树）</font>。<a id="more"></a></p>
 <h3 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h3><ul>
 <li>二叉查找树（Binary Search Tree），也称有序二叉树（ordered binary tree），排序二叉树（sorted binary tree），是指一棵空树或者具有下列性质的二叉树<ul>
@@ -1325,7 +1325,7 @@
     
     <entry>
       <title><![CDATA[声明/定义/初始化/赋值]]></title>
-      <url>/2017/07/07/programPearls_declaration&amp;definition&initialization&assignment/</url>
+      <url>/2017/07/07/programPearls_declaration$definition$initialization$assignment/</url>
       <content type="html"><![CDATA[<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义（定义性声明）</span></div><div class="line"><span class="keyword">int</span> i;</div><div class="line"><span class="comment">// 声明（引用性声明）</span></div><div class="line"><span class="keyword">extern</span> <span class="keyword">int</span> j;</div><div class="line"><span class="comment">// 初始化</span></div><div class="line"><span class="keyword">int</span> k = <span class="number">7</span>;</div><div class="line"><span class="comment">// 默认初始化</span></div><div class="line"><span class="keyword">int</span> l;</div><div class="line"><span class="comment">// 赋值</span></div><div class="line">l = <span class="number">100</span>;</div></pre></td></tr></table></figure>
 <ul>
 <li>引用性<font color="red">声明</font>不分配存储空间，如：<code>extern int x;</code>只是告诉编译器变量<code>x</code>是整型，已经在其它地方定义了。</li>
@@ -1374,7 +1374,7 @@
     
     <entry>
       <title><![CDATA[C/C++常见修饰符（inline&static&const&extern&volatile）]]></title>
-      <url>/2017/07/06/programPearls_inline&amp;static&const&extern&volatile/</url>
+      <url>/2017/07/06/programPearls_inline$static$const$extern$volatile/</url>
       <content type="html"><![CDATA[<p>　本文是关于C/C++语言中常见的五个修饰符：<code>static</code>、<code>const</code>、<code>extern</code>、<code>inline</code>、<code>volatile</code>的含义和用法，在阅读本文前，建议先通过<a href="https://durant35.github.io/2017/07/07/programPearls_declaration&amp;definition&amp;initialization&amp;assignment/">《声明/定义/初始化/赋值》</a>了解有关C/C++中定义、声明等概念以及变量声明和定义的区别。<br><a id="more"></a></p>
 <h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><ul>
 <li>关键字static有着不同不同寻常的历史。起初，在C中引入关键字<code>static</code>是为了表示退出一个块后仍然存在的局部变量；随后，<code>static</code>在C中有了第二种含义：用来表示不能被其它文件访问的全局变量和函数。为了避免引入新的关键字，所以仍使用static关键字来表示这第二种含义。</li>
@@ -2096,7 +2096,7 @@
     
     <entry>
       <title><![CDATA[算法设计与分析[0018] 图的点连通度和边连通度]]></title>
-      <url>/2017/06/24/Algorithms_Vertex&amp;Edge%20connectivity%20degree/</url>
+      <url>/2017/06/24/Algorithms_Vertex$Edge%20connectivity%20degree/</url>
       <content type="html"><![CDATA[<h4 id="基本概念？"><a href="#基本概念？" class="headerlink" title="基本概念？"></a>基本概念？</h4><ul>
 <li>点连通度（图的连通度）：对应一个图 $G$，对于所有点集 $U \subset V_G$，也就是 $V_G$ 的子集中，使得 $G-U$（在图 $G$ 中删去 $U$ 和与 $U$ 关联的边）要么是一个非连通图，要么就是一个平凡图，其中最小的集合 $U$ 的大小 $|U|$ 就是图 $G$ 的<strong>点连通度</strong>（有时候也直接称为<strong>图的连通度</strong>）。<a id="more"></a><blockquote>
 <p>连通图&amp;非连通图（无向图）</p>
@@ -5215,7 +5215,7 @@
     
     <entry>
       <title><![CDATA[libpcap, 32-bit&64-bit]]></title>
-      <url>/2016/10/10/linux_libpcap%2032-bit&amp;64-bit/</url>
+      <url>/2016/10/10/linux_libpcap%2032-bit$64-bit/</url>
       <content type="html"><![CDATA[<p>　情况是这样的，在之前讲过的回播 <strong>.pcap</strong> 数据的 <strong>Velodyne_player</strong> 程序中，需要调用 <strong>Winpcap</strong> (其实就是 <strong>libpcap</strong> 的 Win挫版) 的 API 解析 <strong>.pcap</strong> 数据，再通过 UDP 发送出去。我们的 <strong>Velodyne_player</strong> 是一个 <strong>Win32</strong> 的程序，显然调用的就是32位的 <strong>Winpcap</strong> 库的 API； 后来我们也移植了一个 <strong>.pcap</strong> 采集程序的 Linux 版本，结果，用该 Linux 版本采集程序采集到的 <strong>.pcap</strong> 数据却没办法用我们 Win 下的 <strong>Velodyne_player</strong> 回播。后来发现，我们的 Linux 版本的采集程序用的是64位的 <strong>libpcap</strong> 库(因为系统是64位的 Ubuntu16.04，默认安装的就是64位的 <strong>libpcap</strong> 库)，64位和32位的 <strong>libpcap</strong>，在时间戳上有很关键的区别，下面是开源的 <strong>pcap.h</strong> 中的声明:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</div><div class="line"> * Generic per-packet information, as supplied by libpcap.</div><div class="line"> *</div><div class="line"> * The time stamp can and should be a "struct timeval", regardless of</div><div class="line"> * whether your system supports 32-bit tv_sec in "struct timeval",</div><div class="line"> * 64-bit tv_sec in "struct timeval", or both if it supports both 32-bit</div><div class="line"> * and 64-bit applications.  The on-disk format of savefiles uses 32-bit</div><div class="line"> * tv_sec (and tv_usec); this structure is irrelevant to that.  32-bit</div><div class="line"> * and 64-bit versions of libpcap, even if they're on the same platform,</div><div class="line"> * should supply the appropriate version of "struct timeval", even if</div><div class="line"> * that's not what the underlying packet capture mechanism supplies.</div><div class="line"> */</span></div><div class="line"><span class="keyword">struct</span> pcap_pkthdr &#123;</div><div class="line">  <span class="keyword">struct</span> timeval ts;	<span class="comment">/* time stamp */</span></div><div class="line">  bpf_u_int32 caplen;	<span class="comment">/* length of portion present */</span></div><div class="line">  bpf_u_int32 len;	<span class="comment">/* length this packet (off wire) */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <p>　对于上面遇到的问题，我们想到的解决办法是，移植的 Linux 版本采集程序生成32位的，而不是目前的64位。因为现在装的是64位的 <strong>libpcap</strong>(64位系统使然)，那接下来的问题便是，如何在64位的 <strong>Ubuntu16.04</strong> 上面安装32位的 <strong>libpcap</strong> 库，然后生成我们需要的32位数据采集程序(-m32 or -m64)。</p>
@@ -5798,7 +5798,7 @@
     
     <entry>
       <title><![CDATA[Win/Linux下操作ini配置文件(DIY)]]></title>
-      <url>/2016/09/08/programPearls_Win&amp;Linux%E4%B8%8B%E6%93%8D%E4%BD%9Cini%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(DIY)/</url>
+      <url>/2016/09/08/programPearls_Win$Linux%E4%B8%8B%E6%93%8D%E4%BD%9Cini%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(DIY)/</url>
       <content type="html"><![CDATA[<p>　　待续…</p>
 ]]></content>
       
@@ -5821,7 +5821,7 @@
     
     <entry>
       <title><![CDATA[Win/Linux下基本文件操作]]></title>
-      <url>/2016/09/08/programPearls_Win&amp;Linux%E4%B8%8B%E5%9F%BA%E6%9C%AC%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
+      <url>/2016/09/08/programPearls_Win$Linux%E4%B8%8B%E5%9F%BA%E6%9C%AC%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
       <content type="html"><![CDATA[<p>　　待续…</p>
 ]]></content>
       
@@ -5842,7 +5842,7 @@
     
     <entry>
       <title><![CDATA[Win/Linux下操作ini配置文件(API)]]></title>
-      <url>/2016/09/08/programPearls_Win&amp;Linux%20Operate%20ini%20configuration%20files(API)/</url>
+      <url>/2016/09/08/programPearls_Win$Linux%20Operate%20ini%20configuration%20files(API)/</url>
       <content type="html"><![CDATA[<p>　我们的程序常常需要从配置文件中获取参数，一方面，用户关于程序的自定义配置往往就存储在配置文件中，自定义配置的适配与保存就转化为对配置文件的读写操作；另一方面，也是本文编写的由来，那就是将有关程序中核心算法的参数提取到配置文件，方便算法参数的调试(只要调整配置文件，无需修改程序源码，更无需重新构建)。<br>　<strong>.ini</strong> 文件作为典型的配置文件，其文件存储的内容基本上是一些参数的 <strong>Key-Value</strong> 形式，此外就是一些所谓的属性段，多个对同一方面参数进行描述的 <strong>键值对</strong> 可以归纳为一个 <strong>Section</strong>。<br>　下面，是 <strong>Win/Linux</strong> 下如何通过不同的 API 实现对 <strong>*.ini</strong> 配置文件读写操作的整理。<br><a id="more"></a></p>
 <h3 id="Linux-using-Glib-API"><a href="#Linux-using-Glib-API" class="headerlink" title="Linux, using Glib API"></a>Linux, using Glib API</h3><blockquote>
 <p>Reference: </p>
@@ -6388,7 +6388,7 @@
     
     <entry>
       <title><![CDATA[Coding中的编码问题之回顾&深入]]></title>
-      <url>/2016/02/25/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%9B%9E%E9%A1%BE&amp;%E6%B7%B1%E5%85%A5/</url>
+      <url>/2016/02/25/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%9B%9E%E9%A1%BE$%E6%B7%B1%E5%85%A5/</url>
       <content type="html"><![CDATA[<font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/22/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/#more">《Coding中的编码问题之系统学习》</a><br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/25/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%9B%9E%E9%A1%BE&amp;%E6%B7%B1%E5%85%A5/#more">《这是最后一篇》</a></font>
 
 <p>　　到这里，相信你已经完整看完<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a>和<a href="http://durant35.github.io/2016/02/22/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/#more">《Coding中的编码问题之系统学习》</a>，对字符编码已经有一个清晰的点到面的理解了，本文作为整个系列文章的完结篇，一来对之前所有内容进行一个回顾与总结，加深印象，扩宽理解；二来对没提及的剩下不多的几个细节进行补充说明，希望能在你的脑海里建立较为清晰的知识网络。非常希望你也能在阅读后有自己的理解，然后整理在你的笔记或博客中；也希望日后当某个知识点模糊不清时，还能帮到你、我。<br><a id="more"></a></p>
@@ -6683,7 +6683,7 @@
     
     <entry>
       <title><![CDATA[Coding中的编码问题之入门&概览]]></title>
-      <url>/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/</url>
+      <url>/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8$%E6%A6%82%E8%A7%88/</url>
       <content type="html"><![CDATA[<font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/02/programPearls_Qt_%E5%80%9FQt%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%B0%88%E8%B0%88Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/#more">《借Qt中文乱码谈谈Coding中的编码问题》</a> (<strong>可选择性阅读</strong>)<br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/22/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/#more">《Coding中的编码问题之系统学习》</a></font>
 
 <p>　　大家在看完<a href="http://durant35.github.io/2016/02/02/programPearls_Qt_%E5%80%9FQt%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%B0%88%E8%B0%88Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/#more">《借Qt中文乱码谈谈Coding中的编码问题》</a>后，估计对文章中提到的很多概念性的东西似懂非懂，本系列接下来的几篇文章会陆续为大家解释清楚 <strong>（没看过该文章也无所谓啦，hhhhhh）</strong>。由于本人也是通过零散阅读包括 <strong>开源中国</strong> 上<a href="http://my.oschina.net/goldenshaw/blog?disp=2&amp;p=1&amp;catalog=536953">《字符集编码系列》</a>等博文慢慢理解的，故本文及后续文章均会以阅读笔记的形式提供，会涵盖个人笔记以及个人小结，希望能对大家有所帮助。也方便日后自己回顾、学习。<br>　　本文借<a href="http://www.cnblogs.com/Kyzy/archive/2012/06/17/2552432.html">《学习程序设计的必要准备——稀里糊涂的说说各种字符编码到底是个怎么回事。》</a>为大家说说字符编码的大概起源和字符编码的大概发展，会再一次提及上一篇文章提到的几个<code>Key Word</code> (<strong>ASCII</strong>, <strong>GB2312</strong>, <strong>Big5</strong>, <strong>GBK</strong>, <strong>Unicode</strong>, <strong>UTF-8</strong>…)，希望能帮大家对字符编码有一个大概的认识，为下一步系统学习打下基础。<br><a id="more"></a></p>

@@ -423,8 +423,8 @@
   
   <entry>
     <title>ROS launch file: &lt;arg&gt; vs &lt;param&gt; vs &lt;rosparam&gt;</title>
-    <link href="http://durant35.github.io/2017/07/14/ROS_%3Carg%3E&amp;%3Cparam%3E&amp;%3Crosparam%3E/"/>
-    <id>http://durant35.github.io/2017/07/14/ROS_&lt;arg&gt;&amp;&lt;param&gt;&amp;&lt;rosparam&gt;/</id>
+    <link href="http://durant35.github.io/2017/07/14/ROS_%3Carg%3E$%3Cparam%3E$%3Crosparam%3E/"/>
+    <id>http://durant35.github.io/2017/07/14/ROS_&lt;arg&gt;$&lt;param&gt;$&lt;rosparam&gt;/</id>
     <published>2017-07-14T12:18:03.000Z</published>
     <updated>2017-07-14T13:46:17.634Z</updated>
     
@@ -560,8 +560,8 @@
   
   <entry>
     <title>32-bit program on 64-bit OS &amp; 64-bit program on 32-bit OS</title>
-    <link href="http://durant35.github.io/2017/07/14/programPearls_32-bit%20program%20on%2064-bit%20OS%20&amp;%2064-bit%20program%20on%2032-bit%20OS/"/>
-    <id>http://durant35.github.io/2017/07/14/programPearls_32-bit program on 64-bit OS &amp; 64-bit program on 32-bit OS/</id>
+    <link href="http://durant35.github.io/2017/07/14/programPearls_32-bit%20program%20on%2064-bit%20OS%20$%2064-bit%20program%20on%2032-bit%20OS/"/>
+    <id>http://durant35.github.io/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/</id>
     <published>2017-07-14T03:51:14.000Z</published>
     <updated>2017-07-14T11:39:17.362Z</updated>
     
@@ -640,8 +640,8 @@
   
   <entry>
     <title>密码学：DES、3DES、AES</title>
-    <link href="http://durant35.github.io/2017/07/11/programPearls_DES&amp;3DES&amp;AES/"/>
-    <id>http://durant35.github.io/2017/07/11/programPearls_DES&amp;3DES&amp;AES/</id>
+    <link href="http://durant35.github.io/2017/07/11/programPearls_DES$3DES$AES/"/>
+    <id>http://durant35.github.io/2017/07/11/programPearls_DES$3DES$AES/</id>
     <published>2017-07-11T10:02:16.000Z</published>
     <updated>2017-07-14T09:21:43.589Z</updated>
     
@@ -856,8 +856,8 @@
   
   <entry>
     <title>JPEG编码&amp;算术编码、LZW编码</title>
-    <link href="http://durant35.github.io/2017/07/11/programPearls_JPEG&amp;Arithmetic&amp;LZW/"/>
-    <id>http://durant35.github.io/2017/07/11/programPearls_JPEG&amp;Arithmetic&amp;LZW/</id>
+    <link href="http://durant35.github.io/2017/07/11/programPearls_JPEG$Arithmetic$LZW/"/>
+    <id>http://durant35.github.io/2017/07/11/programPearls_JPEG$Arithmetic$LZW/</id>
     <published>2017-07-11T10:02:16.000Z</published>
     <updated>2017-07-12T09:35:22.643Z</updated>
     
@@ -1045,8 +1045,8 @@
   
   <entry>
     <title>算法设计与分析[0022] BST（二叉查找树）和 R-B Tree（红黑树）</title>
-    <link href="http://durant35.github.io/2017/07/08/Algorithms_BST&amp;R-B%20Tree/"/>
-    <id>http://durant35.github.io/2017/07/08/Algorithms_BST&amp;R-B Tree/</id>
+    <link href="http://durant35.github.io/2017/07/08/Algorithms_BST$R-B%20Tree/"/>
+    <id>http://durant35.github.io/2017/07/08/Algorithms_BST$R-B Tree/</id>
     <published>2017-07-08T04:02:22.000Z</published>
     <updated>2017-07-11T03:52:16.963Z</updated>
     
@@ -1368,8 +1368,8 @@
   
   <entry>
     <title>声明/定义/初始化/赋值</title>
-    <link href="http://durant35.github.io/2017/07/07/programPearls_declaration&amp;definition&amp;initialization&amp;assignment/"/>
-    <id>http://durant35.github.io/2017/07/07/programPearls_declaration&amp;definition&amp;initialization&amp;assignment/</id>
+    <link href="http://durant35.github.io/2017/07/07/programPearls_declaration$definition$initialization$assignment/"/>
+    <id>http://durant35.github.io/2017/07/07/programPearls_declaration$definition$initialization$assignment/</id>
     <published>2017-07-07T06:02:16.000Z</published>
     <updated>2017-07-07T06:36:05.935Z</updated>
     
@@ -1424,8 +1424,8 @@
   
   <entry>
     <title>C/C++常见修饰符（inline&amp;static&amp;const&amp;extern&amp;volatile）</title>
-    <link href="http://durant35.github.io/2017/07/06/programPearls_inline&amp;static&amp;const&amp;extern&amp;volatile/"/>
-    <id>http://durant35.github.io/2017/07/06/programPearls_inline&amp;static&amp;const&amp;extern&amp;volatile/</id>
+    <link href="http://durant35.github.io/2017/07/06/programPearls_inline$static$const$extern$volatile/"/>
+    <id>http://durant35.github.io/2017/07/06/programPearls_inline$static$const$extern$volatile/</id>
     <published>2017-07-06T08:02:16.000Z</published>
     <updated>2017-07-08T00:58:08.415Z</updated>
     
@@ -2176,8 +2176,8 @@
   
   <entry>
     <title>算法设计与分析[0018] 图的点连通度和边连通度</title>
-    <link href="http://durant35.github.io/2017/06/24/Algorithms_Vertex&amp;Edge%20connectivity%20degree/"/>
-    <id>http://durant35.github.io/2017/06/24/Algorithms_Vertex&amp;Edge connectivity degree/</id>
+    <link href="http://durant35.github.io/2017/06/24/Algorithms_Vertex$Edge%20connectivity%20degree/"/>
+    <id>http://durant35.github.io/2017/06/24/Algorithms_Vertex$Edge connectivity degree/</id>
     <published>2017-06-24T06:00:22.000Z</published>
     <updated>2017-07-06T08:49:40.478Z</updated>
     
@@ -2381,6 +2381,43 @@
   </entry>
   
   <entry>
+    <title>DARPA[Boss]: Motion Planning in Urban Environments</title>
+    <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/"/>
+    <id>http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</id>
+    <published>2017-06-02T05:00:22.000Z</published>
+    <updated>2017-06-03T14:37:33.593Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
+<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
+<li>long range plans<ul>
+<li>on-road planning</li>
+<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
+</ul>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）&lt;/li&gt;
+&lt;li&gt;long range plans&lt;ul&gt;
+&lt;li&gt;on-road planning&lt;/li&gt;
+&lt;li&gt;unstructured planning: parking lots/anomalous on-road scenarios（异常路况）
+    
+    </summary>
+    
+      <category term="自动驾驶" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/"/>
+    
+      <category term="DARPA" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/DARPA/"/>
+    
+    
+      <category term="DARPA" scheme="http://durant35.github.io/tags/DARPA/"/>
+    
+  </entry>
+  
+  <entry>
     <title>DARPA[Boss]: Boss and the Urban Challenge</title>
     <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/"/>
     <id>http://durant35.github.io/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/</id>
@@ -2447,43 +2484,6 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Perception sub-system
-    
-    </summary>
-    
-      <category term="自动驾驶" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/"/>
-    
-      <category term="DARPA" scheme="http://durant35.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/DARPA/"/>
-    
-    
-      <category term="DARPA" scheme="http://durant35.github.io/tags/DARPA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DARPA[Boss]: Motion Planning in Urban Environments</title>
-    <link href="http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/"/>
-    <id>http://durant35.github.io/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</id>
-    <published>2017-06-02T05:00:22.000Z</published>
-    <updated>2017-06-03T14:37:33.593Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
-<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
-<li>long range plans<ul>
-<li>on-road planning</li>
-<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
-<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
-</ul>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）&lt;/li&gt;
-&lt;li&gt;long range plans&lt;ul&gt;
-&lt;li&gt;on-road planning&lt;/li&gt;
-&lt;li&gt;unstructured planning: parking lots/anomalous on-road scenarios（异常路况）
     
     </summary>
     
