@@ -270,6 +270,91 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Algorithms_UnionFindSet" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/01/Algorithms_UnionFindSet/" class="article-date">
+      <time datetime="2017-06-01T06:00:22.000Z" itemprop="datePublished">2017-06-01</time>
+</a>
+
+ 
+    <a href="/2017/06/01/Algorithms_UnionFindSet/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/06/01/Algorithms_UnionFindSet/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h4 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h4><ul>
+<li>并查集：并查集处理的是集合之间的关系，即 union，find。在这种数据类型中，N个不同元素被分成若干个组，每组是一个集合，这种集合叫做分离集合。并查集支持查找一个元素所属的集合和两个元素分别所属的集合的合并。注意：并查集只能进行合并操作，不能进行分割操作。</li>
+<li>并查集支持以下操作：<ul>
+<li><code>makeset(x)</code>：创建一个仅包含 x 的独立集合（分离集）；最初每个节点单独构成了一个分离集 ==&gt; 一组分离集</li>
+<li><code>find(x)</code>：不断重复地检验节点对，判断其是否属于同一个集合？</li>
+<li><code>union(x, y)</code>：每当增加了一条边，将与之相关的两个集合合并。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/06/01/Algorithms_UnionFindSet/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Algorithms_Dynamic Programming(V)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -988,87 +1073,6 @@
       
         <p class="article-more-link">
           <a href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_BFS" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/22/Algorithms_BFS/" class="article-date">
-      <time datetime="2017-03-22T06:00:22.000Z" itemprop="datePublished">2017-03-22</time>
-</a>
-
- 
-    <a href="/2017/03/22/Algorithms_BFS/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/03/22/Algorithms_BFS/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文主要介绍 <strong>BFS</strong> 的 <em>C++</em> 和 <em>C</em> 语言实现，并借助 <a href="https://leetcode.com/">LeetCode</a> 上的一道题，说说基本的 <strong>BFS</strong> 在问题求解中的应用。</p>
-<h3 id="What’s-B-readth-F-irst-S-earch"><a href="#What’s-B-readth-F-irst-S-earch" class="headerlink" title="What’s B(readth)F(irst)S(earch)"></a>What’s B(readth)F(irst)S(earch)</h3><p>　广度优先搜索算法（Breadth First Search），又叫宽度优先搜索，或横向优先搜索。是从根节点开始，沿着树的宽度遍历树的节点。如果所有节点均被访问，则算法中止。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/03/22/Algorithms_BFS/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

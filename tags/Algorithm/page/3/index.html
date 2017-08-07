@@ -265,6 +265,82 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Algorithms_UnionFindSet" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/01/Algorithms_UnionFindSet/" class="article-date">
+      <time datetime="2017-06-01T06:00:22.000Z" itemprop="datePublished">2017-06-01</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h4 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h4><ul>
+<li>并查集：并查集处理的是集合之间的关系，即 union，find。在这种数据类型中，N个不同元素被分成若干个组，每组是一个集合，这种集合叫做分离集合。并查集支持查找一个元素所属的集合和两个元素分别所属的集合的合并。注意：并查集只能进行合并操作，不能进行分割操作。</li>
+<li>并查集支持以下操作：<ul>
+<li><code>makeset(x)</code>：创建一个仅包含 x 的独立集合（分离集）；最初每个节点单独构成了一个分离集 ==&gt; 一组分离集</li>
+<li><code>find(x)</code>：不断重复地检验节点对，判断其是否属于同一个集合？</li>
+<li><code>union(x, y)</code>：每当增加了一条边，将与之相关的两个集合合并。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/06/01/Algorithms_UnionFindSet/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Algorithms_Dynamic Programming(V)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -538,81 +614,6 @@
       
         <p class="article-more-link">
           <a href="/2017/05/03/Algorithms_LongestCommonSubsequence/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_LongestIncreasingSubsequence" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/" class="article-date">
-      <time datetime="2017-04-28T06:00:22.000Z" itemprop="datePublished">2017-04-28</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h4 id="300-Longest-Increasing-Subsequence"><a href="#300-Longest-Increasing-Subsequence" class="headerlink" title="300. Longest Increasing Subsequence"></a><a href="https://leetcode.com/problems/longest-increasing-subsequence/#/description">300. Longest Increasing Subsequence</a></h4><blockquote>
-<p>Given an unsorted array of integers, find the length of longest increasing subsequence.<br>For example, Given [10, 9, 2, 5, 3, 7, 101, 18], The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4. Note that there may be more than one LIS combination, it is only necessary for you to return the length. </p>
-</blockquote>
-<ul>
-<li>给出一个序列 $a_1, a_2, …, a_n$，求它的一个子序列（设为 $s_1, s_2, …, s_n$ ），使得这个子序列满足这样的性质：$ s_1 &lt; s_2 &lt; s_3 &lt;…&lt; s_n $ 并且这个子序列的长度最长，输出这个最长的长度。实际上，诸如最长下降子序列，最长不上升子序列等问题都可以看成同一个问题，仔细思考就会发现，这其实只是 $&lt;$ 符号定义上的问题，并不影响问题的实质。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
