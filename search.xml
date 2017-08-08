@@ -3,6 +3,30 @@
   
     
     <entry>
+      <title><![CDATA[ldconfig：运行时库管理]]></title>
+      <url>/2017/08/08/linux_ldconfig4RuntimeLibraries/</url>
+      <content type="html"><![CDATA[<h3 id="压缩-解压"><a href="#压缩-解压" class="headerlink" title="压缩/解压"></a>压缩/解压</h3><a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> 编程珠玑 </category>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> bash </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[[0025] Least Squares Line Fitting（最小二乘法直线拟合）]]></title>
       <url>/2017/07/21/Algorithms_LeastSquaresLineFitting/</url>
       <content type="html"><![CDATA[<p>　　<strong>最小二乘拟合</strong> 是一种数学上的近似和优化，利用已知的数据得出一条直线或者曲线，使之在坐标系上与已知数据之间的距离的平方和最小。<br><a id="more"></a></p>
@@ -4637,7 +4661,7 @@
     
     <entry>
       <title><![CDATA[Linux命令小纸条]]></title>
-      <url>/2017/02/04/linux_Linux%E5%91%BD%E4%BB%A4%E5%B0%8F%E7%BA%B8%E6%9D%A1/</url>
+      <url>/2017/02/04/linux_LinuxCommandNotes/</url>
       <content type="html"><![CDATA[<h3 id="压缩-解压"><a href="#压缩-解压" class="headerlink" title="压缩/解压"></a>压缩/解压</h3><ul>
 <li><strong>tar</strong> 压缩</li>
 <li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -zcvf dst.tar.gz /src-dir</div></pre></td></tr></table></figure>
@@ -4692,8 +4716,7 @@
 <li>通过上述命令可以检测出整个<code>192.168.1.0</code>局域网内在用的主机 ip</li>
 </ul>
 </li>
-<li><p>查看一台主机开放了哪些端口</p>
-</li>
+<li>查看一台主机开放了哪些端口</li>
 <li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmap -PS host-ip</div></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -4750,6 +4773,12 @@
 <li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Linux: EXT3/EXT4</span></div><div class="line"><span class="comment"># ext3 文件格式</span></div><div class="line">sudo mkfs.ext3 Device</div><div class="line"><span class="comment"># ext4 文件格式</span></div><div class="line">sudo mkfs.ext4 Device</div><div class="line"><span class="comment"># Window: FAT32(4G)/NTFS</span></div><div class="line"><span class="comment"># fat32 文件格式</span></div><div class="line">sudo mkdosfs -F 32 Device</div><div class="line"><span class="comment"># ntfs 文件格式</span></div><div class="line">sudo mkfs.ntfs Device</div><div class="line"> </div><div class="line"><span class="comment"># 分区标签</span></div><div class="line">sudo mlabel -i Device ::label</div></pre></td></tr></table></figure>
 </li>
 </ul>
+<h3 id="编译-amp-链接-amp-装载"><a href="#编译-amp-链接-amp-装载" class="headerlink" title="编译&amp;链接&amp;装载"></a>编译&amp;链接&amp;装载</h3><ul>
+<li><code>ldconfig</code>运行时库（动态链接库）装载<blockquote>
+<p><a href="linux_ldconfig4RuntimeLibraries.html">ldconfig：运行时库管理</a></p>
+</blockquote>
+</li>
+</ul>
 ]]></content>
       
         <categories>
@@ -4763,9 +4792,9 @@
         
         <tags>
             
-            <tag> CMD </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> bash </tag>
             
         </tags>
         
