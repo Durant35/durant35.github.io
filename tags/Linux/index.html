@@ -284,7 +284,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/08/linux_ldconfig4RuntimeLibraries/">ldconfig：运行时库管理</a>
+      <a class="article-title" href="/2017/08/08/linux_ldconfig4RuntimeLibraries/">ldconfig：[load] 运行时库管理</a>
     </h1>
   
 
@@ -294,7 +294,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h3 id="压缩-解压"><a href="#压缩-解压" class="headerlink" title="压缩/解压"></a>压缩/解压</h3>
+              <p>　　<code>ldconfig</code>命令的用途主要是在默认搜寻目录 <strong>/lib</strong> 和 <strong>/usr/lib</strong> 以及动态库配置文件 <strong>/etc/ld.so.conf</strong> 内所列的目录下，搜索出可共享的动态链接库（格式如 <strong>lib*.so*</strong>），进而创建出动态装入程序（<strong>ld.so</strong>）所需的连接（快捷方式）和缓存文件。<br>　　缓存文件默认为 <strong>/etc/ld.so.cache</strong>，此文件保存已排好序的动态链接库名字列表，为了让动态链接库为系统所共享，需运行动态链接库的管理命令<code>ldconfig</code>，此执行程序存放在 <strong>/sbin</strong> 目录下。<br>　　<code>ldconfig</code>通常在系统启动时运行；用户安装了一个新的动态链接库时，就需要手工运行这个命令才能生效。<br>　　<code>ldconfig</code> 只与程序运行时有关（运行时库管理：装载），跟程序构建（编译&amp;链接）一点关系都没有，构建的时候还是该加 -$l$（链接）就得加，不要混淆了。
           
       
     </div>
