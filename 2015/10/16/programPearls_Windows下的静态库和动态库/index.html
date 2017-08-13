@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Gary" />
+
+
+
+<meta name="description" content="本文旨在指导大家如何创建和使用Windows下的DLL动态链接库以及通过DLL动态链接库导出导入这一过程介绍一些编译链接、动态加载的小知识。本章内容作为本学期项目开发的延伸扩展，目的是让大家对项目中使用的读写器接口函数库由来以及如何在项目中使用该函数库有更深入的理解。在这个过程，大家将会初步接触并了解：　　　　+1.　 Windows静态链接库和动态链接库的一些背景知识;　　　　+2.　 如何">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows下的静态库和动态库">
+<meta property="og:url" content="http://durant35.github.io/2015/10/16/programPearls_Windows下的静态库和动态库/index.html">
+<meta property="og:site_name" content="Tarantula-7's Blog">
+<meta property="og:description" content="本文旨在指导大家如何创建和使用Windows下的DLL动态链接库以及通过DLL动态链接库导出导入这一过程介绍一些编译链接、动态加载的小知识。本章内容作为本学期项目开发的延伸扩展，目的是让大家对项目中使用的读写器接口函数库由来以及如何在项目中使用该函数库有更深入的理解。在这个过程，大家将会初步接触并了解：　　　　+1.　 Windows静态链接库和动态链接库的一些背景知识;　　　　+2.　 如何">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/01-00-01.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/01-00-02.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/01-01.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/01-02.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/01-03.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/01-04.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/01-05.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/01-06.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/01-07.png">
+<meta property="og:image" content="http://durant35.github.io/img/RFID/01-08.png">
+<meta property="og:updated_time" content="2017-07-06T08:21:28.905Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Windows下的静态库和动态库">
+<meta name="twitter:description" content="本文旨在指导大家如何创建和使用Windows下的DLL动态链接库以及通过DLL动态链接库导出导入这一过程介绍一些编译链接、动态加载的小知识。本章内容作为本学期项目开发的延伸扩展，目的是让大家对项目中使用的读写器接口函数库由来以及如何在项目中使用该函数库有更深入的理解。在这个过程，大家将会初步接触并了解：　　　　+1.　 Windows静态链接库和动态链接库的一些背景知识;　　　　+2.　 如何">
+<meta name="twitter:image" content="http://durant35.github.io/img/RFID/01-00-01.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Tarantula-7&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Windows下的静态库和动态库 | Tarantula-7&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+</head>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Gary</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">　　你永远流淌在我的记忆里？River flows in you</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">Home</a></li>
+                        
+                            <li><a href="/tags">All-tags</a></li>
+                        
+                            <li><a href="/archives">All-lists</a></li>
+                        
+                            <li><a href="/Shengjie">Contact</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/">3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AES/">AES</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/">C/C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMD/">CMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/">CV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DARPA/">DARPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DES/">DES</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DLL/">DLL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HUAWEI/">HUAWEI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPEG/">JPEG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Key-words/">Key-words</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LZW/">LZW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MFC/">MFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NotePad/">NotePad++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCL/">OpenCL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL/">OpenGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB/">PCB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32/">STM32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS2013/">VS2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dumpbin/">dumpbin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ini/">ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pcap/">pcap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件操作/">文件操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漫威电影/">漫威电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码/">编码</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://wiki.ros.org/">ROS</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://zhiqiu.github.io/">Zhiqiu&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.ruanyifeng.com/blog/">阮一峰的网络日志</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://rh-song.github.io/">RiHui-Song&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://goshin.github.io/">Goshin&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://blog.csdn.net/u014593748">Kangdk&#39;s CSDN</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Gary</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Gary</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">　　你永远流淌在我的记忆里？River flows in you</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/tags">All-tags</a></li>
+                
+                    <li><a href="/archives">All-lists</a></li>
+                
+                    <li><a href="/Shengjie">Contact</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-programPearls_Windows下的静态库和动态库" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/16/programPearls_Windows下的静态库和动态库/" class="article-date">
+      <time datetime="2015-10-16T12:29:02.000Z" itemprop="datePublished">2015-10-16</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Windows下的静态库和动态库
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/链接/">链接</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DLL/">DLL</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>　　本文旨在指导大家如何创建和使用<strong>Windows下的DLL动态链接库</strong>以及通过<strong>DLL动态链接库导出导入</strong>这一过程介绍一些<strong>编译链接、动态加载</strong>的小知识。本章内容作为本学期项目开发的延伸扩展，目的是让大家对项目中使用的读写器接口函数库由来以及如何在项目中使用该函数库有更深入的理解。在这个过程，大家将会初步接触并了解：<br>　　　　<strong>+1.　</strong> <strong>Windows静态链接库和动态链接库</strong>的一些背景知识;<br>　　　　<strong>+2.　</strong> 如何创建和使用<strong>DLL动态链接库</strong>。<br><a id="more"></a></p>
+<h2 id="静态库和动态库的区别"><a href="#静态库和动态库的区别" class="headerlink" title="静态库和动态库的区别"></a><strong>静态库和动态库的区别</strong></h2><p>　　<font color="#FF2400"><strong>@-静态链接库(.lib)</strong></font><br>　　函数和数据被编译进一个二进制文件。在使用静态库编译链接成可执行文件时，链接器从库中复制这些<font color="red"><strong>函数和数据</strong></font>并把它们和应用程序的其他模块组合起来创建.exe可执行程序。</p>
+<p>　　<font color="#FF2400"><strong>@-动态链接库(.lib &amp; .dll)</strong></font><br>　　一个引入库(.lib)文件和一个DLL(.dll)文件。<font color="red"><strong>引入库文件只包含该DLL导出的函数和变量的符号名，并没有包含实际代码，只是用来为链接程序提供必要信息，以便在可执行文件中建立动态链接时需要用到的重定位表</strong></font>，而<strong>.dll文件包含该DLL实际的函数和数据</strong>。在使用动态库编译链接成可执行文件时，只链接该DLL的引入库文件，该DLL文件中的函数代码和数据并不复制到可执行文件中，直到可执行程序执行时，才将该DLL映射到进程的地址空间中，然后访问DLL中导出的函数。<br>　　动态链接库包含能被可执行程序或其他DLL调用来完成某项工作的函数<strong> → </strong><font color="red"><strong>动态链接库只有在其他模块调用库中的函数时才发挥作用</strong>。</font></p>
+<p>　　<font color="#FF2400"><strong>@-为什么使用动态链接库</strong></font><br>　　<font color="green"><strong>&lt;1. </strong>节省磁盘空间和内存</font><br>　　　如果多个应用程序需要访问同样的功能，可以将该功能以DLL的形式提供，这样在机器上只需要一份该DLL文件就可以了，节省磁盘空间；多个应用程序使用同一个DLL，该DLL的页面只需要放入内存一次，所有的应用程序都可以共享它的页面，内存的使用更加有效。<br>　　<font color="green"><strong>&lt;2. </strong>采用多种语言编写动态链接库</font><br>　　　采用自己熟悉的开发语言编写DLL，然后由其他语言编写的可执行程序来调用这些DLL。<br>　　<font color="green"><strong>&lt;3. </strong>增强产品功能</font><br>　　　更新DLL，替换产品原有的DLL。<br>　　<font color="green"><strong>&lt;4. </strong>提供二次开发平台</font><br>　　　用户利用DLL，调用其中实现的功能，开发业务所需的产品。<br>　　<font color="green"><strong>&lt;5. </strong>简化项目管理</font><br>　　　并行开发，不同功能交由各项目小组以多个DLL的方式实现。</p>
+<p>　　<font color="#FF2400"><strong>@-我们可以怎么做</strong></font><br>　　<strong>把完成某种功能的函数放在一个动态链接库中，提供给其他程序调用。</strong></p>
+<h2 id="利用VC-创建DLL"><a href="#利用VC-创建DLL" class="headerlink" title="利用VC++创建DLL"></a><strong>利用VC++创建DLL</strong></h2><p>　　<strong>第一步： </strong> <strong>VC++</strong> <strong>→</strong> <strong>File</strong> <strong>→</strong> <strong>New</strong> <strong>→</strong> <strong>Win32 Dynamic-Link Library</strong> <strong>→</strong> <strong>An Empty DLL Project</strong>，创建动态链接库工程；<br>    <center><img src="/img/RFID/01-00-01.png" width="720px"/></center><br>　　<strong>第二步： </strong> <strong>VC++</strong> <strong>→</strong> <strong>File</strong> <strong>→</strong> <strong>New</strong> <strong>→</strong> <strong>C++ Source(Header) File</strong>添加源文件或头文件，编写代码；<br>    <center><img src="/img/RFID/01-00-02.png" width="720px"/></center><br>　　<strong>第三步： </strong> <strong>Build</strong>，便会在工程目录下的<strong> Debug/ </strong>下查看到<strong> 工程名.dll </strong>动态链接库文件以及<strong> 工程名.lib </strong>引入库文件。</p>
+<p>　　<font color="red">具体代码如何编写以及生成动态链接库后，如何在我们的应用程序中调用库中的函数实现某种功能将会在下面章节仔细讲述</font>。</p>
+<h2 id="从DLL中导出全局函数"><a href="#从DLL中导出全局函数" class="headerlink" title="从DLL中导出全局函数"></a><strong>从DLL中导出全局函数</strong></h2><p>　　为了让DLL导出一些函数，需要在每一个将要被导出的函数前面添加标识符: <strong><code>_declspec(dllexport)</code></strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 函数声明 </div><div class="line">_declspec(dllexport) <span class="function">ReturnType <span class="title">FunctionName</span><span class="params">(args...)</span></span>;</div><div class="line"></div><div class="line"><span class="function">ReturnType <span class="title">FunctionName</span><span class="params">(args...)</span></span>&#123;</div><div class="line">　　...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="从DLL中导出C-类"><a href="#从DLL中导出C-类" class="headerlink" title="从DLL中导出C++类"></a><strong>从DLL中导出C++类</strong></h2><p>　　类似的，使用导出标识符: <strong><code>_declspec(dllexport)</code></strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 类指定导出标识 </div><div class="line"><span class="keyword">class</span> _declspec(dllexport) ClassName</div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">　　<span class="function">ReturnType <span class="title">FunctionName</span><span class="params">(args...)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>　　<strong>指定导出标识的类的所有函数都将被导出；否则，只有那些声明了导出标识的类成员函数才会被导出。</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 只有类成员函数指定导出标识 </div><div class="line"><span class="keyword">class</span> ClassName</div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">　　_declspec(dllexport) <span class="function">ReturnType <span class="title">FunctionName</span><span class="params">(args...)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong><font color="red">注意：</font></strong><br>　　<strong>导出的成员函数必须具有public访问权限，否则即使被导出，也不能被其他程序访问</strong>。</p>
+<h2 id="使用dumpbin命令查看DLL导出导入信息"><a href="#使用dumpbin命令查看DLL导出导入信息" class="headerlink" title="使用dumpbin命令查看DLL导出导入信息"></a><strong>使用dumpbin命令查看DLL导出导入信息</strong></h2><p>　　首先，<strong>DUMPBIN.EXE</strong>程序位于<strong>/Bin/</strong>目录下(中文版则是<strong>/VC98/Bin/</strong>)。为了在<strong>cmd命令行</strong>里面方便使用，我们将其所在的全局路径加入到环境变量<strong>Path</strong>中，如下图(火狐/IE浏览器可以点击查看大图)。<br>    <center><img src="/img/RFID/01-01.png" width="800px"/></center><br>　　右键计算机，属性<strong>→</strong>高级系统配置<strong>→</strong>环境变量<strong>→</strong>双击系统变量中的<strong>Path→</strong>在变量值后面加上<strong>DUMPBIN.EXE</strong>程序所在全局路径。<strong>(<font color="red">注意：添加路径前需要有”；”隔开，因为变量值是通过”；”分隔的</font>)</strong><br>　　接下来我们就可以使用这个工具查看一个<strong>DLL</strong>提供的导出函数：<strong><code>dumpbin -exports xxx.dll</code></strong>(如下左图)。<br>　　其中要注意的<strong>“ordinal列”</strong>列出的信息是导出函数的序号；<strong>“RVA列”</strong>是一些地址值，也就是导出函数在<strong>DLL</strong>模块中的位置，通过该地址值可以在<strong>DLL</strong>中找到相应的函数；<strong>“name列”</strong>是导出函数的名称，使用该<strong>DLL</strong>的客户端程序通过该名称找到所需的<strong>DLL</strong>导出函数。<br>    <center><img src="/img/RFID/01-02.png" width="800px"/></center><br>　　还可以使用这个工具查看一个<strong>可执行模块依赖的动态链接库信息</strong>以及该<strong>动态链接库中被可执行模块调用的函数</strong>：<strong><code>dumpbin -imports xxx.exe</code></strong>。<br>　　<strong>这里需要注意的是：一个可执行模块依赖的库函数名称必须与该动态链接库导出的函数名字相一致，因为可执行模块使用依赖的库函数名称来调用DLL中的函数，只有在二者相一致的情况下，可执行模块才能找到所需的DLL导出函数</strong>。因此客户端程序引用的函数符号名必须与<strong>DLL</strong>中的导出函数名称一致才能成功调用！</p>
+<p>　　我们知道，<strong>C++</strong>支持函数重载，对于重载的多个函数来说，依照我们上述的说法，他们的导出函数名理应都是一样的，显然这样的话调用的时候会出问题。为了加以区分，<strong>C++</strong>会按照自己的规则篡改函数的名称，这一过程称为<strong>“名字改编”</strong>。一旦对导出函数名字进行改编，就会造成调用时<strong>可执行模块依赖的库函数名称与动态链接库导出的函数名字不一致</strong>的问题。这就需要在导出时设置导出规则，然后在调用时设置相匹配的调用约定，最终<strong>保证引用的函数名称与动态链接库中导出的函数名字一致</strong>。</p>
+<h2 id="DLL导出函数的名字改编问题"><a href="#DLL导出函数的名字改编问题" class="headerlink" title="DLL导出函数的名字改编问题"></a><strong>DLL导出函数的名字改编问题</strong></h2><p>　　接上面所说的，<strong>C++</strong>编译器在生成<strong>DLL</strong>时，会对导出的函数进行名字改编，并且不同的编译器使用的改编规则不一样，因此改编后的名字是不一样的。这样，如果利用不同的编译器分别生成<strong>DLL</strong>和生成访问该<strong>DLL</strong>的客户端程序的话，后者在访问该<strong>DLL</strong>的导出函数时就会因二者函数符号不一致而出现调用失败的问题。<br>　　<font color="#FF2400"><strong>1. extern “C”</strong></font><br>　　利用限定符：<strong>extern “C”</strong>(注意<strong>C要大写</strong>)可以解决C++和C语言之间相互调用时函数命名的问题，使用该限定符，动态链接库文件在编译时，导出函数的名称不会发生改编。下面是一个具体例子，<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************************************************</div><div class="line"> *	File Name: DllExample.cpp</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.18</div><div class="line"> *	Description: 使用extern "C"范例</div><div class="line"> ******************************************************/</span></div><div class="line"></div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a+b;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a-b;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>　　我们使用<strong>DUMPBIN.EXE命令</strong>来查看生成的<strong>DLL</strong>导出函数信息，如下图：<br>    <center><img src="/img/RFID/01-03.png" width="720px"/></center><br>　　容易看到，导出函数名与函数声明中的函数名是一致的<font color="green">(<strong>= </strong>后面的函数名为一个等价的导出函数名)</font>，这就是<strong>extern “C” </strong>限定符的作用，我们可以把该限定符去掉，对比一下没有使用<strong>extern “C” </strong>限定符该<strong>DLL</strong>的导出信息。<br>　　如下所示，把原先的声明注释掉，改为没有<strong>extern “C” </strong>限定符修饰的普通导出函数声明。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//extern "C" _declspec(dllexport) int add(int a, int b);</span></div><div class="line"><span class="comment">//extern "C" _declspec(dllexport) int subtract(int a, int b);</span></div><div class="line">_declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line">_declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a+b;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a-b;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>　　正如上述所说的，没有添加<strong>extern “C” </strong>限定符，<strong>C++</strong>编译器对导出函数进行了名字改编(从下图我们可以看到，改变后的名字加上了<strong>?</strong>作为前缀，<strong>@@…</strong>作为后缀)。<br>    <center><img src="/img/RFID/01-04.png" width="720px"/></center><br>　　但是使用<strong>extern “C” </strong>限定符这种方法有一个缺陷，就是不能用于导出<strong>C++</strong>类(如下图，函数名字仍然发生改编)。<strong>extern “C” </strong>限定符只能用于导出上述的全局函数这种情况。<br>    <center><img src="/img/RFID/01-05.png" width="800px"/></center><br>　　以下这种方式则是不允许的，编译时直接报错！<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Point&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">　　<span class="keyword">extern</span> <span class="string">"C"</span> _declspec(dllexport) <span class="function"><span class="keyword">void</span> <span class="title">output</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line"><span class="keyword">void</span> Point::output(<span class="keyword">int</span> x, <span class="keyword">int</span> y)&#123;</div><div class="line">　　<span class="keyword">return</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>　　<font color="#FF2400"><strong>2. _stdcall标准调用</strong></font><br>　　上述添加<strong>extern “C” </strong>限定符这种方式保证不对导出函数名字进行改编，这样在引用导出函数时就可以直接通过原始函数名字进行调用，确保<strong>依赖库函数名称与导出的函数名字一致</strong>。<br>　　如果导出函数的调用约定发生了改变，那么即使使用了<strong>extern “C” </strong>限定符，该函数的名字仍会按照调用约定发生相应的改编。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************************************************</div><div class="line"> *	File Name: DllExample.cpp</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.18</div><div class="line"> *	Description: 使用_stdcall标准调用范例</div><div class="line"> ******************************************************/</span></div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec(dllexport) <span class="keyword">int</span> _<span class="function">stdcall <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec(dllexport) <span class="keyword">int</span> _<span class="function">stdcall <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"> </div><div class="line"><span class="keyword">int</span> _<span class="function">stdcall <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">　　<span class="keyword">return</span> a+b;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="keyword">int</span> _<span class="function">stdcall <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">　　<span class="keyword">return</span> a-b;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>　　从下图的导出函数信息，我们可以知道：在添加了<strong>_stdcall关键字</strong>之后，导出函数的名字仍发生改编(在原始函数名字前面添加<strong> _ </strong>，后面添加一个<strong>@</strong>，接着是<strong>数字，表示函数参数所占的字节数</strong>，例如<strong>add函数具有两个int类型的参数，占用8个字节，所以add函数该数字为8</strong>)。<br>    <center><img src="/img/RFID/01-06.png" width="720px"/></center><br><strong>总结一下：</strong><br>　　1）上述<strong> 第1.节 </strong>中没有添加<strong>_stdcall关键字</strong>，实际上该函数的调用约定是缺省的<strong>C调用预定</strong>，该约定不对名字进行改编；<br>　　2）添加<strong>_stdcall关键字</strong>后，调用约定变成<strong>标准调用约定</strong>，<strong>标准调用约定</strong>是<strong>WINAPI调用约定</strong>，也就是<strong>pascal调用约定</strong>，显然这种调用约定与<strong>C调用预定</strong>不一样，会对函数名字进行改编，改编方式则按照我们上面描述的规则进行。<br>　　3）因此，我们也可以在导出函数时添加调用约定，然后在引用函数时使用相匹配的调用约定进行调用，这样也能解决因名字改编出现的<strong>依赖库函数名称与导出的函数名字不一致</strong>的问题。</p>
+<p>　　<font color="#FF2400"><strong>3. DEF模块定义文件</strong></font><br>　　除了上述两种方式外，我们还可以通过一个称为<strong>模块定义文件(DEF)</strong>的方式，实现动态链接库文件在编译时，导出函数的名称不要发生改编。动态链接库源文件就和我们最开始介绍的普通导出函数源文件一致：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************************************************</div><div class="line"> *	File Name: DllExample.cpp</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.18</div><div class="line"> *	Description: 使用DEF模块定义文件范例</div><div class="line"> ******************************************************/</span></div><div class="line">_declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line">_declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a+b;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a-b;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>　　按照添加源文件的方式，我们为工程添加一个模块定义文件，<strong>File→New→Files选项卡→Text File→文件名后缀一定要是.def(文件名建议和工程名一致)</strong>。<br>    <center><img src="/img/RFID/01-07.png" width="720px"/></center><br>　　模块定义文件(<strong>DllExample.def</strong>)内容如下:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************************************************</div><div class="line"> *	File Name: DllExample.def</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.18</div><div class="line"> *	Description: 导出函数模块定义文件</div><div class="line"> ******************************************************/</span></div><div class="line">LIBRARY DllExample</div><div class="line">DESCRIPTION 描述一些关于DllExample导出函数信息</div><div class="line"> </div><div class="line">EXPORTS</div><div class="line">add</div><div class="line">subtract</div></pre></td></tr></table></figure></p>
+<p>　　<strong> LIBRARY xxx </strong>一行可加可不加，用来指定动态链接库的内部名称，注意<strong>该名称与生成的动态链接库的名称(也就是我们的工程名)一定要匹配</strong>；<br>　　<strong> DESCRIPTION xxx </strong>一行是对该动态链接库的描述，也是可加可不加；<br>　　<strong> EXPORTS </strong>表明<strong>DLL</strong>将要导出的函数以及这些导出函数指定的符号名。当链接器在链接时，会分析<strong>EXPORTS</strong>下面的符号名，假如是上述例子所示的形式，即单独的符号名(<strong>add</strong>或<strong>subtract</strong>)，并且<strong>符号名与源文件中定义的函数名一致</strong>时，就会以该符号名作为相应导出函数的函数名字，这样导出函数的名字便不会发生改编。(或者以另外一种形式：<strong>entryname=internalname(例如：myadd=add)</strong>，其中<strong>entryname</strong>表示导出函数的函数名字，<strong>internalname</strong>则为源文件中定义的函数名，这种形式会对导出函数名字进行改编，<strong>entryname</strong>即为导出函数的函数名字。)</p>
+<font color="red"><strong>总结：</strong><br>　　归根结底，名字改编造成<strong>依赖库函数名称与相应导出的函数名字不一致</strong>的问题，通过上述三种方式，最终保证<strong>可执行模块依赖的库函数名称与该动态链接库导出的函数名字相一致</strong>，只有这样指定函数才能成功调用。</font>
+
+<h2 id="加载DLL的两种方式"><a href="#加载DLL的两种方式" class="headerlink" title="加载DLL的两种方式"></a><strong>加载DLL的两种方式</strong></h2><p>　　当我们把一些常用的功能封装成动态链接库之后，接下来就是在我们的应用程序中使用这些功能。首先，经过上述步骤创建好动态链接库，会在<strong> Debug/ </strong>目录下生成<strong>工程名.dll</strong>、<strong>工程名.lib</strong>：<br>　　　<strong>+ 工程名.dll </strong>就是我们所说的<strong>DLL</strong>动态链接库，我们的应用程序会在运行过程中动态加载该库；<br>　　　<strong>+ 工程名.lib </strong>则是文章开头所说的<strong>引入库文件</strong>，保存生成的<strong>DLL</strong>动态链接库中导出的函数和变量的符号名，并没有包含实际代码，只是用来为链接程序提供必要信息，以便在可执行文件中建立动态链接时需要用到的重定位表。<br>　　在程序中，有以下两种方式加载动态链接库：<br>　　　　<strong>@ 隐式链接</strong>；<br>　　　　<strong>@ 显示加载</strong>。</p>
+<p>　　<font color="#FF2400"><strong>@-隐式链接方式加载DLL</strong></font><br>　　<strong>第一步： </strong>头文件中添加引入的外部函数声明。<br>　　在应用程序中调用动态链接库的导出函数之前，为了让编译器知道这些函数，需要对其作一个声明，通常前面加上<strong> extern关键字 </strong>表明函数是在外部定义的。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">extern</span> ReturnType <span class="title">FunctionName</span><span class="params">(args...)</span></span>;</div></pre></td></tr></table></figure></p>
+<p>　　除了使用<strong>extern关键字</strong>表明函数时外部定义的之外，还可以使用<strong> _declspec(dllimport) </strong>标识符来表明函数是从动态链接库中引入的。<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_declspec(<span class="name">dllimport</span>) ReturnType FunctionName(<span class="name">args</span>...)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p><strong>注意： </strong>使用<strong> _declspec(dllimport) </strong>标识符声明外部函数，它将告诉编译器该函数是从动态链接库中引入的，因此<strong>编译器可以生成运行效率更高的代码</strong>。故，如果调用的函数来自于动态链接库，应该采用这种方式声明外部函数。<br>　　另外，正如在<strong> DLL导出函数的名字改编问题 </strong>一节中所说的，为了<strong>保证可执行模块依赖的库函数名称与该动态链接库导出的函数名字相一致</strong>，需要在导出时设置导出规则，然后在调用时设置相匹配的调用约定。当导出函数通过<strong> extern “C”限定符 </strong>防止导出的函数名称发生改编，显然单单使用上述的声明会造成<strong>可执行模块依赖的库函数名称与该动态链接库导出的函数名字不一致</strong>，因为普通的外部声明引用的导出函数，其名字是对应于被<strong>C++编译器</strong>进行改编了的，而添加<strong>extern “C”限定符</strong>的导出函数名称并没有发生改编，所以，对应的需要使用如下的外部定义：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">extern <span class="string">"C"</span> _declspec(<span class="name">dllimport</span>) ReturnType FunctionName(<span class="name">args</span>...)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>　　经过上述的分析，我们也知道，没有添加<strong> _stdcall关键字 </strong>修饰使用的是<strong> C调用约定 </strong>；那么当导出函数通过添加<strong> _stdcall关键字 </strong>设置为<strong> 标准调用约定 </strong>，则相应的外部定义声明应如下：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">extern <span class="string">"C"</span> _declspec(<span class="name">dllimport</span>) ReturnType _stdcall FunctionName(<span class="name">args</span>...)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<font color="red"><strong>总结： </strong>应用程序引用导出函数时需要保证<strong>调用时设置的调用约定与导出时设置的导出规则相匹配</strong>；进而保证<strong>可执行模块依赖的库函数名称与该动态链接库导出的函数名字相一致</strong>，这样<strong>客户端程序才能成功调用DLL中的导出函数</strong>！</font>
+
+<p>　　<strong>第二步： </strong>包含该动态链接库提供的引入库文件。<br>　　添加外部引用函数声明后，我们还需要将<strong>DLL</strong>对应的引入库文件导入到工程中；不然，<strong>即使添加了外部应用声明，源文件能够成功编译，但是当链接器进行链接生成可执行程序时，因为缺少引入库文件，链接器会找不到相应的外部引用函数实现，造成链接失败</strong>！导入引入库文件的作用正是<strong>告诉链接器这些外部引用函数是以动态链接库的形式实现的，在运行时动态加载</strong>，这样就能够解决链接器链接失败的问题。<br>　　具体操作如下： <strong>菜单栏Project→ Settings→ Link选项卡→ 选择Input(输入设置)作为”Category”→ “Object/library modules”输入动态链接库对应的引入库文件；</strong>当引入库文件直接放在工程目录下，<strong>“Additional library path”为空</strong>，当放在其他路径下，则需要添加该路径说明，链接器会按照该路径寻找引入库文件；<font color="red">在我们的项目中，需要调用设备的接口函数，<strong>各个接口函数是以动态链接库的形式提供</strong>，<strong>“ZM124U.lib”</strong>为对应的引入库文件，见下图右侧，<strong>“Additional library path”为”./libs”</strong>，这是因为该引入库文件放置在工程目录下的<strong> libs </strong>文件夹下，其中<strong>“ . “</strong>表示当前路径，也就是工程目录。</font><br>    <center><img src="/img/RFID/01-08.png"/></center><br>　　到这里，我们就完成了通过隐式链接的方式加载动态链接库的所有操作，可以生成<strong>一个需要依赖动态链接库的可执行程序</strong>；最后，因为该可执行程序运行时需要动态加载动态链接库才能执行某种功能，所以我们需要将相应的<strong>DLL</strong>动态链接库文件放在程序能够搜索到的路径下(<a href="#someKeys">关于<strong>动态链接库搜索顺序</strong>可以点击查看<strong> 几点注意的地方 </strong>一节中的<strong>第1)点</strong></a>)。<br>　　<font color="red"><strong>建议： </strong></font>将动态链接库与可执行程序放在同一目录下。</p>
+<p>　　<font color="#FF2400"><strong>@-隐式链接方式下动态链接库创建和使用完善方案</strong></font><br>　　<strong>在实际应用中，多采用隐式链接方式加载动态链接库</strong>。通过上述的介绍，相信大家对创建动态链接库以及在应用程序中采用隐式链接方式引用创建好的动态链接库的流程有了比较清晰的认识，我们不妨再回顾一下:<br>　　<strong> 　+. </strong>首先，创建动态链接库工程，其中需要注意的是需要设置好导出函数的导出规则，通过<strong> extern “C” _declspec(dllexport) </strong>进行函数声明；如果采用<strong>标准调用约定</strong>，则需要添加<strong> _stdcall </strong>关键字。<br>　　<strong> 　　+. </strong>在应用程序中调用生成的动态链接库，先是需要添加调用函数的外部定义声明，再将该动态链接库对应的引入库文件导入工程；注意调用约定与导出规则必须相匹配才能成功调用。<br>　　在实际应用中，完善的创建与使用动态链接库的方案是通过一个统一的<strong> 头文件声明 </strong>解决<strong>调用约定与导出规则相匹配</strong>这个问题，我们采用这种标准来完善上述举出的例子。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************************************************</div><div class="line"> *	File Name: DllDemo.h</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.19</div><div class="line"> *	Description: 动态链接库创建和使用完善方案范例</div><div class="line"> ******************************************************/</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> DLLDEMO_API</span></div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> DLLDEMO_API extern <span class="meta-string">"C"</span> _declspec(dllimport)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"> </div><div class="line"><span class="comment">/************************* C调用约定声明如下 *********************/</span></div><div class="line"><span class="function">DLLDEMO_API <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"><span class="function">DLLDEMO_API <span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"><span class="comment">/************************* C调用约定声明 *************************/</span></div><div class="line"> </div><div class="line"><span class="comment">/************************* 标准调用约定声明如下 ******************/</span></div><div class="line"><span class="comment">//DLLDEMO_API int _stdcall add(int a, int b);</span></div><div class="line"><span class="comment">//DLLDEMO_API int _stdcall subtract(int a, int b);</span></div><div class="line"><span class="comment">/************************* 标准调用约定声明 **********************/</span></div></pre></td></tr></table></figure></p>
+<p>　　在<strong> DllDemo.h </strong>头文件声明中通过一个预编译宏<code>DLLDEMO_API</code>，当该宏未被定义时，将其定义为<strong> extern “C” _declspec(dllimport) </strong>，是外部定义声明修饰符；所以，我们可以在应用程序中直接通过<strong> #include “DllDemo.h” </strong>声明我们要调用的从动态链接库中导出的函数。<br>　　以上是解决在应用程序中调用的问题，那么这种方式在创建动态链接库时又是怎样进行导出函数声明的呢？<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>*</div><div class="line"> *	File Name: DllDemo.cpp</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.19</div><div class="line"> *	Description: 动态链接库创建和使用完善方案范例</div><div class="line"> <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>*/</span></span></div><div class="line">#define DLLDEMO_API extern <span class="string">"C"</span> _declspec(dllexport)</div><div class="line">#include <span class="string">"DLLDemo.h"</span></div><div class="line"></div><div class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> C调用约定实现如下 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line"><span class="built_in">int</span> add(<span class="built_in">int</span> a, <span class="built_in">int</span> b)&#123;</div><div class="line">  <span class="keyword">return</span> a+b;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="built_in">int</span> subtract(<span class="built_in">int</span> a, <span class="built_in">int</span> b)&#123;</div><div class="line">  <span class="keyword">return</span> a-b;</div><div class="line">&#125;</div><div class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> C调用约定实现如下 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line"> </div><div class="line"> </div><div class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> 标准调用约定实现如下 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>/</span></span></div><div class="line"><span class="comment">//int _stdcall add(int a, int b)&#123;</span></div><div class="line"><span class="comment">//	return a+b;</span></div><div class="line"><span class="comment">//&#125;</span></div><div class="line"> </div><div class="line"><span class="comment">//int _stdcall subtract(int a, int b)&#123;</span></div><div class="line"><span class="comment">//	return a-b;</span></div><div class="line"><span class="comment">//&#125;</span></div><div class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> 标准调用约定实现如下 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>/</span></span></div></pre></td></tr></table></figure></p>
+<p>　　相似的，还是需要通过<strong> #include “DllDemo.h” </strong>对函数进行声明，但是，在<strong> #include “DllDemo.h” </strong>之前，对<code>DLLDEMO_API</code>宏进行定义，为<strong> extern “C” _declspec(dllexport) </strong>，是导出函数标识符；这样，当包含头文件时，因为<code>DLLDEMO_API</code>宏已经被定义，<strong> #define DLLDEMO_API extern “C” _declspec(dllimport) </strong>一行不会被执行，从而完成了对相应函数的导出声明。<br>　　通过以上这种方式，使得我们在使用动态链接库提供的接口时，只需要包含一个头文件即可完成对调用函数的外部定义，而该头文件则是开发该动态链接库的程序员提供；另外，通过这种方式，保证了<strong>应用程序调用接口函数采用的调用约定与对应动态链接库的导出规则相匹配</strong>。 (<font color="#9A32CD">我们的设备接口函数就是按照这种方式实现的</font>)</p>
+<p>　　<font color="#FF2400"><strong>@-显示加载方式加载DLL</strong></font><br>　　显示加载方式是另外一种加载动态链接库的方式，这里简单介绍一下。<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> CDLLtestDlg::OnBtnSubtract() </div><div class="line">&#123;</div><div class="line">　　HINSTANCE hInst = LoadLibrary(<span class="string">"./DLLDemo.dll"</span>);		<span class="comment">// 动态加载DLL</span></div><div class="line"> </div><div class="line">　　<span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> 标准调用预定 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line">　　<span class="comment">//typedef int (_stdcall *SUBTRACTPROC)(int a, int b);	// 定义函数指针类型</span></div><div class="line">　　<span class="comment">//SUBTRACTPROC Subtract = (SUBTRACTPROC)GetProcAddress(hInst, "_subtract@8");	</span></div><div class="line">                <span class="comment">// 通过导出符号名获取DLL的导出函数</span></div><div class="line">                <span class="comment">// GetProcAddress的第二个参数是按照标准调用规则改编后的导出符号名</span></div><div class="line">　　<span class="comment">//SUBTRACTPROC Subtract = (SUBTRACTPROC)GetProcAddress(hInst, MAKEINTRESOURCE(2));	</span></div><div class="line">                <span class="comment">// 也可以通过序号获取DLL的导出函数</span></div><div class="line">　　<span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> 标准调用预定 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line"> </div><div class="line">　　<span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> C调用预定 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line">　　<span class="keyword">typedef</span> <span class="built_in">int</span> (*SUBTRACTPROC)(<span class="built_in">int</span> a, <span class="built_in">int</span> b);</div><div class="line">　　SUBTRACTPROC Subtract = (SUBTRACTPROC)GetProcAddress(hInst, <span class="string">"subtract"</span>);</div><div class="line">　　<span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> C调用预定 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line"> </div><div class="line">　　<span class="keyword">if</span>(!Subtract)&#123;						<span class="comment">// 函数指针为NULL说明获取DLL导出函数失败</span></div><div class="line">　　　　	MessageBox(<span class="string">"获取函数地址失败!"</span>);</div><div class="line">　　　　	<span class="keyword">return</span>;</div><div class="line">　　&#125;</div><div class="line"> </div><div class="line">　　CString str;</div><div class="line">　　str.Format(<span class="string">"5-3=%d"</span>, Subtract(<span class="number">5</span>, <span class="number">3</span>));			<span class="comment">// 通过Subtract调用DLL中的subtract函数</span></div><div class="line">　　MessageBox(str);</div><div class="line"> </div><div class="line">　　FreeLibrary(hInst);						<span class="comment">// 释放该DLL的引用</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>注意： 1. </strong>不同的调用约定在定义函数指针时是有区别的，如果采用标准调用约定，则需要添加<strong> _stdcall </strong>关键字。<br>　　　 <strong>2. </strong>通过导出函数名获取<strong>DLL</strong>导出函数时(<strong>GetProcAddress</strong>的第二个参数)，要注意是否发生名字改编。使用<strong> extern “C” </strong>同时采用<strong>C调用约定</strong>，导出函数的名字不会发生改编；采用<strong>标准调用约定</strong>，会对函数名字进行改编，改编原则是原始函数名前面添加<strong>“ _ “</strong>，后面添加<strong>“ @数字” </strong>，其中数字为函数参数所占字节数。<br>　　　 <strong>3. </strong>通过序号获取<strong>DLL</strong>导出函数时(<strong> MAKEINTRESOURCE(序号) </strong>)，最好通过<strong>dumpbin命令</strong>从导出信息中获取函数对应的序号(<strong>“ ordinal列 “</strong>信息)；不过由于这种方式<strong>代码可读性不强</strong>，不建议使用。<br>　　　<strong>4. </strong>采用显示加载方式加载<strong>DLL</strong>，在需要访问时调用<strong>LoadLibrary</strong>函数加载该<strong>DLL</strong>；当不需要访问该<strong>DLL</strong>时，调用<strong>FreeLibrary</strong>函数减少对该<strong>DLL</strong>的引用计数，当此计数变为0时，该<strong>DLL模块</strong>将从调用进程的地址空间卸载；调用<strong>FreeLibrary</strong>函数后，<strong> hInst </strong>句柄不再有效。<br>　　　 <strong>5. </strong>采用隐式链接方式访问<strong>DLL</strong>时，在程序启动时也是通过<strong>LoadLibrary</strong>函数加载该进程需要的动态链接库的；如果程序需要访问十多个<strong>DLL</strong>，如果都采用隐式链接方式加载它们的话，那么在改程序启动时，这些<strong>DLL</strong>都需要被加载到内存中，并映射到调用进程的的地址空间，这样将加大程序的启动时间。<br>　　　 <strong>6. </strong>一般来说，程序运行过程中只是在某个条件满足时才需要访问某个<strong>DLL</strong>中的某个函数，这种情况下，就可以采用显式加载的方式访问<strong>DLL</strong>，在<strong>需要时才加载所需的DLL</strong>。</p>
+<h2 id="动态链接库搜索顺序"><a href="#动态链接库搜索顺序" class="headerlink" title="动态链接库搜索顺序"></a><span id="someKeys"><strong>动态链接库搜索顺序</strong></span></h2><p>　　当应用程序运行时，系统将会为它分配一个<strong>4GB</strong>(<strong>x86-32架构</strong>)的地址空间，然后加载模块会分析该应用程序的输入信息，从中找到改程序将要访问的动态链接信息，然后在用户机器上搜索这些动态链接库，进而加载它们，搜索的顺序如下：<br>　　　<strong>&lt;1. </strong>程序的执行目录，即<strong>.exe</strong>文件所在目录；<br>　　　<strong>&lt;2. </strong>当前目录<strong>“.”</strong>，也叫当前工作目录，即进行某项操作的目的目录；<br><strong>举例： </strong><font color="green">A居住在珠海，这是执行目录；但是A的工作地点是在广州，这是当前目录</font>。<br>　　　<strong>&lt;3. </strong>系统目录，常见的就是<strong>C:\Windows\System32</strong>、<strong>C:\Windows\System</strong>，64位系统的<strong>C:\Windows\SysWOW64</strong>；<br>　　　<strong>&lt;4. Path环境变量</strong>中所列出的路径。</p>
+<h2 id="几点注意的地方"><a href="#几点注意的地方" class="headerlink" title="几点注意的地方"></a><strong>几点注意的地方</strong></h2><p>　　<strong>1）</strong>应用程序不需要调用一个动态链接库的所有导出函数，可以根据需要调用；<br>　　<strong>2）</strong>应用程序需要调用某个动态链接库提供的函数时，在程序链接时只需要包含该动态链接库提供的引入库文件，引入库文件并没有包含实际代码，只是用来为链接程序提供必要信息，以便在可执行文件中建立动态链接时需要用到的重定位表；<br>　　<strong>3）</strong>导出时设置的调用约定必须与引用时匹配，保证引用符号名与动态链接库中的导出符号名一致。
+　</p>
+<blockquote>
+<p>Reference: 　</p>
+<ul>
+<li>《Win32动态链接库与静态链接库的区别》<br><a href="https://yq.aliyun.com/articles/2740?spm=5176.blog2739.yqblogcon1.8.pJ3E7X">https://yq.aliyun.com/articles/2740?spm=5176.blog2739.yqblogcon1.8.pJ3E7X</a></li>
+<li>error C1041: 无法打开程序数据库“x:\projects\hellococo\debug.win32\vc120.pdb”；如果要将多个 CL.EXE 写入同一个 .PDB 文件，请使用 /FS 。<br><a href="http://home.eeworld.com.cn/my/space-uid-291513-blogid-239457.html">http://home.eeworld.com.cn/my/space-uid-291513-blogid-239457.html</a></li>
+</ul>
+</blockquote>
+<h2 id="Version-Control"><a href="#Version-Control" class="headerlink" title="Version Control"></a><strong>Version Control</strong></h2><table border="3" cellpadding="4px" style="font-family: verdana,arial,sans-serif; font-size:18px; color:#333333; background-color:#c3dde0; margin: 0; border-color: #333333; border-collapse:collapse"><br><tr><td style="width: 60px; text-align: center">版本号</td><td style="width: 80px; text-align: center">日期</td><td style="width: 320px; text-align: center">内容</td><td style="width: 100px; text-align: center">作者</td></tr><tr text-align="center"><td style="text-align: center">V0.1</td><td style="text-align: center">2015.10.16</td><td style="text-align: center">起草博客</td><td style="text-align: center">Tarantula-7</td></tr></table>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2015/10/16/programPearls_Windows下的静态库和动态库/">Windows下的静态库和动态库</a></p>
+
+        <!-- 
+        <p><span>文章作者:</span><a href="/" title="回到主页">Gary</a></p>
+        -->
+        <p><span>文章作者:</span>csj</p>
+
+        <p><span>发布时间:</span>2015-10-16, 20:29:02</p>
+        <p><span>最后更新:</span>2017-07-06, 16:21:28</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2015/10/16/programPearls_Windows下的静态库和动态库/" title="Windows下的静态库和动态库">http://durant35.github.io/2015/10/16/programPearls_Windows下的静态库和动态库/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2015/10/16/programPearls_Windows下的静态库和动态库/　　作者: Gary" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+
+        <!-- not to show license information
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+        -->
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/">
+                    ADO连接MySQL数据库
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/">
+                    Windows下的静态库和动态库
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#静态库和动态库的区别"><span class="toc-number">1.</span> <span class="toc-text">静态库和动态库的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用VC-创建DLL"><span class="toc-number">2.</span> <span class="toc-text">利用VC++创建DLL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从DLL中导出全局函数"><span class="toc-number">3.</span> <span class="toc-text">从DLL中导出全局函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从DLL中导出C-类"><span class="toc-number">4.</span> <span class="toc-text">从DLL中导出C++类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用dumpbin命令查看DLL导出导入信息"><span class="toc-number">5.</span> <span class="toc-text">使用dumpbin命令查看DLL导出导入信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DLL导出函数的名字改编问题"><span class="toc-number">6.</span> <span class="toc-text">DLL导出函数的名字改编问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#加载DLL的两种方式"><span class="toc-number">7.</span> <span class="toc-text">加载DLL的两种方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态链接库搜索顺序"><span class="toc-number">8.</span> <span class="toc-text">动态链接库搜索顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#几点注意的地方"><span class="toc-number">9.</span> <span class="toc-text">几点注意的地方</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Version-Control"><span class="toc-number">10.</span> <span class="toc-text">Version Control</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+        <!--
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+        -->
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+        <!--
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+        -->
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Windows下的静态库和动态库　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/2015/10/16/programPearls_Windows下的静态库和动态库/';
+            this.page.identifier = '2015/10/16/programPearls_Windows下的静态库和动态库/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/" title="上一篇: ADO连接MySQL数据库">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/" title="下一篇: Windows下的静态库和动态库">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/linux_ldconfig4RuntimeLibraries/">ldconfig：[load]运行时库管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/Algorithms_LeastSquaresLineFitting/">[0025] Least Squares Line Fitting（最小二乘法直线拟合）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/Algorithms_ICP/">[0024] Iterative Closest Points（迭代最近点）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/programPearls_i=i++/">i = i++;</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/tool_CMake_find_package$pkg_check_module/">CMake 查找库: find_package vs pkg_check_modules</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/">ROS launch file: <arg> vs <param> vs <rosparam></a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/">hexo：告别多说，拥抱 Disqus</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/">32-bit program on 64-bit OS & 64-bit program on 32-bit OS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/13/Algorithms_OnlineJudge4Huawei2017/">算法设计与分析[0023] 秋招华为在线笔试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/11/programPearls_DES$3DES$AES/">密码学：DES、3DES、AES</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/">JPEG编码&算术编码、LZW编码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/Algorithms_BST$R-B Tree/">算法设计与分析[0022] BST（二叉查找树）和 R-B Tree（红黑树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/07/programPearls_declaration$definition$initialization$assignment/">声明/定义/初始化/赋值</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/programPearls_inline$static$const$extern$volatile/">C/C++常见修饰符（inline&static&const&extern&volatile）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/Algorithms_BasicMiscs/">算法设计与分析[0021] Some Algorithms Basic Details Review（课程总结）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GraphProblems/">算法设计与分析[0020] 几个有关图的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GreedyAlgorithms/">算法设计与分析[0019] Greedy Algorithms（贪心策略）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/">算法设计与分析[0018] 图的点连通度和边连通度</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/08/Algorithms_NP-Complete(I)/">算法设计与分析[0017] NP-完全问题：概述（两道证明习题）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">DARPA[Boss]: Motion Planning in Urban Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_BiGraphMatching/">算法设计与分析[0016] 二分图匹配问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/Algorithms_Dynamic Programming(V)/">算法设计与分析[0014] Dynamic Programming(V) 一道习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/13/hsw_UbuntuSystemBootSequence/">一张图带你看 Ubuntu(Linux) 系统启动过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/linux_LinuxCommandNotes/">Linux命令小纸条</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/tool_vim几步走/">vim几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/10/linux_libpcap 32-bit$64-bit/">libpcap, 32-bit&64-bit</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/OverlappingSounds_Key Word Engineering/">Key Word Engineering</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/07/hexo_Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/01/TACouses_Embedded_System_2016/">Embedded System 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/hexo_博客主题Yelee迁移笔记/">hexo博客主题Yelee迁移笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux下基本文件操作/">Win/Linux下基本文件操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/26/tool_git几步走/">git几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/09/OverlappingSounds_Basketball_Never_Stops/">Basketball Never Stops</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/">Coding中的编码问题之回顾&深入</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/21/programPearls_Coding中的编码问题之入门$概览/">Coding中的编码问题之入门&概览</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/11/movies_漫威电影/">漫威21部系列电影(持续更新)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/tool_NotePad/">NotePad++</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">在hexo new之后立即打开Markdown文稿</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_自定义主题/">hexo自定义主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/programPearls_Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&Win8.1(both 64-bit),其他仅供参考)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/09/graduatedesign_01 STM32_一-搭建STM32开发环境/">(一) 搭建STM32开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/16/opengl_数媒HW4参考资料/">数媒HW4参考资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/06/考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/hexo_win搭建hexo/">win搭建hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2017 Gary
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by <a href="http://moxfive.xyz/" target="_blank"> MOxFIVE </a><i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+            
+            
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

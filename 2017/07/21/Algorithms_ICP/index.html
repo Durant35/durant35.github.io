@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Gary" />
+
+
+
+<meta name="description" content="ICP 算法简介
+由点云配准 说起
+　Point cloud registration, is the process of finding a spatial transformation that aligns two point clouds. The purpose is to merge point clouds of multiple views into a globally con">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[0024] Iterative Closest Points（迭代最近点）">
+<meta property="og:url" content="http://durant35.github.io/2017/07/21/Algorithms_ICP/index.html">
+<meta property="og:site_name" content="Tarantula-7's Blog">
+<meta property="og:description" content="ICP 算法简介
+由点云配准 说起
+　Point cloud registration, is the process of finding a spatial transformation that aligns two point clouds. The purpose is to merge point clouds of multiple views into a globally con">
+<meta property="og:image" content="http://durant35.github.io/img/programPearls/icp/rotation&translation_separation.png">
+<meta property="og:updated_time" content="2017-08-06T03:00:11.964Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[0024] Iterative Closest Points（迭代最近点）">
+<meta name="twitter:description" content="ICP 算法简介
+由点云配准 说起
+　Point cloud registration, is the process of finding a spatial transformation that aligns two point clouds. The purpose is to merge point clouds of multiple views into a globally con">
+<meta name="twitter:image" content="http://durant35.github.io/img/programPearls/icp/rotation&translation_separation.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Tarantula-7&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>[0024] Iterative Closest Points（迭代最近点） | Tarantula-7&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+</head>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Gary</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">　　你永远流淌在我的记忆里？River flows in you</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">Home</a></li>
+                        
+                            <li><a href="/tags">All-tags</a></li>
+                        
+                            <li><a href="/archives">All-lists</a></li>
+                        
+                            <li><a href="/Shengjie">Contact</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/">3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AES/">AES</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/">C/C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMD/">CMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/">CV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DARPA/">DARPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DES/">DES</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DLL/">DLL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HUAWEI/">HUAWEI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPEG/">JPEG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Key-words/">Key-words</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LZW/">LZW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MFC/">MFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NotePad/">NotePad++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCL/">OpenCL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL/">OpenGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB/">PCB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32/">STM32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS2013/">VS2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dumpbin/">dumpbin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ini/">ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pcap/">pcap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件操作/">文件操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漫威电影/">漫威电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码/">编码</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://wiki.ros.org/">ROS</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://zhiqiu.github.io/">Zhiqiu&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.ruanyifeng.com/blog/">阮一峰的网络日志</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://rh-song.github.io/">RiHui-Song&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://goshin.github.io/">Goshin&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://blog.csdn.net/u014593748">Kangdk&#39;s CSDN</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Gary</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Gary</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">　　你永远流淌在我的记忆里？River flows in you</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/tags">All-tags</a></li>
+                
+                    <li><a href="/archives">All-lists</a></li>
+                
+                    <li><a href="/Shengjie">Contact</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Algorithms_ICP" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/21/Algorithms_ICP/" class="article-date">
+      <time datetime="2017-07-21T12:02:22.000Z" itemprop="datePublished">2017-07-21</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [0024] Iterative Closest Points（迭代最近点）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3D/">3D</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="ICP-算法简介"><a href="#ICP-算法简介" class="headerlink" title="ICP 算法简介"></a>ICP 算法简介</h3><ul>
+<li>由<strong>点云配准</strong> 说起<blockquote>
+<p>　<strong>Point cloud registration</strong>, is the process of finding a spatial transformation that aligns two point clouds. The purpose is to merge point clouds of multiple views into a globally consistent model.<br>　Iterative Closest Points (ICP) is an algorithm employed to minimize the difference between two clouds of points. In the algorithm, target point cloud, is kept fixed, while the other one, the source, is transformed to best match the reference (the target). The algorithm iteratively revises the transformation (combination of translation and rotation) needed to minimize the distance from the source to the reference point cloud.<a id="more"></a></p>
+</blockquote>
+</li>
+<li>问题描述<ul>
+<li>有两个点集，source 和 target，target 不变（前一帧点云），source（当前帧）经过旋转（rotation）和平移（translation）甚至加上尺度（scale）变换，使得变换后的 source 点集尽量和 target 点集重合，这个变换的过程就叫 <strong>点云配准</strong>。<blockquote>
+<p> Input：$M$，$P$<br>Output：rotation $R$，translation $T$，s.t. $min \verb|{| dist(M’, P) \verb|}|, \space M’ = R * M + T$</p>
+</blockquote>
+</li>
+<li>ICP 是最广泛应用的配准方法，ICP 利用迭代一步步地算出正确的对应关系。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><a href="http://hustlwl.blog.sohu.com/69584430.html">经典的ICP算法</a></p>
+</blockquote>
+<ul>
+<li>1992年，Paul J.Besl and Neil D.Mckay 在他们的文章<strong>《A method for Registration of 3D Shape》</strong>中提出了ICP（Iterative closest point）算法，通过迭代、寻找来不断搜索最近点，定义一个阀值（threhold）最终完成多视图的拼合。在那个年代提出这一划时代的算法，是不可思议的，其中很多思路没有一定的数学功底和站在一个相当的高度是难以实现的：<ul>
+<li>将点集差异转换成协方差矩阵，然后通过奇异值 SVD 分解求最大特征向量；</li>
+<li>最大特征向量对应四元数即为其欧式运动对应值，完成数据拼合。</li>
+</ul>
+</li>
+<li>ICP Algorithm<ul>
+<li>①Start from initial guess</li>
+<li>②Iterate（<font color="blue">最大迭代次数</font>）<ul>
+<li>2.1 For ecah point $M_i$，find closest point $P_i$</li>
+<li>2.2 Find best transform for this correspondance</li>
+<li>2.3 Transform M</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><ul>
+<li>两个点集 $M$、$P$ 中的点数不一定相同，给出两个点集的空间变换 $f$ 使它们能进行空间匹配；$f$ 是一未知函数，求解 $f$ 的这个问题使用的最多的方法是迭代最近点法（Iterative Closest Points Algorithm）。</li>
+<li>ICP 基本思想是：根据某种几何特征对数据进行匹配，并设这些匹配点为 <font color="blue">假想的对应点</font>，然后根据这种对应关系求解运动参数；再利用这些运动参数对数据进行变换；利用同一几何特征，确定新的对应关系，重复上述过程。<ul>
+<li>第①步：计算 $M$ 中的每一个点在 $P$ 中的对应近点</li>
+<li>第②步：求得使上述对应近点对平均距离最小的刚体变换（平移矩阵+旋转矩阵）</li>
+<li>第③步：对 $M$ 使用上一步求得的平移矩阵和旋转矩阵，得到新的变换点集 $M’$</li>
+<li>第④步：如果新的变换点集 $M’$ 与参考点集 $P$ 满足收敛条件，则停止迭代计算；否则，变换点集 $M’$ 作为新的 $M$ 继续迭代第①～③步，直到达到收敛条件。<ul>
+<li>Converges（是否收敛？）<ul>
+<li>Errors decrease monotonically（偏差单调减少）</li>
+<li>Converges to local minimum（陷入局部最优解）</li>
+<li>Good initial guess $\Longrightarrow$ Converges to global minimum（全局最优解）</li>
+</ul>
+</li>
+<li>收敛条件<ul>
+<li><font color="blue">前一个变换矩阵和当前变换矩阵的差异小于阈值时，认为已经收敛</font></li>
+<li><font color="blue">均方误差和（Mean Square Error, $\sigma = \sqrt{\frac{\sum ^n \varepsilon _i ^2}{n}}$）小于阈值</font>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="ICP-目标函数"><a href="#ICP-目标函数" class="headerlink" title="ICP 目标函数"></a>ICP 目标函数</h3><ul>
+<li>三维空间中两个 3D 点，$\overrightarrow{M_i} = (x_i, y_i, z_i)$，$\overrightarrow{P_j} = (x_j, y_j, z_j)$，它们的欧氏距离表示为：$$dist(\overrightarrow{M_i}, \space \overrightarrow{P_j}) = || \overrightarrow{M_i} - \overrightarrow{P_j} || = \sqrt{(x_i - x_j)^2 + (y_i - y_j)^2 + (z_i - z_j)^2}$$</li>
+<li>定义点到点集的距离为点到点集的所有点中的最短距离，故点$\overrightarrow{M_i}$ 的对应点定义为：$$ \overrightarrow{P_i}  \space s.t. \space arg \space min_{\overrightarrow{P_i} \in P} dist(\overrightarrow{P_i}, \overrightarrow{M_i}) $$ $\quad$ 即点集 $P$ 中与点$\overrightarrow{M_i}$ 距离最短的那个点（<font color="blue">最近点</font>）。</li>
+<li>三维点云匹配问题的目的是找到 $M$ 和 $P$ 变换的矩阵 $R$ 和 $T$，对于 $\overrightarrow{P_i} = R*\overrightarrow{M_i} + T + N_i, \space i=1, 2, …, N$（$N_i$ 是噪声矢量，$N_i$ 的要素均为白噪声），利用最小二乘法求解最优解，使得 $$E = \sum _{i=1} ^N ||(R\overrightarrow{M_i} + T) - \overrightarrow{P_i}||$$ $\quad$ 最小时的 $R$ 和 $T$。</li>
+</ul>
+<h3 id="ICP-算法实现"><a href="#ICP-算法实现" class="headerlink" title="ICP 算法实现"></a>ICP 算法实现</h3><ol>
+<li>令 $\overrightarrow{m} \in M$，$\overrightarrow{p} \in P$，且 $N_m = ||M||$，$N_p = ||P||$。</li>
+<li>初始化初始点集 $P_0 = P$，初始化变换向量 $\overrightarrow{q} = [1, 0, 0, 0, 0, 0]$，即旋转为 0， 且各方向位移为 0，初始化迭代次数 $k = 0$，执行以下几个步骤直到收敛：<ul>
+<li>计算获取对应点集（搜索最近点）：$Y_k = C(P_k, \space M)$</li>
+<li>计算配准变换向量：$(\overrightarrow{q_k}, \space d_{k}) = Q(P_0, \space Y_k)$，$d_{k} = MSE(\overrightarrow{q_k} * P, \space M)$</li>
+<li>应用配准：$P_{k+1} = \overrightarrow{q_k} * P_0$</li>
+<li>终止迭代过程：两次误差小于一个给定阈值 $\tau \gt 0$，使得 $d_k - d_{k-1} \lt \tau$</li>
+</ul>
+</li>
+</ol>
+<h4 id="如何搜索最近点-Y-k"><a href="#如何搜索最近点-Y-k" class="headerlink" title=" 如何搜索最近点 $Y_k$"></a><1> 如何搜索最近点 $Y_k$</h4><ul>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// original points</span></div><div class="line"><span class="built_in">vector</span>&lt;Vertex&gt; P; </div><div class="line"><span class="built_in">vector</span>&lt;Vertex&gt; M;</div><div class="line"> </div><div class="line"><span class="comment">// control points number</span></div><div class="line"><span class="keyword">int</span> contNum; </div><div class="line"> </div><div class="line"><span class="comment">// control points</span></div><div class="line">Vertex *contP; </div><div class="line">Vertex *contM;</div><div class="line"> </div><div class="line"><span class="keyword">double</span> ICP::closest() &#123;</div><div class="line">  <span class="comment">//cout&lt;&lt;"find closest points and error"&lt;&lt;endl;</span></div><div class="line">  <span class="keyword">double</span> error = <span class="number">0.0</span>;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;contNum; i++) &#123;</div><div class="line">    <span class="keyword">double</span> maxdist = <span class="number">100.0</span>;</div><div class="line">    index[i] = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">unsigned</span> <span class="keyword">int</span> j=<span class="number">0</span>; j&lt;M.size(); j++) &#123;</div><div class="line">      <span class="keyword">double</span> dist = distance(contP[i], M[j]);</div><div class="line">      <span class="keyword">if</span>(dist &lt; maxdist) &#123;</div><div class="line">        maxdist = dist;</div><div class="line">        index[i] = j;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    Vertex v = M[index[i]];</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;<span class="number">3</span>; j++) &#123;</div><div class="line">      contM[i].coord[j] = v.coord[j];</div><div class="line">    &#125;</div><div class="line">    error += maxdist;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> error;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="keyword">double</span> ICP::distance(Vertex a,Vertex b) &#123;</div><div class="line">  <span class="keyword">double</span> dist = <span class="number">0.0</span>;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">3</span>; i++) &#123;</div><div class="line">    dist += (a.coord[i]-b.coord[i])*(a.coord[i]-b.coord[i]);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> dist;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>最近点对查找的一种改进方法<ul>
+<li>对应点的查找是整个配准过程中耗费时间最长的步骤，可以利用 <strong>kd-tree</strong> 提高查找速度；</li>
+<li><strong>kd-tree</strong> 建立点的拓扑关系是基于二叉树的坐标轴分割，构造 kd-tree 的过程就是按照二叉树法则生成。<ul>
+<li>首先按 X 轴寻找分割线，即计算所有点的 x 值的平均值，以最近这个平均值的点的 x 值将空间分成两部分；</li>
+<li>在分成的子空间中按 Y 轴寻找分割线（与 X 轴方法类似），将其分成两部分，分隔好的子空间再按 X 轴分割；</li>
+<li>重复上述分割操作，直到分割的区域内只有一个点，这样点的拓扑关系就建立了；</li>
+<li>这样的分割过程就对应于一个二叉树，二叉树的分节点就对应一条分割线，而二叉树的每个叶子节点就对应一个点。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="控制点"><a href="#控制点" class="headerlink" title=" 控制点"></a><2> 控制点</h4><blockquote>
+<p>　In order to speed up registration, another common extension to the original ICP algorithm is to register only subsets of the input point clouds sampled in an initial selection step</p>
+</blockquote>
+<ul>
+<li>在确定对应关系时，所使用的几何特征是空间中位置最近的点，这里我们甚至不需要两个点集中的所有点，可以只用从某一点集中选取出来的一部分点，一般称这些点为 <strong>控制点（Control Points）</strong>。这时，配准问题转化为：$$ E = \sum_{i=1}^{N} ||(R\overrightarrow{p_i} + T) - \overrightarrow{m_i}||$$ $\quad$ 其中，$\overrightarrow{p_i}$、$\overrightarrow{m_i}$ 为最近匹配点。</li>
+</ul>
+<h4 id="求点集间变换矩阵-overrightarrow-q-k"><a href="#求点集间变换矩阵-overrightarrow-q-k" class="headerlink" title=" 求点集间变换矩阵 $\overrightarrow{q_k}$"></a><3> 求点集间变换矩阵 $\overrightarrow{q_k}$</h4><ul>
+<li>完整的配准变换向量 $\overrightarrow{q_k} = [\overrightarrow{q_R} | \overrightarrow{q_T}]$<ul>
+<li>旋转向量 $\Longrightarrow$ 采用 <strong>四元数</strong> 表示<ul>
+<li>设单位四元数 $\overrightarrow{q_R} = [q_0, q_1, q_2, q_3]^T$</li>
+</ul>
+</li>
+<li>位移向量 $\overrightarrow{q_T} = [q_4, q_5, q_6]^T$</li>
+</ul>
+</li>
+<li>如何求旋转向量 $\overrightarrow{q_R}$<ul>
+<li>设点集 $M$ 的质心（中心，center of mass）为：$$\overrightarrow{\mu _M} = \frac{1}{N_m} \sum _{i=1} ^{N_m} \overrightarrow{M_i}$$<br>$\quad$ 点集 $P$ 的质心为：$$\overrightarrow{\mu _P} = \frac{1}{N_p} \sum _{i=1} ^{N_p} \overrightarrow{P_i}$$</li>
+<li>平移和旋转分离<blockquote>
+<p>　To measure the <strong>similarity</strong> of sets P and M, we can find their <strong>cross-covariance</strong> $\Longrightarrow$ This removes the translation component, leaving on the rotation to deal with.</p>
+<center><img src="/img/programPearls/icp/rotation&translation_separation.png" width="640px" alt="" /></center></blockquote>
+</li>
+<li>设点集 $P$ 和 $M$ 的协方差矩阵（cross-covariance matrix）为：$$ \sum\nolimits _{pm} =  \frac{1}{N_p} \sum _{i=1} ^{N_m} [(\overrightarrow{P_i} - \overrightarrow{\mu _P})(\overrightarrow{M_i} - \overrightarrow{\mu _M})^T] = \frac{1}{N_p} \sum _{i=1} ^{N_m} [\overrightarrow{P_i} \cdot \overrightarrow{M_i}^T - \overrightarrow{\mu _P} \overrightarrow{\mu _M}^T]$$<br>$\quad$ 设对应的反对称矩阵（anti-symmetric matrix）为：$$A_{ij} = (\sum\nolimits _{pm} - \sum\nolimits _{pm} ^T)_{ij}$$<br>$\quad$ 取其循环部分组成列向量：$$\Delta = [A_{23},\space A_{31},\space A_{12}]^T$$</li>
+<li>构造 4×4 对称矩阵（symmetric matrix）：$$Q(\sum\nolimits _{pm}) = \begin{bmatrix} tr(\sum\nolimits _{pm}) &amp; \Delta^T \\ \Delta &amp; \sum\nolimits _{pm} - \sum\nolimits _{pm}^T - tr(\sum\nolimits _{pm})I_3 \end{bmatrix}$$ $\quad$ 其中 $tr(?)$ 是指矩阵的迹，即矩阵的对角线元素之和；$I_3$ 是 3×3 的单位矩阵<blockquote>
+<p>The unit eigenvector corresponding to the maximum eigenvalue of the matrix is selected as the optimal rotation.</p>
+</blockquote>
+</li>
+<li>取$Q(\sum\nolimits _{pm})$ 最大的特征值（maximum eigenvalue）对应的单位特征向量（unit eigenvector）$\overrightarrow{q_R} = [q_0, q_1, q_2, q_3]^T$ 为最优旋转。$\Longrightarrow$<font color="blue"> 这一步如何实现呢？？？</font></li>
+</ul>
+</li>
+<li>如何求位移向量 $\overrightarrow{q_T}$<ul>
+<li>最优位移向量 $$\overrightarrow{q_T} = \overrightarrow{\mu _M} - R_{\overrightarrow{q_R}}\overrightarrow{\mu _P} $$ $\quad$ 其中，$R_{\overrightarrow{q_R}}$ 是旋转向量对应的旋转矩阵。</li>
+<li>由四元数到旋转矩阵的变换来说，单位四元数 $\overrightarrow{q_R} = [q_0, q_1, q_2, q_3]^T$，其旋转矩阵可以表示为：$$R_{\overrightarrow{q_R}} = \begin{bmatrix} q_0^2+q_1^2-q_2^2-q_3^2 &amp; 2(q_1 q_2 - q_0 q_3) &amp; q_1 q_3 + q_0 q_2 \\ 2(q_1 q_2 + q_0 q_3) &amp; q_0^2+q_2^2-q_1^2-q_3^2 &amp; 2(q_2 q_3 - q_0 q_1)\\ 2(q_1 q_3 - q_0 q_2) &amp; 2(q_2 q_3 + q_0 q_1) &amp; q_0^2+q_3^2-q_1^2-q_2^2 \end{bmatrix}$$</li>
+</ul>
+</li>
+<li><font color="blue">旋转向量 $\overrightarrow{q_R} = [q_0, q_1, q_2, q_3]^T$ 的最小二乘法求解</font><ul>
+<li>在ICP 算法的出处论文《A Method for Registration of 3-D Shapes》中只给出了上述的算法流程和公式转化，关于如何通过特征值求解 $\overrightarrow{q_R}$ 并没有明确的指出。通过了解发现，常见的代码实现中通常采用 SVD（奇异值）求解有关旋转向量的最小二乘问题。</li>
+<li><a href="http://blog.csdn.net/lcydhr/article/details/52413179">SVD</a><blockquote>
+<p>任意矩阵 $A$（m×n），都能被奇异值分解为：$$A = U \begin{bmatrix} \sum \nolimits _r &amp; &amp; 0 \\ &amp; &amp; \vdots \\ 0 &amp; \cdots &amp; 0 \end{bmatrix} V^T$$ $\quad$ 其中，$U$ 是 m×m 的正交矩阵，$V$ 是 n×n 的正交矩阵，$\sum \nolimits _r $ 是由 $r$ 个沿对角线从大到小排列的奇异值组成的方阵，$r$ 就是矩阵 $A$ 的秩。</p>
+</blockquote>
+</li>
+<li>求解方法一（ <a href="http://blog.csdn.net/xiaowei_cqu/article/details/8470376">小魏的修行路：[3D]迭代最近点算法 Iterative Closest Points</a>）<ul>
+<li>分别将点集 $P$ 和 $M$平移至中心点处（去中心化）：$$\overrightarrow{p_i’} = \overrightarrow{p_i} - \overrightarrow{\mu _P}$$ $$ \overrightarrow{m_i’} = \overrightarrow{m_i} - \overrightarrow{\mu _M} $$</li>
+<li>对于第 $i$ 对点对，计算点对的矩阵 $A_i$：$$ A_i = \begin{bmatrix} 0 &amp; (\overrightarrow{p_i’}-\overrightarrow{m_i’})^T \\ \overrightarrow{p_i’}-\overrightarrow{m_i’} &amp; D_i^M  \end{bmatrix}$$ $\quad$其中，$D_i = \overrightarrow{p_i’}+\overrightarrow{m_i’}$，$D_i^M$ 是矩阵 $D_i$ 的 <font color="blue">Um 形式（什么是 Um 形式呢？）</font>，$$ D_i^M = \begin{bmatrix} 0 &amp; -D_i[2] &amp; -D_i[1] \\ -D_i[2] &amp; 0 &amp; D_i[0] \\ D_i[1] &amp; -D_i[0] &amp; 0 \end{bmatrix}$$</li>
+<li>对于每一次迭代，计算矩阵 $B$：$$ B = \sum_{i=1}^{N_p} A_iA_i^T$$</li>
+<li>关于旋转向量的最优化问题转化为求 $B$ 的最小特征值和特征向量（如下，通过第三方 newmat 库的 SVD 求解）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><figcaption><span>求解方法一</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// using newmat library</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;newmat/newmatap.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;newmat/newmat.h&gt;</span></span></div><div class="line"> </div><div class="line"><span class="keyword">struct</span> Vertex&#123;</div><div class="line">  <span class="keyword">double</span> coord[<span class="number">3</span>];</div><div class="line">&#125;;</div><div class="line"><span class="comment">// control points in P</span></div><div class="line">Vertex *contP; </div><div class="line">Vertex *contM;</div><div class="line"><span class="comment">// control points after removing center（去中心化）</span></div><div class="line">Vertex *rmcoP; </div><div class="line">Vertex *rmcoM;</div><div class="line"> </div><div class="line"><span class="keyword">void</span> ICP::transform() &#123;</div><div class="line">  <span class="built_in">cout</span>&lt;&lt;<span class="string">"get transform matrix"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">  <span class="function">Matrix <span class="title">B</span><span class="params">(<span class="number">4</span>,<span class="number">4</span>)</span></span>;</div><div class="line">  B = <span class="number">0</span>;</div><div class="line">  <span class="keyword">double</span> u[<span class="number">3</span>]; <span class="comment">//di+di'</span></div><div class="line">  <span class="keyword">double</span> d[<span class="number">3</span>]; <span class="comment">//di-di'</span></div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;cono;i++) &#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">3</span>;j++) &#123;</div><div class="line">      u[j] = rmcoP[i].coord[j]+rmcoM[i].coord[j];</div><div class="line">      d[j] = rmcoM[i].coord[j]-rmcoM[i].coord[j];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">double</span> uM[<span class="number">16</span>] = &#123;</div><div class="line">      <span class="number">0</span>,    -d[<span class="number">0</span>],  -d[<span class="number">1</span>],  -d[<span class="number">2</span>],</div><div class="line">      d[<span class="number">0</span>], <span class="number">0</span>,      -u[<span class="number">2</span>],  -u[<span class="number">1</span>],</div><div class="line">      d[<span class="number">1</span>], -u[<span class="number">2</span>],  <span class="number">0</span>,      u[<span class="number">0</span>],</div><div class="line">      d[<span class="number">2</span>], u[<span class="number">1</span>],   -u[<span class="number">0</span>],  <span class="number">0</span></div><div class="line">    	&#125;;</div><div class="line">     </div><div class="line">    <span class="function">Matrix <span class="title">Ai</span><span class="params">(<span class="number">4</span>,<span class="number">4</span>)</span> </span>;</div><div class="line">    Ai &lt;&lt; uM ;</div><div class="line">    B += Ai*Ai.t();</div><div class="line">  &#125;</div><div class="line">  <span class="comment">// 利用奇异值分解计算B的特征值和特征向量（旋转向量四元数）</span></div><div class="line">  Matrix U;</div><div class="line">  Matrix V;</div><div class="line">  DiagonalMatrix D;</div><div class="line">  SVD(B,D,U,V);</div><div class="line"> </div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++) &#123;</div><div class="line">    quad[i] = V.element(i,<span class="number">3</span>);</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  B.Release();</div><div class="line">  U.Release();</div><div class="line">  V.Release();</div><div class="line">  D.Release();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>求解方法二（<a href="(http://nghiaho.com/?page_id=671">FINDING OPTIMAL ROTATION AND TRANSLATION BETWEEN CORRESPONDING 3D POINTS</a>） $$H = \sum_{i=1}^N (P_i - \overrightarrow{\mu _P} )(M_i - \overrightarrow{\mu _M})^T$$ $$[U,\space S,\space V] = SVD(H)$$ $$ R = VU^T $$<ul>
+<li>其中，$H$ 为 Familiar Covariance Matrix（近似协方差矩阵，论文中是协方差矩阵）；$R$ 即为最优的旋转矩阵。</li>
+<li>Special reflection case<ul>
+<li>Sometimes the SVD will return a ‘reflection’ matrix, which is numerically correct but is actually nonsense in real life. This is addressed by checking <strong>the determinant of R</strong> (from SVD above) and seeing if it’s negative (-1). If it is then the 3rd column of V is multiplied by -1.<blockquote>
+<p>if determinant(R) &lt; 0<br>　multiply 3rd column of V by -1<br>   　recompute R<br>   end if</p>
+</blockquote>
+</li>
+<li>An alternative check that is possibly more robust was suggested by Nick Lambert<blockquote>
+<p>if determinant(R) &lt; 0<br>　multiply 3rd column of Ｒ by -1<br>   end if</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>  <figure class="highlight py"><figcaption><span>求解方法二</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</div><div class="line"><span class="keyword">from</span> math <span class="keyword">import</span> sqrt</div><div class="line"> </div><div class="line"><span class="comment"># Input: expects Nx3 matrix of points</span></div><div class="line"><span class="comment"># Returns R,t</span></div><div class="line"><span class="comment"># R = 3x3 rotation matrix</span></div><div class="line"><span class="comment"># t = 3x1 column vector</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">rigid_transform_3D</span><span class="params">(A, B)</span>:</span></div><div class="line">    <span class="keyword">assert</span> len(A) == len(B)</div><div class="line"> </div><div class="line">    N = A.shape[<span class="number">0</span>]; <span class="comment"># total points</span></div><div class="line"> </div><div class="line">    centroid_A = mean(A, axis=<span class="number">0</span>)</div><div class="line">    centroid_B = mean(B, axis=<span class="number">0</span>)</div><div class="line">    </div><div class="line">    <span class="comment"># centre the points</span></div><div class="line">    AA = A - tile(centroid_A, (N, <span class="number">1</span>))</div><div class="line">    BB = B - tile(centroid_B, (N, <span class="number">1</span>))</div><div class="line"> </div><div class="line">    <span class="comment"># dot is matrix multiplication for array</span></div><div class="line">    H = transpose(AA) * BB</div><div class="line"> </div><div class="line">    U, S, Vt = linalg.svd(H)</div><div class="line"> </div><div class="line">    R = Vt.T * U.T</div><div class="line"> </div><div class="line">    <span class="comment"># special reflection case</span></div><div class="line">    <span class="keyword">if</span> linalg.det(R) &lt; <span class="number">0</span>:</div><div class="line">       <span class="keyword">print</span> <span class="string">"Reflection detected"</span></div><div class="line">       Vt[<span class="number">2</span>,:] *= <span class="number">-1</span></div><div class="line">       R = Vt.T * U.T</div><div class="line"> </div><div class="line">    t = -R*centroid_A.T + centroid_B.T</div><div class="line"> </div><div class="line">    <span class="keyword">print</span> t</div><div class="line"> </div><div class="line">    <span class="keyword">return</span> R, t</div><div class="line"> </div><div class="line"><span class="comment"># !!! Test with random data</span></div><div class="line"><span class="comment"># &lt;1&gt;Random rotation and translation</span></div><div class="line">R = mat(random.rand(<span class="number">3</span>,<span class="number">3</span>))</div><div class="line">t = mat(random.rand(<span class="number">3</span>,<span class="number">1</span>))</div><div class="line"><span class="comment"># &lt;2&gt;make R a proper rotation matrix, force orthonormal</span></div><div class="line">U, S, Vt = linalg.svd(R)</div><div class="line">R = U*Vt</div><div class="line"><span class="comment"># &lt;3&gt;remove reflection</span></div><div class="line"><span class="keyword">if</span> linalg.det(R) &lt; <span class="number">0</span>:</div><div class="line">   Vt[<span class="number">2</span>,:] *= <span class="number">-1</span></div><div class="line">   R = U*Vt</div><div class="line"><span class="comment"># &lt;4&gt;number of points</span></div><div class="line">n = <span class="number">10</span></div><div class="line"> </div><div class="line">A = mat(random.rand(n,<span class="number">3</span>));</div><div class="line">B = R*A.T + tile(t, (<span class="number">1</span>, n))</div><div class="line">B = B.T;</div><div class="line"> </div><div class="line"><span class="comment"># &lt;5&gt;recover the transformation</span></div><div class="line">ret_R, ret_t = rigid_transform_3D(A, B)</div><div class="line">  </div><div class="line">A2 = (ret_R*A.T) + tile(ret_t, (<span class="number">1</span>, n))</div><div class="line">A2 = A2.T</div><div class="line"> </div><div class="line"><span class="comment"># &lt;6&gt;Find the error</span></div><div class="line">err = A2 - B</div><div class="line"> </div><div class="line">err = multiply(err, err)</div><div class="line">err = sum(err)</div><div class="line">rmse = sqrt(err/n);</div><div class="line"> </div><div class="line"><span class="keyword">print</span> <span class="string">"Points A"</span></div><div class="line"><span class="keyword">print</span> A</div><div class="line"><span class="keyword">print</span> <span class="string">""</span></div><div class="line"> </div><div class="line"><span class="keyword">print</span> <span class="string">"Points B"</span></div><div class="line"><span class="keyword">print</span> B</div><div class="line"><span class="keyword">print</span> <span class="string">""</span></div><div class="line"> </div><div class="line"><span class="keyword">print</span> <span class="string">"Rotation"</span></div><div class="line"><span class="keyword">print</span> R</div><div class="line"><span class="keyword">print</span> <span class="string">""</span></div><div class="line"> </div><div class="line"><span class="keyword">print</span> <span class="string">"Translation"</span></div><div class="line"><span class="keyword">print</span> t</div><div class="line"><span class="keyword">print</span> <span class="string">""</span></div><div class="line"> </div><div class="line"><span class="keyword">print</span> <span class="string">"RMSE:"</span>, rmse</div><div class="line"><span class="keyword">print</span> <span class="string">"If RMSE is near zero, the function is correct!"</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="改进-ICP-算法"><a href="#改进-ICP-算法" class="headerlink" title="改进 ICP 算法"></a>改进 ICP 算法</h3><blockquote>
+<p><a href="http://blog.csdn.net/yhlx125/article/details/52959892">夜空中明亮的星的专栏：点云匹配</a></p>
+</blockquote>
+<ul>
+<li>加快寻找匹配点（最近点）的搜索效率<ul>
+<li>K-D 树</li>
+<li>Voronoi 图</li>
+</ul>
+</li>
+<li>不同的距离量测方式<ul>
+<li>点到点（标准 ICP 算法）</li>
+<li>点到线</li>
+<li>点到面</li>
+<li>面到面</li>
+</ul>
+</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li><a href="https://web.eecs.umich.edu/~silvio/teaching/EECS598/lectures/lecture5_2.pdf">Summary of “A Method for Registration of 3-D Shapes”</a></li>
+<li><a href="http://zhi.oschina.io/archives/2015/12/30/cv-icp.html">植的博客：ICP 算法过程</a></li>
+<li><a href="http://nghiaho.com/?page_id=671">Nghia Ho: FINDING OPTIMAL ROTATION AND TRANSLATION BETWEEN CORRESPONDING 3D POINTS</a></li>
+<li><a href="http://blog.csdn.net/xiaowei_cqu/article/details/8470376">小魏的修行路：[3D]迭代最近点算法 Iterative Closest Points</a></li>
+<li><a href="http://blog.csdn.net/lcydhr/article/details/52413179">lcydhr的专栏：SVD(奇异值分解)及求解最小二乘问题</a></li>
+<li><a href="http://chrisyayu.me/2016/07/07/ICP%28Iterative-Closest-Point%29%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Chrisyayu：ICP(Iterative Closest Point)学习笔记</a></li>
+<li><a href="http://blog.csdn.net/u010696366/article/details/8941938">PCL学习笔记二：Registration (ICP算法)</a></li>
+<li><a href="http://blog.csdn.net/yhlx125/article/details/52959892">夜空中明亮的星的专栏：点云匹配</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/07/21/Algorithms_ICP/">[0024] Iterative Closest Points（迭代最近点）</a></p>
+
+        <!-- 
+        <p><span>文章作者:</span><a href="/" title="回到主页">Gary</a></p>
+        -->
+        <p><span>文章作者:</span>Gary</p>
+
+        <p><span>发布时间:</span>2017-07-21, 20:02:22</p>
+        <p><span>最后更新:</span>2017-08-06, 11:00:11</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/07/21/Algorithms_ICP/" title="[0024] Iterative Closest Points（迭代最近点）">http://durant35.github.io/2017/07/21/Algorithms_ICP/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/07/21/Algorithms_ICP/　　作者: Gary" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+
+        <!-- not to show license information
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+        -->
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/08/08/linux_ldconfig4RuntimeLibraries/">
+                    ldconfig：[load]运行时库管理
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/07/21/Algorithms_LeastSquaresLineFitting/">
+                    [0025] Least Squares Line Fitting（最小二乘法直线拟合）
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#ICP-算法简介"><span class="toc-number">1.</span> <span class="toc-text">ICP 算法简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本原理"><span class="toc-number">2.</span> <span class="toc-text">基本原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ICP-目标函数"><span class="toc-number">3.</span> <span class="toc-text">ICP 目标函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ICP-算法实现"><span class="toc-number">4.</span> <span class="toc-text">ICP 算法实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#如何搜索最近点-Y-k"><span class="toc-number">4.1.</span> <span class="toc-text"> 如何搜索最近点 $Y_k$</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#控制点"><span class="toc-number">4.2.</span> <span class="toc-text"> 控制点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#求点集间变换矩阵-overrightarrow-q-k"><span class="toc-number">4.3.</span> <span class="toc-text"> 求点集间变换矩阵 $\overrightarrow{q_k}$</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#改进-ICP-算法"><span class="toc-number">5.</span> <span class="toc-text">改进 ICP 算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#References"><span class="toc-number">6.</span> <span class="toc-text">References</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+        <!--
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+        -->
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+        <!--
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+        -->
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"[0024] Iterative Closest Points（迭代最近点）　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/2017/07/21/Algorithms_ICP/';
+            this.page.identifier = '2017/07/21/Algorithms_ICP/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/08/08/linux_ldconfig4RuntimeLibraries/" title="上一篇: ldconfig：[load]运行时库管理">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/07/21/Algorithms_LeastSquaresLineFitting/" title="下一篇: [0025] Least Squares Line Fitting（最小二乘法直线拟合）">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/linux_ldconfig4RuntimeLibraries/">ldconfig：[load]运行时库管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/Algorithms_LeastSquaresLineFitting/">[0025] Least Squares Line Fitting（最小二乘法直线拟合）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/Algorithms_ICP/">[0024] Iterative Closest Points（迭代最近点）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/programPearls_i=i++/">i = i++;</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/tool_CMake_find_package$pkg_check_module/">CMake 查找库: find_package vs pkg_check_modules</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/">ROS launch file: <arg> vs <param> vs <rosparam></a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/">hexo：告别多说，拥抱 Disqus</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/">32-bit program on 64-bit OS & 64-bit program on 32-bit OS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/13/Algorithms_OnlineJudge4Huawei2017/">算法设计与分析[0023] 秋招华为在线笔试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/11/programPearls_DES$3DES$AES/">密码学：DES、3DES、AES</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/">JPEG编码&算术编码、LZW编码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/Algorithms_BST$R-B Tree/">算法设计与分析[0022] BST（二叉查找树）和 R-B Tree（红黑树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/07/programPearls_declaration$definition$initialization$assignment/">声明/定义/初始化/赋值</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/programPearls_inline$static$const$extern$volatile/">C/C++常见修饰符（inline&static&const&extern&volatile）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/Algorithms_BasicMiscs/">算法设计与分析[0021] Some Algorithms Basic Details Review（课程总结）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GraphProblems/">算法设计与分析[0020] 几个有关图的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GreedyAlgorithms/">算法设计与分析[0019] Greedy Algorithms（贪心策略）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/">算法设计与分析[0018] 图的点连通度和边连通度</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/08/Algorithms_NP-Complete(I)/">算法设计与分析[0017] NP-完全问题：概述（两道证明习题）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">DARPA[Boss]: Motion Planning in Urban Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_BiGraphMatching/">算法设计与分析[0016] 二分图匹配问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/Algorithms_Dynamic Programming(V)/">算法设计与分析[0014] Dynamic Programming(V) 一道习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/13/hsw_UbuntuSystemBootSequence/">一张图带你看 Ubuntu(Linux) 系统启动过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/linux_LinuxCommandNotes/">Linux命令小纸条</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/tool_vim几步走/">vim几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/10/linux_libpcap 32-bit$64-bit/">libpcap, 32-bit&64-bit</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/OverlappingSounds_Key Word Engineering/">Key Word Engineering</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/07/hexo_Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/01/TACouses_Embedded_System_2016/">Embedded System 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/hexo_博客主题Yelee迁移笔记/">hexo博客主题Yelee迁移笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux下基本文件操作/">Win/Linux下基本文件操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/26/tool_git几步走/">git几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/09/OverlappingSounds_Basketball_Never_Stops/">Basketball Never Stops</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/">Coding中的编码问题之回顾&深入</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/21/programPearls_Coding中的编码问题之入门$概览/">Coding中的编码问题之入门&概览</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/11/movies_漫威电影/">漫威21部系列电影(持续更新)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/tool_NotePad/">NotePad++</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">在hexo new之后立即打开Markdown文稿</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_自定义主题/">hexo自定义主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/programPearls_Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&Win8.1(both 64-bit),其他仅供参考)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/09/graduatedesign_01 STM32_一-搭建STM32开发环境/">(一) 搭建STM32开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/16/opengl_数媒HW4参考资料/">数媒HW4参考资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/06/考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/hexo_win搭建hexo/">win搭建hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2017 Gary
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by <a href="http://moxfive.xyz/" target="_blank"> MOxFIVE </a><i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+            
+            
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
