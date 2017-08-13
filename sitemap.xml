@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/Shengjie/index.html</loc>
+    
+    <lastmod>2017-08-13T01:43:07.675Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2017/02/04/linux_LinuxCommandNotes/</loc>
     
     <lastmod>2017-08-10T02:05:47.103Z</lastmod>
@@ -117,13 +124,6 @@
     <loc>http://durant35.github.io/2017/07/14/hexo_DisqusInsteadofDuoshuo/</loc>
     
     <lastmod>2017-07-14T11:27:44.942Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/Shengjie/index.html</loc>
-    
-    <lastmod>2017-07-14T09:33:49.347Z</lastmod>
     
   </url>
   
