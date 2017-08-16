@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/2017/07/21/Algorithms_ICP/</loc>
+    
+    <lastmod>2017-08-16T02:59:36.937Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/07/02/Algorithms_BasicMiscs/</loc>
+    
+    <lastmod>2017-08-16T02:59:24.917Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/07/14/ROS_%3Carg%3E$%3Cparam%3E$%3Crosparam%3E/</loc>
+    
+    <lastmod>2017-08-16T02:02:05.461Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/07/21/Algorithms_LeastSquaresLineFitting/</loc>
+    
+    <lastmod>2017-08-16T02:01:53.941Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2016/06/12/OverlappingSounds_%E5%86%99%E4%BA%8E%E5%B9%B8%E8%BF%90%E4%BF%9D%E7%A0%94%E5%90%8E/</loc>
+    
+    <lastmod>2017-08-16T01:59:42.328Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/Shengjie/index.html</loc>
     
     <lastmod>2017-08-13T01:43:07.675Z</lastmod>
@@ -19,20 +54,6 @@
     <loc>http://durant35.github.io/2017/08/08/linux_ldconfig4RuntimeLibraries/</loc>
     
     <lastmod>2017-08-10T02:05:40.795Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/07/21/Algorithms_LeastSquaresLineFitting/</loc>
-    
-    <lastmod>2017-08-07T03:39:19.612Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/07/21/Algorithms_ICP/</loc>
-    
-    <lastmod>2017-08-06T03:00:11.964Z</lastmod>
     
   </url>
   
@@ -107,13 +128,6 @@
   </url>
   
   <url>
-    <loc>http://durant35.github.io/2017/07/14/ROS_%3Carg%3E$%3Cparam%3E$%3Crosparam%3E/</loc>
-    
-    <lastmod>2017-07-14T13:46:17.634Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://durant35.github.io/2017/07/14/programPearls_32-bit%20program%20on%2064-bit%20OS%20$%2064-bit%20program%20on%2032-bit%20OS/</loc>
     
     <lastmod>2017-07-14T11:39:17.362Z</lastmod>
@@ -166,13 +180,6 @@
     <loc>http://durant35.github.io/2017/07/07/programPearls_declaration$definition$initialization$assignment/</loc>
     
     <lastmod>2017-07-07T06:36:05.935Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/07/02/Algorithms_BasicMiscs/</loc>
-    
-    <lastmod>2017-07-06T08:51:13.140Z</lastmod>
     
   </url>
   
@@ -740,13 +747,6 @@
     <loc>http://durant35.github.io/2016/06/09/OverlappingSounds_Basketball_Never_Stops/</loc>
     
     <lastmod>2016-11-12T10:08:26.638Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2016/06/12/OverlappingSounds_%E5%86%99%E4%BA%8E%E5%B9%B8%E8%BF%90%E4%BF%9D%E7%A0%94%E5%90%8E/</loc>
-    
-    <lastmod>2016-11-12T10:06:37.897Z</lastmod>
     
   </url>
   
