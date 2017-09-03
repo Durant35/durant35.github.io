@@ -3,6 +3,123 @@
   
     
     <entry>
+      <title><![CDATA[Summary after Robosense's Interview]]></title>
+      <url>/2017/09/03/programPearls_Summary%20after%20Robosense's%20Interview/</url>
+      <content type="html"><![CDATA[<p>　昨天第一次到 xx 参观学习，略有点仓促地进行了笔试和面试，整体状态不好，可能没做好心理准备吧。感觉：Robosense 不显山不露水！<br>　下面是对期间觉得含糊不清的问题的整理。<a id="more"></a></p>
+<h3 id="C-基础部分"><a href="#C-基础部分" class="headerlink" title="C++ 基础部分"></a>C++ 基础部分</h3><ul>
+<li>把内存泄露和内存溢出弄混了<ul>
+<li>泄漏是说你的程序有BUG，导致内存不释放；溢出是指内存不够用了，导致不够用的原因很多，泄漏只是其中一种。</li>
+<li><a href="http://blog.csdn.net/buutterfly/article/details/6617375">wokaotesting：内存溢出和内存泄漏的区别</a><ul>
+<li>内存泄露（<strong>memory leak</strong>）是指你的应用使用资源之后没有及时释放，导致应用内存中持有了不需要的资源，这是一种状态描述；</li>
+<li>内存溢出（<strong>out of memory</strong>）是指你的应用的内存已经不能满足正常使用了，堆栈已经达到系统设置的最大值，进而导致崩溃，这是一种结果描述；<blockquote>
+<p>申请了一个 int，但给它存了 long 才能存下的数，那也是内存溢出</p>
+</blockquote>
+</li>
+<li>通常都是由于内存泄露导致堆栈内存不断增大，从而引发内存溢出。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>怀疑自己写的 C++ 输入输出运算符重载</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">friend</span> istream&amp; <span class="keyword">operator</span> &gt;&gt;(istream &amp;in, 自定义类型名 &amp;形参名) &#123;</div><div class="line">  in &gt;&gt; ......</div><div class="line">  <span class="keyword">return</span> in;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">friend</span> ostream&amp; <span class="keyword">operator</span> &lt;&lt;(ostream &amp;out, 自定义类型名 &amp;形参名) &#123;</div><div class="line">  out &lt;&lt; ......</div><div class="line">  <span class="keyword">return</span> out;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>　<strong>注：</strong>因为第一个参数是流对象，所以不能声明为其它类的成员函数，只能声明为友元函数（<strong>friend</strong>）或普通函数。如果声明为该类的成员函数，那么第一个参数就不是流对象，而是当前类的对象。</p>
+<ul>
+<li>C语言中如何获取指定位置<code>[start, ..., start+n-1]</code>的子串</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strncpy</span><span class="params">(<span class="keyword">char</span> *dest, <span class="keyword">const</span> <span class="keyword">char</span> *src，<span class="keyword">int</span> count)</span></span>;</div><div class="line"><span class="comment">/*</div><div class="line"> * 函数功能: 将字符串 src 中的 count 个字符拷贝到字符串 dest 中去</div><div class="line"> * 函数返回: 指向 dest 的指针</div><div class="line"> * 参数说明: dest-目的字符串，src-源字符串，count-拷贝的字符个数</div><div class="line"> */</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"> </div><div class="line"><span class="built_in">strncpy</span>(dest, src+start, n);</div></pre></td></tr></table></figure>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> *<span class="title">memcpy</span><span class="params">(<span class="keyword">void</span> *dest, <span class="keyword">const</span> <span class="keyword">void</span> *src, <span class="keyword">size_t</span> n)</span></span>;</div><div class="line"><span class="comment">/*</div><div class="line"> * 函数功能: 将字符串 src 中的 n 个字符拷贝到字符串 dest 中去</div><div class="line"> * 函数返回: 指向 dest 的指针</div><div class="line"> * 参数说明: dest-目的字符串，src-源字符串，n-拷贝的字符个数</div><div class="line"> */</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mem.h&gt;</span></span></div><div class="line"> </div><div class="line"><span class="built_in">memcpy</span>(dest, src+start, n);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>C语言中的 <code>strcpy</code>、<code>strcat</code>等字符串函数模棱两可</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"> </div><div class="line"><span class="comment">// 串拷贝</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strcpy</span><span class="params">(<span class="keyword">char</span> *str1, <span class="keyword">char</span> *str2)</span></span>;</div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strncpy</span><span class="params">(<span class="keyword">char</span> *destin, <span class="keyword">char</span> *source, <span class="keyword">int</span> maxlen)</span></span>;</div><div class="line"> </div><div class="line"><span class="comment">// 字符串拼接函数</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strcat</span><span class="params">(<span class="keyword">char</span> *destin, <span class="keyword">char</span> *source)</span></span>;</div><div class="line"> </div><div class="line"><span class="comment">// 串比较：看 ASCII 码，str1&gt;str2，返回值 &gt; 0；两串相等，返回 0</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">strcmp</span><span class="params">(<span class="keyword">char</span> *str1, <span class="keyword">char</span> *str2)</span></span>;</div><div class="line"><span class="comment">// 以大小写不敏感方式比较两个串</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">strcmpi</span><span class="params">(<span class="keyword">char</span> *str1, <span class="keyword">char</span> *str2)</span></span>;</div><div class="line"><span class="comment">// 部分串比较</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">strncmp</span><span class="params">(<span class="keyword">char</span> *str1, <span class="keyword">char</span> *str2, <span class="keyword">unsigned</span> maxlen)</span></span>;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">strncmpi</span><span class="params">(<span class="keyword">char</span> *str1, <span class="keyword">char</span> *str2, <span class="keyword">unsigned</span> maxlen)</span></span>;</div><div class="line"> </div><div class="line"><span class="comment">// 在串中查找指定字符串</span></div><div class="line"><span class="comment">/*</div><div class="line"> * 返回第一次出现位置后半段子串</div><div class="line"> */</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strstr</span><span class="params">(<span class="keyword">char</span> *str1, <span class="keyword">char</span> *str2)</span></span>;</div><div class="line"><span class="keyword">char</span> <span class="built_in">string</span>[SIZE];</div><div class="line"><span class="keyword">char</span> *ptr;</div><div class="line"><span class="built_in">strcpy</span>(<span class="built_in">string</span>, str1);</div><div class="line">ptr = <span class="built_in">strstr</span>(<span class="built_in">string</span>, c);</div><div class="line"><span class="comment">// 获取下标</span></div><div class="line">ptr - <span class="built_in">string</span></div><div class="line"> </div><div class="line"><span class="comment">// 分割字符串</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strtok</span><span class="params">(<span class="keyword">char</span> *str1, <span class="keyword">char</span> *str2)</span></span>;</div><div class="line"><span class="comment">// 返回前半段</span></div><div class="line">strtok(input, <span class="string">","</span>);</div><div class="line"><span class="comment">// 返回后半段</span></div><div class="line">strtok(<span class="literal">NULL</span>, <span class="string">","</span>);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p><font color="red">Refer</font>: <a href="https://www.byvoid.com/zhs/blog/c-string">C语言字符串函数大全</a></p>
+</blockquote>
+<h3 id="LiDAR-算法部分"><a href="#LiDAR-算法部分" class="headerlink" title="LiDAR 算法部分"></a>LiDAR 算法部分</h3><p>① <code>Hector SLAM</code>有闭环检测吗？会存在什么问题？</p>
+<blockquote>
+<p><a href="http://blog.csdn.net/u012700322/article/details/52953768">2D激光SLAM算法比较+cartographer</a></p>
+</blockquote>
+<ul>
+<li><code>Hector SLAM</code>优点<ul>
+<li>不需要使用里程计，所以使得空中无人机及地面小车在不平坦区域建图存在运用的可行性；</li>
+<li>利用 <strong>高斯牛顿方法</strong> 解决 scan-matching 问题（是对所有点云吗？），获得激光点集映射到已有地图的刚体变换（x, y, theta）；</li>
+<li>利用已经获得的地图对激光束点阵进行优化，估计激光点在地图的表示和占据网格的概率；</li>
+<li>为避免局部最小而非全局最优，使用多分辨率地图；</li>
+<li>导航中的状态估计加入惯性测量系统（IMU），利用EKF滤波？</li>
+</ul>
+</li>
+<li><code>Hector SLAM</code>缺点<ul>
+<li>需要激光雷达（LRS）的更新频率较高，测量噪声小；</li>
+<li>在制图过程中，需要 robot 速度控制在比较低的情况下，建图效果才会比较理想，这也是它 <font color="blue">没有回环（loop close）</font>的一个后遗症；</li>
+<li>在里程计数据比较精确的时候，无法有效利用里程计信息，<font color="red">估计融合这一块没怎么考虑，靠激光雷达单挑</font>。<br>② 使用过的另外一种算法 <code>gmapping</code></li>
+</ul>
+</li>
+<li>缺点：依赖里程计（odometry），无法适用无人机及地面小车不平坦区域；<font color="blue">无回环</font></li>
+<li>优点：在长廊及低特征场景中建图效果好。<br>③ 我们的使用情况</li>
+<li>Hector SLAM<blockquote>
+<p>该系统虽然没有严格的闭环反馈和检测，但是在室内和一些常见环境（包括走廊）， <strong>Hector SLAM</strong> 已经足够精确。</p>
+</blockquote>
+</li>
+<li>gmapping<ul>
+<li><a href="https://github.com/Durant35/laser_scan_matcher">laser_scan_matcher</a>: faking odometry using 2D LiDAR<blockquote>
+<p>使用点线特征的 ICP 变种</p>
+<ul>
+<li>The <a href="http://wiki.ros.org/csm">C(anonical) Scan Matcher (CSM)</a> is a pure C implementation of a very fast variation of ICP using a point-to-line metric optimized for range-finder scan matching.</li>
+<li>Censi A. An ICP variant using a point-to-line metric[C]//Robotics and Automation, 2008. ICRA 2008. IEEE International Conference on. IEEE, 2008: 19-25.</li>
+</ul>
+</blockquote>
+</li>
+<li>运用在和 <strong>Hector SLAM</strong> 同样的环境下，建图效果没有 <strong>Hector SLAM</strong> 好（有走廊）<ul>
+<li>可能是 <strong>gmapping</strong> 比较依赖 odometry，而 <strong>laser_scan_matcher</strong> 对于走廊这种特征不明显场景，匹配效果不好（AMCL 中使用 <strong>laser_scan_matcher</strong> 进行里程估算定位效果也不佳）。</li>
+<li>可能是 <strong>gmapping</strong> 本身鲁棒 <strong>Hector SLAM</strong> 没有好</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在AMCL 定位中使用 <strong>Hector mapping</strong> 进行里程估算能够得到最佳定位效果：精度+实时性<ul>
+<li>定量分析？</li>
+<li>定性分析：进门这个特定场景</li>
+</ul>
+</li>
+</ul>
+<p>④ 2D SLAM 闭环检测？？？</p>
+<ul>
+<li><a href="https://github.com/googlecartographer/cartographer">cartographer</a> 中的回环优化问题</li>
+</ul>
+<h3 id="AI-算法部分"><a href="#AI-算法部分" class="headerlink" title="AI 算法部分"></a>AI 算法部分</h3><ul>
+<li>聚类分类的异同/KNN 是分类？K-means 是聚类？</li>
+<li>SVM 增加训练集为什么效果并没有改善？</li>
+<li>bias 和 variance？over-fitting 和 under-fitting？</li>
+<li>adaboost？</li>
+<li>随机森林？</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程珠玑 </category>
+            
+            <category> C/C++ </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> C/C++ </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[ldconfig：[load]运行时库管理]]></title>
       <url>/2017/08/08/linux_ldconfig4RuntimeLibraries/</url>
       <content type="html"><![CDATA[<p>　　<code>ldconfig</code>命令的用途主要是在默认搜寻目录 <strong>/lib</strong> 和 <strong>/usr/lib</strong> 以及动态库配置文件 <strong>/etc/ld.so.conf</strong> 内所列的目录下，搜索出可共享的动态链接库（格式如 <strong>lib*.so*</strong>），进而创建出动态装入程序（<strong>ld.so</strong>）所需的连接（快捷方式）和缓存文件。<br>　　缓存文件默认为 <strong>/etc/ld.so.cache</strong>，此文件保存已排好序的动态链接库名字列表，为了让动态链接库为系统所共享，需运行动态链接库的管理命令<code>ldconfig</code>，此执行程序存放在 <strong>/sbin</strong> 目录下。<br>　　<code>ldconfig</code>通常在系统启动时运行；用户安装了一个新的动态链接库时，就需要手工运行这个命令才能生效。<br>　　<code>ldconfig</code> 只与程序运行时有关（运行时库管理：装载），跟程序构建（编译&amp;链接）一点关系都没有，构建的时候还是该加 -$l$（链接）就得加，不要混淆了。<a id="more"></a></p>
@@ -48,111 +165,6 @@
             <tag> Linux </tag>
             
             <tag> bash </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[[0025] Least Squares Line Fitting（最小二乘法直线拟合）]]></title>
-      <url>/2017/07/21/Algorithms_LeastSquaresLineFitting/</url>
-      <content type="html"><![CDATA[<p>　　<strong>最小二乘拟合</strong> 是一种数学上的近似和优化，利用已知的数据得出一条直线或者曲线，使之在坐标系上与已知数据之间的距离的平方和最小。<br><a id="more"></a></p>
-<h3 id="最小二乘直线拟合"><a href="#最小二乘直线拟合" class="headerlink" title="最小二乘直线拟合"></a>最小二乘直线拟合</h3><ul>
-<li><strong>TLS(Total Least Squares)</strong> vs <strong>OLS(Ordinary Least Squares)</strong><br><center><img src="/img/Algorithms/0025_TLSvsOLS.png" width="680px" alt=""/></center><ul>
-<li>如上图，<strong>TLS</strong> 和 <strong>OLS</strong> 都是最小二乘拟合，只是在偏差评估上采取了不同的方式。</li>
-<li>最小二乘法是一种较为简单的回归分析方法。<blockquote>
-<p>The simplest example of a <strong>regression model</strong> is a straight line that passes through a set of points on a scatter plot.</p>
-<ul>
-<li>Regression involves fitting a mathematical model to data. </li>
-<li>Regression involves estimating the mathematical relationship between one variable called the response variable (or dependent variable), and one or more explanatory variables (or independent variables)</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li>最常用的是 <strong>OLS</strong>（Ordinary  Least Square，普通最小二乘法）：所选择的回归模型应该使所有观察值的残差平方和达到最小（如上图左）。<br><center><img src="/img/Algorithms/0025_OLS.png" width="640px" alt=""/></center><ul>
-<li>直接通过矩阵运算，容易得出：$B = (X^T X)^{-1}(X^T Y)$（拟合多项式：$y = b_0 + b_1 x + b_2 x^2 + … + b_k x^k$）</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Gary: O-Least-Square最小二乘拟合</span></div><div class="line">Segment::LocalLine Segment::fitLocalLine(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">list</span>&lt;Bin::MinZPoint&gt; &amp;points) &#123;</div><div class="line">  <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> n_points = points.size();</div><div class="line">  <span class="comment">// 构造 X/Y 矩阵</span></div><div class="line">  Eigen::<span class="function">MatrixXd <span class="title">X</span><span class="params">(n_points, <span class="number">2</span>)</span></span>;</div><div class="line">  Eigen::<span class="function">VectorXd <span class="title">Y</span><span class="params">(n_points)</span></span>;</div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> counter = <span class="number">0</span>;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span> iter = points.begin(); iter != points.end(); ++iter) &#123;</div><div class="line">    X(counter, <span class="number">0</span>) = iter-&gt;d;</div><div class="line">    X(counter, <span class="number">1</span>) = <span class="number">1</span>;</div><div class="line">    Y(counter) = iter-&gt;z;</div><div class="line">    ++counter;</div><div class="line">  &#125;</div><div class="line">  <span class="comment">// 计算 B</span></div><div class="line">  <span class="keyword">const</span> Eigen::MatrixXd X_t = X.transpose();</div><div class="line">  <span class="keyword">const</span> Eigen::VectorXd result = (X_t * X).inverse() * X_t * Y;</div><div class="line">  LocalLine line_result;</div><div class="line">  line_result.first = result(<span class="number">0</span>);</div><div class="line">  line_result.second = result(<span class="number">1</span>);</div><div class="line">  <span class="keyword">return</span> line_result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>Eigen</strong> 是C++中可以用来调用并进行矩阵计算的一个库，里面封装了一些类。</p>
-<center><img src="/img/Algorithms/0025_Eigen.jpg" width="540px" alt=""/></center>
-
-</blockquote>
-<ul>
-<li>通过解 $XB = Y$ 我们就能解出 $B = [m \space b]$：$$m = \frac{\sum x_i^2 \sum y_i - \sum x_i (\sum x_i y_i)}{n \sum x_i^2 - (\sum x_i)^2}$$ $$b = \frac{n \sum x_i \sum y_i - \sum x_i (\sum x_i y_i)}{n \sum x_i^2 - (\sum x_i)^2}$$</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">OrdinaryLeastSquare(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; x, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; y) &#123;</div><div class="line">        <span class="keyword">double</span> t1=<span class="number">0</span>, t2=<span class="number">0</span>, t3=<span class="number">0</span>, t4=<span class="number">0</span>;  </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;x.size(); ++i)  &#123; </div><div class="line">            t1 += x[i]*x[i];  </div><div class="line">            t2 += x[i];  </div><div class="line">            t3 += x[i]*y[i];  </div><div class="line">            t4 += y[i];  </div><div class="line">        &#125;</div><div class="line">        m = (t3*x.size() - t2*t4) / (t1*x.size() - t2*t2);</div><div class="line">        b = (t1*t4 - t2*t3) / (t1*x.size() - t2*t2);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li>OLS 这种 least square 存在问题，比如针对垂直线段就不行，于是引入第二种 <strong>Total Least Square</strong>。<br><center><img src="/img/Algorithms/0025_TLS(1).png" width="680px" alt=""/></center><br><center><img src="/img/Algorithms/0025_TLS(2).png" width="540px" alt=""/></center><ul>
-<li>其中，$U = \begin{bmatrix} x_1 - \overline{x} &amp; y_1 - \overline{y} \\ \vdots &amp; \vdots \\ x_n - \overline{x} &amp; y_n - \overline{y} \end{bmatrix}$；</li>
-<li>$\frac{dE}{dN} = \frac{d(N^T U^T U N)}{dN} = U^T U N + N^T U^T U$，因为 $U^T U$ 是一个对称矩阵（$U^T U = (U^T U)^T$），$U^T U N = N^T U^T U$，所以 $\frac{dE}{dN} = 2(U^T U)N$；</li>
-<li>此外，$U^T U = \begin{bmatrix} \sum (x_i - \overline{x})^2 &amp; \sum (x_i - \overline{x})(y_i - \overline{y}) \\ \sum (x_i - \overline{x})(y_i - \overline{y}) &amp; \sum (y_i - \overline{y})^2 \end{bmatrix}$ 是关于 X、Y 的一个二阶矩（随机变量平方的期望）矩阵（second-moment matrix）；</li>
-<li>二阶矩矩阵 $U^T U$ 的最小特征值对应的特征向量即为求解的 $N = [a \space b]$ <ul>
-<li>特征值 &amp; 特征向量<blockquote>
-<p>设 $A$ 为 n 阶矩阵<font color="blue">（n × n）</font>，若存在<strong>常数 $λ$</strong> 及 <strong>n 维非零向量 x</strong><font color="blue">（n × 1）</font>，使得 $Ax=λx$，则称 $λ$ 是矩阵 $A$ 的 <strong>特征值</strong>，$x$ 是 $A$ 属于特征值 $λ$ 的 <strong>特征向量</strong>。</p>
-</blockquote>
-</li>
-<li>$eig(U^T U) = [V, D]$，$V$ 是特征向量阵（每列为一个特征向量），$D$ 特征值对角阵 $\Longrightarrow$ 寻找 $D$ 中特征值最小的对角元素对应的特征向量即为 $U^T U$ 最小特征值对应的特征向量<blockquote>
-<p>特征值分解：$U^T U = V D V^{-1}$</p>
-</blockquote>
-</li>
-<li>通过 <a href="https://durant35.github.io/2017/07/21/Algorithms_ICP/#求点集间变换矩阵-overrightarrow-q-k">SVD（奇异值）求解</a><ul>
-<li>$SVD(A) = [U, S, V]$，即 $A = USV^T$<blockquote>
-<p>﹢其中 $U$ 是一个<code>m*m</code>的<font color="green">正交阵（Orthogonal matrix：满足 $U U^T = I$ 或者 $U^T U = I$ 的 n 阶方阵，其中 $I$ 为 n 阶单位阵）</font>，$S$ 是一个<code>m*n</code>的<font color="green">对角阵（Diagonal matrix：主对角线之外的元素皆为 0 的矩阵，对角线上的元素可以为 0 或其他值）</font>，对角线上的元素为 $A$ 的<strong>奇异值（Singular value）</strong>，$V$ 是一个<code>n*n</code>的正交阵。$U$ 的 m 个列向量为 $A$ 的<strong>左奇异向量（Left singular vector）</strong>，$V$ 的 n 个列向量为 $A$ 的<strong>右奇异向量（Right singular vector）</strong>。$S$ 完全由 $A$ 决定和 $U$、$V$ 无关；<br>﹢$A$ 的左奇异向量（$U$）是 $A A^T$ 的特征向量；$A$ 的右奇异向量是 $A^T A$ 的特征向量。<br>﹢$A$ 的非零奇异值是 $A^T A$ 特征值的平方根，同时也是 $A A^T$ 特征值的平方根。</p>
-</blockquote>
-</li>
-<li>寻找 $S$ 中最小奇异值对应的 $V$ 的右奇异向量即为 $A^T A$ 最小特征值对应的特征向量。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Eigen/Dense&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Eigen/Eigenvalues&gt;</span></span></div><div class="line"> </div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> Eigen;</div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">// Eigenvalue</span></div><div class="line">    <span class="comment">// typedef Matrix&lt;int, 3, 3&gt; Matrix3d</span></div><div class="line">    Matrix3d A;</div><div class="line">    A &lt;&lt; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Here is a 3x3 matrix, A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; A &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    EigenSolver&lt;Matrix3d&gt; es(A.transpose() * A);</div><div class="line">    <span class="comment">// 对角矩阵，每一个对角线元素就是一个特征值，里面的特征值是由大到小排列的</span></div><div class="line">    Matrix3d D = es.pseudoEigenvalueMatrix();</div><div class="line">    <span class="comment">// 特征向量（每一列）组成的矩阵</span></div><div class="line">    Matrix3d V = es.pseudoEigenvectors();</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The eigenvalue matrix D is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The eigenvector matrix V is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; V &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="comment">// 特征值分解</span></div><div class="line">    <span class="comment">// cout &lt;&lt; "Finally, V * D * V^(-1) = " &lt;&lt; endl &lt;&lt; V * D * V.inverse() &lt;&lt; endl;</span></div><div class="line">    <span class="comment">// 特征值&amp;特征向量</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"min-eigenvector &amp; min-eigenvalue"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;1&gt; The min-eigenvalue for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D(D.rows()<span class="number">-1</span>, D.rows()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;2&gt; The min-eigenvector for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;3&gt; (A^T*A)*min-eigenvector ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; (A.transpose()*A) * V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;4&gt; min-eigenvalue*min-eigenvector ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D(D.rows()<span class="number">-1</span>, D.rows()<span class="number">-1</span>)*V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="comment">// SVD</span></div><div class="line">    <span class="comment">// Eigen::ComputeThinV | Eigen::ComputeThinU</span></div><div class="line">    Eigen::JacobiSVD&lt;Eigen::Matrix3d&gt; svd(A, Eigen::ComputeFullV | Eigen::ComputeFullU);</div><div class="line">    Eigen::Matrix3d S = svd.singularValues().asDiagonal();</div><div class="line">    <span class="comment">//得到最小奇异值的位置</span></div><div class="line">    Matrix3d::Index minColIdx;</div><div class="line">    svd.singularValues().rowwise().sum().minCoeff(&amp;minColIdx);</div><div class="line"> </div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The left singular vectors U is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixU() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The singular-value matrix S is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; S &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The right singular vectors V is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixV() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The SVD: USV^T ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixU()*S*svd.matrixV().transpose() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="comment">// 奇异值与特征值的关系</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The S^2 is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; S*S &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The min-eigenvector for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixV().col(minColIdx) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>$d = a \overline{x} + b \overline{y}$；</li>
-<li>最终得到的拟合直线：<font color="blue">$y = -\frac{a}{b} x + \frac{d}{b}$</font></li>
-</ul>
-</li>
-</ul>
-<h3 id="其他直线拟合方法"><a href="#其他直线拟合方法" class="headerlink" title="其他直线拟合方法"></a>其他直线拟合方法</h3><p><font color="blue" size="4">﹢基于 <strong>RANSAC(RANdom SAmple Consensus)</strong>（随机抽样一致） 的直线拟合</font></p>
-<blockquote>
-<p><a href="http://www.cnblogs.com/xrwang/archive/2011/03/09/ransac-1.html">王先荣：随机抽样一致性算法（RANSAC）</a></p>
-</blockquote>
-<ul>
-<li>示例<br><center><img src="/img/Algorithms/0025_RANSAC_example.png" width="640px" alt=""/></center><br>　（１）从一组观测数据中找出合适的2维拟合直线，观测数据中包含局内点和局外点，其中局内点近似的被直线所通过，而局外点远离于直线（如上图）；<br>　（２）简单的 <strong>最小二乘法</strong> 不能找到适应于局内点的直线，原因是最小二乘法尽量去适应包括局外点在内的所有点；<strong>RANSAC</strong> 能得出一个仅仅用局内点计算出模型，并且概率还足够高。</li>
-<li><strong>RANSAC</strong>　通过反复选择数据中的一组随机子集来达成目标（被选取的子集被假设为局内点），并用下述方法进行验证：<ul>
-<li>①：有一个模型适应于<font color="green">假设的局内点</font>，即所有的未知参数都能从假设的局内点计算得出。</li>
-<li>②：用①中得到的模型去测试所有的其它数据，如果某个点适用于估计的模型，认为它也是局内点。</li>
-<li>③：如果有<font color="green">足够多的点被归类为假设的局内点</font>，那么估计的模型就足够合理；用所有假设的局内点去重新估计模型，因为它仅仅被初始的假设局内点估计过，通过估计局内点与模型的错误率来评估模型。</li>
-<li>④：①-③这个过程被重复执行固定的次数，每次产生的模型要么因为局内点太少而被舍弃，要么因为比现有的模型更好而被选用。</li>
-</ul>
-</li>
-</ul>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
-<li><a href="http://www.statisticalconsultants.co.nz/blog/total-least-squares.html">Total Least Squares</a></li>
-<li><a href="http://blog.csdn.net/abcd1992719g/article/details/28118095">abcd1992719g: OpenCV2马拉松第25圈——直线拟合与RANSAC算法</a></li>
-<li><a href="http://www.cnblogs.com/xrwang/archive/2011/03/09/ransac-1.html">王先荣：随机抽样一致性算法（RANSAC）</a></li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> 编程珠玑 </category>
-            
-            <category> Algorithm </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Algorithm </tag>
             
         </tags>
         
@@ -366,6 +378,111 @@
             <tag> Algorithm </tag>
             
             <tag> 3D </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[[0025] Least Squares Line Fitting（最小二乘法直线拟合）]]></title>
+      <url>/2017/07/21/Algorithms_LeastSquaresLineFitting/</url>
+      <content type="html"><![CDATA[<p>　　<strong>最小二乘拟合</strong> 是一种数学上的近似和优化，利用已知的数据得出一条直线或者曲线，使之在坐标系上与已知数据之间的距离的平方和最小。<br><a id="more"></a></p>
+<h3 id="最小二乘直线拟合"><a href="#最小二乘直线拟合" class="headerlink" title="最小二乘直线拟合"></a>最小二乘直线拟合</h3><ul>
+<li><strong>TLS(Total Least Squares)</strong> vs <strong>OLS(Ordinary Least Squares)</strong><br><center><img src="/img/Algorithms/0025_TLSvsOLS.png" width="680px" alt=""/></center><ul>
+<li>如上图，<strong>TLS</strong> 和 <strong>OLS</strong> 都是最小二乘拟合，只是在偏差评估上采取了不同的方式。</li>
+<li>最小二乘法是一种较为简单的回归分析方法。<blockquote>
+<p>The simplest example of a <strong>regression model</strong> is a straight line that passes through a set of points on a scatter plot.</p>
+<ul>
+<li>Regression involves fitting a mathematical model to data. </li>
+<li>Regression involves estimating the mathematical relationship between one variable called the response variable (or dependent variable), and one or more explanatory variables (or independent variables)</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>最常用的是 <strong>OLS</strong>（Ordinary  Least Square，普通最小二乘法）：所选择的回归模型应该使所有观察值的残差平方和达到最小（如上图左）。<br><center><img src="/img/Algorithms/0025_OLS.png" width="640px" alt=""/></center><ul>
+<li>直接通过矩阵运算，容易得出：$B = (X^T X)^{-1}(X^T Y)$（拟合多项式：$y = b_0 + b_1 x + b_2 x^2 + … + b_k x^k$）</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Gary: O-Least-Square最小二乘拟合</span></div><div class="line">Segment::LocalLine Segment::fitLocalLine(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">list</span>&lt;Bin::MinZPoint&gt; &amp;points) &#123;</div><div class="line">  <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> n_points = points.size();</div><div class="line">  <span class="comment">// 构造 X/Y 矩阵</span></div><div class="line">  Eigen::<span class="function">MatrixXd <span class="title">X</span><span class="params">(n_points, <span class="number">2</span>)</span></span>;</div><div class="line">  Eigen::<span class="function">VectorXd <span class="title">Y</span><span class="params">(n_points)</span></span>;</div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> counter = <span class="number">0</span>;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span> iter = points.begin(); iter != points.end(); ++iter) &#123;</div><div class="line">    X(counter, <span class="number">0</span>) = iter-&gt;d;</div><div class="line">    X(counter, <span class="number">1</span>) = <span class="number">1</span>;</div><div class="line">    Y(counter) = iter-&gt;z;</div><div class="line">    ++counter;</div><div class="line">  &#125;</div><div class="line">  <span class="comment">// 计算 B</span></div><div class="line">  <span class="keyword">const</span> Eigen::MatrixXd X_t = X.transpose();</div><div class="line">  <span class="keyword">const</span> Eigen::VectorXd result = (X_t * X).inverse() * X_t * Y;</div><div class="line">  LocalLine line_result;</div><div class="line">  line_result.first = result(<span class="number">0</span>);</div><div class="line">  line_result.second = result(<span class="number">1</span>);</div><div class="line">  <span class="keyword">return</span> line_result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>Eigen</strong> 是C++中可以用来调用并进行矩阵计算的一个库，里面封装了一些类。</p>
+<center><img src="/img/Algorithms/0025_Eigen.jpg" width="540px" alt=""/></center>
+
+</blockquote>
+<ul>
+<li>通过解 $XB = Y$ 我们就能解出 $B = [m \space b]$：$$m = \frac{\sum x_i^2 \sum y_i - \sum x_i (\sum x_i y_i)}{n \sum x_i^2 - (\sum x_i)^2}$$ $$b = \frac{n \sum x_i \sum y_i - \sum x_i (\sum x_i y_i)}{n \sum x_i^2 - (\sum x_i)^2}$$</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">OrdinaryLeastSquare(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; x, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; y) &#123;</div><div class="line">        <span class="keyword">double</span> t1=<span class="number">0</span>, t2=<span class="number">0</span>, t3=<span class="number">0</span>, t4=<span class="number">0</span>;  </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;x.size(); ++i)  &#123; </div><div class="line">            t1 += x[i]*x[i];  </div><div class="line">            t2 += x[i];  </div><div class="line">            t3 += x[i]*y[i];  </div><div class="line">            t4 += y[i];  </div><div class="line">        &#125;</div><div class="line">        m = (t3*x.size() - t2*t4) / (t1*x.size() - t2*t2);</div><div class="line">        b = (t1*t4 - t2*t3) / (t1*x.size() - t2*t2);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>OLS 这种 least square 存在问题，比如针对垂直线段就不行，于是引入第二种 <strong>Total Least Square</strong>。<br><center><img src="/img/Algorithms/0025_TLS(1).png" width="680px" alt=""/></center><br><center><img src="/img/Algorithms/0025_TLS(2).png" width="540px" alt=""/></center><ul>
+<li>其中，$U = \begin{bmatrix} x_1 - \overline{x} &amp; y_1 - \overline{y} \\ \vdots &amp; \vdots \\ x_n - \overline{x} &amp; y_n - \overline{y} \end{bmatrix}$；</li>
+<li>$\frac{dE}{dN} = \frac{d(N^T U^T U N)}{dN} = U^T U N + N^T U^T U$，因为 $U^T U$ 是一个对称矩阵（$U^T U = (U^T U)^T$），$U^T U N = N^T U^T U$，所以 $\frac{dE}{dN} = 2(U^T U)N$；</li>
+<li>此外，$U^T U = \begin{bmatrix} \sum (x_i - \overline{x})^2 &amp; \sum (x_i - \overline{x})(y_i - \overline{y}) \\ \sum (x_i - \overline{x})(y_i - \overline{y}) &amp; \sum (y_i - \overline{y})^2 \end{bmatrix}$ 是关于 X、Y 的一个二阶矩（随机变量平方的期望）矩阵（second-moment matrix）；</li>
+<li>二阶矩矩阵 $U^T U$ 的最小特征值对应的特征向量即为求解的 $N = [a \space b]$ <ul>
+<li>特征值 &amp; 特征向量<blockquote>
+<p>设 $A$ 为 n 阶矩阵<font color="blue">（n × n）</font>，若存在<strong>常数 $λ$</strong> 及 <strong>n 维非零向量 x</strong><font color="blue">（n × 1）</font>，使得 $Ax=λx$，则称 $λ$ 是矩阵 $A$ 的 <strong>特征值</strong>，$x$ 是 $A$ 属于特征值 $λ$ 的 <strong>特征向量</strong>。</p>
+</blockquote>
+</li>
+<li>$eig(U^T U) = [V, D]$，$V$ 是特征向量阵（每列为一个特征向量），$D$ 特征值对角阵 $\Longrightarrow$ 寻找 $D$ 中特征值最小的对角元素对应的特征向量即为 $U^T U$ 最小特征值对应的特征向量<blockquote>
+<p>特征值分解：$U^T U = V D V^{-1}$</p>
+</blockquote>
+</li>
+<li>通过 <a href="https://durant35.github.io/2017/07/21/Algorithms_ICP/#求点集间变换矩阵-overrightarrow-q-k">SVD（奇异值）求解</a><ul>
+<li>$SVD(A) = [U, S, V]$，即 $A = USV^T$<blockquote>
+<p>﹢其中 $U$ 是一个<code>m*m</code>的<font color="green">正交阵（Orthogonal matrix：满足 $U U^T = I$ 或者 $U^T U = I$ 的 n 阶方阵，其中 $I$ 为 n 阶单位阵）</font>，$S$ 是一个<code>m*n</code>的<font color="green">对角阵（Diagonal matrix：主对角线之外的元素皆为 0 的矩阵，对角线上的元素可以为 0 或其他值）</font>，对角线上的元素为 $A$ 的<strong>奇异值（Singular value）</strong>，$V$ 是一个<code>n*n</code>的正交阵。$U$ 的 m 个列向量为 $A$ 的<strong>左奇异向量（Left singular vector）</strong>，$V$ 的 n 个列向量为 $A$ 的<strong>右奇异向量（Right singular vector）</strong>。$S$ 完全由 $A$ 决定和 $U$、$V$ 无关；<br>﹢$A$ 的左奇异向量（$U$）是 $A A^T$ 的特征向量；$A$ 的右奇异向量是 $A^T A$ 的特征向量。<br>﹢$A$ 的非零奇异值是 $A^T A$ 特征值的平方根，同时也是 $A A^T$ 特征值的平方根。</p>
+</blockquote>
+</li>
+<li>寻找 $S$ 中最小奇异值对应的 $V$ 的右奇异向量即为 $A^T A$ 最小特征值对应的特征向量。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Eigen/Dense&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Eigen/Eigenvalues&gt;</span></span></div><div class="line"> </div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> Eigen;</div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">// Eigenvalue</span></div><div class="line">    <span class="comment">// typedef Matrix&lt;int, 3, 3&gt; Matrix3d</span></div><div class="line">    Matrix3d A;</div><div class="line">    A &lt;&lt; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Here is a 3x3 matrix, A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; A &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    EigenSolver&lt;Matrix3d&gt; es(A.transpose() * A);</div><div class="line">    <span class="comment">// 对角矩阵，每一个对角线元素就是一个特征值，里面的特征值是由大到小排列的</span></div><div class="line">    Matrix3d D = es.pseudoEigenvalueMatrix();</div><div class="line">    <span class="comment">// 特征向量（每一列）组成的矩阵</span></div><div class="line">    Matrix3d V = es.pseudoEigenvectors();</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The eigenvalue matrix D is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The eigenvector matrix V is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; V &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="comment">// 特征值分解</span></div><div class="line">    <span class="comment">// cout &lt;&lt; "Finally, V * D * V^(-1) = " &lt;&lt; endl &lt;&lt; V * D * V.inverse() &lt;&lt; endl;</span></div><div class="line">    <span class="comment">// 特征值&amp;特征向量</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"min-eigenvector &amp; min-eigenvalue"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;1&gt; The min-eigenvalue for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D(D.rows()<span class="number">-1</span>, D.rows()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;2&gt; The min-eigenvector for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;3&gt; (A^T*A)*min-eigenvector ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; (A.transpose()*A) * V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;4&gt; min-eigenvalue*min-eigenvector ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D(D.rows()<span class="number">-1</span>, D.rows()<span class="number">-1</span>)*V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="comment">// SVD</span></div><div class="line">    <span class="comment">// Eigen::ComputeThinV | Eigen::ComputeThinU</span></div><div class="line">    Eigen::JacobiSVD&lt;Eigen::Matrix3d&gt; svd(A, Eigen::ComputeFullV | Eigen::ComputeFullU);</div><div class="line">    Eigen::Matrix3d S = svd.singularValues().asDiagonal();</div><div class="line">    <span class="comment">//得到最小奇异值的位置</span></div><div class="line">    Matrix3d::Index minColIdx;</div><div class="line">    svd.singularValues().rowwise().sum().minCoeff(&amp;minColIdx);</div><div class="line"> </div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The left singular vectors U is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixU() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The singular-value matrix S is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; S &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The right singular vectors V is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixV() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The SVD: USV^T ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixU()*S*svd.matrixV().transpose() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="comment">// 奇异值与特征值的关系</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The S^2 is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; S*S &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The min-eigenvector for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixV().col(minColIdx) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>$d = a \overline{x} + b \overline{y}$；</li>
+<li>最终得到的拟合直线：<font color="blue">$y = -\frac{a}{b} x + \frac{d}{b}$</font></li>
+</ul>
+</li>
+</ul>
+<h3 id="其他直线拟合方法"><a href="#其他直线拟合方法" class="headerlink" title="其他直线拟合方法"></a>其他直线拟合方法</h3><p><font color="blue" size="4">﹢基于 <strong>RANSAC(RANdom SAmple Consensus)</strong>（随机抽样一致） 的直线拟合</font></p>
+<blockquote>
+<p><a href="http://www.cnblogs.com/xrwang/archive/2011/03/09/ransac-1.html">王先荣：随机抽样一致性算法（RANSAC）</a></p>
+</blockquote>
+<ul>
+<li>示例<br><center><img src="/img/Algorithms/0025_RANSAC_example.png" width="640px" alt=""/></center><br>　（１）从一组观测数据中找出合适的2维拟合直线，观测数据中包含局内点和局外点，其中局内点近似的被直线所通过，而局外点远离于直线（如上图）；<br>　（２）简单的 <strong>最小二乘法</strong> 不能找到适应于局内点的直线，原因是最小二乘法尽量去适应包括局外点在内的所有点；<strong>RANSAC</strong> 能得出一个仅仅用局内点计算出模型，并且概率还足够高。</li>
+<li><strong>RANSAC</strong>　通过反复选择数据中的一组随机子集来达成目标（被选取的子集被假设为局内点），并用下述方法进行验证：<ul>
+<li>①：有一个模型适应于<font color="green">假设的局内点</font>，即所有的未知参数都能从假设的局内点计算得出。</li>
+<li>②：用①中得到的模型去测试所有的其它数据，如果某个点适用于估计的模型，认为它也是局内点。</li>
+<li>③：如果有<font color="green">足够多的点被归类为假设的局内点</font>，那么估计的模型就足够合理；用所有假设的局内点去重新估计模型，因为它仅仅被初始的假设局内点估计过，通过估计局内点与模型的错误率来评估模型。</li>
+<li>④：①-③这个过程被重复执行固定的次数，每次产生的模型要么因为局内点太少而被舍弃，要么因为比现有的模型更好而被选用。</li>
+</ul>
+</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li><a href="http://www.statisticalconsultants.co.nz/blog/total-least-squares.html">Total Least Squares</a></li>
+<li><a href="http://blog.csdn.net/abcd1992719g/article/details/28118095">abcd1992719g: OpenCV2马拉松第25圈——直线拟合与RANSAC算法</a></li>
+<li><a href="http://www.cnblogs.com/xrwang/archive/2011/03/09/ransac-1.html">王先荣：随机抽样一致性算法（RANSAC）</a></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程珠玑 </category>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Algorithm </tag>
             
         </tags>
         
