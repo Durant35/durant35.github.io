@@ -384,8 +384,8 @@
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/">
-                    JPEG编码&amp;算术编码、LZW编码
+                <a href="/2017/07/11/programPearls_DES$3DES$AES/">
+                    密码学：DES、3DES、AES
                 </a>
             </div>
         
@@ -467,48 +467,10 @@
         }
     </script>
     
-    <aside class="comment-bar">
-        <a href="javascript:void(0);">
-            <i class="fa fa-commenting-o animated infinite pulse"></i>
-            <i class="fa fa-spinner fa-pulse"></i>
-            <span class="count-comment"></span>
-        </a>
-    </aside>
-    <script>
-        var $commentBar = $("#comments aside.comment-bar");
-        var load$hide = function(){
-            $commentBar.find("a > i").toggle();
-            loadComment();
-            $commentBar.fadeOut(800);
-        }
-        $commentBar.click(function(){
-            load$hide();
-        })
-        $commentBar.children("a").hover(function(){
-            load$hide();
-        })
-        if (window.location.hash === "#comments") {
-            load$hide();
-        }
-    </script>
+    <script> loadComment(); </script>
 
 </section>
 
-
-    <!-- Add comment count -->
-    <script id="dsq-count-scr" src="//durant35.disqus.com/count.js" async></script>
-    <span class="disqus-comment-count" data-disqus-identifier="2017/07/13/Algorithms_OnlineJudge4Huawei2017/"></span>
-    <span class="disqus-comment-count" data-disqus-url="http://durant35.github.io/2017/07/13/Algorithms_OnlineJudge4Huawei2017/"></span>
-    <script>
-        $(".disqus-comment-count").hide();
-        var $disqusCount = $(".disqus-comment-count");
-        $disqusCount.bind("DOMNodeInserted", function(e) {
-            $(".count-comment").text(
-                $(this).text().replace(/[^0-9]/ig,"")
-            )
-            DISQUSWIDGETS.getCount({reset: true});
-        })
-    </script>
 
     
 
@@ -525,7 +487,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/" title="下一篇: JPEG编码&amp;算术编码、LZW编码">
+            <a href="/2017/07/11/programPearls_DES$3DES$AES/" title="下一篇: 密码学：DES、3DES、AES">
                 <i class="fa fa-angle-right"></i>
             </a>
         
