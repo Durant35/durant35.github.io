@@ -270,6 +270,85 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-raspberry_enable-ssh-without-UI" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/01/25/raspberry_enable-ssh-without-UI/" class="article-date">
+      <time datetime="2017-01-24T16:48:58.000Z" itemprop="datePublished">2017-01-25</time>
+</a>
+
+
+
+ 
+    <a href="/2017/01/25/raspberry_enable-ssh-without-UI/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/01/25/raspberry_enable-ssh-without-UI/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　可能是我写录的树莓派系统image有问题吧，小伙伴都说默认应该是打开22端口，支持ssh的；但是我做的几张SD卡的系统都是不打开的，我很纳闷，怀疑用的是假的镜像吧。前几次都发生在实验室，显示器，HDMI线应有尽有，启动系统，简单地通过界面在系统的 <strong>Preferences</strong> 中开启ssh端口即可。然而这一次，发生在家里（因为之前一直没空写个关于树莓派外置无线网卡驱动安装的教程，想着利用寒假回家弄一弄），家里哪有实验室那么好的环境，所以，甭想通过界面操作开启。</p>
+<p>　　那究竟能不能通过直接修改SD卡里面的image文件内容，不用UI的方式，开启ssh端口呢？通过下面的捣鼓发现，这是可行的。</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/RaspberryPi/">RaspberryPi</a>
+    </div>
+
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2017/01/25/raspberry_enable-ssh-without-UI/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-hexo-md源文件内容修改预览页面刷新无效" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -983,88 +1062,6 @@
       
         <p class="article-more-link">
           <a href="/2016/07/15/linux_瞎谈Socket编程_1/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_Win$Linux Operate ini configuration files(API)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/08/programPearls_Win$Linux Operate ini configuration files(API)/" class="article-date">
-      <time datetime="2016-09-08T03:54:32.000Z" itemprop="datePublished">2016-09-08</time>
-</a>
-
-
-
- 
-    <a href="/2016/09/08/programPearls_Win$Linux Operate ini configuration files(API)/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/programPearls_Win$Linux Operate ini configuration files(API)/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/08/programPearls_Win$Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　我们的程序常常需要从配置文件中获取参数，一方面，用户关于程序的自定义配置往往就存储在配置文件中，自定义配置的适配与保存就转化为对配置文件的读写操作；另一方面，也是本文编写的由来，那就是将有关程序中核心算法的参数提取到配置文件，方便算法参数的调试(只要调整配置文件，无需修改程序源码，更无需重新构建)。<br>　<strong>.ini</strong> 文件作为典型的配置文件，其文件存储的内容基本上是一些参数的 <strong>Key-Value</strong> 形式，此外就是一些所谓的属性段，多个对同一方面参数进行描述的 <strong>键值对</strong> 可以归纳为一个 <strong>Section</strong>。<br>　下面，是 <strong>Win/Linux</strong> 下如何通过不同的 API 实现对 <strong>*.ini</strong> 配置文件读写操作的整理。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ini/">ini</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/文件操作/">文件操作</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/09/08/programPearls_Win$Linux Operate ini configuration files(API)/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

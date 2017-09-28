@@ -270,6 +270,88 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-hexo_push你的新博客到Github" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/22/hexo_push你的新博客到Github/" class="article-date">
+      <time datetime="2016-01-22T02:09:22.000Z" itemprop="datePublished">2016-01-22</time>
+</a>
+
+
+
+ 
+    <a href="/2016/01/22/hexo_push你的新博客到Github/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/01/22/hexo_push你的新博客到Github/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="第一步-为hexo配置你的Github"><a href="#第一步-为hexo配置你的Github" class="headerlink" title="第一步 为hexo配置你的Github"></a><font color="#F40D64"><strong>第一步 为hexo配置你的Github</strong></font></h2><p>　　首先编辑你hexo根目录下的<strong>_config.yml</strong>文件，找到以下内容并修改为github的部署方式<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># Deployment 需要进行部署方式的修改</div><div class="line">## Docs: http:<span class="comment">//hexo.io/docs/deployment.html</span></div><div class="line">deploy:</div><div class="line">  type: git 			#部署类型, 本文使用Github</div><div class="line">  repository: https:<span class="comment">//github.com/username/username.github.io.git </span></div><div class="line">        #部署的仓库的SSH</div><div class="line">  branch: master 		#部署分支,一般使用master主分支</div></pre></td></tr></table></figure></p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/01/22/hexo_push你的新博客到Github/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-tool_CMake_快速入门" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -988,99 +1070,6 @@
       
         <p class="article-more-link">
           <a href="/2016/07/16/linux_瞎谈Socket编程_2/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-ROS_ROS_Navigation_GettingStarted" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/" class="article-date">
-      <time datetime="2016-10-03T09:43:09.000Z" itemprop="datePublished">2016-10-03</time>
-</a>
-
-
-
- 
-    <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/10/03/ROS_ROS_Navigation_GettingStarted/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　To add navigation to a robot, we need to launch 3 nodes:</p>
-<blockquote>
-<ul>
-<li>map_server: to provide the static map {“*.yaml” &amp; “*.pgm”}, against which the robot will localize and plan.</li>
-<li>amcl: to localize the robot against the static map.</li>
-<li>move_base: to handle global planning and local control for the robot.</li>
-</ul>
-</blockquote>
-<p>　　<strong>amcl</strong> 是移动机器人二维环境下的概率定位系统，它实现了自适应(或 <strong>kdl</strong> 采样)的 <strong>蒙特卡洛定位</strong> 方法，其中针对已有的地图使用 <strong>粒子滤波器</strong> 跟踪一个机器人的姿态。</p>
-<p>　　<strong>move_base</strong> 提供了 ROS 导航的配置，运行，交互接口，主要包括两个部分：</p>
-<blockquote>
-<p>　(1) 全局路径规划：根据给定的目标位置进行总体路径的规划<br>　(2) 局部路径规划：根据附近的障碍物信息进行躲避路线规划<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/ROS/">ROS</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
