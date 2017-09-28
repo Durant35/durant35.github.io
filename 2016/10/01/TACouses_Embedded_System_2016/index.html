@@ -29,7 +29,7 @@
 <meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2016/dol_overview.png">
 <meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2016/Hds_synthesis.png">
 <meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2016/MPARM_simulation.png">
-<meta property="og:updated_time" content="2017-09-28T05:30:15.917Z">
+<meta property="og:updated_time" content="2017-09-28T15:10:09.858Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Embedded System 2016">
 <meta name="twitter:description" content="Overview　　嵌入式系统实验课大概涉及的内容有以下几个部分:    　　主体就涵盖了三条纵线一条横线，functional simulation，Hds simulation，analysis model 是三纵，如何通过三纵得到的数据迭代获取 application 和 architecture 的最佳 mapping 为一横。">
@@ -400,11 +400,21 @@
 </li>
 </ul>
 </li>
+</ul>
+<blockquote>
+<p><a href="https://durant35.github.io/2017/09/28/TACouses_ES2017_Java/">Linux 下手动配置 Java 环境</a></p>
+</blockquote>
+<ul>
 <li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># check your gcc</span></div><div class="line">xxx@...:~$ gcc -v</div><div class="line">Using built-in specs.</div><div class="line">COLLECT_GCC=gcc</div><div class="line">COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper</div><div class="line">Target: x86_64-linux-gnu</div><div class="line">Configured with: ../src/configure -v --with-pkgversion=<span class="string">'Ubuntu 5.4.0-6ubuntu1~16.04.4'</span> --with-bugurl=file:///usr/share/doc/gcc-5/README.Bugs --enable-languages=c,ada,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-5 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-5-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-5-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-5-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu</div><div class="line">Thread model: posix</div><div class="line">gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.4)</div><div class="line"> </div><div class="line">xxx@...:~$ sudo apt-get install ant</div><div class="line"> </div><div class="line"><span class="comment"># install Java environment</span></div><div class="line">xxx@...:~$ sudo apt-cache search openjdk-*</div><div class="line">xxx@...:~$ sudo apt-get install openjdk-&lt;your cache jdk version&gt;-jdk</div><div class="line"><span class="comment"># check installation success or not</span></div><div class="line">xxx@...:~$ java -version</div></pre></td></tr></table></figure>
 <ul>
 <li>配置 DOL 依赖: SystemC</li>
 </ul>
 </li>
+</ul>
+<blockquote>
+<p><a href="https://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/">浅谈 System C</a></p>
+</blockquote>
+<ul>
 <li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># SystemC environment (version 2.1 or greater)</span></div><div class="line"><span class="comment">#    File: systemc-2.3.1.tar</span></div><div class="line"><span class="comment">#    链接：http://www.accellera.org/downloads/standards/systemc/files</span></div><div class="line">xxx@...:~$ tar -zxvf systemc-2.3.1.tgz</div><div class="line">xxx@...:~$ rm systemc-2.3.1.tgz</div><div class="line"> </div><div class="line"><span class="comment"># 1. Change to the top level directory (systemc-2.3.1)</span></div><div class="line">xxx@...:~$ <span class="built_in">cd</span> systemc-2.3.1</div><div class="line">xxx@...:~$ <span class="built_in">pwd</span></div><div class="line"><span class="comment"># 2. Create a temporary directory(automake's out-of-source build), e.g.,</span></div><div class="line">xxx@...:~$ mkdir build</div><div class="line"><span class="comment"># 3. Change to the temporary directory, e.g.,</span></div><div class="line">xxx@...:~$ <span class="built_in">cd</span> build</div><div class="line"><span class="comment"># 4. Configure the package for your system, e.g.,</span></div><div class="line">xxx@...:~$ ../configure CXX=g++ --disable-async-updates</div><div class="line"><span class="comment"># 5. Compile the package.</span></div><div class="line">xxx@...:~$ make</div><div class="line"><span class="comment"># 6. [option] verify the compiled package by testing the example suite.</span></div><div class="line">xxx@...:~$ make check</div><div class="line"><span class="comment"># 7. Install the package.</span></div><div class="line">xxx@...:~$ make install</div><div class="line"><span class="comment"># 8. You can now remove the temporary directory, .e.g,</span></div><div class="line">xxx@...:~$ <span class="built_in">cd</span> ..</div><div class="line">xxx@...:~$ rm -rf build</div><div class="line"><span class="comment"># Alternatively, you can keep the temporary directory to allow you to:</span></div><div class="line"><span class="comment">#  a) Experiment with the examples.</span></div><div class="line"><span class="comment">#  b) Later uninstall the package. </span></div><div class="line"><span class="comment">#    To clean up the temporary directory, enter:</span></div><div class="line">xxx@...:~$ make clean</div><div class="line"><span class="comment">#    To uninstall the package, enter:</span></div><div class="line">xxx@...:~$ make uninstall</div></pre></td></tr></table></figure>
 <ul>
 <li>配置 DOL</li>
@@ -505,7 +515,7 @@
         <p><span>文章作者:</span>Gary</p>
 
         <p><span>发布时间:</span>2016-10-01, 15:50:14</p>
-        <p><span>最后更新:</span>2017-09-28, 13:30:15</p>
+        <p><span>最后更新:</span>2017-09-28, 23:10:09</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/10/01/TACouses_Embedded_System_2016/" title="Embedded System 2016">http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/</a>
             <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/　　作者: Gary" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
