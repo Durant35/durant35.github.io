@@ -2787,6 +2787,37 @@
     </entry>
     
     <entry>
+      <title><![CDATA[DARPA[Boss]: Motion Planning in Urban Environments]]></title>
+      <url>/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</url>
+      <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
+<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
+<li>long range plans<ul>
+<li>on-road planning</li>
+<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
+</ul>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 自动驾驶 </category>
+            
+            <category> DARPA </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> DARPA </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[DARPA[Boss]: Boss and the Urban Challenge]]></title>
       <url>/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/</url>
       <content type="html"><![CDATA[<p>　Boss 自动驾驶软硬件概述。</p>
@@ -2837,37 +2868,6 @@
 </li>
 </ul>
 <h4 id="Motion-Planning"><a href="#Motion-Planning" class="headerlink" title="Motion Planning"></a>Motion Planning</h4>]]></content>
-      
-        <categories>
-            
-            <category> 自动驾驶 </category>
-            
-            <category> DARPA </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> DARPA </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[DARPA[Boss]: Motion Planning in Urban Environments]]></title>
-      <url>/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</url>
-      <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
-<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
-<li>long range plans<ul>
-<li>on-road planning</li>
-<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
-<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
-</ul>
-</li>
-</ul>
-]]></content>
       
         <categories>
             
@@ -6256,25 +6256,31 @@
 </ul>
 <h4 id="MPARM-Simulation-with-RTEMS-OS"><a href="#MPARM-Simulation-with-RTEMS-OS" class="headerlink" title="MPARM Simulation with RTEMS OS"></a><font color="green">MPARM Simulation</font> with RTEMS OS</h4><p>　<strong>+</strong> mapped onto the virtual shapes platform (VSP) 虚拟 SHAPES 平台</p>
 <p><center><img src="/img/TA-Cources/ES2016/MPARM_simulation.png" width="540px"/></center></p>
+<blockquote>
+<p>MPARM is proposed based on SystemC register transfer level (RTL) and SWARM (software Advanced RISC Machine (ARM)) simulator (the open source cycle accurate <strong>SWARM (software ARM) simulator</strong> encapsulated in a SystemC wrapper).</p>
 <h5 id="Assignment-1"><a href="#Assignment-1" class="headerlink" title="Assignment"></a><font color="red">Assignment</font></h5><ul>
 <li><strong>Configure and run MPARM simulation.</strong><font color="blue">（Week 4, ES2017）</font><ul>
 <li>Step1: Install requirement: MATLAB</li>
 </ul>
 </li>
 <li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#  安装MATLAB_R2014A</span></div><div class="line"><span class="comment"># 1. 步入ISO所在路径，sudo mount MATHWORKS_R2014A.iso MATLAB_R2014A/ 挂载MATHWORKS_R2014A.iso到MATLAB_R2014A</span></div><div class="line">x@.:~$ mkdir MATLAB_R2014A</div><div class="line">x@.:~$ sudo mount MATHWORKS_R2014A.iso MATLAB_R2014A/</div><div class="line"> </div><div class="line"><span class="comment"># 2. 启动安装</span></div><div class="line">x@.:~$ <span class="built_in">cd</span> MATLAB_R2014A/</div><div class="line">x@.:~$ sudo ./install</div><div class="line"> </div><div class="line"><span class="comment"># 3. 选择是否在线安装时，选否，即 install manually without using the internet</span></div><div class="line"><span class="comment">#    让输入key，输入 12313-94680-65562-90832</span></div><div class="line"><span class="comment">#    文件安装路径选择依照自己习惯，一般为：/usr/local/</span></div><div class="line">x@.:~$ sudo umount -v MATLAB_R2014A/</div><div class="line">x@.:~$ sudo rm -rf MATLAB_R2014A/</div><div class="line"> </div><div class="line"><span class="comment"># 4. 步入  /usr/local/MATLAB/R2014a/bin， sudo ./matlab，即可启动 MATLAB，说明成功安装并破解</span></div><div class="line">x@.:~$ <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/MATLAB/R2014a/bin</div><div class="line">x@.:~$ sudo ./matlab</div><div class="line"> </div><div class="line"><span class="comment"># 5. 不使用Internet手动激活，使用：破解/Crack/license_405329_R2014a.lic文件</span></div><div class="line"><span class="comment">#    此外，将 破解/Crack/Linux/libmwservices.so 复制到 MATLAB/R2014a/bin/glnxa64/ （可能需要通过命令mv或者cp）</span></div><div class="line">x@.:~$ <span class="built_in">cd</span> &lt;ISO所在路径&gt;</div><div class="line">x@.:~$ unzip MATHWORKS_R2014A_Crack.zip</div><div class="line">x@.:~$ sudo cp Crack/Linux/libmwservices.so /usr/<span class="built_in">local</span>/MATLAB/R2014a/bin/glnxa64/</div><div class="line">x@.:~$ <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/MATLAB/R2014a/bin</div><div class="line"><span class="comment">#    MATLAB已经破解，正常启动</span></div><div class="line">x@.:~$ sudo ./matlab</div><div class="line"> </div><div class="line"><span class="comment"># 6. 制作 MATLAB 快捷启动 (matlab-support)</span></div><div class="line"><span class="comment">#    sudo apt-get install matlab-support	按照要求填写目录即可</span></div><div class="line"><span class="comment">#    任意 Terminal下 键入命令：matlab 即可启动，如果报错，需要键入 sudo matlab</span></div><div class="line">x@.:~$ sudo apt-get install matlab-support</div><div class="line"><span class="comment">#    Location of MATLAB installation(s): /usr/local/MATLAB/R2014a</span></div><div class="line"><span class="comment">#    Authorized user for MATLAB: &lt;empty&gt;</span></div><div class="line"><span class="comment"># ...</span></div><div class="line"> </div><div class="line"><span class="comment"># 7. [option]更改 MATLAB 默认文件夹</span></div><div class="line"><span class="comment">#    在 MATLAB 命令行键入 edit pathdef，在 pathdef.m 文件最末尾添加： cd 你要设置的默认目录 即可。</span></div><div class="line"><span class="comment"># 8. 配置RTC ToolBox 说明</span></div><div class="line"><span class="comment">#    链接: http://www.mpa.ethz.ch/Rtctoolbox/Download</span></div><div class="line"><span class="comment">#    rtc_toobox.zip is the same contents as tecsexperiments-2010-10-22-final/testbed/matlab/rtc</span></div><div class="line"><span class="comment">#    Extract the downloaded zip package. The extracted directory will contain a directory called rtc.</span></div><div class="line"><span class="comment">#    Copy or move the directory rtc to its final installation destination, e.g. to $MATLAB$/toolbox/rtc</span></div><div class="line">x@.:~$ sudo unzip rtc_toobox.zip <span class="_">-d</span> /usr/<span class="built_in">local</span>/MATLAB/R2014a/toolbox/</div><div class="line">x@.:~$ sudo matlab</div><div class="line"><span class="comment">#    Open Matlab and change to the rtc directory:</span></div><div class="line"><span class="built_in">cd</span> <span class="variable">$MATLAB</span>$/toolbox/rtc</div><div class="line"><span class="comment">#    Run:</span></div><div class="line">rtc_install</div><div class="line"><span class="comment">#    Now you can start using the RTC Toolbox. To explore the functionality of the RTC Toolbox, try the following:</span></div><div class="line"><span class="built_in">help</span> rtc</div><div class="line"><span class="comment">#    Uninstalling the Real-Time Calculus (RTC) Toolbox:</span></div><div class="line">rtc_uninstall</div><div class="line"><span class="comment">#    You may now delete the directory $MATLAB$/toolbox/rtc </span></div><div class="line">x@.:~$ sudo rm -rf /usr/<span class="built_in">local</span>/MATLAB/R2014a/toolbox/rtc</div></pre></td></tr></table></figure>
-<ul>
-<li>Step2: Configure testbed environment</li>
-</ul>
 </li>
-<li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 1. 修改 mparm/RTEMS-os/install-rtems/arm-rtems/arm_bare_bsp/Makefile.inc</span></div><div class="line"><span class="comment">#    'prefix'和'exec_prefix'所对应的路径修改为自己的 mparm 所在目录</span></div><div class="line">prefix = /home/khuang/work/mparm-haid/mparm/RTEMS-os/install-rtems</div><div class="line">exec_prefix = /home/khuang/work/mparm-haid/mparm/RTEMS-os/install-rtems/arm-rtems</div><div class="line"> </div><div class="line"><span class="comment"># 2. 修改 testbed/localjars/dol.properties 中'SYSTEMC_INC'和'SYSTEMC_LIB'所对应的路径</span></div><div class="line"><span class="comment">#     修改为自己 systemC 中 include 与 libsystemc.a 所对应的目录</span></div><div class="line">SYSTEMC_INC = /home/khuang/work/shapes/systemC/include</div><div class="line">SYSTEMC_LIB = /home/khuang/work/shapes/systemC/lib-linux/libsystemc.a</div><div class="line"> </div><div class="line"><span class="comment"># 3. 在 testbed/localjars 中更新 jar 文件, 使用命令 jar -uf dol.jar dol.properties</span></div><div class="line">x@.:~$ jar -uf dol.jar dol.properties</div><div class="line"> </div><div class="line"><span class="comment"># 4. 修改 testbed/build.xml 中'mparm.dir'所对应的路径为自己 mparm 所在路径</span></div><div class="line">&lt;property name=<span class="string">"mparm.dir"</span> location=<span class="string">"/home/khuang/work/mparm-haid/mparm/"</span>/&gt;</div><div class="line"> </div><div class="line"><span class="comment"># 5. 至此, 就可以运行 testbed 了, 在 testbed 目录下执行 ant, 查看结果</span></div><div class="line">x@.:&lt;sub&gt;$ <span class="built_in">cd</span> &lt;/sub&gt;/Workspace/tecsexperiments-2010-10-22-final/testbed</div><div class="line">x@.:~$ ant</div><div class="line"> </div><div class="line"><span class="comment"># 6. 调用 MATLAB 分析 MPA</span></div><div class="line">x@.:~$ <span class="built_in">cd</span> tecs</div><div class="line">x@.:~$ ./runmatlab.sh</div><div class="line"> </div><div class="line"><span class="comment"># 7. [option]修改 testbed/build.xml 中'source.dir', 可以运行不同的测试样例, 测试样例在 tecs/examples 目录下。</span></div><div class="line">&lt;property name=<span class="string">"source.dir"</span> value=<span class="string">"tecs/examples/examplemjpegVSP-trigger"</span>/&gt;</div></pre></td></tr></table></figure>
+</ul>
+</blockquote>
+<pre><code>+ Step2: Configure testbed environment
+</code></pre><ul>
+<li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">x@.:~$ unzip tecsexperiments-2010-10-22-final.zip</div><div class="line"><span class="comment"># 1. 修改 mparm/RTEMS-os/install-rtems/arm-rtems/arm_bare_bsp/Makefile.inc</span></div><div class="line"><span class="comment">#    'prefix'和'exec_prefix'所对应的路径修改为自己的 mparm 所在目录</span></div><div class="line">prefix = /home/khuang/work/mparm-haid/mparm/RTEMS-os/install-rtems</div><div class="line">exec_prefix = /home/khuang/work/mparm-haid/mparm/RTEMS-os/install-rtems/arm-rtems</div><div class="line"> </div><div class="line"><span class="comment"># 2. 修改 testbed/localjars/dol.properties 中'SYSTEMC_INC'和'SYSTEMC_LIB'所对应的路径</span></div><div class="line"><span class="comment">#     修改为自己 systemC 中 include 与 libsystemc.a 所对应的目录</span></div><div class="line">SYSTEMC_INC = /home/khuang/work/shapes/systemC/include</div><div class="line">SYSTEMC_LIB = /home/khuang/work/shapes/systemC/lib-linux/libsystemc.a</div><div class="line"> </div><div class="line"><span class="comment"># 3. 在 testbed/localjars 中更新 dol.jar 参数, 使用命令 jar -uf dol.jar dol.properties</span></div><div class="line">x@.:~$ jar -uf dol.jar dol.properties</div><div class="line"> </div><div class="line"><span class="comment"># 4. 修改 testbed/build.xml 中'mparm.dir'所对应的路径为自己 mparm 所在路径</span></div><div class="line">&lt;property name=<span class="string">"mparm.dir"</span> location=<span class="string">"/home/khuang/work/mparm-haid/mparm/"</span>/&gt;</div><div class="line"> </div><div class="line"><span class="comment"># 5. 至此, 就可以运行 testbed 了, 在 testbed 目录下执行 ant, 查看结果</span></div><div class="line">x@.:&lt;sub&gt;$ <span class="built_in">cd</span> &lt;/sub&gt;/Workspace/tecsexperiments-2010-10-22-final/testbed</div><div class="line">x@.:~$ ant</div><div class="line"> </div><div class="line"><span class="comment"># 6. 调用 MATLAB 分析 MPA</span></div><div class="line">x@.:~$ <span class="built_in">cd</span> tecs</div><div class="line">x@.:~$ ./runmatlab.sh</div><div class="line"> </div><div class="line"><span class="comment"># 7. [option]修改 testbed/build.xml 中'source.dir', 可以运行不同的测试样例, 测试样例在 tecs/examples 目录下。</span></div><div class="line">&lt;property name=<span class="string">"source.dir"</span> value=<span class="string">"tecs/examples/examplemjpegVSP-trigger"</span>/&gt;</div></pre></td></tr></table></figure>
 <ul>
 <li><font color="blue"><strong>Q&amp;A</strong></font></li>
 </ul>
 </li>
-<li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># MPARM工具是32位程序，通过查看链接情况解决依赖位数不匹配的问题</span></div><div class="line"><span class="comment">#    需要安装i386的C++标准库</span></div><div class="line"><span class="comment">#    参考链接: http://askubuntu.com/questions/709893/14-04-01-32-bit-missing-g-64-bit-include-files-when-cross-compiling</span></div><div class="line">x@.:~/Workspace/tecsexperiments-2010-10-22-final/mparm/swarm/bin$ ldd mpsim.x</div><div class="line">  linux-gate.so.1 =&gt;  (0xf7747000)</div><div class="line">  libstdc++.so.5 =&gt; not found</div><div class="line">  libm.so.6 =&gt; /lib/i386-linux-gnu/libm.so.6 (0xf76e8000)</div><div class="line">  libgcc_s.so.1 =&gt; /lib/i386-linux-gnu/libgcc_s.so.1 (0xf76ca000)</div><div class="line">  libc.so.6 =&gt; /lib/i386-linux-gnu/libc.so.6 (0xf751c000)</div><div class="line">  /lib/ld-linux.so.2 (0xf774a000)</div><div class="line"><span class="comment"># This is just a dependency package that resolves to g++-?-multilib for the default gcc/g++ version, </span></div><div class="line"><span class="comment">#     and in turn depends on lib64stdc++-?-dev (64-bit compilation on 32-bit) or libx32stdc++-?-dev (32-bit compilation on 64-bit)</span></div><div class="line"><span class="comment">#     it is these that contain the actual header files.</span></div><div class="line">x@.:~/Workspace/tecsexperiments-2010-10-22-final/mparm/swarm/bin$ sudo apt-get install g++-multilib</div></pre></td></tr></table></figure>
+<li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># MPARM工具是32位程序，通过查看链接情况解决依赖位数不匹配的问题</span></div><div class="line"><span class="comment">#    需要安装i386的C++标准库</span></div><div class="line"><span class="comment">#    参考链接: http://askubuntu.com/questions/709893/14-04-01-32-bit-missing-g-64-bit-include-files-when-cross-compiling</span></div><div class="line">x@.:~/Workspace/tecsexperiments-2010-10-22-final/mparm/swarm/bin$ ldd mpsim.x</div><div class="line">  linux-gate.so.1 =&gt;  (0xf7747000)</div><div class="line">  libstdc++.so.5 =&gt; not found</div><div class="line">  libm.so.6 =&gt; /lib/i386-linux-gnu/libm.so.6 (0xf76e8000)</div><div class="line">  libgcc_s.so.1 =&gt; /lib/i386-linux-gnu/libgcc_s.so.1 (0xf76ca000)</div><div class="line">  libc.so.6 =&gt; /lib/i386-linux-gnu/libc.so.6 (0xf751c000)</div><div class="line">  /lib/ld-linux.so.2 (0xf774a000)</div><div class="line"><span class="comment"># This is just a dependency package that resolves to g++-?-multilib for the default gcc/g++ version, </span></div><div class="line"><span class="comment">#     and in turn depends on lib64stdc++-?-dev (64-bit compilation on 32-bit) or libx32stdc++-?-dev (32-bit compilation on 64-bit)</span></div><div class="line"><span class="comment">#     it is these that contain the actual header files.</span></div><div class="line">x@.:~/Workspace/tecsexperiments-2010-10-22-final/mparm/swarm/bin$ sudo apt-get install g++-multilib</div><div class="line"><span class="comment"># 可能因为版本过久，通过 apt-get 的方式还是没办法安装指定的 libstdc++.so.5，就需要通过以下手动方式安装</span></div><div class="line"><span class="comment">#    下载deb: https://packages.debian.org/stretch/libstdc%2B%2B5（选择 i386）</span></div><div class="line"><span class="comment">#    deb install</span></div><div class="line">x@.:~$ sudo dpkg -i libstdc++5_3.3.6-28_i386.deb</div></pre></td></tr></table></figure>
 </li>
-</ul>
+<li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[<span class="built_in">exec</span>] &lt;<span class="built_in">builtin</span>&gt;: recipe <span class="keyword">for</span> target <span class="string">'que_lib/lib/ss_semaphore_lib/ss_semaphore.o'</span> failed</div><div class="line">[<span class="built_in">exec</span>] arm-rtems-g++: installation problem, cannot <span class="built_in">exec</span> `cc1plus<span class="string">': No such file or directory</div><div class="line">[exec] make: *** [que_lib/lib/ss_semaphore_lib/ss_semaphore.o] Error 1</span></div></pre></td></tr></table></figure>
 <ul>
+<li><code>source code</code> permission problem, executable files inside.</li>
+</ul>
+</li>
 <li><strong>Analyze MPARM simulation log files to know about the whole process.</strong><font color="blue">（Week 5, ES2017）</font></li>
 </ul>
 <h4 id="MPA-Model"><a href="#MPA-Model" class="headerlink" title="MPA Model"></a><font color="green">MPA Model</font></h4><h3 id="DSE-EXPO"><a href="#DSE-EXPO" class="headerlink" title="DSE-EXPO"></a>DSE-EXPO</h3><h3 id="Dead-Lock"><a href="#Dead-Lock" class="headerlink" title="Dead Lock"></a>Dead Lock</h3><blockquote>
@@ -6665,13 +6671,27 @@
 <li>查看本地文件改变<br>　<font color="#ea66a6"><b>git diff “file name”</b></font></li>
 <li>查看本地与远程库区别<br>　<font color="#ea66a6"><b>git diff master origin</b></font></li>
 <li>重写 commit 信息（如日志信息）<br>　　　(注意 <strong>amend</strong> 前面是两个<strong>“-“</strong>)<br>　<font color="#ea66a6"><b>git commit –amend</b></font></li>
-<li>从跟踪清单中删除（想把文件从 Git 仓库中删除（亦即从暂存区域移除），但仍然希望保留在当前工作目录中）<br>　<font color="#ea66a6"><b>git rm –cache (folder-name/. or file-name)​​​​ </b></font></li>
+<li>从跟踪清单中删除（想把文件从 Git 仓库中删除（亦即从暂存区域移除），但仍然希望保留在当前工作目录中）</li>
+<li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git rm [-r] --cached (folder-name/. or file-name)​​​​</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
 <li>移出暂存区（绿变红）<br>　<font color="#ea66a6"><b>git reset HEAD file-name</b></font></li>
 </ul>
 <h3 id="git-分支"><a href="#git-分支" class="headerlink" title="git 分支"></a><strong>git</strong> 分支</h3><ul>
 <li>删除分支<br>　<font color="blue"><b>git branch -d branch-name</b></font></li>
 <li>强制删除分支<br>　<font color="blue"><b>git branch -D branch-name</b></font>
-　</li>
+　<h3 id="git-子模块"><a href="#git-子模块" class="headerlink" title="git 子模块"></a><strong>git</strong> 子模块</h3><blockquote>
+<p><a href="https://chrisjean.com/git-submodules-adding-using-removing-and-updating/">The concept of submodules is brilliant. It essentially allows you to attach an <strong>external repository</strong> inside another repository at a specific path.</a></p>
+</blockquote>
+</li>
+<li>子模块管理</li>
+<li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># make relative-path as submodule or create the relative-path as submodule</span></div><div class="line">git submodule add external-url relative-path</div><div class="line"><span class="comment"># remove submodule</span></div><div class="line">git submodule rm relative-path</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>包含子模块的 <strong>clone</strong></li>
+<li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># directly clone submodules</span></div><div class="line">git <span class="built_in">clone</span> --recursive repository-url </div><div class="line"><span class="comment"># clone-after</span></div><div class="line">git submodule init</div><div class="line"><span class="comment"># external repository's pull</span></div><div class="line">git submodule update</div></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       
