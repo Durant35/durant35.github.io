@@ -15,16 +15,28 @@
 
 
 
-<meta name="description" content="Model of Computation">
+<meta name="description" content="承接前期DOL Functional Simulation 和 MPARM Simulation的实验内容，结合在SystemC 系统设计中提到的Y-chart，本文将讨论在 Behavior 层面的系统建模：MoCs (Model of Computation)，希望对 DOL 的建模原理有一定认识：
+
+　To model streaming applications, the dataflo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Model of Computation">
+<meta property="og:title" content="[ES03] Model of Computation">
 <meta property="og:url" content="http://durant35.github.io/2017/10/24/TACouses_ES2017_MoCs/index.html">
 <meta property="og:site_name" content="Tarantula-7's Blog">
-<meta property="og:description" content="Model of Computation">
-<meta property="og:updated_time" content="2017-10-24T13:03:56.085Z">
+<meta property="og:description" content="承接前期DOL Functional Simulation 和 MPARM Simulation的实验内容，结合在SystemC 系统设计中提到的Y-chart，本文将讨论在 Behavior 层面的系统建模：MoCs (Model of Computation)，希望对 DOL 的建模原理有一定认识：
+
+　To model streaming applications, the dataflo">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/4typesTiming.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/StateCharts_FSM2StateCharts.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/StateCharts_Concurrency.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/StateCharts_TreeRepresentation.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/StateCharts_EdgeLabel.png">
+<meta property="og:updated_time" content="2017-10-25T14:46:18.165Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Model of Computation">
-<meta name="twitter:description" content="Model of Computation">
+<meta name="twitter:title" content="[ES03] Model of Computation">
+<meta name="twitter:description" content="承接前期DOL Functional Simulation 和 MPARM Simulation的实验内容，结合在SystemC 系统设计中提到的Y-chart，本文将讨论在 Behavior 层面的系统建模：MoCs (Model of Computation)，希望对 DOL 的建模原理有一定认识：
+
+　To model streaming applications, the dataflo">
+<meta name="twitter:image" content="http://durant35.github.io/img/TA-Cources/ES2017/4typesTiming.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +68,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Model of Computation | Tarantula-7&#39;s Blog</title>
+<title>[ES03] Model of Computation | Tarantula-7&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -294,7 +306,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Model of Computation
+      [ES03] Model of Computation
     </h1>
   
 
@@ -315,7 +327,92 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>　Model of Computation<br><a id="more"></a></p>
+        <p>　承接前期<a href="http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/">DOL Functional Simulation 和 MPARM Simulation</a>的实验内容，结合在<strong>SystemC 系统设计</strong>中提到的<a href="http://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/">Y-chart</a>，本文将讨论在 Behavior 层面的系统建模：<strong>MoCs (Model of Computation)</strong>，希望对 DOL 的建模原理有一定认识：</p>
+<blockquote>
+<p>　To model streaming applications, the <strong>dataflow process network</strong> model of computation [Lee and Parks 1995], a subclass of <strong>Kahn process networks</strong> [Kahn 1974], has been adopted in the DOL design flow. </p>
+</blockquote>
+<p>　什么是<strong>dataflow process network</strong>？<strong>Kahn process networks</strong>又是什么？接下来我们将一一论述。<a id="more"></a>
+　</p>
+<h3 id="Model-of-System（系统建模）"><a href="#Model-of-System（系统建模）" class="headerlink" title="Model of System（系统建模）"></a>Model of System（系统建模）</h3><ul>
+<li>传统模型不能满足后续的 Requirements<ul>
+<li>Von Neumann Model</li>
+<li>Thread-based Concurrency Models</li>
+</ul>
+</li>
+<li>Requirements for Model for Embedded Systems<ul>
+<li><strong>Modularity</strong>: Systems specified as a composition of objects</li>
+<li><strong>Represent hierarchy</strong>: Humans not capable to understand systems containing more than a few objects<ul>
+<li>Behavioral hierarchy: like statements-&gt;procedures-&gt;programs</li>
+<li>Structural hierarchy: like transistors-&gt;gates-&gt;processors-&gt;printed circuit</li>
+</ul>
+</li>
+<li><strong>Concurrency</strong>, <strong>synchronization</strong> and <strong>communication</strong></li>
+<li>Represent <strong>timing</strong> behavior/requirements<ul>
+<li>Timing is essential for embedded systems!</li>
+<li>Four types of timing specs required [Burns, 1990]<center><img src="/img/TA-Cources/ES2017/4typesTiming.png" width="640px" alt=""/></center></li>
+</ul>
+</li>
+<li>Represent <strong>state-oriented behavior</strong>: Required for reactive systems</li>
+<li>Represent <strong>dataflow-oriented behavior</strong>: Components send streams of data to each other</li>
+</ul>
+</li>
+<li>Model of Computation（满足 Requirements 的一些系统建模方法）<ul>
+<li>StateCharts</li>
+<li>Data-Flow Models<ul>
+<li>Kahn Process Network</li>
+<li>Synchronous Dataflow</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="State-Charts"><a href="#State-Charts" class="headerlink" title="State Charts"></a>State Charts</h3><ul>
+<li>FSM <strong>→</strong> State Charts<br>  <center><img src="/img/TA-Cources/ES2017/StateCharts_FSM2StateCharts.png" width="640px" alt=""/></center><ul>
+<li>Introducing Hierarchy</li>
+<li>Types of States<ul>
+<li>Current states of FSMs are also called <strong>active states</strong></li>
+<li>States which are not composed of other states are called <strong>basic states</strong></li>
+<li>States containing other states are called <strong>super-states</strong></li>
+<li>For each basic state <code>s</code>, the super-states containing <code>s</code> are called <strong>ancestor states</strong></li>
+<li>Super-states <code>S</code> are called <strong>OR-super-states</strong>, if exactly one of the sub-states of <code>S</code> is active whenever <code>S</code> is active.</li>
+</ul>
+</li>
+<li>Default State Mechanism</li>
+</ul>
+</li>
+<li>Concurrency<ul>
+<li><strong>AND-super-states</strong>: FSM is in all (immediate) sub-states of a super-state<center><img src="/img/TA-Cources/ES2017/StateCharts_Concurrency.png" width="640px" alt=""/></center></li>
+</ul>
+</li>
+<li>Tree Representation of State Sets<br>  <center><img src="/img/TA-Cources/ES2017/StateCharts_TreeRepresentation.png" width="540px" alt=""/></center><ul>
+<li>Computation of State Sets（状态空间）：State Charts $\Longrightarrow$ FSM<ul>
+<li><strong>basic states</strong>: state set = state</li>
+<li><strong>OR-super-states</strong>: state set = union of children</li>
+<li><strong>AND-super-states</strong>: state set = Cartesian product of children<blockquote>
+<p>两个集合 $X$ 和 $Y$ 的<strong>笛卡尔积（Cartesian product）</strong>，是所有可能的有序对组成的集合：<br>$$X × Y = \verb|{| (x, y) \space | \space x \in X \wedge y \in Y \verb|}|$$</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Representation of Computations<br>  <center><img src="/img/TA-Cources/ES2017/StateCharts_EdgeLabel.png" width="480px" alt=""/></center><ul>
+<li><strong>Events</strong><ul>
+<li>有效性：only until the next evaluation of the model</li>
+<li>Can be either internally or externally generated</li>
+<li>“event” can be composed of several events:  <code>e1 and e2</code>; <code>e1 or e2</code>; <code>not e</code></li>
+</ul>
+</li>
+<li><strong>Conditions</strong>: refer to values of variables/states that keep their value until they are reassigned</li>
+<li><strong>Actions</strong><ul>
+<li>Can either be assignments for variables or creation of events</li>
+<li>“action” can also be composed：<code>(a1; a2)</code>, actions a1 and a2 are executed in parallel.</li>
+</ul>
+</li>
+<li>All events, states and actions are globally visible</li>
+</ul>
+</li>
+</ul>
 <h3 id="Data-Flow-Models"><a href="#Data-Flow-Models" class="headerlink" title="Data-Flow Models"></a>Data-Flow Models</h3><h4 id="Kahn-Process-Network-KPN"><a href="#Kahn-Process-Network-KPN" class="headerlink" title="Kahn Process Network (KPN)"></a>Kahn Process Network (KPN)</h4><blockquote>
 <p><a href="http://blog.csdn.net/jingle_cjy/article/details/70160658">嵌入式实验EX1：Kahn Process Networks and Synchronous Data Flows</a><br><a href="http://blog.csdn.net/u013816144/article/details/49937209">嵌入式系统之KPN网络图（Kahn Process Networks）</a></p>
 </blockquote>
@@ -327,9 +424,6 @@
 <h4 id="Synchronous-Dataflow-SDF"><a href="#Synchronous-Dataflow-SDF" class="headerlink" title="Synchronous Dataflow (SDF)"></a>Synchronous Dataflow (SDF)</h4><ul>
 <li>调度策略</li>
 </ul>
-<h3 id="State-Charts"><a href="#State-Charts" class="headerlink" title="State Charts"></a>State Charts</h3><ul>
-<li>状态迁移</li>
-</ul>
 
       
     </div>
@@ -338,7 +432,7 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/10/24/TACouses_ES2017_MoCs/">Model of Computation</a></p>
+        <p><span>本文标题:</span><a href="/2017/10/24/TACouses_ES2017_MoCs/">[ES03] Model of Computation</a></p>
 
         <!-- 
         <p><span>文章作者:</span><a href="/" title="回到主页">Gary</a></p>
@@ -346,9 +440,9 @@
         <p><span>文章作者:</span>Gary</p>
 
         <p><span>发布时间:</span>2017-10-24, 12:50:14</p>
-        <p><span>最后更新:</span>2017-10-24, 21:03:56</p>
+        <p><span>最后更新:</span>2017-10-25, 22:46:18</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/10/24/TACouses_ES2017_MoCs/" title="Model of Computation">http://durant35.github.io/2017/10/24/TACouses_ES2017_MoCs/</a>
+            <span>原始链接:</span><a class="post-url" href="/2017/10/24/TACouses_ES2017_MoCs/" title="[ES03] Model of Computation">http://durant35.github.io/2017/10/24/TACouses_ES2017_MoCs/</a>
             <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/10/24/TACouses_ES2017_MoCs/　　作者: Gary" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -367,7 +461,7 @@
         
             <div id="article-nav-older" class="article-nav-title">
                 <a href="/2017/09/28/TACouses_ES2017_Java/">
-                    Linux 下手动配置 Java 环境
+                    [ES01] Linux 下手动配置 Java 环境
                 </a>
             </div>
         
@@ -379,7 +473,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Flow-Models"><span class="toc-number">1.</span> <span class="toc-text">Data-Flow Models</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Kahn-Process-Network-KPN"><span class="toc-number">1.1.</span> <span class="toc-text">Kahn Process Network (KPN)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Synchronous-Dataflow-SDF"><span class="toc-number">1.2.</span> <span class="toc-text">Synchronous Dataflow (SDF)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#State-Charts"><span class="toc-number">2.</span> <span class="toc-text">State Charts</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Model-of-System（系统建模）"><span class="toc-number">1.</span> <span class="toc-text">Model of System（系统建模）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#State-Charts"><span class="toc-number">2.</span> <span class="toc-text">State Charts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Flow-Models"><span class="toc-number">3.</span> <span class="toc-text">Data-Flow Models</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Kahn-Process-Network-KPN"><span class="toc-number">3.1.</span> <span class="toc-text">Kahn Process Network (KPN)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Synchronous-Dataflow-SDF"><span class="toc-number">3.2.</span> <span class="toc-text">Synchronous Dataflow (SDF)</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -419,7 +513,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Model of Computation　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"[ES03] Model of Computation　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -467,13 +561,13 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/09/28/TACouses_ES2017_Java/" title="下一篇: Linux 下手动配置 Java 环境">
+            <a href="/2017/09/28/TACouses_ES2017_Java/" title="下一篇: [ES01] Linux 下手动配置 Java 环境">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/10/24/TACouses_ES2017_MoCs/">Model of Computation</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/28/TACouses_ES2017_Java/">Linux 下手动配置 Java 环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/26/TACouses_ES2017_SystemC/">浅谈 System C</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/03/programPearls_Summary after Interview in Robosense/">Summary after Robosense's Interview</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/linux_ldconfig4RuntimeLibraries/">ldconfig：[load]运行时库管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/Algorithms_ICP/">[0024] Iterative Closest Points（迭代最近点）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/Algorithms_LeastSquaresLineFitting/">[0025] Least Squares Line Fitting（最小二乘法直线拟合）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/programPearls_i=i++/">i = i++;</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/tool_CMake_find_package$pkg_check_module/">CMake 查找库: find_package vs pkg_check_modules</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/">ROS launch file: <arg> vs <param> vs <rosparam></a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/">hexo：告别多说，拥抱 Disqus</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/">32-bit program on 64-bit OS & 64-bit program on 32-bit OS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/13/Algorithms_OnlineJudge4Huawei2017/">算法设计与分析[0023] 秋招华为在线笔试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/11/programPearls_DES$3DES$AES/">密码学：DES、3DES、AES</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/">JPEG编码&算术编码、LZW编码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/Algorithms_BST$R-B Tree/">算法设计与分析[0022] BST（二叉查找树）和 R-B Tree（红黑树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/07/programPearls_declaration$definition$initialization$assignment/">声明/定义/初始化/赋值</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/programPearls_inline$static$const$extern$volatile/">C/C++常见修饰符（inline&static&const&extern&volatile）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/Algorithms_BasicMiscs/">算法设计与分析[0021] Some Algorithms Basic Details Review（课程总结）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GraphProblems/">算法设计与分析[0020] 几个有关图的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GreedyAlgorithms/">算法设计与分析[0019] Greedy Algorithms（贪心策略）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/">算法设计与分析[0018] 图的点连通度和边连通度</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/08/Algorithms_NP-Complete(I)/">算法设计与分析[0017] NP-完全问题：概述（两道证明习题）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">DARPA[Boss]: Motion Planning in Urban Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_BiGraphMatching/">算法设计与分析[0016] 二分图匹配问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/Algorithms_Dynamic Programming(V)/">算法设计与分析[0014] Dynamic Programming(V) 一道习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/13/hsw_UbuntuSystemBootSequence/">一张图带你看 Ubuntu(Linux) 系统启动过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/linux_LinuxCommandNotes/">Linux命令小纸条</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/tool_vim几步走/">vim几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/10/linux_libpcap 32-bit$64-bit/">libpcap, 32-bit&64-bit</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/OverlappingSounds_Key Word Engineering/">Key Word Engineering</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/07/hexo_Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/01/TACouses_Embedded_System_2016/">Embedded System 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/hexo_博客主题Yelee迁移笔记/">hexo博客主题Yelee迁移笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux下基本文件操作/">Win/Linux下基本文件操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/26/tool_git几步走/">git几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/09/OverlappingSounds_Basketball_Never_Stops/">Basketball Never Stops</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/">Coding中的编码问题之回顾&深入</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/21/programPearls_Coding中的编码问题之入门$概览/">Coding中的编码问题之入门&概览</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/11/movies_漫威电影/">漫威21部系列电影(持续更新)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/tool_NotePad/">NotePad++</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">在hexo new之后立即打开Markdown文稿</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_自定义主题/">hexo自定义主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/programPearls_Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&Win8.1(both 64-bit),其他仅供参考)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/09/graduatedesign_01 STM32_一-搭建STM32开发环境/">(一) 搭建STM32开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/16/opengl_数媒HW4参考资料/">数媒HW4参考资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/06/考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/hexo_win搭建hexo/">win搭建hexo</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/10/24/TACouses_ES2017_MoCs/">[ES03] Model of Computation</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/28/TACouses_ES2017_Java/">[ES01] Linux 下手动配置 Java 环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/26/TACouses_ES2017_SystemC/">[ES02] 浅谈 System C</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/03/programPearls_Summary after Interview in Robosense/">Summary after Robosense's Interview</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/linux_ldconfig4RuntimeLibraries/">ldconfig：[load]运行时库管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/Algorithms_ICP/">[0024] Iterative Closest Points（迭代最近点）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/Algorithms_LeastSquaresLineFitting/">[0025] Least Squares Line Fitting（最小二乘法直线拟合）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/programPearls_i=i++/">i = i++;</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/tool_CMake_find_package$pkg_check_module/">CMake 查找库: find_package vs pkg_check_modules</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/">ROS launch file: <arg> vs <param> vs <rosparam></a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/">hexo：告别多说，拥抱 Disqus</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/">32-bit program on 64-bit OS & 64-bit program on 32-bit OS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/13/Algorithms_OnlineJudge4Huawei2017/">算法设计与分析[0023] 秋招华为在线笔试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/11/programPearls_DES$3DES$AES/">密码学：DES、3DES、AES</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/">JPEG编码&算术编码、LZW编码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/Algorithms_BST$R-B Tree/">算法设计与分析[0022] BST（二叉查找树）和 R-B Tree（红黑树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/07/programPearls_declaration$definition$initialization$assignment/">声明/定义/初始化/赋值</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/programPearls_inline$static$const$extern$volatile/">C/C++常见修饰符（inline&static&const&extern&volatile）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/Algorithms_BasicMiscs/">算法设计与分析[0021] Some Algorithms Basic Details Review（课程总结）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GraphProblems/">算法设计与分析[0020] 几个有关图的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GreedyAlgorithms/">算法设计与分析[0019] Greedy Algorithms（贪心策略）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/">算法设计与分析[0018] 图的点连通度和边连通度</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/08/Algorithms_NP-Complete(I)/">算法设计与分析[0017] NP-完全问题：概述（两道证明习题）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">DARPA[Boss]: Motion Planning in Urban Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_BiGraphMatching/">算法设计与分析[0016] 二分图匹配问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/Algorithms_Dynamic Programming(V)/">算法设计与分析[0014] Dynamic Programming(V) 一道习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/13/hsw_UbuntuSystemBootSequence/">一张图带你看 Ubuntu(Linux) 系统启动过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/linux_LinuxCommandNotes/">Linux命令小纸条</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/tool_vim几步走/">vim几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/10/linux_libpcap 32-bit$64-bit/">libpcap, 32-bit&64-bit</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/OverlappingSounds_Key Word Engineering/">Key Word Engineering</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/07/hexo_Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/01/TACouses_Embedded_System_2016/">[ES00] Overview, DOL and MPARM</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/hexo_博客主题Yelee迁移笔记/">hexo博客主题Yelee迁移笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux下基本文件操作/">Win/Linux下基本文件操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/26/tool_git几步走/">git几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/09/OverlappingSounds_Basketball_Never_Stops/">Basketball Never Stops</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/">Coding中的编码问题之回顾&深入</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/21/programPearls_Coding中的编码问题之入门$概览/">Coding中的编码问题之入门&概览</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/11/movies_漫威电影/">漫威21部系列电影(持续更新)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/tool_NotePad/">NotePad++</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">在hexo new之后立即打开Markdown文稿</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_自定义主题/">hexo自定义主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/29/iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/programPearls_Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/28/iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&Win8.1(both 64-bit),其他仅供参考)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/09/graduatedesign_01 STM32_一-搭建STM32开发环境/">(一) 搭建STM32开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/16/opengl_数媒HW4参考资料/">数媒HW4参考资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/15/JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/06/考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/hexo_win搭建hexo/">win搭建hexo</a></li></ul>
 
 
 

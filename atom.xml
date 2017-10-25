@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-10-24T13:03:56.085Z</updated>
+  <updated>2017-10-25T14:46:18.165Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -16,13 +16,98 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Model of Computation</title>
+    <title>[ES03] Model of Computation</title>
     <link href="http://durant35.github.io/2017/10/24/TACouses_ES2017_MoCs/"/>
     <id>http://durant35.github.io/2017/10/24/TACouses_ES2017_MoCs/</id>
     <published>2017-10-24T04:50:14.000Z</published>
-    <updated>2017-10-24T13:03:56.085Z</updated>
+    <updated>2017-10-25T14:46:18.165Z</updated>
     
-    <content type="html"><![CDATA[<p>　Model of Computation<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<p>　承接前期<a href="http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/">DOL Functional Simulation 和 MPARM Simulation</a>的实验内容，结合在<strong>SystemC 系统设计</strong>中提到的<a href="http://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/">Y-chart</a>，本文将讨论在 Behavior 层面的系统建模：<strong>MoCs (Model of Computation)</strong>，希望对 DOL 的建模原理有一定认识：</p>
+<blockquote>
+<p>　To model streaming applications, the <strong>dataflow process network</strong> model of computation [Lee and Parks 1995], a subclass of <strong>Kahn process networks</strong> [Kahn 1974], has been adopted in the DOL design flow. </p>
+</blockquote>
+<p>　什么是<strong>dataflow process network</strong>？<strong>Kahn process networks</strong>又是什么？接下来我们将一一论述。<a id="more"></a>
+　</p>
+<h3 id="Model-of-System（系统建模）"><a href="#Model-of-System（系统建模）" class="headerlink" title="Model of System（系统建模）"></a>Model of System（系统建模）</h3><ul>
+<li>传统模型不能满足后续的 Requirements<ul>
+<li>Von Neumann Model</li>
+<li>Thread-based Concurrency Models</li>
+</ul>
+</li>
+<li>Requirements for Model for Embedded Systems<ul>
+<li><strong>Modularity</strong>: Systems specified as a composition of objects</li>
+<li><strong>Represent hierarchy</strong>: Humans not capable to understand systems containing more than a few objects<ul>
+<li>Behavioral hierarchy: like statements-&gt;procedures-&gt;programs</li>
+<li>Structural hierarchy: like transistors-&gt;gates-&gt;processors-&gt;printed circuit</li>
+</ul>
+</li>
+<li><strong>Concurrency</strong>, <strong>synchronization</strong> and <strong>communication</strong></li>
+<li>Represent <strong>timing</strong> behavior/requirements<ul>
+<li>Timing is essential for embedded systems!</li>
+<li>Four types of timing specs required [Burns, 1990]<center><img src="/img/TA-Cources/ES2017/4typesTiming.png" width="640px" alt=""/></center></li>
+</ul>
+</li>
+<li>Represent <strong>state-oriented behavior</strong>: Required for reactive systems</li>
+<li>Represent <strong>dataflow-oriented behavior</strong>: Components send streams of data to each other</li>
+</ul>
+</li>
+<li>Model of Computation（满足 Requirements 的一些系统建模方法）<ul>
+<li>StateCharts</li>
+<li>Data-Flow Models<ul>
+<li>Kahn Process Network</li>
+<li>Synchronous Dataflow</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="State-Charts"><a href="#State-Charts" class="headerlink" title="State Charts"></a>State Charts</h3><ul>
+<li>FSM <strong>→</strong> State Charts<br>  <center><img src="/img/TA-Cources/ES2017/StateCharts_FSM2StateCharts.png" width="640px" alt=""/></center><ul>
+<li>Introducing Hierarchy</li>
+<li>Types of States<ul>
+<li>Current states of FSMs are also called <strong>active states</strong></li>
+<li>States which are not composed of other states are called <strong>basic states</strong></li>
+<li>States containing other states are called <strong>super-states</strong></li>
+<li>For each basic state <code>s</code>, the super-states containing <code>s</code> are called <strong>ancestor states</strong></li>
+<li>Super-states <code>S</code> are called <strong>OR-super-states</strong>, if exactly one of the sub-states of <code>S</code> is active whenever <code>S</code> is active.</li>
+</ul>
+</li>
+<li>Default State Mechanism</li>
+</ul>
+</li>
+<li>Concurrency<ul>
+<li><strong>AND-super-states</strong>: FSM is in all (immediate) sub-states of a super-state<center><img src="/img/TA-Cources/ES2017/StateCharts_Concurrency.png" width="640px" alt=""/></center></li>
+</ul>
+</li>
+<li>Tree Representation of State Sets<br>  <center><img src="/img/TA-Cources/ES2017/StateCharts_TreeRepresentation.png" width="540px" alt=""/></center><ul>
+<li>Computation of State Sets（状态空间）：State Charts $\Longrightarrow$ FSM<ul>
+<li><strong>basic states</strong>: state set = state</li>
+<li><strong>OR-super-states</strong>: state set = union of children</li>
+<li><strong>AND-super-states</strong>: state set = Cartesian product of children<blockquote>
+<p>两个集合 $X$ 和 $Y$ 的<strong>笛卡尔积（Cartesian product）</strong>，是所有可能的有序对组成的集合：<br>$$X × Y = \verb|{| (x, y) \space | \space x \in X \wedge y \in Y \verb|}|$$</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Representation of Computations<br>  <center><img src="/img/TA-Cources/ES2017/StateCharts_EdgeLabel.png" width="480px" alt=""/></center><ul>
+<li><strong>Events</strong><ul>
+<li>有效性：only until the next evaluation of the model</li>
+<li>Can be either internally or externally generated</li>
+<li>“event” can be composed of several events:  <code>e1 and e2</code>; <code>e1 or e2</code>; <code>not e</code></li>
+</ul>
+</li>
+<li><strong>Conditions</strong>: refer to values of variables/states that keep their value until they are reassigned</li>
+<li><strong>Actions</strong><ul>
+<li>Can either be assignments for variables or creation of events</li>
+<li>“action” can also be composed：<code>(a1; a2)</code>, actions a1 and a2 are executed in parallel.</li>
+</ul>
+</li>
+<li>All events, states and actions are globally visible</li>
+</ul>
+</li>
+</ul>
 <h3 id="Data-Flow-Models"><a href="#Data-Flow-Models" class="headerlink" title="Data-Flow Models"></a>Data-Flow Models</h3><h4 id="Kahn-Process-Network-KPN"><a href="#Kahn-Process-Network-KPN" class="headerlink" title="Kahn Process Network (KPN)"></a>Kahn Process Network (KPN)</h4><blockquote>
 <p><a href="http://blog.csdn.net/jingle_cjy/article/details/70160658">嵌入式实验EX1：Kahn Process Networks and Synchronous Data Flows</a><br><a href="http://blog.csdn.net/u013816144/article/details/49937209">嵌入式系统之KPN网络图（Kahn Process Networks）</a></p>
 </blockquote>
@@ -34,14 +119,15 @@
 <h4 id="Synchronous-Dataflow-SDF"><a href="#Synchronous-Dataflow-SDF" class="headerlink" title="Synchronous Dataflow (SDF)"></a>Synchronous Dataflow (SDF)</h4><ul>
 <li>调度策略</li>
 </ul>
-<h3 id="State-Charts"><a href="#State-Charts" class="headerlink" title="State Charts"></a>State Charts</h3><ul>
-<li>状态迁移</li>
-</ul>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;　Model of Computation&lt;br&gt;
+      &lt;p&gt;　承接前期&lt;a href=&quot;http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/&quot;&gt;DOL Functional Simulation 和 MPARM Simulation&lt;/a&gt;的实验内容，结合在&lt;strong&gt;SystemC 系统设计&lt;/strong&gt;中提到的&lt;a href=&quot;http://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/&quot;&gt;Y-chart&lt;/a&gt;，本文将讨论在 Behavior 层面的系统建模：&lt;strong&gt;MoCs (Model of Computation)&lt;/strong&gt;，希望对 DOL 的建模原理有一定认识：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;　To model streaming applications, the &lt;strong&gt;dataflow process network&lt;/strong&gt; model of computation [Lee and Parks 1995], a subclass of &lt;strong&gt;Kahn process networks&lt;/strong&gt; [Kahn 1974], has been adopted in the DOL design flow. &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;　什么是&lt;strong&gt;dataflow process network&lt;/strong&gt;？&lt;strong&gt;Kahn process networks&lt;/strong&gt;又是什么？接下来我们将一一论述。
     
     </summary>
     
@@ -53,11 +139,11 @@
   </entry>
   
   <entry>
-    <title>Linux 下手动配置 Java 环境</title>
+    <title>[ES01] Linux 下手动配置 Java 环境</title>
     <link href="http://durant35.github.io/2017/09/28/TACouses_ES2017_Java/"/>
     <id>http://durant35.github.io/2017/09/28/TACouses_ES2017_Java/</id>
     <published>2017-09-28T04:50:14.000Z</published>
-    <updated>2017-09-28T06:31:36.424Z</updated>
+    <updated>2017-10-25T07:33:49.968Z</updated>
     
     <content type="html"><![CDATA[<p>　Linux 手动配置 Java 环境（JRE+JDK）。<br><a id="more"></a></p>
 <h3 id="apt-快速安装"><a href="#apt-快速安装" class="headerlink" title="apt 快速安装"></a>apt 快速安装</h3><ul>
@@ -114,11 +200,11 @@
   </entry>
   
   <entry>
-    <title>浅谈 System C</title>
+    <title>[ES02] 浅谈 System C</title>
     <link href="http://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/"/>
     <id>http://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/</id>
     <published>2017-09-26T07:50:14.000Z</published>
-    <updated>2017-09-28T14:49:13.559Z</updated>
+    <updated>2017-10-25T07:34:12.249Z</updated>
     
     <content type="html"><![CDATA[<p>　<strong>SystemC</strong> 是一种基于 C++ 语言的用于 <strong>系统设计</strong> 的计算机语言，是用 C++ 编写的一组库和宏。为了更好的了解 <strong>SystemC</strong> 的用途，我们先从集成电路（<strong>IC</strong>：通用集成电路、专用集成电路）设计的一些基础讲起，谈谈 <strong>SystemC</strong> 在 IC 设计流程中的定位；通过对比 <strong>SystemC</strong> 和我们更为熟悉的 <strong>Verilog</strong>，进一步了解 <strong>SystemC</strong> 。<br><a id="more"></a></p>
 <h3 id="Y-chart-gt-IC-层次设计"><a href="#Y-chart-gt-IC-层次设计" class="headerlink" title="Y-chart ==&gt; IC 层次设计"></a>Y-chart ==&gt; IC 层次设计</h3><p>　数字集成电路的设计可以分为系统级、芯片级（行为级、结构级）、RTL级、门级、电路级和版图级。<center><img src="/img/TA-Cources/ES2017/ICLevelDescription.png" width="640px" alt=""/></center></p>
