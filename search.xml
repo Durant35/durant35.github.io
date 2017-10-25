@@ -3,6 +3,37 @@
   
     
     <entry>
+      <title><![CDATA[Model of Computation]]></title>
+      <url>/2017/10/24/TACouses_ES2017_MoCs/</url>
+      <content type="html"><![CDATA[<p>　Model of Computation<br><a id="more"></a></p>
+<h3 id="Data-Flow-Models"><a href="#Data-Flow-Models" class="headerlink" title="Data-Flow Models"></a>Data-Flow Models</h3><h4 id="Kahn-Process-Network-KPN"><a href="#Kahn-Process-Network-KPN" class="headerlink" title="Kahn Process Network (KPN)"></a>Kahn Process Network (KPN)</h4><blockquote>
+<p><a href="http://blog.csdn.net/jingle_cjy/article/details/70160658">嵌入式实验EX1：Kahn Process Networks and Synchronous Data Flows</a><br><a href="http://blog.csdn.net/u013816144/article/details/49937209">嵌入式系统之KPN网络图（Kahn Process Networks）</a></p>
+</blockquote>
+<ul>
+<li>单调性</li>
+<li>一致性</li>
+<li>难以调度</li>
+</ul>
+<h4 id="Synchronous-Dataflow-SDF"><a href="#Synchronous-Dataflow-SDF" class="headerlink" title="Synchronous Dataflow (SDF)"></a>Synchronous Dataflow (SDF)</h4><ul>
+<li>调度策略</li>
+</ul>
+<h3 id="State-Charts"><a href="#State-Charts" class="headerlink" title="State Charts"></a>State Charts</h3><ul>
+<li>状态迁移</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> TA Cources </category>
+            
+            <category> EmbeddedSystem </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Linux 下手动配置 Java 环境]]></title>
       <url>/2017/09/28/TACouses_ES2017_Java/</url>
       <content type="html"><![CDATA[<p>　Linux 手动配置 Java 环境（JRE+JDK）。<br><a id="more"></a></p>

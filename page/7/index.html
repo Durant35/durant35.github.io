@@ -270,6 +270,89 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-JSP考勤系统-二-JDBC连接MySQL数据库" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/" class="article-date">
+      <time datetime="2015-05-16T07:13:44.000Z" itemprop="datePublished">2015-05-16</time>
+</a>
+
+
+
+ 
+    <a href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　在前面的MFC程序那一块，我们已经介绍了基于ODBC和ADO技术如何操作MySQL数据库，这一部分我们介绍另外一种更加方便快捷的，能够实现相同功能的方式，那就是通过JDBC访问数据库。相比之下，这种方式要比之前的ADO方便得多，较之前面难度也有所下降。</p>
+<h2 id="ODBC-vs-JDBC"><a href="#ODBC-vs-JDBC" class="headerlink" title="ODBC vs JDBC"></a><strong>ODBC vs JDBC</strong></h2><p>　　这两种方式都是访问数据库的常用的编程接口，<strong>ODBC(Open Database Connection)</strong>是”微””软”的东西，只能在其操作系统上跑，移植性可想而知；<strong>JDBC(Java Database Connection)</strong>则是Oracle的东西，是Java大家庭的一员。大家都知道，Java正式可移植性的典范，所以，JDBC的可移植性是显然的。至于为什么，通过下面的实现流程，你应该会有所体会。此外，可以通过比较ADO的实现来窥见其便捷性。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSP/">JSP</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/05/16/JSP考勤系统-二-JDBC连接MySQL数据库/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-考勤系统-二-MFC-ADO连接MySQL数据库" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1014,84 +1097,6 @@
       
         <p class="article-more-link">
           <a href="/2016/10/09/OverlappingSounds_Key Word Engineering/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-raspberry_using_an_external_wireless_card(CF-WU855P)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/" class="article-date">
-      <time datetime="2017-01-24T16:52:41.000Z" itemprop="datePublished">2017-01-25</time>
-</a>
-
-
-
- 
-    <a href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　树莓派3已经自带无线网卡，这是一种极大的便捷，真正将树莓派变成躲在一个角落里，安静地搞事情的计算机。然而对于树莓派B+或者树莓派2，除了少数免驱的外接无线网卡外（树莓派系统已经自带了驱动），大多数外接无线网卡还是需要经过配置才能使用的，下面就介绍使用过的一款无线网卡（<a href="http://en.comfast.com.cn/product/WirelessAdapter/item-155.html">ComFast-WU855P</a>）的驱动配置过程，该无线网卡采用 <strong>REALTEK8192</strong> 高阶芯片（从<a href="https://detail.tmall.com/item.htm?spm=a230r.1.14.1.JY6QbF&amp;id=37237024789&amp;cm_id=140105335569ed55e27b&amp;abbucket=6&amp;skuId=57539293852">淘宝</a>上了解到的，不知道对不对），这是一款常用的芯片，本文安装的驱动理论上对采用该芯片的无线网卡都是可用的。</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/RaspberryPi/">RaspberryPi</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
