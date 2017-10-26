@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://durant35.github.io/"/>
-  <updated>2017-10-26T09:16:42.885Z</updated>
+  <updated>2017-10-26T13:38:57.621Z</updated>
   <id>http://durant35.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://durant35.github.io/2017/10/24/TACouses_ES2017_MoCs/"/>
     <id>http://durant35.github.io/2017/10/24/TACouses_ES2017_MoCs/</id>
     <published>2017-10-24T04:50:14.000Z</published>
-    <updated>2017-10-26T09:16:42.885Z</updated>
+    <updated>2017-10-26T13:38:57.621Z</updated>
     
     <content type="html"><![CDATA[<p>　承接前期<a href="http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/">DOL Functional Simulation 和 MPARM Simulation</a>的实验内容，结合在<strong>SystemC 系统设计</strong>中提到的<a href="http://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/">Y-chart</a>，本文将讨论在 Behavior 层面的系统建模：<strong>MoCs (Model of Computation)</strong>，希望对 DOL 的建模原理有一定认识：</p>
 <blockquote>
@@ -201,9 +201,10 @@
 </ul>
 </li>
 </ul>
-<h4 id="Synchronous-Dataflow-SDF"><a href="#Synchronous-Dataflow-SDF" class="headerlink" title="Synchronous Dataflow (SDF)"></a>Synchronous Dataflow (SDF)</h4><p><center><img src="/img/TA-Cources/ES2017/DataFlow_SDF.png" width="480px" alt=""/><br/>Example: DAT-to-CD rate converter (converts a 44.1 kHz sampling rate to 48 kHz)</center></p>
+<h4 id="Synchronous-Dataflow-SDF"><a href="#Synchronous-Dataflow-SDF" class="headerlink" title="Synchronous Dataflow (SDF)"></a>Synchronous Dataflow (SDF)</h4><p>　从上面论述，我们了解到，<strong>KPN</strong> 需要<code>infinite buffer size</code>，另外，它难以调度，这些都是实际应用中几乎不可能解决的问题；相比之下，<strong>SDF</strong> 则更多运用在实际场景中。</p>
+<p><center><img src="/img/TA-Cources/ES2017/DataFlow_SDF.png" width="480px" alt=""/><br/>Example: DAT-to-CD rate converter (converts a 44.1 kHz sampling rate to 48 kHz)</center></p>
 <ul>
-<li>KPN <strong>→</strong> SDF<ul>
+<li>KPN <strong>$\rightarrow$</strong> SDF<ul>
 <li>Restriction of Kahn Networks to allow compile-time scheduling<ul>
 <li>Each process reads and writes <strong>a fixed number of tokens</strong> each time it fires</li>
 <li>Firing is an <strong>atomic process</strong></li>
@@ -211,13 +212,22 @@
 </li>
 </ul>
 </li>
-<li>调度策略<ul>
-<li>Solving the Balancing Equation $\Longrightarrow$ <strong>Establish relative execution rates</strong></li>
+<li>调度策略 $\Longrightarrow$ the schedule can be executed repeatedly without accumulating tokens in buffers<ul>
+<li>Solving the Balancing Equation $\Longrightarrow$ <strong>Establish relative execution rates</strong><br><center><img src="/img/TA-Cources/ES2017/DataFlow_SDFEquation.png" width="540px" alt=""/></center><ul>
+<li>对<strong>$n$ 个进程构成的 SDF</strong> 中的各条 channel 建立约束方程，得到 <strong>topology matrix（拓扑矩阵）</strong><code>M</code></li>
+<li>解线性方程组 $M \overrightarrow{q} = 0$，得到每个进程在每个周期中的运行次数 $\overrightarrow{q}$<ul>
+<li><strong>rank(M) = n-1</strong>: A connected SDF graph（连通且相容的 SDF）, then there exists a unique smallest positive integer solution $\overrightarrow{q}$  （存在周期性调度，最小正整数为对应的进程在每个周期中的运行次数）</li>
+<li><strong>rank(M) &lt; n-1</strong>: Disconnected systems（不连通的 SDF）, then have two- or higher-dimensional solutions （存在某些进程可以独立运行，它们与整个系统脱离）</li>
+<li><strong>rank(M) = n</strong>: Inconsistent systems（不相容的 SDF）, then only have the all-zeros solution （不存在可能的调度策略去运行，因为总会出现无限累积）</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>Determine Periodic Schedule<ul>
-<li>Consistent Rates Not Enough: </li>
+<li>Consistent Rates Not Enough: ① Rates do not avoid deadlock; ② Add an initial token (delay) on one of the channels $\Longrightarrow$ 在满足每个进程的运行次数下，决定一个周期内所有进程的运行顺序。</li>
 <li>Systems often have many possible schedules. How can we use this flexibility<ul>
 <li>Reduced code size (loop structure, hierarchy): <code>BBBCDDDDAA</code>$\Longrightarrow$<code>(3B)C(4D)(2A)</code></li>
-<li>Reduced buffer sizes: 进程间的</li>
+<li>Reduced buffer sizes: 虽然整个系统在每次周期运行后，进程间的 channels 都不会出现数据积累，但每个周期运行过程中，每条 channel 需要有足够大小的 buffer 用于转存数据。</li>
 </ul>
 </li>
 </ul>
