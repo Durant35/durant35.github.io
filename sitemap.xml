@@ -2,37 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://durant35.github.io/2016/02/11/movies_%E6%BC%AB%E5%A8%81%E7%94%B5%E5%BD%B1/</loc>
+    <loc>http://durant35.github.io/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/</loc>
     
-    <lastmod>2017-10-26T13:55:43.308Z</lastmod>
+    <lastmod>2017-10-30T07:52:43.775Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/10/29/VM_Stack/</loc>
+    
+    <lastmod>2017-10-29T14:44:41.615Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/10/29/VM_UserSpaceSegments/</loc>
+    
+    <lastmod>2017-10-29T13:21:39.571Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/</loc>
     
-    <lastmod>2017-10-26T13:47:54.543Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/10/24/TACouses_ES2017_MoCs/</loc>
-    
-    <lastmod>2017-10-26T13:38:57.621Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/</loc>
-    
-    <lastmod>2017-10-25T07:34:12.249Z</lastmod>
+    <lastmod>2017-10-29T03:25:04.145Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://durant35.github.io/2017/09/28/TACouses_ES2017_Java/</loc>
     
-    <lastmod>2017-10-25T07:33:49.968Z</lastmod>
+    <lastmod>2017-10-29T03:24:17.853Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/10/24/TACouses_ES2017_MoCs/</loc>
+    
+    <lastmod>2017-10-29T03:24:11.797Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/</loc>
+    
+    <lastmod>2017-10-29T03:24:05.600Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2016/02/11/movies_%E6%BC%AB%E5%A8%81%E7%94%B5%E5%BD%B1/</loc>
+    
+    <lastmod>2017-10-26T13:55:43.308Z</lastmod>
     
   </url>
   

@@ -3,7 +3,339 @@
   
     
     <entry>
-      <title><![CDATA[[ES03] Model of Computation]]></title>
+      <title><![CDATA[虚拟内存[02] Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈]]></title>
+      <url>/2017/10/29/VM_Stack/</url>
+      <content type="html"><![CDATA[<p><center><img src="/img/kernel/mm/va_spacex86.png" width="810px" alt=""/><br/>图: 32 位系统下进程地址空间默认布局(左)和进程地址空间经典布局(右)</center><a id="more"></a><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> mm_struct &#123;</div><div class="line">    <span class="keyword">struct</span> vm_area_struct *mmap;           <span class="comment">/* 内存区域链表 */</span></div><div class="line">    <span class="keyword">struct</span> rb_root mm_rb;                  <span class="comment">/* VMA 形成的红黑树 */</span></div><div class="line">    ...</div><div class="line">    <span class="keyword">struct</span> list_head mmlist;               <span class="comment">/* 所有 mm_struct 形成的链表 */</span></div><div class="line">    ...</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> total_vm;                <span class="comment">/* 全部页面数目 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> locked_vm;               <span class="comment">/* 上锁的页面数据 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> pinned_vm;               <span class="comment">/* Refcount permanently increased */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> shared_vm;               <span class="comment">/* 共享页面数目 Shared pages (files) */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> exec_vm;                 <span class="comment">/* 可执行页面数目 VM_EXEC &amp; ~VM_WRITE */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> stack_vm;                <span class="comment">/* 栈区页面数目 VM_GROWSUP/DOWN */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> def_flags;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> start_code, end_code, start_data, end_data;    <span class="comment">/* 代码段、数据段 起始地址和结束地址 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> start_brk, brk, start_stack;                   <span class="comment">/* 栈区 的起始地址，堆区 起始地址和结束地址 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> arg_start, arg_end, env_start, env_end;        <span class="comment">/* 命令行参数 和 环境变量的 起始地址和结束地址 */</span></div><div class="line">    ...</div><div class="line">    <span class="comment">/* Architecture-specific MM context */</span></div><div class="line">    <span class="keyword">mm_context_t</span> context;                  <span class="comment">/* 体系结构特殊数据 */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Must use atomic bitops to access the bits */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> flags;                   <span class="comment">/* 状态标志位 */</span></div><div class="line">    ...</div><div class="line">    <span class="comment">/* Coredumping and NUMA and HugePage 相关结构体 */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="进程栈"><a href="#进程栈" class="headerlink" title="进程栈"></a>进程栈</h3><p>进程虚拟地址空间中的栈区，正指的是我们所说的进程栈。进程栈的初始化大小是由编译器和链接器计算出来的，但是栈的实时大小并不是固定的，Linux 内核会根据入栈情况对栈区进行动态增长（其实也就是添加新的页表）。但是并不是说栈区可以无限增长，它也有最大限制 RLIMIT_STACK (一般为 8M)，我们可以通过 ulimit 来查看或更改 RLIMIT_STACK 的值</p>
+<ul>
+<li>进程栈的动态增长实现<ul>
+<li>进程在运行的过程中，通过不断向栈区压入数据，当超出栈区容量时，就会耗尽栈所对应的内存区域，这将触发一个<strong>缺页异常 (page fault)</strong>。通过异常陷入内核态后，异常会被内核的 <code>expand_stack()</code> 函数处理，进而调用 <code>acct_stack_growth()</code> 来检查是否还有合适的地方用于栈的增长。</li>
+<li>如果栈的大小低于 <strong>RLIMIT_STACK</strong>（通常为 8MB），那么一般情况下栈会被加长，程序继续执行，感觉不到发生了什么事情，这是一种将栈扩展到所需大小的常规机制。然而，如果达到了最大栈空间的大小，就会发生<strong>栈溢出（stack overflow）</strong>，进程将会收到内核发出的<strong>段错误（segmentation fault）</strong> 信号。</li>
+<li><font color="blue">动态栈增长是唯一一种访问未映射内存区域而被允许的情形</font>，其他任何对未映射内存区域的访问都会触发页错误，从而导致段错误。一些被映射的区域是只读的，因此企图写这些区域也会导致段错误。</li>
+</ul>
+</li>
+</ul>
+<h3 id="线程栈"><a href="#线程栈" class="headerlink" title="线程栈"></a>线程栈</h3><ul>
+<li>从 Linux 内核的角度来说，其实它并没有线程的概念，Linux 把所有线程都当做进程来实现，它将线程和进程不加区分的统一到了 <code>task_struct</code> 中。线程仅仅被视为一个与其他进程共享某些资源的进程，而是否共享地址空间几乎是进程和 Linux 中所谓线程的唯一区别。线程创建的时候，加上了 <code>CLONE_VM</code> 标记，这样<strong>线程的内存描述符将直接指向父进程的内存描述符</strong>。</li>
+<li>虽然线程的地址空间和进程一样，但是对待其地址空间的 stack 还是有些区别的。<ul>
+<li>对于 Linux 进程或者说主线程，其 stack 是在 fork 的时候生成的，实际上就是复制了父亲的 stack 空间地址，然后写时拷贝 (cow) 以及动态增长；对于主线程生成的子线程而言，其 stack 将不再是这样的了，而是事先固定下来的，使用 <code>mmap()</code>系统调用，它不带有 <code>VM_STACK_FLAGS</code> 标记。<blockquote>
+<p>由于线程的 <code>mm-&gt;start_stack</code>栈地址和所属进程相同，所以线程栈的起始地址并没有存放在 <code>task_struct</code> 中，应该是使用 <code>pthread_attr_t</code> 中的 <code>stackaddr</code> 来初始化 <code>task_struct-&gt;thread-&gt;sp</code>（sp 指向 <code>struct pt_regs</code> 对象，该结构体用于保存用户进程或者线程的寄存器现场）</p>
+</blockquote>
+</li>
+<li>重要的是，<font color="blue">线程栈不能动态增长，一旦用尽就没了</font>，这是和生成进程的 fork 不同的地方。</li>
+</ul>
+</li>
+<li>线程栈是从进程的地址空间中 <strong>mmap</strong> 出来的一块内存区域，原则上是线程私有的；但是同一个进程的所有线程在生成的时候会浅拷贝线程生成者 <code>task_struct</code> 的很多字段，其中包括所有的vma，因此如果愿意，其它线程也还是可以访问到的，于是一定要注意。</li>
+<li>为什么需要单独的线程栈？不能共享同一个进程栈吗？<ul>
+<li>Linux 调度程序中并没有区分线程和进程（线程是调度的基本单位），当调度程序需要唤醒“进程”的时候，必然需要恢复进程的上下文环境，也就是<strong>进程栈</strong>；线程和父进程完全共享一份地址空间，如果栈也用同一个那就会遇到以下问题：<ul>
+<li>假如进程的栈指针初始值为 <code>0x7ffc80000000</code>；父进程 A 先执行，调用了一些函数后栈指针 esp 为 <code>0x7ffc8000FF00</code>，此时父进程主动休眠了；</li>
+<li>接着调度器唤醒子线程 A1： 此时 A1 的栈指针 esp 如果为初始值 <code>0x7ffc80000000</code>，则线程 A1 一但出现函数调用，必然会破坏父进程 A 已入栈的数据。</li>
+</ul>
+</li>
+<li>如果此时线程 A1 的栈指针和父进程最后更新的值一致，esp 为 <code>0x7ffc8000FF00</code>，那线程 A1 进行一些函数调用后，栈指针 esp 增加到 <code>0x7ffc8000FFFF</code>，然后线程 A1 休眠；调度器再次换成父进程 A 执行，那这个时候父进程的栈指针是应该为 <code>0x7ffc8000FF00</code> 还是 <code>0x7ffc8000FFFF</code> 呢？无论栈指针被设置到哪个值，都会有问题不是吗？</li>
+</ul>
+</li>
+</ul>
+<h3 id="进程内核栈"><a href="#进程内核栈" class="headerlink" title="进程内核栈"></a>进程内核栈</h3><ul>
+<li>在每一个进程的生命周期中，必然会通过到系统调用陷入内核。在执行系统调用陷入内核之后，这些内核代码所使用的栈并不是原先进程用户空间中的栈，而是一个单独内核空间的栈，这个称作<strong>进程内核栈</strong>。<ul>
+<li>进程内核栈在进程创建的时候，通过 <strong>slab 分配器</strong> 从 <code>thread_info_cache</code> 缓存池中分配出来，其大小为 <code>THREAD_SIZE</code>，一般来说是一个页大小 4K；</li>
+</ul>
+</li>
+<li>内核经常要访问 <code>task_struct</code>，<font color="blue">高效获取当前进程的描述符</font>是一件非常重要的事情。</li>
+<li>  <figure class="highlight cpp"><figcaption><span>current 宏的实现方法</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">register</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> current_stack_pointer <span class="title">asm</span> <span class="params">(<span class="string">"sp"</span>)</span></span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">struct</span> thread_info *<span class="title">current_thread_info</span><span class="params">(<span class="keyword">void</span>)</span></div><div class="line"></span>&#123;</div><div class="line">        <span class="keyword">return</span> (<span class="keyword">struct</span> thread_info *)                        </div><div class="line">                (current_stack_pointer &amp; ~(THREAD_SIZE - <span class="number">1</span>));</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> get_current() (current_thread_info()-&gt;task)</span></div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> current get_current()</span></div></pre></td></tr></table></figure>
+<ul>
+<li>内核可以先获取到栈顶指针 esp，然后通过 esp 来获取 <code>thread_info</code></li>
+<li>成功获取到 <code>thread_info</code> 后，直接取出它的 task 成员就成功得到了<code>task_struct</code>。</li>
+</ul>
+</li>
+<li>为什么需要单独的进程内核栈？<blockquote>
+<p>所有进程运行的时候，都可能通过系统调用陷入内核态继续执行：假设第一个进程 A 陷入内核态执行的时候，需要等待读取网卡的数据，主动调用 <code>schedule()</code> 让出 CPU；此时调度器唤醒了另一个进程 B，碰巧进程 B 也需要系统调用进入内核态；那问题就来了，如果内核栈只有一个，那进程 B 进入内核态的时候产生的压栈操作，必然会破坏掉进程 A 已有的内核栈数据，一但进程 A 的内核栈数据被破坏，很可能导致进程 A 的内核态无法正确返回到对应的用户态了。</p>
+</blockquote>
+</li>
+<li>进程和线程是否共享一个进程内核栈？<blockquote>
+<p>线程和进程创建的时候都调用 <code>dup_task_struct</code> 来创建 task 相关结构体，而内核栈也是在此函数中 <code>alloc_thread_info_node</code>出来的，因此虽然线程和进程共享一个地址空间 <code>mm_struct</code>，但是并不共享一个内核栈（线程是 CPU 调度的基本单位）。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="中断栈"><a href="#中断栈" class="headerlink" title="中断栈"></a>中断栈</h3><ul>
+<li>进程陷入内核态的时候，需要内核栈来支持内核函数调用；中断也是如此，当系统收到中断事件后，进行中断处理的时候，也需要中断栈来支持函数调用。由于系统中断的时候，系统当然是处于内核态的，所以中断栈是可以和内核栈共享的（但是具体是否共享，这和具体处理架构密切相关）。<ul>
+<li>x86 上中断栈就是独立于内核栈的：独立的中断栈所在内存空间的分配发生在 <code>arch/x86/kernel/irq_32.c</code> 的<code>irq_ctx_init()</code> 函数中（如果是多处理器系统，那么每个处理器都会有一个独立的中断栈）<ul>
+<li>函数使用 <code>__alloc_pages</code> 在低端内存区分配 2个物理页面，也就是 8KB 大小的空间。</li>
+<li>这个函数还会为 softirq 分配一个同样大小的独立堆栈，如此说来，softirq 将不会在 hardirq 的中断栈上执行，而是在自己的上下文中执行。</li>
+</ul>
+</li>
+<li>ARM 上中断栈和内核栈则是共享的；中断栈和内核栈共享有一个负面因素，如果中断发生嵌套，可能会造成栈溢出，从而可能会破坏到内核栈的一些重要数据，所以栈空间有时候难免会捉襟见肘。</li>
+</ul>
+</li>
+<li>为什么需要单独中断栈？<blockquote>
+<p>这个问题其实不对，ARM 架构就没有独立的中断栈。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><p><a href="http://blog.csdn.net/freeelinux/article/details/53782986">《Linux虚拟地址空间布局以及进程栈和线程栈总结》</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 软硬兼施 </category>
+            
+            <category> Kernel </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[虚拟内存[01] 用户内存空间的各个段分布]]></title>
+      <url>/2017/10/29/VM_UserSpaceSegments/</url>
+      <content type="html"><![CDATA[<p><center><img src="/img/kernel/mm/va_spacex86.png" width="810px" alt=""/><br/>图: 32 位系统下进程地址空间默认布局(左)和进程地址空间经典布局(右)</center><a id="more"></a></p>
+<ul>
+<li>这些段只是简单的内存地址范围，与 Intel 处理器的段没有关系。</li>
+<li>内核总是驻留在内存中，是操作系统的一部分。内核空间为内核保留，并且在所有进程中都映射到同样的物理内存，只是不允许应用程序读写该区域的内容或直接调用内核代码定义的函数，因此内核代码和数据总是可寻址，随时准备处理中断和系统调用；与此相反，用户地址空间的映射随进程切换的发生而不断变化。</li>
+<li><strong>Random stack offset</strong>、<strong>Random mmap offset</strong> 和 <strong>Random brk offset</strong> 随机值意在防止恶意程序。Linux 通过对栈、内存映射段、堆的起始地址加上随机偏移量来打乱布局，以免恶意程序通过计算访问栈、库函数等地址。</li>
+<li>用户进程部分分段存储内容如下表所示(按地址递减顺序)：<br>  <center><img src="/img/kernel/mm/Userspace_segment.png" width="640px" alt=""/></center><ul>
+<li>BSS 段、数据段和代码段是可执行程序编译时的分段，运行时还需要栈和堆。</li>
+<li>在将应用程序加载到内存空间执行时，操作系统负责代码段、数据段和 BSS 段的加载，并在内存中为这些段分配空间。栈也由操作系统分配和管理；堆由程序员自己管理，即显式地申请和释放空间。<ul>
+<li>首先<code>execve(2)</code>负责为进程代码段和数据段建立映射，真正将代码段和数据段的内容读入内存是由系统的缺页异常处理程序按需完成的。</li>
+<li>另外，<code>execve(2)</code>还会将BSS段清零。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><hr/></p>
+<h3 id="栈-stack"><a href="#栈-stack" class="headerlink" title="栈(stack)"></a>栈(stack)</h3><ul>
+<li>栈又称堆栈，由<strong>编译器自动分配释放</strong>，行为类似数据结构中的栈（先进后出）。堆栈主要有三个用途：<ul>
+<li>为函数内部声明的<strong>非静态局部变量</strong>（C语言中称“自动变量”）提供存储空间。</li>
+<li>记录函数调用过程相关的维护性信息，称为<strong>栈帧(Stack Frame)</strong>或<strong>过程活动记录(Procedure Activation Record)</strong>。<ul>
+<li>它包括函数返回地址，不适合装入寄存器的函数参数及一些寄存器值的保存。</li>
+<li>除递归调用外，堆栈并非必需，因为编译时可获知局部变量，参数和返回地址所需空间，并将其分配于 BSS 段。</li>
+</ul>
+</li>
+<li>临时存储区，用于暂存<strong>长算术表达式部分计算结果</strong>或<code>alloca()</code>函数分配的栈内内存。</li>
+</ul>
+</li>
+<li>进程中的每个线程都有属于自己的栈。向栈中不断压入数据时，若超出其容量就会耗尽栈对应的内存区域，从而触发一个页错误。此时若栈的大小低于堆栈最大值<code>RLIMIT_STACK</code>(通常是 8M)，则栈会动态增长，程序继续运行。映射的栈区扩展到所需大小后，不再扩展。</li>
+<li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gary@xxx:~$ <span class="built_in">ulimit</span> <span class="_">-s</span></div><div class="line">8192</div></pre></td></tr></table></figure>
+<ul>
+<li>上述命令可查看和设置堆栈最大值，当程序使用的堆栈超过该值时，发生栈溢出(Stack Overflow)，程序收到一个段错误(Segmentation Fault)。</li>
+<li>注意，调高堆栈容量可能会增加内存开销和启动时间。</li>
+</ul>
+</li>
+<li>持续地重用栈空间有助于使活跃的栈内存保持在 CPU 缓存中，从而加速访问。</li>
+<li>堆栈既可向下增长（向内存低地址）也可向上增长，这依赖于具体的实现；Linux 中堆栈是向下增长的。</li>
+</ul>
+<p><hr/></p>
+<h3 id="内存映射段-mmap"><a href="#内存映射段-mmap" class="headerlink" title="内存映射段(mmap)"></a>内存映射段(mmap)</h3><ul>
+<li>内核将硬盘文件的内容直接映射到内存，任何应用程序都可通过 Linux 的<code>mmap()</code>系统调用（或 Windows 的<code>CreateFileMapping()</code>/<code>MapViewOfFile()</code>）请求这种映射。<ul>
+<li>内存映射是一种方便高效的<strong>文件 I/O 方式</strong>， 因而被用于装载动态共享库。<blockquote>
+<p>　在 Linux 2.4 版本中（进程地址空间经典布局），若可执行文件依赖共享库，则系统会为这些动态库在从<code>0x40000000</code>开始的地址分配相应空间，并在程序装载时将其载入到该空间。<br>　在 Linux 2.6 内核中（进程地址空间默认布局），共享库的起始地址被往上移动至更靠近栈区的位置，即位于<code>0xBF??????</code>附近。</p>
+</blockquote>
+</li>
+<li>用户也可创建匿名内存映射，该映射没有对应的文件，可用于存放程序数据。<blockquote>
+<p>　在 Linux 中，若通过<code>malloc()</code>请求一大块内存，C运行库将创建一个匿名内存映射，而不使用堆内存。“大块”意味着比阈值<code>MMAP_THRESHOLD</code>还大，缺省为 <strong>128KB</strong>，可通过<code>mallopt()</code>调整。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>mmap 映射区向下扩展，堆向上扩展，两者相对扩展，直到耗尽虚拟地址空间中的剩余区域。</li>
+</ul>
+<blockquote>
+<p>【扩展】<strong>应用程序可申请的最大堆空间是多少？</strong></p>
+<ul>
+<li>从进程地址空间的布局可以看到，在有共享库的情况下，Linux kernel 2.6 版本之前的经典布局下留给堆的可用空间还有两处：一处是从 .bss 段到 <code>0x40000000</code>，约不到 1GB 的空间；另一处是从共享库到栈之间的空间，约不到 2GB。这两块空间大小取决于栈、共享库的大小和数量。</li>
+<li>在新的布局里，共享库的装载地址已经被挪到靠近栈的位置，因此，此时的堆范围就不会被共享库分割成 2 个“碎片”，故 kernel 2.6 及以上的 32 位 Linux 系统中，<code>malloc()</code>申请的最大内存理论值在 2.9GB 左右。</li>
+</ul>
+</blockquote>
+<p><hr/></p>
+<h3 id="堆-heap"><a href="#堆-heap" class="headerlink" title="堆(heap)"></a>堆(heap)</h3><ul>
+<li>堆用于存放进程运行时动态分配的内存段，可动态扩张或缩减。<ul>
+<li>堆中内容是匿名的，不能按名字直接访问，只能通过指针间接访问。当进程调用<code>malloc()</code>(C)/<code>new()</code>(C++)等函数分配内存时，新分配的内存动态添加到堆上(扩张)；当调用<code>free()</code>(C)/<code>delete()</code>(C++)等函数释放内存时，被释放的内存从堆中剔除(缩减) 。</li>
+<li>分配的堆内存是经过字节对齐的空间，以适合原子操作。</li>
+</ul>
+</li>
+<li><strong>堆管理器</strong>通过链表管理每个申请的内存，由于堆申请和释放是无序的，最终会产生内存碎片。<ul>
+<li>堆的末端由<strong>break 指针</strong>标识，当堆管理器需要更多内存时，可通过系统调用<code>brk()</code>和<code>sbrk()</code>来移动<strong>break 指针</strong>以扩张堆，一般由系统自动调用。</li>
+<li>堆内存一般由应用程序分配释放，回收的内存可供重新使用。若程序员不释放，程序结束时操作系统可能会自动回收。</li>
+</ul>
+</li>
+<li>使用堆时经常出现两种问题<ul>
+<li>“内存破坏”：释放或改写仍在使用的内存；</li>
+<li>“内存泄漏”：未释放不再使用的内存。当释放次数少于申请次数时，可能已造成内存泄漏。<blockquote>
+<p>泄漏的内存往往比忘记释放的数据结构更大，因为所分配的内存通常会圆整为下个大于申请数量的2的幂次（如申请$212B$，会圆整为$2^8=256B$）。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>注意，堆不同于数据结构中的“堆”，其行为类似链表。<blockquote>
+<p>【扩展】<strong>栈和堆的区别</strong><br>① <font color="blue">管理方式</font>：栈由编译器自动管理；堆由程序员控制，使用方便，但易产生“内存泄露”。<br>② <font color="blue">生长方向</font>：栈向低地址扩展（即“向下生长”），是连续的内存区域；堆向高地址扩展（即“向上生长”），可以是不连续的内存区域（这是由于系统用链表来存储空闲内存地址，自然不连续，而链表从低地址向高地址遍历）。<br>③ <font color="blue">空间大小</font>：栈顶地址和栈的最大容量由系统预先规定（通常默认 8M）；堆的大小则受限于计算机系统中有效的虚拟内存，32 位 Linux 系统中堆内存可达 2.9G空间。<br>④ <font color="blue">存储内容</font>：栈在函数调用时，首先压入<strong>主调函数中下条指令</strong>（函数调用语句的下条可执行语句）的地址，然后是<strong>函数实参</strong>，然后是<strong>被调函数的局部变量</strong>。本次调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向最开始存的指令地址，程序由该点继续运行下条可执行语句；堆通常在头部用一个字节存放其大小，堆用于存储生存期与函数调用无关的数据，具体内容由程序员安排。<br>⑤ <font color="blue">分配方式</font>：栈可静态分配或动态分配。<strong>静态分配由编译器完成</strong>，如局部变量的分配。<strong>动态分配</strong>由<code>alloca()</code>函数在栈上申请空间，用完后自动释放。堆只能动态分配且手工释放。<br>⑥ <font color="blue">分配效率</font>：栈由计算机底层提供支持（分配专门的寄存器存放栈地址，压栈出栈由专门的指令执行），因此效率较高；堆由函数库提供，机制复杂，效率比栈低得多。<br>⑦ <font color="blue">分配后系统响应</font><br>　<strong>+</strong> 只要栈剩余空间大于所申请空间，系统将为程序提供内存，否则报告异常提示<strong>栈溢出</strong>；<br>　<strong>+</strong> 操作系统为堆维护一个<strong>记录空闲内存地址的链表</strong>：当系统收到程序的内存分配申请时，会遍历该链表寻找第一个空间大于所申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点空间分配给程序；若<strong>无足够大小的空间</strong>（可能由于内存碎片太多），有可能调用系统功能去增加程序数据段的内存空间，以便有机会分到足够大小的内存，然后进行返回；大多数系统会在该内存空间<strong>首地址处记录本次分配的内存大小</strong>，供后续的释放函数（如<code>free()</code>/<code>delete()</code>）正确释放本内存空间；此外，由于找到的堆结点大小不一定正好等于申请的大小，系统会自动将<strong>多余的部分</strong>重新放入空闲链表中。<br>⑧ <font color="blue">碎片问题</font><br>　<strong>+</strong> 栈不会存在碎片问题，因为栈是先进后出的队列，内存块弹出栈之前，在其上面的后进的栈内容已弹出<br>　<strong>+</strong> 频繁申请释放操作会造成堆内存空间的不连续，从而造成大量碎片，使程序效率降低。</p>
+<p>　可见，<font color="green">堆容易造成内存碎片；由于没有专门的系统支持，效率很低；可能引发用户态和内核态切换，内存申请的代价更为昂贵</font>。所以<font color="green">栈在程序中应用最广泛，<strong>函数调用</strong>也利用栈来完成，调用过程中的参数、返回地址、栈基指针和局部变量等都采用栈的方式存放</font>。所以，建议<strong>尽量使用栈，仅在分配大量或大块内存空间时使用堆</strong>。<br>　<font color="red">使用栈和堆时应避免越界发生，否则可能程序崩溃或破坏程序堆、栈结构，产生意想不到的后果</font>。</p>
+</blockquote>
+</li>
+</ul>
+<p><hr/></p>
+<h3 id="BSS-段"><a href="#BSS-段" class="headerlink" title="BSS 段"></a>BSS 段</h3><blockquote>
+<p>【扩展】<strong>BSS历史</strong><br>　BSS(Block Started by Symbol，以符号开始的块) 一词最初是 UA-SAP 汇编器(United Aircraft Symbolic Assembly Program) 中的伪指令，用于为符号预留一块内存空间，该汇编器由美国联合航空公司于20世纪50年代中期为IBM 704大型机所开发；后来该词被作为关键字引入到了IBM 709和7090/94机型上的标准汇编器 FAP(Fortran Assembly Program)，用于定义符号并且为该符号预留指定字数的未初始化空间块。<br>　在采用段式内存管理的架构中(如 Intel 80x86 系统)，<font color="green">BSS 段通常指用来存放程序中未初始化全局变量的一块内存区域，该段变量只有名称和大小却没有值；程序开始时由系统初始化清零</font>。</p>
+</blockquote>
+<ul>
+<li>BSS(Block Started by Symbol) 段中通常存放程序中以下符号：<ul>
+<li>未初始化的全局变量和静态局部变量</li>
+<li>初始值为 0 的全局变量和静态局部变量（依赖于编译器实现）</li>
+<li>未定义且初值不为 0 的符号（该初值即 common block 的大小）</li>
+</ul>
+</li>
+<li>BSS 段用来存放程序中未初始化的静态分配变量（全局变量），该段内容<strong>只记录数据所需空间大小，并不分配真实空间</strong>（仅维护开始和结束地址，以便内存能在运行时被有效地清零）；BSS 段在目标文件中也不占据空间，这样可减少目标文件体积，<font color="green">BSS 段在应用程序的二进制映象文件中并不存在</font>；但程序运行时需为变量分配内存空间，故目标文件必须记录所有未初始化的静态分配变量大小总和（通过<code>start_bss</code>和<code>end_bss</code>地址写入机器代码）。</li>
+<li>当<strong>加载器(loader)</strong> 加载程序时，BSS 会被操作系统清零，所以未赋初值或初值为 0 的<strong>全局变量</strong>都在 BSS 中。<ul>
+<li>C语言中，未显式初始化的静态分配变量被初始化为 0（算术类型）或空指针（指针类型）。</li>
+<li>在嵌入式软件中，进入<code>main()</code>函数之前，BSS 段被<strong>C运行时系统</strong>映射到初始化为全零的内存（效率较高）。</li>
+</ul>
+</li>
+<li><font color="green">定义全局变量需要注意的细节</font><ul>
+<li>尽管均放置于 BSS 段，但<strong>初值为 0 的全局变量</strong>是强符号，而<strong>未初始化的全局变量</strong>是弱符号。若其他地方已定义同名的强符号（初值可能非 0），则弱符号与之链接时不会引起重定义错误，但运行时的初值可能并非期望值（会被强符号覆盖）。</li>
+<li>因此，<font color="red">定义全局变量时，若只有本文件使用，则尽量使用 <strong>static</strong> 关键字修饰；否则需要为全局变量定义赋初值（哪怕 0 值），保证该变量为强符号，以便链接时发现变量名冲突，而不是被未知值覆盖</font>。</li>
+</ul>
+</li>
+</ul>
+<p><hr/></p>
+<h3 id="数据段-data"><a href="#数据段-data" class="headerlink" title="数据段(data)"></a>数据段(data)</h3><ul>
+<li>数据段通常用于存放程序中<strong>已初始化且初值不为 0 的全局变量和静态局部变量</strong>。数据段属于静态内存分配(静态存储区)，可读可写。</li>
+<li>数据段保存在目标文件中（在嵌入式系统里一般固化在镜像文件中），其内容由程序初始化（例如，对于全局变量int gVar = 10，必须在目标文件数据段中保存10 这个数据，然后在程序加载时复制到相应的内存）。</li>
+<li>运行时“数据段”和“BSS 段”的整个区段通常称为<strong>数据区</strong>；某些资料中“数据段”指代“数据段 + BSS段 + 堆”。</li>
+<li><strong>数据段与 BSS 段的区别</strong><ul>
+<li><font color="green">BSS 段</font>不占用物理文件尺寸，但占用内存空间；<font color="green">数据段</font>占用物理文件，也占用内存空间。<blockquote>
+<p> 大型数组：<font color="blue">int ar0[10000] = {1, 2, 3, …}</font> 和 <font color="blue">int ar1[10000]</font><br>　<strong>+</strong> <font color="blue">ar1</font> 放在 BSS 段，只记录共有 10000*4 个字节需要初始化为 0；<br>　<strong>+</strong> <font color="blue">ar0</font> 记录每个数据1、2、3…，此时 BSS 为目标文件所节省的磁盘空间相当可观。</p>
+</blockquote>
+</li>
+<li>当<font color="green">程序读取数据段的数据</font>时，系统会触发<strong>缺页异常</strong>，从而分配相应的物理内存；当<font color="green">程序读取 BSS 段的数据</font>时，内核会将其转到一个全零页面，不会发生缺页异常，也不会为其分配相应的物理内存。</li>
+</ul>
+</li>
+</ul>
+<p><hr/></p>
+<h3 id="代码段-text"><a href="#代码段-text" class="headerlink" title="代码段(text)"></a>代码段(text)</h3><ul>
+<li>代码段也称“正文段”或“文本段”，通常用于存放程序执行代码（即 CPU 执行的机器指令）。<ul>
+<li>一般C语言执行语句都编译成<strong>机器代码</strong>保存在代码段；</li>
+<li>通常代码段是<strong>可共享</strong>的，因此频繁执行的程序只需要在内存中拥有一份拷贝即可；</li>
+<li>代码段通常属于<strong>只读</strong>，以防止其他程序意外地修改其指令，对该段的写操作将导致段错误（某些架构也允许代码段为可写，即允许修改程序）。</li>
+</ul>
+</li>
+<li>代码段指令根据程序设计流程依次执行，对于<strong>顺序指令</strong>，只会执行一次（每个进程）；若有反复，则需使用<strong>跳转指令</strong>；若进行<strong>递归</strong>，则需要借助栈来实现。</li>
+<li>代码段指令中包括<strong>操作码</strong>和<strong>操作对象</strong>（或<strong>对象地址引用</strong>）<ul>
+<li>若操作对象是<strong>立即数</strong>（具体数值），将直接包含在代码中；</li>
+<li>若是<strong>局部数据</strong>，将在栈区分配空间，然后引用该数据地址；</li>
+<li>若位于 <strong>BSS 段和数据段</strong>，同样引用该数据地址。</li>
+</ul>
+</li>
+<li>代码段最容易受优化措施影响。</li>
+</ul>
+<p><hr/></p>
+<h3 id="保留区"><a href="#保留区" class="headerlink" title="保留区"></a>保留区</h3><ul>
+<li>保留区位于虚拟地址空间的最低部分，<strong>未赋予物理地址</strong>，任何对它的引用都是非法的，<font color="green">用于捕捉使用<strong>空指针</strong>和小整型值指针引用内存的异常情况</font>。</li>
+<li>保留区并不是一个单一的内存区域，而是<strong>对地址空间中受到操作系统保护而禁止用户进程访问的地址区域的总称</strong>。大多数操作系统中，极小的地址通常都是不允许访问的，如<code>NULL</code>。<ul>
+<li>C语言将无效指针赋值为 0 也是出于这种考虑，因为 <strong>0 地址</strong>上正常情况下不会存放有效的可访问数据。</li>
+<li>在32 位 x86 架构的 Linux 系统中，用户进程可执行程序一般从虚拟地址空间<code>0x08048000</code>开始加载（该加载地址由ELF文件头决定，可通过自定义链接器脚本覆盖链接器默认配置，进而修改加载地址）；<code>0x08048000</code>以下的地址空间通常由 C 动态链接库、<strong>动态加载器 ld.so</strong>和内核VDSO（内核提供的虚拟共享库）等占用。</li>
+<li>通过使用<code>mmap()</code>系统调用，可访问<code>0x08048000</code>以下的地址空间。</li>
+</ul>
+</li>
+</ul>
+<p><hr/></p>
+<h3 id="分段的好处"><a href="#分段的好处" class="headerlink" title="分段的好处"></a>分段的好处</h3><ul>
+<li>进程运行过程中，代码指令根据流程依次执行，只需访问一次（当然跳转和递归可能使代码执行多次）；而数据（数据段和 BSS 段）通常需要访问多次，因此<strong>单独开辟空间以方便访问和节约空间</strong>：<ul>
+<li>现代 CPU 具有极为强大的<strong>缓存(Cache) 体系</strong>，程序必须尽量提高缓存命中率：<strong>指令区</strong>（text 段）和<strong>数据区</strong>（data 段和 BSS 段）的分离有利于提高程序的局部性；现代 CPU 一般<strong>数据缓存</strong>和<strong>指令缓存</strong>分离，故程序的指令和数据分开存放有利于提高 CPU 缓存命中率。</li>
+<li>当系统中<strong>运行多个该程序的副本时，其指令相同，故内存中只须保存一份该程序的指令部分</strong>：若系统中运行数百进程，通过共享指令将节省大量空间（尤其对于有动态链接的系统）；其他只读数据如程序里的图标、图片、文本等资源也可共享；而每个副本进程的其它数据区域不同，它们是进程私有的。</li>
+<li><strong>临时数据</strong>及需要再次使用的代码在运行时放入栈区中，生命周期短；<strong>全局数据和静态数据</strong>可能在整个程序执行过程中都需要访问，因此单独存储管理；<strong>堆区</strong>由用户自由分配，以便管理。</li>
+</ul>
+</li>
+<li>当程序被装载后，数据和指令分别映射到两个虚存区域：<strong>数据区</strong>对于进程而言可读写，而<strong>指令区</strong>对于进程只读，两区的权限可分别设置为可读写和只读，以<strong>防止程序指令被有意或无意地改写</strong>。</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><p><a href="http://www.cnblogs.com/clover-toeic/p/3754433.html">《Linux虚拟地址空间布局》</a><br><a href="http://blog.csdn.net/freeelinux/article/details/53782986">《Linux虚拟地址空间布局以及进程栈和线程栈总结》</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 软硬兼施 </category>
+            
+            <category> Kernel </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling]]></title>
+      <url>/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/</url>
+      <content type="html"><![CDATA[<p>　Real-time systems are collections of tasks where in addition to any <strong>ordering constraints</strong> imposed by precedences between the tasks, there are also <strong>timing constraints</strong>, requiring a scheduling strategy. Classical <font color="blue">real-time scheduling</font>（实时调度） for <strong>Periodic Tasks</strong> contains <strong>Periodic Rate Monotonic (RM)</strong> as well as <strong>Earliest Deadline First (EDF)</strong>. What’s more, tasks <em>share resources</em> and use <em>mutual exclusion</em> to guard access to those resources, resulting in <strong>Scheduling Anomalies</strong>（调度异常）.<br>　本文将讲述 <strong>Resources Sharing</strong> 给 <font color="blue">real-time scheduling</font> 带来的 <strong>Priority Inversion</strong>（优先级反转）异常，并将重点介绍对应的解决办法：Priority Inheritance Protocol (<strong>PIP</strong>)、Priority Ceiling Protocol (<strong>PCP</strong>)、Stack Resource Policy (<strong>SRP</strong>)。<a id="more"></a></p>
+<h3 id="Priority-Inversion"><a href="#Priority-Inversion" class="headerlink" title="Priority Inversion"></a>Priority Inversion</h3><ul>
+<li><strong>Resource Sharing</strong> &amp; Task Blocked<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_CriticalSection.png" width="400px" alt=""/></center><ul>
+<li>Threads (or Processes): $J_1$, $J_2$.</li>
+<li>Common resources $R_k$ likes: data structures, variables, main memory area, file, set of registers, I/O unit, …</li>
+<li>Many shared resources do not allow simultaneous accesses but require <strong>mutual exclusion</strong> (exclusive resources). A piece of code executed under mutual exclusion ($P(S_k) \leftrightarrow V(S_k)$) constraints is called a <strong>critical section</strong>.</li>
+<li>Each <strong>exclusive resource</strong> $R_k$ must be protected by a different semaphore $S_k$ and each critical section operating on a resource must begin with a <em>wait($S_k$)</em> primitive and end with a <em>signal($S_k$)</em> primitive（原子操作）.</li>
+<li>Tasks waiting for an exclusive resource is said to be <strong>blocked</strong> on that resource. Otherwise, it proceeds by entering the <strong>critical section</strong> and <strong>holds</strong> the resource. When a task <strong>leaves</strong> a critical section, the associated resource becomes free.<ul>
+<li>All tasks blocked on the same resource are kept in a queue associated with the semaphore. </li>
+<li>When a running task executes a <em>wait</em> on a <strong>locked</strong> semaphore, it enters a waiting state, until another tasks executes a <em>signal</em> primitive that <strong>unlocks</strong> the semaphore.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Priority Inversion</strong><br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_Example.png" width="480px" alt=""/></center><ul>
+<li>priority of $T_1$ &gt; priority of $T_2$ &gt; priority of $T_3$</li>
+<li>$T_3$ requests exclusive access first (at $t_0$), $T_1$ has to wait until $T_3$ releases the resource (at $t_2$)</li>
+<li>$T_2$ preempts $T_3$ (at $t_1$): $T_2$ can prevent $T_3$ from releasing the resource.</li>
+<li>If $T_1$ is blocked only by $T_3$, <strong>blocking is bounded</strong> by the length of the critical section, but blocked by &gt;2 tasks ($T_3$, $T_2$, …), <strong>blocking can exceed the length of any critical section</strong>.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>　Priority Inversion is a <strong>scheduling anomaly</strong> where a low priority task was holding a lock and blocking a high-priority task, while medium priority tasks,  unrelated lower-priority tasks, are executing. </p>
+</blockquote>
+<ul>
+<li>Solving Priority Inversion: <strong>Resource Access Protocols</strong><ul>
+<li>Basic idea: Modify the priority of those tasks that cause blocking. <ul>
+<li>When a task $T_i$ blocks one or more higher priority tasks, it temporarily assumes a higher priority.</li>
+</ul>
+</li>
+<li>Methods<ul>
+<li><font color="green">Priority Inheritance Protocol (PIP)</font>, for <strong>static priorities</strong></li>
+<li><font color="green">Priority Ceiling Protocol (PCP)</font>, for <strong>static priorities</strong></li>
+<li><font color="green">Stack Resource Policy (SRP)</font>, for <strong>static and dynamic priorities</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Priority-Inheritance-Protocol-PIP"><a href="#Priority-Inheritance-Protocol-PIP" class="headerlink" title="Priority Inheritance Protocol (PIP)"></a>Priority Inheritance Protocol (PIP)</h3><h3 id="Priority-Ceiling-Protocol-PCP"><a href="#Priority-Ceiling-Protocol-PCP" class="headerlink" title="Priority Ceiling Protocol (PCP)"></a>Priority Ceiling Protocol (PCP)</h3><h3 id="Stack-Resource-Policy-SRP"><a href="#Stack-Resource-Policy-SRP" class="headerlink" title="Stack Resource Policy (SRP)"></a>Stack Resource Policy (SRP)</h3><h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li>Slides from <em>Introduction to embedded systems, Kai Huang</em>, School of Data and Computer Science, Sun Yat-sen University, China. All rights reserved.</li>
+<li>E. A. Lee and S. A. Seshia, <em>Introduction to Embedded Systems - A Cyber-Physical Systems Approach</em>, LeeSeshia.org, 2011.</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> TA Cources </category>
+            
+            <category> EmbeddedSystem </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[嵌入式系统导论[03] Model of Computation]]></title>
       <url>/2017/10/24/TACouses_ES2017_MoCs/</url>
       <content type="html"><![CDATA[<p>　承接前期<a href="http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/">DOL Functional Simulation 和 MPARM Simulation</a>的实验内容，结合在<strong>SystemC 系统设计</strong>中提到的<a href="http://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/">Y-chart</a>，本文将讨论在 Behavior 层面的系统建模：<strong>MoCs (Model of Computation)</strong>，希望对 DOL 的建模原理有一定认识：</p>
 <blockquote>
@@ -235,7 +567,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[[ES01] Linux 下手动配置 Java 环境]]></title>
+      <title><![CDATA[嵌入式系统导论[01] Linux 下手动配置 Java 环境]]></title>
       <url>/2017/09/28/TACouses_ES2017_Java/</url>
       <content type="html"><![CDATA[<p>　Linux 手动配置 Java 环境（JRE+JDK）。<br><a id="more"></a></p>
 <h3 id="apt-快速安装"><a href="#apt-快速安装" class="headerlink" title="apt 快速安装"></a>apt 快速安装</h3><ul>
@@ -290,7 +622,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[[ES02] 浅谈 System C]]></title>
+      <title><![CDATA[嵌入式系统导论[02] 浅谈 System C]]></title>
       <url>/2017/09/26/TACouses_ES2017_SystemC/</url>
       <content type="html"><![CDATA[<p>　<strong>SystemC</strong> 是一种基于 C++ 语言的用于 <strong>系统设计</strong> 的计算机语言，是用 C++ 编写的一组库和宏。为了更好的了解 <strong>SystemC</strong> 的用途，我们先从集成电路（<strong>IC</strong>：通用集成电路、专用集成电路）设计的一些基础讲起，谈谈 <strong>SystemC</strong> 在 IC 设计流程中的定位；通过对比 <strong>SystemC</strong> 和我们更为熟悉的 <strong>Verilog</strong>，进一步了解 <strong>SystemC</strong> 。<br><a id="more"></a></p>
 <h3 id="Y-chart-gt-IC-层次设计"><a href="#Y-chart-gt-IC-层次设计" class="headerlink" title="Y-chart ==&gt; IC 层次设计"></a>Y-chart ==&gt; IC 层次设计</h3><p>　数字集成电路的设计可以分为系统级、芯片级（行为级、结构级）、RTL级、门级、电路级和版图级。<center><img src="/img/TA-Cources/ES2017/ICLevelDescription.png" width="640px" alt=""/></center></p>
@@ -621,6 +953,111 @@
     </entry>
     
     <entry>
+      <title><![CDATA[[0025] Least Squares Line Fitting（最小二乘法直线拟合）]]></title>
+      <url>/2017/07/21/Algorithms_LeastSquaresLineFitting/</url>
+      <content type="html"><![CDATA[<p>　　<strong>最小二乘拟合</strong> 是一种数学上的近似和优化，利用已知的数据得出一条直线或者曲线，使之在坐标系上与已知数据之间的距离的平方和最小。<br><a id="more"></a></p>
+<h3 id="最小二乘直线拟合"><a href="#最小二乘直线拟合" class="headerlink" title="最小二乘直线拟合"></a>最小二乘直线拟合</h3><ul>
+<li><strong>TLS(Total Least Squares)</strong> vs <strong>OLS(Ordinary Least Squares)</strong><br><center><img src="/img/Algorithms/0025_TLSvsOLS.png" width="680px" alt=""/></center><ul>
+<li>如上图，<strong>TLS</strong> 和 <strong>OLS</strong> 都是最小二乘拟合，只是在偏差评估上采取了不同的方式。</li>
+<li>最小二乘法是一种较为简单的回归分析方法。<blockquote>
+<p>The simplest example of a <strong>regression model</strong> is a straight line that passes through a set of points on a scatter plot.</p>
+<ul>
+<li>Regression involves fitting a mathematical model to data. </li>
+<li>Regression involves estimating the mathematical relationship between one variable called the response variable (or dependent variable), and one or more explanatory variables (or independent variables)</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>最常用的是 <strong>OLS</strong>（Ordinary  Least Square，普通最小二乘法）：所选择的回归模型应该使所有观察值的残差平方和达到最小（如上图左）。<br><center><img src="/img/Algorithms/0025_OLS.png" width="640px" alt=""/></center><ul>
+<li>直接通过矩阵运算，容易得出：$B = (X^T X)^{-1}(X^T Y)$（拟合多项式：$y = b_0 + b_1 x + b_2 x^2 + … + b_k x^k$）</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Gary: O-Least-Square最小二乘拟合</span></div><div class="line">Segment::LocalLine Segment::fitLocalLine(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">list</span>&lt;Bin::MinZPoint&gt; &amp;points) &#123;</div><div class="line">  <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> n_points = points.size();</div><div class="line">  <span class="comment">// 构造 X/Y 矩阵</span></div><div class="line">  Eigen::<span class="function">MatrixXd <span class="title">X</span><span class="params">(n_points, <span class="number">2</span>)</span></span>;</div><div class="line">  Eigen::<span class="function">VectorXd <span class="title">Y</span><span class="params">(n_points)</span></span>;</div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> counter = <span class="number">0</span>;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span> iter = points.begin(); iter != points.end(); ++iter) &#123;</div><div class="line">    X(counter, <span class="number">0</span>) = iter-&gt;d;</div><div class="line">    X(counter, <span class="number">1</span>) = <span class="number">1</span>;</div><div class="line">    Y(counter) = iter-&gt;z;</div><div class="line">    ++counter;</div><div class="line">  &#125;</div><div class="line">  <span class="comment">// 计算 B</span></div><div class="line">  <span class="keyword">const</span> Eigen::MatrixXd X_t = X.transpose();</div><div class="line">  <span class="keyword">const</span> Eigen::VectorXd result = (X_t * X).inverse() * X_t * Y;</div><div class="line">  LocalLine line_result;</div><div class="line">  line_result.first = result(<span class="number">0</span>);</div><div class="line">  line_result.second = result(<span class="number">1</span>);</div><div class="line">  <span class="keyword">return</span> line_result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>Eigen</strong> 是C++中可以用来调用并进行矩阵计算的一个库，里面封装了一些类。</p>
+<center><img src="/img/Algorithms/0025_Eigen.jpg" width="540px" alt=""/></center>
+
+</blockquote>
+<ul>
+<li>通过解 $XB = Y$ 我们就能解出 $B = [m \space b]$：$$m = \frac{\sum x_i^2 \sum y_i - \sum x_i (\sum x_i y_i)}{n \sum x_i^2 - (\sum x_i)^2}$$ $$b = \frac{n \sum x_i \sum y_i - \sum x_i (\sum x_i y_i)}{n \sum x_i^2 - (\sum x_i)^2}$$</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">OrdinaryLeastSquare(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; x, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; y) &#123;</div><div class="line">        <span class="keyword">double</span> t1=<span class="number">0</span>, t2=<span class="number">0</span>, t3=<span class="number">0</span>, t4=<span class="number">0</span>;  </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;x.size(); ++i)  &#123; </div><div class="line">            t1 += x[i]*x[i];  </div><div class="line">            t2 += x[i];  </div><div class="line">            t3 += x[i]*y[i];  </div><div class="line">            t4 += y[i];  </div><div class="line">        &#125;</div><div class="line">        m = (t3*x.size() - t2*t4) / (t1*x.size() - t2*t2);</div><div class="line">        b = (t1*t4 - t2*t3) / (t1*x.size() - t2*t2);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>OLS 这种 least square 存在问题，比如针对垂直线段就不行，于是引入第二种 <strong>Total Least Square</strong>。<br><center><img src="/img/Algorithms/0025_TLS(1).png" width="680px" alt=""/></center><br><center><img src="/img/Algorithms/0025_TLS(2).png" width="540px" alt=""/></center><ul>
+<li>其中，$U = \begin{bmatrix} x_1 - \overline{x} &amp; y_1 - \overline{y} \\ \vdots &amp; \vdots \\ x_n - \overline{x} &amp; y_n - \overline{y} \end{bmatrix}$；</li>
+<li>$\frac{dE}{dN} = \frac{d(N^T U^T U N)}{dN} = U^T U N + N^T U^T U$，因为 $U^T U$ 是一个对称矩阵（$U^T U = (U^T U)^T$），$U^T U N = N^T U^T U$，所以 $\frac{dE}{dN} = 2(U^T U)N$；</li>
+<li>此外，$U^T U = \begin{bmatrix} \sum (x_i - \overline{x})^2 &amp; \sum (x_i - \overline{x})(y_i - \overline{y}) \\ \sum (x_i - \overline{x})(y_i - \overline{y}) &amp; \sum (y_i - \overline{y})^2 \end{bmatrix}$ 是关于 X、Y 的一个二阶矩（随机变量平方的期望）矩阵（second-moment matrix）；</li>
+<li>二阶矩矩阵 $U^T U$ 的最小特征值对应的特征向量即为求解的 $N = [a \space b]$ <ul>
+<li>特征值 &amp; 特征向量<blockquote>
+<p>设 $A$ 为 n 阶矩阵<font color="blue">（n × n）</font>，若存在<strong>常数 $λ$</strong> 及 <strong>n 维非零向量 x</strong><font color="blue">（n × 1）</font>，使得 $Ax=λx$，则称 $λ$ 是矩阵 $A$ 的 <strong>特征值</strong>，$x$ 是 $A$ 属于特征值 $λ$ 的 <strong>特征向量</strong>。</p>
+</blockquote>
+</li>
+<li>$eig(U^T U) = [V, D]$，$V$ 是特征向量阵（每列为一个特征向量），$D$ 特征值对角阵 $\Longrightarrow$ 寻找 $D$ 中特征值最小的对角元素对应的特征向量即为 $U^T U$ 最小特征值对应的特征向量<blockquote>
+<p>特征值分解：$U^T U = V D V^{-1}$</p>
+</blockquote>
+</li>
+<li>通过 <a href="https://durant35.github.io/2017/07/21/Algorithms_ICP/#求点集间变换矩阵-overrightarrow-q-k">SVD（奇异值）求解</a><ul>
+<li>$SVD(A) = [U, S, V]$，即 $A = USV^T$<blockquote>
+<p>﹢其中 $U$ 是一个<code>m*m</code>的<font color="green">正交阵（Orthogonal matrix：满足 $U U^T = I$ 或者 $U^T U = I$ 的 n 阶方阵，其中 $I$ 为 n 阶单位阵）</font>，$S$ 是一个<code>m*n</code>的<font color="green">对角阵（Diagonal matrix：主对角线之外的元素皆为 0 的矩阵，对角线上的元素可以为 0 或其他值）</font>，对角线上的元素为 $A$ 的<strong>奇异值（Singular value）</strong>，$V$ 是一个<code>n*n</code>的正交阵。$U$ 的 m 个列向量为 $A$ 的<strong>左奇异向量（Left singular vector）</strong>，$V$ 的 n 个列向量为 $A$ 的<strong>右奇异向量（Right singular vector）</strong>。$S$ 完全由 $A$ 决定和 $U$、$V$ 无关；<br>﹢$A$ 的左奇异向量（$U$）是 $A A^T$ 的特征向量；$A$ 的右奇异向量是 $A^T A$ 的特征向量。<br>﹢$A$ 的非零奇异值是 $A^T A$ 特征值的平方根，同时也是 $A A^T$ 特征值的平方根。</p>
+</blockquote>
+</li>
+<li>寻找 $S$ 中最小奇异值对应的 $V$ 的右奇异向量即为 $A^T A$ 最小特征值对应的特征向量。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Eigen/Dense&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Eigen/Eigenvalues&gt;</span></span></div><div class="line"> </div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> Eigen;</div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">// Eigenvalue</span></div><div class="line">    <span class="comment">// typedef Matrix&lt;int, 3, 3&gt; Matrix3d</span></div><div class="line">    Matrix3d A;</div><div class="line">    A &lt;&lt; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Here is a 3x3 matrix, A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; A &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    EigenSolver&lt;Matrix3d&gt; es(A.transpose() * A);</div><div class="line">    <span class="comment">// 对角矩阵，每一个对角线元素就是一个特征值，里面的特征值是由大到小排列的</span></div><div class="line">    Matrix3d D = es.pseudoEigenvalueMatrix();</div><div class="line">    <span class="comment">// 特征向量（每一列）组成的矩阵</span></div><div class="line">    Matrix3d V = es.pseudoEigenvectors();</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The eigenvalue matrix D is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The eigenvector matrix V is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; V &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="comment">// 特征值分解</span></div><div class="line">    <span class="comment">// cout &lt;&lt; "Finally, V * D * V^(-1) = " &lt;&lt; endl &lt;&lt; V * D * V.inverse() &lt;&lt; endl;</span></div><div class="line">    <span class="comment">// 特征值&amp;特征向量</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"min-eigenvector &amp; min-eigenvalue"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;1&gt; The min-eigenvalue for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D(D.rows()<span class="number">-1</span>, D.rows()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;2&gt; The min-eigenvector for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;3&gt; (A^T*A)*min-eigenvector ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; (A.transpose()*A) * V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;4&gt; min-eigenvalue*min-eigenvector ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D(D.rows()<span class="number">-1</span>, D.rows()<span class="number">-1</span>)*V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="comment">// SVD</span></div><div class="line">    <span class="comment">// Eigen::ComputeThinV | Eigen::ComputeThinU</span></div><div class="line">    Eigen::JacobiSVD&lt;Eigen::Matrix3d&gt; svd(A, Eigen::ComputeFullV | Eigen::ComputeFullU);</div><div class="line">    Eigen::Matrix3d S = svd.singularValues().asDiagonal();</div><div class="line">    <span class="comment">//得到最小奇异值的位置</span></div><div class="line">    Matrix3d::Index minColIdx;</div><div class="line">    svd.singularValues().rowwise().sum().minCoeff(&amp;minColIdx);</div><div class="line"> </div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The left singular vectors U is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixU() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The singular-value matrix S is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; S &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The right singular vectors V is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixV() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The SVD: USV^T ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixU()*S*svd.matrixV().transpose() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="comment">// 奇异值与特征值的关系</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The S^2 is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; S*S &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The min-eigenvector for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixV().col(minColIdx) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>$d = a \overline{x} + b \overline{y}$；</li>
+<li>最终得到的拟合直线：<font color="blue">$y = -\frac{a}{b} x + \frac{d}{b}$</font></li>
+</ul>
+</li>
+</ul>
+<h3 id="其他直线拟合方法"><a href="#其他直线拟合方法" class="headerlink" title="其他直线拟合方法"></a>其他直线拟合方法</h3><p><font color="blue" size="4">﹢基于 <strong>RANSAC(RANdom SAmple Consensus)</strong>（随机抽样一致） 的直线拟合</font></p>
+<blockquote>
+<p><a href="http://www.cnblogs.com/xrwang/archive/2011/03/09/ransac-1.html">王先荣：随机抽样一致性算法（RANSAC）</a></p>
+</blockquote>
+<ul>
+<li>示例<br><center><img src="/img/Algorithms/0025_RANSAC_example.png" width="640px" alt=""/></center><br>　（１）从一组观测数据中找出合适的2维拟合直线，观测数据中包含局内点和局外点，其中局内点近似的被直线所通过，而局外点远离于直线（如上图）；<br>　（２）简单的 <strong>最小二乘法</strong> 不能找到适应于局内点的直线，原因是最小二乘法尽量去适应包括局外点在内的所有点；<strong>RANSAC</strong> 能得出一个仅仅用局内点计算出模型，并且概率还足够高。</li>
+<li><strong>RANSAC</strong>　通过反复选择数据中的一组随机子集来达成目标（被选取的子集被假设为局内点），并用下述方法进行验证：<ul>
+<li>①：有一个模型适应于<font color="green">假设的局内点</font>，即所有的未知参数都能从假设的局内点计算得出。</li>
+<li>②：用①中得到的模型去测试所有的其它数据，如果某个点适用于估计的模型，认为它也是局内点。</li>
+<li>③：如果有<font color="green">足够多的点被归类为假设的局内点</font>，那么估计的模型就足够合理；用所有假设的局内点去重新估计模型，因为它仅仅被初始的假设局内点估计过，通过估计局内点与模型的错误率来评估模型。</li>
+<li>④：①-③这个过程被重复执行固定的次数，每次产生的模型要么因为局内点太少而被舍弃，要么因为比现有的模型更好而被选用。</li>
+</ul>
+</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li><a href="http://www.statisticalconsultants.co.nz/blog/total-least-squares.html">Total Least Squares</a></li>
+<li><a href="http://blog.csdn.net/abcd1992719g/article/details/28118095">abcd1992719g: OpenCV2马拉松第25圈——直线拟合与RANSAC算法</a></li>
+<li><a href="http://www.cnblogs.com/xrwang/archive/2011/03/09/ransac-1.html">王先荣：随机抽样一致性算法（RANSAC）</a></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程珠玑 </category>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Algorithm </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[[0024] Iterative Closest Points（迭代最近点）]]></title>
       <url>/2017/07/21/Algorithms_ICP/</url>
       <content type="html"><![CDATA[<h3 id="ICP-算法简介"><a href="#ICP-算法简介" class="headerlink" title="ICP 算法简介"></a>ICP 算法简介</h3><ul>
@@ -828,111 +1265,6 @@
             <tag> Algorithm </tag>
             
             <tag> 3D </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[[0025] Least Squares Line Fitting（最小二乘法直线拟合）]]></title>
-      <url>/2017/07/21/Algorithms_LeastSquaresLineFitting/</url>
-      <content type="html"><![CDATA[<p>　　<strong>最小二乘拟合</strong> 是一种数学上的近似和优化，利用已知的数据得出一条直线或者曲线，使之在坐标系上与已知数据之间的距离的平方和最小。<br><a id="more"></a></p>
-<h3 id="最小二乘直线拟合"><a href="#最小二乘直线拟合" class="headerlink" title="最小二乘直线拟合"></a>最小二乘直线拟合</h3><ul>
-<li><strong>TLS(Total Least Squares)</strong> vs <strong>OLS(Ordinary Least Squares)</strong><br><center><img src="/img/Algorithms/0025_TLSvsOLS.png" width="680px" alt=""/></center><ul>
-<li>如上图，<strong>TLS</strong> 和 <strong>OLS</strong> 都是最小二乘拟合，只是在偏差评估上采取了不同的方式。</li>
-<li>最小二乘法是一种较为简单的回归分析方法。<blockquote>
-<p>The simplest example of a <strong>regression model</strong> is a straight line that passes through a set of points on a scatter plot.</p>
-<ul>
-<li>Regression involves fitting a mathematical model to data. </li>
-<li>Regression involves estimating the mathematical relationship between one variable called the response variable (or dependent variable), and one or more explanatory variables (or independent variables)</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li>最常用的是 <strong>OLS</strong>（Ordinary  Least Square，普通最小二乘法）：所选择的回归模型应该使所有观察值的残差平方和达到最小（如上图左）。<br><center><img src="/img/Algorithms/0025_OLS.png" width="640px" alt=""/></center><ul>
-<li>直接通过矩阵运算，容易得出：$B = (X^T X)^{-1}(X^T Y)$（拟合多项式：$y = b_0 + b_1 x + b_2 x^2 + … + b_k x^k$）</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Gary: O-Least-Square最小二乘拟合</span></div><div class="line">Segment::LocalLine Segment::fitLocalLine(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">list</span>&lt;Bin::MinZPoint&gt; &amp;points) &#123;</div><div class="line">  <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> n_points = points.size();</div><div class="line">  <span class="comment">// 构造 X/Y 矩阵</span></div><div class="line">  Eigen::<span class="function">MatrixXd <span class="title">X</span><span class="params">(n_points, <span class="number">2</span>)</span></span>;</div><div class="line">  Eigen::<span class="function">VectorXd <span class="title">Y</span><span class="params">(n_points)</span></span>;</div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> counter = <span class="number">0</span>;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span> iter = points.begin(); iter != points.end(); ++iter) &#123;</div><div class="line">    X(counter, <span class="number">0</span>) = iter-&gt;d;</div><div class="line">    X(counter, <span class="number">1</span>) = <span class="number">1</span>;</div><div class="line">    Y(counter) = iter-&gt;z;</div><div class="line">    ++counter;</div><div class="line">  &#125;</div><div class="line">  <span class="comment">// 计算 B</span></div><div class="line">  <span class="keyword">const</span> Eigen::MatrixXd X_t = X.transpose();</div><div class="line">  <span class="keyword">const</span> Eigen::VectorXd result = (X_t * X).inverse() * X_t * Y;</div><div class="line">  LocalLine line_result;</div><div class="line">  line_result.first = result(<span class="number">0</span>);</div><div class="line">  line_result.second = result(<span class="number">1</span>);</div><div class="line">  <span class="keyword">return</span> line_result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>Eigen</strong> 是C++中可以用来调用并进行矩阵计算的一个库，里面封装了一些类。</p>
-<center><img src="/img/Algorithms/0025_Eigen.jpg" width="540px" alt=""/></center>
-
-</blockquote>
-<ul>
-<li>通过解 $XB = Y$ 我们就能解出 $B = [m \space b]$：$$m = \frac{\sum x_i^2 \sum y_i - \sum x_i (\sum x_i y_i)}{n \sum x_i^2 - (\sum x_i)^2}$$ $$b = \frac{n \sum x_i \sum y_i - \sum x_i (\sum x_i y_i)}{n \sum x_i^2 - (\sum x_i)^2}$$</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">OrdinaryLeastSquare(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; x, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; y) &#123;</div><div class="line">        <span class="keyword">double</span> t1=<span class="number">0</span>, t2=<span class="number">0</span>, t3=<span class="number">0</span>, t4=<span class="number">0</span>;  </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;x.size(); ++i)  &#123; </div><div class="line">            t1 += x[i]*x[i];  </div><div class="line">            t2 += x[i];  </div><div class="line">            t3 += x[i]*y[i];  </div><div class="line">            t4 += y[i];  </div><div class="line">        &#125;</div><div class="line">        m = (t3*x.size() - t2*t4) / (t1*x.size() - t2*t2);</div><div class="line">        b = (t1*t4 - t2*t3) / (t1*x.size() - t2*t2);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li>OLS 这种 least square 存在问题，比如针对垂直线段就不行，于是引入第二种 <strong>Total Least Square</strong>。<br><center><img src="/img/Algorithms/0025_TLS(1).png" width="680px" alt=""/></center><br><center><img src="/img/Algorithms/0025_TLS(2).png" width="540px" alt=""/></center><ul>
-<li>其中，$U = \begin{bmatrix} x_1 - \overline{x} &amp; y_1 - \overline{y} \\ \vdots &amp; \vdots \\ x_n - \overline{x} &amp; y_n - \overline{y} \end{bmatrix}$；</li>
-<li>$\frac{dE}{dN} = \frac{d(N^T U^T U N)}{dN} = U^T U N + N^T U^T U$，因为 $U^T U$ 是一个对称矩阵（$U^T U = (U^T U)^T$），$U^T U N = N^T U^T U$，所以 $\frac{dE}{dN} = 2(U^T U)N$；</li>
-<li>此外，$U^T U = \begin{bmatrix} \sum (x_i - \overline{x})^2 &amp; \sum (x_i - \overline{x})(y_i - \overline{y}) \\ \sum (x_i - \overline{x})(y_i - \overline{y}) &amp; \sum (y_i - \overline{y})^2 \end{bmatrix}$ 是关于 X、Y 的一个二阶矩（随机变量平方的期望）矩阵（second-moment matrix）；</li>
-<li>二阶矩矩阵 $U^T U$ 的最小特征值对应的特征向量即为求解的 $N = [a \space b]$ <ul>
-<li>特征值 &amp; 特征向量<blockquote>
-<p>设 $A$ 为 n 阶矩阵<font color="blue">（n × n）</font>，若存在<strong>常数 $λ$</strong> 及 <strong>n 维非零向量 x</strong><font color="blue">（n × 1）</font>，使得 $Ax=λx$，则称 $λ$ 是矩阵 $A$ 的 <strong>特征值</strong>，$x$ 是 $A$ 属于特征值 $λ$ 的 <strong>特征向量</strong>。</p>
-</blockquote>
-</li>
-<li>$eig(U^T U) = [V, D]$，$V$ 是特征向量阵（每列为一个特征向量），$D$ 特征值对角阵 $\Longrightarrow$ 寻找 $D$ 中特征值最小的对角元素对应的特征向量即为 $U^T U$ 最小特征值对应的特征向量<blockquote>
-<p>特征值分解：$U^T U = V D V^{-1}$</p>
-</blockquote>
-</li>
-<li>通过 <a href="https://durant35.github.io/2017/07/21/Algorithms_ICP/#求点集间变换矩阵-overrightarrow-q-k">SVD（奇异值）求解</a><ul>
-<li>$SVD(A) = [U, S, V]$，即 $A = USV^T$<blockquote>
-<p>﹢其中 $U$ 是一个<code>m*m</code>的<font color="green">正交阵（Orthogonal matrix：满足 $U U^T = I$ 或者 $U^T U = I$ 的 n 阶方阵，其中 $I$ 为 n 阶单位阵）</font>，$S$ 是一个<code>m*n</code>的<font color="green">对角阵（Diagonal matrix：主对角线之外的元素皆为 0 的矩阵，对角线上的元素可以为 0 或其他值）</font>，对角线上的元素为 $A$ 的<strong>奇异值（Singular value）</strong>，$V$ 是一个<code>n*n</code>的正交阵。$U$ 的 m 个列向量为 $A$ 的<strong>左奇异向量（Left singular vector）</strong>，$V$ 的 n 个列向量为 $A$ 的<strong>右奇异向量（Right singular vector）</strong>。$S$ 完全由 $A$ 决定和 $U$、$V$ 无关；<br>﹢$A$ 的左奇异向量（$U$）是 $A A^T$ 的特征向量；$A$ 的右奇异向量是 $A^T A$ 的特征向量。<br>﹢$A$ 的非零奇异值是 $A^T A$ 特征值的平方根，同时也是 $A A^T$ 特征值的平方根。</p>
-</blockquote>
-</li>
-<li>寻找 $S$ 中最小奇异值对应的 $V$ 的右奇异向量即为 $A^T A$ 最小特征值对应的特征向量。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Eigen/Dense&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Eigen/Eigenvalues&gt;</span></span></div><div class="line"> </div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> Eigen;</div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">// Eigenvalue</span></div><div class="line">    <span class="comment">// typedef Matrix&lt;int, 3, 3&gt; Matrix3d</span></div><div class="line">    Matrix3d A;</div><div class="line">    A &lt;&lt; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Here is a 3x3 matrix, A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; A &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    EigenSolver&lt;Matrix3d&gt; es(A.transpose() * A);</div><div class="line">    <span class="comment">// 对角矩阵，每一个对角线元素就是一个特征值，里面的特征值是由大到小排列的</span></div><div class="line">    Matrix3d D = es.pseudoEigenvalueMatrix();</div><div class="line">    <span class="comment">// 特征向量（每一列）组成的矩阵</span></div><div class="line">    Matrix3d V = es.pseudoEigenvectors();</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The eigenvalue matrix D is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The eigenvector matrix V is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; V &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="comment">// 特征值分解</span></div><div class="line">    <span class="comment">// cout &lt;&lt; "Finally, V * D * V^(-1) = " &lt;&lt; endl &lt;&lt; V * D * V.inverse() &lt;&lt; endl;</span></div><div class="line">    <span class="comment">// 特征值&amp;特征向量</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"min-eigenvector &amp; min-eigenvalue"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;1&gt; The min-eigenvalue for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D(D.rows()<span class="number">-1</span>, D.rows()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;2&gt; The min-eigenvector for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;3&gt; (A^T*A)*min-eigenvector ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; (A.transpose()*A) * V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;4&gt; min-eigenvalue*min-eigenvector ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D(D.rows()<span class="number">-1</span>, D.rows()<span class="number">-1</span>)*V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="comment">// SVD</span></div><div class="line">    <span class="comment">// Eigen::ComputeThinV | Eigen::ComputeThinU</span></div><div class="line">    Eigen::JacobiSVD&lt;Eigen::Matrix3d&gt; svd(A, Eigen::ComputeFullV | Eigen::ComputeFullU);</div><div class="line">    Eigen::Matrix3d S = svd.singularValues().asDiagonal();</div><div class="line">    <span class="comment">//得到最小奇异值的位置</span></div><div class="line">    Matrix3d::Index minColIdx;</div><div class="line">    svd.singularValues().rowwise().sum().minCoeff(&amp;minColIdx);</div><div class="line"> </div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The left singular vectors U is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixU() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The singular-value matrix S is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; S &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The right singular vectors V is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixV() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The SVD: USV^T ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixU()*S*svd.matrixV().transpose() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="comment">// 奇异值与特征值的关系</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The S^2 is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; S*S &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The min-eigenvector for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixV().col(minColIdx) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>$d = a \overline{x} + b \overline{y}$；</li>
-<li>最终得到的拟合直线：<font color="blue">$y = -\frac{a}{b} x + \frac{d}{b}$</font></li>
-</ul>
-</li>
-</ul>
-<h3 id="其他直线拟合方法"><a href="#其他直线拟合方法" class="headerlink" title="其他直线拟合方法"></a>其他直线拟合方法</h3><p><font color="blue" size="4">﹢基于 <strong>RANSAC(RANdom SAmple Consensus)</strong>（随机抽样一致） 的直线拟合</font></p>
-<blockquote>
-<p><a href="http://www.cnblogs.com/xrwang/archive/2011/03/09/ransac-1.html">王先荣：随机抽样一致性算法（RANSAC）</a></p>
-</blockquote>
-<ul>
-<li>示例<br><center><img src="/img/Algorithms/0025_RANSAC_example.png" width="640px" alt=""/></center><br>　（１）从一组观测数据中找出合适的2维拟合直线，观测数据中包含局内点和局外点，其中局内点近似的被直线所通过，而局外点远离于直线（如上图）；<br>　（２）简单的 <strong>最小二乘法</strong> 不能找到适应于局内点的直线，原因是最小二乘法尽量去适应包括局外点在内的所有点；<strong>RANSAC</strong> 能得出一个仅仅用局内点计算出模型，并且概率还足够高。</li>
-<li><strong>RANSAC</strong>　通过反复选择数据中的一组随机子集来达成目标（被选取的子集被假设为局内点），并用下述方法进行验证：<ul>
-<li>①：有一个模型适应于<font color="green">假设的局内点</font>，即所有的未知参数都能从假设的局内点计算得出。</li>
-<li>②：用①中得到的模型去测试所有的其它数据，如果某个点适用于估计的模型，认为它也是局内点。</li>
-<li>③：如果有<font color="green">足够多的点被归类为假设的局内点</font>，那么估计的模型就足够合理；用所有假设的局内点去重新估计模型，因为它仅仅被初始的假设局内点估计过，通过估计局内点与模型的错误率来评估模型。</li>
-<li>④：①-③这个过程被重复执行固定的次数，每次产生的模型要么因为局内点太少而被舍弃，要么因为比现有的模型更好而被选用。</li>
-</ul>
-</li>
-</ul>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
-<li><a href="http://www.statisticalconsultants.co.nz/blog/total-least-squares.html">Total Least Squares</a></li>
-<li><a href="http://blog.csdn.net/abcd1992719g/article/details/28118095">abcd1992719g: OpenCV2马拉松第25圈——直线拟合与RANSAC算法</a></li>
-<li><a href="http://www.cnblogs.com/xrwang/archive/2011/03/09/ransac-1.html">王先荣：随机抽样一致性算法（RANSAC）</a></li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> 编程珠玑 </category>
-            
-            <category> Algorithm </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Algorithm </tag>
             
         </tags>
         
@@ -3019,37 +3351,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[DARPA[Boss]: Motion Planning in Urban Environments]]></title>
-      <url>/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</url>
-      <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
-<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
-<li>long range plans<ul>
-<li>on-road planning</li>
-<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
-<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
-</ul>
-</li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> 自动驾驶 </category>
-            
-            <category> DARPA </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> DARPA </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[DARPA[Boss]: Boss and the Urban Challenge]]></title>
       <url>/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/</url>
       <content type="html"><![CDATA[<p>　Boss 自动驾驶软硬件概述。</p>
@@ -3100,6 +3401,37 @@
 </li>
 </ul>
 <h4 id="Motion-Planning"><a href="#Motion-Planning" class="headerlink" title="Motion Planning"></a>Motion Planning</h4>]]></content>
+      
+        <categories>
+            
+            <category> 自动驾驶 </category>
+            
+            <category> DARPA </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> DARPA </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[DARPA[Boss]: Motion Planning in Urban Environments]]></title>
+      <url>/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</url>
+      <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
+<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
+<li>long range plans<ul>
+<li>on-road planning</li>
+<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
+</ul>
+</li>
+</ul>
+]]></content>
       
         <categories>
             
@@ -6342,9 +6674,9 @@
     </entry>
     
     <entry>
-      <title><![CDATA[[ES00] Overview, DOL and MPARM]]></title>
+      <title><![CDATA[嵌入式系统导论[00] Overview, DOL and MPARM]]></title>
       <url>/2016/10/01/TACouses_Embedded_System_2016/</url>
-      <content type="html"><![CDATA[<h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><p>　　嵌入式系统实验课大概涉及的内容有以下几个部分:<br>    <center><img src="/img/TA-Cources/ES2016/dol_framework.png" width="640px"/></center><br>　　主体就涵盖了三条纵线一条横线，functional simulation，Hds simulation，analysis model 是三纵，如何通过三纵得到的数据迭代获取 application 和 architecture 的最佳 mapping 为一横。<br><a id="more"></a></p>
+      <content type="html"><![CDATA[<p>　　嵌入式系统实验课大概涉及的内容有以下几个部分:<br>    <center><img src="/img/TA-Cources/ES2016/dol_framework.png" width="640px"/></center><br>　　主体就涵盖了三条纵线一条横线，functional simulation，Hds simulation，analysis model 是三纵，如何通过三纵得到的数据迭代获取 application 和 architecture 的最佳 mapping 为一横。<br><a id="more"></a></p>
 <ol>
 <li><p>DOL Framework的了解，入门编程，功能仿真</p>
 <blockquote>
@@ -8172,74 +8504,6 @@
     
     <entry>
       <title><![CDATA[Windows下的静态库和动态库]]></title>
-      <url>/2015/10/16/iotCourse_02%20Windows%E4%B8%8B%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93/</url>
-      <content type="html"><![CDATA[<p>　　本文旨在指导大家如何创建和使用<strong>Windows下的DLL动态链接库</strong>以及通过<strong>DLL动态链接库导出导入</strong>这一过程介绍一些<strong>编译链接、动态加载</strong>的小知识。本章内容作为本学期项目开发的延伸扩展，目的是让大家对项目中使用的读写器接口函数库由来以及如何在项目中使用该函数库有更深入的理解。在这个过程，大家将会初步接触并了解：<br>　　　　<strong>+1.　</strong> <strong>Windows静态链接库和动态链接库</strong>的一些背景知识;<br>　　　　<strong>+2.　</strong> 如何创建和使用<strong>DLL动态链接库</strong>。<br><a id="more"></a></p>
-<h2 id="静态库和动态库的区别"><a href="#静态库和动态库的区别" class="headerlink" title="静态库和动态库的区别"></a><strong>静态库和动态库的区别</strong></h2><p>　　<font color="#FF2400"><strong>@-静态链接库(.lib)</strong></font><br>　　函数和数据被编译进一个二进制文件。在使用静态库编译链接成可执行文件时，链接器从库中复制这些<font color="red"><strong>函数和数据</strong></font>并把它们和应用程序的其他模块组合起来创建.exe可执行程序。</p>
-<p>　　<font color="#FF2400"><strong>@-动态链接库(.lib &amp; .dll)</strong></font><br>　　一个引入库(.lib)文件和一个DLL(.dll)文件。<font color="red"><strong>引入库文件只包含该DLL导出的函数和变量的符号名，并没有包含实际代码，只是用来为链接程序提供必要信息，以便在可执行文件中建立动态链接时需要用到的重定位表</strong></font>，而<strong>.dll文件包含该DLL实际的函数和数据</strong>。在使用动态库编译链接成可执行文件时，只链接该DLL的引入库文件，该DLL文件中的函数代码和数据并不复制到可执行文件中，直到可执行程序执行时，才将该DLL映射到进程的地址空间中，然后访问DLL中导出的函数。<br>　　动态链接库包含能被可执行程序或其他DLL调用来完成某项工作的函数<strong> → </strong><font color="red"><strong>动态链接库只有在其他模块调用库中的函数时才发挥作用</strong>。</font></p>
-<p>　　<font color="#FF2400"><strong>@-为什么使用动态链接库</strong></font><br>　　<font color="green"><strong>&lt;1. </strong>节省磁盘空间和内存</font><br>　　　如果多个应用程序需要访问同样的功能，可以将该功能以DLL的形式提供，这样在机器上只需要一份该DLL文件就可以了，节省磁盘空间；多个应用程序使用同一个DLL，该DLL的页面只需要放入内存一次，所有的应用程序都可以共享它的页面，内存的使用更加有效。<br>　　<font color="green"><strong>&lt;2. </strong>采用多种语言编写动态链接库</font><br>　　　采用自己熟悉的开发语言编写DLL，然后由其他语言编写的可执行程序来调用这些DLL。<br>　　<font color="green"><strong>&lt;3. </strong>增强产品功能</font><br>　　　更新DLL，替换产品原有的DLL。<br>　　<font color="green"><strong>&lt;4. </strong>提供二次开发平台</font><br>　　　用户利用DLL，调用其中实现的功能，开发业务所需的产品。<br>　　<font color="green"><strong>&lt;5. </strong>简化项目管理</font><br>　　　并行开发，不同功能交由各项目小组以多个DLL的方式实现。</p>
-<p>　　<font color="#FF2400"><strong>@-我们可以怎么做</strong></font><br>　　<strong>把完成某种功能的函数放在一个动态链接库中，提供给其他程序调用。</strong></p>
-<h2 id="利用VC-创建DLL"><a href="#利用VC-创建DLL" class="headerlink" title="利用VC++创建DLL"></a><strong>利用VC++创建DLL</strong></h2><p>　　<strong>第一步： </strong> <strong>VC++</strong> <strong>→</strong> <strong>File</strong> <strong>→</strong> <strong>New</strong> <strong>→</strong> <strong>Win32 Dynamic-Link Library</strong> <strong>→</strong> <strong>An Empty DLL Project</strong>，创建动态链接库工程；<br>    <center><img src="/img/RFID/01-00-01.png" width="720px"/></center><br>　　<strong>第二步： </strong> <strong>VC++</strong> <strong>→</strong> <strong>File</strong> <strong>→</strong> <strong>New</strong> <strong>→</strong> <strong>C++ Source(Header) File</strong>添加源文件或头文件，编写代码；<br>    <center><img src="/img/RFID/01-00-02.png" width="720px"/></center><br>　　<strong>第三步： </strong> <strong>Build</strong>，便会在工程目录下的<strong> Debug/ </strong>下查看到<strong> 工程名.dll </strong>动态链接库文件以及<strong> 工程名.lib </strong>引入库文件。</p>
-<p>　　<font color="red">具体代码如何编写以及生成动态链接库后，如何在我们的应用程序中调用库中的函数实现某种功能将会在下面章节仔细讲述</font>。</p>
-<h2 id="从DLL中导出全局函数"><a href="#从DLL中导出全局函数" class="headerlink" title="从DLL中导出全局函数"></a><strong>从DLL中导出全局函数</strong></h2><p>　　为了让DLL导出一些函数，需要在每一个将要被导出的函数前面添加标识符: <strong><code>_declspec(dllexport)</code></strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 函数声明 </div><div class="line">_declspec(dllexport) <span class="function">ReturnType <span class="title">FunctionName</span><span class="params">(args...)</span></span>;</div><div class="line"></div><div class="line"><span class="function">ReturnType <span class="title">FunctionName</span><span class="params">(args...)</span></span>&#123;</div><div class="line">　　...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="从DLL中导出C-类"><a href="#从DLL中导出C-类" class="headerlink" title="从DLL中导出C++类"></a><strong>从DLL中导出C++类</strong></h2><p>　　类似的，使用导出标识符: <strong><code>_declspec(dllexport)</code></strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 类指定导出标识 </div><div class="line"><span class="keyword">class</span> _declspec(dllexport) ClassName</div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">　　<span class="function">ReturnType <span class="title">FunctionName</span><span class="params">(args...)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>　　<strong>指定导出标识的类的所有函数都将被导出；否则，只有那些声明了导出标识的类成员函数才会被导出。</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 只有类成员函数指定导出标识 </div><div class="line"><span class="keyword">class</span> ClassName</div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">　　_declspec(dllexport) <span class="function">ReturnType <span class="title">FunctionName</span><span class="params">(args...)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong><font color="red">注意：</font></strong><br>　　<strong>导出的成员函数必须具有public访问权限，否则即使被导出，也不能被其他程序访问</strong>。</p>
-<h2 id="使用dumpbin命令查看DLL导出导入信息"><a href="#使用dumpbin命令查看DLL导出导入信息" class="headerlink" title="使用dumpbin命令查看DLL导出导入信息"></a><strong>使用dumpbin命令查看DLL导出导入信息</strong></h2><p>　　首先，<strong>DUMPBIN.EXE</strong>程序位于<strong>/Bin/</strong>目录下(中文版则是<strong>/VC98/Bin/</strong>)。为了在<strong>cmd命令行</strong>里面方便使用，我们将其所在的全局路径加入到环境变量<strong>Path</strong>中，如下图(火狐/IE浏览器可以点击查看大图)。<br>    <center><img src="/img/RFID/01-01.png" width="800px"/></center><br>　　右键计算机，属性<strong>→</strong>高级系统配置<strong>→</strong>环境变量<strong>→</strong>双击系统变量中的<strong>Path→</strong>在变量值后面加上<strong>DUMPBIN.EXE</strong>程序所在全局路径。<strong>(<font color="red">注意：添加路径前需要有”；”隔开，因为变量值是通过”；”分隔的</font>)</strong><br>　　接下来我们就可以使用这个工具查看一个<strong>DLL</strong>提供的导出函数：<strong><code>dumpbin -exports xxx.dll</code></strong>(如下左图)。<br>　　其中要注意的<strong>“ordinal列”</strong>列出的信息是导出函数的序号；<strong>“RVA列”</strong>是一些地址值，也就是导出函数在<strong>DLL</strong>模块中的位置，通过该地址值可以在<strong>DLL</strong>中找到相应的函数；<strong>“name列”</strong>是导出函数的名称，使用该<strong>DLL</strong>的客户端程序通过该名称找到所需的<strong>DLL</strong>导出函数。<br>    <center><img src="/img/RFID/01-02.png" width="800px"/></center><br>　　还可以使用这个工具查看一个<strong>可执行模块依赖的动态链接库信息</strong>以及该<strong>动态链接库中被可执行模块调用的函数</strong>：<strong><code>dumpbin -imports xxx.exe</code></strong>。<br>　　<strong>这里需要注意的是：一个可执行模块依赖的库函数名称必须与该动态链接库导出的函数名字相一致，因为可执行模块使用依赖的库函数名称来调用DLL中的函数，只有在二者相一致的情况下，可执行模块才能找到所需的DLL导出函数</strong>。因此客户端程序引用的函数符号名必须与<strong>DLL</strong>中的导出函数名称一致才能成功调用！</p>
-<p>　　我们知道，<strong>C++</strong>支持函数重载，对于重载的多个函数来说，依照我们上述的说法，他们的导出函数名理应都是一样的，显然这样的话调用的时候会出问题。为了加以区分，<strong>C++</strong>会按照自己的规则篡改函数的名称，这一过程称为<strong>“名字改编”</strong>。一旦对导出函数名字进行改编，就会造成调用时<strong>可执行模块依赖的库函数名称与动态链接库导出的函数名字不一致</strong>的问题。这就需要在导出时设置导出规则，然后在调用时设置相匹配的调用约定，最终<strong>保证引用的函数名称与动态链接库中导出的函数名字一致</strong>。</p>
-<h2 id="DLL导出函数的名字改编问题"><a href="#DLL导出函数的名字改编问题" class="headerlink" title="DLL导出函数的名字改编问题"></a><strong>DLL导出函数的名字改编问题</strong></h2><p>　　接上面所说的，<strong>C++</strong>编译器在生成<strong>DLL</strong>时，会对导出的函数进行名字改编，并且不同的编译器使用的改编规则不一样，因此改编后的名字是不一样的。这样，如果利用不同的编译器分别生成<strong>DLL</strong>和生成访问该<strong>DLL</strong>的客户端程序的话，后者在访问该<strong>DLL</strong>的导出函数时就会因二者函数符号不一致而出现调用失败的问题。<br>　　<font color="#FF2400"><strong>1. extern “C”</strong></font><br>　　利用限定符：<strong>extern “C”</strong>(注意<strong>C要大写</strong>)可以解决C++和C语言之间相互调用时函数命名的问题，使用该限定符，动态链接库文件在编译时，导出函数的名称不会发生改编。下面是一个具体例子，<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************************************************</div><div class="line"> *	File Name: DllExample.cpp</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.18</div><div class="line"> *	Description: 使用extern "C"范例</div><div class="line"> ******************************************************/</span></div><div class="line"></div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a+b;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a-b;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>　　我们使用<strong>DUMPBIN.EXE命令</strong>来查看生成的<strong>DLL</strong>导出函数信息，如下图：<br>    <center><img src="/img/RFID/01-03.png" width="720px"/></center><br>　　容易看到，导出函数名与函数声明中的函数名是一致的<font color="green">(<strong>= </strong>后面的函数名为一个等价的导出函数名)</font>，这就是<strong>extern “C” </strong>限定符的作用，我们可以把该限定符去掉，对比一下没有使用<strong>extern “C” </strong>限定符该<strong>DLL</strong>的导出信息。<br>　　如下所示，把原先的声明注释掉，改为没有<strong>extern “C” </strong>限定符修饰的普通导出函数声明。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//extern "C" _declspec(dllexport) int add(int a, int b);</span></div><div class="line"><span class="comment">//extern "C" _declspec(dllexport) int subtract(int a, int b);</span></div><div class="line">_declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line">_declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a+b;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a-b;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>　　正如上述所说的，没有添加<strong>extern “C” </strong>限定符，<strong>C++</strong>编译器对导出函数进行了名字改编(从下图我们可以看到，改变后的名字加上了<strong>?</strong>作为前缀，<strong>@@…</strong>作为后缀)。<br>    <center><img src="/img/RFID/01-04.png" width="720px"/></center><br>　　但是使用<strong>extern “C” </strong>限定符这种方法有一个缺陷，就是不能用于导出<strong>C++</strong>类(如下图，函数名字仍然发生改编)。<strong>extern “C” </strong>限定符只能用于导出上述的全局函数这种情况。<br>    <center><img src="/img/RFID/01-05.png" width="800px"/></center><br>　　以下这种方式则是不允许的，编译时直接报错！<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Point&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">　　<span class="keyword">extern</span> <span class="string">"C"</span> _declspec(dllexport) <span class="function"><span class="keyword">void</span> <span class="title">output</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line"><span class="keyword">void</span> Point::output(<span class="keyword">int</span> x, <span class="keyword">int</span> y)&#123;</div><div class="line">　　<span class="keyword">return</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>　　<font color="#FF2400"><strong>2. _stdcall标准调用</strong></font><br>　　上述添加<strong>extern “C” </strong>限定符这种方式保证不对导出函数名字进行改编，这样在引用导出函数时就可以直接通过原始函数名字进行调用，确保<strong>依赖库函数名称与导出的函数名字一致</strong>。<br>　　如果导出函数的调用约定发生了改变，那么即使使用了<strong>extern “C” </strong>限定符，该函数的名字仍会按照调用约定发生相应的改编。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************************************************</div><div class="line"> *	File Name: DllExample.cpp</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.18</div><div class="line"> *	Description: 使用_stdcall标准调用范例</div><div class="line"> ******************************************************/</span></div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec(dllexport) <span class="keyword">int</span> _<span class="function">stdcall <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec(dllexport) <span class="keyword">int</span> _<span class="function">stdcall <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"> </div><div class="line"><span class="keyword">int</span> _<span class="function">stdcall <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">　　<span class="keyword">return</span> a+b;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="keyword">int</span> _<span class="function">stdcall <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">　　<span class="keyword">return</span> a-b;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>　　从下图的导出函数信息，我们可以知道：在添加了<strong>_stdcall关键字</strong>之后，导出函数的名字仍发生改编(在原始函数名字前面添加<strong> _ </strong>，后面添加一个<strong>@</strong>，接着是<strong>数字，表示函数参数所占的字节数</strong>，例如<strong>add函数具有两个int类型的参数，占用8个字节，所以add函数该数字为8</strong>)。<br>    <center><img src="/img/RFID/01-06.png" width="720px"/></center><br><strong>总结一下：</strong><br>　　1）上述<strong> 第1.节 </strong>中没有添加<strong>_stdcall关键字</strong>，实际上该函数的调用约定是缺省的<strong>C调用预定</strong>，该约定不对名字进行改编；<br>　　2）添加<strong>_stdcall关键字</strong>后，调用约定变成<strong>标准调用约定</strong>，<strong>标准调用约定</strong>是<strong>WINAPI调用约定</strong>，也就是<strong>pascal调用约定</strong>，显然这种调用约定与<strong>C调用预定</strong>不一样，会对函数名字进行改编，改编方式则按照我们上面描述的规则进行。<br>　　3）因此，我们也可以在导出函数时添加调用约定，然后在引用函数时使用相匹配的调用约定进行调用，这样也能解决因名字改编出现的<strong>依赖库函数名称与导出的函数名字不一致</strong>的问题。</p>
-<p>　　<font color="#FF2400"><strong>3. DEF模块定义文件</strong></font><br>　　除了上述两种方式外，我们还可以通过一个称为<strong>模块定义文件(DEF)</strong>的方式，实现动态链接库文件在编译时，导出函数的名称不要发生改编。动态链接库源文件就和我们最开始介绍的普通导出函数源文件一致：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************************************************</div><div class="line"> *	File Name: DllExample.cpp</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.18</div><div class="line"> *	Description: 使用DEF模块定义文件范例</div><div class="line"> ******************************************************/</span></div><div class="line">_declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line">_declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a+b;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a-b;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>　　按照添加源文件的方式，我们为工程添加一个模块定义文件，<strong>File→New→Files选项卡→Text File→文件名后缀一定要是.def(文件名建议和工程名一致)</strong>。<br>    <center><img src="/img/RFID/01-07.png" width="720px"/></center><br>　　模块定义文件(<strong>DllExample.def</strong>)内容如下:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************************************************</div><div class="line"> *	File Name: DllExample.def</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.18</div><div class="line"> *	Description: 导出函数模块定义文件</div><div class="line"> ******************************************************/</span></div><div class="line">LIBRARY DllExample</div><div class="line">DESCRIPTION 描述一些关于DllExample导出函数信息</div><div class="line"> </div><div class="line">EXPORTS</div><div class="line">add</div><div class="line">subtract</div></pre></td></tr></table></figure></p>
-<p>　　<strong> LIBRARY xxx </strong>一行可加可不加，用来指定动态链接库的内部名称，注意<strong>该名称与生成的动态链接库的名称(也就是我们的工程名)一定要匹配</strong>；<br>　　<strong> DESCRIPTION xxx </strong>一行是对该动态链接库的描述，也是可加可不加；<br>　　<strong> EXPORTS </strong>表明<strong>DLL</strong>将要导出的函数以及这些导出函数指定的符号名。当链接器在链接时，会分析<strong>EXPORTS</strong>下面的符号名，假如是上述例子所示的形式，即单独的符号名(<strong>add</strong>或<strong>subtract</strong>)，并且<strong>符号名与源文件中定义的函数名一致</strong>时，就会以该符号名作为相应导出函数的函数名字，这样导出函数的名字便不会发生改编。(或者以另外一种形式：<strong>entryname=internalname(例如：myadd=add)</strong>，其中<strong>entryname</strong>表示导出函数的函数名字，<strong>internalname</strong>则为源文件中定义的函数名，这种形式会对导出函数名字进行改编，<strong>entryname</strong>即为导出函数的函数名字。)</p>
-<font color="red"><strong>总结：</strong><br>　　归根结底，名字改编造成<strong>依赖库函数名称与相应导出的函数名字不一致</strong>的问题，通过上述三种方式，最终保证<strong>可执行模块依赖的库函数名称与该动态链接库导出的函数名字相一致</strong>，只有这样指定函数才能成功调用。</font>
-
-<h2 id="加载DLL的两种方式"><a href="#加载DLL的两种方式" class="headerlink" title="加载DLL的两种方式"></a><strong>加载DLL的两种方式</strong></h2><p>　　当我们把一些常用的功能封装成动态链接库之后，接下来就是在我们的应用程序中使用这些功能。首先，经过上述步骤创建好动态链接库，会在<strong> Debug/ </strong>目录下生成<strong>工程名.dll</strong>、<strong>工程名.lib</strong>：<br>　　　<strong>+ 工程名.dll </strong>就是我们所说的<strong>DLL</strong>动态链接库，我们的应用程序会在运行过程中动态加载该库；<br>　　　<strong>+ 工程名.lib </strong>则是文章开头所说的<strong>引入库文件</strong>，保存生成的<strong>DLL</strong>动态链接库中导出的函数和变量的符号名，并没有包含实际代码，只是用来为链接程序提供必要信息，以便在可执行文件中建立动态链接时需要用到的重定位表。<br>　　在程序中，有以下两种方式加载动态链接库：<br>　　　　<strong>@ 隐式链接</strong>；<br>　　　　<strong>@ 显示加载</strong>。</p>
-<p>　　<font color="#FF2400"><strong>@-隐式链接方式加载DLL</strong></font><br>　　<strong>第一步： </strong>头文件中添加引入的外部函数声明。<br>　　在应用程序中调用动态链接库的导出函数之前，为了让编译器知道这些函数，需要对其作一个声明，通常前面加上<strong> extern关键字 </strong>表明函数是在外部定义的。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">extern</span> ReturnType <span class="title">FunctionName</span><span class="params">(args...)</span></span>;</div></pre></td></tr></table></figure></p>
-<p>　　除了使用<strong>extern关键字</strong>表明函数时外部定义的之外，还可以使用<strong> _declspec(dllimport) </strong>标识符来表明函数是从动态链接库中引入的。<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_declspec(<span class="name">dllimport</span>) ReturnType FunctionName(<span class="name">args</span>...)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
-<p><strong>注意： </strong>使用<strong> _declspec(dllimport) </strong>标识符声明外部函数，它将告诉编译器该函数是从动态链接库中引入的，因此<strong>编译器可以生成运行效率更高的代码</strong>。故，如果调用的函数来自于动态链接库，应该采用这种方式声明外部函数。<br>　　另外，正如在<strong> DLL导出函数的名字改编问题 </strong>一节中所说的，为了<strong>保证可执行模块依赖的库函数名称与该动态链接库导出的函数名字相一致</strong>，需要在导出时设置导出规则，然后在调用时设置相匹配的调用约定。当导出函数通过<strong> extern “C”限定符 </strong>防止导出的函数名称发生改编，显然单单使用上述的声明会造成<strong>可执行模块依赖的库函数名称与该动态链接库导出的函数名字不一致</strong>，因为普通的外部声明引用的导出函数，其名字是对应于被<strong>C++编译器</strong>进行改编了的，而添加<strong>extern “C”限定符</strong>的导出函数名称并没有发生改编，所以，对应的需要使用如下的外部定义：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">extern <span class="string">"C"</span> _declspec(<span class="name">dllimport</span>) ReturnType FunctionName(<span class="name">args</span>...)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
-<p>　　经过上述的分析，我们也知道，没有添加<strong> _stdcall关键字 </strong>修饰使用的是<strong> C调用约定 </strong>；那么当导出函数通过添加<strong> _stdcall关键字 </strong>设置为<strong> 标准调用约定 </strong>，则相应的外部定义声明应如下：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">extern <span class="string">"C"</span> _declspec(<span class="name">dllimport</span>) ReturnType _stdcall FunctionName(<span class="name">args</span>...)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
-<font color="red"><strong>总结： </strong>应用程序引用导出函数时需要保证<strong>调用时设置的调用约定与导出时设置的导出规则相匹配</strong>；进而保证<strong>可执行模块依赖的库函数名称与该动态链接库导出的函数名字相一致</strong>，这样<strong>客户端程序才能成功调用DLL中的导出函数</strong>！</font>
-
-<p>　　<strong>第二步： </strong>包含该动态链接库提供的引入库文件。<br>　　添加外部引用函数声明后，我们还需要将<strong>DLL</strong>对应的引入库文件导入到工程中；不然，<strong>即使添加了外部应用声明，源文件能够成功编译，但是当链接器进行链接生成可执行程序时，因为缺少引入库文件，链接器会找不到相应的外部引用函数实现，造成链接失败</strong>！导入引入库文件的作用正是<strong>告诉链接器这些外部引用函数是以动态链接库的形式实现的，在运行时动态加载</strong>，这样就能够解决链接器链接失败的问题。<br>　　具体操作如下： <strong>菜单栏Project→ Settings→ Link选项卡→ 选择Input(输入设置)作为”Category”→ “Object/library modules”输入动态链接库对应的引入库文件；</strong>当引入库文件直接放在工程目录下，<strong>“Additional library path”为空</strong>，当放在其他路径下，则需要添加该路径说明，链接器会按照该路径寻找引入库文件；<font color="red">在我们的项目中，需要调用设备的接口函数，<strong>各个接口函数是以动态链接库的形式提供</strong>，<strong>“ZM124U.lib”</strong>为对应的引入库文件，见下图右侧，<strong>“Additional library path”为”./libs”</strong>，这是因为该引入库文件放置在工程目录下的<strong> libs </strong>文件夹下，其中<strong>“ . “</strong>表示当前路径，也就是工程目录。</font><br>    <center><img src="/img/RFID/01-08.png"/></center><br>　　到这里，我们就完成了通过隐式链接的方式加载动态链接库的所有操作，可以生成<strong>一个需要依赖动态链接库的可执行程序</strong>；最后，因为该可执行程序运行时需要动态加载动态链接库才能执行某种功能，所以我们需要将相应的<strong>DLL</strong>动态链接库文件放在程序能够搜索到的路径下(<a href="#someKeys">关于<strong>动态链接库搜索顺序</strong>可以点击查看<strong> 几点注意的地方 </strong>一节中的<strong>第1)点</strong></a>)。<br>　　<font color="red"><strong>建议： </strong></font>将动态链接库与可执行程序放在同一目录下。</p>
-<p>　　<font color="#FF2400"><strong>@-隐式链接方式下动态链接库创建和使用完善方案</strong></font><br>　　<strong>在实际应用中，多采用隐式链接方式加载动态链接库</strong>。通过上述的介绍，相信大家对创建动态链接库以及在应用程序中采用隐式链接方式引用创建好的动态链接库的流程有了比较清晰的认识，我们不妨再回顾一下:<br>　　<strong> 　+. </strong>首先，创建动态链接库工程，其中需要注意的是需要设置好导出函数的导出规则，通过<strong> extern “C” _declspec(dllexport) </strong>进行函数声明；如果采用<strong>标准调用约定</strong>，则需要添加<strong> _stdcall </strong>关键字。<br>　　<strong> 　　+. </strong>在应用程序中调用生成的动态链接库，先是需要添加调用函数的外部定义声明，再将该动态链接库对应的引入库文件导入工程；注意调用约定与导出规则必须相匹配才能成功调用。<br>　　在实际应用中，完善的创建与使用动态链接库的方案是通过一个统一的<strong> 头文件声明 </strong>解决<strong>调用约定与导出规则相匹配</strong>这个问题，我们采用这种标准来完善上述举出的例子。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************************************************</div><div class="line"> *	File Name: DllDemo.h</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.19</div><div class="line"> *	Description: 动态链接库创建和使用完善方案范例</div><div class="line"> ******************************************************/</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> DLLDEMO_API</span></div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> DLLDEMO_API extern <span class="meta-string">"C"</span> _declspec(dllimport)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"> </div><div class="line"><span class="comment">/************************* C调用约定声明如下 *********************/</span></div><div class="line"><span class="function">DLLDEMO_API <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"><span class="function">DLLDEMO_API <span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"><span class="comment">/************************* C调用约定声明 *************************/</span></div><div class="line"> </div><div class="line"><span class="comment">/************************* 标准调用约定声明如下 ******************/</span></div><div class="line"><span class="comment">//DLLDEMO_API int _stdcall add(int a, int b);</span></div><div class="line"><span class="comment">//DLLDEMO_API int _stdcall subtract(int a, int b);</span></div><div class="line"><span class="comment">/************************* 标准调用约定声明 **********************/</span></div></pre></td></tr></table></figure></p>
-<p>　　在<strong> DllDemo.h </strong>头文件声明中通过一个预编译宏<code>DLLDEMO_API</code>，当该宏未被定义时，将其定义为<strong> extern “C” _declspec(dllimport) </strong>，是外部定义声明修饰符；所以，我们可以在应用程序中直接通过<strong> #include “DllDemo.h” </strong>声明我们要调用的从动态链接库中导出的函数。<br>　　以上是解决在应用程序中调用的问题，那么这种方式在创建动态链接库时又是怎样进行导出函数声明的呢？<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>*</div><div class="line"> *	File Name: DllDemo.cpp</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.19</div><div class="line"> *	Description: 动态链接库创建和使用完善方案范例</div><div class="line"> <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>*/</span></span></div><div class="line">#define DLLDEMO_API extern <span class="string">"C"</span> _declspec(dllexport)</div><div class="line">#include <span class="string">"DLLDemo.h"</span></div><div class="line"></div><div class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> C调用约定实现如下 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line"><span class="built_in">int</span> add(<span class="built_in">int</span> a, <span class="built_in">int</span> b)&#123;</div><div class="line">  <span class="keyword">return</span> a+b;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="built_in">int</span> subtract(<span class="built_in">int</span> a, <span class="built_in">int</span> b)&#123;</div><div class="line">  <span class="keyword">return</span> a-b;</div><div class="line">&#125;</div><div class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> C调用约定实现如下 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line"> </div><div class="line"> </div><div class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> 标准调用约定实现如下 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>/</span></span></div><div class="line"><span class="comment">//int _stdcall add(int a, int b)&#123;</span></div><div class="line"><span class="comment">//	return a+b;</span></div><div class="line"><span class="comment">//&#125;</span></div><div class="line"> </div><div class="line"><span class="comment">//int _stdcall subtract(int a, int b)&#123;</span></div><div class="line"><span class="comment">//	return a-b;</span></div><div class="line"><span class="comment">//&#125;</span></div><div class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> 标准调用约定实现如下 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>/</span></span></div></pre></td></tr></table></figure></p>
-<p>　　相似的，还是需要通过<strong> #include “DllDemo.h” </strong>对函数进行声明，但是，在<strong> #include “DllDemo.h” </strong>之前，对<code>DLLDEMO_API</code>宏进行定义，为<strong> extern “C” _declspec(dllexport) </strong>，是导出函数标识符；这样，当包含头文件时，因为<code>DLLDEMO_API</code>宏已经被定义，<strong> #define DLLDEMO_API extern “C” _declspec(dllimport) </strong>一行不会被执行，从而完成了对相应函数的导出声明。<br>　　通过以上这种方式，使得我们在使用动态链接库提供的接口时，只需要包含一个头文件即可完成对调用函数的外部定义，而该头文件则是开发该动态链接库的程序员提供；另外，通过这种方式，保证了<strong>应用程序调用接口函数采用的调用约定与对应动态链接库的导出规则相匹配</strong>。 (<font color="#9A32CD">我们的设备接口函数就是按照这种方式实现的</font>)</p>
-<p>　　<font color="#FF2400"><strong>@-显示加载方式加载DLL</strong></font><br>　　显示加载方式是另外一种加载动态链接库的方式，这里简单介绍一下。<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> CDLLtestDlg::OnBtnSubtract() </div><div class="line">&#123;</div><div class="line">　　HINSTANCE hInst = LoadLibrary(<span class="string">"./DLLDemo.dll"</span>);		<span class="comment">// 动态加载DLL</span></div><div class="line"> </div><div class="line">　　<span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> 标准调用预定 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line">　　<span class="comment">//typedef int (_stdcall *SUBTRACTPROC)(int a, int b);	// 定义函数指针类型</span></div><div class="line">　　<span class="comment">//SUBTRACTPROC Subtract = (SUBTRACTPROC)GetProcAddress(hInst, "_subtract@8");	</span></div><div class="line">                <span class="comment">// 通过导出符号名获取DLL的导出函数</span></div><div class="line">                <span class="comment">// GetProcAddress的第二个参数是按照标准调用规则改编后的导出符号名</span></div><div class="line">　　<span class="comment">//SUBTRACTPROC Subtract = (SUBTRACTPROC)GetProcAddress(hInst, MAKEINTRESOURCE(2));	</span></div><div class="line">                <span class="comment">// 也可以通过序号获取DLL的导出函数</span></div><div class="line">　　<span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> 标准调用预定 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line"> </div><div class="line">　　<span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> C调用预定 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line">　　<span class="keyword">typedef</span> <span class="built_in">int</span> (*SUBTRACTPROC)(<span class="built_in">int</span> a, <span class="built_in">int</span> b);</div><div class="line">　　SUBTRACTPROC Subtract = (SUBTRACTPROC)GetProcAddress(hInst, <span class="string">"subtract"</span>);</div><div class="line">　　<span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> C调用预定 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line"> </div><div class="line">　　<span class="keyword">if</span>(!Subtract)&#123;						<span class="comment">// 函数指针为NULL说明获取DLL导出函数失败</span></div><div class="line">　　　　	MessageBox(<span class="string">"获取函数地址失败!"</span>);</div><div class="line">　　　　	<span class="keyword">return</span>;</div><div class="line">　　&#125;</div><div class="line"> </div><div class="line">　　CString str;</div><div class="line">　　str.Format(<span class="string">"5-3=%d"</span>, Subtract(<span class="number">5</span>, <span class="number">3</span>));			<span class="comment">// 通过Subtract调用DLL中的subtract函数</span></div><div class="line">　　MessageBox(str);</div><div class="line"> </div><div class="line">　　FreeLibrary(hInst);						<span class="comment">// 释放该DLL的引用</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>注意： 1. </strong>不同的调用约定在定义函数指针时是有区别的，如果采用标准调用约定，则需要添加<strong> _stdcall </strong>关键字。<br>　　　 <strong>2. </strong>通过导出函数名获取<strong>DLL</strong>导出函数时(<strong>GetProcAddress</strong>的第二个参数)，要注意是否发生名字改编。使用<strong> extern “C” </strong>同时采用<strong>C调用约定</strong>，导出函数的名字不会发生改编；采用<strong>标准调用约定</strong>，会对函数名字进行改编，改编原则是原始函数名前面添加<strong>“ _ “</strong>，后面添加<strong>“ @数字” </strong>，其中数字为函数参数所占字节数。<br>　　　 <strong>3. </strong>通过序号获取<strong>DLL</strong>导出函数时(<strong> MAKEINTRESOURCE(序号) </strong>)，最好通过<strong>dumpbin命令</strong>从导出信息中获取函数对应的序号(<strong>“ ordinal列 “</strong>信息)；不过由于这种方式<strong>代码可读性不强</strong>，不建议使用。<br>　　　<strong>4. </strong>采用显示加载方式加载<strong>DLL</strong>，在需要访问时调用<strong>LoadLibrary</strong>函数加载该<strong>DLL</strong>；当不需要访问该<strong>DLL</strong>时，调用<strong>FreeLibrary</strong>函数减少对该<strong>DLL</strong>的引用计数，当此计数变为0时，该<strong>DLL模块</strong>将从调用进程的地址空间卸载；调用<strong>FreeLibrary</strong>函数后，<strong> hInst </strong>句柄不再有效。<br>　　　 <strong>5. </strong>采用隐式链接方式访问<strong>DLL</strong>时，在程序启动时也是通过<strong>LoadLibrary</strong>函数加载该进程需要的动态链接库的；如果程序需要访问十多个<strong>DLL</strong>，如果都采用隐式链接方式加载它们的话，那么在改程序启动时，这些<strong>DLL</strong>都需要被加载到内存中，并映射到调用进程的的地址空间，这样将加大程序的启动时间。<br>　　　 <strong>6. </strong>一般来说，程序运行过程中只是在某个条件满足时才需要访问某个<strong>DLL</strong>中的某个函数，这种情况下，就可以采用显式加载的方式访问<strong>DLL</strong>，在<strong>需要时才加载所需的DLL</strong>。</p>
-<h2 id="动态链接库搜索顺序"><a href="#动态链接库搜索顺序" class="headerlink" title="动态链接库搜索顺序"></a><span id="someKeys"><strong>动态链接库搜索顺序</strong></span></h2><p>　　当应用程序运行时，系统将会为它分配一个<strong>4GB</strong>(<strong>x86-32架构</strong>)的地址空间，然后加载模块会分析该应用程序的输入信息，从中找到改程序将要访问的动态链接信息，然后在用户机器上搜索这些动态链接库，进而加载它们，搜索的顺序如下：<br>　　　<strong>&lt;1. </strong>程序的执行目录，即<strong>.exe</strong>文件所在目录；<br>　　　<strong>&lt;2. </strong>当前目录<strong>“.”</strong>，也叫当前工作目录，即进行某项操作的目的目录；<br><strong>举例： </strong><font color="green">A居住在珠海，这是执行目录；但是A的工作地点是在广州，这是当前目录</font>。<br>　　　<strong>&lt;3. </strong>系统目录，常见的就是<strong>C:\Windows\System32</strong>、<strong>C:\Windows\System</strong>，64位系统的<strong>C:\Windows\SysWOW64</strong>；<br>　　　<strong>&lt;4. Path环境变量</strong>中所列出的路径。</p>
-<h2 id="几点注意的地方"><a href="#几点注意的地方" class="headerlink" title="几点注意的地方"></a><strong>几点注意的地方</strong></h2><p>　　<strong>1）</strong>应用程序不需要调用一个动态链接库的所有导出函数，可以根据需要调用；<br>　　<strong>2）</strong>应用程序需要调用某个动态链接库提供的函数时，在程序链接时只需要包含该动态链接库提供的引入库文件，引入库文件并没有包含实际代码，只是用来为链接程序提供必要信息，以便在可执行文件中建立动态链接时需要用到的重定位表；<br>　　<strong>3）</strong>导出时设置的调用约定必须与引用时匹配，保证引用符号名与动态链接库中的导出符号名一致。
-　</p>
-<blockquote>
-<p>Reference: 　</p>
-<ul>
-<li>《Win32动态链接库与静态链接库的区别》<br><a href="https://yq.aliyun.com/articles/2740?spm=5176.blog2739.yqblogcon1.8.pJ3E7X">https://yq.aliyun.com/articles/2740?spm=5176.blog2739.yqblogcon1.8.pJ3E7X</a></li>
-<li>error C1041: 无法打开程序数据库“x:\projects\hellococo\debug.win32\vc120.pdb”；如果要将多个 CL.EXE 写入同一个 .PDB 文件，请使用 /FS 。<br><a href="http://home.eeworld.com.cn/my/space-uid-291513-blogid-239457.html">http://home.eeworld.com.cn/my/space-uid-291513-blogid-239457.html</a></li>
-</ul>
-</blockquote>
-<h2 id="Version-Control"><a href="#Version-Control" class="headerlink" title="Version Control"></a><strong>Version Control</strong></h2><table border="3" cellpadding="4px" style="font-family: verdana,arial,sans-serif; font-size:18px; color:#333333; background-color:#c3dde0; margin: 0; border-color: #333333; border-collapse:collapse"><br><tr><td style="width: 60px; text-align: center">版本号</td><td style="width: 80px; text-align: center">日期</td><td style="width: 320px; text-align: center">内容</td><td style="width: 100px; text-align: center">作者</td></tr><tr text-align="center"><td style="text-align: center">V0.1</td><td style="text-align: center">2015.10.16</td><td style="text-align: center">起草博客</td><td style="text-align: center">Tarantula-7</td></tr></table>]]></content>
-      
-        <categories>
-            
-            <category> TA Cources </category>
-            
-            <category> IoT </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> DLL </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Windows下的静态库和动态库]]></title>
       <url>/2015/10/16/programPearls_Windows%E4%B8%8B%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93/</url>
       <content type="html"><![CDATA[<p>　　本文旨在指导大家如何创建和使用<strong>Windows下的DLL动态链接库</strong>以及通过<strong>DLL动态链接库导出导入</strong>这一过程介绍一些<strong>编译链接、动态加载</strong>的小知识。本章内容作为本学期项目开发的延伸扩展，目的是让大家对项目中使用的读写器接口函数库由来以及如何在项目中使用该函数库有更深入的理解。在这个过程，大家将会初步接触并了解：<br>　　　　<strong>+1.　</strong> <strong>Windows静态链接库和动态链接库</strong>的一些背景知识;<br>　　　　<strong>+2.　</strong> 如何创建和使用<strong>DLL动态链接库</strong>。<br><a id="more"></a></p>
 <h2 id="静态库和动态库的区别"><a href="#静态库和动态库的区别" class="headerlink" title="静态库和动态库的区别"></a><strong>静态库和动态库的区别</strong></h2><p>　　<font color="#FF2400"><strong>@-静态链接库(.lib)</strong></font><br>　　函数和数据被编译进一个二进制文件。在使用静态库编译链接成可执行文件时，链接器从库中复制这些<font color="red"><strong>函数和数据</strong></font>并把它们和应用程序的其他模块组合起来创建.exe可执行程序。</p>
@@ -8294,6 +8558,74 @@
             <category> 编程珠玑 </category>
             
             <category> 链接 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> DLL </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Windows下的静态库和动态库]]></title>
+      <url>/2015/10/16/iotCourse_02%20Windows%E4%B8%8B%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93/</url>
+      <content type="html"><![CDATA[<p>　　本文旨在指导大家如何创建和使用<strong>Windows下的DLL动态链接库</strong>以及通过<strong>DLL动态链接库导出导入</strong>这一过程介绍一些<strong>编译链接、动态加载</strong>的小知识。本章内容作为本学期项目开发的延伸扩展，目的是让大家对项目中使用的读写器接口函数库由来以及如何在项目中使用该函数库有更深入的理解。在这个过程，大家将会初步接触并了解：<br>　　　　<strong>+1.　</strong> <strong>Windows静态链接库和动态链接库</strong>的一些背景知识;<br>　　　　<strong>+2.　</strong> 如何创建和使用<strong>DLL动态链接库</strong>。<br><a id="more"></a></p>
+<h2 id="静态库和动态库的区别"><a href="#静态库和动态库的区别" class="headerlink" title="静态库和动态库的区别"></a><strong>静态库和动态库的区别</strong></h2><p>　　<font color="#FF2400"><strong>@-静态链接库(.lib)</strong></font><br>　　函数和数据被编译进一个二进制文件。在使用静态库编译链接成可执行文件时，链接器从库中复制这些<font color="red"><strong>函数和数据</strong></font>并把它们和应用程序的其他模块组合起来创建.exe可执行程序。</p>
+<p>　　<font color="#FF2400"><strong>@-动态链接库(.lib &amp; .dll)</strong></font><br>　　一个引入库(.lib)文件和一个DLL(.dll)文件。<font color="red"><strong>引入库文件只包含该DLL导出的函数和变量的符号名，并没有包含实际代码，只是用来为链接程序提供必要信息，以便在可执行文件中建立动态链接时需要用到的重定位表</strong></font>，而<strong>.dll文件包含该DLL实际的函数和数据</strong>。在使用动态库编译链接成可执行文件时，只链接该DLL的引入库文件，该DLL文件中的函数代码和数据并不复制到可执行文件中，直到可执行程序执行时，才将该DLL映射到进程的地址空间中，然后访问DLL中导出的函数。<br>　　动态链接库包含能被可执行程序或其他DLL调用来完成某项工作的函数<strong> → </strong><font color="red"><strong>动态链接库只有在其他模块调用库中的函数时才发挥作用</strong>。</font></p>
+<p>　　<font color="#FF2400"><strong>@-为什么使用动态链接库</strong></font><br>　　<font color="green"><strong>&lt;1. </strong>节省磁盘空间和内存</font><br>　　　如果多个应用程序需要访问同样的功能，可以将该功能以DLL的形式提供，这样在机器上只需要一份该DLL文件就可以了，节省磁盘空间；多个应用程序使用同一个DLL，该DLL的页面只需要放入内存一次，所有的应用程序都可以共享它的页面，内存的使用更加有效。<br>　　<font color="green"><strong>&lt;2. </strong>采用多种语言编写动态链接库</font><br>　　　采用自己熟悉的开发语言编写DLL，然后由其他语言编写的可执行程序来调用这些DLL。<br>　　<font color="green"><strong>&lt;3. </strong>增强产品功能</font><br>　　　更新DLL，替换产品原有的DLL。<br>　　<font color="green"><strong>&lt;4. </strong>提供二次开发平台</font><br>　　　用户利用DLL，调用其中实现的功能，开发业务所需的产品。<br>　　<font color="green"><strong>&lt;5. </strong>简化项目管理</font><br>　　　并行开发，不同功能交由各项目小组以多个DLL的方式实现。</p>
+<p>　　<font color="#FF2400"><strong>@-我们可以怎么做</strong></font><br>　　<strong>把完成某种功能的函数放在一个动态链接库中，提供给其他程序调用。</strong></p>
+<h2 id="利用VC-创建DLL"><a href="#利用VC-创建DLL" class="headerlink" title="利用VC++创建DLL"></a><strong>利用VC++创建DLL</strong></h2><p>　　<strong>第一步： </strong> <strong>VC++</strong> <strong>→</strong> <strong>File</strong> <strong>→</strong> <strong>New</strong> <strong>→</strong> <strong>Win32 Dynamic-Link Library</strong> <strong>→</strong> <strong>An Empty DLL Project</strong>，创建动态链接库工程；<br>    <center><img src="/img/RFID/01-00-01.png" width="720px"/></center><br>　　<strong>第二步： </strong> <strong>VC++</strong> <strong>→</strong> <strong>File</strong> <strong>→</strong> <strong>New</strong> <strong>→</strong> <strong>C++ Source(Header) File</strong>添加源文件或头文件，编写代码；<br>    <center><img src="/img/RFID/01-00-02.png" width="720px"/></center><br>　　<strong>第三步： </strong> <strong>Build</strong>，便会在工程目录下的<strong> Debug/ </strong>下查看到<strong> 工程名.dll </strong>动态链接库文件以及<strong> 工程名.lib </strong>引入库文件。</p>
+<p>　　<font color="red">具体代码如何编写以及生成动态链接库后，如何在我们的应用程序中调用库中的函数实现某种功能将会在下面章节仔细讲述</font>。</p>
+<h2 id="从DLL中导出全局函数"><a href="#从DLL中导出全局函数" class="headerlink" title="从DLL中导出全局函数"></a><strong>从DLL中导出全局函数</strong></h2><p>　　为了让DLL导出一些函数，需要在每一个将要被导出的函数前面添加标识符: <strong><code>_declspec(dllexport)</code></strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 函数声明 </div><div class="line">_declspec(dllexport) <span class="function">ReturnType <span class="title">FunctionName</span><span class="params">(args...)</span></span>;</div><div class="line"></div><div class="line"><span class="function">ReturnType <span class="title">FunctionName</span><span class="params">(args...)</span></span>&#123;</div><div class="line">　　...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="从DLL中导出C-类"><a href="#从DLL中导出C-类" class="headerlink" title="从DLL中导出C++类"></a><strong>从DLL中导出C++类</strong></h2><p>　　类似的，使用导出标识符: <strong><code>_declspec(dllexport)</code></strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 类指定导出标识 </div><div class="line"><span class="keyword">class</span> _declspec(dllexport) ClassName</div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">　　<span class="function">ReturnType <span class="title">FunctionName</span><span class="params">(args...)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>　　<strong>指定导出标识的类的所有函数都将被导出；否则，只有那些声明了导出标识的类成员函数才会被导出。</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 只有类成员函数指定导出标识 </div><div class="line"><span class="keyword">class</span> ClassName</div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">　　_declspec(dllexport) <span class="function">ReturnType <span class="title">FunctionName</span><span class="params">(args...)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong><font color="red">注意：</font></strong><br>　　<strong>导出的成员函数必须具有public访问权限，否则即使被导出，也不能被其他程序访问</strong>。</p>
+<h2 id="使用dumpbin命令查看DLL导出导入信息"><a href="#使用dumpbin命令查看DLL导出导入信息" class="headerlink" title="使用dumpbin命令查看DLL导出导入信息"></a><strong>使用dumpbin命令查看DLL导出导入信息</strong></h2><p>　　首先，<strong>DUMPBIN.EXE</strong>程序位于<strong>/Bin/</strong>目录下(中文版则是<strong>/VC98/Bin/</strong>)。为了在<strong>cmd命令行</strong>里面方便使用，我们将其所在的全局路径加入到环境变量<strong>Path</strong>中，如下图(火狐/IE浏览器可以点击查看大图)。<br>    <center><img src="/img/RFID/01-01.png" width="800px"/></center><br>　　右键计算机，属性<strong>→</strong>高级系统配置<strong>→</strong>环境变量<strong>→</strong>双击系统变量中的<strong>Path→</strong>在变量值后面加上<strong>DUMPBIN.EXE</strong>程序所在全局路径。<strong>(<font color="red">注意：添加路径前需要有”；”隔开，因为变量值是通过”；”分隔的</font>)</strong><br>　　接下来我们就可以使用这个工具查看一个<strong>DLL</strong>提供的导出函数：<strong><code>dumpbin -exports xxx.dll</code></strong>(如下左图)。<br>　　其中要注意的<strong>“ordinal列”</strong>列出的信息是导出函数的序号；<strong>“RVA列”</strong>是一些地址值，也就是导出函数在<strong>DLL</strong>模块中的位置，通过该地址值可以在<strong>DLL</strong>中找到相应的函数；<strong>“name列”</strong>是导出函数的名称，使用该<strong>DLL</strong>的客户端程序通过该名称找到所需的<strong>DLL</strong>导出函数。<br>    <center><img src="/img/RFID/01-02.png" width="800px"/></center><br>　　还可以使用这个工具查看一个<strong>可执行模块依赖的动态链接库信息</strong>以及该<strong>动态链接库中被可执行模块调用的函数</strong>：<strong><code>dumpbin -imports xxx.exe</code></strong>。<br>　　<strong>这里需要注意的是：一个可执行模块依赖的库函数名称必须与该动态链接库导出的函数名字相一致，因为可执行模块使用依赖的库函数名称来调用DLL中的函数，只有在二者相一致的情况下，可执行模块才能找到所需的DLL导出函数</strong>。因此客户端程序引用的函数符号名必须与<strong>DLL</strong>中的导出函数名称一致才能成功调用！</p>
+<p>　　我们知道，<strong>C++</strong>支持函数重载，对于重载的多个函数来说，依照我们上述的说法，他们的导出函数名理应都是一样的，显然这样的话调用的时候会出问题。为了加以区分，<strong>C++</strong>会按照自己的规则篡改函数的名称，这一过程称为<strong>“名字改编”</strong>。一旦对导出函数名字进行改编，就会造成调用时<strong>可执行模块依赖的库函数名称与动态链接库导出的函数名字不一致</strong>的问题。这就需要在导出时设置导出规则，然后在调用时设置相匹配的调用约定，最终<strong>保证引用的函数名称与动态链接库中导出的函数名字一致</strong>。</p>
+<h2 id="DLL导出函数的名字改编问题"><a href="#DLL导出函数的名字改编问题" class="headerlink" title="DLL导出函数的名字改编问题"></a><strong>DLL导出函数的名字改编问题</strong></h2><p>　　接上面所说的，<strong>C++</strong>编译器在生成<strong>DLL</strong>时，会对导出的函数进行名字改编，并且不同的编译器使用的改编规则不一样，因此改编后的名字是不一样的。这样，如果利用不同的编译器分别生成<strong>DLL</strong>和生成访问该<strong>DLL</strong>的客户端程序的话，后者在访问该<strong>DLL</strong>的导出函数时就会因二者函数符号不一致而出现调用失败的问题。<br>　　<font color="#FF2400"><strong>1. extern “C”</strong></font><br>　　利用限定符：<strong>extern “C”</strong>(注意<strong>C要大写</strong>)可以解决C++和C语言之间相互调用时函数命名的问题，使用该限定符，动态链接库文件在编译时，导出函数的名称不会发生改编。下面是一个具体例子，<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************************************************</div><div class="line"> *	File Name: DllExample.cpp</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.18</div><div class="line"> *	Description: 使用extern "C"范例</div><div class="line"> ******************************************************/</span></div><div class="line"></div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a+b;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a-b;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>　　我们使用<strong>DUMPBIN.EXE命令</strong>来查看生成的<strong>DLL</strong>导出函数信息，如下图：<br>    <center><img src="/img/RFID/01-03.png" width="720px"/></center><br>　　容易看到，导出函数名与函数声明中的函数名是一致的<font color="green">(<strong>= </strong>后面的函数名为一个等价的导出函数名)</font>，这就是<strong>extern “C” </strong>限定符的作用，我们可以把该限定符去掉，对比一下没有使用<strong>extern “C” </strong>限定符该<strong>DLL</strong>的导出信息。<br>　　如下所示，把原先的声明注释掉，改为没有<strong>extern “C” </strong>限定符修饰的普通导出函数声明。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//extern "C" _declspec(dllexport) int add(int a, int b);</span></div><div class="line"><span class="comment">//extern "C" _declspec(dllexport) int subtract(int a, int b);</span></div><div class="line">_declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line">_declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a+b;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a-b;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>　　正如上述所说的，没有添加<strong>extern “C” </strong>限定符，<strong>C++</strong>编译器对导出函数进行了名字改编(从下图我们可以看到，改变后的名字加上了<strong>?</strong>作为前缀，<strong>@@…</strong>作为后缀)。<br>    <center><img src="/img/RFID/01-04.png" width="720px"/></center><br>　　但是使用<strong>extern “C” </strong>限定符这种方法有一个缺陷，就是不能用于导出<strong>C++</strong>类(如下图，函数名字仍然发生改编)。<strong>extern “C” </strong>限定符只能用于导出上述的全局函数这种情况。<br>    <center><img src="/img/RFID/01-05.png" width="800px"/></center><br>　　以下这种方式则是不允许的，编译时直接报错！<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Point&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">　　<span class="keyword">extern</span> <span class="string">"C"</span> _declspec(dllexport) <span class="function"><span class="keyword">void</span> <span class="title">output</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line"><span class="keyword">void</span> Point::output(<span class="keyword">int</span> x, <span class="keyword">int</span> y)&#123;</div><div class="line">　　<span class="keyword">return</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>　　<font color="#FF2400"><strong>2. _stdcall标准调用</strong></font><br>　　上述添加<strong>extern “C” </strong>限定符这种方式保证不对导出函数名字进行改编，这样在引用导出函数时就可以直接通过原始函数名字进行调用，确保<strong>依赖库函数名称与导出的函数名字一致</strong>。<br>　　如果导出函数的调用约定发生了改变，那么即使使用了<strong>extern “C” </strong>限定符，该函数的名字仍会按照调用约定发生相应的改编。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************************************************</div><div class="line"> *	File Name: DllExample.cpp</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.18</div><div class="line"> *	Description: 使用_stdcall标准调用范例</div><div class="line"> ******************************************************/</span></div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec(dllexport) <span class="keyword">int</span> _<span class="function">stdcall <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec(dllexport) <span class="keyword">int</span> _<span class="function">stdcall <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"> </div><div class="line"><span class="keyword">int</span> _<span class="function">stdcall <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">　　<span class="keyword">return</span> a+b;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="keyword">int</span> _<span class="function">stdcall <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">　　<span class="keyword">return</span> a-b;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>　　从下图的导出函数信息，我们可以知道：在添加了<strong>_stdcall关键字</strong>之后，导出函数的名字仍发生改编(在原始函数名字前面添加<strong> _ </strong>，后面添加一个<strong>@</strong>，接着是<strong>数字，表示函数参数所占的字节数</strong>，例如<strong>add函数具有两个int类型的参数，占用8个字节，所以add函数该数字为8</strong>)。<br>    <center><img src="/img/RFID/01-06.png" width="720px"/></center><br><strong>总结一下：</strong><br>　　1）上述<strong> 第1.节 </strong>中没有添加<strong>_stdcall关键字</strong>，实际上该函数的调用约定是缺省的<strong>C调用预定</strong>，该约定不对名字进行改编；<br>　　2）添加<strong>_stdcall关键字</strong>后，调用约定变成<strong>标准调用约定</strong>，<strong>标准调用约定</strong>是<strong>WINAPI调用约定</strong>，也就是<strong>pascal调用约定</strong>，显然这种调用约定与<strong>C调用预定</strong>不一样，会对函数名字进行改编，改编方式则按照我们上面描述的规则进行。<br>　　3）因此，我们也可以在导出函数时添加调用约定，然后在引用函数时使用相匹配的调用约定进行调用，这样也能解决因名字改编出现的<strong>依赖库函数名称与导出的函数名字不一致</strong>的问题。</p>
+<p>　　<font color="#FF2400"><strong>3. DEF模块定义文件</strong></font><br>　　除了上述两种方式外，我们还可以通过一个称为<strong>模块定义文件(DEF)</strong>的方式，实现动态链接库文件在编译时，导出函数的名称不要发生改编。动态链接库源文件就和我们最开始介绍的普通导出函数源文件一致：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************************************************</div><div class="line"> *	File Name: DllExample.cpp</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.18</div><div class="line"> *	Description: 使用DEF模块定义文件范例</div><div class="line"> ******************************************************/</span></div><div class="line">_declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line">_declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a+b;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> a-b;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>　　按照添加源文件的方式，我们为工程添加一个模块定义文件，<strong>File→New→Files选项卡→Text File→文件名后缀一定要是.def(文件名建议和工程名一致)</strong>。<br>    <center><img src="/img/RFID/01-07.png" width="720px"/></center><br>　　模块定义文件(<strong>DllExample.def</strong>)内容如下:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************************************************</div><div class="line"> *	File Name: DllExample.def</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.18</div><div class="line"> *	Description: 导出函数模块定义文件</div><div class="line"> ******************************************************/</span></div><div class="line">LIBRARY DllExample</div><div class="line">DESCRIPTION 描述一些关于DllExample导出函数信息</div><div class="line"> </div><div class="line">EXPORTS</div><div class="line">add</div><div class="line">subtract</div></pre></td></tr></table></figure></p>
+<p>　　<strong> LIBRARY xxx </strong>一行可加可不加，用来指定动态链接库的内部名称，注意<strong>该名称与生成的动态链接库的名称(也就是我们的工程名)一定要匹配</strong>；<br>　　<strong> DESCRIPTION xxx </strong>一行是对该动态链接库的描述，也是可加可不加；<br>　　<strong> EXPORTS </strong>表明<strong>DLL</strong>将要导出的函数以及这些导出函数指定的符号名。当链接器在链接时，会分析<strong>EXPORTS</strong>下面的符号名，假如是上述例子所示的形式，即单独的符号名(<strong>add</strong>或<strong>subtract</strong>)，并且<strong>符号名与源文件中定义的函数名一致</strong>时，就会以该符号名作为相应导出函数的函数名字，这样导出函数的名字便不会发生改编。(或者以另外一种形式：<strong>entryname=internalname(例如：myadd=add)</strong>，其中<strong>entryname</strong>表示导出函数的函数名字，<strong>internalname</strong>则为源文件中定义的函数名，这种形式会对导出函数名字进行改编，<strong>entryname</strong>即为导出函数的函数名字。)</p>
+<font color="red"><strong>总结：</strong><br>　　归根结底，名字改编造成<strong>依赖库函数名称与相应导出的函数名字不一致</strong>的问题，通过上述三种方式，最终保证<strong>可执行模块依赖的库函数名称与该动态链接库导出的函数名字相一致</strong>，只有这样指定函数才能成功调用。</font>
+
+<h2 id="加载DLL的两种方式"><a href="#加载DLL的两种方式" class="headerlink" title="加载DLL的两种方式"></a><strong>加载DLL的两种方式</strong></h2><p>　　当我们把一些常用的功能封装成动态链接库之后，接下来就是在我们的应用程序中使用这些功能。首先，经过上述步骤创建好动态链接库，会在<strong> Debug/ </strong>目录下生成<strong>工程名.dll</strong>、<strong>工程名.lib</strong>：<br>　　　<strong>+ 工程名.dll </strong>就是我们所说的<strong>DLL</strong>动态链接库，我们的应用程序会在运行过程中动态加载该库；<br>　　　<strong>+ 工程名.lib </strong>则是文章开头所说的<strong>引入库文件</strong>，保存生成的<strong>DLL</strong>动态链接库中导出的函数和变量的符号名，并没有包含实际代码，只是用来为链接程序提供必要信息，以便在可执行文件中建立动态链接时需要用到的重定位表。<br>　　在程序中，有以下两种方式加载动态链接库：<br>　　　　<strong>@ 隐式链接</strong>；<br>　　　　<strong>@ 显示加载</strong>。</p>
+<p>　　<font color="#FF2400"><strong>@-隐式链接方式加载DLL</strong></font><br>　　<strong>第一步： </strong>头文件中添加引入的外部函数声明。<br>　　在应用程序中调用动态链接库的导出函数之前，为了让编译器知道这些函数，需要对其作一个声明，通常前面加上<strong> extern关键字 </strong>表明函数是在外部定义的。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">extern</span> ReturnType <span class="title">FunctionName</span><span class="params">(args...)</span></span>;</div></pre></td></tr></table></figure></p>
+<p>　　除了使用<strong>extern关键字</strong>表明函数时外部定义的之外，还可以使用<strong> _declspec(dllimport) </strong>标识符来表明函数是从动态链接库中引入的。<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_declspec(<span class="name">dllimport</span>) ReturnType FunctionName(<span class="name">args</span>...)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p><strong>注意： </strong>使用<strong> _declspec(dllimport) </strong>标识符声明外部函数，它将告诉编译器该函数是从动态链接库中引入的，因此<strong>编译器可以生成运行效率更高的代码</strong>。故，如果调用的函数来自于动态链接库，应该采用这种方式声明外部函数。<br>　　另外，正如在<strong> DLL导出函数的名字改编问题 </strong>一节中所说的，为了<strong>保证可执行模块依赖的库函数名称与该动态链接库导出的函数名字相一致</strong>，需要在导出时设置导出规则，然后在调用时设置相匹配的调用约定。当导出函数通过<strong> extern “C”限定符 </strong>防止导出的函数名称发生改编，显然单单使用上述的声明会造成<strong>可执行模块依赖的库函数名称与该动态链接库导出的函数名字不一致</strong>，因为普通的外部声明引用的导出函数，其名字是对应于被<strong>C++编译器</strong>进行改编了的，而添加<strong>extern “C”限定符</strong>的导出函数名称并没有发生改编，所以，对应的需要使用如下的外部定义：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">extern <span class="string">"C"</span> _declspec(<span class="name">dllimport</span>) ReturnType FunctionName(<span class="name">args</span>...)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>　　经过上述的分析，我们也知道，没有添加<strong> _stdcall关键字 </strong>修饰使用的是<strong> C调用约定 </strong>；那么当导出函数通过添加<strong> _stdcall关键字 </strong>设置为<strong> 标准调用约定 </strong>，则相应的外部定义声明应如下：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">extern <span class="string">"C"</span> _declspec(<span class="name">dllimport</span>) ReturnType _stdcall FunctionName(<span class="name">args</span>...)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<font color="red"><strong>总结： </strong>应用程序引用导出函数时需要保证<strong>调用时设置的调用约定与导出时设置的导出规则相匹配</strong>；进而保证<strong>可执行模块依赖的库函数名称与该动态链接库导出的函数名字相一致</strong>，这样<strong>客户端程序才能成功调用DLL中的导出函数</strong>！</font>
+
+<p>　　<strong>第二步： </strong>包含该动态链接库提供的引入库文件。<br>　　添加外部引用函数声明后，我们还需要将<strong>DLL</strong>对应的引入库文件导入到工程中；不然，<strong>即使添加了外部应用声明，源文件能够成功编译，但是当链接器进行链接生成可执行程序时，因为缺少引入库文件，链接器会找不到相应的外部引用函数实现，造成链接失败</strong>！导入引入库文件的作用正是<strong>告诉链接器这些外部引用函数是以动态链接库的形式实现的，在运行时动态加载</strong>，这样就能够解决链接器链接失败的问题。<br>　　具体操作如下： <strong>菜单栏Project→ Settings→ Link选项卡→ 选择Input(输入设置)作为”Category”→ “Object/library modules”输入动态链接库对应的引入库文件；</strong>当引入库文件直接放在工程目录下，<strong>“Additional library path”为空</strong>，当放在其他路径下，则需要添加该路径说明，链接器会按照该路径寻找引入库文件；<font color="red">在我们的项目中，需要调用设备的接口函数，<strong>各个接口函数是以动态链接库的形式提供</strong>，<strong>“ZM124U.lib”</strong>为对应的引入库文件，见下图右侧，<strong>“Additional library path”为”./libs”</strong>，这是因为该引入库文件放置在工程目录下的<strong> libs </strong>文件夹下，其中<strong>“ . “</strong>表示当前路径，也就是工程目录。</font><br>    <center><img src="/img/RFID/01-08.png"/></center><br>　　到这里，我们就完成了通过隐式链接的方式加载动态链接库的所有操作，可以生成<strong>一个需要依赖动态链接库的可执行程序</strong>；最后，因为该可执行程序运行时需要动态加载动态链接库才能执行某种功能，所以我们需要将相应的<strong>DLL</strong>动态链接库文件放在程序能够搜索到的路径下(<a href="#someKeys">关于<strong>动态链接库搜索顺序</strong>可以点击查看<strong> 几点注意的地方 </strong>一节中的<strong>第1)点</strong></a>)。<br>　　<font color="red"><strong>建议： </strong></font>将动态链接库与可执行程序放在同一目录下。</p>
+<p>　　<font color="#FF2400"><strong>@-隐式链接方式下动态链接库创建和使用完善方案</strong></font><br>　　<strong>在实际应用中，多采用隐式链接方式加载动态链接库</strong>。通过上述的介绍，相信大家对创建动态链接库以及在应用程序中采用隐式链接方式引用创建好的动态链接库的流程有了比较清晰的认识，我们不妨再回顾一下:<br>　　<strong> 　+. </strong>首先，创建动态链接库工程，其中需要注意的是需要设置好导出函数的导出规则，通过<strong> extern “C” _declspec(dllexport) </strong>进行函数声明；如果采用<strong>标准调用约定</strong>，则需要添加<strong> _stdcall </strong>关键字。<br>　　<strong> 　　+. </strong>在应用程序中调用生成的动态链接库，先是需要添加调用函数的外部定义声明，再将该动态链接库对应的引入库文件导入工程；注意调用约定与导出规则必须相匹配才能成功调用。<br>　　在实际应用中，完善的创建与使用动态链接库的方案是通过一个统一的<strong> 头文件声明 </strong>解决<strong>调用约定与导出规则相匹配</strong>这个问题，我们采用这种标准来完善上述举出的例子。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************************************************</div><div class="line"> *	File Name: DllDemo.h</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.19</div><div class="line"> *	Description: 动态链接库创建和使用完善方案范例</div><div class="line"> ******************************************************/</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> DLLDEMO_API</span></div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> DLLDEMO_API extern <span class="meta-string">"C"</span> _declspec(dllimport)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"> </div><div class="line"><span class="comment">/************************* C调用约定声明如下 *********************/</span></div><div class="line"><span class="function">DLLDEMO_API <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"><span class="function">DLLDEMO_API <span class="keyword">int</span> <span class="title">subtract</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</div><div class="line"><span class="comment">/************************* C调用约定声明 *************************/</span></div><div class="line"> </div><div class="line"><span class="comment">/************************* 标准调用约定声明如下 ******************/</span></div><div class="line"><span class="comment">//DLLDEMO_API int _stdcall add(int a, int b);</span></div><div class="line"><span class="comment">//DLLDEMO_API int _stdcall subtract(int a, int b);</span></div><div class="line"><span class="comment">/************************* 标准调用约定声明 **********************/</span></div></pre></td></tr></table></figure></p>
+<p>　　在<strong> DllDemo.h </strong>头文件声明中通过一个预编译宏<code>DLLDEMO_API</code>，当该宏未被定义时，将其定义为<strong> extern “C” _declspec(dllimport) </strong>，是外部定义声明修饰符；所以，我们可以在应用程序中直接通过<strong> #include “DllDemo.h” </strong>声明我们要调用的从动态链接库中导出的函数。<br>　　以上是解决在应用程序中调用的问题，那么这种方式在创建动态链接库时又是怎样进行导出函数声明的呢？<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>*</div><div class="line"> *	File Name: DllDemo.cpp</div><div class="line"> *	Creator: Tarantula-7</div><div class="line"> *	Created Time: 2015.10.19</div><div class="line"> *	Description: 动态链接库创建和使用完善方案范例</div><div class="line"> <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>*/</span></span></div><div class="line">#define DLLDEMO_API extern <span class="string">"C"</span> _declspec(dllexport)</div><div class="line">#include <span class="string">"DLLDemo.h"</span></div><div class="line"></div><div class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> C调用约定实现如下 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line"><span class="built_in">int</span> add(<span class="built_in">int</span> a, <span class="built_in">int</span> b)&#123;</div><div class="line">  <span class="keyword">return</span> a+b;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="built_in">int</span> subtract(<span class="built_in">int</span> a, <span class="built_in">int</span> b)&#123;</div><div class="line">  <span class="keyword">return</span> a-b;</div><div class="line">&#125;</div><div class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> C调用约定实现如下 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line"> </div><div class="line"> </div><div class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> 标准调用约定实现如下 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>/</span></span></div><div class="line"><span class="comment">//int _stdcall add(int a, int b)&#123;</span></div><div class="line"><span class="comment">//	return a+b;</span></div><div class="line"><span class="comment">//&#125;</span></div><div class="line"> </div><div class="line"><span class="comment">//int _stdcall subtract(int a, int b)&#123;</span></div><div class="line"><span class="comment">//	return a-b;</span></div><div class="line"><span class="comment">//&#125;</span></div><div class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> 标准调用约定实现如下 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>/</span></span></div></pre></td></tr></table></figure></p>
+<p>　　相似的，还是需要通过<strong> #include “DllDemo.h” </strong>对函数进行声明，但是，在<strong> #include “DllDemo.h” </strong>之前，对<code>DLLDEMO_API</code>宏进行定义，为<strong> extern “C” _declspec(dllexport) </strong>，是导出函数标识符；这样，当包含头文件时，因为<code>DLLDEMO_API</code>宏已经被定义，<strong> #define DLLDEMO_API extern “C” _declspec(dllimport) </strong>一行不会被执行，从而完成了对相应函数的导出声明。<br>　　通过以上这种方式，使得我们在使用动态链接库提供的接口时，只需要包含一个头文件即可完成对调用函数的外部定义，而该头文件则是开发该动态链接库的程序员提供；另外，通过这种方式，保证了<strong>应用程序调用接口函数采用的调用约定与对应动态链接库的导出规则相匹配</strong>。 (<font color="#9A32CD">我们的设备接口函数就是按照这种方式实现的</font>)</p>
+<p>　　<font color="#FF2400"><strong>@-显示加载方式加载DLL</strong></font><br>　　显示加载方式是另外一种加载动态链接库的方式，这里简单介绍一下。<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> CDLLtestDlg::OnBtnSubtract() </div><div class="line">&#123;</div><div class="line">　　HINSTANCE hInst = LoadLibrary(<span class="string">"./DLLDemo.dll"</span>);		<span class="comment">// 动态加载DLL</span></div><div class="line"> </div><div class="line">　　<span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> 标准调用预定 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line">　　<span class="comment">//typedef int (_stdcall *SUBTRACTPROC)(int a, int b);	// 定义函数指针类型</span></div><div class="line">　　<span class="comment">//SUBTRACTPROC Subtract = (SUBTRACTPROC)GetProcAddress(hInst, "_subtract@8");	</span></div><div class="line">                <span class="comment">// 通过导出符号名获取DLL的导出函数</span></div><div class="line">                <span class="comment">// GetProcAddress的第二个参数是按照标准调用规则改编后的导出符号名</span></div><div class="line">　　<span class="comment">//SUBTRACTPROC Subtract = (SUBTRACTPROC)GetProcAddress(hInst, MAKEINTRESOURCE(2));	</span></div><div class="line">                <span class="comment">// 也可以通过序号获取DLL的导出函数</span></div><div class="line">　　<span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> 标准调用预定 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line"> </div><div class="line">　　<span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> C调用预定 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line">　　<span class="keyword">typedef</span> <span class="built_in">int</span> (*SUBTRACTPROC)(<span class="built_in">int</span> a, <span class="built_in">int</span> b);</div><div class="line">　　SUBTRACTPROC Subtract = (SUBTRACTPROC)GetProcAddress(hInst, <span class="string">"subtract"</span>);</div><div class="line">　　<span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span> C调用预定 <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>/</span></span></div><div class="line"> </div><div class="line">　　<span class="keyword">if</span>(!Subtract)&#123;						<span class="comment">// 函数指针为NULL说明获取DLL导出函数失败</span></div><div class="line">　　　　	MessageBox(<span class="string">"获取函数地址失败!"</span>);</div><div class="line">　　　　	<span class="keyword">return</span>;</div><div class="line">　　&#125;</div><div class="line"> </div><div class="line">　　CString str;</div><div class="line">　　str.Format(<span class="string">"5-3=%d"</span>, Subtract(<span class="number">5</span>, <span class="number">3</span>));			<span class="comment">// 通过Subtract调用DLL中的subtract函数</span></div><div class="line">　　MessageBox(str);</div><div class="line"> </div><div class="line">　　FreeLibrary(hInst);						<span class="comment">// 释放该DLL的引用</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>注意： 1. </strong>不同的调用约定在定义函数指针时是有区别的，如果采用标准调用约定，则需要添加<strong> _stdcall </strong>关键字。<br>　　　 <strong>2. </strong>通过导出函数名获取<strong>DLL</strong>导出函数时(<strong>GetProcAddress</strong>的第二个参数)，要注意是否发生名字改编。使用<strong> extern “C” </strong>同时采用<strong>C调用约定</strong>，导出函数的名字不会发生改编；采用<strong>标准调用约定</strong>，会对函数名字进行改编，改编原则是原始函数名前面添加<strong>“ _ “</strong>，后面添加<strong>“ @数字” </strong>，其中数字为函数参数所占字节数。<br>　　　 <strong>3. </strong>通过序号获取<strong>DLL</strong>导出函数时(<strong> MAKEINTRESOURCE(序号) </strong>)，最好通过<strong>dumpbin命令</strong>从导出信息中获取函数对应的序号(<strong>“ ordinal列 “</strong>信息)；不过由于这种方式<strong>代码可读性不强</strong>，不建议使用。<br>　　　<strong>4. </strong>采用显示加载方式加载<strong>DLL</strong>，在需要访问时调用<strong>LoadLibrary</strong>函数加载该<strong>DLL</strong>；当不需要访问该<strong>DLL</strong>时，调用<strong>FreeLibrary</strong>函数减少对该<strong>DLL</strong>的引用计数，当此计数变为0时，该<strong>DLL模块</strong>将从调用进程的地址空间卸载；调用<strong>FreeLibrary</strong>函数后，<strong> hInst </strong>句柄不再有效。<br>　　　 <strong>5. </strong>采用隐式链接方式访问<strong>DLL</strong>时，在程序启动时也是通过<strong>LoadLibrary</strong>函数加载该进程需要的动态链接库的；如果程序需要访问十多个<strong>DLL</strong>，如果都采用隐式链接方式加载它们的话，那么在改程序启动时，这些<strong>DLL</strong>都需要被加载到内存中，并映射到调用进程的的地址空间，这样将加大程序的启动时间。<br>　　　 <strong>6. </strong>一般来说，程序运行过程中只是在某个条件满足时才需要访问某个<strong>DLL</strong>中的某个函数，这种情况下，就可以采用显式加载的方式访问<strong>DLL</strong>，在<strong>需要时才加载所需的DLL</strong>。</p>
+<h2 id="动态链接库搜索顺序"><a href="#动态链接库搜索顺序" class="headerlink" title="动态链接库搜索顺序"></a><span id="someKeys"><strong>动态链接库搜索顺序</strong></span></h2><p>　　当应用程序运行时，系统将会为它分配一个<strong>4GB</strong>(<strong>x86-32架构</strong>)的地址空间，然后加载模块会分析该应用程序的输入信息，从中找到改程序将要访问的动态链接信息，然后在用户机器上搜索这些动态链接库，进而加载它们，搜索的顺序如下：<br>　　　<strong>&lt;1. </strong>程序的执行目录，即<strong>.exe</strong>文件所在目录；<br>　　　<strong>&lt;2. </strong>当前目录<strong>“.”</strong>，也叫当前工作目录，即进行某项操作的目的目录；<br><strong>举例： </strong><font color="green">A居住在珠海，这是执行目录；但是A的工作地点是在广州，这是当前目录</font>。<br>　　　<strong>&lt;3. </strong>系统目录，常见的就是<strong>C:\Windows\System32</strong>、<strong>C:\Windows\System</strong>，64位系统的<strong>C:\Windows\SysWOW64</strong>；<br>　　　<strong>&lt;4. Path环境变量</strong>中所列出的路径。</p>
+<h2 id="几点注意的地方"><a href="#几点注意的地方" class="headerlink" title="几点注意的地方"></a><strong>几点注意的地方</strong></h2><p>　　<strong>1）</strong>应用程序不需要调用一个动态链接库的所有导出函数，可以根据需要调用；<br>　　<strong>2）</strong>应用程序需要调用某个动态链接库提供的函数时，在程序链接时只需要包含该动态链接库提供的引入库文件，引入库文件并没有包含实际代码，只是用来为链接程序提供必要信息，以便在可执行文件中建立动态链接时需要用到的重定位表；<br>　　<strong>3）</strong>导出时设置的调用约定必须与引用时匹配，保证引用符号名与动态链接库中的导出符号名一致。
+　</p>
+<blockquote>
+<p>Reference: 　</p>
+<ul>
+<li>《Win32动态链接库与静态链接库的区别》<br><a href="https://yq.aliyun.com/articles/2740?spm=5176.blog2739.yqblogcon1.8.pJ3E7X">https://yq.aliyun.com/articles/2740?spm=5176.blog2739.yqblogcon1.8.pJ3E7X</a></li>
+<li>error C1041: 无法打开程序数据库“x:\projects\hellococo\debug.win32\vc120.pdb”；如果要将多个 CL.EXE 写入同一个 .PDB 文件，请使用 /FS 。<br><a href="http://home.eeworld.com.cn/my/space-uid-291513-blogid-239457.html">http://home.eeworld.com.cn/my/space-uid-291513-blogid-239457.html</a></li>
+</ul>
+</blockquote>
+<h2 id="Version-Control"><a href="#Version-Control" class="headerlink" title="Version Control"></a><strong>Version Control</strong></h2><table border="3" cellpadding="4px" style="font-family: verdana,arial,sans-serif; font-size:18px; color:#333333; background-color:#c3dde0; margin: 0; border-color: #333333; border-collapse:collapse"><br><tr><td style="width: 60px; text-align: center">版本号</td><td style="width: 80px; text-align: center">日期</td><td style="width: 320px; text-align: center">内容</td><td style="width: 100px; text-align: center">作者</td></tr><tr text-align="center"><td style="text-align: center">V0.1</td><td style="text-align: center">2015.10.16</td><td style="text-align: center">起草博客</td><td style="text-align: center">Tarantula-7</td></tr></table>]]></content>
+      
+        <categories>
+            
+            <category> TA Cources </category>
+            
+            <category> IoT </category>
             
         </categories>
         
