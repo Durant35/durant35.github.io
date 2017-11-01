@@ -30,7 +30,9 @@
 <meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/PriorityInversion_PIPChainedBlocking.png">
 <meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/PriorityInversion_PCP.png">
 <meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/PriorityInversion_PCPDeadlockfree.png">
-<meta property="og:updated_time" content="2017-10-31T14:38:59.469Z">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/PriorityInversion_SRP.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/PriorityInversion_SRPvsPCP.png">
+<meta property="og:updated_time" content="2017-11-01T13:38:25.767Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling">
 <meta name="twitter:description" content="Real-time systems are collections of tasks where in addition to any ordering constraints imposed by precedences between the tasks, there are also timing constraints, requiring a scheduling strategy.">
@@ -359,7 +361,10 @@
 <li>Methods<ul>
 <li><font color="green">Priority Inheritance Protocol (PIP)</font>, for <strong>static priorities</strong></li>
 <li><font color="green">Priority Ceiling Protocol (PCP)</font>, for <strong>static priorities</strong></li>
-<li><font color="green">Stack Resource Policy (SRP)</font>, for <strong>static and dynamic priorities</strong></li>
+<li><font color="green">Stack Resource Policy (SRP)</font>, for <strong>static and dynamic priorities</strong><blockquote>
+<p>　<em>static priorities</em>（静态优先级）: 静态优先级是在创建进程时确定的，且在进程的整个运行期间保持不变，内核不会主动修改它。<br>　<em>dynamic priorities</em>（动态优先级）: 在创建进程时所赋予的优先级，是可以随进程的推进或随其等待时间的增加而改变的，调度程序增大或减少进程静态优先级来奖励 IO 消耗型进程或惩罚 CPU 消耗进程以便获得更好的调度性能；调整后的优先级为动态优先级。<br>　<em>real-time priorities</em>（实时优先级）: 实时优先级只对实时进程有效。</p>
+</blockquote>
+</li>
 </ul>
 </li>
 </ul>
@@ -370,7 +375,10 @@
 <li><strong>Direct Blocking</strong>: higher-priority task $T_1$ tries to acquire a resource held by a lower priority task $T_3$.</li>
 <li><strong>Push-through Blocking</strong>: medium-priority task $T_2$ is blocked by a lower-priority task $T_3$ that has inherited a higher priority from a task ($T_1$) it directly blocks.</li>
 <li>Tasks have <strong>nominal</strong>（挂名优先级） and <strong>active</strong>（活跃优先级） priorities<ul>
-<li><font color="green">Nominal priority</font>: assigned by the scheduling algorithm, e.g. $T_1$’s priority.</li>
+<li><font color="green">Nominal priority</font>: assigned by the scheduling algorithm, e.g. $T_1$’s priority.<blockquote>
+<p><em>static priorities</em> or <em>dynamic priorities</em> 取决于 <em>nominal priorities</em> 的情况</p>
+</blockquote>
+</li>
 <li><font color="green">Active priority</font>: assigned by the priority inheritance protocol dynamically to avoid priority inversion, e.g. $T_3$’s priority inherited from $T_1$.</li>
 </ul>
 </li>
@@ -443,9 +451,38 @@
 </li>
 </ul>
 <h3 id="Stack-Resource-Policy-SRP"><a href="#Stack-Resource-Policy-SRP" class="headerlink" title="Stack Resource Policy (SRP)"></a>Stack Resource Policy (SRP)</h3><ul>
-<li>PCP $\rightarrow$ SRP<ul>
+<li>PCP Extending: Stack Resource Policy (SRP)<ul>
 <li>SRP supports dynamic priority scheduling</li>
 <li>PCP blocks a task at the time it makes the resource request, while SRP blocks task at the time it attempts to preempt. </li>
+</ul>
+</li>
+<li>SRP Algorithm<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_SRP.png" width="540px" alt=""/></center><ul>
+<li><font color="blue">Preemption Level</font>:  $\pi _ i \propto \frac{1}{D_i}$, tasks $T_i$ with larger deadlines $D_i$ have lower preemption level (Intuition: they can be easily preempted), is a <strong>static</strong> value.</li>
+<li><font color="blue">Resource ceiling</font>: of a resource is the <em>highest preemption level from amongst of all tasks that may access that resource</em>. Note: (i) this is associated with each resource (ii) this is <strong>static</strong>.<blockquote>
+<p><em>Resource ceiling</em> for the <strong><font color="red">red</font></strong> resource is 3. For the <strong><font color="red">yellow</font></strong> resource, it is 2.</p>
+</blockquote>
+</li>
+<li><font color="blue">System ceiling</font>: is the <em>highest resource ceiling level from amongst of resources that are currently blocked</em> (当前阻塞任务的所有资源的 <em>Resource ceiling</em> 的最大值). Note: (i) this is not associated with each resource but with the system (ii) this is a <strong>dynamic</strong> parameter that can change every time a resource is accessed or released.<blockquote>
+<p>Based on this, we can see how the <em>system ceiling</em> $\prod _s$ varies dynamically.</p>
+</blockquote>
+</li>
+<li><font color="red">*</font>A task can preempt another task if<ul>
+<li>it has the <strong>highest priority</strong>;</li>
+<li>and its preemption level is higher than the system ceiling. <strong>$\pi _ i &gt; \prod _s$</strong><blockquote>
+<p>Task $T_3$ is not preempted by $T_2$ even though it does not share the <font color="red">red</font> resource ($\pi _2 &lt; \prod _s$).</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SRP reduces preemptions compared to PCP.<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_SRPvsPCP.png" width="540px" alt=""/></center><ul>
+<li><strong>优先级&lt;SystemCeiling</strong> 的进程最终会被阻塞，或因为请求访问临界区，或因为被高优先级抢占，考虑到这一点，<em>SRP</em> 相比于 <em>PCP</em> 能够明显减少 <strong>Context Switch</strong>.<blockquote>
+<p>　<strong>A task cannot be blocked by tasks with lower premption levels</strong> (these tasks can resume only when the task completes). Hence, if there are tasks on the same preemption level, they can never occupy stack space on the same time. Higher the number of tasks on the same preemption level, larger the <strong>stack space</strong> saving!</p>
+</blockquote>
+</li>
+<li>When a task needs a resource that is not available, it <font color="green">is blocked at the time it attempts to preempt</font>, rather than later.</li>
+<li>To prevent multiple priority inversions, a task is not allowed to start until <font color="green">the resource currently available are sufficient to meet the maximum requirement of every task that could preempt it</font>.</li>
 </ul>
 </li>
 </ul>
@@ -469,7 +506,7 @@
         <p><span>文章作者:</span>Gary</p>
 
         <p><span>发布时间:</span>2017-10-24, 12:50:14</p>
-        <p><span>最后更新:</span>2017-10-31, 22:38:59</p>
+        <p><span>最后更新:</span>2017-11-01, 21:38:25</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/" title="嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling">http://durant35.github.io/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/</a>
             <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/　　作者: Gary" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
