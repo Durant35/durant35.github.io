@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/PriorityInversion_PCPDeadlockfree.png">
 <meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/PriorityInversion_SRP.png">
 <meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/PriorityInversion_SRPvsPCP.png">
-<meta property="og:updated_time" content="2017-11-01T13:38:25.767Z">
+<meta property="og:updated_time" content="2017-11-02T08:52:51.773Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling">
 <meta name="twitter:description" content="Real-time systems are collections of tasks where in addition to any ordering constraints imposed by precedences between the tasks, there are also timing constraints, requiring a scheduling strategy.">
@@ -433,7 +433,7 @@
 <p>　检测到自身优先级比所有被占有的资源的 ceiling 值都高的时候才可以获取到请求的资源；而且，当存在资源被其它任务占有的时候，才需要进行检测操作</p>
 </blockquote>
 </li>
-<li>Otherwise, $T_i$ is said to be blocked by the semaphore $S_k$ (and the tasks currently holding $S_k$). When $T_i$ gets blocked by $S_k$ then the priority of $T_i$ is transmitted to the tasks $T$ that currently holds $T_k$.<blockquote>
+<li>Otherwise, $T_i$ is said to be blocked by the semaphore $S_k$ (and the tasks currently holding $S_k$). When $T_i$ gets blocked by $S_k$ then the priority of $T_i$ is transmitted to the tasks $T$ that currently holds $S_k$.<blockquote>
 <p><font color="green">At time t2</font>: $T_2$ can not lock $S_2$. Currently $T_3$ is holding $S_2$ and $C(S_2) = P_2$ and the current priority of $T_2$ is also $P_2$.<br><font color="green">At time t5</font>: $T_1$ can not lock $S_0$. Currently $T_3$ is holding $S_2$ and $S_1$ and $C(S_1) = T_1$ and the current priority of $T_1$ is also $P_1$. The (inherited) priority of $T_3$ is now $P_1$.</p>
 </blockquote>
 </li>
@@ -506,7 +506,7 @@
         <p><span>文章作者:</span>Gary</p>
 
         <p><span>发布时间:</span>2017-10-24, 12:50:14</p>
-        <p><span>最后更新:</span>2017-11-01, 21:38:25</p>
+        <p><span>最后更新:</span>2017-11-02, 16:52:51</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/" title="嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling">http://durant35.github.io/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/</a>
             <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/　　作者: Gary" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
