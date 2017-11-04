@@ -3,66 +3,127 @@
   
     
     <entry>
+      <title><![CDATA[虚拟内存[00] 虚拟地址空间]]></title>
+      <url>/2017/11/03/VM_VirtualAddressSpace/</url>
+      <content type="html"><![CDATA[<h3 id="进程栈"><a href="#进程栈" class="headerlink" title="进程栈"></a>进程栈</h3>]]></content>
+      
+        <categories>
+            
+            <category> 软硬兼施 </category>
+            
+            <category> Kernel </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[虚拟内存[02] Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈]]></title>
       <url>/2017/10/29/VM_Stack/</url>
-      <content type="html"><![CDATA[<p><center><img src="/img/kernel/mm/va_spacex86.png" width="810px" alt=""/><br/>图: 32 位系统下进程地址空间默认布局(左)和进程地址空间经典布局(右)</center><a id="more"></a><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> mm_struct &#123;</div><div class="line">    <span class="keyword">struct</span> vm_area_struct *mmap;           <span class="comment">/* 内存区域链表 */</span></div><div class="line">    <span class="keyword">struct</span> rb_root mm_rb;                  <span class="comment">/* VMA 形成的红黑树 */</span></div><div class="line">    ...</div><div class="line">    <span class="keyword">struct</span> list_head mmlist;               <span class="comment">/* 所有 mm_struct 形成的链表 */</span></div><div class="line">    ...</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> total_vm;                <span class="comment">/* 全部页面数目 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> locked_vm;               <span class="comment">/* 上锁的页面数据 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> pinned_vm;               <span class="comment">/* Refcount permanently increased */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> shared_vm;               <span class="comment">/* 共享页面数目 Shared pages (files) */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> exec_vm;                 <span class="comment">/* 可执行页面数目 VM_EXEC &amp; ~VM_WRITE */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> stack_vm;                <span class="comment">/* 栈区页面数目 VM_GROWSUP/DOWN */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> def_flags;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> start_code, end_code, start_data, end_data;    <span class="comment">/* 代码段、数据段 起始地址和结束地址 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> start_brk, brk, start_stack;                   <span class="comment">/* 栈区 的起始地址，堆区 起始地址和结束地址 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> arg_start, arg_end, env_start, env_end;        <span class="comment">/* 命令行参数 和 环境变量的 起始地址和结束地址 */</span></div><div class="line">    ...</div><div class="line">    <span class="comment">/* Architecture-specific MM context */</span></div><div class="line">    <span class="keyword">mm_context_t</span> context;                  <span class="comment">/* 体系结构特殊数据 */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Must use atomic bitops to access the bits */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> flags;                   <span class="comment">/* 状态标志位 */</span></div><div class="line">    ...</div><div class="line">    <span class="comment">/* Coredumping and NUMA and HugePage 相关结构体 */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<h3 id="进程栈"><a href="#进程栈" class="headerlink" title="进程栈"></a>进程栈</h3><p>进程虚拟地址空间中的栈区，正指的是我们所说的进程栈。进程栈的初始化大小是由编译器和链接器计算出来的，但是栈的实时大小并不是固定的，Linux 内核会根据入栈情况对栈区进行动态增长（其实也就是添加新的页表）。但是并不是说栈区可以无限增长，它也有最大限制 RLIMIT_STACK (一般为 8M)，我们可以通过 ulimit 来查看或更改 RLIMIT_STACK 的值</p>
+      <content type="html"><![CDATA[<p>　Linux 中有几种栈？各种栈的内存位置？</p>
+<h3 id="关于栈"><a href="#关于栈" class="headerlink" title="关于栈"></a>关于栈</h3><ul>
+<li>函数调用栈的典型内存布局<br><center><img src="/img/kernel/mm/Stack_StackFrame.png" width="480px" alt=""/></center><a id="more"></a><ul>
+<li><strong>栈帧 (Stack Frame)</strong> 的边界由栈帧基地址指针 <code>EBP</code> 和 栈指针 <code>ESP</code> 界定，<code>EBP</code>指向当前栈帧底部 (高地址)，在当前栈帧内位置固定；<code>ESP</code>指向当前栈帧顶部 (低地址)；</li>
+<li>当程序执行时，<code>ESP</code>会随着数据的入栈和出栈而移动，因此函数中对大部分数据的访问都基于<code>EBP</code>进行。</li>
+</ul>
+</li>
+<li>栈帧存放着<strong>参数</strong>，<strong>局部变量</strong>及<strong>恢复前一栈帧所需要的数据</strong>等。</li>
+</ul>
+<h3 id="进程栈"><a href="#进程栈" class="headerlink" title="进程栈"></a>进程栈</h3><p>　进程虚拟地址空间中的栈区，正指的是我们所说的<font color="blue">进程栈</font>。<font color="blue">进程栈</font>是属于用户态栈，和<a href="">进程虚拟地址空间 (Virtual Address Space)</a> 密切相关。</p>
+<p><center><img src="/img/kernel/mm/va_spacex86.png" width="810px" alt=""/><br/>图: 32 位系统下进程地址空间默认布局(左)和进程地址空间经典布局(右)</center><br>　<font color="blue">进程栈</font>的初始化大小是由编译器和链接器计算出来的，但是栈的实时大小并不是固定的，Linux 内核会根据入栈情况对栈区进行动态增长（其实也就是添加新的页表）。但是并不是说栈区可以无限增长，它也有最大限制 <code>RLIMIT_STACK</code> (一般为 8M)，我们可以通过 <em>ulimit</em> 来查看或更改 <code>RLIMIT_STACK</code> 的值 (<strong>stack size</strong>)：</p>
+<ul>
+<li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">gary@xxx:~$ <span class="built_in">ulimit</span> <span class="_">-a</span></div><div class="line">core file size          (blocks, -c) 0</div><div class="line">data seg size           (kbytes, <span class="_">-d</span>) unlimited</div><div class="line">scheduling priority             (<span class="_">-e</span>) 0</div><div class="line">file size               (blocks, <span class="_">-f</span>) unlimited</div><div class="line">pending signals                 (-i) 30980</div><div class="line">max locked memory       (kbytes, <span class="_">-l</span>) 64</div><div class="line">max memory size         (kbytes, -m) unlimited</div><div class="line">open files                      (-n) 1024</div><div class="line">pipe size            (512 bytes, -p) 8</div><div class="line">POSIX message queues     (bytes, -q) 819200</div><div class="line">real-time priority              (-r) 0</div><div class="line">stack size              (kbytes, <span class="_">-s</span>) 8192</div><div class="line">cpu time               (seconds, -t) unlimited</div><div class="line">max user processes              (-u) 30980</div><div class="line">virtual memory          (kbytes, -v) unlimited</div><div class="line">file locks                      (-x) unlimited</div></pre></td></tr></table></figure>
+</li>
+</ul>
 <ul>
 <li>进程栈的动态增长实现<ul>
-<li>进程在运行的过程中，通过不断向栈区压入数据，当超出栈区容量时，就会耗尽栈所对应的内存区域，这将触发一个<strong>缺页异常 (page fault)</strong>。通过异常陷入内核态后，异常会被内核的 <code>expand_stack()</code> 函数处理，进而调用 <code>acct_stack_growth()</code> 来检查是否还有合适的地方用于栈的增长。</li>
-<li>如果栈的大小低于 <strong>RLIMIT_STACK</strong>（通常为 8MB），那么一般情况下栈会被加长，程序继续执行，感觉不到发生了什么事情，这是一种将栈扩展到所需大小的常规机制。然而，如果达到了最大栈空间的大小，就会发生<strong>栈溢出（stack overflow）</strong>，进程将会收到内核发出的<strong>段错误（segmentation fault）</strong> 信号。</li>
+<li>进程在运行的过程中，通过不断向栈区压入数据，当超出栈区容量时，就会耗尽栈所对应的内存区域，这将触发一个<strong>缺页异常 (page fault)</strong>；</li>
+<li>通过异常陷入内核态后，异常会被内核的 <font color="#F99157">expand_stack()</font> 函数处理，进而调用 <font color="#F99157">acct_stack_growth()</font> 来检查是否还有合适的地方用于栈的增长：<ul>
+<li>如果栈的大小低于 <code>RLIMIT_STACK</code>，那么一般情况下栈会被加长，程序继续执行，感觉不到发生了什么事情，这是一种将栈扩展到所需大小的常规机制；</li>
+<li>如果达到了最大栈空间的大小，就会发生<strong>栈溢出 (stack overflow)</strong>，进程将会收到内核发出的<strong>段错误(segmentation fault)</strong> 信号。</li>
+</ul>
+</li>
 <li><font color="blue">动态栈增长是唯一一种访问未映射内存区域而被允许的情形</font>，其他任何对未映射内存区域的访问都会触发页错误，从而导致段错误。一些被映射的区域是只读的，因此企图写这些区域也会导致段错误。</li>
 </ul>
 </li>
 </ul>
-<h3 id="线程栈"><a href="#线程栈" class="headerlink" title="线程栈"></a>线程栈</h3><ul>
-<li>从 Linux 内核的角度来说，其实它并没有线程的概念，Linux 把所有线程都当做进程来实现，它将线程和进程不加区分的统一到了 <code>task_struct</code> 中。线程仅仅被视为一个与其他进程共享某些资源的进程，而是否共享地址空间几乎是进程和 Linux 中所谓线程的唯一区别。线程创建的时候，加上了 <code>CLONE_VM</code> 标记，这样<strong>线程的内存描述符将直接指向父进程的内存描述符</strong>。</li>
-<li>虽然线程的地址空间和进程一样，但是对待其地址空间的 stack 还是有些区别的。<ul>
-<li>对于 Linux 进程或者说主线程，其 stack 是在 fork 的时候生成的，实际上就是复制了父亲的 stack 空间地址，然后写时拷贝 (cow) 以及动态增长；对于主线程生成的子线程而言，其 stack 将不再是这样的了，而是事先固定下来的，使用 <code>mmap()</code>系统调用，它不带有 <code>VM_STACK_FLAGS</code> 标记。<blockquote>
-<p>由于线程的 <code>mm-&gt;start_stack</code>栈地址和所属进程相同，所以线程栈的起始地址并没有存放在 <code>task_struct</code> 中，应该是使用 <code>pthread_attr_t</code> 中的 <code>stackaddr</code> 来初始化 <code>task_struct-&gt;thread-&gt;sp</code>（sp 指向 <code>struct pt_regs</code> 对象，该结构体用于保存用户进程或者线程的寄存器现场）</p>
+<h3 id="线程栈"><a href="#线程栈" class="headerlink" title="线程栈"></a>线程栈</h3><p>　从 Linux 内核的角度来说，其实它并没有线程的概念，Linux 把所有线程都当做进程来实现，它将线程和进程不加区分的统一到了 <code>task_struct</code> 中；线程仅仅被视为一个与其他进程共享某些资源的进程，而是否共享地址空间几乎是进程和 Linux 中所谓线程的唯一区别。线程创建的时候，加上了 <code>CLONE_VM</code> 标记，这样<strong>线程的内存描述符将直接指向父进程的内存描述符</strong>。</p>
+<ul>
+<li>虽然线程的地址空间和进程一样，但是在对待其地址空间中的 <strong>stack</strong> 上还是有些区别的。<ul>
+<li>对于 Linux 进程或者说主线程，其 stack 是在 <font color="#F99157">fork()</font> 的时候生成的，实际上就是复制了父亲的 stack 空间地址，然后写时拷贝 (cow) 以及动态增长。</li>
+<li>对于主线程生成的子线程而言，其 stack 将不再是这样的了，而是事先固定下来的，使用 <font color="#F99157">mmap()</font>系统调用从进程的地址空间中 <strong>mmap</strong> 出来的一块内存区域，它不带有 <code>VM_STACK_FLAGS</code> 标记。<ul>
+<li>由于线程的 <font color="#F99157">mm-&gt;start_stack</font> 栈地址和所属进程相同，所以线程栈的起始地址并没有存放在 <code>task_struct</code> 中，应该是使用 <code>pthread_attr_t</code> 中的 <code>stackaddr</code> 来初始化 <font color="#F99157">task_struct-&gt;thread-&gt;sp</font>（<code>sp</code> 指向 <code>struct pt_regs</code> 对象，该结构体用于保存用户进程或者线程的寄存器现场）</li>
+<li>重要的是，<font color="blue">线程栈不能动态增长，一旦用尽就没了</font>，这是和生成进程的 <font color="#F99157">fork()</font> 不同的地方。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>线程栈是从进程的地址空间中 <strong>mmap</strong> 出来的一块内存区域，原则上是线程私有的；但是同一个进程的所有线程在生成的时候会浅拷贝线程生成者 <code>task_struct</code> 的很多字段，其中包括所有的 <code>vma</code>，因此如果愿意，其它线程也还是可以访问到的，于是一定要注意！</li>
+<li><font color="red">为什么需要单独的线程栈？</font>不能共享同一个进程栈吗？<ul>
+<li>Linux 调度程序中并没有区分线程和进程 (线程是调度的基本单位)，当调度程序需要唤醒“进程”的时候，必然需要恢复进程的上下文环境，也就是<strong>进程栈</strong>；线程和父进程完全共享一份地址空间，如果栈也用同一个，那就会遇到以下问题：<ul>
+<li>假如进程的栈指针初始值为 <strong>0x7ffc80000000</strong>：父进程 A 先执行，调用了一些函数后栈指针 <code>esp</code> 为 <strong>0x7ffc8000FF00</strong>，此时父进程主动休眠了；</li>
+<li>接着调度器唤醒子线程 A1：<ul>
+<li>如果此时 A1 的栈指针 <code>esp</code> 为初始值 <strong>0x7ffc80000000</strong>，则线程 A1 一但出现函数调用，必然会破坏父进程 A 已入栈的数据；</li>
+<li>如果此时线程 A1 的栈指针和父进程最后更新的值一致，<code>esp</code> 为 <strong>0x7ffc8000FF00</strong>，那线程 A1 进行一些函数调用后，栈指针 <code>esp</code> 增加到 <strong>0x7ffc8000FFFF</strong>，然后线程 A1 休眠；调度器再次换成父进程 A 执行，那这个时候父进程的栈指针是应该为 <strong>0x7ffc8000FF00</strong> 还是 <strong>0x7ffc8000FFFF</strong> 呢？</li>
+<li>无论栈指针被设置到哪个值，都会有问题不是吗？</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="进程内核栈"><a href="#进程内核栈" class="headerlink" title="进程内核栈"></a>进程内核栈</h3><p>　在每一个进程的生命周期中，必然会通过到系统调用陷入内核。在执行系统调用陷入内核之后，这些内核代码所使用的栈并不是原先进程用户空间中的栈，而是一个单独内核空间的栈，这个称作<font color="blue">进程内核栈</font>。</p>
+<blockquote>
+<p>　<font color="blue">进程内核栈</font>在进程创建的时候，通过 <strong>slab 分配器</strong> 从 <code>thread_info_cache</code> 缓存池中分配出来，大小为 <code>THREAD_SIZE</code>，一般来说是一个页大小 4K；</p>
+</blockquote>
+<ul>
+<li>为什么需要单独的<font color="blue">进程内核栈</font>？<blockquote>
+<p>　所有进程运行的时候，都可能通过系统调用陷入内核态继续执行：假设第一个进程 A 陷入内核态执行的时候，需要等待读取网卡的数据，主动调用 <font color="#F99157">schedule()</font> 让出 CPU；此时调度器唤醒了另一个进程 B，碰巧进程 B 也需要系统调用进入内核态；那问题就来了，如果内核栈只有一个，那进程 B 进入内核态的时候产生的压栈操作，必然会破坏掉进程 A 已有的内核栈数据，一但进程 A 的内核栈数据被破坏，很可能导致进程 A 的内核态无法正确返回到对应的用户态了。</p>
 </blockquote>
 </li>
-<li>重要的是，<font color="blue">线程栈不能动态增长，一旦用尽就没了</font>，这是和生成进程的 fork 不同的地方。</li>
+<li>进程和子线程是否共享一个进程内核栈？<blockquote>
+<p>　线程和进程创建的时候都调用 <font color="#F99157">dup_task_struct()</font> 来创建 <strong>task</strong> 相关结构体，而内核栈也是在此函数中 <font color="#F99157">alloc_thread_info_node()</font> 出来的，因此虽然线程和进程共享一个地址空间 <code>mm_struct</code>，但是并不共享一个内核栈（本来线程就是 CPU 调度的基本单位）。</p>
+</blockquote>
+</li>
+<li><font color="blue">进程内核栈</font>与<code>current</code>当前进程<ul>
+<li>内核执行的大多数操作还是和某个特定的进程相关，内核代码可通过访问<code>current</code>来获得当前进程。<blockquote>
+<p>　内核开发者设计了一种能找到运行在相关 CPU 上的当前进程的机制；因为 <code>current</code>的引用会频繁发生，因此这种机制必须是快速的。</p>
+</blockquote>
+</li>
+<li>内核将进程内核栈的头部一段空间用于存放<code>thread_info</code>结构体，该结构体中则记录了对应进程的描述符<code>task_struct</code>。<center><img src="/img/kernel/mm/Stack_KernelStack.png" width="680px" alt=""/></center></li>
 </ul>
 </li>
-<li>线程栈是从进程的地址空间中 <strong>mmap</strong> 出来的一块内存区域，原则上是线程私有的；但是同一个进程的所有线程在生成的时候会浅拷贝线程生成者 <code>task_struct</code> 的很多字段，其中包括所有的vma，因此如果愿意，其它线程也还是可以访问到的，于是一定要注意。</li>
-<li>为什么需要单独的线程栈？不能共享同一个进程栈吗？<ul>
-<li>Linux 调度程序中并没有区分线程和进程（线程是调度的基本单位），当调度程序需要唤醒“进程”的时候，必然需要恢复进程的上下文环境，也就是<strong>进程栈</strong>；线程和父进程完全共享一份地址空间，如果栈也用同一个那就会遇到以下问题：<ul>
-<li>假如进程的栈指针初始值为 <code>0x7ffc80000000</code>；父进程 A 先执行，调用了一些函数后栈指针 esp 为 <code>0x7ffc8000FF00</code>，此时父进程主动休眠了；</li>
-<li>接着调度器唤醒子线程 A1： 此时 A1 的栈指针 esp 如果为初始值 <code>0x7ffc80000000</code>，则线程 A1 一但出现函数调用，必然会破坏父进程 A 已入栈的数据。</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">union</span> thread_union &#123;</div><div class="line">        <span class="keyword">struct</span> thread_info thread_info;                </div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="built_in">stack</span>[THREAD_SIZE/<span class="keyword">sizeof</span>(<span class="keyword">long</span>)];</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>有了上述关联结构后，内核可以先获取到栈顶指针 <code>esp</code>，然后通过 <code>esp</code> 来获取 <code>thread_info</code>；</li>
+<li>成功获取到 <code>thread_info</code> 后，直接取出它的 <strong>task</strong> 成员就成功得到了<code>task_struct</code>，也就是如下 <code>current</code> 宏的实现方法：</li>
 </ul>
 </li>
-<li>如果此时线程 A1 的栈指针和父进程最后更新的值一致，esp 为 <code>0x7ffc8000FF00</code>，那线程 A1 进行一些函数调用后，栈指针 esp 增加到 <code>0x7ffc8000FFFF</code>，然后线程 A1 休眠；调度器再次换成父进程 A 执行，那这个时候父进程的栈指针是应该为 <code>0x7ffc8000FF00</code> 还是 <code>0x7ffc8000FFFF</code> 呢？无论栈指针被设置到哪个值，都会有问题不是吗？</li>
-</ul>
-</li>
-</ul>
-<h3 id="进程内核栈"><a href="#进程内核栈" class="headerlink" title="进程内核栈"></a>进程内核栈</h3><ul>
-<li>在每一个进程的生命周期中，必然会通过到系统调用陷入内核。在执行系统调用陷入内核之后，这些内核代码所使用的栈并不是原先进程用户空间中的栈，而是一个单独内核空间的栈，这个称作<strong>进程内核栈</strong>。<ul>
-<li>进程内核栈在进程创建的时候，通过 <strong>slab 分配器</strong> 从 <code>thread_info_cache</code> 缓存池中分配出来，其大小为 <code>THREAD_SIZE</code>，一般来说是一个页大小 4K；</li>
-</ul>
-</li>
-<li>内核经常要访问 <code>task_struct</code>，<font color="blue">高效获取当前进程的描述符</font>是一件非常重要的事情。</li>
 <li>  <figure class="highlight cpp"><figcaption><span>current 宏的实现方法</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">register</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> current_stack_pointer <span class="title">asm</span> <span class="params">(<span class="string">"sp"</span>)</span></span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">struct</span> thread_info *<span class="title">current_thread_info</span><span class="params">(<span class="keyword">void</span>)</span></div><div class="line"></span>&#123;</div><div class="line">        <span class="keyword">return</span> (<span class="keyword">struct</span> thread_info *)                        </div><div class="line">                (current_stack_pointer &amp; ~(THREAD_SIZE - <span class="number">1</span>));</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> get_current() (current_thread_info()-&gt;task)</span></div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> current get_current()</span></div></pre></td></tr></table></figure>
 <ul>
-<li>内核可以先获取到栈顶指针 esp，然后通过 esp 来获取 <code>thread_info</code></li>
-<li>成功获取到 <code>thread_info</code> 后，直接取出它的 task 成员就成功得到了<code>task_struct</code>。</li>
+<li>由于 <code>thread_union</code> 结构体是从<code>thread_info_cache</code> 的 <strong>Slab 缓存池</strong>中申请出来的，而 <code>thread_info_cache</code> 在 <code>kmem_cache_create</code> 创建的时候，保证了地址是 <code>THREAD_SIZE</code>对齐的；</li>
+<li>因此只需要对栈指针进行 <code>THREAD_SIZE</code> 对齐，即可获得 <code>thread_union</code> 的地址，也就获得了 <code>thread_info</code> 的地址：直接将 <code>esp</code> 的地址<strong>与</strong>上 <code>~(THREAD_SIZE - 1)</code></li>
 </ul>
 </li>
-<li>为什么需要单独的进程内核栈？<blockquote>
-<p>所有进程运行的时候，都可能通过系统调用陷入内核态继续执行：假设第一个进程 A 陷入内核态执行的时候，需要等待读取网卡的数据，主动调用 <code>schedule()</code> 让出 CPU；此时调度器唤醒了另一个进程 B，碰巧进程 B 也需要系统调用进入内核态；那问题就来了，如果内核栈只有一个，那进程 B 进入内核态的时候产生的压栈操作，必然会破坏掉进程 A 已有的内核栈数据，一但进程 A 的内核栈数据被破坏，很可能导致进程 A 的内核态无法正确返回到对应的用户态了。</p>
+</ul>
+<h3 id="中断栈"><a href="#中断栈" class="headerlink" title="中断栈"></a>中断栈</h3><p>　进程陷入内核态的时候，需要内核栈来支持内核函数调用；中断也是如此，当系统收到中断事件后，进行中断处理的时候，也需要<font color="blue">中断栈</font>来支持函数调用。</p>
+<ul>
+<li>由于系统中断的时候，系统当然是处于内核态的，所以中断栈是可以和内核栈共享的（但是具体是否共享，这和具体处理架构密切相关）。<br>  <center><img src="/img/kernel/mm/Stack_irqStack.png" width="640px" alt=""/></center><ul>
+<li>中断栈独立于内核栈<blockquote>
+<p>　x86 上中断栈就是独立于内核栈的，独立的中断栈所在内存空间的分配发生在 <code>arch/x86/kernel/irq_32.c</code> 的 <font color="#F99157">irq_ctx_init()</font> 函数中（如果是多处理器系统，那么每个处理器都会有一个独立的中断栈）。</p>
+<ul>
+<li>函数使用 <font color="#F99157">__alloc_pages()</font> 在低端内存区分配 2 个物理页面，也就是 8KB 大小的空间。</li>
+<li>这个函数还会为 <strong>softirq</strong> 分配一个同样大小的独立堆栈，如此说来，<strong>softirq</strong> 将不会在 <strong>hardirq</strong> 的中断栈上执行，而是在自己的上下文中执行。</li>
+</ul>
 </blockquote>
-</li>
-<li>进程和线程是否共享一个进程内核栈？<blockquote>
-<p>线程和进程创建的时候都调用 <code>dup_task_struct</code> 来创建 task 相关结构体，而内核栈也是在此函数中 <code>alloc_thread_info_node</code>出来的，因此虽然线程和进程共享一个地址空间 <code>mm_struct</code>，但是并不共享一个内核栈（线程是 CPU 调度的基本单位）。</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="中断栈"><a href="#中断栈" class="headerlink" title="中断栈"></a>中断栈</h3><ul>
-<li>进程陷入内核态的时候，需要内核栈来支持内核函数调用；中断也是如此，当系统收到中断事件后，进行中断处理的时候，也需要中断栈来支持函数调用。由于系统中断的时候，系统当然是处于内核态的，所以中断栈是可以和内核栈共享的（但是具体是否共享，这和具体处理架构密切相关）。<ul>
-<li>x86 上中断栈就是独立于内核栈的：独立的中断栈所在内存空间的分配发生在 <code>arch/x86/kernel/irq_32.c</code> 的<code>irq_ctx_init()</code> 函数中（如果是多处理器系统，那么每个处理器都会有一个独立的中断栈）<ul>
-<li>函数使用 <code>__alloc_pages</code> 在低端内存区分配 2个物理页面，也就是 8KB 大小的空间。</li>
-<li>这个函数还会为 softirq 分配一个同样大小的独立堆栈，如此说来，softirq 将不会在 hardirq 的中断栈上执行，而是在自己的上下文中执行。</li>
-</ul>
 </li>
 <li>ARM 上中断栈和内核栈则是共享的；中断栈和内核栈共享有一个负面因素，如果中断发生嵌套，可能会造成栈溢出，从而可能会破坏到内核栈的一些重要数据，所以栈空间有时候难免会捉襟见肘。</li>
 </ul>
@@ -72,7 +133,7 @@
 </blockquote>
 </li>
 </ul>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><p><a href="http://blog.csdn.net/freeelinux/article/details/53782986">《Linux虚拟地址空间布局以及进程栈和线程栈总结》</a></p>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><p><a href="http://blog.csdn.net/yangkuanqaz85988/article/details/52403726">《Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈》</a><br><a href="http://blog.csdn.net/freeelinux/article/details/53782986">《Linux虚拟地址空间布局以及进程栈和线程栈总结》</a></p>
 ]]></content>
       
         <categories>
@@ -111,6 +172,11 @@
 </li>
 </ul>
 <p><hr/></p>
+<ul>
+<li>Linux 内核使用内存描述符来体现上面的进程内存布局，该描述符表示着进程所有地址空间的信息；内存描述符由 <code>mm_struct</code> 结构体表示。<center><img src="/img/kernel/mm/Userspace_mm_struct.png" width="640px" alt=""/></center></li>
+<li>  <figure class="highlight cpp"><figcaption><span>mm_struct</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> mm_struct &#123;</div><div class="line">    <span class="keyword">struct</span> vm_area_struct *mmap;           <span class="comment">/* 内存区域链表 */</span></div><div class="line">    <span class="keyword">struct</span> rb_root mm_rb;                  <span class="comment">/* VMA 形成的红黑树 */</span></div><div class="line">    ...</div><div class="line">    <span class="keyword">struct</span> list_head mmlist;               <span class="comment">/* 所有 mm_struct 形成的链表 */</span></div><div class="line">    ...</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> total_vm;                <span class="comment">/* 全部页面数目 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> locked_vm;               <span class="comment">/* 上锁的页面数据 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> pinned_vm;               <span class="comment">/* Refcount permanently increased */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> shared_vm;               <span class="comment">/* 共享页面数目 Shared pages (files) */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> exec_vm;                 <span class="comment">/* 可执行页面数目 VM_EXEC &amp; ~VM_WRITE */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> stack_vm;                <span class="comment">/* 栈区页面数目 VM_GROWSUP/DOWN */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> def_flags;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> start_code, end_code, start_data, end_data;    <span class="comment">/* 代码段、数据段 起始地址和结束地址 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> start_brk, brk, start_stack;                   <span class="comment">/* 栈区 的起始地址，堆区 起始地址和结束地址 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> arg_start, arg_end, env_start, env_end;        <span class="comment">/* 命令行参数 和 环境变量的 起始地址和结束地址 */</span></div><div class="line">    ...</div><div class="line">    <span class="comment">/* Architecture-specific MM context */</span></div><div class="line">    <span class="keyword">mm_context_t</span> context;                  <span class="comment">/* 体系结构特殊数据 */</span></div><div class="line"> </div><div class="line">    <span class="comment">/* Must use atomic bitops to access the bits */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> flags;                   <span class="comment">/* 状态标志位 */</span></div><div class="line">    ...</div><div class="line">    <span class="comment">/* Coredumping and NUMA and HugePage 相关结构体 */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
 <h3 id="栈-stack"><a href="#栈-stack" class="headerlink" title="栈(stack)"></a>栈(stack)</h3><ul>
 <li>栈又称堆栈，由<strong>编译器自动分配释放</strong>，行为类似数据结构中的栈（先进后出）。堆栈主要有三个用途：<ul>
 <li>为函数内部声明的<strong>非静态局部变量</strong>（C语言中称“自动变量”）提供存储空间。</li>
@@ -271,185 +337,6 @@
             <tag> Linux </tag>
             
         </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling]]></title>
-      <url>/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/</url>
-      <content type="html"><![CDATA[<p>　Real-time systems are collections of tasks where in addition to any <strong>ordering constraints</strong> imposed by precedences between the tasks, there are also <strong>timing constraints</strong>, requiring a scheduling strategy. Classical <font color="blue">real-time scheduling</font>（实时调度） for <strong>Periodic Tasks</strong> contains <strong>Periodic Rate Monotonic (RM)</strong> as well as <strong>Earliest Deadline First (EDF)</strong>. What’s more, tasks <em>share resources</em> and use <em>mutual exclusion</em> to guard access to those resources, resulting in <strong>Scheduling Anomalies</strong>（调度异常）.<br>　本文将讲述 <strong>Resources Sharing</strong> 给 <font color="blue">real-time scheduling</font> 带来的 <strong>Priority Inversion</strong>（优先级反转）异常，并将重点介绍对应的解决办法：Priority Inheritance Protocol (<strong>PIP</strong>)、Priority Ceiling Protocol (<strong>PCP</strong>)、Stack Resource Policy (<strong>SRP</strong>)。<a id="more"></a></p>
-<h3 id="Priority-Inversion"><a href="#Priority-Inversion" class="headerlink" title="Priority Inversion"></a>Priority Inversion</h3><ul>
-<li><strong>Resource Sharing</strong> &amp; Task Blocked<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_CriticalSection.png" width="400px" alt=""/></center><ul>
-<li>Threads (or Processes): $J_1$, $J_2$.</li>
-<li>Common resources $R_k$ likes: data structures, variables, main memory area, file, set of registers, I/O unit, …</li>
-<li>Many shared resources do not allow simultaneous accesses but require <strong>mutual exclusion</strong> (exclusive resources). A piece of code executed under mutual exclusion ($P(S_k) \leftrightarrow V(S_k)$) constraints is called a <strong>critical section</strong>.</li>
-<li>Each <strong>exclusive resource</strong> $R_k$ must be protected by a different semaphore $S_k$ and each critical section operating on a resource must begin with a <em>wait($S_k$)</em> primitive and end with a <em>signal($S_k$)</em> primitive（原子操作）.</li>
-<li>Tasks waiting for an exclusive resource is said to be <strong>blocked</strong> on that resource. Otherwise, it proceeds by entering the <strong>critical section</strong> and <strong>holds</strong> the resource. When a task <strong>leaves</strong> a critical section, the associated resource becomes free.<ul>
-<li>All tasks blocked on the same resource are kept in a queue associated with the semaphore. </li>
-<li>When a running task executes a <em>wait</em> on a <strong>locked</strong> semaphore, it enters a waiting state, until another tasks executes a <em>signal</em> primitive that <strong>unlocks</strong> the semaphore.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>Priority Inversion</strong><br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_Example.png" width="480px" alt=""/></center><ul>
-<li>priority of $T_1$ &gt; priority of $T_2$ &gt; priority of $T_3$</li>
-<li>$T_3$ requests exclusive access first (at $t_0$), $T_1$ has to wait until $T_3$ releases the resource (at $t_2$)</li>
-<li>$T_2$ preempts $T_3$ (at $t_1$): $T_2$ can prevent $T_3$ from releasing the resource.</li>
-<li>If $T_1$ is blocked only by $T_3$, <strong>blocking is bounded</strong> by the length of the critical section, but blocked by &gt;2 tasks ($T_3$, $T_2$, …), <strong>blocking can exceed the length of any critical section</strong>.</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>　Priority Inversion is a <strong>scheduling anomaly</strong> where a low priority task was holding a lock and blocking a high-priority task, while medium priority tasks,  unrelated lower-priority tasks, are executing. </p>
-</blockquote>
-<ul>
-<li>Solving Priority Inversion: <strong>Resource Access Protocols</strong><ul>
-<li>Basic idea: Modify the priority of those tasks that cause blocking. <ul>
-<li>When a task $T_i$ blocks one or more higher priority tasks, it temporarily assumes a higher priority.</li>
-</ul>
-</li>
-<li>Methods<ul>
-<li><font color="green">Priority Inheritance Protocol (PIP)</font>, for <strong>static priorities</strong></li>
-<li><font color="green">Priority Ceiling Protocol (PCP)</font>, for <strong>static priorities</strong></li>
-<li><font color="green">Stack Resource Policy (SRP)</font>, for <strong>static and dynamic priorities</strong><blockquote>
-<p>　<em>static priorities</em>（静态优先级）: 静态优先级是在创建进程时确定的，且在进程的整个运行期间保持不变，内核不会主动修改它。<br>　<em>dynamic priorities</em>（动态优先级）: 在创建进程时所赋予的优先级，是可以随进程的推进或随其等待时间的增加而改变的，调度程序增大或减少进程静态优先级来奖励 IO 消耗型进程或惩罚 CPU 消耗进程以便获得更好的调度性能；调整后的优先级为动态优先级。<br>　<em>real-time priorities</em>（实时优先级）: 实时优先级只对实时进程有效。</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Priority-Inheritance-Protocol-PIP"><a href="#Priority-Inheritance-Protocol-PIP" class="headerlink" title="Priority Inheritance Protocol (PIP)"></a>Priority Inheritance Protocol (PIP)</h3><ul>
-<li>Avoid Priority Inversion in previous example uisng PIP<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIP.png" width="640px" alt=""/> </center><ul>
-<li><strong>Direct Blocking</strong>: higher-priority task $T_1$ tries to acquire a resource held by a lower priority task $T_3$.</li>
-<li><strong>Push-through Blocking</strong>: medium-priority task $T_2$ is blocked by a lower-priority task $T_3$ that has inherited a higher priority from a task ($T_1$) it directly blocks.</li>
-<li>Tasks have <strong>nominal</strong>（挂名优先级） and <strong>active</strong>（活跃优先级） priorities<ul>
-<li><font color="green">Nominal priority</font>: assigned by the scheduling algorithm, e.g. $T_1$’s priority.<blockquote>
-<p><em>static priorities</em> or <em>dynamic priorities</em> 取决于 <em>nominal priorities</em> 的情况</p>
-</blockquote>
-</li>
-<li><font color="green">Active priority</font>: assigned by the priority inheritance protocol dynamically to avoid priority inversion, e.g. $T_3$’s priority inherited from $T_1$.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>PIP Algorithm<ul>
-<li>Tasks are scheduled according to their <strong>active priorities</strong>. Tasks with the same priorities are scheduled <strong>FCFS</strong>.</li>
-<li>Task $T_i$’s nominal priority <strong>$P_i$</strong>, task $T_k$’s nominal priority <strong>$P_k$</strong>.</li>
-<li>When a task $T_i$ tries to enter a critical section and the resource is blocked by a lower priority task $T_k$, the task $T_i$ is blocked. Otherwise it enters the critical section.<ul>
-<li>When a task $T_i$ is blocked, it transmits its active priority to the task $T_k$ that holds the semaphore. </li>
-</ul>
-</li>
-<li>$T_k$ resumes and executes the rest of its critical section with a priority $p_k=max(p_i)$, it inherits the priority of the highest priority of the tasks blocked by it.</li>
-<li>When $T_k$ exits a critical section, it unlocks the semaphore and the highest priority task blocked on that semaphore is awakened. <ul>
-<li>If no other tasks are blocked by $T_k$, then $p_k$ is set to its nominal priority <strong>$P_k$</strong>.</li>
-<li>Otherwise it is set to the highest priority of the left tasks blocked by $T_k$.</li>
-</ul>
-</li>
-<li>Thus, medium priority tasks which do no share resources with $T_k$ cannot preempt $T_k$ and cannot <strong>prolong the blocking</strong>（延长阻塞） of the higher priority tasks</li>
-</ul>
-</li>
-<li><strong>Nested Critical Sections</strong>（一个临界区内嵌套了另一个临界区）<center><img src="/img/TA-Cources/ES2017/PriorityInversion_NestedCritical.png" width="500px" alt=""/><br/>PIP for Nested Critical Sections, $S_b$ nested in $S_a$.</center></li>
-<li><strong>Transitiveness</strong> of Priority Inheritance<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPTransitiveness.png" width="540px" alt=""/><br/>If $T_1$ is blocked by $T_2$ and $T_2$ is blocked by $T_3$, then $T_3$ inherits the priority of $T_1$ via $T_2$</center></li>
-<li>Pros and Cons<ul>
-<li>Advantages<ul>
-<li>Under the priority inheritance protocol, a job $J$ can be blocked for at most the duration of $min(n, m)$ critical sections, where $n$ is the number of lower-priority jobs that could block $J$ and $m$ is the number of distinct semaphores that can be used to block $J$.</li>
-</ul>
-</li>
-<li>Disadvantages<ul>
-<li>Deadlock is Possible<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPDeadlock.png" width="540px" alt=""/> </center></li>
-<li>Chained Blocking: $J$ can get blocked on $n$ critical sections held by $n$ distinct lower priority jobs.<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPChainedBlocking.png" width="480px" alt=""/><br/>$J_1$ is blocked for the duration of two critical sections, once to wait $J_3$ to release $S_a$ and then to wait $J_2$ to release $S_b$.</center>
-
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Priority-Ceiling-Protocol-PCP"><a href="#Priority-Ceiling-Protocol-PCP" class="headerlink" title="Priority Ceiling Protocol (PCP)"></a>Priority Ceiling Protocol (PCP)</h3><ul>
-<li>PIP $\rightarrow$ PCP: extension of Priority Inheritance Protocol to handle chained blocking and deadlocks<ul>
-<li>avoids multiple blocking</li>
-<li>guarantees that, once a task has entered a critical section, it cannot be blocked by lower priority tasks until its completion</li>
-</ul>
-</li>
-<li>PCP Algorithm<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_PCP.png" width="540px" alt=""/><br/>Task $T_1$, $T_2$, $T_3$ and their corresponding priorities $P_1$ &gt; $P_2$ &gt;$P_3$</center><ul>
-<li>Each semaphore $S_k$ is assigned a priority ceiling $C(S_k)$. It is the priority of the highest priority task that can lock $S_k$. This is a static value.<blockquote>
-<p>$C(S_0) = P_1$　　$C(S_1) = P_1$　　$C(S_2) = P_2$</p>
-</blockquote>
-</li>
-<li>Suppose $T_i$ is currently running and it wants to lock the semaphore $S_k$.<ul>
-<li>$T_i$ is allowed to lock $S_k$ only if the priority of $T_i$ is strictly higher than the priority ceiling $C(S_k)$ of the semaphore $S_k$ where: $S_k$ is the semaphore with the highest priority ceiling among all the semaphores which are currently locked by tasks other than $T_i$<blockquote>
-<p>　检测到自身优先级比所有被占有的资源的 ceiling 值都高的时候才可以获取到请求的资源；而且，当存在资源被其它任务占有的时候，才需要进行检测操作</p>
-</blockquote>
-</li>
-<li>Otherwise, $T_i$ is said to be blocked by the semaphore $S_k$ (and the tasks currently holding $S_k$). When $T_i$ gets blocked by $S_k$ then the priority of $T_i$ is transmitted to the tasks $T$ that currently holds $S_k$.<blockquote>
-<p><font color="green">At time t2</font>: $T_2$ can not lock $S_2$. Currently $T_3$ is holding $S_2$ and $C(S_2) = P_2$ and the current priority of $T_2$ is also $P_2$.<br><font color="green">At time t5</font>: $T_1$ can not lock $S_0$. Currently $T_3$ is holding $S_2$ and $S_1$ and $C(S_1) = T_1$ and the current priority of $T_1$ is also $P_1$. The (inherited) priority of $T_3$ is now $P_1$.</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li>When $T_i$ leaves a critical section guarded by $S_k$  then it unlocks $S_k$ and the highest priority task, if any, which is blocked by $S_k$ is awakened. The priority of $T_i$ is set to the highest priority of the task that is blocked by other semaphores that $T_i$ is still holding. If none, the priority of $T_i$ is set to be its <strong>nominal one</strong>.<blockquote>
-<p><font color="green">At time t6</font>: $T_3$ unlocks $S_1$. It awakens $T_1$. But $T_3$’s (inherited) priority is now only $P_2$ while $P_1 &gt; C(S_2) = P_2$. So $T_1$ preempts $T_3$ and runs to completion.<br><font color="green">At time t7</font>: $T_3$ resumes execution with priority $P_2$.<br><font color="green">At time t8</font>: $T_3$ unlocks $S_2$ and goes back to its <strong>nominal priority</strong> $P_3$. So $T_2$ preempts $T_1$ and runs to completion.</p>
-</blockquote>
-</li>
-<li>Results<br>　<strong>+</strong> A task is not allowed to enter a critical section if there are already locked semaphores which could block it eventually.<br>　<strong>+</strong> Hence, once a task enters a critical section, it can not be blocked by lower priority tasks（不会被较当前任务低优先级的任务阻塞）till its completion.</li>
-</ul>
-</li>
-<li>PCP: Properties<br>  　<strong>+</strong> A given task $T$ is delayed at most once by a lower priority task. The delay is a function of the time taken to execute the critical section<br>  　<strong>+</strong> Deadlock free (only changing priorities)<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PCPDeadlockfree.png" width="540px" alt=""/><br/>Deadlock free using PCP with $ceil(S_1)=P_1$, $ceil(S_2)=P_1$</center>
-
-</li>
-</ul>
-<h3 id="Stack-Resource-Policy-SRP"><a href="#Stack-Resource-Policy-SRP" class="headerlink" title="Stack Resource Policy (SRP)"></a>Stack Resource Policy (SRP)</h3><ul>
-<li>PCP Extending: Stack Resource Policy (SRP)<ul>
-<li>SRP supports dynamic priority scheduling</li>
-<li>PCP blocks a task at the time it makes the resource request, while SRP blocks task at the time it attempts to preempt. </li>
-</ul>
-</li>
-<li>SRP Algorithm<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_SRP.png" width="540px" alt=""/></center><ul>
-<li><font color="blue">Preemption Level</font>:  $\pi _ i \propto \frac{1}{D_i}$, tasks $T_i$ with larger deadlines $D_i$ have lower preemption level (Intuition: they can be easily preempted), is a <strong>static</strong> value.</li>
-<li><font color="blue">Resource ceiling</font>: of a resource is the <em>highest preemption level from amongst of all tasks that may access that resource</em>. Note: (i) this is associated with each resource (ii) this is <strong>static</strong>.<blockquote>
-<p><em>Resource ceiling</em> for the <strong><font color="red">red</font></strong> resource is 3. For the <strong><font color="red">yellow</font></strong> resource, it is 2.</p>
-</blockquote>
-</li>
-<li><font color="blue">System ceiling</font>: is the <em>highest resource ceiling level from amongst of resources that are currently blocked</em> (当前阻塞任务的所有资源的 <em>Resource ceiling</em> 的最大值). Note: (i) this is not associated with each resource but with the system (ii) this is a <strong>dynamic</strong> parameter that can change every time a resource is accessed or released.<blockquote>
-<p>Based on this, we can see how the <em>system ceiling</em> $\prod _s$ varies dynamically.</p>
-</blockquote>
-</li>
-<li><font color="red">*</font>A task can preempt another task if<ul>
-<li>it has the <strong>highest priority</strong>;</li>
-<li>and its preemption level is higher than the system ceiling. <strong>$\pi _ i &gt; \prod _s$</strong><blockquote>
-<p>Task $T_3$ is not preempted by $T_2$ even though it does not share the <font color="red">red</font> resource ($\pi _2 &lt; \prod _s$).</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>SRP reduces preemptions compared to PCP.<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_SRPvsPCP.png" width="540px" alt=""/></center><ul>
-<li><strong>优先级&lt;SystemCeiling</strong> 的进程最终会被阻塞，或因为请求访问临界区，或因为被高优先级抢占，考虑到这一点，<em>SRP</em> 相比于 <em>PCP</em> 能够明显减少 <strong>Context Switch</strong>.<blockquote>
-<p>　<strong>A task cannot be blocked by tasks with lower premption levels</strong> (these tasks can resume only when the task completes). Hence, if there are tasks on the same preemption level, they can never occupy stack space on the same time. Higher the number of tasks on the same preemption level, larger the <strong>stack space</strong> saving!</p>
-</blockquote>
-</li>
-<li>When a task needs a resource that is not available, it <font color="green">is blocked at the time it attempts to preempt</font>, rather than later.</li>
-<li>To prevent multiple priority inversions, a task is not allowed to start until <font color="green">the resource currently available are sufficient to meet the maximum requirement of every task that could preempt it</font>.</li>
-</ul>
-</li>
-</ul>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
-<li>Slides from <em>Introduction to embedded systems, Kai Huang</em>, School of Data and Computer Science, Sun Yat-sen University, China. All rights reserved.</li>
-<li>E. A. Lee and S. A. Seshia, <em>Introduction to Embedded Systems - A Cyber-Physical Systems Approach</em>, LeeSeshia.org, 2011.</li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> TA Cources </category>
-            
-            <category> EmbeddedSystem </category>
-            
-        </categories>
-        
         
     </entry>
     
@@ -671,6 +558,185 @@
 </ul>
 <h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
 <li>Slides from <em>Introduction to embedded systems, Kai Huang</em>, School of Data and Computer Science, Sun Yat-sen University, China. All rights reserved.</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> TA Cources </category>
+            
+            <category> EmbeddedSystem </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling]]></title>
+      <url>/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/</url>
+      <content type="html"><![CDATA[<p>　Real-time systems are collections of tasks where in addition to any <strong>ordering constraints</strong> imposed by precedences between the tasks, there are also <strong>timing constraints</strong>, requiring a scheduling strategy. Classical <font color="blue">real-time scheduling</font>（实时调度） for <strong>Periodic Tasks</strong> contains <strong>Periodic Rate Monotonic (RM)</strong> as well as <strong>Earliest Deadline First (EDF)</strong>. What’s more, tasks <em>share resources</em> and use <em>mutual exclusion</em> to guard access to those resources, resulting in <strong>Scheduling Anomalies</strong>（调度异常）.<br>　本文将讲述 <strong>Resources Sharing</strong> 给 <font color="blue">real-time scheduling</font> 带来的 <strong>Priority Inversion</strong>（优先级反转）异常，并将重点介绍对应的解决办法：Priority Inheritance Protocol (<strong>PIP</strong>)、Priority Ceiling Protocol (<strong>PCP</strong>)、Stack Resource Policy (<strong>SRP</strong>)。<a id="more"></a></p>
+<h3 id="Priority-Inversion"><a href="#Priority-Inversion" class="headerlink" title="Priority Inversion"></a>Priority Inversion</h3><ul>
+<li><strong>Resource Sharing</strong> &amp; Task Blocked<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_CriticalSection.png" width="400px" alt=""/></center><ul>
+<li>Threads (or Processes): $J_1$, $J_2$.</li>
+<li>Common resources $R_k$ likes: data structures, variables, main memory area, file, set of registers, I/O unit, …</li>
+<li>Many shared resources do not allow simultaneous accesses but require <strong>mutual exclusion</strong> (exclusive resources). A piece of code executed under mutual exclusion ($P(S_k) \leftrightarrow V(S_k)$) constraints is called a <strong>critical section</strong>.</li>
+<li>Each <strong>exclusive resource</strong> $R_k$ must be protected by a different semaphore $S_k$ and each critical section operating on a resource must begin with a <em>wait($S_k$)</em> primitive and end with a <em>signal($S_k$)</em> primitive（原子操作）.</li>
+<li>Tasks waiting for an exclusive resource is said to be <strong>blocked</strong> on that resource. Otherwise, it proceeds by entering the <strong>critical section</strong> and <strong>holds</strong> the resource. When a task <strong>leaves</strong> a critical section, the associated resource becomes free.<ul>
+<li>All tasks blocked on the same resource are kept in a queue associated with the semaphore. </li>
+<li>When a running task executes a <em>wait</em> on a <strong>locked</strong> semaphore, it enters a waiting state, until another tasks executes a <em>signal</em> primitive that <strong>unlocks</strong> the semaphore.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Priority Inversion</strong><br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_Example.png" width="480px" alt=""/></center><ul>
+<li>priority of $T_1$ &gt; priority of $T_2$ &gt; priority of $T_3$</li>
+<li>$T_3$ requests exclusive access first (at $t_0$), $T_1$ has to wait until $T_3$ releases the resource (at $t_2$)</li>
+<li>$T_2$ preempts $T_3$ (at $t_1$): $T_2$ can prevent $T_3$ from releasing the resource.</li>
+<li>If $T_1$ is blocked only by $T_3$, <strong>blocking is bounded</strong> by the length of the critical section, but blocked by &gt;2 tasks ($T_3$, $T_2$, …), <strong>blocking can exceed the length of any critical section</strong>.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>　Priority Inversion is a <strong>scheduling anomaly</strong> where a low priority task was holding a lock and blocking a high-priority task, while medium priority tasks,  unrelated lower-priority tasks, are executing. </p>
+</blockquote>
+<ul>
+<li>Solving Priority Inversion: <strong>Resource Access Protocols</strong><ul>
+<li>Basic idea: Modify the priority of those tasks that cause blocking. <ul>
+<li>When a task $T_i$ blocks one or more higher priority tasks, it temporarily assumes a higher priority.</li>
+</ul>
+</li>
+<li>Methods<ul>
+<li><font color="green">Priority Inheritance Protocol (PIP)</font>, for <strong>static priorities</strong></li>
+<li><font color="green">Priority Ceiling Protocol (PCP)</font>, for <strong>static priorities</strong></li>
+<li><font color="green">Stack Resource Policy (SRP)</font>, for <strong>static and dynamic priorities</strong><blockquote>
+<p>　<em>static priorities</em>（静态优先级）: 静态优先级是在创建进程时确定的，且在进程的整个运行期间保持不变，内核不会主动修改它。<br>　<em>dynamic priorities</em>（动态优先级）: 在创建进程时所赋予的优先级，是可以随进程的推进或随其等待时间的增加而改变的，调度程序增大或减少进程静态优先级来奖励 IO 消耗型进程或惩罚 CPU 消耗进程以便获得更好的调度性能；调整后的优先级为动态优先级。<br>　<em>real-time priorities</em>（实时优先级）: 实时优先级只对实时进程有效。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Priority-Inheritance-Protocol-PIP"><a href="#Priority-Inheritance-Protocol-PIP" class="headerlink" title="Priority Inheritance Protocol (PIP)"></a>Priority Inheritance Protocol (PIP)</h3><ul>
+<li>Avoid Priority Inversion in previous example uisng PIP<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIP.png" width="640px" alt=""/> </center><ul>
+<li><strong>Direct Blocking</strong>: higher-priority task $T_1$ tries to acquire a resource held by a lower priority task $T_3$.</li>
+<li><strong>Push-through Blocking</strong>: medium-priority task $T_2$ is blocked by a lower-priority task $T_3$ that has inherited a higher priority from a task ($T_1$) it directly blocks.</li>
+<li>Tasks have <strong>nominal</strong>（挂名优先级） and <strong>active</strong>（活跃优先级） priorities<ul>
+<li><font color="green">Nominal priority</font>: assigned by the scheduling algorithm, e.g. $T_1$’s priority.<blockquote>
+<p><em>static priorities</em> or <em>dynamic priorities</em> 取决于 <em>nominal priorities</em> 的情况</p>
+</blockquote>
+</li>
+<li><font color="green">Active priority</font>: assigned by the priority inheritance protocol dynamically to avoid priority inversion, e.g. $T_3$’s priority inherited from $T_1$.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>PIP Algorithm<ul>
+<li>Tasks are scheduled according to their <strong>active priorities</strong>. Tasks with the same priorities are scheduled <strong>FCFS</strong>.</li>
+<li>Task $T_i$’s nominal priority <strong>$P_i$</strong>, task $T_k$’s nominal priority <strong>$P_k$</strong>.</li>
+<li>When a task $T_i$ tries to enter a critical section and the resource is blocked by a lower priority task $T_k$, the task $T_i$ is blocked. Otherwise it enters the critical section.<ul>
+<li>When a task $T_i$ is blocked, it transmits its active priority to the task $T_k$ that holds the semaphore. </li>
+</ul>
+</li>
+<li>$T_k$ resumes and executes the rest of its critical section with a priority $p_k=max(p_i)$, it inherits the priority of the highest priority of the tasks blocked by it.</li>
+<li>When $T_k$ exits a critical section, it unlocks the semaphore and the highest priority task blocked on that semaphore is awakened. <ul>
+<li>If no other tasks are blocked by $T_k$, then $p_k$ is set to its nominal priority <strong>$P_k$</strong>.</li>
+<li>Otherwise it is set to the highest priority of the left tasks blocked by $T_k$.</li>
+</ul>
+</li>
+<li>Thus, medium priority tasks which do no share resources with $T_k$ cannot preempt $T_k$ and cannot <strong>prolong the blocking</strong>（延长阻塞） of the higher priority tasks</li>
+</ul>
+</li>
+<li><strong>Nested Critical Sections</strong>（一个临界区内嵌套了另一个临界区）<center><img src="/img/TA-Cources/ES2017/PriorityInversion_NestedCritical.png" width="500px" alt=""/><br/>PIP for Nested Critical Sections, $S_b$ nested in $S_a$.</center></li>
+<li><strong>Transitiveness</strong> of Priority Inheritance<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPTransitiveness.png" width="540px" alt=""/><br/>If $T_1$ is blocked by $T_2$ and $T_2$ is blocked by $T_3$, then $T_3$ inherits the priority of $T_1$ via $T_2$</center></li>
+<li>Pros and Cons<ul>
+<li>Advantages<ul>
+<li>Under the priority inheritance protocol, a job $J$ can be blocked for at most the duration of $min(n, m)$ critical sections, where $n$ is the number of lower-priority jobs that could block $J$ and $m$ is the number of distinct semaphores that can be used to block $J$.</li>
+</ul>
+</li>
+<li>Disadvantages<ul>
+<li>Deadlock is Possible<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPDeadlock.png" width="540px" alt=""/> </center></li>
+<li>Chained Blocking: $J$ can get blocked on $n$ critical sections held by $n$ distinct lower priority jobs.<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPChainedBlocking.png" width="480px" alt=""/><br/>$J_1$ is blocked for the duration of two critical sections, once to wait $J_3$ to release $S_a$ and then to wait $J_2$ to release $S_b$.</center>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Priority-Ceiling-Protocol-PCP"><a href="#Priority-Ceiling-Protocol-PCP" class="headerlink" title="Priority Ceiling Protocol (PCP)"></a>Priority Ceiling Protocol (PCP)</h3><ul>
+<li>PIP $\rightarrow$ PCP: extension of Priority Inheritance Protocol to handle chained blocking and deadlocks<ul>
+<li>avoids multiple blocking</li>
+<li>guarantees that, once a task has entered a critical section, it cannot be blocked by lower priority tasks until its completion</li>
+</ul>
+</li>
+<li>PCP Algorithm<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_PCP.png" width="540px" alt=""/><br/>Task $T_1$, $T_2$, $T_3$ and their corresponding priorities $P_1$ &gt; $P_2$ &gt;$P_3$</center><ul>
+<li>Each semaphore $S_k$ is assigned a priority ceiling $C(S_k)$. It is the priority of the highest priority task that can lock $S_k$. This is a static value.<blockquote>
+<p>$C(S_0) = P_1$　　$C(S_1) = P_1$　　$C(S_2) = P_2$</p>
+</blockquote>
+</li>
+<li>Suppose $T_i$ is currently running and it wants to lock the semaphore $S_k$.<ul>
+<li>$T_i$ is allowed to lock $S_k$ only if the priority of $T_i$ is strictly higher than the priority ceiling $C(S_k)$ of the semaphore $S_k$ where: $S_k$ is the semaphore with the highest priority ceiling among all the semaphores which are currently locked by tasks other than $T_i$<blockquote>
+<p>　检测到自身优先级比所有被占有的资源的 ceiling 值都高的时候才可以获取到请求的资源；而且，当存在资源被其它任务占有的时候，才需要进行检测操作</p>
+</blockquote>
+</li>
+<li>Otherwise, $T_i$ is said to be blocked by the semaphore $S_k$ (and the tasks currently holding $S_k$). When $T_i$ gets blocked by $S_k$ then the priority of $T_i$ is transmitted to the tasks $T$ that currently holds $S_k$.<blockquote>
+<p><font color="green">At time t2</font>: $T_2$ can not lock $S_2$. Currently $T_3$ is holding $S_2$ and $C(S_2) = P_2$ and the current priority of $T_2$ is also $P_2$.<br><font color="green">At time t5</font>: $T_1$ can not lock $S_0$. Currently $T_3$ is holding $S_2$ and $S_1$ and $C(S_1) = T_1$ and the current priority of $T_1$ is also $P_1$. The (inherited) priority of $T_3$ is now $P_1$.</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>When $T_i$ leaves a critical section guarded by $S_k$  then it unlocks $S_k$ and the highest priority task, if any, which is blocked by $S_k$ is awakened. The priority of $T_i$ is set to the highest priority of the task that is blocked by other semaphores that $T_i$ is still holding. If none, the priority of $T_i$ is set to be its <strong>nominal one</strong>.<blockquote>
+<p><font color="green">At time t6</font>: $T_3$ unlocks $S_1$. It awakens $T_1$. But $T_3$’s (inherited) priority is now only $P_2$ while $P_1 &gt; C(S_2) = P_2$. So $T_1$ preempts $T_3$ and runs to completion.<br><font color="green">At time t7</font>: $T_3$ resumes execution with priority $P_2$.<br><font color="green">At time t8</font>: $T_3$ unlocks $S_2$ and goes back to its <strong>nominal priority</strong> $P_3$. So $T_2$ preempts $T_1$ and runs to completion.</p>
+</blockquote>
+</li>
+<li>Results<br>　<strong>+</strong> A task is not allowed to enter a critical section if there are already locked semaphores which could block it eventually.<br>　<strong>+</strong> Hence, once a task enters a critical section, it can not be blocked by lower priority tasks（不会被较当前任务低优先级的任务阻塞）till its completion.</li>
+</ul>
+</li>
+<li>PCP: Properties<br>  　<strong>+</strong> A given task $T$ is delayed at most once by a lower priority task. The delay is a function of the time taken to execute the critical section<br>  　<strong>+</strong> Deadlock free (only changing priorities)<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PCPDeadlockfree.png" width="540px" alt=""/><br/>Deadlock free using PCP with $ceil(S_1)=P_1$, $ceil(S_2)=P_1$</center>
+
+</li>
+</ul>
+<h3 id="Stack-Resource-Policy-SRP"><a href="#Stack-Resource-Policy-SRP" class="headerlink" title="Stack Resource Policy (SRP)"></a>Stack Resource Policy (SRP)</h3><ul>
+<li>PCP Extending: Stack Resource Policy (SRP)<ul>
+<li>SRP supports dynamic priority scheduling</li>
+<li>PCP blocks a task at the time it makes the resource request, while SRP blocks task at the time it attempts to preempt. </li>
+</ul>
+</li>
+<li>SRP Algorithm<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_SRP.png" width="540px" alt=""/></center><ul>
+<li><font color="blue">Preemption Level</font>:  $\pi _ i \propto \frac{1}{D_i}$, tasks $T_i$ with larger deadlines $D_i$ have lower preemption level (Intuition: they can be easily preempted), is a <strong>static</strong> value.</li>
+<li><font color="blue">Resource ceiling</font>: of a resource is the <em>highest preemption level from amongst of all tasks that may access that resource</em>. Note: (i) this is associated with each resource (ii) this is <strong>static</strong>.<blockquote>
+<p><em>Resource ceiling</em> for the <strong><font color="red">red</font></strong> resource is 3. For the <strong><font color="red">yellow</font></strong> resource, it is 2.</p>
+</blockquote>
+</li>
+<li><font color="blue">System ceiling</font>: is the <em>highest resource ceiling level from amongst of resources that are currently blocked</em> (当前阻塞任务的所有资源的 <em>Resource ceiling</em> 的最大值). Note: (i) this is not associated with each resource but with the system (ii) this is a <strong>dynamic</strong> parameter that can change every time a resource is accessed or released.<blockquote>
+<p>Based on this, we can see how the <em>system ceiling</em> $\prod _s$ varies dynamically.</p>
+</blockquote>
+</li>
+<li><font color="red">*</font>A task can preempt another task if<ul>
+<li>it has the <strong>highest priority</strong>;</li>
+<li>and its preemption level is higher than the system ceiling. <strong>$\pi _ i &gt; \prod _s$</strong><blockquote>
+<p>Task $T_3$ is not preempted by $T_2$ even though it does not share the <font color="red">red</font> resource ($\pi _2 &lt; \prod _s$).</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SRP reduces preemptions compared to PCP.<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_SRPvsPCP.png" width="540px" alt=""/></center><ul>
+<li><strong>优先级&lt;SystemCeiling</strong> 的进程最终会被阻塞，或因为请求访问临界区，或因为被高优先级抢占，考虑到这一点，<em>SRP</em> 相比于 <em>PCP</em> 能够明显减少 <strong>Context Switch</strong>.<blockquote>
+<p>　<strong>A task cannot be blocked by tasks with lower premption levels</strong> (these tasks can resume only when the task completes). Hence, if there are tasks on the same preemption level, they can never occupy stack space on the same time. Higher the number of tasks on the same preemption level, larger the <strong>stack space</strong> saving!</p>
+</blockquote>
+</li>
+<li>When a task needs a resource that is not available, it <font color="green">is blocked at the time it attempts to preempt</font>, rather than later.</li>
+<li>To prevent multiple priority inversions, a task is not allowed to start until <font color="green">the resource currently available are sufficient to meet the maximum requirement of every task that could preempt it</font>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li>Slides from <em>Introduction to embedded systems, Kai Huang</em>, School of Data and Computer Science, Sun Yat-sen University, China. All rights reserved.</li>
+<li>E. A. Lee and S. A. Seshia, <em>Introduction to Embedded Systems - A Cyber-Physical Systems Approach</em>, LeeSeshia.org, 2011.</li>
 </ul>
 ]]></content>
       
@@ -1072,111 +1138,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[[0025] Least Squares Line Fitting（最小二乘法直线拟合）]]></title>
-      <url>/2017/07/21/Algorithms_LeastSquaresLineFitting/</url>
-      <content type="html"><![CDATA[<p>　　<strong>最小二乘拟合</strong> 是一种数学上的近似和优化，利用已知的数据得出一条直线或者曲线，使之在坐标系上与已知数据之间的距离的平方和最小。<br><a id="more"></a></p>
-<h3 id="最小二乘直线拟合"><a href="#最小二乘直线拟合" class="headerlink" title="最小二乘直线拟合"></a>最小二乘直线拟合</h3><ul>
-<li><strong>TLS(Total Least Squares)</strong> vs <strong>OLS(Ordinary Least Squares)</strong><br><center><img src="/img/Algorithms/0025_TLSvsOLS.png" width="680px" alt=""/></center><ul>
-<li>如上图，<strong>TLS</strong> 和 <strong>OLS</strong> 都是最小二乘拟合，只是在偏差评估上采取了不同的方式。</li>
-<li>最小二乘法是一种较为简单的回归分析方法。<blockquote>
-<p>The simplest example of a <strong>regression model</strong> is a straight line that passes through a set of points on a scatter plot.</p>
-<ul>
-<li>Regression involves fitting a mathematical model to data. </li>
-<li>Regression involves estimating the mathematical relationship between one variable called the response variable (or dependent variable), and one or more explanatory variables (or independent variables)</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li>最常用的是 <strong>OLS</strong>（Ordinary  Least Square，普通最小二乘法）：所选择的回归模型应该使所有观察值的残差平方和达到最小（如上图左）。<br><center><img src="/img/Algorithms/0025_OLS.png" width="640px" alt=""/></center><ul>
-<li>直接通过矩阵运算，容易得出：$B = (X^T X)^{-1}(X^T Y)$（拟合多项式：$y = b_0 + b_1 x + b_2 x^2 + … + b_k x^k$）</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Gary: O-Least-Square最小二乘拟合</span></div><div class="line">Segment::LocalLine Segment::fitLocalLine(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">list</span>&lt;Bin::MinZPoint&gt; &amp;points) &#123;</div><div class="line">  <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> n_points = points.size();</div><div class="line">  <span class="comment">// 构造 X/Y 矩阵</span></div><div class="line">  Eigen::<span class="function">MatrixXd <span class="title">X</span><span class="params">(n_points, <span class="number">2</span>)</span></span>;</div><div class="line">  Eigen::<span class="function">VectorXd <span class="title">Y</span><span class="params">(n_points)</span></span>;</div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> counter = <span class="number">0</span>;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span> iter = points.begin(); iter != points.end(); ++iter) &#123;</div><div class="line">    X(counter, <span class="number">0</span>) = iter-&gt;d;</div><div class="line">    X(counter, <span class="number">1</span>) = <span class="number">1</span>;</div><div class="line">    Y(counter) = iter-&gt;z;</div><div class="line">    ++counter;</div><div class="line">  &#125;</div><div class="line">  <span class="comment">// 计算 B</span></div><div class="line">  <span class="keyword">const</span> Eigen::MatrixXd X_t = X.transpose();</div><div class="line">  <span class="keyword">const</span> Eigen::VectorXd result = (X_t * X).inverse() * X_t * Y;</div><div class="line">  LocalLine line_result;</div><div class="line">  line_result.first = result(<span class="number">0</span>);</div><div class="line">  line_result.second = result(<span class="number">1</span>);</div><div class="line">  <span class="keyword">return</span> line_result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>Eigen</strong> 是C++中可以用来调用并进行矩阵计算的一个库，里面封装了一些类。</p>
-<center><img src="/img/Algorithms/0025_Eigen.jpg" width="540px" alt=""/></center>
-
-</blockquote>
-<ul>
-<li>通过解 $XB = Y$ 我们就能解出 $B = [m \space b]$：$$m = \frac{\sum x_i^2 \sum y_i - \sum x_i (\sum x_i y_i)}{n \sum x_i^2 - (\sum x_i)^2}$$ $$b = \frac{n \sum x_i \sum y_i - \sum x_i (\sum x_i y_i)}{n \sum x_i^2 - (\sum x_i)^2}$$</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">OrdinaryLeastSquare(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; x, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; y) &#123;</div><div class="line">        <span class="keyword">double</span> t1=<span class="number">0</span>, t2=<span class="number">0</span>, t3=<span class="number">0</span>, t4=<span class="number">0</span>;  </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;x.size(); ++i)  &#123; </div><div class="line">            t1 += x[i]*x[i];  </div><div class="line">            t2 += x[i];  </div><div class="line">            t3 += x[i]*y[i];  </div><div class="line">            t4 += y[i];  </div><div class="line">        &#125;</div><div class="line">        m = (t3*x.size() - t2*t4) / (t1*x.size() - t2*t2);</div><div class="line">        b = (t1*t4 - t2*t3) / (t1*x.size() - t2*t2);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li>OLS 这种 least square 存在问题，比如针对垂直线段就不行，于是引入第二种 <strong>Total Least Square</strong>。<br><center><img src="/img/Algorithms/0025_TLS(1).png" width="680px" alt=""/></center><br><center><img src="/img/Algorithms/0025_TLS(2).png" width="540px" alt=""/></center><ul>
-<li>其中，$U = \begin{bmatrix} x_1 - \overline{x} &amp; y_1 - \overline{y} \\ \vdots &amp; \vdots \\ x_n - \overline{x} &amp; y_n - \overline{y} \end{bmatrix}$；</li>
-<li>$\frac{dE}{dN} = \frac{d(N^T U^T U N)}{dN} = U^T U N + N^T U^T U$，因为 $U^T U$ 是一个对称矩阵（$U^T U = (U^T U)^T$），$U^T U N = N^T U^T U$，所以 $\frac{dE}{dN} = 2(U^T U)N$；</li>
-<li>此外，$U^T U = \begin{bmatrix} \sum (x_i - \overline{x})^2 &amp; \sum (x_i - \overline{x})(y_i - \overline{y}) \\ \sum (x_i - \overline{x})(y_i - \overline{y}) &amp; \sum (y_i - \overline{y})^2 \end{bmatrix}$ 是关于 X、Y 的一个二阶矩（随机变量平方的期望）矩阵（second-moment matrix）；</li>
-<li>二阶矩矩阵 $U^T U$ 的最小特征值对应的特征向量即为求解的 $N = [a \space b]$ <ul>
-<li>特征值 &amp; 特征向量<blockquote>
-<p>设 $A$ 为 n 阶矩阵<font color="blue">（n × n）</font>，若存在<strong>常数 $λ$</strong> 及 <strong>n 维非零向量 x</strong><font color="blue">（n × 1）</font>，使得 $Ax=λx$，则称 $λ$ 是矩阵 $A$ 的 <strong>特征值</strong>，$x$ 是 $A$ 属于特征值 $λ$ 的 <strong>特征向量</strong>。</p>
-</blockquote>
-</li>
-<li>$eig(U^T U) = [V, D]$，$V$ 是特征向量阵（每列为一个特征向量），$D$ 特征值对角阵 $\Longrightarrow$ 寻找 $D$ 中特征值最小的对角元素对应的特征向量即为 $U^T U$ 最小特征值对应的特征向量<blockquote>
-<p>特征值分解：$U^T U = V D V^{-1}$</p>
-</blockquote>
-</li>
-<li>通过 <a href="https://durant35.github.io/2017/07/21/Algorithms_ICP/#求点集间变换矩阵-overrightarrow-q-k">SVD（奇异值）求解</a><ul>
-<li>$SVD(A) = [U, S, V]$，即 $A = USV^T$<blockquote>
-<p>﹢其中 $U$ 是一个<code>m*m</code>的<font color="green">正交阵（Orthogonal matrix：满足 $U U^T = I$ 或者 $U^T U = I$ 的 n 阶方阵，其中 $I$ 为 n 阶单位阵）</font>，$S$ 是一个<code>m*n</code>的<font color="green">对角阵（Diagonal matrix：主对角线之外的元素皆为 0 的矩阵，对角线上的元素可以为 0 或其他值）</font>，对角线上的元素为 $A$ 的<strong>奇异值（Singular value）</strong>，$V$ 是一个<code>n*n</code>的正交阵。$U$ 的 m 个列向量为 $A$ 的<strong>左奇异向量（Left singular vector）</strong>，$V$ 的 n 个列向量为 $A$ 的<strong>右奇异向量（Right singular vector）</strong>。$S$ 完全由 $A$ 决定和 $U$、$V$ 无关；<br>﹢$A$ 的左奇异向量（$U$）是 $A A^T$ 的特征向量；$A$ 的右奇异向量是 $A^T A$ 的特征向量。<br>﹢$A$ 的非零奇异值是 $A^T A$ 特征值的平方根，同时也是 $A A^T$ 特征值的平方根。</p>
-</blockquote>
-</li>
-<li>寻找 $S$ 中最小奇异值对应的 $V$ 的右奇异向量即为 $A^T A$ 最小特征值对应的特征向量。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Eigen/Dense&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Eigen/Eigenvalues&gt;</span></span></div><div class="line"> </div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> Eigen;</div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">// Eigenvalue</span></div><div class="line">    <span class="comment">// typedef Matrix&lt;int, 3, 3&gt; Matrix3d</span></div><div class="line">    Matrix3d A;</div><div class="line">    A &lt;&lt; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Here is a 3x3 matrix, A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; A &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    EigenSolver&lt;Matrix3d&gt; es(A.transpose() * A);</div><div class="line">    <span class="comment">// 对角矩阵，每一个对角线元素就是一个特征值，里面的特征值是由大到小排列的</span></div><div class="line">    Matrix3d D = es.pseudoEigenvalueMatrix();</div><div class="line">    <span class="comment">// 特征向量（每一列）组成的矩阵</span></div><div class="line">    Matrix3d V = es.pseudoEigenvectors();</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The eigenvalue matrix D is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The eigenvector matrix V is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; V &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="comment">// 特征值分解</span></div><div class="line">    <span class="comment">// cout &lt;&lt; "Finally, V * D * V^(-1) = " &lt;&lt; endl &lt;&lt; V * D * V.inverse() &lt;&lt; endl;</span></div><div class="line">    <span class="comment">// 特征值&amp;特征向量</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"min-eigenvector &amp; min-eigenvalue"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;1&gt; The min-eigenvalue for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D(D.rows()<span class="number">-1</span>, D.rows()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;2&gt; The min-eigenvector for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;3&gt; (A^T*A)*min-eigenvector ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; (A.transpose()*A) * V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;4&gt; min-eigenvalue*min-eigenvector ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D(D.rows()<span class="number">-1</span>, D.rows()<span class="number">-1</span>)*V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="comment">// SVD</span></div><div class="line">    <span class="comment">// Eigen::ComputeThinV | Eigen::ComputeThinU</span></div><div class="line">    Eigen::JacobiSVD&lt;Eigen::Matrix3d&gt; svd(A, Eigen::ComputeFullV | Eigen::ComputeFullU);</div><div class="line">    Eigen::Matrix3d S = svd.singularValues().asDiagonal();</div><div class="line">    <span class="comment">//得到最小奇异值的位置</span></div><div class="line">    Matrix3d::Index minColIdx;</div><div class="line">    svd.singularValues().rowwise().sum().minCoeff(&amp;minColIdx);</div><div class="line"> </div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The left singular vectors U is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixU() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The singular-value matrix S is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; S &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The right singular vectors V is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixV() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The SVD: USV^T ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixU()*S*svd.matrixV().transpose() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="comment">// 奇异值与特征值的关系</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The S^2 is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; S*S &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The min-eigenvector for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixV().col(minColIdx) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>$d = a \overline{x} + b \overline{y}$；</li>
-<li>最终得到的拟合直线：<font color="blue">$y = -\frac{a}{b} x + \frac{d}{b}$</font></li>
-</ul>
-</li>
-</ul>
-<h3 id="其他直线拟合方法"><a href="#其他直线拟合方法" class="headerlink" title="其他直线拟合方法"></a>其他直线拟合方法</h3><p><font color="blue" size="4">﹢基于 <strong>RANSAC(RANdom SAmple Consensus)</strong>（随机抽样一致） 的直线拟合</font></p>
-<blockquote>
-<p><a href="http://www.cnblogs.com/xrwang/archive/2011/03/09/ransac-1.html">王先荣：随机抽样一致性算法（RANSAC）</a></p>
-</blockquote>
-<ul>
-<li>示例<br><center><img src="/img/Algorithms/0025_RANSAC_example.png" width="640px" alt=""/></center><br>　（１）从一组观测数据中找出合适的2维拟合直线，观测数据中包含局内点和局外点，其中局内点近似的被直线所通过，而局外点远离于直线（如上图）；<br>　（２）简单的 <strong>最小二乘法</strong> 不能找到适应于局内点的直线，原因是最小二乘法尽量去适应包括局外点在内的所有点；<strong>RANSAC</strong> 能得出一个仅仅用局内点计算出模型，并且概率还足够高。</li>
-<li><strong>RANSAC</strong>　通过反复选择数据中的一组随机子集来达成目标（被选取的子集被假设为局内点），并用下述方法进行验证：<ul>
-<li>①：有一个模型适应于<font color="green">假设的局内点</font>，即所有的未知参数都能从假设的局内点计算得出。</li>
-<li>②：用①中得到的模型去测试所有的其它数据，如果某个点适用于估计的模型，认为它也是局内点。</li>
-<li>③：如果有<font color="green">足够多的点被归类为假设的局内点</font>，那么估计的模型就足够合理；用所有假设的局内点去重新估计模型，因为它仅仅被初始的假设局内点估计过，通过估计局内点与模型的错误率来评估模型。</li>
-<li>④：①-③这个过程被重复执行固定的次数，每次产生的模型要么因为局内点太少而被舍弃，要么因为比现有的模型更好而被选用。</li>
-</ul>
-</li>
-</ul>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
-<li><a href="http://www.statisticalconsultants.co.nz/blog/total-least-squares.html">Total Least Squares</a></li>
-<li><a href="http://blog.csdn.net/abcd1992719g/article/details/28118095">abcd1992719g: OpenCV2马拉松第25圈——直线拟合与RANSAC算法</a></li>
-<li><a href="http://www.cnblogs.com/xrwang/archive/2011/03/09/ransac-1.html">王先荣：随机抽样一致性算法（RANSAC）</a></li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> 编程珠玑 </category>
-            
-            <category> Algorithm </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Algorithm </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[[0024] Iterative Closest Points（迭代最近点）]]></title>
       <url>/2017/07/21/Algorithms_ICP/</url>
       <content type="html"><![CDATA[<h3 id="ICP-算法简介"><a href="#ICP-算法简介" class="headerlink" title="ICP 算法简介"></a>ICP 算法简介</h3><ul>
@@ -1384,6 +1345,111 @@
             <tag> Algorithm </tag>
             
             <tag> 3D </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[[0025] Least Squares Line Fitting（最小二乘法直线拟合）]]></title>
+      <url>/2017/07/21/Algorithms_LeastSquaresLineFitting/</url>
+      <content type="html"><![CDATA[<p>　　<strong>最小二乘拟合</strong> 是一种数学上的近似和优化，利用已知的数据得出一条直线或者曲线，使之在坐标系上与已知数据之间的距离的平方和最小。<br><a id="more"></a></p>
+<h3 id="最小二乘直线拟合"><a href="#最小二乘直线拟合" class="headerlink" title="最小二乘直线拟合"></a>最小二乘直线拟合</h3><ul>
+<li><strong>TLS(Total Least Squares)</strong> vs <strong>OLS(Ordinary Least Squares)</strong><br><center><img src="/img/Algorithms/0025_TLSvsOLS.png" width="680px" alt=""/></center><ul>
+<li>如上图，<strong>TLS</strong> 和 <strong>OLS</strong> 都是最小二乘拟合，只是在偏差评估上采取了不同的方式。</li>
+<li>最小二乘法是一种较为简单的回归分析方法。<blockquote>
+<p>The simplest example of a <strong>regression model</strong> is a straight line that passes through a set of points on a scatter plot.</p>
+<ul>
+<li>Regression involves fitting a mathematical model to data. </li>
+<li>Regression involves estimating the mathematical relationship between one variable called the response variable (or dependent variable), and one or more explanatory variables (or independent variables)</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>最常用的是 <strong>OLS</strong>（Ordinary  Least Square，普通最小二乘法）：所选择的回归模型应该使所有观察值的残差平方和达到最小（如上图左）。<br><center><img src="/img/Algorithms/0025_OLS.png" width="640px" alt=""/></center><ul>
+<li>直接通过矩阵运算，容易得出：$B = (X^T X)^{-1}(X^T Y)$（拟合多项式：$y = b_0 + b_1 x + b_2 x^2 + … + b_k x^k$）</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Gary: O-Least-Square最小二乘拟合</span></div><div class="line">Segment::LocalLine Segment::fitLocalLine(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">list</span>&lt;Bin::MinZPoint&gt; &amp;points) &#123;</div><div class="line">  <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> n_points = points.size();</div><div class="line">  <span class="comment">// 构造 X/Y 矩阵</span></div><div class="line">  Eigen::<span class="function">MatrixXd <span class="title">X</span><span class="params">(n_points, <span class="number">2</span>)</span></span>;</div><div class="line">  Eigen::<span class="function">VectorXd <span class="title">Y</span><span class="params">(n_points)</span></span>;</div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> counter = <span class="number">0</span>;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span> iter = points.begin(); iter != points.end(); ++iter) &#123;</div><div class="line">    X(counter, <span class="number">0</span>) = iter-&gt;d;</div><div class="line">    X(counter, <span class="number">1</span>) = <span class="number">1</span>;</div><div class="line">    Y(counter) = iter-&gt;z;</div><div class="line">    ++counter;</div><div class="line">  &#125;</div><div class="line">  <span class="comment">// 计算 B</span></div><div class="line">  <span class="keyword">const</span> Eigen::MatrixXd X_t = X.transpose();</div><div class="line">  <span class="keyword">const</span> Eigen::VectorXd result = (X_t * X).inverse() * X_t * Y;</div><div class="line">  LocalLine line_result;</div><div class="line">  line_result.first = result(<span class="number">0</span>);</div><div class="line">  line_result.second = result(<span class="number">1</span>);</div><div class="line">  <span class="keyword">return</span> line_result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>Eigen</strong> 是C++中可以用来调用并进行矩阵计算的一个库，里面封装了一些类。</p>
+<center><img src="/img/Algorithms/0025_Eigen.jpg" width="540px" alt=""/></center>
+
+</blockquote>
+<ul>
+<li>通过解 $XB = Y$ 我们就能解出 $B = [m \space b]$：$$m = \frac{\sum x_i^2 \sum y_i - \sum x_i (\sum x_i y_i)}{n \sum x_i^2 - (\sum x_i)^2}$$ $$b = \frac{n \sum x_i \sum y_i - \sum x_i (\sum x_i y_i)}{n \sum x_i^2 - (\sum x_i)^2}$$</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">OrdinaryLeastSquare(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; x, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; y) &#123;</div><div class="line">        <span class="keyword">double</span> t1=<span class="number">0</span>, t2=<span class="number">0</span>, t3=<span class="number">0</span>, t4=<span class="number">0</span>;  </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;x.size(); ++i)  &#123; </div><div class="line">            t1 += x[i]*x[i];  </div><div class="line">            t2 += x[i];  </div><div class="line">            t3 += x[i]*y[i];  </div><div class="line">            t4 += y[i];  </div><div class="line">        &#125;</div><div class="line">        m = (t3*x.size() - t2*t4) / (t1*x.size() - t2*t2);</div><div class="line">        b = (t1*t4 - t2*t3) / (t1*x.size() - t2*t2);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>OLS 这种 least square 存在问题，比如针对垂直线段就不行，于是引入第二种 <strong>Total Least Square</strong>。<br><center><img src="/img/Algorithms/0025_TLS(1).png" width="680px" alt=""/></center><br><center><img src="/img/Algorithms/0025_TLS(2).png" width="540px" alt=""/></center><ul>
+<li>其中，$U = \begin{bmatrix} x_1 - \overline{x} &amp; y_1 - \overline{y} \\ \vdots &amp; \vdots \\ x_n - \overline{x} &amp; y_n - \overline{y} \end{bmatrix}$；</li>
+<li>$\frac{dE}{dN} = \frac{d(N^T U^T U N)}{dN} = U^T U N + N^T U^T U$，因为 $U^T U$ 是一个对称矩阵（$U^T U = (U^T U)^T$），$U^T U N = N^T U^T U$，所以 $\frac{dE}{dN} = 2(U^T U)N$；</li>
+<li>此外，$U^T U = \begin{bmatrix} \sum (x_i - \overline{x})^2 &amp; \sum (x_i - \overline{x})(y_i - \overline{y}) \\ \sum (x_i - \overline{x})(y_i - \overline{y}) &amp; \sum (y_i - \overline{y})^2 \end{bmatrix}$ 是关于 X、Y 的一个二阶矩（随机变量平方的期望）矩阵（second-moment matrix）；</li>
+<li>二阶矩矩阵 $U^T U$ 的最小特征值对应的特征向量即为求解的 $N = [a \space b]$ <ul>
+<li>特征值 &amp; 特征向量<blockquote>
+<p>设 $A$ 为 n 阶矩阵<font color="blue">（n × n）</font>，若存在<strong>常数 $λ$</strong> 及 <strong>n 维非零向量 x</strong><font color="blue">（n × 1）</font>，使得 $Ax=λx$，则称 $λ$ 是矩阵 $A$ 的 <strong>特征值</strong>，$x$ 是 $A$ 属于特征值 $λ$ 的 <strong>特征向量</strong>。</p>
+</blockquote>
+</li>
+<li>$eig(U^T U) = [V, D]$，$V$ 是特征向量阵（每列为一个特征向量），$D$ 特征值对角阵 $\Longrightarrow$ 寻找 $D$ 中特征值最小的对角元素对应的特征向量即为 $U^T U$ 最小特征值对应的特征向量<blockquote>
+<p>特征值分解：$U^T U = V D V^{-1}$</p>
+</blockquote>
+</li>
+<li>通过 <a href="https://durant35.github.io/2017/07/21/Algorithms_ICP/#求点集间变换矩阵-overrightarrow-q-k">SVD（奇异值）求解</a><ul>
+<li>$SVD(A) = [U, S, V]$，即 $A = USV^T$<blockquote>
+<p>﹢其中 $U$ 是一个<code>m*m</code>的<font color="green">正交阵（Orthogonal matrix：满足 $U U^T = I$ 或者 $U^T U = I$ 的 n 阶方阵，其中 $I$ 为 n 阶单位阵）</font>，$S$ 是一个<code>m*n</code>的<font color="green">对角阵（Diagonal matrix：主对角线之外的元素皆为 0 的矩阵，对角线上的元素可以为 0 或其他值）</font>，对角线上的元素为 $A$ 的<strong>奇异值（Singular value）</strong>，$V$ 是一个<code>n*n</code>的正交阵。$U$ 的 m 个列向量为 $A$ 的<strong>左奇异向量（Left singular vector）</strong>，$V$ 的 n 个列向量为 $A$ 的<strong>右奇异向量（Right singular vector）</strong>。$S$ 完全由 $A$ 决定和 $U$、$V$ 无关；<br>﹢$A$ 的左奇异向量（$U$）是 $A A^T$ 的特征向量；$A$ 的右奇异向量是 $A^T A$ 的特征向量。<br>﹢$A$ 的非零奇异值是 $A^T A$ 特征值的平方根，同时也是 $A A^T$ 特征值的平方根。</p>
+</blockquote>
+</li>
+<li>寻找 $S$ 中最小奇异值对应的 $V$ 的右奇异向量即为 $A^T A$ 最小特征值对应的特征向量。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Eigen/Dense&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Eigen/Eigenvalues&gt;</span></span></div><div class="line"> </div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> Eigen;</div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">// Eigenvalue</span></div><div class="line">    <span class="comment">// typedef Matrix&lt;int, 3, 3&gt; Matrix3d</span></div><div class="line">    Matrix3d A;</div><div class="line">    A &lt;&lt; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Here is a 3x3 matrix, A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; A &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    EigenSolver&lt;Matrix3d&gt; es(A.transpose() * A);</div><div class="line">    <span class="comment">// 对角矩阵，每一个对角线元素就是一个特征值，里面的特征值是由大到小排列的</span></div><div class="line">    Matrix3d D = es.pseudoEigenvalueMatrix();</div><div class="line">    <span class="comment">// 特征向量（每一列）组成的矩阵</span></div><div class="line">    Matrix3d V = es.pseudoEigenvectors();</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The eigenvalue matrix D is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The eigenvector matrix V is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; V &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="comment">// 特征值分解</span></div><div class="line">    <span class="comment">// cout &lt;&lt; "Finally, V * D * V^(-1) = " &lt;&lt; endl &lt;&lt; V * D * V.inverse() &lt;&lt; endl;</span></div><div class="line">    <span class="comment">// 特征值&amp;特征向量</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"min-eigenvector &amp; min-eigenvalue"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;1&gt; The min-eigenvalue for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D(D.rows()<span class="number">-1</span>, D.rows()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;2&gt; The min-eigenvector for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;3&gt; (A^T*A)*min-eigenvector ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; (A.transpose()*A) * V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;4&gt; min-eigenvalue*min-eigenvector ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; D(D.rows()<span class="number">-1</span>, D.rows()<span class="number">-1</span>)*V.col(V.cols()<span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="comment">// SVD</span></div><div class="line">    <span class="comment">// Eigen::ComputeThinV | Eigen::ComputeThinU</span></div><div class="line">    Eigen::JacobiSVD&lt;Eigen::Matrix3d&gt; svd(A, Eigen::ComputeFullV | Eigen::ComputeFullU);</div><div class="line">    Eigen::Matrix3d S = svd.singularValues().asDiagonal();</div><div class="line">    <span class="comment">//得到最小奇异值的位置</span></div><div class="line">    Matrix3d::Index minColIdx;</div><div class="line">    svd.singularValues().rowwise().sum().minCoeff(&amp;minColIdx);</div><div class="line"> </div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The left singular vectors U is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixU() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The singular-value matrix S is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; S &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The right singular vectors V is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixV() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The SVD: USV^T ="</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixU()*S*svd.matrixV().transpose() &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="comment">// 奇异值与特征值的关系</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The S^2 is:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; S*S &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The min-eigenvector for A^T*A:"</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; svd.matrixV().col(minColIdx) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>$d = a \overline{x} + b \overline{y}$；</li>
+<li>最终得到的拟合直线：<font color="blue">$y = -\frac{a}{b} x + \frac{d}{b}$</font></li>
+</ul>
+</li>
+</ul>
+<h3 id="其他直线拟合方法"><a href="#其他直线拟合方法" class="headerlink" title="其他直线拟合方法"></a>其他直线拟合方法</h3><p><font color="blue" size="4">﹢基于 <strong>RANSAC(RANdom SAmple Consensus)</strong>（随机抽样一致） 的直线拟合</font></p>
+<blockquote>
+<p><a href="http://www.cnblogs.com/xrwang/archive/2011/03/09/ransac-1.html">王先荣：随机抽样一致性算法（RANSAC）</a></p>
+</blockquote>
+<ul>
+<li>示例<br><center><img src="/img/Algorithms/0025_RANSAC_example.png" width="640px" alt=""/></center><br>　（１）从一组观测数据中找出合适的2维拟合直线，观测数据中包含局内点和局外点，其中局内点近似的被直线所通过，而局外点远离于直线（如上图）；<br>　（２）简单的 <strong>最小二乘法</strong> 不能找到适应于局内点的直线，原因是最小二乘法尽量去适应包括局外点在内的所有点；<strong>RANSAC</strong> 能得出一个仅仅用局内点计算出模型，并且概率还足够高。</li>
+<li><strong>RANSAC</strong>　通过反复选择数据中的一组随机子集来达成目标（被选取的子集被假设为局内点），并用下述方法进行验证：<ul>
+<li>①：有一个模型适应于<font color="green">假设的局内点</font>，即所有的未知参数都能从假设的局内点计算得出。</li>
+<li>②：用①中得到的模型去测试所有的其它数据，如果某个点适用于估计的模型，认为它也是局内点。</li>
+<li>③：如果有<font color="green">足够多的点被归类为假设的局内点</font>，那么估计的模型就足够合理；用所有假设的局内点去重新估计模型，因为它仅仅被初始的假设局内点估计过，通过估计局内点与模型的错误率来评估模型。</li>
+<li>④：①-③这个过程被重复执行固定的次数，每次产生的模型要么因为局内点太少而被舍弃，要么因为比现有的模型更好而被选用。</li>
+</ul>
+</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li><a href="http://www.statisticalconsultants.co.nz/blog/total-least-squares.html">Total Least Squares</a></li>
+<li><a href="http://blog.csdn.net/abcd1992719g/article/details/28118095">abcd1992719g: OpenCV2马拉松第25圈——直线拟合与RANSAC算法</a></li>
+<li><a href="http://www.cnblogs.com/xrwang/archive/2011/03/09/ransac-1.html">王先荣：随机抽样一致性算法（RANSAC）</a></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程珠玑 </category>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Algorithm </tag>
             
         </tags>
         

@@ -2,23 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://durant35.github.io/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/</loc>
-    
-    <lastmod>2017-11-02T08:52:51.773Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://durant35.github.io/2017/10/29/VM_Stack/</loc>
     
-    <lastmod>2017-10-29T14:44:41.615Z</lastmod>
+    <lastmod>2017-11-04T01:38:41.816Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://durant35.github.io/2017/10/29/VM_UserSpaceSegments/</loc>
     
-    <lastmod>2017-10-29T13:21:39.571Z</lastmod>
+    <lastmod>2017-11-03T12:11:55.065Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/11/03/VM_VirtualAddressSpace/</loc>
+    
+    <lastmod>2017-11-03T11:58:57.791Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/</loc>
+    
+    <lastmod>2017-11-02T08:52:51.773Z</lastmod>
     
   </url>
   

@@ -265,6 +265,83 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-VM_VirtualAddressSpace" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/11/03/VM_VirtualAddressSpace/" class="article-date">
+      <time datetime="2017-11-03T11:01:00.000Z" itemprop="datePublished">2017-11-03</time>
+</a>
+
+
+
+ 
+    <a href="/2017/11/03/VM_VirtualAddressSpace/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/11/03/VM_VirtualAddressSpace/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/03/VM_VirtualAddressSpace/">虚拟内存[00] 虚拟地址空间</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="进程栈"><a href="#进程栈" class="headerlink" title="进程栈"></a>进程栈</h3>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/Kernel/">Kernel</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-VM_Stack" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -305,7 +382,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><center><img src="/img/kernel/mm/va_spacex86.png" width="810px" alt=""/><br/>图: 32 位系统下进程地址空间默认布局(左)和进程地址空间经典布局(右)</center>
+              <p>　Linux 中有几种栈？各种栈的内存位置？</p>
+<h3 id="关于栈"><a href="#关于栈" class="headerlink" title="关于栈"></a>关于栈</h3><ul>
+<li>函数调用栈的典型内存布局<br><center><img src="/img/kernel/mm/Stack_StackFrame.png" width="480px" alt=""/></center>
           
       
     </div>
@@ -805,99 +884,6 @@
       
         <p class="article-more-link">
           <a href="/2017/01/25/raspberry_enable-ssh-without-UI/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-ROS_ROS_Navigation_GettingStarted" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/" class="article-date">
-      <time datetime="2016-10-03T09:43:09.000Z" itemprop="datePublished">2016-10-03</time>
-</a>
-
-
-
- 
-    <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/10/03/ROS_ROS_Navigation_GettingStarted/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　To add navigation to a robot, we need to launch 3 nodes:</p>
-<blockquote>
-<ul>
-<li>map_server: to provide the static map {“*.yaml” &amp; “*.pgm”}, against which the robot will localize and plan.</li>
-<li>amcl: to localize the robot against the static map.</li>
-<li>move_base: to handle global planning and local control for the robot.</li>
-</ul>
-</blockquote>
-<p>　　<strong>amcl</strong> 是移动机器人二维环境下的概率定位系统，它实现了自适应(或 <strong>kdl</strong> 采样)的 <strong>蒙特卡洛定位</strong> 方法，其中针对已有的地图使用 <strong>粒子滤波器</strong> 跟踪一个机器人的姿态。</p>
-<p>　　<strong>move_base</strong> 提供了 ROS 导航的配置，运行，交互接口，主要包括两个部分：</p>
-<blockquote>
-<p>　(1) 全局路径规划：根据给定的目标位置进行总体路径的规划<br>　(2) 局部路径规划：根据附近的障碍物信息进行躲避路线规划<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/ROS/">ROS</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
