@@ -265,22 +265,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-VM_VirtualAddressSpace" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-VM_Changes4LifeCycle" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/11/03/VM_VirtualAddressSpace/" class="article-date">
+      <a href="/2017/11/03/VM_Changes4LifeCycle/" class="article-date">
       <time datetime="2017-11-03T11:01:00.000Z" itemprop="datePublished">2017-11-03</time>
 </a>
 
 
 
  
-    <a href="/2017/11/03/VM_VirtualAddressSpace/#comments" title="查看评论">
+    <a href="/2017/11/03/VM_Changes4LifeCycle/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/11/03/VM_VirtualAddressSpace/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/11/03/VM_Changes4LifeCycle/"></span>
         
     </a>
 
@@ -295,7 +295,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/03/VM_VirtualAddressSpace/">虚拟内存[00] 虚拟地址空间</a>
+      <a class="article-title" href="/2017/11/03/VM_Changes4LifeCycle/">虚拟内存[02] 不同阶段下的内存变化</a>
     </h1>
   
 
@@ -305,7 +305,14 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="进程栈"><a href="#进程栈" class="headerlink" title="进程栈"></a>进程栈</h3>
+        <h3 id="系统启动与内存"><a href="#系统启动与内存" class="headerlink" title="系统启动与内存"></a>系统启动与内存</h3><h3 id="进程与内存"><a href="#进程与内存" class="headerlink" title="进程与内存"></a>进程与内存</h3><h4 id="进程创建与内存"><a href="#进程创建与内存" class="headerlink" title="进程创建与内存"></a>进程创建与内存</h4><h4 id="进程启动与内存"><a href="#进程启动与内存" class="headerlink" title="进程启动与内存"></a>进程启动与内存</h4><h4 id="进程切换与内存"><a href="#进程切换与内存" class="headerlink" title="进程切换与内存"></a>进程切换与内存</h4><blockquote>
+<p><a href="http://blog.csdn.net/freeelinux/article/details/53782986">Linux虚拟地址空间布局以及进程栈和线程栈总结</a></p>
+</blockquote>
+<ul>
+<li>虚拟地址通过<strong>页表 (Page Table)</strong>映射到物理内存，页表由操作系统维护并被处理器引用。内核空间在页表中拥有较高特权级，因此用户态程序试图访问这些页时会导致一个<strong>页错误 (Page Fault)</strong>。在Linux中，内核空间是持续存在的，并且在所有进程中都映射到同样的物理内存。<font color="blue">内核代码和数据总是可寻址，随时准备处理中断和系统调用</font>；与此相反，用户模式地址空间的映射随进程切换的发生而不断变化。</li>
+</ul>
+<p>### </p>
+
       
     </div>
     
@@ -342,22 +349,22 @@
 
 
   
-    <article id="post-VM_Stack" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-VM_MemoryManage" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/10/29/VM_Stack/" class="article-date">
-      <time datetime="2017-10-29T14:01:00.000Z" itemprop="datePublished">2017-10-29</time>
+      <a href="/2017/11/03/VM_MemoryManage/" class="article-date">
+      <time datetime="2017-11-03T11:01:00.000Z" itemprop="datePublished">2017-11-03</time>
 </a>
 
 
 
  
-    <a href="/2017/10/29/VM_Stack/#comments" title="查看评论">
+    <a href="/2017/11/03/VM_MemoryManage/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/10/29/VM_Stack/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/11/03/VM_MemoryManage/"></span>
         
     </a>
 
@@ -372,7 +379,258 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/29/VM_Stack/">虚拟内存[02] Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈</a>
+      <a class="article-title" href="/2017/11/03/VM_MemoryManage/">虚拟内存[0?] 内存管理</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="物理内存管理机制"><a href="#物理内存管理机制" class="headerlink" title="物理内存管理机制"></a>物理内存管理机制</h3><h3 id="页框管理"><a href="#页框管理" class="headerlink" title="页框管理"></a>页框管理</h3><p>### </p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/Kernel/">Kernel</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-VM0_AddressSpace" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/11/03/VM0_AddressSpace/" class="article-date">
+      <time datetime="2017-11-03T11:01:00.000Z" itemprop="datePublished">2017-11-03</time>
+</a>
+
+
+
+ 
+    <a href="/2017/11/03/VM0_AddressSpace/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/11/03/VM0_AddressSpace/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/03/VM0_AddressSpace/">虚拟内存[00] 虚拟内存地址空间</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="概述流程？怎样的一个运行机制？"><a href="#概述流程？怎样的一个运行机制？" class="headerlink" title="概述流程？怎样的一个运行机制？"></a>概述流程？怎样的一个运行机制？</h3><h3 id="虚拟内存地址空间布局"><a href="#虚拟内存地址空间布局" class="headerlink" title="虚拟内存地址空间布局"></a>虚拟内存地址空间布局</h3><h4 id="32-位模式下它是一个-4GB-的内存地址块"><a href="#32-位模式下它是一个-4GB-的内存地址块" class="headerlink" title="32 位模式下它是一个 4GB 的内存地址块"></a>32 位模式下它是一个 4GB 的内存地址块</h4><h4 id="64-位模式下虚拟地址空间布局"><a href="#64-位模式下虚拟地址空间布局" class="headerlink" title="64 位模式下虚拟地址空间布局"></a>64 位模式下虚拟地址空间布局</h4><h4 id="Linux-下控制虚拟地址空间布局"><a href="#Linux-下控制虚拟地址空间布局" class="headerlink" title="Linux 下控制虚拟地址空间布局"></a>Linux 下控制虚拟地址空间布局</h4><h4 id="不同的-CPU-体系架构下的虚拟内存地址空间"><a href="#不同的-CPU-体系架构下的虚拟内存地址空间" class="headerlink" title="不同的 CPU 体系架构下的虚拟内存地址空间"></a>不同的 CPU 体系架构下的虚拟内存地址空间</h4><h3 id="虚拟内存的优点"><a href="#虚拟内存的优点" class="headerlink" title="虚拟内存的优点"></a>虚拟内存的优点</h3><blockquote>
+<p><a href="http://www.linuxidc.com/Linux/2015-02/113981.htm">Linux 虚拟内存和物理内存的理解</a></p>
+</blockquote>
+<ul>
+<li>既然每个进程的内存空间都是一致而且固定的，所以<font color="blue">链接器在链接可执行文件时，可以设定内存地址</font>，而不用去管这些数据最终实际的内存地址，这是有独立内存空间的好处；</li>
+<li>当不同的进程使用同样的代码时，比如库文件中的代码，<font color="blue">物理内存中可以只存储一份这样的代码 (共享)</font>，不同的进程只需要把自己的虚拟内存映射过去就可以了，节省内存；</li>
+<li>在程序需要分配连续的内存空间的时候，只需要在虚拟内存空间分配连续空间，而不需要实际物理内存的连续空间，可以利用<font color="blue">碎片</font>；</li>
+</ul>
+<blockquote>
+<p><a href="http://blog.csdn.net/freeelinux/article/details/53782986">Linux虚拟地址空间布局以及进程栈和线程栈总结</a></p>
+</blockquote>
+<ul>
+<li>内存的延迟分配：只有在真正访问一个地址的时候才建立这个地址的物理映射，这是 Linux 内存管理的基本思想。<ul>
+<li>Linux内核在用户申请内存的时候，只是给它分配了一个线性区（也就是虚拟内存），并没有分配实际物理内存；只有当用户使用这块内存的时候，内核才会分配具体的物理页面给用户，这时候才占用宝贵的物理内存。</li>
+<li>内核释放物理页面是通过释放线性区，找到其对应的物理页面，将其全部释放的过程。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/Kernel/">Kernel</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-VM_VirtualAddr2PhysicalAddr" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/11/03/VM_VirtualAddr2PhysicalAddr/" class="article-date">
+      <time datetime="2017-11-03T11:01:00.000Z" itemprop="datePublished">2017-11-03</time>
+</a>
+
+
+
+ 
+    <a href="/2017/11/03/VM_VirtualAddr2PhysicalAddr/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/11/03/VM_VirtualAddr2PhysicalAddr/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/03/VM_VirtualAddr2PhysicalAddr/">虚拟内存[0?] 虚拟内存地址 $\Longrightarrow$ 物理内存地址</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="内核空间的虚拟内存地址"><a href="#内核空间的虚拟内存地址" class="headerlink" title="内核空间的虚拟内存地址"></a>内核空间的虚拟内存地址</h3><h3 id="页表与MMU"><a href="#页表与MMU" class="headerlink" title="页表与MMU"></a>页表与MMU</h3><h4 id="相同虚拟地址如何不混淆？"><a href="#相同虚拟地址如何不混淆？" class="headerlink" title="相同虚拟地址如何不混淆？"></a>相同虚拟地址如何不混淆？</h4><p>### </p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/Kernel/">Kernel</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-VM_Stacks" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/10/29/VM_Stacks/" class="article-date">
+      <time datetime="2017-10-29T14:01:00.000Z" itemprop="datePublished">2017-10-29</time>
+</a>
+
+
+
+ 
+    <a href="/2017/10/29/VM_Stacks/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/10/29/VM_Stacks/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/29/VM_Stacks/">虚拟内存[02] Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈</a>
     </h1>
   
 
@@ -404,7 +662,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/10/29/VM_Stack/#more">more >></a>
+          <a href="/2017/10/29/VM_Stacks/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -662,251 +920,6 @@
       
         <p class="article-more-link">
           <a href="/2017/02/04/linux_LinuxCommandNotes/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-linux_libpcap 32-bit$64-bit" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/10/linux_libpcap 32-bit$64-bit/" class="article-date">
-      <time datetime="2016-10-10T02:42:37.000Z" itemprop="datePublished">2016-10-10</time>
-</a>
-
-
-
- 
-    <a href="/2016/10/10/linux_libpcap 32-bit$64-bit/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/10/10/linux_libpcap 32-bit$64-bit/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/10/linux_libpcap 32-bit$64-bit/">libpcap, 32-bit&amp;64-bit</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　情况是这样的，在之前讲过的回播 <strong>.pcap</strong> 数据的 <strong>Velodyne_player</strong> 程序中，需要调用 <strong>Winpcap</strong> (其实就是 <strong>libpcap</strong> 的 Win挫版) 的 API 解析 <strong>.pcap</strong> 数据，再通过 UDP 发送出去。我们的 <strong>Velodyne_player</strong> 是一个 <strong>Win32</strong> 的程序，显然调用的就是32位的 <strong>Winpcap</strong> 库的 API； 后来我们也移植了一个 <strong>.pcap</strong> 采集程序的 Linux 版本，结果，用该 Linux 版本采集程序采集到的 <strong>.pcap</strong> 数据却没办法用我们 Win 下的 <strong>Velodyne_player</strong> 回播。后来发现，我们的 Linux 版本的采集程序用的是64位的 <strong>libpcap</strong> 库(因为系统是64位的 Ubuntu16.04，默认安装的就是64位的 <strong>libpcap</strong> 库)，64位和32位的 <strong>libpcap</strong>，在时间戳上有很关键的区别，下面是开源的 <strong>pcap.h</strong> 中的声明:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</div><div class="line"> * Generic per-packet information, as supplied by libpcap.</div><div class="line"> *</div><div class="line"> * The time stamp can and should be a "struct timeval", regardless of</div><div class="line"> * whether your system supports 32-bit tv_sec in "struct timeval",</div><div class="line"> * 64-bit tv_sec in "struct timeval", or both if it supports both 32-bit</div><div class="line"> * and 64-bit applications.  The on-disk format of savefiles uses 32-bit</div><div class="line"> * tv_sec (and tv_usec); this structure is irrelevant to that.  32-bit</div><div class="line"> * and 64-bit versions of libpcap, even if they're on the same platform,</div><div class="line"> * should supply the appropriate version of "struct timeval", even if</div><div class="line"> * that's not what the underlying packet capture mechanism supplies.</div><div class="line"> */</span></div><div class="line"><span class="keyword">struct</span> pcap_pkthdr &#123;</div><div class="line">  <span class="keyword">struct</span> timeval ts;	<span class="comment">/* time stamp */</span></div><div class="line">  bpf_u_int32 caplen;	<span class="comment">/* length of portion present */</span></div><div class="line">  bpf_u_int32 len;	<span class="comment">/* length this packet (off wire) */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pcap/">pcap</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/10/10/linux_libpcap 32-bit$64-bit/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-linux_sudo_unable_to_resolve_host" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/03/linux_sudo_unable_to_resolve_host/" class="article-date">
-      <time datetime="2016-10-03T02:42:07.000Z" itemprop="datePublished">2016-10-03</time>
-</a>
-
-
-
- 
-    <a href="/2016/10/03/linux_sudo_unable_to_resolve_host/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/10/03/linux_sudo_unable_to_resolve_host/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>Reference:<br>　<a href="http://askubuntu.com/questions/59458/error-message-when-i-run-sudo-unable-to-resolve-host-none">Error message when I run sudo: unable to resolve host (none)</a></p>
-</blockquote>
-<p>　现象是这样的。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xxx@...:~$ sudo <span class="literal">true</span></div><div class="line">sudo: unable to resolve host (...)</div></pre></td></tr></table></figure></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/10/03/linux_sudo_unable_to_resolve_host/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-linux_瞎谈Socket编程_3" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/08/linux_瞎谈Socket编程_3/" class="article-date">
-      <time datetime="2016-09-08T01:59:58.000Z" itemprop="datePublished">2016-09-08</time>
-</a>
-
-
-
- 
-    <a href="/2016/09/08/linux_瞎谈Socket编程_3/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/linux_瞎谈Socket编程_3/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="Server端"><a href="#Server端" class="headerlink" title="Server端"></a>Server端</h2><p>　　<strong>UDP Socket</strong> 编程中服务器端流程与 <strong>TCP</strong> 相似, 只是不需要通过 <strong>listen()</strong> 和 <strong>accept()</strong> 监听和等待客户端请求，直接通过 <strong>sendto()</strong> 和 <strong>recvfrom()</strong> 和客户端进行读写操作。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Linux/">Linux</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/09/08/linux_瞎谈Socket编程_3/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

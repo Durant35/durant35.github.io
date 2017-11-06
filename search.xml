@@ -3,9 +3,102 @@
   
     
     <entry>
-      <title><![CDATA[虚拟内存[00] 虚拟地址空间]]></title>
-      <url>/2017/11/03/VM_VirtualAddressSpace/</url>
-      <content type="html"><![CDATA[<h3 id="进程栈"><a href="#进程栈" class="headerlink" title="进程栈"></a>进程栈</h3>]]></content>
+      <title><![CDATA[虚拟内存[0?] 内存管理]]></title>
+      <url>/2017/11/03/VM_MemoryManage/</url>
+      <content type="html"><![CDATA[<h3 id="物理内存管理机制"><a href="#物理内存管理机制" class="headerlink" title="物理内存管理机制"></a>物理内存管理机制</h3><h3 id="页框管理"><a href="#页框管理" class="headerlink" title="页框管理"></a>页框管理</h3><p>### </p>
+]]></content>
+      
+        <categories>
+            
+            <category> 软硬兼施 </category>
+            
+            <category> Kernel </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[虚拟内存[02] 不同阶段下的内存变化]]></title>
+      <url>/2017/11/03/VM_Changes4LifeCycle/</url>
+      <content type="html"><![CDATA[<h3 id="系统启动与内存"><a href="#系统启动与内存" class="headerlink" title="系统启动与内存"></a>系统启动与内存</h3><h3 id="进程与内存"><a href="#进程与内存" class="headerlink" title="进程与内存"></a>进程与内存</h3><h4 id="进程创建与内存"><a href="#进程创建与内存" class="headerlink" title="进程创建与内存"></a>进程创建与内存</h4><h4 id="进程启动与内存"><a href="#进程启动与内存" class="headerlink" title="进程启动与内存"></a>进程启动与内存</h4><h4 id="进程切换与内存"><a href="#进程切换与内存" class="headerlink" title="进程切换与内存"></a>进程切换与内存</h4><blockquote>
+<p><a href="http://blog.csdn.net/freeelinux/article/details/53782986">Linux虚拟地址空间布局以及进程栈和线程栈总结</a></p>
+</blockquote>
+<ul>
+<li>虚拟地址通过<strong>页表 (Page Table)</strong>映射到物理内存，页表由操作系统维护并被处理器引用。内核空间在页表中拥有较高特权级，因此用户态程序试图访问这些页时会导致一个<strong>页错误 (Page Fault)</strong>。在Linux中，内核空间是持续存在的，并且在所有进程中都映射到同样的物理内存。<font color="blue">内核代码和数据总是可寻址，随时准备处理中断和系统调用</font>；与此相反，用户模式地址空间的映射随进程切换的发生而不断变化。</li>
+</ul>
+<p>### </p>
+]]></content>
+      
+        <categories>
+            
+            <category> 软硬兼施 </category>
+            
+            <category> Kernel </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[虚拟内存[0?] 虚拟内存地址 $\Longrightarrow$ 物理内存地址]]></title>
+      <url>/2017/11/03/VM_VirtualAddr2PhysicalAddr/</url>
+      <content type="html"><![CDATA[<h3 id="内核空间的虚拟内存地址"><a href="#内核空间的虚拟内存地址" class="headerlink" title="内核空间的虚拟内存地址"></a>内核空间的虚拟内存地址</h3><h3 id="页表与MMU"><a href="#页表与MMU" class="headerlink" title="页表与MMU"></a>页表与MMU</h3><h4 id="相同虚拟地址如何不混淆？"><a href="#相同虚拟地址如何不混淆？" class="headerlink" title="相同虚拟地址如何不混淆？"></a>相同虚拟地址如何不混淆？</h4><p>### </p>
+]]></content>
+      
+        <categories>
+            
+            <category> 软硬兼施 </category>
+            
+            <category> Kernel </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[虚拟内存[00] 虚拟内存地址空间]]></title>
+      <url>/2017/11/03/VM0_AddressSpace/</url>
+      <content type="html"><![CDATA[<h3 id="概述流程？怎样的一个运行机制？"><a href="#概述流程？怎样的一个运行机制？" class="headerlink" title="概述流程？怎样的一个运行机制？"></a>概述流程？怎样的一个运行机制？</h3><h3 id="虚拟内存地址空间布局"><a href="#虚拟内存地址空间布局" class="headerlink" title="虚拟内存地址空间布局"></a>虚拟内存地址空间布局</h3><h4 id="32-位模式下它是一个-4GB-的内存地址块"><a href="#32-位模式下它是一个-4GB-的内存地址块" class="headerlink" title="32 位模式下它是一个 4GB 的内存地址块"></a>32 位模式下它是一个 4GB 的内存地址块</h4><h4 id="64-位模式下虚拟地址空间布局"><a href="#64-位模式下虚拟地址空间布局" class="headerlink" title="64 位模式下虚拟地址空间布局"></a>64 位模式下虚拟地址空间布局</h4><h4 id="Linux-下控制虚拟地址空间布局"><a href="#Linux-下控制虚拟地址空间布局" class="headerlink" title="Linux 下控制虚拟地址空间布局"></a>Linux 下控制虚拟地址空间布局</h4><h4 id="不同的-CPU-体系架构下的虚拟内存地址空间"><a href="#不同的-CPU-体系架构下的虚拟内存地址空间" class="headerlink" title="不同的 CPU 体系架构下的虚拟内存地址空间"></a>不同的 CPU 体系架构下的虚拟内存地址空间</h4><h3 id="虚拟内存的优点"><a href="#虚拟内存的优点" class="headerlink" title="虚拟内存的优点"></a>虚拟内存的优点</h3><blockquote>
+<p><a href="http://www.linuxidc.com/Linux/2015-02/113981.htm">Linux 虚拟内存和物理内存的理解</a></p>
+</blockquote>
+<ul>
+<li>既然每个进程的内存空间都是一致而且固定的，所以<font color="blue">链接器在链接可执行文件时，可以设定内存地址</font>，而不用去管这些数据最终实际的内存地址，这是有独立内存空间的好处；</li>
+<li>当不同的进程使用同样的代码时，比如库文件中的代码，<font color="blue">物理内存中可以只存储一份这样的代码 (共享)</font>，不同的进程只需要把自己的虚拟内存映射过去就可以了，节省内存；</li>
+<li>在程序需要分配连续的内存空间的时候，只需要在虚拟内存空间分配连续空间，而不需要实际物理内存的连续空间，可以利用<font color="blue">碎片</font>；</li>
+</ul>
+<blockquote>
+<p><a href="http://blog.csdn.net/freeelinux/article/details/53782986">Linux虚拟地址空间布局以及进程栈和线程栈总结</a></p>
+</blockquote>
+<ul>
+<li>内存的延迟分配：只有在真正访问一个地址的时候才建立这个地址的物理映射，这是 Linux 内存管理的基本思想。<ul>
+<li>Linux内核在用户申请内存的时候，只是给它分配了一个线性区（也就是虚拟内存），并没有分配实际物理内存；只有当用户使用这块内存的时候，内核才会分配具体的物理页面给用户，这时候才占用宝贵的物理内存。</li>
+<li>内核释放物理页面是通过释放线性区，找到其对应的物理页面，将其全部释放的过程。</li>
+</ul>
+</li>
+</ul>
+]]></content>
       
         <categories>
             
@@ -26,7 +119,7 @@
     
     <entry>
       <title><![CDATA[虚拟内存[02] Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈]]></title>
-      <url>/2017/10/29/VM_Stack/</url>
+      <url>/2017/10/29/VM_Stacks/</url>
       <content type="html"><![CDATA[<p>　Linux 中有几种栈？各种栈的内存位置？</p>
 <h3 id="关于栈"><a href="#关于栈" class="headerlink" title="关于栈"></a>关于栈</h3><ul>
 <li>函数调用栈的典型内存布局<br><center><img src="/img/kernel/mm/Stack_StackFrame.png" width="480px" alt=""/></center><a id="more"></a><ul>
@@ -3536,6 +3629,37 @@
     </entry>
     
     <entry>
+      <title><![CDATA[DARPA[Boss]: Motion Planning in Urban Environments]]></title>
+      <url>/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</url>
+      <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
+<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
+<li>long range plans<ul>
+<li>on-road planning</li>
+<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
+</ul>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 自动驾驶 </category>
+            
+            <category> DARPA </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> DARPA </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[DARPA[Boss]: Boss and the Urban Challenge]]></title>
       <url>/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/</url>
       <content type="html"><![CDATA[<p>　Boss 自动驾驶软硬件概述。</p>
@@ -3586,37 +3710,6 @@
 </li>
 </ul>
 <h4 id="Motion-Planning"><a href="#Motion-Planning" class="headerlink" title="Motion Planning"></a>Motion Planning</h4>]]></content>
-      
-        <categories>
-            
-            <category> 自动驾驶 </category>
-            
-            <category> DARPA </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> DARPA </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[DARPA[Boss]: Motion Planning in Urban Environments]]></title>
-      <url>/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</url>
-      <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
-<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
-<li>long range plans<ul>
-<li>on-road planning</li>
-<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
-<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
-</ul>
-</li>
-</ul>
-]]></content>
       
         <categories>
             
@@ -7136,7 +7229,7 @@
 <p>　效果: <a href="http://durant35.github.io/tags">http://durant35.github.io/tags</a><br>　　1. 使用 Hexo 命令新建一个名为 tags 的页面<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new page tags</div></pre></td></tr></table></figure></p>
 <p>　　2. 修改该页面 <strong><your-hexo-ws>/source/tags/index.md</strong><br><figure class="highlight md"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">title: 分类&amp;标签</div><div class="line"><span class="section">date: 2016-09-17 15:43:55</div><div class="line">---</span></div></pre></td></tr></table></figure></p>
 <p>　　3. 分类&amp;标签页面相关的代码有 <strong>…/yelee/layout/_partial/page.ejs</strong>，通过 <strong>partial()</strong> 函数引入 <strong>…/yelee/layout/_partial/tag-cloud-page.ejs</strong><br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line"><span class="comment">&lt;!-- 匹配页面 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span> (<span class="attr">page.path</span> === <span class="string">"tags/index.html"</span>)&#123; %&gt;</span></div><div class="line">    <span class="comment">&lt;!-- Tag Cloud Page --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">%-</span> <span class="attr">partial</span>('<span class="attr">tag-cloud-page</span>') %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></div></pre></td></tr></table></figure></p>
-<p>　　 <strong>tag-cloud-page.ejs</strong> 代码如下，主要改变是根据需求调整分类的层数。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">hr</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 显示分类 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%-</span> <span class="attr">list_categories</span>(&#123;<span class="attr">depth:</span> <span class="attr">0</span>&#125;) %&gt;</span></div><div class="line"> </div><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"count"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 显示标签 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"tags"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">%-</span> <span class="attr">tagcloud</span>(&#123;</div><div class="line">        <span class="attr">min_font:</span> <span class="attr">16</span>, </div><div class="line">        <span class="attr">max_font:</span> <span class="attr">35</span>, </div><div class="line">        <span class="attr">amount:</span> <span class="attr">999</span>, </div><div class="line">        <span class="attr">color:</span> <span class="attr">true</span>, </div><div class="line">        <span class="attr">start_color:</span> '<span class="attr">gray</span>', </div><div class="line">        <span class="attr">end_color:</span> '<span class="attr">black</span>',</div><div class="line">    &#125;) %&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></div><div class="line">    .category-list li&#123;</div><div class="line">        display: inline-block;</div><div class="line">        margin: 0 1em .5em 0;</div><div class="line">        padding: 4px;</div><div class="line">        border: 1px solid lightgray;</div><div class="line">        font-size: 1.2rem;</div><div class="line">    &#125;</div><div class="line">    .category-list a &#123; color: gray; &#125;</div><div class="line">    .category-list-item:hover a &#123;</div><div class="line">        color: gray;</div><div class="line">        text-decoration: none;</div><div class="line">    &#125;</div><div class="line">    .category-list-count &#123;</div><div class="line">        margin-left: 2px;</div><div class="line">        font-size: .9rem;</div><div class="line">    &#125;</div><div class="line">    .article-entry ul li:before&#123; display: none; &#125;</div><div class="line">    .article-inner &#123; text-align: center; &#125;</div><div class="line">    .tags &#123;</div><div class="line">        max-width: 42em;</div><div class="line">        margin: 2em auto;</div><div class="line">        margin-top: 0em;</div><div class="line">    &#125;</div><div class="line">    .tags a &#123;</div><div class="line">        margin-right: 1em;</div><div class="line">        line-height: 65px;</div><div class="line">        border-bottom: 1px solid gray;</div><div class="line">        white-space: nowrap;</div><div class="line">        transition: border-bottom .5s;</div><div class="line">    &#125;</div><div class="line">    .tags a:hover &#123;</div><div class="line">        border-bottom: 3px dotted gray;</div><div class="line">        text-decoration: none;</div><div class="line">    &#125;</div><div class="line">    #count &gt; span &#123;</div><div class="line">        margin: auto .2em;</div><div class="line">        font-weight: bold;</div><div class="line">    &#125;</div><div class="line"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- Count tags and categories --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"count"</span>&gt;</span></div><div class="line">    ...</div><div class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></div><div class="line">    $(<span class="string">'#count'</span>).appendTo(<span class="string">'.count'</span>);</div><div class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>　　 <strong>tag-cloud-page.ejs</strong> 代码如下，主要改变是根据需求调整分类的层数。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">hr</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 显示分类 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%-</span> <span class="attr">list_categories</span>(&#123;<span class="attr">depth:</span> <span class="attr">0</span>&#125;) %&gt;</span></div><div class="line"> </div><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"count"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 显示标签 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"tags"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">%-</span> <span class="attr">tagcloud</span>(&#123;</div><div class="line">        <span class="attr">min_font:</span> <span class="attr">16</span>, </div><div class="line">        <span class="attr">max_font:</span> <span class="attr">35</span>, </div><div class="line">        <span class="attr">amount:</span> <span class="attr">999</span>, </div><div class="line">        <span class="attr">color:</span> <span class="attr">true</span>, </div><div class="line">        <span class="attr">start_color:</span> '<span class="attr">gray</span>', </div><div class="line">        <span class="attr">end_color:</span> '<span class="attr">black</span>',</div><div class="line">    &#125;) %&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></div><div class="line">    <span class="selector-class">.category-list</span> <span class="selector-tag">li</span>&#123;</div><div class="line">        <span class="attribute">display</span>: inline-block;</div><div class="line">        <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">1em</span> .<span class="number">5em</span> <span class="number">0</span>;</div><div class="line">        <span class="attribute">padding</span>: <span class="number">4px</span>;</div><div class="line">        <span class="attribute">border</span>: <span class="number">1px</span> solid lightgray;</div><div class="line">        <span class="attribute">font-size</span>: <span class="number">1.2rem</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="selector-class">.category-list</span> <span class="selector-tag">a</span> &#123; <span class="attribute">color</span>: gray; &#125;</div><div class="line">    <span class="selector-class">.category-list-item</span><span class="selector-pseudo">:hover</span> <span class="selector-tag">a</span> &#123;</div><div class="line">        <span class="attribute">color</span>: gray;</div><div class="line">        <span class="attribute">text-decoration</span>: none;</div><div class="line">    &#125;</div><div class="line">    <span class="selector-class">.category-list-count</span> &#123;</div><div class="line">        <span class="attribute">margin-left</span>: <span class="number">2px</span>;</div><div class="line">        <span class="attribute">font-size</span>: .<span class="number">9rem</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="selector-class">.article-entry</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span><span class="selector-pseudo">:before</span>&#123; <span class="attribute">display</span>: none; &#125;</div><div class="line">    <span class="selector-class">.article-inner</span> &#123; <span class="attribute">text-align</span>: center; &#125;</div><div class="line">    <span class="selector-class">.tags</span> &#123;</div><div class="line">        <span class="attribute">max-width</span>: <span class="number">42em</span>;</div><div class="line">        <span class="attribute">margin</span>: <span class="number">2em</span> auto;</div><div class="line">        <span class="attribute">margin-top</span>: <span class="number">0em</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="selector-class">.tags</span> <span class="selector-tag">a</span> &#123;</div><div class="line">        <span class="attribute">margin-right</span>: <span class="number">1em</span>;</div><div class="line">        <span class="attribute">line-height</span>: <span class="number">65px</span>;</div><div class="line">        <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid gray;</div><div class="line">        <span class="attribute">white-space</span>: nowrap;</div><div class="line">        <span class="attribute">transition</span>: border-bottom .<span class="number">5s</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="selector-class">.tags</span> <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</div><div class="line">        <span class="attribute">border-bottom</span>: <span class="number">3px</span> dotted gray;</div><div class="line">        <span class="attribute">text-decoration</span>: none;</div><div class="line">    &#125;</div><div class="line">    <span class="selector-id">#count</span> &gt; <span class="selector-tag">span</span> &#123;</div><div class="line">        <span class="attribute">margin</span>: auto .<span class="number">2em</span>;</div><div class="line">        <span class="attribute">font-weight</span>: bold;</div><div class="line">    &#125;</div><div class="line"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- Count tags and categories --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"count"</span>&gt;</span></div><div class="line">    ...</div><div class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></div><div class="line">    $(<span class="string">'#count'</span>).appendTo(<span class="string">'.count'</span>);</div><div class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
 <p>　　<strong>list_categories()</strong> 和 <strong>tagcloud()</strong> 均为 <strong>hexo</strong> 的 API，可以参考这里 <a href="https://hexo.io/zh-cn/docs/helpers.html">API|hexo</a></p>
 ]]></content>
       
@@ -8188,7 +8281,7 @@
     <entry>
       <title><![CDATA[漫威21部系列电影(持续更新)]]></title>
       <url>/2016/02/11/movies_%E6%BC%AB%E5%A8%81%E7%94%B5%E5%BD%B1/</url>
-      <content type="html"><![CDATA[<p>　　漫威21部系列电影的计划 <a href="http://bbs.feng.com/read-htm-tid-9131622.html">摘自《[讨论] 漫威计划的21部系列电影全览，漫威迷，可以了解下，还有后面几部电影的上映时间》</a>：<br>　　<strong>第一阶段</strong><br>　　+ 《钢铁侠》 Iron Man（2008.04.30）<br>　　+ 《无敌浩克》 The Incredible Hulk（2008.08.20）<br>　　+ 《钢铁侠2》Iron Man 2（2010.04.25）<br>　　+ 《雷神》 Thor（2011.05.02）<br>　　+ 《美国队长：第一个复仇者》 Captain America: The First Avenger（2011.07.19）<br>　　+ 《复仇者联盟》 The Avengers（2012.05.04)<a id="more"></a><br>　　<strong>第二阶段</strong><br>　　+ 《钢铁侠3》 Iron Man 3（2013.05.01）<br>　　+ 《雷神2：黑暗世界》 Thor: The Dark World（2013.11.08）<br>　　+ 《美国队长2：冬日战士》 Captain America: The Winter Soldier（2014.04.04）<br>　　+ 《银河护卫队》 Guardians of the Galaxy（2014.10.10）<br>　　+ 《复仇者联盟2：奥创纪元》 Avengers: Age of Ultron（2015.05.12）<br>　　+ 《蚁人》 Ant-man（2015.07.17）<br>　　<strong>第三阶段</strong><br>　　+ 《美国队长3：内战》 Captain America: Civil War（2016.05.06）（未上映）<br>　　+ 《奇异博士》 Doctor Strange（2016.11.04）（未上映）<br>　　+ 《银河护卫队2》 Guardians of the Galaxy 2（2017.05.05）（未上映）<br>　　+ 《蜘蛛侠：新复仇者》Untitled Spider-Man film（2017.07.28）（未上映）<br>　　+ 《雷神3：诸神黄昏》 Thor: Ragnarok（2017.11.03）（未上映）<br>　　+ 《复仇者联盟3：无限战争（上）》 Avengers: Infinity War Part Ⅰ（2018.05.04）（未上映）<br>　　+ 《黑豹》 Black Panther（2018.07.06）（未上映）<br>　　+ 《惊奇队长》 Captain Marvel（2018.11.02）（未上映）<br>　　+ 《复仇者联盟3：无限战争（下）》 Avengers: Infinity War Part Ⅱ（2019.05.03）（未上映）<br>　　+ 《异人族》 Inhumans（2019.07.12）（未上映）<br>　　<br>　　时间轴仅为时间发展顺序，仅作参考，包括系列电影和电视剧：《美国队长》→《探员卡特》→《特工卡特》→《钢铁侠》→《钢铁侠2》→《无敌浩克》→《神盾顾问》→《寻找雷神锤子路上发生的趣事》→《雷神》→《复仇者联盟》→《47号物品》→《钢铁侠3》→《王者万岁》→《神盾局特工》（1-7集）→《雷神2：黑暗世界》→《神盾局特工》（8-16集）→《美国队长2》→《神盾局特工》（17-22集）→《银河护卫队》→《神盾局特工第二季》（1-19集）→《复仇者联盟2：奥创纪元》→《神盾局特工第二季》（20-22集）</p>
+      <content type="html"><![CDATA[<p>　　漫威21部系列电影的计划 <a href="http://bbs.feng.com/read-htm-tid-9131622.html">摘自《[讨论] 漫威计划的21部系列电影全览，漫威迷，可以了解下，还有后面几部电影的上映时间》</a>：<br>　　<strong>第一阶段</strong><br>　　+ 《钢铁侠》 Iron Man（2008.04.30）<br>　　+ 《无敌浩克》 The Incredible Hulk（2008.08.20）<br>　　+ 《钢铁侠2》Iron Man 2（2010.04.25）<br>　　+ 《雷神》 Thor（2011.05.02）<br>　　+ 《美国队长：第一个复仇者》 Captain America: The First Avenger（2011.07.19）<br>　　+ 《复仇者联盟》 The Avengers（2012.05.04)<a id="more"></a><br>　　<strong>第二阶段</strong><br>　　+ 《钢铁侠3》 Iron Man 3（2013.05.01）<br>　　+ 《雷神2：黑暗世界》 Thor: The Dark World（2013.11.08）<br>　　+ 《美国队长2：冬日战士》 Captain America: The Winter Soldier（2014.04.04）<br>　　+ 《银河护卫队》 Guardians of the Galaxy（2014.10.10）<br>　　+ 《复仇者联盟2：奥创纪元》 Avengers: Age of Ultron（2015.05.12）<br>　　+ 《蚁人》 Ant-man（2015.07.17）<br>　　<strong>第三阶段</strong><br>　　+ 《美国队长3：内战》 Captain America: Civil War（2016.05.06）<br>　　+ 《奇异博士》 Doctor Strange（2016.11.04）<br>　　+ 《银河护卫队2》 Guardians of the Galaxy 2（2017.05.05）<br>　　+ 《蜘蛛侠：新复仇者》Untitled Spider-Man film（2017.07.28）<br>　　+ 《雷神3：诸神黄昏》 Thor: Ragnarok（2017.11.03）<br>　　+ 《复仇者联盟3：无限战争（上）》 Avengers: Infinity War Part Ⅰ（2018.05.04）（未上映）<br>　　+ 《黑豹》 Black Panther（2018.07.06）（未上映）<br>　　+ 《惊奇队长》 Captain Marvel（2018.11.02）（未上映）<br>　　+ 《复仇者联盟3：无限战争（下）》 Avengers: Infinity War Part Ⅱ（2019.05.03）（未上映）<br>　　+ 《异人族》 Inhumans（2019.07.12）（未上映）<br>　　<br>　　时间轴仅为时间发展顺序，仅作参考，包括系列电影和电视剧：《美国队长》→《探员卡特》→《特工卡特》→《钢铁侠》→《钢铁侠2》→《无敌浩克》→《神盾顾问》→《寻找雷神锤子路上发生的趣事》→《雷神》→《复仇者联盟》→《47号物品》→《钢铁侠3》→《王者万岁》→《神盾局特工》（1-7集）→《雷神2：黑暗世界》→《神盾局特工》（8-16集）→《美国队长2》→《神盾局特工》（17-22集）→《银河护卫队》→《神盾局特工第二季》（1-19集）→《复仇者联盟2：奥创纪元》→《神盾局特工第二季》（20-22集）</p>
 <h2 id="《钢铁侠》"><a href="#《钢铁侠》" class="headerlink" title="《钢铁侠》"></a><strong>《钢铁侠》</strong></h2><p>　　<img src="/img/movies/Iron_Man_1.jpg" style="float: right"/><br>　　<font color="#F40D64"><strong>片名: Iron Man</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 2008.4.30</strong></font><br>　　<font color="#F40D64"><strong>获取资源: <a href="https://yunpan.cn/cxjz6excnqKJj">https://yunpan.cn/cxjz6excnqKJj</a>  访问密码<code>a5a5</code></strong></font><br>　　<font color="#3385FF">托尼·斯塔克（小罗伯特·唐尼饰）是“斯塔克工业”的董事长，作为军火商他毁誉不一，但还是过着上流生活。此时，托尼令人称羡的生活出现一百八十度的大转变，他在国外的一次武器展示后遭到攻击，而他也被一群暴徒挟持沦为人质。在这次的意外事件中，他的心脏因受到炮弹碎片伤害及而生命垂危，他只好服从神秘的暴徒首领之命，为他制作斯塔克工业的新型导弹。不过，在一个同样被挟持的科学家的帮助下，他暗钢铁侠 官方剧照图册16张中运用他的聪明才智为自己打造出一套钢铁衣，帮助他维持生命并逃出暴徒的魔掌。回到美国之后，托尼必须重新面对过去，并誓言带领“斯塔克工业”迈向新的方向。然而，他不在公司期间，他的领导地位被他的左右手——最高执行长奥巴代·斯坦（杰夫·布里吉斯饰）顶替，他只好设法在奥巴代·斯坦的阻挠下，每天从早到晚埋头待在自己的工厂开发更先进的钢铁衣，以求得超出人类的力量来保护自己的身体。藉由助理佩佩·波兹“小辣椒”（格温妮斯·帕特洛饰）及值得信任的罗德上校（特伦斯·霍华德饰）的鼎力相助，托尼揭发了一个全球性的恐怖破坏计划。他穿上赋予他强大力量的全新红金色钢铁衣，宣示要保护这个世界不受邪恶势力的威胁。</font></p>
 <h2 id="《无敌浩克》"><a href="#《无敌浩克》" class="headerlink" title="《无敌浩克》"></a><strong>《无敌浩克》</strong></h2><p>　　<img src="/img/movies/The_Incredible_Hulk.jpg" style="float: right"/><br>　　<font color="#F40D64"><strong>片名: The Incredible Hulk</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 2008.6.12</strong></font><br>　　<font color="#F40D64"><strong>获取资源: <a href="https://yunpan.cn/cxjzGBI648cMI">https://yunpan.cn/cxjzGBI648cMI</a>  访问密码<code>8242</code></strong></font><br>　　<font color="#3385FF">故事讲述科学家布鲁斯·班纳（爱德华·诺顿）继续绝望地寻找能治愈他那被γ辐射毒害的体内细胞之疗法，以及解除那蕴藏体内、不受约束的另一个自己——绿巨人。<br>　　活在孤独及没有爱人的阴霾之下，布斯在治疗过程中还需过五关斩六将，一方面需逃避不断找寻他、扰人的复仇者霹雳将军罗斯（威廉·赫特）；另一方面要逃离一直欲捉拿他、利用他的异能之残暴军方。当布鲁斯在治疗上有了重大突破，变回常人的日子近在眼前之际，另一股同样拥有恐怖摧毁程度的力量突然出现。布斯眼看一切努力与心血快要毁于一旦，决定作出一次前所未有的反击。</font><br>　　<strong>《无敌浩克》是”绿巨人”系列的第二部<a href="https://yunpan.cn/cxjzWexKCeUqy"> 点击获取《绿巨人1》，访问密码<code>6260</code></a>，2003年李安执导了第一部《绿巨人》被批评为过于人性化，没有传统漫画英雄的火爆。《无敌浩克》此次重装上阵，打斗激烈，恢复了好莱坞传统的漫画英雄电影风格。</strong></p>
 <h2 id="《钢铁侠-2》"><a href="#《钢铁侠-2》" class="headerlink" title="《钢铁侠 2》"></a><strong>《钢铁侠 2》</strong></h2><p>　　<img src="/img/movies/Iron_Man_2.jpg" style="float: right"/><br>　　<font color="#F40D64"><strong>片名: Iron Man 2</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 2010.5.7</strong></font><br>　　<font color="#F40D64"><strong>获取资源: <a href="https://yunpan.cn/cxjzhUtum72YY">https://yunpan.cn/cxjzhUtum72YY</a>  访问密码<code>ff53</code></strong></font><br>　　<font color="#3385FF">《钢铁侠2》剧情发生在托尼公布自己“钢铁侠”身份的六个月后，这带来了意想不到的连锁反应，他与周围人的关系发生了改变，他亲近的人也成为敌人的报复对象。<br>　　扮演的亿万富翁发明家托尼·斯塔克，因为公布了自己钢铁侠的身份，造成许多混乱，导致媒体、舆论和社会各界不断施压，希望能释出他的专业军事技术。但唐尼为避免公开钢铁侠秘密后，会遭不肖人士利用。于是，唐尼凭借小辣椒波兹（格温妮丝·帕特洛饰）以及罗德上校（唐·钱德尔饰）的协助，合力对抗由米基·洛克扮演的强大新兴恶势力。</font><br>　　<strong>值得一提的是，本片中神盾局局长尼克弗瑞(塞缪尔 杰克逊饰)，黑寡妇(斯嘉丽 约翰逊饰)和菲儿 科尔森(克拉克 格雷格)也都出场，片尾彩蛋中，科尔森前往墨西哥发现了雷神之锤，为下片埋下伏笔。</strong></p>
@@ -8201,17 +8294,17 @@
 <h2 id="《银河护卫队》"><a href="#《银河护卫队》" class="headerlink" title="《银河护卫队》"></a><strong>《银河护卫队》</strong></h2><p>　　<img src="/img/movies/Guardians_of_the_Galaxy_1.jpg" style="float: right"/><br>　　<font color="#F40D64"><strong>片名: Guardians of the Galaxy</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 2014.8.1</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 暂无</strong></font><br>　　<font color="#3385FF">自以为是的冒险家”星爵”彼得·奎尔在偷走一块神秘球体后成为赏金猎人的头号目标，原来科瑞星将军指控者罗南对此物体垂涎已久。为了逃脱无休止的追杀，奎尔被迫和四个格格不入的乌合之众结成同盟——手持机枪的火箭浣熊、树人格鲁特、凶残神秘的加美拉，以及复仇心切的毁灭者德拉克斯。然而当奎尔发现这颗球体蕴含的真正能量，以及它能给宇宙带来的巨大威胁时，他必须团结这群不入流的队友，破釜沉舟、决一死战，才有可能解救整个银河系。</font><br>　　<strong>银河护卫队中的无限原石是无限宝石—力量之石。</strong></p>
 <h2 id="《复仇者联盟-2：奥创纪元》"><a href="#《复仇者联盟-2：奥创纪元》" class="headerlink" title="《复仇者联盟 2：奥创纪元》"></a><strong>《复仇者联盟 2：奥创纪元》</strong></h2><p>　　<img src="/img/movies/The_Avengers_2.jpg" style="float: right"/><br>　　<font color="#F40D64"><strong>片名: Avengers: Age of Ultron</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 2015.5.1</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 暂无</strong></font><br>　　<font color="#3385FF">身经百战的超级英雄们产生了职业倦怠，已经卸下钢铁战甲的托尼·斯塔克因此发明了“奥创”——有自我意识、有学习能力的人工智能机器人，并将指挥机器人军团的重任交给奥创。令超级英雄们始料不及的是，不断进化的奥创得出了“人类是地球上最大的威胁”这一结论，进而开始实施清洗人类的毁灭计划。有强大能力的变种人姐弟绯红女巫和快银也成为奥创的帮手，四处制造麻烦。复仇者联盟必须再度集合，解决这个由他们亲手制造的危机。</font><br>　　<strong>漫威主线宇宙Earth-616中，奥创由一代蚁人—皮姆·汉克博士研发。目的是为了制造混乱，然后由他本人解决，来重新赢取他的恋人—黄蜂女的芳心</strong></p>
 <h2 id="《蚁人》"><a href="#《蚁人》" class="headerlink" title="《蚁人》"></a><strong>《蚁人》</strong></h2><p>　　<img src="/img/movies/Ant_man.jpg" style="float: right"/><br>　　<font color="#F40D64"><strong>片名: Ant-man</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 2015.07.17</strong></font><br>　　<font color="#F40D64"><strong>获取资源: <a href="https://yunpan.cn/cxwyHSPn8ItKS">https://yunpan.cn/cxwyHSPn8ItKS</a>  访问密码<code>4631</code></strong></font><br>　　<font color="#3385FF">行骗为生的斯科特·朗（保罗·路德饰），在偷了生化学家汉克·皮姆博士（迈克尔·道格拉斯饰）发明的蚁人战服后，拥有了自由收缩身体大小的超能力。汉克·皮姆博士开发出一种“皮姆粒子”，并和斯科特·朗一同成为“蚁人”。斯科特也不得不接受自己的英雄身份，并帮助皮姆博士守护蚁人技术之谜。在强大的敌人威胁下，两人必须精心策划并执行一场惊天骗局来拯救世界维护和平。<br>　　网传本片中有黄衫侠，真实身份是Cross公司的总裁(克罗斯工业，斯塔克工业，奥斯本工业漫威三大工业巨头)。漫画中，大家知道，蚁人，巨化侠，黄衫侠都是皮姆博士。</font></p>
-<h2 id="《美国队长-3：内战》"><a href="#《美国队长-3：内战》" class="headerlink" title="《美国队长 3：内战》"></a><strong>《美国队长 3：内战》</strong></h2><p>　　<font color="#F40D64"><strong>片名: Captain America: Civil War</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 预计2016.05.06</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 未上映</strong></font><br>　　<font color="#3385FF">在奥创对这个世界造成了巨大的影响之后，复仇者联盟还是团结一致保护人类的。但是在一些政治角力的背后，政府中有人认为是有必要控制一下这些超级英雄的超自然能力和他们的行动了。于是，一项管控措施出台。这个措施就是要求复联按照政府的要求来行动。任务的开展、进程和结束，都要由政府主导。这个管控措施在复联中引起了极大的争议。意见最极端、最两极分化不可调和的，就是钢铁侠和美国队长之间的问题，于是，这两个同盟者之间的矛盾就此爆发了出来。而复联的“内战”也不可避免的爆发。[1]<br>　　政府启动了“超级英雄注册法案”电影叫“索科威亚协议”。黑豹查德维克·博斯曼和蜘蛛侠汤姆·赫兰德等人将全新加盟到《美国队长3：内战》中。<br>　　在原版漫画的主线Earth-616中，提出了超级英雄注册法案，美队反对该法案，倡导隐私与自由，而钢铁侠非常赞成此法案。慢慢产生矛盾发生了内战。起初蜘蛛侠信了钢铁侠，并接受了钢铁侠赠送的钢铁蜘蛛侠装甲，但由于自己的身份公开，他唯一的亲人梅姑妈死于恶人之手，妻子玛丽·简也流产了。出于这些原因，蜘蛛侠转投美国队长。<br>　　所以，蜘蛛侠是复仇者内战的重要人物，但目前蜘蛛侠的电影改编权在SONY影业，且谈判屡次破裂，故蜘蛛侠回归希望渺茫。<br>　　内战结局是美队失败，在前往法院接受审判途中，美队被九头蛇手下狙杀。此后，美队由冬日战士接替。由于塞巴斯蒂安·斯坦(饰冬兵 巴基·巴恩斯)与漫威签约的电影数较多，所以个人以为电影中史蒂夫·罗杰斯也没多少时间了。</font></p>
-<h2 id="《奇异博士》"><a href="#《奇异博士》" class="headerlink" title="《奇异博士》"></a><strong>《奇异博士》</strong></h2><p>　　<font color="#F40D64"><strong>片名: Doctor Strange</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 预计2016.11.04</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 未上映</strong></font><br>　　<font color="#3385FF">奇异博士史蒂芬在漫威宇宙里是地球上已知的最强魔法师之一，他可以将能量实体化，物质转移、念动力、空间转移、幻像术和精神离体等等。体能方面，他也接受过严格的武术训练。奇异博士的故事中涉及到大量魔法奇幻场面，同时他还会与绿巨人合作抵抗魔界的入侵，是漫威作品中相当有号召力的人物。复仇者之一。<br>　　奇异博士（Doctor Strange），本名史蒂芬·斯特兰奇（Stephen “Steve” Vincent Strange），原本是一名的出色的外科手术专家，因一次车祸导致其双手再也无法使用手术刀正常工作，为了治好自己的双手史蒂芬来到喜马拉雅山上拜访传说中的至尊魔法师古一（Ancient One），却被古一看中并传授其使用魔法的能力，史蒂芬化身奇异博士守卫世界，后在师父阵亡后接任成为至尊法师对抗魔界入侵。奇异博士拥有强大的魔法能力，可以将能量实体化，物质转移、念动力、空间转移、幻像术和精神离体等，体能方面他也接受过严格的武术训练，是漫威世界一线超级英雄之一。<br>　　漫威影业此次花大手笔制作电影《奇异博士》，对该片寄予厚望。漫威的执行总裁对好莱坞记者透漏《奇异博士》将会打破之前已经成文的标准，对本片形象孕育良久，他不同于之前做的任何形象。<br>　　《奇异博士》与以往的漫威电影有着很大不同，该片聚焦的是一个未知的神秘世界，这个神秘世界在《雷神》中有所提及。</font></p>
-<h2 id="《银河护卫队-2》"><a href="#《银河护卫队-2》" class="headerlink" title="《银河护卫队 2》"></a><strong>《银河护卫队 2》</strong></h2><p>　　<font color="#F40D64"><strong>片名: Guardians of the Galaxy 2</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 预计2017.05.05</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 未上映</strong></font><br>　　<font color="#3385FF">在《银河护卫队》中，星爵的父亲惊鸿一瞥，被称为“古老的外星人”而被人所惦记。而《银河护卫队2》或许会从这位神秘的人物身上开始自己故事的讲述。影片的导演詹姆斯·古恩表示，这部电影将继续把故事主线放在星爵一家的关系之上，这次，将讲述的是星爵的父亲。他说：“这会是一个关于父亲们（fathers）的故事，所以我很期待故事的进展和最终的成品。”</font></p>
-<h2 id="《蜘蛛侠：新复仇者》"><a href="#《蜘蛛侠：新复仇者》" class="headerlink" title="《蜘蛛侠：新复仇者》"></a><strong>《蜘蛛侠：新复仇者》</strong></h2><p>　　<font color="#F40D64"><strong>片名: Untitled Spider-Man film</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 预计2017.07.28</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 未上映</strong></font><br>　　<font color="#3385FF">彼得·帕克作为一个总是没办法融入到周遭环境的高中生，彼得很小的时候由于父母工作原因，由他的叔叔本和婶子梅抚养长大。在一次意外中被蜘蛛咬伤，获得了神奇的超能力。</font><br>　　《蜘蛛侠（Spider-Man）》（点击获取<a href="https://yunpan.cn/cxwJHqh6yY8S4">《蜘蛛侠三部》</a>，访问密码<code>e3fe</code>）是美国漫威漫画旗下超级英雄，由编剧斯坦·李和画家史蒂夫·迪特科联合创作，初次登场于1962年8月出版的《惊奇幻想》第15期，因为广受欢迎，几个月后，便开始拥有以自己为主角的单行本漫画。本名彼得·本杰明·帕克（Peter Benjamin Parker），原是一位普通的高中生，后意外的被一只受过放射性感染的蜘蛛咬伤后，获得了蜘蛛一般的超能力，从此化身蜘蛛侠守卫纽约。<br>　　《超凡蜘蛛侠》（点击获取<a href="https://yunpan.cn/cxwJPAgGI88mZ">《超凡蜘蛛侠两部》</a>，访问密码<code>bcb5</code>）不同于此前山姆·雷米执导的《蜘蛛侠》三部曲，此部将视角拉回到彼得·帕克的高中时代，年轻的他一方面要同自己的初恋格温共同经历爱情承诺的考验，另一方面还要揭开双亲神秘失踪的真相，在人生最大的挑战中完成从常人到英雄的命运转变。</p>
-<h2 id="《雷神-3：诸神黄昏》"><a href="#《雷神-3：诸神黄昏》" class="headerlink" title="《雷神 3：诸神黄昏》"></a><strong>《雷神 3：诸神黄昏》</strong></h2><p>　　<font color="#F40D64"><strong>片名: Thor: Ragnarok</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 预计2017.11.03</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 未上映</strong></font><br>　　<font color="#3385FF">诸神的黄昏（Ragnarök）是北欧神话预言中的一连串巨大劫难，包括造成许多重要神祇死亡的大战（奥丁（Odin）、索尔（Thor）、弗雷（Freyr）、海姆达尔（Heimdallr，古北欧语：Heimdallr）、火巨人（Muspel）、霜巨人、洛基（Loki）等），无数的自然浩劫，之后整个世界沉没在水底。然而最终世界复苏了，存活的神与两名人类重新建立了新世界。诸神的黄昏主要记录在诗体埃达与散文埃达。其原名 Ragnarökr 或 Ragnarökkr 意为“诸神的末日”。</font></p>
+<h2 id="《美国队长-3：内战》"><a href="#《美国队长-3：内战》" class="headerlink" title="《美国队长 3：内战》"></a><strong>《美国队长 3：内战》</strong></h2><p>　　<font color="#F40D64"><strong>片名: Captain America: Civil War</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 预计2016.05.06</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 暂无</strong></font><br>　　<font color="#3385FF">在奥创对这个世界造成了巨大的影响之后，复仇者联盟还是团结一致保护人类的。但是在一些政治角力的背后，政府中有人认为是有必要控制一下这些超级英雄的超自然能力和他们的行动了。于是，一项管控措施出台。这个措施就是要求复联按照政府的要求来行动。任务的开展、进程和结束，都要由政府主导。这个管控措施在复联中引起了极大的争议。意见最极端、最两极分化不可调和的，就是钢铁侠和美国队长之间的问题，于是，这两个同盟者之间的矛盾就此爆发了出来。而复联的“内战”也不可避免的爆发。[1]<br>　　政府启动了“超级英雄注册法案”电影叫“索科威亚协议”。黑豹查德维克·博斯曼和蜘蛛侠汤姆·赫兰德等人将全新加盟到《美国队长3：内战》中。<br>　　在原版漫画的主线Earth-616中，提出了超级英雄注册法案，美队反对该法案，倡导隐私与自由，而钢铁侠非常赞成此法案。慢慢产生矛盾发生了内战。起初蜘蛛侠信了钢铁侠，并接受了钢铁侠赠送的钢铁蜘蛛侠装甲，但由于自己的身份公开，他唯一的亲人梅姑妈死于恶人之手，妻子玛丽·简也流产了。出于这些原因，蜘蛛侠转投美国队长。<br>　　所以，蜘蛛侠是复仇者内战的重要人物，但目前蜘蛛侠的电影改编权在SONY影业，且谈判屡次破裂，故蜘蛛侠回归希望渺茫。<br>　　内战结局是美队失败，在前往法院接受审判途中，美队被九头蛇手下狙杀。此后，美队由冬日战士接替。由于塞巴斯蒂安·斯坦(饰冬兵 巴基·巴恩斯)与漫威签约的电影数较多，所以个人以为电影中史蒂夫·罗杰斯也没多少时间了。</font></p>
+<h2 id="《奇异博士》"><a href="#《奇异博士》" class="headerlink" title="《奇异博士》"></a><strong>《奇异博士》</strong></h2><p>　　<font color="#F40D64"><strong>片名: Doctor Strange</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 预计2016.11.04</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 暂无</strong></font><br>　　<font color="#3385FF">奇异博士史蒂芬在漫威宇宙里是地球上已知的最强魔法师之一，他可以将能量实体化，物质转移、念动力、空间转移、幻像术和精神离体等等。体能方面，他也接受过严格的武术训练。奇异博士的故事中涉及到大量魔法奇幻场面，同时他还会与绿巨人合作抵抗魔界的入侵，是漫威作品中相当有号召力的人物。复仇者之一。<br>　　奇异博士（Doctor Strange），本名史蒂芬·斯特兰奇（Stephen “Steve” Vincent Strange），原本是一名的出色的外科手术专家，因一次车祸导致其双手再也无法使用手术刀正常工作，为了治好自己的双手史蒂芬来到喜马拉雅山上拜访传说中的至尊魔法师古一（Ancient One），却被古一看中并传授其使用魔法的能力，史蒂芬化身奇异博士守卫世界，后在师父阵亡后接任成为至尊法师对抗魔界入侵。奇异博士拥有强大的魔法能力，可以将能量实体化，物质转移、念动力、空间转移、幻像术和精神离体等，体能方面他也接受过严格的武术训练，是漫威世界一线超级英雄之一。<br>　　漫威影业此次花大手笔制作电影《奇异博士》，对该片寄予厚望。漫威的执行总裁对好莱坞记者透漏《奇异博士》将会打破之前已经成文的标准，对本片形象孕育良久，他不同于之前做的任何形象。<br>　　《奇异博士》与以往的漫威电影有着很大不同，该片聚焦的是一个未知的神秘世界，这个神秘世界在《雷神》中有所提及。</font></p>
+<h2 id="《银河护卫队-2》"><a href="#《银河护卫队-2》" class="headerlink" title="《银河护卫队 2》"></a><strong>《银河护卫队 2》</strong></h2><p>　　<font color="#F40D64"><strong>片名: Guardians of the Galaxy 2</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 预计2017.05.05</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 暂无</strong></font><br>　　<font color="#3385FF">在《银河护卫队》中，星爵的父亲惊鸿一瞥，被称为“古老的外星人”而被人所惦记。而《银河护卫队2》或许会从这位神秘的人物身上开始自己故事的讲述。影片的导演詹姆斯·古恩表示，这部电影将继续把故事主线放在星爵一家的关系之上，这次，将讲述的是星爵的父亲。他说：“这会是一个关于父亲们（fathers）的故事，所以我很期待故事的进展和最终的成品。”</font></p>
+<h2 id="《蜘蛛侠：新复仇者》"><a href="#《蜘蛛侠：新复仇者》" class="headerlink" title="《蜘蛛侠：新复仇者》"></a><strong>《蜘蛛侠：新复仇者》</strong></h2><p>　　<font color="#F40D64"><strong>片名: Untitled Spider-Man film</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 预计2017.07.28</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 暂无</strong></font><br>　　<font color="#3385FF">彼得·帕克作为一个总是没办法融入到周遭环境的高中生，彼得很小的时候由于父母工作原因，由他的叔叔本和婶子梅抚养长大。在一次意外中被蜘蛛咬伤，获得了神奇的超能力。</font><br>　　《蜘蛛侠（Spider-Man）》（点击获取<a href="https://yunpan.cn/cxwJHqh6yY8S4">《蜘蛛侠三部》</a>，访问密码<code>e3fe</code>）是美国漫威漫画旗下超级英雄，由编剧斯坦·李和画家史蒂夫·迪特科联合创作，初次登场于1962年8月出版的《惊奇幻想》第15期，因为广受欢迎，几个月后，便开始拥有以自己为主角的单行本漫画。本名彼得·本杰明·帕克（Peter Benjamin Parker），原是一位普通的高中生，后意外的被一只受过放射性感染的蜘蛛咬伤后，获得了蜘蛛一般的超能力，从此化身蜘蛛侠守卫纽约。<br>　　《超凡蜘蛛侠》（点击获取<a href="https://yunpan.cn/cxwJPAgGI88mZ">《超凡蜘蛛侠两部》</a>，访问密码<code>bcb5</code>）不同于此前山姆·雷米执导的《蜘蛛侠》三部曲，此部将视角拉回到彼得·帕克的高中时代，年轻的他一方面要同自己的初恋格温共同经历爱情承诺的考验，另一方面还要揭开双亲神秘失踪的真相，在人生最大的挑战中完成从常人到英雄的命运转变。</p>
+<h2 id="《雷神-3：诸神黄昏》"><a href="#《雷神-3：诸神黄昏》" class="headerlink" title="《雷神 3：诸神黄昏》"></a><strong>《雷神 3：诸神黄昏》</strong></h2><p>　　<font color="#F40D64"><strong>片名: Thor: Ragnarok</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 预计2017.11.03</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 暂无</strong></font><br>　　<font color="#3385FF">诸神的黄昏（Ragnarök）是北欧神话预言中的一连串巨大劫难，包括造成许多重要神祇死亡的大战（奥丁（Odin）、索尔（Thor）、弗雷（Freyr）、海姆达尔（Heimdallr，古北欧语：Heimdallr）、火巨人（Muspel）、霜巨人、洛基（Loki）等），无数的自然浩劫，之后整个世界沉没在水底。然而最终世界复苏了，存活的神与两名人类重新建立了新世界。诸神的黄昏主要记录在诗体埃达与散文埃达。其原名 Ragnarökr 或 Ragnarökkr 意为“诸神的末日”。</font></p>
 <h2 id="《复仇者联盟-3：无限战争-上-》"><a href="#《复仇者联盟-3：无限战争-上-》" class="headerlink" title="《复仇者联盟 3：无限战争(上)》"></a><strong>《复仇者联盟 3：无限战争(上)》</strong></h2><p>　　<font color="#F40D64"><strong>片名: Avengers: Infinity War Part Ⅰ</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 预计2018.05.04</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 未上映</strong></font><br>　　<font color="#3385FF">普遍认为BOSS将是土星泰坦上的灭霸(Thanos)，他集齐了6块无限宝石，打造了无限手套。<br>　　灭霸知晓永恒之族的所有超人的哲理，这给与了他无法超越的力量，持久力，恢复能力和敏捷度。他的皮肤近乎无法摧毁，尤其是在对抗冷/热/电/辐射/毒/衰老和疾病的时候。早在他被他所暗恋的死亡女神诅咒成为永生之前他就可以撒诺斯图册5张不吃任何东西以及饮水而生存。Thanos的精神也是近乎无敌的，这使得他对于绝大多数精神攻击都能产生免疫能力，与此同时他可以聚涌出法力能量波或是通过双眼双手释放出等离子能或者宇宙能。<br>　　　能力：战略家，拥有远远超越地球科技的知识，能通晓一切未知<br>　　　武器：Thanos有时候乘坐一个装有进攻性武器且能穿越银河的浮空王座<br>　　　装备：[曾经]宇宙立方；无限手套；真实宝石<br>　　出于与演员签约的合同等原因，预计(上)中以银河护卫队打灭霸为主。</font></p>
 <h2 id="《黑豹》"><a href="#《黑豹》" class="headerlink" title="《黑豹》"></a><strong>《黑豹》</strong></h2><p>　　<font color="#F40D64"><strong>片名: Black Panther</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 预计2018.07.06</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 未上映</strong></font><br>　　<font color="#3385FF">提恰拉（T’Challa），是1966年的瓦坎达国王——“黑豹”。 其父T’Chaka为前代“黑豹”，在位其间曾有陨石落在Wakanda，而带来大量稀有吸音金属Vibranium。T’Chaka令国家Wakanda隐藏并与外间隔绝，他将Vibranium 卖出足以送国内的学士到外国念书从而令Wakanda成为了高科技国家。不过探险家Ulysses Klaw 发现了Wakanda国，他秘密地建了一台利用Vibranium作原料的武器。当Ulysses Klaw被发现之后他利用其武器杀掉初代”黑豹”，年轻的T’Challa 为了报父仇废掉了Klaw的右手，但是最后还是让Klaw逃了。<br>　　为了成为新一任黑豹，T’Challa要经过多重考验以证明他有能力保护国人。成为黑豹后他到了外国念书以学习治国之道。刚前往欧美学习，他遇到了刚刚建立的复仇者联盟，还攻击神奇四侠（F4）——为了试验他们看他们有没有能力帮助他打败回归Wakanda的Klaw。后来他逐渐被这个团体接纳，黑豹也完全放下戒备，与诸位复仇者一同出生入死。黑豹的性格像极了美国队长，稳重中带有王者风范，就连给复仇者打酱油都是那么华丽。<br>　　其实年轻的T’Challa 曾与当年刚成为孤儿的Ororo Munroe（暴风女，Storm）相爱，不过T’Challa为了报父仇而跟她分手，而Ororo Munroe（暴风女，Storm）其后亦被X教授招揽成为X战警的队员。黑豹后来加入复仇者（Avengers）。在09年大事件“内战”其间他跟暴风女结婚，之后加入了美国队长的反对立法派。后来他曾代替神奇四侠的神奇先生加入了神奇四侠。</font></p>
 <h2 id="《惊奇队长》"><a href="#《惊奇队长》" class="headerlink" title="《惊奇队长》"></a><strong>《惊奇队长》</strong></h2><p>　　<font color="#F40D64"><strong>片名: Captain Marvel</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 预计2018.11.02</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 未上映</strong></font><br>　　<font color="#3385FF">Mar-Vell是克里某舰队尉官，属于克里人中肤色较浅的一族，类似地球人。他在与斯克鲁尔的战斗中表现出众，受到至高智慧赏识，派他去地球卧底，破坏人类的航天工程，但Mar-Vell对地球人产生了敬意，帮助他们解决困难，获得了惊奇队长的英雄称号。</font></p>
 <h2 id="《复仇者联盟-3：无限战争-下-》"><a href="#《复仇者联盟-3：无限战争-下-》" class="headerlink" title="《复仇者联盟 3：无限战争(下)》"></a><strong>《复仇者联盟 3：无限战争(下)》</strong></h2><p>　　<font color="#F40D64"><strong>片名: Avengers: Infinity War Part Ⅱ</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 预计2019.05.03</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 未上映</strong></font><br>　　<font color="#3385FF"></font></p>
 <h2 id="《异人族》"><a href="#《异人族》" class="headerlink" title="《异人族》"></a><strong>《异人族》</strong></h2><p>　　<font color="#F40D64"><strong>片名: Inhumans</strong></font><br>　　<font color="#38AD03"><strong>上映时间: 预计2019.07.12</strong></font><br>　　<font color="#F40D64"><strong>获取资源: 未上映</strong></font><br>　　<font color="#3385FF">异人族是漫威漫画（Marvel）里的一种人种种族，类似漫威漫画《X战警》系列里的变种人。<br>　　地球时间数百万年前，宇宙两大种族Kree人和Skrull人发生了战争，为战略需要，Kree人来到太阳系，在天王星上设立了工作站。不久他们对当时地球生命的遗传潜能发生了兴趣，于是他们在当时的智人身上进行了一系列试验。这类试验的显然有双重意义，一是为了研究并防止自身进化中可能出现的停滞现象，同时为当时的战场制造一种强大的变种士兵。然而，当他们成功地创造出一群拥有非凡能力的人形物种时，不知什么原因，Kree人遗弃了他们的试验产物。<br>　　这个种群——异人族（Inhumans），在之后的日子里开始自我发展，他们发展出了自己的社会制度；与世隔离的生活使得他们拥有超越人类的先进技术。通过Terrigen雾，他们得到了各式各样的超能力，但同时也造成了基因的损坏与畸形。这导致一个长期的选育计划的实施，目的是为了减轻这些变异。他们的城市Attilan经常迁移，截至2005年的故事，Attilan已搬迁到了月球上的Blue Area。<br>　　异人族由异人王黑蝠王（Black Blot）及其皇室之家领导，成员包括美杜莎（Medusa）， 卡尔耐克（Karnak），戈尔工（Gorgon），崔坦（Triton），水晶（Crystal）, 疯狂的马克西穆斯（Maximus the Mad），以及大狗Lockjaw。虽与世隔绝，不过异人族还是或多或少地与人类社会和地球上的超级英雄们有着接触。比如异人女王美杜莎，就曾经是神奇四侠的一份子；她的妹妹水晶也曾加入过复仇者联盟。</font><br>　　<strong>电视剧《神盾局特工》第二季第十集，异人族引入漫威电影宇宙。斯凯和蕾娜在接触暴露的Terrigen水晶后成为异人族。斯凯(斯凯的真名震波女-黛西约翰逊。漫画里的Level 10十级神盾特工(神盾局10级特工仅两人，另一个是尼克 弗瑞) 能力是能产生震动类似于地震。</strong><br>　　<strong>点击获取 <a href="[https://yunpan.cn/cxwZHZ4jPKjsc">《X战警系列》1-6</a>，访问密码<code>bcb8</code>。</strong></p>
-<h2 id="Version-Control"><a href="#Version-Control" class="headerlink" title="Version Control"></a><strong>Version Control</strong></h2><center><table border="3" cellpadding="4px" style="font-family: verdana,arial,sans-serif; font-size:18px; color:#333333; background-color:#c3dde0; margin: 0; border-color: #333333; border-collapse:collapse; width: 680px"><br><tr><td style="width: 80px; text-align: center">版本号</td><td style="width: 120px; text-align: center">日期</td><td style="width: 360px; text-align: center">内容</td><td style="width: 120px; text-align: center">作者</td></tr><tr><td style="text-align: center">V1</td><td style="text-align: center">2016.2.11</td><td style="text-align: center">完成内容框架，更新至《蚁人》</td><td style="text-align: center">Tarantula-7</td></tr></table></center>]]></content>
+]]></content>
       
         <categories>
             

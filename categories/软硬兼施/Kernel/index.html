@@ -265,22 +265,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-VM_VirtualAddressSpace" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-VM0_AddressSpace" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/11/03/VM_VirtualAddressSpace/" class="article-date">
+      <a href="/2017/11/03/VM0_AddressSpace/" class="article-date">
       <time datetime="2017-11-03T11:01:00.000Z" itemprop="datePublished">2017-11-03</time>
 </a>
 
 
 
  
-    <a href="/2017/11/03/VM_VirtualAddressSpace/#comments" title="查看评论">
+    <a href="/2017/11/03/VM0_AddressSpace/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/11/03/VM_VirtualAddressSpace/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/11/03/VM0_AddressSpace/"></span>
         
     </a>
 
@@ -295,7 +295,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/03/VM_VirtualAddressSpace/">虚拟内存[00] 虚拟地址空间</a>
+      <a class="article-title" href="/2017/11/03/VM0_AddressSpace/">虚拟内存[00] 虚拟内存地址空间</a>
     </h1>
   
 
@@ -305,7 +305,25 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="进程栈"><a href="#进程栈" class="headerlink" title="进程栈"></a>进程栈</h3>
+        <h3 id="概述流程？怎样的一个运行机制？"><a href="#概述流程？怎样的一个运行机制？" class="headerlink" title="概述流程？怎样的一个运行机制？"></a>概述流程？怎样的一个运行机制？</h3><h3 id="虚拟内存地址空间布局"><a href="#虚拟内存地址空间布局" class="headerlink" title="虚拟内存地址空间布局"></a>虚拟内存地址空间布局</h3><h4 id="32-位模式下它是一个-4GB-的内存地址块"><a href="#32-位模式下它是一个-4GB-的内存地址块" class="headerlink" title="32 位模式下它是一个 4GB 的内存地址块"></a>32 位模式下它是一个 4GB 的内存地址块</h4><h4 id="64-位模式下虚拟地址空间布局"><a href="#64-位模式下虚拟地址空间布局" class="headerlink" title="64 位模式下虚拟地址空间布局"></a>64 位模式下虚拟地址空间布局</h4><h4 id="Linux-下控制虚拟地址空间布局"><a href="#Linux-下控制虚拟地址空间布局" class="headerlink" title="Linux 下控制虚拟地址空间布局"></a>Linux 下控制虚拟地址空间布局</h4><h4 id="不同的-CPU-体系架构下的虚拟内存地址空间"><a href="#不同的-CPU-体系架构下的虚拟内存地址空间" class="headerlink" title="不同的 CPU 体系架构下的虚拟内存地址空间"></a>不同的 CPU 体系架构下的虚拟内存地址空间</h4><h3 id="虚拟内存的优点"><a href="#虚拟内存的优点" class="headerlink" title="虚拟内存的优点"></a>虚拟内存的优点</h3><blockquote>
+<p><a href="http://www.linuxidc.com/Linux/2015-02/113981.htm">Linux 虚拟内存和物理内存的理解</a></p>
+</blockquote>
+<ul>
+<li>既然每个进程的内存空间都是一致而且固定的，所以<font color="blue">链接器在链接可执行文件时，可以设定内存地址</font>，而不用去管这些数据最终实际的内存地址，这是有独立内存空间的好处；</li>
+<li>当不同的进程使用同样的代码时，比如库文件中的代码，<font color="blue">物理内存中可以只存储一份这样的代码 (共享)</font>，不同的进程只需要把自己的虚拟内存映射过去就可以了，节省内存；</li>
+<li>在程序需要分配连续的内存空间的时候，只需要在虚拟内存空间分配连续空间，而不需要实际物理内存的连续空间，可以利用<font color="blue">碎片</font>；</li>
+</ul>
+<blockquote>
+<p><a href="http://blog.csdn.net/freeelinux/article/details/53782986">Linux虚拟地址空间布局以及进程栈和线程栈总结</a></p>
+</blockquote>
+<ul>
+<li>内存的延迟分配：只有在真正访问一个地址的时候才建立这个地址的物理映射，这是 Linux 内存管理的基本思想。<ul>
+<li>Linux内核在用户申请内存的时候，只是给它分配了一个线性区（也就是虚拟内存），并没有分配实际物理内存；只有当用户使用这块内存的时候，内核才会分配具体的物理页面给用户，这时候才占用宝贵的物理内存。</li>
+<li>内核释放物理页面是通过释放线性区，找到其对应的物理页面，将其全部释放的过程。</li>
+</ul>
+</li>
+</ul>
+
       
     </div>
     
@@ -342,22 +360,22 @@
 
 
   
-    <article id="post-VM_Stack" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-VM_Changes4LifeCycle" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/10/29/VM_Stack/" class="article-date">
-      <time datetime="2017-10-29T14:01:00.000Z" itemprop="datePublished">2017-10-29</time>
+      <a href="/2017/11/03/VM_Changes4LifeCycle/" class="article-date">
+      <time datetime="2017-11-03T11:01:00.000Z" itemprop="datePublished">2017-11-03</time>
 </a>
 
 
 
  
-    <a href="/2017/10/29/VM_Stack/#comments" title="查看评论">
+    <a href="/2017/11/03/VM_Changes4LifeCycle/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/10/29/VM_Stack/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/11/03/VM_Changes4LifeCycle/"></span>
         
     </a>
 
@@ -372,7 +390,247 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/29/VM_Stack/">虚拟内存[02] Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈</a>
+      <a class="article-title" href="/2017/11/03/VM_Changes4LifeCycle/">虚拟内存[02] 不同阶段下的内存变化</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="系统启动与内存"><a href="#系统启动与内存" class="headerlink" title="系统启动与内存"></a>系统启动与内存</h3><h3 id="进程与内存"><a href="#进程与内存" class="headerlink" title="进程与内存"></a>进程与内存</h3><h4 id="进程创建与内存"><a href="#进程创建与内存" class="headerlink" title="进程创建与内存"></a>进程创建与内存</h4><h4 id="进程启动与内存"><a href="#进程启动与内存" class="headerlink" title="进程启动与内存"></a>进程启动与内存</h4><h4 id="进程切换与内存"><a href="#进程切换与内存" class="headerlink" title="进程切换与内存"></a>进程切换与内存</h4><blockquote>
+<p><a href="http://blog.csdn.net/freeelinux/article/details/53782986">Linux虚拟地址空间布局以及进程栈和线程栈总结</a></p>
+</blockquote>
+<ul>
+<li>虚拟地址通过<strong>页表 (Page Table)</strong>映射到物理内存，页表由操作系统维护并被处理器引用。内核空间在页表中拥有较高特权级，因此用户态程序试图访问这些页时会导致一个<strong>页错误 (Page Fault)</strong>。在Linux中，内核空间是持续存在的，并且在所有进程中都映射到同样的物理内存。<font color="blue">内核代码和数据总是可寻址，随时准备处理中断和系统调用</font>；与此相反，用户模式地址空间的映射随进程切换的发生而不断变化。</li>
+</ul>
+<p>### </p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/Kernel/">Kernel</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-VM_MemoryManage" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/11/03/VM_MemoryManage/" class="article-date">
+      <time datetime="2017-11-03T11:01:00.000Z" itemprop="datePublished">2017-11-03</time>
+</a>
+
+
+
+ 
+    <a href="/2017/11/03/VM_MemoryManage/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/11/03/VM_MemoryManage/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/03/VM_MemoryManage/">虚拟内存[0?] 内存管理</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="物理内存管理机制"><a href="#物理内存管理机制" class="headerlink" title="物理内存管理机制"></a>物理内存管理机制</h3><h3 id="页框管理"><a href="#页框管理" class="headerlink" title="页框管理"></a>页框管理</h3><p>### </p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/Kernel/">Kernel</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-VM_VirtualAddr2PhysicalAddr" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/11/03/VM_VirtualAddr2PhysicalAddr/" class="article-date">
+      <time datetime="2017-11-03T11:01:00.000Z" itemprop="datePublished">2017-11-03</time>
+</a>
+
+
+
+ 
+    <a href="/2017/11/03/VM_VirtualAddr2PhysicalAddr/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/11/03/VM_VirtualAddr2PhysicalAddr/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/03/VM_VirtualAddr2PhysicalAddr/">虚拟内存[0?] 虚拟内存地址 $\Longrightarrow$ 物理内存地址</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="内核空间的虚拟内存地址"><a href="#内核空间的虚拟内存地址" class="headerlink" title="内核空间的虚拟内存地址"></a>内核空间的虚拟内存地址</h3><h3 id="页表与MMU"><a href="#页表与MMU" class="headerlink" title="页表与MMU"></a>页表与MMU</h3><h4 id="相同虚拟地址如何不混淆？"><a href="#相同虚拟地址如何不混淆？" class="headerlink" title="相同虚拟地址如何不混淆？"></a>相同虚拟地址如何不混淆？</h4><p>### </p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/Kernel/">Kernel</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-VM_Stacks" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/10/29/VM_Stacks/" class="article-date">
+      <time datetime="2017-10-29T14:01:00.000Z" itemprop="datePublished">2017-10-29</time>
+</a>
+
+
+
+ 
+    <a href="/2017/10/29/VM_Stacks/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/10/29/VM_Stacks/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/29/VM_Stacks/">虚拟内存[02] Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈</a>
     </h1>
   
 
@@ -404,7 +662,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/10/29/VM_Stack/#more">more >></a>
+          <a href="/2017/10/29/VM_Stacks/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
