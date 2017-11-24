@@ -3,39 +3,6 @@
   
     
     <entry>
-      <title><![CDATA[虚拟内存[02] 不同阶段下的内存变化]]></title>
-      <url>/2017/11/06/VM_Changes4LifeCycle/</url>
-      <content type="html"><![CDATA[<h3 id="系统启动与内存"><a href="#系统启动与内存" class="headerlink" title="系统启动与内存"></a>系统启动与内存</h3><a id="more"></a>
-<h3 id="进程与内存"><a href="#进程与内存" class="headerlink" title="进程与内存"></a>进程与内存</h3><h4 id="进程创建与内存"><a href="#进程创建与内存" class="headerlink" title="进程创建与内存"></a>进程创建与内存</h4><ul>
-<li>存储器映射：虚拟内存 $\Longrightarrow$ 磁盘文件</li>
-</ul>
-<h4 id="进程启动与内存"><a href="#进程启动与内存" class="headerlink" title="进程启动与内存"></a>进程启动与内存</h4><h4 id="进程切换与内存"><a href="#进程切换与内存" class="headerlink" title="进程切换与内存"></a>进程切换与内存</h4><blockquote>
-<p><a href="http://blog.csdn.net/freeelinux/article/details/53782986">Linux虚拟地址空间布局以及进程栈和线程栈总结</a></p>
-</blockquote>
-<ul>
-<li>虚拟地址通过<strong>页表 (Page Table)</strong>映射到物理内存，页表由操作系统维护并被处理器引用。内核空间在页表中拥有较高特权级，因此用户态程序试图访问这些页时会导致一个<strong>页错误 (Page Fault)</strong>。在Linux中，内核空间是持续存在的，并且在所有进程中都映射到同样的物理内存。<font color="blue">内核代码和数据总是可寻址，随时准备处理中断和系统调用</font>；与此相反，用户模式地址空间的映射随进程切换的发生而不断变化。</li>
-</ul>
-<p>### </p>
-]]></content>
-      
-        <categories>
-            
-            <category> 软硬兼施 </category>
-            
-            <category> Kernel </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Linux </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[虚拟内存[00] 虚拟内存地址空间]]></title>
       <url>/2017/11/06/VM0_AddressSpace/</url>
       <content type="html"><![CDATA[<p>　我们知道，进程是操作系统进行资源分配的最小单位，而内存是进程运行必不可少的资源。现代操作系统为每个进程分配<strong>独享的内存空间</strong>，这个独享的内存空间只是<font color="green"><strong>虚拟内存空间</strong></font>，每次访问内存空间的某个地址 (<font color="green"><strong>虚拟地址</strong></font>)，都需要把地址<strong>翻译</strong>成实际物理内存地址。进程要知道哪些虚拟地址上的数据在物理内存上，哪些不在？还有在物理内存上的哪里，需要用<strong>页表</strong>来记录；正因为每个进程都有一个自己的页表，使得相同的虚拟地址映射到不同的物理内存。每当切换到另一个进程时，就要通过设置 <strong>MMU</strong> 的某些寄存器来设置这个进程的页表，然后 MMU 就可以把 CPU 发出的虚拟地址转化到物理地址了。<center><img src="/img/kernel/mm/VAspace_overview.png" width="580px" alt=""/></center>　本文将详细介绍现代操作系统为每个进程分配的独享虚拟内存地址空间的详细布局，从一开始的 <font color="green"><strong>32位模式</strong></font>到如今占绝大多数的 <font color="green"><strong>64位模式</strong></font>。<a id="more"></a></p>
@@ -157,15 +124,10 @@
     </entry>
     
     <entry>
-      <title><![CDATA[虚拟内存[0?] 虚拟内存地址 $\Longrightarrow$ 物理内存地址]]></title>
-      <url>/2017/11/06/VM_VirtualAddr2PhysicalAddr/</url>
-      <content type="html"><![CDATA[<h3 id="内核空间的虚拟内存地址"><a href="#内核空间的虚拟内存地址" class="headerlink" title="内核空间的虚拟内存地址"></a>内核空间的虚拟内存地址</h3><ul>
-<li>线性地址 (|3G~4G| - 128MB)</li>
-<li>高端内存</li>
-<li>借助 128MB 高端内存地址空间实现访问剩下的所有物理内存 (0~3G + 128MB)<a id="more"></a>
-</li>
-</ul>
-<h3 id="页表与MMU"><a href="#页表与MMU" class="headerlink" title="页表与MMU"></a>页表与MMU</h3><h4 id="相同虚拟地址如何不混淆？"><a href="#相同虚拟地址如何不混淆？" class="headerlink" title="相同虚拟地址如何不混淆？"></a>相同虚拟地址如何不混淆？</h4><p>### </p>
+      <title><![CDATA[虚拟内存[0?] 内存管理]]></title>
+      <url>/2017/11/06/VM_MemoryManage/</url>
+      <content type="html"><![CDATA[<h3 id="物理内存管理机制"><a href="#物理内存管理机制" class="headerlink" title="物理内存管理机制"></a>物理内存管理机制</h3><a id="more"></a>
+<h3 id="页框管理"><a href="#页框管理" class="headerlink" title="页框管理"></a>页框管理</h3><p>### </p>
 ]]></content>
       
         <categories>
@@ -186,10 +148,48 @@
     </entry>
     
     <entry>
-      <title><![CDATA[虚拟内存[0?] 内存管理]]></title>
-      <url>/2017/11/06/VM_MemoryManage/</url>
-      <content type="html"><![CDATA[<h3 id="物理内存管理机制"><a href="#物理内存管理机制" class="headerlink" title="物理内存管理机制"></a>物理内存管理机制</h3><a id="more"></a>
-<h3 id="页框管理"><a href="#页框管理" class="headerlink" title="页框管理"></a>页框管理</h3><p>### </p>
+      <title><![CDATA[虚拟内存[02] 不同阶段下的内存变化]]></title>
+      <url>/2017/11/06/VM_Changes4LifeCycle/</url>
+      <content type="html"><![CDATA[<h3 id="系统启动与内存"><a href="#系统启动与内存" class="headerlink" title="系统启动与内存"></a>系统启动与内存</h3><a id="more"></a>
+<h3 id="进程与内存"><a href="#进程与内存" class="headerlink" title="进程与内存"></a>进程与内存</h3><h4 id="进程创建与内存"><a href="#进程创建与内存" class="headerlink" title="进程创建与内存"></a>进程创建与内存</h4><ul>
+<li>存储器映射：虚拟内存 $\Longrightarrow$ 磁盘文件</li>
+</ul>
+<h4 id="进程启动与内存"><a href="#进程启动与内存" class="headerlink" title="进程启动与内存"></a>进程启动与内存</h4><h4 id="进程切换与内存"><a href="#进程切换与内存" class="headerlink" title="进程切换与内存"></a>进程切换与内存</h4><blockquote>
+<p><a href="http://blog.csdn.net/freeelinux/article/details/53782986">Linux虚拟地址空间布局以及进程栈和线程栈总结</a></p>
+</blockquote>
+<ul>
+<li>虚拟地址通过<strong>页表 (Page Table)</strong>映射到物理内存，页表由操作系统维护并被处理器引用。内核空间在页表中拥有较高特权级，因此用户态程序试图访问这些页时会导致一个<strong>页错误 (Page Fault)</strong>。在Linux中，内核空间是持续存在的，并且在所有进程中都映射到同样的物理内存。<font color="blue">内核代码和数据总是可寻址，随时准备处理中断和系统调用</font>；与此相反，用户模式地址空间的映射随进程切换的发生而不断变化。</li>
+</ul>
+<p>### </p>
+]]></content>
+      
+        <categories>
+            
+            <category> 软硬兼施 </category>
+            
+            <category> Kernel </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[虚拟内存[0?] 虚拟内存地址 $\Longrightarrow$ 物理内存地址]]></title>
+      <url>/2017/11/06/VM_VirtualAddr2PhysicalAddr/</url>
+      <content type="html"><![CDATA[<h3 id="内核空间的虚拟内存地址"><a href="#内核空间的虚拟内存地址" class="headerlink" title="内核空间的虚拟内存地址"></a>内核空间的虚拟内存地址</h3><ul>
+<li>线性地址 (|3G~4G| - 128MB)</li>
+<li>高端内存</li>
+<li>借助 128MB 高端内存地址空间实现访问剩下的所有物理内存 (0~3G + 128MB)<a id="more"></a>
+</li>
+</ul>
+<h3 id="页表与MMU"><a href="#页表与MMU" class="headerlink" title="页表与MMU"></a>页表与MMU</h3><h4 id="相同虚拟地址如何不混淆？"><a href="#相同虚拟地址如何不混淆？" class="headerlink" title="相同虚拟地址如何不混淆？"></a>相同虚拟地址如何不混淆？</h4><p>### </p>
 ]]></content>
       
         <categories>
@@ -341,12 +341,17 @@
     <entry>
       <title><![CDATA[虚拟内存[01] 用户内存空间的各个段分布]]></title>
       <url>/2017/10/29/VM1_UserSpaceSegments/</url>
-      <content type="html"><![CDATA[<p>　前面我们已经详细了解了虚拟内存地址空间的布局情况，本文将对其中的用户空间，主要是用户空间中各个地址段的分布，存储的数据类别等进行阐述。</p>
-<p><center><img src="/img/kernel/mm/VAspace_x86.png" width="810px" alt=""/><br/>图: 32 位系统下进程地址空间默认布局(左)和进程地址空间经典布局(右)</center><a id="more"></a></p>
+      <content type="html"><![CDATA[<p>　前面我们已经详细了解了虚拟内存地址空间的布局情况，本文将对其中的用户空间，主要是<font color="green"><strong>用户空间中各个地址段的分布，存储的数据类别</strong></font>等进行阐述。<a id="more"></a></p>
+<p><center><img src="/img/kernel/mm/VAspace_x86.png" width="810px" alt=""/><br/>图: 32 位系统下进程地址空间默认布局(左)和进程地址空间经典布局(右)</center></p>
 <ul>
-<li>这些段只是简单的内存地址范围，与 Intel 处理器的段没有关系。</li>
-<li>内核总是驻留在内存中，是操作系统的一部分。内核空间为内核保留，并且在所有进程中都映射到同样的物理内存，只是不允许应用程序读写该区域的内容或直接调用内核代码定义的函数，因此内核代码和数据总是可寻址，随时准备处理中断和系统调用；与此相反，用户地址空间的映射随进程切换的发生而不断变化。</li>
+<li>Linux 内核使用内存描述符来体现上面的进程内存布局，该描述符表示着进程所有地址空间的信息；内存描述符由 <code>mm_struct</code> 结构体表示。<center><img src="/img/kernel/mm/Userspace_mm_struct.png" width="640px" alt=""/></center></li>
+<li>  <figure class="highlight cpp"><figcaption><span>mm_struct</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> mm_struct &#123;</div><div class="line">    <span class="comment">/* 内存区域链表 */</span></div><div class="line">    <span class="keyword">struct</span> vm_area_struct *mmap;</div><div class="line">    <span class="comment">/* VMA 形成的红黑树 */</span></div><div class="line">    <span class="keyword">struct</span> rb_root mm_rb;</div><div class="line">    ...</div><div class="line">    <span class="comment">/* 所有 mm_struct 形成的链表 */</span></div><div class="line">    <span class="keyword">struct</span> list_head mmlist;</div><div class="line">    ...</div><div class="line">    <span class="comment">/* 全部页面数目 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> total_vm;</div><div class="line">    <span class="comment">/* 上锁的页面数据 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> locked_vm;</div><div class="line">    <span class="comment">/* Refcount permanently increased */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> pinned_vm;</div><div class="line">    <span class="comment">/* 共享页面数目 Shared pages (files) */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> shared_vm;</div><div class="line">    <span class="comment">/* 可执行页面数目 VM_EXEC &amp; ~VM_WRITE */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> exec_vm;</div><div class="line">    <span class="comment">/* 栈区页面数目 VM_GROWSUP/DOWN */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> stack_vm;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> def_flags;</div><div class="line">    <span class="comment">/* 代码段、数据段 起始地址和结束地址 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> start_code, end_code, start_data, end_data;</div><div class="line">    <span class="comment">/* 栈区 的起始地址，堆区 起始地址和结束地址 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> start_brk, brk, start_stack;</div><div class="line">    <span class="comment">/* 命令行参数 和 环境变量的 起始地址和结束地址 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> arg_start, arg_end, env_start, env_end;</div><div class="line">    ...</div><div class="line">    <span class="comment">/* Architecture-specific MM context 体系结构特殊数据 */</span></div><div class="line">    <span class="keyword">mm_context_t</span> context;</div><div class="line"> </div><div class="line">    <span class="comment">/* Must use atomic bitops to access the bits 状态标志位 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> flags;</div><div class="line">    ...</div><div class="line">    <span class="comment">/* Coredumping and NUMA and HugePage 相关结构体 */</span></div><div class="line">    ...</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>这些段只是简单的内存地址范围，与 Intel 处理器的段没有关系；</li>
+<li>内核总是驻留在内存中，是操作系统的一部分。内核空间为内核保留，并且在所有进程中都映射到同样的物理内存，只是不允许应用程序读写该区域的内容或直接调用内核代码定义的函数，因此内核代码和数据总是可寻址，随时准备处理中断和系统调用；与此相反，用户地址空间的映射随进程切换的发生而不断变化；</li>
 <li><strong>Random stack offset</strong>、<strong>Random mmap offset</strong> 和 <strong>Random brk offset</strong> 随机值意在防止恶意程序。Linux 通过对栈、内存映射段、堆的起始地址加上随机偏移量来打乱布局，以免恶意程序通过计算访问栈、库函数等地址。</li>
+</ul>
+</li>
 <li>用户进程部分分段存储内容如下表所示(按地址递减顺序)：<br>  <center><img src="/img/kernel/mm/Userspace_segment.png" width="640px" alt=""/></center><ul>
 <li>BSS 段、数据段和代码段是可执行程序编译时的分段，运行时还需要栈和堆。</li>
 <li>在将应用程序加载到内存空间执行时，操作系统负责代码段、数据段和 BSS 段的加载，并在内存中为这些段分配空间。栈也由操作系统分配和管理；堆由程序员自己管理，即显式地申请和释放空间。<ul>
@@ -357,42 +362,38 @@
 </ul>
 </li>
 </ul>
-<p><hr/></p>
-<ul>
-<li>Linux 内核使用内存描述符来体现上面的进程内存布局，该描述符表示着进程所有地址空间的信息；内存描述符由 <code>mm_struct</code> 结构体表示。<center><img src="/img/kernel/mm/Userspace_mm_struct.png" width="640px" alt=""/></center></li>
-<li>  <figure class="highlight cpp"><figcaption><span>mm_struct</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> mm_struct &#123;</div><div class="line">    <span class="keyword">struct</span> vm_area_struct *mmap;           <span class="comment">/* 内存区域链表 */</span></div><div class="line">    <span class="keyword">struct</span> rb_root mm_rb;                  <span class="comment">/* VMA 形成的红黑树 */</span></div><div class="line">    ...</div><div class="line">    <span class="keyword">struct</span> list_head mmlist;               <span class="comment">/* 所有 mm_struct 形成的链表 */</span></div><div class="line">    ...</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> total_vm;                <span class="comment">/* 全部页面数目 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> locked_vm;               <span class="comment">/* 上锁的页面数据 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> pinned_vm;               <span class="comment">/* Refcount permanently increased */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> shared_vm;               <span class="comment">/* 共享页面数目 Shared pages (files) */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> exec_vm;                 <span class="comment">/* 可执行页面数目 VM_EXEC &amp; ~VM_WRITE */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> stack_vm;                <span class="comment">/* 栈区页面数目 VM_GROWSUP/DOWN */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> def_flags;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> start_code, end_code, start_data, end_data;    <span class="comment">/* 代码段、数据段 起始地址和结束地址 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> start_brk, brk, start_stack;                   <span class="comment">/* 栈区 的起始地址，堆区 起始地址和结束地址 */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> arg_start, arg_end, env_start, env_end;        <span class="comment">/* 命令行参数 和 环境变量的 起始地址和结束地址 */</span></div><div class="line">    ...</div><div class="line">    <span class="comment">/* Architecture-specific MM context */</span></div><div class="line">    <span class="keyword">mm_context_t</span> context;                  <span class="comment">/* 体系结构特殊数据 */</span></div><div class="line"> </div><div class="line">    <span class="comment">/* Must use atomic bitops to access the bits */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> flags;                   <span class="comment">/* 状态标志位 */</span></div><div class="line">    ...</div><div class="line">    <span class="comment">/* Coredumping and NUMA and HugePage 相关结构体 */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-</li>
-</ul>
+<hr/>
+
 <h3 id="栈-stack"><a href="#栈-stack" class="headerlink" title="栈(stack)"></a>栈(stack)</h3><ul>
 <li>栈又称堆栈，由<strong>编译器自动分配释放</strong>，行为类似数据结构中的栈（先进后出）。堆栈主要有三个用途：<ul>
-<li>为函数内部声明的<strong>非静态局部变量</strong>（C语言中称“自动变量”）提供存储空间。</li>
+<li>为函数内部声明的<strong>非静态局部变量</strong>（C 语言中称“自动变量”）提供存储空间。</li>
 <li>记录函数调用过程相关的维护性信息，称为<strong>栈帧(Stack Frame)</strong>或<strong>过程活动记录(Procedure Activation Record)</strong>。<ul>
 <li>它包括函数返回地址，不适合装入寄存器的函数参数及一些寄存器值的保存。</li>
 <li>除递归调用外，堆栈并非必需，因为编译时可获知局部变量，参数和返回地址所需空间，并将其分配于 BSS 段。</li>
 </ul>
 </li>
-<li>临时存储区，用于暂存<strong>长算术表达式部分计算结果</strong>或<code>alloca()</code>函数分配的栈内内存。</li>
+<li>临时存储区，用于暂存<strong>长算术表达式部分计算结果</strong>或 <font color="#F99157">alloca()</font> 函数分配的栈内内存。</li>
 </ul>
 </li>
 <li>进程中的每个线程都有属于自己的栈。向栈中不断压入数据时，若超出其容量就会耗尽栈对应的内存区域，从而触发一个页错误。此时若栈的大小低于堆栈最大值<code>RLIMIT_STACK</code>(通常是 8M)，则栈会动态增长，程序继续运行。映射的栈区扩展到所需大小后，不再扩展。</li>
 <li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gary@xxx:~$ <span class="built_in">ulimit</span> <span class="_">-s</span></div><div class="line">8192</div></pre></td></tr></table></figure>
 <ul>
-<li>上述命令可查看和设置堆栈最大值，当程序使用的堆栈超过该值时，发生栈溢出(Stack Overflow)，程序收到一个段错误(Segmentation Fault)。</li>
+<li>上述命令可查看和设置堆栈最大值，当程序使用的堆栈超过该值时，发生栈溢出 (Stack Overflow)，程序收到一个段错误 (Segmentation Fault)。</li>
 <li>注意，调高堆栈容量可能会增加内存开销和启动时间。</li>
 </ul>
 </li>
 <li>持续地重用栈空间有助于使活跃的栈内存保持在 CPU 缓存中，从而加速访问。</li>
-<li>堆栈既可向下增长（向内存低地址）也可向上增长，这依赖于具体的实现；Linux 中堆栈是向下增长的。</li>
+<li>堆栈既可向下增长 (向内存低地址) 也可向上增长，这依赖于具体的实现；Linux 中堆栈是向下增长的。</li>
 </ul>
 <p><hr/></p>
 <h3 id="内存映射段-mmap"><a href="#内存映射段-mmap" class="headerlink" title="内存映射段(mmap)"></a>内存映射段(mmap)</h3><ul>
-<li>内核将硬盘文件的内容直接映射到内存，任何应用程序都可通过 Linux 的<code>mmap()</code>系统调用（或 Windows 的<code>CreateFileMapping()</code>/<code>MapViewOfFile()</code>）请求这种映射。<ul>
+<li>内核将硬盘文件的内容直接映射到内存，任何应用程序都可通过 Linux 的 <font color="#F99157">mmap()</font> 系统调用 (或 Windows 的 <font color="#F99157">CreateFileMapping()</font>/<font color="#F99157">MapViewOfFile()</font>) 请求这种映射。<ul>
 <li>内存映射是一种方便高效的<strong>文件 I/O 方式</strong>， 因而被用于装载动态共享库。<blockquote>
-<p>　在 Linux 2.4 版本中（进程地址空间经典布局），若可执行文件依赖共享库，则系统会为这些动态库在从<code>0x40000000</code>开始的地址分配相应空间，并在程序装载时将其载入到该空间。<br>　在 Linux 2.6 内核中（进程地址空间默认布局），共享库的起始地址被往上移动至更靠近栈区的位置，即位于<code>0xBF??????</code>附近。</p>
+<p>　在 Linux 2.4 版本中 (进程地址空间经典布局)，若可执行文件依赖共享库，则系统会为这些动态库在从 <strong>0x40000000</strong> 开始的地址分配相应空间，并在程序装载时将其载入到该空间。<br>　在 Linux 2.6 内核中 (进程地址空间默认布局)，共享库的起始地址被往上移动至更靠近栈区的位置，即位于 <strong>0xBF??????</strong> 附近。</p>
 </blockquote>
 </li>
 <li>用户也可创建匿名内存映射，该映射没有对应的文件，可用于存放程序数据。<blockquote>
-<p>　在 Linux 中，若通过<code>malloc()</code>请求一大块内存，C运行库将创建一个匿名内存映射，而不使用堆内存。“大块”意味着比阈值<code>MMAP_THRESHOLD</code>还大，缺省为 <strong>128KB</strong>，可通过<code>mallopt()</code>调整。</p>
+<p>　在 Linux 中，若通过 <font color="#F99157">malloc()</font> 请求一大块内存，C 运行库将创建一个匿名内存映射，而不使用堆内存。“大块”意味着比阈值<code>MMAP_THRESHOLD</code>还大，缺省为 <strong>128KB</strong>，可通过 <font color="#F99157">mallopt()</font> 调整。</p>
 </blockquote>
 </li>
 </ul>
@@ -402,19 +403,19 @@
 <blockquote>
 <p>【扩展】<strong>应用程序可申请的最大堆空间是多少？</strong></p>
 <ul>
-<li>从进程地址空间的布局可以看到，在有共享库的情况下，Linux kernel 2.6 版本之前的经典布局下留给堆的可用空间还有两处：一处是从 .bss 段到 <code>0x40000000</code>，约不到 1GB 的空间；另一处是从共享库到栈之间的空间，约不到 2GB。这两块空间大小取决于栈、共享库的大小和数量。</li>
-<li>在新的布局里，共享库的装载地址已经被挪到靠近栈的位置，因此，此时的堆范围就不会被共享库分割成 2 个“碎片”，故 kernel 2.6 及以上的 32 位 Linux 系统中，<code>malloc()</code>申请的最大内存理论值在 2.9GB 左右。</li>
+<li>从进程地址空间的布局可以看到，在有共享库的情况下，Linux kernel 2.6 版本之前的经典布局下留给堆的可用空间还有两处：一处是从 .bss 段到 <strong>0x40000000</strong>，约不到 1GB 的空间；另一处是从共享库到栈之间的空间，约不到 2GB。这两块空间大小取决于栈、共享库的大小和数量。</li>
+<li>在新的布局里，共享库的装载地址已经被挪到靠近栈的位置，因此，此时的堆范围就不会被共享库分割成 2 个“碎片”，故 kernel 2.6 及以上的 32 位 Linux 系统中，<font color="#F99157">malloc()</font> 申请的最大内存理论值在 2.9GB 左右。</li>
 </ul>
 </blockquote>
 <p><hr/></p>
 <h3 id="堆-heap"><a href="#堆-heap" class="headerlink" title="堆(heap)"></a>堆(heap)</h3><ul>
 <li>堆用于存放进程运行时动态分配的内存段，可动态扩张或缩减。<ul>
-<li>堆中内容是匿名的，不能按名字直接访问，只能通过指针间接访问。当进程调用<code>malloc()</code>(C)/<code>new()</code>(C++)等函数分配内存时，新分配的内存动态添加到堆上(扩张)；当调用<code>free()</code>(C)/<code>delete()</code>(C++)等函数释放内存时，被释放的内存从堆中剔除(缩减) 。</li>
+<li>堆中内容是匿名的，不能按名字直接访问，只能通过指针间接访问。当进程调用 <font color="#F99157">malloc()</font>(C)/<font color="#F99157">new()</font>(C++) 等函数分配内存时，新分配的内存动态添加到堆上(扩张)；当调用 <font color="#F99157">free()</font>(C)/<font color="#F99157">delete()</font>(C++) 等函数释放内存时，被释放的内存从堆中剔除(缩减) 。</li>
 <li>分配的堆内存是经过字节对齐的空间，以适合原子操作。</li>
 </ul>
 </li>
 <li><strong>堆管理器</strong>通过链表管理每个申请的内存，由于堆申请和释放是无序的，最终会产生内存碎片。<ul>
-<li>堆的末端由<strong>break 指针</strong>标识，当堆管理器需要更多内存时，可通过系统调用<code>brk()</code>和<code>sbrk()</code>来移动<strong>break 指针</strong>以扩张堆，一般由系统自动调用。</li>
+<li>堆的末端由<strong>break 指针</strong>标识，当堆管理器需要更多内存时，可通过系统调用 <font color="#F99157">brk()</font> 和 <font color="#F99157">sbrk()</font> 来移动<strong>break 指针</strong>以扩张堆，一般由系统自动调用。</li>
 <li>堆内存一般由应用程序分配释放，回收的内存可供重新使用。若程序员不释放，程序结束时操作系统可能会自动回收。</li>
 </ul>
 </li>
@@ -427,7 +428,7 @@
 </ul>
 </li>
 <li>注意，堆不同于数据结构中的“堆”，其行为类似链表。<blockquote>
-<p>【扩展】<strong>栈和堆的区别</strong><br>① <font color="blue">管理方式</font>：栈由编译器自动管理；堆由程序员控制，使用方便，但易产生“内存泄露”。<br>② <font color="blue">生长方向</font>：栈向低地址扩展（即“向下生长”），是连续的内存区域；堆向高地址扩展（即“向上生长”），可以是不连续的内存区域（这是由于系统用链表来存储空闲内存地址，自然不连续，而链表从低地址向高地址遍历）。<br>③ <font color="blue">空间大小</font>：栈顶地址和栈的最大容量由系统预先规定（通常默认 8M）；堆的大小则受限于计算机系统中有效的虚拟内存，32 位 Linux 系统中堆内存可达 2.9G空间。<br>④ <font color="blue">存储内容</font>：栈在函数调用时，首先压入<strong>主调函数中下条指令</strong>（函数调用语句的下条可执行语句）的地址，然后是<strong>函数实参</strong>，然后是<strong>被调函数的局部变量</strong>。本次调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向最开始存的指令地址，程序由该点继续运行下条可执行语句；堆通常在头部用一个字节存放其大小，堆用于存储生存期与函数调用无关的数据，具体内容由程序员安排。<br>⑤ <font color="blue">分配方式</font>：栈可静态分配或动态分配。<strong>静态分配由编译器完成</strong>，如局部变量的分配。<strong>动态分配</strong>由<code>alloca()</code>函数在栈上申请空间，用完后自动释放。堆只能动态分配且手工释放。<br>⑥ <font color="blue">分配效率</font>：栈由计算机底层提供支持（分配专门的寄存器存放栈地址，压栈出栈由专门的指令执行），因此效率较高；堆由函数库提供，机制复杂，效率比栈低得多。<br>⑦ <font color="blue">分配后系统响应</font><br>　<strong>+</strong> 只要栈剩余空间大于所申请空间，系统将为程序提供内存，否则报告异常提示<strong>栈溢出</strong>；<br>　<strong>+</strong> 操作系统为堆维护一个<strong>记录空闲内存地址的链表</strong>：当系统收到程序的内存分配申请时，会遍历该链表寻找第一个空间大于所申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点空间分配给程序；若<strong>无足够大小的空间</strong>（可能由于内存碎片太多），有可能调用系统功能去增加程序数据段的内存空间，以便有机会分到足够大小的内存，然后进行返回；大多数系统会在该内存空间<strong>首地址处记录本次分配的内存大小</strong>，供后续的释放函数（如<code>free()</code>/<code>delete()</code>）正确释放本内存空间；此外，由于找到的堆结点大小不一定正好等于申请的大小，系统会自动将<strong>多余的部分</strong>重新放入空闲链表中。<br>⑧ <font color="blue">碎片问题</font><br>　<strong>+</strong> 栈不会存在碎片问题，因为栈是先进后出的队列，内存块弹出栈之前，在其上面的后进的栈内容已弹出<br>　<strong>+</strong> 频繁申请释放操作会造成堆内存空间的不连续，从而造成大量碎片，使程序效率降低。</p>
+<p>【扩展】<strong>栈和堆的区别</strong><br>① <font color="blue">管理方式</font>：栈由编译器自动管理；堆由程序员控制，使用方便，但易产生“内存泄露”。<br>② <font color="blue">生长方向</font>：栈向低地址扩展（即“向下生长”），是连续的内存区域；堆向高地址扩展（即“向上生长”），可以是不连续的内存区域（这是由于系统用链表来存储空闲内存地址，自然不连续，而链表从低地址向高地址遍历）。<br>③ <font color="blue">空间大小</font>：栈顶地址和栈的最大容量由系统预先规定（通常默认 8M）；堆的大小则受限于计算机系统中有效的虚拟内存，32 位 Linux 系统中堆内存可达 2.9G空间。<br>④ <font color="blue">存储内容</font>：栈在函数调用时，首先压入<strong>主调函数中下条指令</strong>（函数调用语句的下条可执行语句）的地址，然后是<strong>函数实参</strong>，然后是<strong>被调函数的局部变量</strong>。本次调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向最开始存的指令地址，程序由该点继续运行下条可执行语句；堆通常在头部用一个字节存放其大小，堆用于存储生存期与函数调用无关的数据，具体内容由程序员安排。<br>⑤ <font color="blue">分配方式</font>：栈可静态分配或动态分配。<strong>静态分配由编译器完成</strong>，如局部变量的分配。<strong>动态分配</strong>由 <font color="#F99157">alloca()</font> 函数在栈上申请空间，用完后自动释放。堆只能动态分配且手工释放。<br>⑥ <font color="blue">分配效率</font>：栈由计算机底层提供支持（分配专门的寄存器存放栈地址，压栈出栈由专门的指令执行），因此效率较高；堆由函数库提供，机制复杂，效率比栈低得多。<br>⑦ <font color="blue">分配后系统响应</font><br>　<strong>+</strong> 只要栈剩余空间大于所申请空间，系统将为程序提供内存，否则报告异常提示<strong>栈溢出</strong>；<br>　<strong>+</strong> 操作系统为堆维护一个<strong>记录空闲内存地址的链表</strong>：当系统收到程序的内存分配申请时，会遍历该链表寻找第一个空间大于所申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点空间分配给程序；若<strong>无足够大小的空间</strong>（可能由于内存碎片太多），有可能调用系统功能去增加程序数据段的内存空间，以便有机会分到足够大小的内存，然后进行返回；大多数系统会在该内存空间<strong>首地址处记录本次分配的内存大小</strong>，供后续的释放函数（如 <font color="#F99157">free()</font>/<font color="#F99157">delete()</font>）正确释放本内存空间；此外，由于找到的堆结点大小不一定正好等于申请的大小，系统会自动将<strong>多余的部分</strong>重新放入空闲链表中。<br>⑧ <font color="blue">碎片问题</font><br>　<strong>+</strong> 栈不会存在碎片问题，因为栈是先进后出的队列，内存块弹出栈之前，在其上面的后进的栈内容已弹出<br>　<strong>+</strong> 频繁申请释放操作会造成堆内存空间的不连续，从而造成大量碎片，使程序效率降低。</p>
 <p>　可见，<font color="green">堆容易造成内存碎片；由于没有专门的系统支持，效率很低；可能引发用户态和内核态切换，内存申请的代价更为昂贵</font>。所以<font color="green">栈在程序中应用最广泛，<strong>函数调用</strong>也利用栈来完成，调用过程中的参数、返回地址、栈基指针和局部变量等都采用栈的方式存放</font>。所以，建议<strong>尽量使用栈，仅在分配大量或大块内存空间时使用堆</strong>。<br>　<font color="red">使用栈和堆时应避免越界发生，否则可能程序崩溃或破坏程序堆、栈结构，产生意想不到的后果</font>。</p>
 </blockquote>
 </li>
@@ -491,8 +492,8 @@
 <li>保留区位于虚拟地址空间的最低部分，<strong>未赋予物理地址</strong>，任何对它的引用都是非法的，<font color="green">用于捕捉使用<strong>空指针</strong>和小整型值指针引用内存的异常情况</font>。</li>
 <li>保留区并不是一个单一的内存区域，而是<strong>对地址空间中受到操作系统保护而禁止用户进程访问的地址区域的总称</strong>。大多数操作系统中，极小的地址通常都是不允许访问的，如<code>NULL</code>。<ul>
 <li>C语言将无效指针赋值为 0 也是出于这种考虑，因为 <strong>0 地址</strong>上正常情况下不会存放有效的可访问数据。</li>
-<li>在32 位 x86 架构的 Linux 系统中，用户进程可执行程序一般从虚拟地址空间<code>0x08048000</code>开始加载（该加载地址由ELF文件头决定，可通过自定义链接器脚本覆盖链接器默认配置，进而修改加载地址）；<code>0x08048000</code>以下的地址空间通常由 C 动态链接库、<strong>动态加载器 ld.so</strong>和内核VDSO（内核提供的虚拟共享库）等占用。</li>
-<li>通过使用<code>mmap()</code>系统调用，可访问<code>0x08048000</code>以下的地址空间。</li>
+<li>在32 位 x86 架构的 Linux 系统中，用户进程可执行程序一般从虚拟地址空间 <strong>0x08048000</strong> 开始加载（该加载地址由ELF文件头决定，可通过自定义链接器脚本覆盖链接器默认配置，进而修改加载地址）；<strong>0x08048000</strong> 以下的地址空间通常由 C 动态链接库、<strong>动态加载器 ld.so</strong>和内核 VDSO（内核提供的虚拟共享库）等占用。</li>
+<li>通过使用 <font color="#F99157">mmap()</font> 系统调用，可访问 <strong>0x08048000</strong> 以下的地址空间。</li>
 </ul>
 </li>
 </ul>
@@ -506,6 +507,7 @@
 </li>
 <li>当程序被装载后，数据和指令分别映射到两个虚存区域：<strong>数据区</strong>对于进程而言可读写，而<strong>指令区</strong>对于进程只读，两区的权限可分别设置为可读写和只读，以<strong>防止程序指令被有意或无意地改写</strong>。</li>
 </ul>
+<p><hr/><br>　<font color="red">虽然本文我们只介绍了 32 位虚拟内存地址用户空间中各个段分布的具体情况，但是 64 位模式下的分布情况与此十分类似，只是依据 64 位模式下系统虚拟内存地址空间的布局情况作对应调整。</font></p>
 <h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><p><strong>·</strong><a href="http://www.cnblogs.com/clover-toeic/p/3754433.html">《Linux虚拟地址空间布局》</a><br><strong>·</strong><a href="http://blog.csdn.net/freeelinux/article/details/53782986">《Linux虚拟地址空间布局以及进程栈和线程栈总结》</a></p>
 ]]></content>
       
@@ -523,6 +525,185 @@
             <tag> Linux </tag>
             
         </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling]]></title>
+      <url>/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/</url>
+      <content type="html"><![CDATA[<p>　Real-time systems are collections of tasks where in addition to any <strong>ordering constraints</strong> imposed by precedences between the tasks, there are also <strong>timing constraints</strong>, requiring a scheduling strategy. Classical <font color="blue">real-time scheduling</font>（实时调度） for <strong>Periodic Tasks</strong> contains <strong>Periodic Rate Monotonic (RM)</strong> as well as <strong>Earliest Deadline First (EDF)</strong>. What’s more, tasks <em>share resources</em> and use <em>mutual exclusion</em> to guard access to those resources, resulting in <strong>Scheduling Anomalies</strong>（调度异常）.<br>　本文将讲述 <strong>Resources Sharing</strong> 给 <font color="blue">real-time scheduling</font> 带来的 <strong>Priority Inversion</strong>（优先级反转）异常，并将重点介绍对应的解决办法：Priority Inheritance Protocol (<strong>PIP</strong>)、Priority Ceiling Protocol (<strong>PCP</strong>)、Stack Resource Policy (<strong>SRP</strong>)。<a id="more"></a></p>
+<h3 id="Priority-Inversion"><a href="#Priority-Inversion" class="headerlink" title="Priority Inversion"></a>Priority Inversion</h3><ul>
+<li><strong>Resource Sharing</strong> &amp; Task Blocked<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_CriticalSection.png" width="400px" alt=""/></center><ul>
+<li>Threads (or Processes): $J_1$, $J_2$.</li>
+<li>Common resources $R_k$ likes: data structures, variables, main memory area, file, set of registers, I/O unit, …</li>
+<li>Many shared resources do not allow simultaneous accesses but require <strong>mutual exclusion</strong> (exclusive resources). A piece of code executed under mutual exclusion ($P(S_k) \leftrightarrow V(S_k)$) constraints is called a <strong>critical section</strong>.</li>
+<li>Each <strong>exclusive resource</strong> $R_k$ must be protected by a different semaphore $S_k$ and each critical section operating on a resource must begin with a <em>wait($S_k$)</em> primitive and end with a <em>signal($S_k$)</em> primitive（原子操作）.</li>
+<li>Tasks waiting for an exclusive resource is said to be <strong>blocked</strong> on that resource. Otherwise, it proceeds by entering the <strong>critical section</strong> and <strong>holds</strong> the resource. When a task <strong>leaves</strong> a critical section, the associated resource becomes free.<ul>
+<li>All tasks blocked on the same resource are kept in a queue associated with the semaphore. </li>
+<li>When a running task executes a <em>wait</em> on a <strong>locked</strong> semaphore, it enters a waiting state, until another tasks executes a <em>signal</em> primitive that <strong>unlocks</strong> the semaphore.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Priority Inversion</strong><br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_Example.png" width="480px" alt=""/></center><ul>
+<li>priority of $T_1$ &gt; priority of $T_2$ &gt; priority of $T_3$</li>
+<li>$T_3$ requests exclusive access first (at $t_0$), $T_1$ has to wait until $T_3$ releases the resource (at $t_2$)</li>
+<li>$T_2$ preempts $T_3$ (at $t_1$): $T_2$ can prevent $T_3$ from releasing the resource.</li>
+<li>If $T_1$ is blocked only by $T_3$, <strong>blocking is bounded</strong> by the length of the critical section, but blocked by &gt;2 tasks ($T_3$, $T_2$, …), <strong>blocking can exceed the length of any critical section</strong>.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>　Priority Inversion is a <strong>scheduling anomaly</strong> where a low priority task was holding a lock and blocking a high-priority task, while medium priority tasks,  unrelated lower-priority tasks, are executing. </p>
+</blockquote>
+<ul>
+<li>Solving Priority Inversion: <strong>Resource Access Protocols</strong><ul>
+<li>Basic idea: Modify the priority of those tasks that cause blocking. <ul>
+<li>When a task $T_i$ blocks one or more higher priority tasks, it temporarily assumes a higher priority.</li>
+</ul>
+</li>
+<li>Methods<ul>
+<li><font color="green">Priority Inheritance Protocol (PIP)</font>, for <strong>static priorities</strong></li>
+<li><font color="green">Priority Ceiling Protocol (PCP)</font>, for <strong>static priorities</strong></li>
+<li><font color="green">Stack Resource Policy (SRP)</font>, for <strong>static and dynamic priorities</strong><blockquote>
+<p>　<em>static priorities</em>（静态优先级）: 静态优先级是在创建进程时确定的，且在进程的整个运行期间保持不变，内核不会主动修改它。<br>　<em>dynamic priorities</em>（动态优先级）: 在创建进程时所赋予的优先级，是可以随进程的推进或随其等待时间的增加而改变的，调度程序增大或减少进程静态优先级来奖励 IO 消耗型进程或惩罚 CPU 消耗进程以便获得更好的调度性能；调整后的优先级为动态优先级。<br>　<em>real-time priorities</em>（实时优先级）: 实时优先级只对实时进程有效。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Priority-Inheritance-Protocol-PIP"><a href="#Priority-Inheritance-Protocol-PIP" class="headerlink" title="Priority Inheritance Protocol (PIP)"></a>Priority Inheritance Protocol (PIP)</h3><ul>
+<li>Avoid Priority Inversion in previous example uisng PIP<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIP.png" width="640px" alt=""/> </center><ul>
+<li><strong>Direct Blocking</strong>: higher-priority task $T_1$ tries to acquire a resource held by a lower priority task $T_3$.</li>
+<li><strong>Push-through Blocking</strong>: medium-priority task $T_2$ is blocked by a lower-priority task $T_3$ that has inherited a higher priority from a task ($T_1$) it directly blocks.</li>
+<li>Tasks have <strong>nominal</strong>（挂名优先级） and <strong>active</strong>（活跃优先级） priorities<ul>
+<li><font color="green">Nominal priority</font>: assigned by the scheduling algorithm, e.g. $T_1$’s priority.<blockquote>
+<p><em>static priorities</em> or <em>dynamic priorities</em> 取决于 <em>nominal priorities</em> 的情况</p>
+</blockquote>
+</li>
+<li><font color="green">Active priority</font>: assigned by the priority inheritance protocol dynamically to avoid priority inversion, e.g. $T_3$’s priority inherited from $T_1$.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>PIP Algorithm<ul>
+<li>Tasks are scheduled according to their <strong>active priorities</strong>. Tasks with the same priorities are scheduled <strong>FCFS</strong>.</li>
+<li>Task $T_i$’s nominal priority <strong>$P_i$</strong>, task $T_k$’s nominal priority <strong>$P_k$</strong>.</li>
+<li>When a task $T_i$ tries to enter a critical section and the resource is blocked by a lower priority task $T_k$, the task $T_i$ is blocked. Otherwise it enters the critical section.<ul>
+<li>When a task $T_i$ is blocked, it transmits its active priority to the task $T_k$ that holds the semaphore. </li>
+</ul>
+</li>
+<li>$T_k$ resumes and executes the rest of its critical section with a priority $p_k=max(p_i)$, it inherits the priority of the highest priority of the tasks blocked by it.</li>
+<li>When $T_k$ exits a critical section, it unlocks the semaphore and the highest priority task blocked on that semaphore is awakened. <ul>
+<li>If no other tasks are blocked by $T_k$, then $p_k$ is set to its nominal priority <strong>$P_k$</strong>.</li>
+<li>Otherwise it is set to the highest priority of the left tasks blocked by $T_k$.</li>
+</ul>
+</li>
+<li>Thus, medium priority tasks which do no share resources with $T_k$ cannot preempt $T_k$ and cannot <strong>prolong the blocking</strong>（延长阻塞） of the higher priority tasks</li>
+</ul>
+</li>
+<li><strong>Nested Critical Sections</strong>（一个临界区内嵌套了另一个临界区）<center><img src="/img/TA-Cources/ES2017/PriorityInversion_NestedCritical.png" width="500px" alt=""/><br/>PIP for Nested Critical Sections, $S_b$ nested in $S_a$.</center></li>
+<li><strong>Transitiveness</strong> of Priority Inheritance<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPTransitiveness.png" width="540px" alt=""/><br/>If $T_1$ is blocked by $T_2$ and $T_2$ is blocked by $T_3$, then $T_3$ inherits the priority of $T_1$ via $T_2$</center></li>
+<li>Pros and Cons<ul>
+<li>Advantages<ul>
+<li>Under the priority inheritance protocol, a job $J$ can be blocked for at most the duration of $min(n, m)$ critical sections, where $n$ is the number of lower-priority jobs that could block $J$ and $m$ is the number of distinct semaphores that can be used to block $J$.</li>
+</ul>
+</li>
+<li>Disadvantages<ul>
+<li>Deadlock is Possible<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPDeadlock.png" width="540px" alt=""/> </center></li>
+<li>Chained Blocking: $J$ can get blocked on $n$ critical sections held by $n$ distinct lower priority jobs.<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPChainedBlocking.png" width="480px" alt=""/><br/>$J_1$ is blocked for the duration of two critical sections, once to wait $J_3$ to release $S_a$ and then to wait $J_2$ to release $S_b$.</center>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Priority-Ceiling-Protocol-PCP"><a href="#Priority-Ceiling-Protocol-PCP" class="headerlink" title="Priority Ceiling Protocol (PCP)"></a>Priority Ceiling Protocol (PCP)</h3><ul>
+<li>PIP $\rightarrow$ PCP: extension of Priority Inheritance Protocol to handle chained blocking and deadlocks<ul>
+<li>avoids multiple blocking</li>
+<li>guarantees that, once a task has entered a critical section, it cannot be blocked by lower priority tasks until its completion</li>
+</ul>
+</li>
+<li>PCP Algorithm<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_PCP.png" width="540px" alt=""/><br/>Task $T_1$, $T_2$, $T_3$ and their corresponding priorities $P_1$ &gt; $P_2$ &gt;$P_3$</center><ul>
+<li>Each semaphore $S_k$ is assigned a priority ceiling $C(S_k)$. It is the priority of the highest priority task that can lock $S_k$. This is a static value.<blockquote>
+<p>$C(S_0) = P_1$　　$C(S_1) = P_1$　　$C(S_2) = P_2$</p>
+</blockquote>
+</li>
+<li>Suppose $T_i$ is currently running and it wants to lock the semaphore $S_k$.<ul>
+<li>$T_i$ is allowed to lock $S_k$ only if the priority of $T_i$ is strictly higher than the priority ceiling $C(S_k)$ of the semaphore $S_k$ where: $S_k$ is the semaphore with the highest priority ceiling among all the semaphores which are currently locked by tasks other than $T_i$<blockquote>
+<p>　检测到自身优先级比所有被占有的资源的 ceiling 值都高的时候才可以获取到请求的资源；而且，当存在资源被其它任务占有的时候，才需要进行检测操作</p>
+</blockquote>
+</li>
+<li>Otherwise, $T_i$ is said to be blocked by the semaphore $S_k$ (and the tasks currently holding $S_k$). When $T_i$ gets blocked by $S_k$ then the priority of $T_i$ is transmitted to the tasks $T$ that currently holds $S_k$.<blockquote>
+<p><font color="green">At time t2</font>: $T_2$ can not lock $S_2$. Currently $T_3$ is holding $S_2$ and $C(S_2) = P_2$ and the current priority of $T_2$ is also $P_2$.<br><font color="green">At time t5</font>: $T_1$ can not lock $S_0$. Currently $T_3$ is holding $S_2$ and $S_1$ and $C(S_1) = T_1$ and the current priority of $T_1$ is also $P_1$. The (inherited) priority of $T_3$ is now $P_1$.</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>When $T_i$ leaves a critical section guarded by $S_k$  then it unlocks $S_k$ and the highest priority task, if any, which is blocked by $S_k$ is awakened. The priority of $T_i$ is set to the highest priority of the task that is blocked by other semaphores that $T_i$ is still holding. If none, the priority of $T_i$ is set to be its <strong>nominal one</strong>.<blockquote>
+<p><font color="green">At time t6</font>: $T_3$ unlocks $S_1$. It awakens $T_1$. But $T_3$’s (inherited) priority is now only $P_2$ while $P_1 &gt; C(S_2) = P_2$. So $T_1$ preempts $T_3$ and runs to completion.<br><font color="green">At time t7</font>: $T_3$ resumes execution with priority $P_2$.<br><font color="green">At time t8</font>: $T_3$ unlocks $S_2$ and goes back to its <strong>nominal priority</strong> $P_3$. So $T_2$ preempts $T_1$ and runs to completion.</p>
+</blockquote>
+</li>
+<li>Results<br>　<strong>+</strong> A task is not allowed to enter a critical section if there are already locked semaphores which could block it eventually.<br>　<strong>+</strong> Hence, once a task enters a critical section, it can not be blocked by lower priority tasks（不会被较当前任务低优先级的任务阻塞）till its completion.</li>
+</ul>
+</li>
+<li>PCP: Properties<br>  　<strong>+</strong> A given task $T$ is delayed at most once by a lower priority task. The delay is a function of the time taken to execute the critical section<br>  　<strong>+</strong> Deadlock free (only changing priorities)<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PCPDeadlockfree.png" width="540px" alt=""/><br/>Deadlock free using PCP with $ceil(S_1)=P_1$, $ceil(S_2)=P_1$</center>
+
+</li>
+</ul>
+<h3 id="Stack-Resource-Policy-SRP"><a href="#Stack-Resource-Policy-SRP" class="headerlink" title="Stack Resource Policy (SRP)"></a>Stack Resource Policy (SRP)</h3><ul>
+<li>PCP Extending: Stack Resource Policy (SRP)<ul>
+<li>SRP supports dynamic priority scheduling</li>
+<li>PCP blocks a task at the time it makes the resource request, while SRP blocks task at the time it attempts to preempt. </li>
+</ul>
+</li>
+<li>SRP Algorithm<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_SRP.png" width="540px" alt=""/></center><ul>
+<li><font color="blue">Preemption Level</font>:  $\pi _ i \propto \frac{1}{D_i}$, tasks $T_i$ with larger deadlines $D_i$ have lower preemption level (Intuition: they can be easily preempted), is a <strong>static</strong> value.</li>
+<li><font color="blue">Resource ceiling</font>: of a resource is the <em>highest preemption level from amongst of all tasks that may access that resource</em>. Note: (i) this is associated with each resource (ii) this is <strong>static</strong>.<blockquote>
+<p><em>Resource ceiling</em> for the <strong><font color="red">red</font></strong> resource is 3. For the <strong><font color="red">yellow</font></strong> resource, it is 2.</p>
+</blockquote>
+</li>
+<li><font color="blue">System ceiling</font>: is the <em>highest resource ceiling level from amongst of resources that are currently blocked</em> (当前阻塞任务的所有资源的 <em>Resource ceiling</em> 的最大值). Note: (i) this is not associated with each resource but with the system (ii) this is a <strong>dynamic</strong> parameter that can change every time a resource is accessed or released.<blockquote>
+<p>Based on this, we can see how the <em>system ceiling</em> $\prod _s$ varies dynamically.</p>
+</blockquote>
+</li>
+<li><font color="red">*</font>A task can preempt another task if<ul>
+<li>it has the <strong>highest priority</strong>;</li>
+<li>and its preemption level is higher than the system ceiling. <strong>$\pi _ i &gt; \prod _s$</strong><blockquote>
+<p>Task $T_3$ is not preempted by $T_2$ even though it does not share the <font color="red">red</font> resource ($\pi _2 &lt; \prod _s$).</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SRP reduces preemptions compared to PCP.<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_SRPvsPCP.png" width="540px" alt=""/></center><ul>
+<li><strong>优先级&lt;SystemCeiling</strong> 的进程最终会被阻塞，或因为请求访问临界区，或因为被高优先级抢占，考虑到这一点，<em>SRP</em> 相比于 <em>PCP</em> 能够明显减少 <strong>Context Switch</strong>.<blockquote>
+<p>　<strong>A task cannot be blocked by tasks with lower premption levels</strong> (these tasks can resume only when the task completes). Hence, if there are tasks on the same preemption level, they can never occupy stack space on the same time. Higher the number of tasks on the same preemption level, larger the <strong>stack space</strong> saving!</p>
+</blockquote>
+</li>
+<li>When a task needs a resource that is not available, it <font color="green">is blocked at the time it attempts to preempt</font>, rather than later.</li>
+<li>To prevent multiple priority inversions, a task is not allowed to start until <font color="green">the resource currently available are sufficient to meet the maximum requirement of every task that could preempt it</font>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li>Slides from <em>Introduction to embedded systems, Kai Huang</em>, School of Data and Computer Science, Sun Yat-sen University, China. All rights reserved.</li>
+<li>E. A. Lee and S. A. Seshia, <em>Introduction to Embedded Systems - A Cyber-Physical Systems Approach</em>, LeeSeshia.org, 2011.</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> TA Cources </category>
+            
+            <category> EmbeddedSystem </category>
+            
+        </categories>
+        
         
     </entry>
     
@@ -744,185 +925,6 @@
 </ul>
 <h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
 <li>Slides from <em>Introduction to embedded systems, Kai Huang</em>, School of Data and Computer Science, Sun Yat-sen University, China. All rights reserved.</li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> TA Cources </category>
-            
-            <category> EmbeddedSystem </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling]]></title>
-      <url>/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/</url>
-      <content type="html"><![CDATA[<p>　Real-time systems are collections of tasks where in addition to any <strong>ordering constraints</strong> imposed by precedences between the tasks, there are also <strong>timing constraints</strong>, requiring a scheduling strategy. Classical <font color="blue">real-time scheduling</font>（实时调度） for <strong>Periodic Tasks</strong> contains <strong>Periodic Rate Monotonic (RM)</strong> as well as <strong>Earliest Deadline First (EDF)</strong>. What’s more, tasks <em>share resources</em> and use <em>mutual exclusion</em> to guard access to those resources, resulting in <strong>Scheduling Anomalies</strong>（调度异常）.<br>　本文将讲述 <strong>Resources Sharing</strong> 给 <font color="blue">real-time scheduling</font> 带来的 <strong>Priority Inversion</strong>（优先级反转）异常，并将重点介绍对应的解决办法：Priority Inheritance Protocol (<strong>PIP</strong>)、Priority Ceiling Protocol (<strong>PCP</strong>)、Stack Resource Policy (<strong>SRP</strong>)。<a id="more"></a></p>
-<h3 id="Priority-Inversion"><a href="#Priority-Inversion" class="headerlink" title="Priority Inversion"></a>Priority Inversion</h3><ul>
-<li><strong>Resource Sharing</strong> &amp; Task Blocked<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_CriticalSection.png" width="400px" alt=""/></center><ul>
-<li>Threads (or Processes): $J_1$, $J_2$.</li>
-<li>Common resources $R_k$ likes: data structures, variables, main memory area, file, set of registers, I/O unit, …</li>
-<li>Many shared resources do not allow simultaneous accesses but require <strong>mutual exclusion</strong> (exclusive resources). A piece of code executed under mutual exclusion ($P(S_k) \leftrightarrow V(S_k)$) constraints is called a <strong>critical section</strong>.</li>
-<li>Each <strong>exclusive resource</strong> $R_k$ must be protected by a different semaphore $S_k$ and each critical section operating on a resource must begin with a <em>wait($S_k$)</em> primitive and end with a <em>signal($S_k$)</em> primitive（原子操作）.</li>
-<li>Tasks waiting for an exclusive resource is said to be <strong>blocked</strong> on that resource. Otherwise, it proceeds by entering the <strong>critical section</strong> and <strong>holds</strong> the resource. When a task <strong>leaves</strong> a critical section, the associated resource becomes free.<ul>
-<li>All tasks blocked on the same resource are kept in a queue associated with the semaphore. </li>
-<li>When a running task executes a <em>wait</em> on a <strong>locked</strong> semaphore, it enters a waiting state, until another tasks executes a <em>signal</em> primitive that <strong>unlocks</strong> the semaphore.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>Priority Inversion</strong><br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_Example.png" width="480px" alt=""/></center><ul>
-<li>priority of $T_1$ &gt; priority of $T_2$ &gt; priority of $T_3$</li>
-<li>$T_3$ requests exclusive access first (at $t_0$), $T_1$ has to wait until $T_3$ releases the resource (at $t_2$)</li>
-<li>$T_2$ preempts $T_3$ (at $t_1$): $T_2$ can prevent $T_3$ from releasing the resource.</li>
-<li>If $T_1$ is blocked only by $T_3$, <strong>blocking is bounded</strong> by the length of the critical section, but blocked by &gt;2 tasks ($T_3$, $T_2$, …), <strong>blocking can exceed the length of any critical section</strong>.</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>　Priority Inversion is a <strong>scheduling anomaly</strong> where a low priority task was holding a lock and blocking a high-priority task, while medium priority tasks,  unrelated lower-priority tasks, are executing. </p>
-</blockquote>
-<ul>
-<li>Solving Priority Inversion: <strong>Resource Access Protocols</strong><ul>
-<li>Basic idea: Modify the priority of those tasks that cause blocking. <ul>
-<li>When a task $T_i$ blocks one or more higher priority tasks, it temporarily assumes a higher priority.</li>
-</ul>
-</li>
-<li>Methods<ul>
-<li><font color="green">Priority Inheritance Protocol (PIP)</font>, for <strong>static priorities</strong></li>
-<li><font color="green">Priority Ceiling Protocol (PCP)</font>, for <strong>static priorities</strong></li>
-<li><font color="green">Stack Resource Policy (SRP)</font>, for <strong>static and dynamic priorities</strong><blockquote>
-<p>　<em>static priorities</em>（静态优先级）: 静态优先级是在创建进程时确定的，且在进程的整个运行期间保持不变，内核不会主动修改它。<br>　<em>dynamic priorities</em>（动态优先级）: 在创建进程时所赋予的优先级，是可以随进程的推进或随其等待时间的增加而改变的，调度程序增大或减少进程静态优先级来奖励 IO 消耗型进程或惩罚 CPU 消耗进程以便获得更好的调度性能；调整后的优先级为动态优先级。<br>　<em>real-time priorities</em>（实时优先级）: 实时优先级只对实时进程有效。</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Priority-Inheritance-Protocol-PIP"><a href="#Priority-Inheritance-Protocol-PIP" class="headerlink" title="Priority Inheritance Protocol (PIP)"></a>Priority Inheritance Protocol (PIP)</h3><ul>
-<li>Avoid Priority Inversion in previous example uisng PIP<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIP.png" width="640px" alt=""/> </center><ul>
-<li><strong>Direct Blocking</strong>: higher-priority task $T_1$ tries to acquire a resource held by a lower priority task $T_3$.</li>
-<li><strong>Push-through Blocking</strong>: medium-priority task $T_2$ is blocked by a lower-priority task $T_3$ that has inherited a higher priority from a task ($T_1$) it directly blocks.</li>
-<li>Tasks have <strong>nominal</strong>（挂名优先级） and <strong>active</strong>（活跃优先级） priorities<ul>
-<li><font color="green">Nominal priority</font>: assigned by the scheduling algorithm, e.g. $T_1$’s priority.<blockquote>
-<p><em>static priorities</em> or <em>dynamic priorities</em> 取决于 <em>nominal priorities</em> 的情况</p>
-</blockquote>
-</li>
-<li><font color="green">Active priority</font>: assigned by the priority inheritance protocol dynamically to avoid priority inversion, e.g. $T_3$’s priority inherited from $T_1$.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>PIP Algorithm<ul>
-<li>Tasks are scheduled according to their <strong>active priorities</strong>. Tasks with the same priorities are scheduled <strong>FCFS</strong>.</li>
-<li>Task $T_i$’s nominal priority <strong>$P_i$</strong>, task $T_k$’s nominal priority <strong>$P_k$</strong>.</li>
-<li>When a task $T_i$ tries to enter a critical section and the resource is blocked by a lower priority task $T_k$, the task $T_i$ is blocked. Otherwise it enters the critical section.<ul>
-<li>When a task $T_i$ is blocked, it transmits its active priority to the task $T_k$ that holds the semaphore. </li>
-</ul>
-</li>
-<li>$T_k$ resumes and executes the rest of its critical section with a priority $p_k=max(p_i)$, it inherits the priority of the highest priority of the tasks blocked by it.</li>
-<li>When $T_k$ exits a critical section, it unlocks the semaphore and the highest priority task blocked on that semaphore is awakened. <ul>
-<li>If no other tasks are blocked by $T_k$, then $p_k$ is set to its nominal priority <strong>$P_k$</strong>.</li>
-<li>Otherwise it is set to the highest priority of the left tasks blocked by $T_k$.</li>
-</ul>
-</li>
-<li>Thus, medium priority tasks which do no share resources with $T_k$ cannot preempt $T_k$ and cannot <strong>prolong the blocking</strong>（延长阻塞） of the higher priority tasks</li>
-</ul>
-</li>
-<li><strong>Nested Critical Sections</strong>（一个临界区内嵌套了另一个临界区）<center><img src="/img/TA-Cources/ES2017/PriorityInversion_NestedCritical.png" width="500px" alt=""/><br/>PIP for Nested Critical Sections, $S_b$ nested in $S_a$.</center></li>
-<li><strong>Transitiveness</strong> of Priority Inheritance<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPTransitiveness.png" width="540px" alt=""/><br/>If $T_1$ is blocked by $T_2$ and $T_2$ is blocked by $T_3$, then $T_3$ inherits the priority of $T_1$ via $T_2$</center></li>
-<li>Pros and Cons<ul>
-<li>Advantages<ul>
-<li>Under the priority inheritance protocol, a job $J$ can be blocked for at most the duration of $min(n, m)$ critical sections, where $n$ is the number of lower-priority jobs that could block $J$ and $m$ is the number of distinct semaphores that can be used to block $J$.</li>
-</ul>
-</li>
-<li>Disadvantages<ul>
-<li>Deadlock is Possible<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPDeadlock.png" width="540px" alt=""/> </center></li>
-<li>Chained Blocking: $J$ can get blocked on $n$ critical sections held by $n$ distinct lower priority jobs.<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPChainedBlocking.png" width="480px" alt=""/><br/>$J_1$ is blocked for the duration of two critical sections, once to wait $J_3$ to release $S_a$ and then to wait $J_2$ to release $S_b$.</center>
-
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Priority-Ceiling-Protocol-PCP"><a href="#Priority-Ceiling-Protocol-PCP" class="headerlink" title="Priority Ceiling Protocol (PCP)"></a>Priority Ceiling Protocol (PCP)</h3><ul>
-<li>PIP $\rightarrow$ PCP: extension of Priority Inheritance Protocol to handle chained blocking and deadlocks<ul>
-<li>avoids multiple blocking</li>
-<li>guarantees that, once a task has entered a critical section, it cannot be blocked by lower priority tasks until its completion</li>
-</ul>
-</li>
-<li>PCP Algorithm<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_PCP.png" width="540px" alt=""/><br/>Task $T_1$, $T_2$, $T_3$ and their corresponding priorities $P_1$ &gt; $P_2$ &gt;$P_3$</center><ul>
-<li>Each semaphore $S_k$ is assigned a priority ceiling $C(S_k)$. It is the priority of the highest priority task that can lock $S_k$. This is a static value.<blockquote>
-<p>$C(S_0) = P_1$　　$C(S_1) = P_1$　　$C(S_2) = P_2$</p>
-</blockquote>
-</li>
-<li>Suppose $T_i$ is currently running and it wants to lock the semaphore $S_k$.<ul>
-<li>$T_i$ is allowed to lock $S_k$ only if the priority of $T_i$ is strictly higher than the priority ceiling $C(S_k)$ of the semaphore $S_k$ where: $S_k$ is the semaphore with the highest priority ceiling among all the semaphores which are currently locked by tasks other than $T_i$<blockquote>
-<p>　检测到自身优先级比所有被占有的资源的 ceiling 值都高的时候才可以获取到请求的资源；而且，当存在资源被其它任务占有的时候，才需要进行检测操作</p>
-</blockquote>
-</li>
-<li>Otherwise, $T_i$ is said to be blocked by the semaphore $S_k$ (and the tasks currently holding $S_k$). When $T_i$ gets blocked by $S_k$ then the priority of $T_i$ is transmitted to the tasks $T$ that currently holds $S_k$.<blockquote>
-<p><font color="green">At time t2</font>: $T_2$ can not lock $S_2$. Currently $T_3$ is holding $S_2$ and $C(S_2) = P_2$ and the current priority of $T_2$ is also $P_2$.<br><font color="green">At time t5</font>: $T_1$ can not lock $S_0$. Currently $T_3$ is holding $S_2$ and $S_1$ and $C(S_1) = T_1$ and the current priority of $T_1$ is also $P_1$. The (inherited) priority of $T_3$ is now $P_1$.</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li>When $T_i$ leaves a critical section guarded by $S_k$  then it unlocks $S_k$ and the highest priority task, if any, which is blocked by $S_k$ is awakened. The priority of $T_i$ is set to the highest priority of the task that is blocked by other semaphores that $T_i$ is still holding. If none, the priority of $T_i$ is set to be its <strong>nominal one</strong>.<blockquote>
-<p><font color="green">At time t6</font>: $T_3$ unlocks $S_1$. It awakens $T_1$. But $T_3$’s (inherited) priority is now only $P_2$ while $P_1 &gt; C(S_2) = P_2$. So $T_1$ preempts $T_3$ and runs to completion.<br><font color="green">At time t7</font>: $T_3$ resumes execution with priority $P_2$.<br><font color="green">At time t8</font>: $T_3$ unlocks $S_2$ and goes back to its <strong>nominal priority</strong> $P_3$. So $T_2$ preempts $T_1$ and runs to completion.</p>
-</blockquote>
-</li>
-<li>Results<br>　<strong>+</strong> A task is not allowed to enter a critical section if there are already locked semaphores which could block it eventually.<br>　<strong>+</strong> Hence, once a task enters a critical section, it can not be blocked by lower priority tasks（不会被较当前任务低优先级的任务阻塞）till its completion.</li>
-</ul>
-</li>
-<li>PCP: Properties<br>  　<strong>+</strong> A given task $T$ is delayed at most once by a lower priority task. The delay is a function of the time taken to execute the critical section<br>  　<strong>+</strong> Deadlock free (only changing priorities)<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PCPDeadlockfree.png" width="540px" alt=""/><br/>Deadlock free using PCP with $ceil(S_1)=P_1$, $ceil(S_2)=P_1$</center>
-
-</li>
-</ul>
-<h3 id="Stack-Resource-Policy-SRP"><a href="#Stack-Resource-Policy-SRP" class="headerlink" title="Stack Resource Policy (SRP)"></a>Stack Resource Policy (SRP)</h3><ul>
-<li>PCP Extending: Stack Resource Policy (SRP)<ul>
-<li>SRP supports dynamic priority scheduling</li>
-<li>PCP blocks a task at the time it makes the resource request, while SRP blocks task at the time it attempts to preempt. </li>
-</ul>
-</li>
-<li>SRP Algorithm<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_SRP.png" width="540px" alt=""/></center><ul>
-<li><font color="blue">Preemption Level</font>:  $\pi _ i \propto \frac{1}{D_i}$, tasks $T_i$ with larger deadlines $D_i$ have lower preemption level (Intuition: they can be easily preempted), is a <strong>static</strong> value.</li>
-<li><font color="blue">Resource ceiling</font>: of a resource is the <em>highest preemption level from amongst of all tasks that may access that resource</em>. Note: (i) this is associated with each resource (ii) this is <strong>static</strong>.<blockquote>
-<p><em>Resource ceiling</em> for the <strong><font color="red">red</font></strong> resource is 3. For the <strong><font color="red">yellow</font></strong> resource, it is 2.</p>
-</blockquote>
-</li>
-<li><font color="blue">System ceiling</font>: is the <em>highest resource ceiling level from amongst of resources that are currently blocked</em> (当前阻塞任务的所有资源的 <em>Resource ceiling</em> 的最大值). Note: (i) this is not associated with each resource but with the system (ii) this is a <strong>dynamic</strong> parameter that can change every time a resource is accessed or released.<blockquote>
-<p>Based on this, we can see how the <em>system ceiling</em> $\prod _s$ varies dynamically.</p>
-</blockquote>
-</li>
-<li><font color="red">*</font>A task can preempt another task if<ul>
-<li>it has the <strong>highest priority</strong>;</li>
-<li>and its preemption level is higher than the system ceiling. <strong>$\pi _ i &gt; \prod _s$</strong><blockquote>
-<p>Task $T_3$ is not preempted by $T_2$ even though it does not share the <font color="red">red</font> resource ($\pi _2 &lt; \prod _s$).</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>SRP reduces preemptions compared to PCP.<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_SRPvsPCP.png" width="540px" alt=""/></center><ul>
-<li><strong>优先级&lt;SystemCeiling</strong> 的进程最终会被阻塞，或因为请求访问临界区，或因为被高优先级抢占，考虑到这一点，<em>SRP</em> 相比于 <em>PCP</em> 能够明显减少 <strong>Context Switch</strong>.<blockquote>
-<p>　<strong>A task cannot be blocked by tasks with lower premption levels</strong> (these tasks can resume only when the task completes). Hence, if there are tasks on the same preemption level, they can never occupy stack space on the same time. Higher the number of tasks on the same preemption level, larger the <strong>stack space</strong> saving!</p>
-</blockquote>
-</li>
-<li>When a task needs a resource that is not available, it <font color="green">is blocked at the time it attempts to preempt</font>, rather than later.</li>
-<li>To prevent multiple priority inversions, a task is not allowed to start until <font color="green">the resource currently available are sufficient to meet the maximum requirement of every task that could preempt it</font>.</li>
-</ul>
-</li>
-</ul>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
-<li>Slides from <em>Introduction to embedded systems, Kai Huang</em>, School of Data and Computer Science, Sun Yat-sen University, China. All rights reserved.</li>
-<li>E. A. Lee and S. A. Seshia, <em>Introduction to Embedded Systems - A Cyber-Physical Systems Approach</em>, LeeSeshia.org, 2011.</li>
 </ul>
 ]]></content>
       
@@ -1804,8 +1806,17 @@
 <p>　　<strong>find_package</strong> is CMake’s very own mechanism for solving the same problem. For this to work you either need a CMake find script for the requested library (CMake already ships with a couple of those, but you can easily write your own) or alternatively a package config script provided by the requested library itself. In either case you might have to adjust your <code>CMAKE_MODULE_PATH</code> for CMake to be able to find the respective script.<br>　　<strong>pkg_search_module</strong> uses the <strong>pkg-config tool</strong> to determine the location of the requested library. This is mostly useful on systems where <strong>pkg-config</strong> is already in use, so you do not need to replicate all the information for CMake. Note that this approach has potential portability issues, since <font color="blue">it requires pkg-config to be setup correctly on the build machine</font>.</p>
 </blockquote>
 </li>
-<li><strong>pkg_check_modules</strong> 是 CMake 自己的 <strong>pkg-config 模块</strong> 的一个用来简化的封装：你不用再检查 CMake 的版本，加载合适的模块，检查是否被加载，等等，参数和传给 <strong>find_package</strong> 的一样：先是待返回变量的前缀，然后是包名（pkg-config 的）。这样就定义了<code>&lt;prefix&gt;_INCLUDE_DIRS</code>和其他的这类变量，后续的用法就与 <strong>find_package</strong> 一致。</li>
-<li><strong>pkg_check_modules</strong> 实质上是检测系统中的 <strong>pkg-config</strong> 是否存在制定的 <strong>.pc</strong> 文件。</li>
+<li><strong>pkg_check_modules</strong> 是 CMake 自己的 <strong>pkg-config 模块</strong> 的一个用来简化的封装：你不用再检查 CMake 的版本，加载合适的模块，检查是否被加载，等等，参数和传给 <strong>find_package</strong> 的一样：先是待返回变量的前缀，然后是包名（<strong>pkg-config</strong> 的）。这样就定义了<code>&lt;prefix&gt;_INCLUDE_DIRS</code>和其他的这类变量，后续的用法就与 <strong>find_package</strong> 一致。</li>
+<li><strong>pkg_check_modules</strong> 实质上是检测系统中的 <strong>pkg-config</strong> 是否存在指定的 <strong>.pc</strong> 文件。<blockquote>
+<p><font size="3"><a href="https://www.freedesktop.org/wiki/Software/pkg-config/">pkg-config</a></font><br>　　<strong>pkg-config</strong> is a <strong>helper tool used when compiling applications and libraries</strong>. It helps you insert the correct compiler options on the command line so an application can use <font color="#F99157">gcc -o test test.c `pkg-config –libs –cflags glib-2.0`</font> for instance, rather than hard-coding values on where to find glib (or other libraries).<br>　　It is language-agnostic, so it can be used for defining the location of documentation tools, for instance. <a href="https://zh.wikipedia.org/wiki/Pkg-config">输出已安装的库的相关信息</a>，包括：</p>
+<ul>
+<li>C/C++编译器需要的输入参数</li>
+<li>链接器需要的输入参数</li>
+<li>已安装软件包的版本信息</li>
+</ul>
+<p>　　<strong>pkg-config</strong> works on multiple platforms: Linux and other UNIX-like operating systems, Mac OS X and Windows. It does not require anything but a reasonably well working C compiler and a C library, but can use an installed glib if that is present. (A copy of recent glib2 is shipped together with pkg-config versions since 0.27, and this is sufficient for pkg-config to compile and work properly.)<br>　　<a href="https://zh.wikipedia.org/wiki/Pkg-config">工作原理</a>：当安装一个库时（例如从 RPM，deb 或其他二进制包管理系统），会包括一个后缀名为 <em>pc</em> 的文件，它会放入某个文件夹下 (依赖于你的系统设置，例如，Linux 为 <strong>该库文件所在文件夹/lib/pkgconfig</strong>)。并把该子文件夹加入 <strong>pkg-config</strong> 的环境变量 <code>PKG_CONFIG_PATH</code> 作为搜索路径。</p>
+</blockquote>
+</li>
 </ul>
 ]]></content>
       
@@ -2028,6 +2039,193 @@
     </entry>
     
     <entry>
+      <title><![CDATA[JPEG编码&算术编码、LZW编码]]></title>
+      <url>/2017/07/11/programPearls_JPEG$Arithmetic$LZW/</url>
+      <content type="html"><![CDATA[<p>　　本文介绍 JPEG 编解码过程（附简单的<code>cpp</code>实现）。JPEG 中常用到的熵编码是变长编码：Huffman 编码，本文也对算术编码（附<code>cpp</code>实现）、LZW 编码（附<code>py</code>实现）两种熵编码进行介绍。<a id="more"></a></p>
+<h4 id="JPEG-编解码过程"><a href="#JPEG-编解码过程" class="headerlink" title="JPEG 编解码过程"></a>JPEG 编解码过程</h4><ul>
+<li>JPEG 编码过程<br>  <center><img src="/img/programPearls/jpeg/JPEG_Diagram.jpg" width="480px" alt=""/></center><ul>
+<li>色彩空间转换<br>$\quad$ 将 RGB 色彩空间转换到其他色彩空间，比如 YUV 色彩空间，根据人对亮度更敏感些，增加亮度的信号，减少颜色的信号，以这样“欺骗”人的眼睛的手段来节省空间。YUV 的格式也很多，常见的有 420 和 422 格式。在 420 格式中，<font color="blue">每四个 Y 共用一组  UV 分量</font>，每个 YUV 分量和 RGB 一样都用 8 位来表示，YUV 色彩空间就比 RGB 色彩空间所需的存储空间少一半，数据就被压缩到了一半。</li>
+<li>将图像 8×8 分块<br>$\quad$ 对图像按一定的采样格式进行采样，常见的格式有 4:4:4、4:2:2 和 4:2:0，采样完成后，将图像按 8×8(pixel) 划分成 MCU。</li>
+<li>离散余弦变换 DCT<ul>
+<li>DCT 将时间或空间数据变成频率数据，利用人的听觉或视觉对高频信号（的变化）不敏感和对不同频带数据的感知特征不一样等特点，可以对多媒体数据进行压缩。</li>
+<li>DCT 是数码率压缩需要常用的一个变换编码方法：①任何连续的实对称函数的傅里叶变换中只含余弦项，因此余弦变换与傅里叶变换一样有明确的物理意义；②由于大多数图像的高频分量较小，相应于图像高频分量的系数经常为零，加上人眼对高频成分的失真不敏感，所以可用更粗的量化。</li>
+<li>传送变换系数的数码率要大大小于传送图像像素所用的数码率，到达接收端后通过反离散余弦变换回到样值，虽然会有一定的失真，但人眼是可以接受的。</li>
+<li>二维正反离散余弦变换（FDCT/IDCT）的公式如下：<br>$$C(\omega) = \begin{cases} \frac{1}{\sqrt{2}}, \space\space \omega = 0 \cr 1, \quad \omega \gt 0 \end{cases}$$ $$ FDCT: F(u, v) = \frac{2}{N} C(u)C(v) \sum_{x=0}^{N-1} \sum_{y=0}^{N-1} f(x, y) cos[\frac{(2x+1)u \pi}{2N}] cos[\frac{(2y+1)v \pi}{2N}]$$ $$IDCT: f(x, y) = \frac{2}{N} \sum_{u=0}^{N-1} \sum_{v=0}^{N-1} C(u)C(v)F(u, v) cos[\frac{(2x+1)u \pi}{2N}] cos[\frac{(2y+1)v \pi}{2N}]$$<ul>
+<li>其中 $N$ 是像块的水平、垂直像素数，一般取 $N=8$。$N$ 大于 8 时效率增加不多但复杂性大为增加。8×8 的二维数据块经 DCT 后变成 8×8 个变换系数，这些系数都有明确的意义：$F(u=0, v=0)$ 是原 64 个样值的平均，相当于直流分量；随着 $u$、$v$ 值增加，相应系数分别代表逐步增加的水平空间频率和垂直空间频率分量的大小，如下图：<center><img src="/img/programPearls/jpeg/DCT_schematic.png" width="440px" alt=""/></center></li>
+<li>图像信号被分解成直流信号+从低频到高频的各种余弦成分；DCT 系数只是表示了该种成分所占原图像信号的份额大小；显然，恢复图像信息可以表示这样一个矩阵形式：$f(x, y) = F(u, v) * C(u, v)$，$C(u, v)$ 是一个基底，$F(u, v)$ 是 DCT 系数，$f(x, y)$ 则是图像信号。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><figcaption><span>FDCT</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">C</span><span class="params">(<span class="keyword">int</span> w)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> w&gt;<span class="number">0</span>?<span class="number">1</span>:<span class="keyword">double</span>(<span class="number">1</span>/<span class="built_in">sqrt</span>(<span class="number">2</span>));</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">double</span> <span class="title">func_F</span><span class="params">(<span class="keyword">int</span> f[][<span class="number">8</span>], <span class="keyword">int</span> u, <span class="keyword">int</span> v)</span></span>&#123;</div><div class="line">  <span class="keyword">double</span> sum = <span class="number">0</span>;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">8</span>; i++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;<span class="number">8</span>; j++)&#123;</div><div class="line">      sum += f[i][j]*<span class="built_in">cos</span>((<span class="number">2</span>*i+<span class="number">1</span>)*u*M_PI/<span class="number">16</span>)*<span class="built_in">cos</span>((<span class="number">2</span>*j+<span class="number">1</span>)*v*M_PI/<span class="number">16</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> <span class="number">0.25</span>*C(u)*C(v)*sum;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// DCT transform </span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">fdct</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;<span class="number">8</span>; row++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>; col&lt;<span class="number">8</span>;col++)&#123;</div><div class="line">      F[row][col] = func_F(f, row, col);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>量化（quantization）<ul>
+<li>量化是对经过 FDCT 变换后的频率系数进行量化，是一个将信号的幅度离散化的过程，离散信号经过量化后变为数字信号；量化的目的是减少非“0”系数的幅度以及增加“0”值系数的数目，利用人眼对高频部分不敏感的特性来舍去高频部分。</li>
+<li>对于有损压缩算法，JPEG 算法使用均匀量化器进行量化，量化步距是按照系数所在的位置和每种颜色分量的色调值来确定的，因为人眼对亮度信号比对色差信号敏感，因此使用了如下两种量化表：标准亮度量化表（<code>bright_table.txt</code>）和标准色差量化表（<code>color_diff_table.txt</code>）。</li>
+</ul>
+</li>
+<li><figure class="highlight cpp"><figcaption><span>bright_table.txt</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="number">17</span>	<span class="number">18</span>	<span class="number">24</span>	<span class="number">47</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span></div><div class="line"><span class="number">18</span>	<span class="number">21</span>	<span class="number">26</span>	<span class="number">66</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span></div><div class="line"><span class="number">24</span>	<span class="number">26</span>	<span class="number">56</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span></div><div class="line"><span class="number">47</span>	<span class="number">66</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span></div><div class="line"><span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span></div><div class="line"><span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span></div><div class="line"><span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span></div><div class="line"><span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span></div></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight cpp"><figcaption><span>color_diff_table.txt</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="number">16</span>	<span class="number">11</span>	<span class="number">10</span>	<span class="number">16</span>	<span class="number">24</span>	<span class="number">40</span>	<span class="number">51</span>	<span class="number">61</span></div><div class="line"><span class="number">12</span>	<span class="number">12</span>	<span class="number">14</span>	<span class="number">19</span>	<span class="number">26</span>	<span class="number">58</span>	<span class="number">60</span>	<span class="number">55</span></div><div class="line"><span class="number">14</span>	<span class="number">13</span>	<span class="number">16</span>	<span class="number">24</span>	<span class="number">40</span>	<span class="number">57</span>	<span class="number">69</span>	<span class="number">56</span></div><div class="line"><span class="number">14</span>	<span class="number">17</span>	<span class="number">22</span>	<span class="number">29</span>	<span class="number">51</span>	<span class="number">87</span>	<span class="number">80</span>	<span class="number">62</span></div><div class="line"><span class="number">18</span>	<span class="number">22</span>	<span class="number">37</span>	<span class="number">56</span>	<span class="number">68</span>	<span class="number">109</span>	<span class="number">103</span>	<span class="number">77</span></div><div class="line"><span class="number">24</span>	<span class="number">35</span>	<span class="number">55</span>	<span class="number">64</span>	<span class="number">81</span>	<span class="number">104</span>	<span class="number">113</span>	<span class="number">92</span></div><div class="line"><span class="number">49</span>	<span class="number">64</span>	<span class="number">78</span>	<span class="number">87</span>	<span class="number">103</span>	<span class="number">121</span>	<span class="number">120</span>	<span class="number">101</span></div><div class="line"><span class="number">72</span>	<span class="number">92</span>	<span class="number">95</span>	<span class="number">98</span>	<span class="number">112</span>	<span class="number">100</span>	<span class="number">103</span>	<span class="number">99</span></div></pre></td></tr></table></figure>
+<ul>
+<li>由于人眼对低频分量的图像比对高频分量更敏感，因此左上角的量化步距要比右下角的量化步距小；把 DCT 系数块的数值除以对应量化表位置上的数值，并四舍五入到最近的整数；解码的时候，反量化步骤会乘回量化表相应值，但是四舍五入导致低频有所损失，高频“0”字段被舍弃；这一步为有损运算，会导致图像质量变低，量化是图像质量下降的最主要原因，所以说 JPEG 编码是有损压缩。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> Q[<span class="number">8</span>][<span class="number">8</span>];</div><div class="line"><span class="keyword">int</span> Sq[<span class="number">8</span>][<span class="number">8</span>];</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">color_diff_quantization_table_init</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* filename)</span></span>&#123;</div><div class="line">  <span class="function">ifstream <span class="title">in</span><span class="params">(filename)</span></span>;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;<span class="number">8</span>; row++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>; col&lt;<span class="number">8</span>; col++)&#123;</div><div class="line">      in &gt;&gt; Q[row][col];</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  in.close();</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// Sq(u,v) = round(F(u,v) / Q(u,v))</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">quantilize</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</div><div class="line">  <span class="comment">//color_diff_quantization_table_init("bright_table.txt");</span></div><div class="line">  color_diff_quantization_table_init(<span class="string">"color_diff_table.txt"</span>);</div><div class="line">  </div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;<span class="number">8</span>; row++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>; col&lt;<span class="number">8</span>;col++)&#123;</div><div class="line">      Sq[row][col] = round(F[row][col] / Q[row][col]);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>zig-zag Z 字形游程编码<br>$\quad$ 量化后的数据还可以通过以下 ZigZag 表的规则进行重排后，重排后的结果中可以看到出现连续的多个 0，达到简化、更大程度的去压缩，这样有利于进行游程编码。<center><img src="/img/programPearls/jpeg/zig-zagTable.png" width="720px" alt=""/></center></li>
+<li>使用差分脉冲编码调制（DPCM）对直流系数（DC）进行编码<br>$\quad$ 8×8 图像经过 DCT 变换之后得到的 DC 直流系数有两个特点：一是系数的数值比较大；二是相邻 8×8 图像块的 DC 系数值变化不大。根据这两个特点，JPEG 算法使用了差分脉冲调制编码（DPCM）技术，对相邻图像块之间量化的 DC 系数的差值（Delta）进行编码：$Delta = DC(0, 0)_k - DC(0, 0)_{k-1}$</li>
+<li>使用行程长度编码（RLE）对交流系数（AC）进行编码<ul>
+<li>Z 字形读出的量化后的 AC 系数的特点是 1×64 矢量中包含有许多“0”系数并且许多“0”是连续的，因此使用非常简单和直观的游程长度编码（RLE）对它们进行编码：只将“0”作为重复的内容，JPEG 使用了一个字节的高4位来表示连续“0”的个数（最多重复内容可以记录数量为 15，超过 15 次要进行分段处理），而使用它的低4位来表示编码下一个非“0”系数所需要的位数；特别到最后，如果都是“0”，在读到最后一个数后，只要给出“快结束”（EOB）码字，就可以结束输出，因此节省了很多码率。</li>
+<li>如下面的 4×4 图像块 $\begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 2 &amp; 4 &amp; 0 &amp; 0 \\ 5 &amp; 0 &amp; 0 &amp; 0 \\ 8 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix}$，按 Z 字形抽取得到的码字是：$\verb|{| 1, 0, 2, 5, 4, 0, 0, 0, 0, 8, 0, …, 0 \verb|}|$，经过游程编码得到的码值为：<code>(0,1,0)(1,2,0)(0,5,0)(0,4,0)(4,8,1)EOB</code></li>
+</ul>
+</li>
+<li>熵编码（Huffman或算术）<ul>
+<li>使用熵编码还可以对 DPCM 编码后的直流 DC 系数和 RLE 编码后的交流 AC 系数作进一步的压缩；常用的熵编码有变长编码，即 哈弗曼（Huffman）编码。</li>
+<li>Huffman 编码的基本原理：根据数据中元素出现的基本频率，调整元素的编码长度，以得到更高的压缩比；编码方法：对出现概率大的符号分配短字长的二进制码，对出现概率小的符号分配长字长的二进制码，得到符号的平均码长最短的码。</li>
+<li>Huffman 编码的步骤：<ol>
+<li>将符号按概率从小到大顺序从左至右排列叶节点；</li>
+<li>连接两个概率最小的顶层节点来组成一个父节点，并在到左右子节点的两条连线上分别标记“0”和“1”（可以对概率大的赋值“0”，小的赋值“1”）；</li>
+<li>重复步骤<code>2</code>，直到得到根节点，形成一棵二叉树；</li>
+<li>从根节点开始到相应于每个符号的叶节点的 0/1 串，就是该符号的二进制编码。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>  <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div></pre></td><td class="code"><pre><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;queue&gt;</div><div class="line">#include &lt;map&gt;</div><div class="line">#include &lt;climits&gt; // for CHAR_BIT</div><div class="line">#include &lt;iterator&gt;</div><div class="line">#include &lt;algorithm&gt;</div><div class="line"> </div><div class="line">const int UniqueSymbols = 1 &lt;&lt; CHAR_BIT;</div><div class="line">const char* SampleString = "this is an example for huffman encoding";</div><div class="line"> </div><div class="line">typedef std::vector&lt;bool&gt; HuffCode;</div><div class="line">typedef std::map&lt;char, HuffCode&gt; HuffCodeMap;</div><div class="line"> </div><div class="line">class INode &#123;</div><div class="line">public:</div><div class="line">    const int f;</div><div class="line">    virtual ~INode() &#123;&#125;</div><div class="line">protected:</div><div class="line">    INode(int f) : f(f) &#123;&#125;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">class InternalNode : public INode &#123;</div><div class="line">public:</div><div class="line">    INode *const left;</div><div class="line">    INode *const right;</div><div class="line">    InternalNode(INode* c0, INode* c1) : INode(c0-&gt;f + c1-&gt;f), left(c0), right(c1) &#123;&#125;</div><div class="line">    ~InternalNode()&#123;</div><div class="line">        delete left;</div><div class="line">        delete right;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">class LeafNode : public INode &#123;</div><div class="line">public:</div><div class="line">    const char c;</div><div class="line">    LeafNode(int f, char c) : INode(f), c(c) &#123;&#125;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">struct NodeCmp&#123;</div><div class="line">    bool operator() (const INode* lhs, const INode* rhs) const &#123; return lhs-&gt;f &gt; rhs-&gt;f; &#125;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">INode* BuildTree(const int (&amp;frequencies)[UniqueSymbols]) &#123;</div><div class="line">    std::priority_queue&lt;INode*, std::vector&lt;INode*&gt;, NodeCmp&gt; trees;</div><div class="line"> </div><div class="line">    for (int i = 0; i &lt; UniqueSymbols; ++i) &#123;</div><div class="line">        if(frequencies[i] != 0)</div><div class="line">            trees.push(new LeafNode(frequencies[i], (char)i));</div><div class="line">    &#125;</div><div class="line">    while (trees.size() &gt; 1) &#123;</div><div class="line">        INode* childR = trees.top();</div><div class="line">        trees.pop();</div><div class="line"> </div><div class="line">        INode* childL = trees.top();</div><div class="line">        trees.pop();</div><div class="line"> </div><div class="line">        INode* parent = new InternalNode(childR, childL);</div><div class="line">        trees.push(parent);</div><div class="line">    &#125;</div><div class="line">    return trees.top();</div><div class="line">&#125;</div><div class="line"> </div><div class="line">void GenerateCodes(const INode* node, const HuffCode&amp; prefix, HuffCodeMap&amp; outCodes) &#123;</div><div class="line">    if (const LeafNode* lf = dynamic_cast&lt;const LeafNode*&gt;(node)) &#123;</div><div class="line">        outCodes[lf-&gt;c] = prefix;</div><div class="line">    &#125;</div><div class="line">    else if (const InternalNode* in = dynamic_cast&lt;const InternalNode*&gt;(node)) &#123;</div><div class="line">        HuffCode leftPrefix = prefix;</div><div class="line">        leftPrefix.push_back(false);</div><div class="line">        GenerateCodes(in-&gt;left, leftPrefix, outCodes);</div><div class="line"> </div><div class="line">        HuffCode rightPrefix = prefix;</div><div class="line">        rightPrefix.push_back(true);</div><div class="line">        GenerateCodes(in-&gt;right, rightPrefix, outCodes);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">int main() &#123;</div><div class="line">    // Build frequency table</div><div class="line">    int frequencies[UniqueSymbols] = &#123;0&#125;;</div><div class="line">    const char* ptr = SampleString;</div><div class="line">    while (*ptr != '\0')</div><div class="line">        ++frequencies[*ptr++];</div><div class="line"> </div><div class="line">    INode* root = BuildTree(frequencies);</div><div class="line"> </div><div class="line">    HuffCodeMap codes;</div><div class="line">    GenerateCodes(root, HuffCode(), codes);</div><div class="line">    delete root;</div><div class="line"> </div><div class="line">    for (HuffCodeMap::const_iterator it = codes.begin(); it != codes.end(); ++it) &#123;</div><div class="line">        std::cout &lt;&lt; it-&gt;first &lt;&lt; " ";</div><div class="line">        std::copy(it-&gt;second.begin(), it-&gt;second.end(),</div><div class="line">                  std::ostream_iterator&lt;bool&gt;(std::cout));</div><div class="line">        std::cout &lt;&lt; std::endl;</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>组成位数据流<br>$\quad$ JPEG 编码的最后一个步骤是把各种标记代码和编码后的图像数据组成一帧一帧的数据，这样做的目的是为了便于传输、存储和译码器进行译码，这样组织的数据通常称为 JPEG 位数据流（JPEG bitstream）。</li>
+</ul>
+</li>
+<li>JPEG 解码过程<br>  <center><img src="/img/programPearls/jpeg/JPEG_Decompression.jpg" width="640px" alt=""/></center><ul>
+<li>AC 系数、DC 系数的解码<br>$\quad$ 每个颜色分量单元都应该由两部分组成：1 个直流分量和 63 个交流分量。</li>
+<li>直流系数的差分编码</li>
+<li>反量化</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// inverse quantization</span></div><div class="line"><span class="keyword">int</span> invSq[<span class="number">8</span>][<span class="number">8</span>];</div><div class="line"> </div><div class="line"><span class="comment">// invSq(u,v) = Sq(u,v) * Q(u,v)</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">inverse_quantilize</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;<span class="number">8</span>; row++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>; col&lt;<span class="number">8</span>;col++)&#123;</div><div class="line">      invSq[row][col] = Sq[row][col] * Q[row][col];</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>反 Zig-Zag 编码</li>
+<li>反离散余弦变换（Inverse DCT）</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// reconstructed sample data</span></div><div class="line"><span class="keyword">int</span> invV[<span class="number">8</span>][<span class="number">8</span>];</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">double</span> <span class="title">func_f</span><span class="params">(<span class="keyword">int</span> F[][<span class="number">8</span>], <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</div><div class="line">  <span class="keyword">double</span> sum = <span class="number">0</span>;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> u = <span class="number">0</span>; u&lt;<span class="number">8</span>; u++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>; v&lt;<span class="number">8</span>; v++)&#123;</div><div class="line">      sum += C(u)*C(v)*F[u][v]*<span class="built_in">cos</span>((<span class="number">2</span>*i+<span class="number">1</span>)*u*M_PI/<span class="number">16</span>)*<span class="built_in">cos</span>((<span class="number">2</span>*j+<span class="number">1</span>)*v*M_PI/<span class="number">16</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;	</div><div class="line"> </div><div class="line">  <span class="keyword">return</span> <span class="number">0.25</span>*sum;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">reconstruct</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</div><div class="line">  <span class="comment">// inverse DCT transform</span></div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;<span class="number">8</span>; row++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>; col&lt;<span class="number">8</span>;col++)&#123;</div><div class="line">      invV[row][col] = func_f(invSq, row, col);</div><div class="line">      <span class="comment">// inverse of pre process</span></div><div class="line">      invV[row][col] += <span class="number">128</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>YCrCb（YUV） 向 RGB 转换</li>
+</ul>
+</li>
+</ul>
+<h4 id="算术编码"><a href="#算术编码" class="headerlink" title="算术编码"></a>算术编码</h4><ul>
+<li>算术编码克服了 Huffman 编码必须为整数位，这与实数的概率值相差大的缺点，如在 Huffman 编码中，本来只需要 0.1 位就可以表示的符号，却必须用 1 位来表示，结果造成 10 倍的浪费。算术编码所采用的解决办法是，不用二进制代码来表示符号，而改用 $[0，1)$ 中的一个宽度等于其出现概率的实数区间来表示一个符号，符号表中的所有符号刚好布满整个 $[0，1)$ 区间（概率之和为 1，不重不漏），<font color="blue">把输入符号串（数据流）映射成 $[0，1)$ 区间中的一个实数值</font>。</li>
+<li>编码方法<ul>
+<li>符号串编码方法：将串中使用的符号表按原编码（如字符的ASCII编码、数字的二进制编码）从小到大顺序排列成表，计算表中每种符号 $s_i$ 出现的概率 $p_i$，然后依次根据这些符号概率大小 $p_i$ 来确定其在 $[0, 1)$ 期间中对应的小区间范围 $[x_i, y_i)$<br>$$ x_i = \sum_{j=0}^{i-1} p_j, y_i = x_i + p_i, i=1, …, m$$</li>
+<li>对输入符号串进行编码<ul>
+<li>设串中第 $j$ 个符号 $c_j$ 为符号表中的第 $i$ 个符号 $s_i$，则可根据 $s_i$ 在符号表中所对应区间的上下限 $x_i$ 和 $y_i$，来计算编码区间 $I_j = [l_j, r_j)$：$l_j = l_{j-1} + d_{j-1}·x_i$，$r_j = l_{j-1} + d_{j-1}·y_i$；</li>
+<li>其中，$d_j = r_j - l_j$ 为区间 $I_j$ 的宽度，$l_0 = 0，r_0 = 1，d_0 = 1$。显然，$l_j$↑而 $d_j$ 与 $r_j$↓。串的最后一个符号所对应区间的下限 $l_n$ 就是该符号串的算术编码值。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> STRLEN 100</span></div><div class="line"> </div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="keyword">char</span> str[STRLEN], source_str[STRLEN];</div><div class="line">  <span class="keyword">int</span> str_len;</div><div class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"Please input a string..."</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">  <span class="built_in">cin</span>.getline(str, STRLEN);</div><div class="line"></div><div class="line">  str_len = <span class="built_in">strlen</span>(str);</div><div class="line">  <span class="built_in">strcpy</span>(source_str, str);</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"*input string length: "</span>);</div><div class="line">  <span class="built_in">cout</span> &lt;&lt; str_len &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">  <span class="built_in">printf</span>(<span class="string">"*sorting string letters in dictionary order: "</span>);</div><div class="line">  sort(str, str+str_len);</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"\"%s\"\n"</span>, str);</div><div class="line"> </div><div class="line">  <span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; word;				<span class="comment">//存放字符串中的字符word[i]</span></div><div class="line">  <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; freq;				<span class="comment">//存放word[i]字符所对应的频率freq[i]</span></div><div class="line">  <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; endpoint;			<span class="comment">//每个字符word[i]对应频率区间的左右点[endpoint[2i], endpoint[2i+1]);</span></div><div class="line">   </div><div class="line">  <span class="comment">// 计算每个字母的频率(by dictionary order)</span></div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str_len;)&#123;</div><div class="line">    <span class="keyword">int</span> tmp_num = <span class="number">0</span>;</div><div class="line">    <span class="keyword">char</span> cur_word = str[i];</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; str_len; j++)&#123;</div><div class="line">      <span class="keyword">if</span> (str[j] == cur_word)&#123;</div><div class="line">        tmp_num++;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    word.push_back(cur_word);</div><div class="line">    freq.push_back(<span class="keyword">double</span>(tmp_num) / str_len);</div><div class="line">    i += tmp_num;</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  <span class="comment">//for (int i = 0; i &lt; word.size(); i++)&#123;</span></div><div class="line">  <span class="comment">//	cout &lt;&lt; word[i]&lt;&lt; " " &lt;&lt; freq[i] &lt;&lt; endl;</span></div><div class="line">  <span class="comment">//&#125;</span></div><div class="line">   </div><div class="line">  <span class="comment">// 计算每个字母的频率区间的左右端点</span></div><div class="line">  <span class="keyword">double</span> left_endpoint = <span class="number">0</span>;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; word.size(); i++)&#123;</div><div class="line">    endpoint.push_back(left_endpoint);</div><div class="line">    left_endpoint += freq[i];</div><div class="line">    endpoint.push_back(left_endpoint);</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"\n----------- Symbol Table -----------\n"</span>);</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; word.size(); i++)&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"\'%c\' %8.6lf [%8.6lf, %8.6lf)\n"</span>, word[i], freq[i], endpoint[<span class="number">2</span>*i], endpoint[<span class="number">2</span>*i+<span class="number">1</span>]);</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="comment">// 编码</span></div><div class="line">  <span class="built_in">printf</span>(<span class="string">"\n----------- Arithmetic Coding -----------\n"</span>);</div><div class="line">  <span class="keyword">double</span> left = <span class="number">0.</span>, right = <span class="number">1.</span>, delta = <span class="number">1.</span>;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str_len; i++)&#123;</div><div class="line">    <span class="keyword">int</span> index = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; word.size(); j++)&#123;</div><div class="line">      <span class="keyword">if</span> (source_str[i] == word[j])&#123;</div><div class="line">        index = j;</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    left = left + delta*endpoint[<span class="number">2</span> * index];</div><div class="line">    right = left + delta*endpoint[<span class="number">2</span> * index + <span class="number">1</span>];</div><div class="line">    <span class="comment">// delta = right - left = delta * (endpoint[2 * index + 1] - endpoint[2 * index]) = delta * freq[index]</span></div><div class="line">    delta = delta*freq[index];</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%c %0.18lf %0.18lf %0.18lf\n"</span>, source_str[i], left, right, delta);</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"*Arithmetic Coding Result: %.18lf\n"</span>, left);</div><div class="line">  </div><div class="line">  <span class="comment">//...</span></div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>解码方法<ul>
+<li>由符号表（包括符号对应的概率与区间）和实数编码 $l_n$，可以按下面的解码算法来重构输入符号串。<ul>
+<li>① 设 $v_1 = l_n = \space$码值；</li>
+<li>② 若 $v_j \in [x_i, y_j) \Longrightarrow c_j = s_i, j = 1, …, n$；</li>
+<li>③ $v_{j+1} = \frac{v_j - x_i}{p_j}, j = 1, …, n-1$，重复步骤②、③。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; word;				<span class="comment">//存放字符串中的字符word[i]</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; freq;				<span class="comment">//存放word[i]字符所对应的频率freq[i]</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; endpoint;			<span class="comment">//每个字符word[i]对应频率区间的左右点[endpoint[2i], endpoint[2i+1]);</span></div><div class="line"> </div><div class="line"><span class="built_in">printf</span>(<span class="string">"*Arithmetic Coding Result: %.18lf\n"</span>, left);</div><div class="line"> </div><div class="line"><span class="built_in">printf</span>(<span class="string">"\n----------- Arithmetic Decoding -----------\n"</span>);</div><div class="line"><span class="keyword">double</span> v = left;</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str_len; i++)&#123;</div><div class="line">  <span class="keyword">int</span> index = <span class="number">0</span>;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; word.size(); j++)&#123;</div><div class="line">    <span class="keyword">if</span> (v &lt; endpoint[<span class="number">2</span> * j + <span class="number">1</span>])&#123;</div><div class="line">      index = j;</div><div class="line">      <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"%.18lf %d \'%c\'\n"</span>, v, index+<span class="number">1</span>, word[index]);</div><div class="line">  v = (v - endpoint[<span class="number">2</span> * index]) / freq[index];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="LZW编码"><a href="#LZW编码" class="headerlink" title="LZW编码"></a>LZW编码</h4><ul>
+<li>LZW 编码和 Huffman编码、算术编码一样，是无损压缩中的一种；该算法通过建立字典，实现字符重用与编码，适用于 source 中重复率很高的文本压缩。<ul>
+<li>LZW 算法是一种基于字典的编码——将变长的输入符号串映射成定长的码字——形成一本短语词典索引（串表），利用字符出现的频率冗余度及串模式高使用率冗余度达到压缩的目的。该算法只需一遍扫描，且具有自适应的特点（从空表开始逐步生成串表，码字长从 1 逐步增加到12），</font color="blue">不需保存和传送串表</font>。</li>
+<li>串表具有前缀性——若串 $wc$（$c$ 为字符）在串表中，则串 $w$ 也在串表中（所以，可初始化串表为含所有单个字符的串）。</li>
+<li>匹配采用贪婪算法——每次只识别与匹配串表中最长的已有串 $w$（输出对应的码字）、并可与下一输入字符 $c$ 拼成一个新的码字 $wc$。</li>
+</ul>
+</li>
+<li>LZW 压缩算法<ul>
+<li>初始化<ul>
+<li>①将所有单个字符（$n$ 个不同字符）的串放入串表 ST 中（共 $n$ 项[码字为$1~n$]，实际操作时不必放入，只需空出串表的前 $n$ 项，字符对应码字所对应的串表索引即可）；</li>
+<li>②读首字符入前缀串 $w$；</li>
+<li>③设置码长 $codeBits = n+1$；</li>
+<li>④设置串表中当前表项的索引值 $next = 初始码字 = n+1$</li>
+</ul>
+</li>
+<li>循环<ul>
+<li>⑤读下一输入字符 $c$；</li>
+<li>⑥若 $c=EOF$（文件结束符），则输出 $w$ 的码字 $dict[w]$，结束循环（输出结束码字）；</li>
+<li>⑦若 $wc$ 已在串表中，则 $w = wc$，转到循环开始处⑤；否则，输出 $w$ 的码字 $dict[w]$，将 $wc$ 放入 ST 中的 $next$ 处，$next++$；令 $w=c$，转到循环开始处⑤；</li>
+<li>⑧若 $next$ 的位数超过码长（$\gt codeBits$），则 $codeBits++$；若串表已满（$next$ 的位数已超过最大码长 12），则清空串表，输出清表码字，转到初始化开始处①（一般不太可能发生）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>  <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#! /usr/bin/env python</span></div><div class="line"><span class="comment"># coding= utf-8</span></div><div class="line"> </div><div class="line"><span class="keyword">import</span> sys</div><div class="line"> </div><div class="line">reload(sys)</div><div class="line">sys.setdefaultencoding(<span class="string">'utf-8'</span>)</div><div class="line"> </div><div class="line">input = raw_input(<span class="string">u"请输入字符串："</span>.encode(<span class="string">'mbcs'</span>))</div><div class="line"><span class="keyword">print</span> <span class="string">u"编码过程："</span></div><div class="line">inputlist = list(input)</div><div class="line"> </div><div class="line">wclist = list(set(inputlist))</div><div class="line">diclen = len(wclist)</div><div class="line">wclist.sort()</div><div class="line">phrases_dict = &#123;&#125;</div><div class="line"> </div><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> xrange(<span class="number">1</span>, diclen+<span class="number">1</span>):</div><div class="line">    phrases_dict[x] = wclist[x<span class="number">-1</span>]</div><div class="line"> </div><div class="line">nextlist = range(<span class="number">1</span>, len(wclist)+<span class="number">1</span>)</div><div class="line">wlist = [<span class="string">'--'</span>] * len(wclist)</div><div class="line">procedurelist = [<span class="string">'--'</span>] * len(wclist)</div><div class="line">poslist = [<span class="string">'--'</span>]*len(wclist)</div><div class="line">mstr = <span class="string">''</span></div><div class="line">nstr = <span class="string">''</span></div><div class="line">k = <span class="number">0</span></div><div class="line"> </div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(inputlist)):</div><div class="line">    nstr = nstr + inputlist[i]</div><div class="line">    <span class="keyword">if</span> nstr <span class="keyword">in</span> wclist:</div><div class="line">        mstr = nstr</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        k = k+<span class="number">1</span></div><div class="line">        wclist.append(nstr)</div><div class="line">        nextlist.append(len(nextlist)+<span class="number">1</span>)</div><div class="line">        a = wclist.index(mstr)</div><div class="line">        wlist.append(a+<span class="number">1</span>)</div><div class="line">        procedurelist.append(k)</div><div class="line">        poslist.append(i-len(nstr)+<span class="number">2</span>)</div><div class="line">        mstr = inputlist[i]</div><div class="line">        nstr = inputlist[i]</div><div class="line"> </div><div class="line">wclist.append(<span class="string">'--'</span>)</div><div class="line">nextlist.append(<span class="string">'--'</span>)</div><div class="line">a = wclist.index(mstr)</div><div class="line">wlist.append(a+<span class="number">1</span>)</div><div class="line">procedurelist.append(k+<span class="number">1</span>)</div><div class="line">poslist.append(<span class="string">'--'</span>)</div><div class="line"> </div><div class="line"><span class="keyword">print</span> <span class="string">u'步 骤  位 置   Next      Wc      输出W'</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">0</span>, len(wclist)):</div><div class="line">    <span class="keyword">print</span> <span class="string">'%s\t %s\t %s\t %s\t %s\t'</span>%(procedurelist[i], poslist[i], nextlist[i], wclist[i], wlist[i])</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>LZW 还原算法<ul>
+<li>初始化<ul>
+<li>①将所有单个字符（$n$ 个不同字符）的串放入串表 ST 中（共 $n$ 项[码字为$1~n$]，实际操作时不必放入，只需空出串表的前 $n$ 项，字符对应码字所对应的串表索引即可）；</li>
+<li>②设置码长 $codeBits = n+1$；</li>
+<li>③设置串表中当前表项的索引值 $next = 初始码字 = n+1$</li>
+<li>④读首个码字（所对应的单个字符）入老串 $old$，输出该字符；</li>
+</ul>
+</li>
+<li>循环<ul>
+<li>⑤读下一码字 $new$：若 $new$ 为结束码字，结束循环；若 $new$ 为清表码字，清空串表，转到初始化开始处①；</li>
+<li>⑥若 $new \geq next$，则输出串 $newStr = old + old[0]$（例外处理）；若 $new \lt next$，则输出串 $newStr = ST[new]$；</li>
+<li>⑦将 $old + newStr[0]$ 放入串表 ST[next] 中，$next++$；</li>
+<li>⑧若 $next$ 的位数超过码长（$\gt codeBits$），则 $codeBits++$；若加一后 $codeBits \gt 12$，则重新让 $codeBits = 12$；</li>
+<li>⑨$old = newStr$，转到循环开始处⑤。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>  <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_before_decode</span><span class="params">(phrases_dict)</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="string">u'步骤 码字   词 典    输 出'</span></div><div class="line">    keys = sorted(list(phrases_dict.keys()))</div><div class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> keys:</div><div class="line">        <span class="keyword">print</span> <span class="string">'%-4s %-4s %-4s %-5s %-4s'</span> % \</div><div class="line">            (<span class="string">''</span>, <span class="string">''</span>, <span class="string">'('</span> + str(key) + <span class="string">')'</span>, phrases_dict[key], <span class="string">''</span>)</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">decodeLZW</span><span class="params">(codes, phrases_dict)</span>:</span></div><div class="line">    step = <span class="number">1</span></div><div class="line">    next = len(phrases_dict) + <span class="number">1</span></div><div class="line">    old = phrases_dict[codes[<span class="number">0</span>]]</div><div class="line">    <span class="keyword">print</span> <span class="string">'%-4s %-4s %-4s %-5s %-4s'</span> % \</div><div class="line">        (step, <span class="string">'(1)'</span>, <span class="string">'-'</span>, <span class="string">'-'</span>, old)</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(codes)):</div><div class="line">        new = codes[i]</div><div class="line">        <span class="keyword">if</span> new &gt;= next:</div><div class="line">            newStr = old + old[<span class="number">0</span>]</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            newStr = phrases_dict[new]</div><div class="line">        phrases_dict[next] = old + newStr[<span class="number">0</span>]</div><div class="line">        step += <span class="number">1</span></div><div class="line"></div><div class="line">        <span class="keyword">print</span> <span class="string">'%-4s %-4s %-4s %-5s %-4s'</span> % \</div><div class="line">            (step, <span class="string">'('</span> + str(new) + <span class="string">')'</span>, <span class="string">'('</span> + str(next) + <span class="string">')'</span>,</div><div class="line">             phrases_dict[next], newStr)</div><div class="line">        next += <span class="number">1</span></div><div class="line">        old = newStr</div><div class="line"> </div><div class="line"><span class="keyword">print</span> <span class="string">u"解码过程："</span></div><div class="line">codes = wlist[diclen:]</div><div class="line">print_before_decode(phrases_dict)</div><div class="line">decodeLZW(codes, phrases_dict)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li><a href="https://felixzhang00.github.io/2016/12/24/2016-12-24-jpeg%E7%BC%96%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Felix: jpeg编码学习笔记</a></li>
+<li><a href="http://blog.sina.com.cn/s/blog_61d40cc30100f5e1.html">quennel的博客: JPEG编解码过程详解（一）</a></li>
+<li><a href="http://blog.sina.com.cn/s/blog_61d40cc30100f5e6.html">quennel的博客: JPEG编解码过程详解（二）</a></li>
+<li><a href="http://edwin-wang.com/2006/06/jpeg%E5%8E%8B%E7%BC%A9%E7%BC%96%E7%A0%81%E7%AC%94%E8%AE%B0/">EdwinWang.com: JPEG 压缩编码笔记</a></li>
+<li>《多媒体技术基础：李才伟编著》</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程珠玑 </category>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> JPEG </tag>
+            
+            <tag> LZW </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[密码学：DES、3DES、AES]]></title>
       <url>/2017/07/11/programPearls_DES$3DES$AES/</url>
       <content type="html"><![CDATA[<p>　　加密方法可以分为两大类：一类是对称密码体制，又称单钥或私钥密码体制（private key cryptography）；还有一类是非对称密码体制，也称双钥或公开密钥体制（public key cryptography）。前者的加密和解密过程都用同一套密码，后者的加密和解密过程用的是两套密码。<br>　　在单钥加密的情况下，密钥只有一把，所以密钥的保存变得很重要，一旦秘钥泄露，密文也就被破解了；在双钥加密的情况下，秘钥有两把，一把是公开的公钥，还有一把是不公开的私钥，公钥与私钥是一一对应的关系，有一把公钥就必然有一把与之对应的、独一无二的私钥，反之亦成立。此外，①同时生成公钥和私钥应该是相对比较容易的：所有的公钥、私钥对都不同，用公钥可以解开私钥加密的信息，反之用私钥也可以解开公钥加密的信息；但是②从公钥推算出私钥，应该是很困难或者是不可能的。<br>　　目前，通用的单钥加密算法有 DES（Data Encryption Standard），通用的双钥加密算法为 RSA（Rivest-Shamir-Adleman），本文主要介绍三种常用的单钥加密算法：DES、3DES（Triple DES） 以及 AES（Advanced Encryption Standard）。<a id="more"></a></p>
@@ -2236,193 +2434,6 @@
             <tag> DES </tag>
             
             <tag> AES </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[JPEG编码&算术编码、LZW编码]]></title>
-      <url>/2017/07/11/programPearls_JPEG$Arithmetic$LZW/</url>
-      <content type="html"><![CDATA[<p>　　本文介绍 JPEG 编解码过程（附简单的<code>cpp</code>实现）。JPEG 中常用到的熵编码是变长编码：Huffman 编码，本文也对算术编码（附<code>cpp</code>实现）、LZW 编码（附<code>py</code>实现）两种熵编码进行介绍。<a id="more"></a></p>
-<h4 id="JPEG-编解码过程"><a href="#JPEG-编解码过程" class="headerlink" title="JPEG 编解码过程"></a>JPEG 编解码过程</h4><ul>
-<li>JPEG 编码过程<br>  <center><img src="/img/programPearls/jpeg/JPEG_Diagram.jpg" width="480px" alt=""/></center><ul>
-<li>色彩空间转换<br>$\quad$ 将 RGB 色彩空间转换到其他色彩空间，比如 YUV 色彩空间，根据人对亮度更敏感些，增加亮度的信号，减少颜色的信号，以这样“欺骗”人的眼睛的手段来节省空间。YUV 的格式也很多，常见的有 420 和 422 格式。在 420 格式中，<font color="blue">每四个 Y 共用一组  UV 分量</font>，每个 YUV 分量和 RGB 一样都用 8 位来表示，YUV 色彩空间就比 RGB 色彩空间所需的存储空间少一半，数据就被压缩到了一半。</li>
-<li>将图像 8×8 分块<br>$\quad$ 对图像按一定的采样格式进行采样，常见的格式有 4:4:4、4:2:2 和 4:2:0，采样完成后，将图像按 8×8(pixel) 划分成 MCU。</li>
-<li>离散余弦变换 DCT<ul>
-<li>DCT 将时间或空间数据变成频率数据，利用人的听觉或视觉对高频信号（的变化）不敏感和对不同频带数据的感知特征不一样等特点，可以对多媒体数据进行压缩。</li>
-<li>DCT 是数码率压缩需要常用的一个变换编码方法：①任何连续的实对称函数的傅里叶变换中只含余弦项，因此余弦变换与傅里叶变换一样有明确的物理意义；②由于大多数图像的高频分量较小，相应于图像高频分量的系数经常为零，加上人眼对高频成分的失真不敏感，所以可用更粗的量化。</li>
-<li>传送变换系数的数码率要大大小于传送图像像素所用的数码率，到达接收端后通过反离散余弦变换回到样值，虽然会有一定的失真，但人眼是可以接受的。</li>
-<li>二维正反离散余弦变换（FDCT/IDCT）的公式如下：<br>$$C(\omega) = \begin{cases} \frac{1}{\sqrt{2}}, \space\space \omega = 0 \cr 1, \quad \omega \gt 0 \end{cases}$$ $$ FDCT: F(u, v) = \frac{2}{N} C(u)C(v) \sum_{x=0}^{N-1} \sum_{y=0}^{N-1} f(x, y) cos[\frac{(2x+1)u \pi}{2N}] cos[\frac{(2y+1)v \pi}{2N}]$$ $$IDCT: f(x, y) = \frac{2}{N} \sum_{u=0}^{N-1} \sum_{v=0}^{N-1} C(u)C(v)F(u, v) cos[\frac{(2x+1)u \pi}{2N}] cos[\frac{(2y+1)v \pi}{2N}]$$<ul>
-<li>其中 $N$ 是像块的水平、垂直像素数，一般取 $N=8$。$N$ 大于 8 时效率增加不多但复杂性大为增加。8×8 的二维数据块经 DCT 后变成 8×8 个变换系数，这些系数都有明确的意义：$F(u=0, v=0)$ 是原 64 个样值的平均，相当于直流分量；随着 $u$、$v$ 值增加，相应系数分别代表逐步增加的水平空间频率和垂直空间频率分量的大小，如下图：<center><img src="/img/programPearls/jpeg/DCT_schematic.png" width="440px" alt=""/></center></li>
-<li>图像信号被分解成直流信号+从低频到高频的各种余弦成分；DCT 系数只是表示了该种成分所占原图像信号的份额大小；显然，恢复图像信息可以表示这样一个矩阵形式：$f(x, y) = F(u, v) * C(u, v)$，$C(u, v)$ 是一个基底，$F(u, v)$ 是 DCT 系数，$f(x, y)$ 则是图像信号。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><figcaption><span>FDCT</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">C</span><span class="params">(<span class="keyword">int</span> w)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> w&gt;<span class="number">0</span>?<span class="number">1</span>:<span class="keyword">double</span>(<span class="number">1</span>/<span class="built_in">sqrt</span>(<span class="number">2</span>));</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">double</span> <span class="title">func_F</span><span class="params">(<span class="keyword">int</span> f[][<span class="number">8</span>], <span class="keyword">int</span> u, <span class="keyword">int</span> v)</span></span>&#123;</div><div class="line">  <span class="keyword">double</span> sum = <span class="number">0</span>;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">8</span>; i++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;<span class="number">8</span>; j++)&#123;</div><div class="line">      sum += f[i][j]*<span class="built_in">cos</span>((<span class="number">2</span>*i+<span class="number">1</span>)*u*M_PI/<span class="number">16</span>)*<span class="built_in">cos</span>((<span class="number">2</span>*j+<span class="number">1</span>)*v*M_PI/<span class="number">16</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> <span class="number">0.25</span>*C(u)*C(v)*sum;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// DCT transform </span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">fdct</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;<span class="number">8</span>; row++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>; col&lt;<span class="number">8</span>;col++)&#123;</div><div class="line">      F[row][col] = func_F(f, row, col);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>量化（quantization）<ul>
-<li>量化是对经过 FDCT 变换后的频率系数进行量化，是一个将信号的幅度离散化的过程，离散信号经过量化后变为数字信号；量化的目的是减少非“0”系数的幅度以及增加“0”值系数的数目，利用人眼对高频部分不敏感的特性来舍去高频部分。</li>
-<li>对于有损压缩算法，JPEG 算法使用均匀量化器进行量化，量化步距是按照系数所在的位置和每种颜色分量的色调值来确定的，因为人眼对亮度信号比对色差信号敏感，因此使用了如下两种量化表：标准亮度量化表（<code>bright_table.txt</code>）和标准色差量化表（<code>color_diff_table.txt</code>）。</li>
-</ul>
-</li>
-<li><figure class="highlight cpp"><figcaption><span>bright_table.txt</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="number">17</span>	<span class="number">18</span>	<span class="number">24</span>	<span class="number">47</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span></div><div class="line"><span class="number">18</span>	<span class="number">21</span>	<span class="number">26</span>	<span class="number">66</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span></div><div class="line"><span class="number">24</span>	<span class="number">26</span>	<span class="number">56</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span></div><div class="line"><span class="number">47</span>	<span class="number">66</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span></div><div class="line"><span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span></div><div class="line"><span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span></div><div class="line"><span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span></div><div class="line"><span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span>	<span class="number">99</span></div></pre></td></tr></table></figure>
-</li>
-<li><figure class="highlight cpp"><figcaption><span>color_diff_table.txt</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="number">16</span>	<span class="number">11</span>	<span class="number">10</span>	<span class="number">16</span>	<span class="number">24</span>	<span class="number">40</span>	<span class="number">51</span>	<span class="number">61</span></div><div class="line"><span class="number">12</span>	<span class="number">12</span>	<span class="number">14</span>	<span class="number">19</span>	<span class="number">26</span>	<span class="number">58</span>	<span class="number">60</span>	<span class="number">55</span></div><div class="line"><span class="number">14</span>	<span class="number">13</span>	<span class="number">16</span>	<span class="number">24</span>	<span class="number">40</span>	<span class="number">57</span>	<span class="number">69</span>	<span class="number">56</span></div><div class="line"><span class="number">14</span>	<span class="number">17</span>	<span class="number">22</span>	<span class="number">29</span>	<span class="number">51</span>	<span class="number">87</span>	<span class="number">80</span>	<span class="number">62</span></div><div class="line"><span class="number">18</span>	<span class="number">22</span>	<span class="number">37</span>	<span class="number">56</span>	<span class="number">68</span>	<span class="number">109</span>	<span class="number">103</span>	<span class="number">77</span></div><div class="line"><span class="number">24</span>	<span class="number">35</span>	<span class="number">55</span>	<span class="number">64</span>	<span class="number">81</span>	<span class="number">104</span>	<span class="number">113</span>	<span class="number">92</span></div><div class="line"><span class="number">49</span>	<span class="number">64</span>	<span class="number">78</span>	<span class="number">87</span>	<span class="number">103</span>	<span class="number">121</span>	<span class="number">120</span>	<span class="number">101</span></div><div class="line"><span class="number">72</span>	<span class="number">92</span>	<span class="number">95</span>	<span class="number">98</span>	<span class="number">112</span>	<span class="number">100</span>	<span class="number">103</span>	<span class="number">99</span></div></pre></td></tr></table></figure>
-<ul>
-<li>由于人眼对低频分量的图像比对高频分量更敏感，因此左上角的量化步距要比右下角的量化步距小；把 DCT 系数块的数值除以对应量化表位置上的数值，并四舍五入到最近的整数；解码的时候，反量化步骤会乘回量化表相应值，但是四舍五入导致低频有所损失，高频“0”字段被舍弃；这一步为有损运算，会导致图像质量变低，量化是图像质量下降的最主要原因，所以说 JPEG 编码是有损压缩。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> Q[<span class="number">8</span>][<span class="number">8</span>];</div><div class="line"><span class="keyword">int</span> Sq[<span class="number">8</span>][<span class="number">8</span>];</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">color_diff_quantization_table_init</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* filename)</span></span>&#123;</div><div class="line">  <span class="function">ifstream <span class="title">in</span><span class="params">(filename)</span></span>;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;<span class="number">8</span>; row++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>; col&lt;<span class="number">8</span>; col++)&#123;</div><div class="line">      in &gt;&gt; Q[row][col];</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  in.close();</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// Sq(u,v) = round(F(u,v) / Q(u,v))</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">quantilize</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</div><div class="line">  <span class="comment">//color_diff_quantization_table_init("bright_table.txt");</span></div><div class="line">  color_diff_quantization_table_init(<span class="string">"color_diff_table.txt"</span>);</div><div class="line">  </div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;<span class="number">8</span>; row++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>; col&lt;<span class="number">8</span>;col++)&#123;</div><div class="line">      Sq[row][col] = round(F[row][col] / Q[row][col]);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>zig-zag Z 字形游程编码<br>$\quad$ 量化后的数据还可以通过以下 ZigZag 表的规则进行重排后，重排后的结果中可以看到出现连续的多个 0，达到简化、更大程度的去压缩，这样有利于进行游程编码。<center><img src="/img/programPearls/jpeg/zig-zagTable.png" width="720px" alt=""/></center></li>
-<li>使用差分脉冲编码调制（DPCM）对直流系数（DC）进行编码<br>$\quad$ 8×8 图像经过 DCT 变换之后得到的 DC 直流系数有两个特点：一是系数的数值比较大；二是相邻 8×8 图像块的 DC 系数值变化不大。根据这两个特点，JPEG 算法使用了差分脉冲调制编码（DPCM）技术，对相邻图像块之间量化的 DC 系数的差值（Delta）进行编码：$Delta = DC(0, 0)_k - DC(0, 0)_{k-1}$</li>
-<li>使用行程长度编码（RLE）对交流系数（AC）进行编码<ul>
-<li>Z 字形读出的量化后的 AC 系数的特点是 1×64 矢量中包含有许多“0”系数并且许多“0”是连续的，因此使用非常简单和直观的游程长度编码（RLE）对它们进行编码：只将“0”作为重复的内容，JPEG 使用了一个字节的高4位来表示连续“0”的个数（最多重复内容可以记录数量为 15，超过 15 次要进行分段处理），而使用它的低4位来表示编码下一个非“0”系数所需要的位数；特别到最后，如果都是“0”，在读到最后一个数后，只要给出“快结束”（EOB）码字，就可以结束输出，因此节省了很多码率。</li>
-<li>如下面的 4×4 图像块 $\begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 2 &amp; 4 &amp; 0 &amp; 0 \\ 5 &amp; 0 &amp; 0 &amp; 0 \\ 8 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix}$，按 Z 字形抽取得到的码字是：$\verb|{| 1, 0, 2, 5, 4, 0, 0, 0, 0, 8, 0, …, 0 \verb|}|$，经过游程编码得到的码值为：<code>(0,1,0)(1,2,0)(0,5,0)(0,4,0)(4,8,1)EOB</code></li>
-</ul>
-</li>
-<li>熵编码（Huffman或算术）<ul>
-<li>使用熵编码还可以对 DPCM 编码后的直流 DC 系数和 RLE 编码后的交流 AC 系数作进一步的压缩；常用的熵编码有变长编码，即 哈弗曼（Huffman）编码。</li>
-<li>Huffman 编码的基本原理：根据数据中元素出现的基本频率，调整元素的编码长度，以得到更高的压缩比；编码方法：对出现概率大的符号分配短字长的二进制码，对出现概率小的符号分配长字长的二进制码，得到符号的平均码长最短的码。</li>
-<li>Huffman 编码的步骤：<ol>
-<li>将符号按概率从小到大顺序从左至右排列叶节点；</li>
-<li>连接两个概率最小的顶层节点来组成一个父节点，并在到左右子节点的两条连线上分别标记“0”和“1”（可以对概率大的赋值“0”，小的赋值“1”）；</li>
-<li>重复步骤<code>2</code>，直到得到根节点，形成一棵二叉树；</li>
-<li>从根节点开始到相应于每个符号的叶节点的 0/1 串，就是该符号的二进制编码。</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>  <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div></pre></td><td class="code"><pre><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;queue&gt;</div><div class="line">#include &lt;map&gt;</div><div class="line">#include &lt;climits&gt; // for CHAR_BIT</div><div class="line">#include &lt;iterator&gt;</div><div class="line">#include &lt;algorithm&gt;</div><div class="line"> </div><div class="line">const int UniqueSymbols = 1 &lt;&lt; CHAR_BIT;</div><div class="line">const char* SampleString = "this is an example for huffman encoding";</div><div class="line"> </div><div class="line">typedef std::vector&lt;bool&gt; HuffCode;</div><div class="line">typedef std::map&lt;char, HuffCode&gt; HuffCodeMap;</div><div class="line"> </div><div class="line">class INode &#123;</div><div class="line">public:</div><div class="line">    const int f;</div><div class="line">    virtual ~INode() &#123;&#125;</div><div class="line">protected:</div><div class="line">    INode(int f) : f(f) &#123;&#125;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">class InternalNode : public INode &#123;</div><div class="line">public:</div><div class="line">    INode *const left;</div><div class="line">    INode *const right;</div><div class="line">    InternalNode(INode* c0, INode* c1) : INode(c0-&gt;f + c1-&gt;f), left(c0), right(c1) &#123;&#125;</div><div class="line">    ~InternalNode()&#123;</div><div class="line">        delete left;</div><div class="line">        delete right;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">class LeafNode : public INode &#123;</div><div class="line">public:</div><div class="line">    const char c;</div><div class="line">    LeafNode(int f, char c) : INode(f), c(c) &#123;&#125;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">struct NodeCmp&#123;</div><div class="line">    bool operator() (const INode* lhs, const INode* rhs) const &#123; return lhs-&gt;f &gt; rhs-&gt;f; &#125;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">INode* BuildTree(const int (&amp;frequencies)[UniqueSymbols]) &#123;</div><div class="line">    std::priority_queue&lt;INode*, std::vector&lt;INode*&gt;, NodeCmp&gt; trees;</div><div class="line"> </div><div class="line">    for (int i = 0; i &lt; UniqueSymbols; ++i) &#123;</div><div class="line">        if(frequencies[i] != 0)</div><div class="line">            trees.push(new LeafNode(frequencies[i], (char)i));</div><div class="line">    &#125;</div><div class="line">    while (trees.size() &gt; 1) &#123;</div><div class="line">        INode* childR = trees.top();</div><div class="line">        trees.pop();</div><div class="line"> </div><div class="line">        INode* childL = trees.top();</div><div class="line">        trees.pop();</div><div class="line"> </div><div class="line">        INode* parent = new InternalNode(childR, childL);</div><div class="line">        trees.push(parent);</div><div class="line">    &#125;</div><div class="line">    return trees.top();</div><div class="line">&#125;</div><div class="line"> </div><div class="line">void GenerateCodes(const INode* node, const HuffCode&amp; prefix, HuffCodeMap&amp; outCodes) &#123;</div><div class="line">    if (const LeafNode* lf = dynamic_cast&lt;const LeafNode*&gt;(node)) &#123;</div><div class="line">        outCodes[lf-&gt;c] = prefix;</div><div class="line">    &#125;</div><div class="line">    else if (const InternalNode* in = dynamic_cast&lt;const InternalNode*&gt;(node)) &#123;</div><div class="line">        HuffCode leftPrefix = prefix;</div><div class="line">        leftPrefix.push_back(false);</div><div class="line">        GenerateCodes(in-&gt;left, leftPrefix, outCodes);</div><div class="line"> </div><div class="line">        HuffCode rightPrefix = prefix;</div><div class="line">        rightPrefix.push_back(true);</div><div class="line">        GenerateCodes(in-&gt;right, rightPrefix, outCodes);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">int main() &#123;</div><div class="line">    // Build frequency table</div><div class="line">    int frequencies[UniqueSymbols] = &#123;0&#125;;</div><div class="line">    const char* ptr = SampleString;</div><div class="line">    while (*ptr != '\0')</div><div class="line">        ++frequencies[*ptr++];</div><div class="line"> </div><div class="line">    INode* root = BuildTree(frequencies);</div><div class="line"> </div><div class="line">    HuffCodeMap codes;</div><div class="line">    GenerateCodes(root, HuffCode(), codes);</div><div class="line">    delete root;</div><div class="line"> </div><div class="line">    for (HuffCodeMap::const_iterator it = codes.begin(); it != codes.end(); ++it) &#123;</div><div class="line">        std::cout &lt;&lt; it-&gt;first &lt;&lt; " ";</div><div class="line">        std::copy(it-&gt;second.begin(), it-&gt;second.end(),</div><div class="line">                  std::ostream_iterator&lt;bool&gt;(std::cout));</div><div class="line">        std::cout &lt;&lt; std::endl;</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>组成位数据流<br>$\quad$ JPEG 编码的最后一个步骤是把各种标记代码和编码后的图像数据组成一帧一帧的数据，这样做的目的是为了便于传输、存储和译码器进行译码，这样组织的数据通常称为 JPEG 位数据流（JPEG bitstream）。</li>
-</ul>
-</li>
-<li>JPEG 解码过程<br>  <center><img src="/img/programPearls/jpeg/JPEG_Decompression.jpg" width="640px" alt=""/></center><ul>
-<li>AC 系数、DC 系数的解码<br>$\quad$ 每个颜色分量单元都应该由两部分组成：1 个直流分量和 63 个交流分量。</li>
-<li>直流系数的差分编码</li>
-<li>反量化</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// inverse quantization</span></div><div class="line"><span class="keyword">int</span> invSq[<span class="number">8</span>][<span class="number">8</span>];</div><div class="line"> </div><div class="line"><span class="comment">// invSq(u,v) = Sq(u,v) * Q(u,v)</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">inverse_quantilize</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;<span class="number">8</span>; row++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>; col&lt;<span class="number">8</span>;col++)&#123;</div><div class="line">      invSq[row][col] = Sq[row][col] * Q[row][col];</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>反 Zig-Zag 编码</li>
-<li>反离散余弦变换（Inverse DCT）</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// reconstructed sample data</span></div><div class="line"><span class="keyword">int</span> invV[<span class="number">8</span>][<span class="number">8</span>];</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">double</span> <span class="title">func_f</span><span class="params">(<span class="keyword">int</span> F[][<span class="number">8</span>], <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</div><div class="line">  <span class="keyword">double</span> sum = <span class="number">0</span>;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> u = <span class="number">0</span>; u&lt;<span class="number">8</span>; u++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>; v&lt;<span class="number">8</span>; v++)&#123;</div><div class="line">      sum += C(u)*C(v)*F[u][v]*<span class="built_in">cos</span>((<span class="number">2</span>*i+<span class="number">1</span>)*u*M_PI/<span class="number">16</span>)*<span class="built_in">cos</span>((<span class="number">2</span>*j+<span class="number">1</span>)*v*M_PI/<span class="number">16</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;	</div><div class="line"> </div><div class="line">  <span class="keyword">return</span> <span class="number">0.25</span>*sum;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">reconstruct</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</div><div class="line">  <span class="comment">// inverse DCT transform</span></div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;<span class="number">8</span>; row++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>; col&lt;<span class="number">8</span>;col++)&#123;</div><div class="line">      invV[row][col] = func_f(invSq, row, col);</div><div class="line">      <span class="comment">// inverse of pre process</span></div><div class="line">      invV[row][col] += <span class="number">128</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>YCrCb（YUV） 向 RGB 转换</li>
-</ul>
-</li>
-</ul>
-<h4 id="算术编码"><a href="#算术编码" class="headerlink" title="算术编码"></a>算术编码</h4><ul>
-<li>算术编码克服了 Huffman 编码必须为整数位，这与实数的概率值相差大的缺点，如在 Huffman 编码中，本来只需要 0.1 位就可以表示的符号，却必须用 1 位来表示，结果造成 10 倍的浪费。算术编码所采用的解决办法是，不用二进制代码来表示符号，而改用 $[0，1)$ 中的一个宽度等于其出现概率的实数区间来表示一个符号，符号表中的所有符号刚好布满整个 $[0，1)$ 区间（概率之和为 1，不重不漏），<font color="blue">把输入符号串（数据流）映射成 $[0，1)$ 区间中的一个实数值</font>。</li>
-<li>编码方法<ul>
-<li>符号串编码方法：将串中使用的符号表按原编码（如字符的ASCII编码、数字的二进制编码）从小到大顺序排列成表，计算表中每种符号 $s_i$ 出现的概率 $p_i$，然后依次根据这些符号概率大小 $p_i$ 来确定其在 $[0, 1)$ 期间中对应的小区间范围 $[x_i, y_i)$<br>$$ x_i = \sum_{j=0}^{i-1} p_j, y_i = x_i + p_i, i=1, …, m$$</li>
-<li>对输入符号串进行编码<ul>
-<li>设串中第 $j$ 个符号 $c_j$ 为符号表中的第 $i$ 个符号 $s_i$，则可根据 $s_i$ 在符号表中所对应区间的上下限 $x_i$ 和 $y_i$，来计算编码区间 $I_j = [l_j, r_j)$：$l_j = l_{j-1} + d_{j-1}·x_i$，$r_j = l_{j-1} + d_{j-1}·y_i$；</li>
-<li>其中，$d_j = r_j - l_j$ 为区间 $I_j$ 的宽度，$l_0 = 0，r_0 = 1，d_0 = 1$。显然，$l_j$↑而 $d_j$ 与 $r_j$↓。串的最后一个符号所对应区间的下限 $l_n$ 就是该符号串的算术编码值。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> STRLEN 100</span></div><div class="line"> </div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="keyword">char</span> str[STRLEN], source_str[STRLEN];</div><div class="line">  <span class="keyword">int</span> str_len;</div><div class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"Please input a string..."</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">  <span class="built_in">cin</span>.getline(str, STRLEN);</div><div class="line"></div><div class="line">  str_len = <span class="built_in">strlen</span>(str);</div><div class="line">  <span class="built_in">strcpy</span>(source_str, str);</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"*input string length: "</span>);</div><div class="line">  <span class="built_in">cout</span> &lt;&lt; str_len &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"> </div><div class="line">  <span class="built_in">printf</span>(<span class="string">"*sorting string letters in dictionary order: "</span>);</div><div class="line">  sort(str, str+str_len);</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"\"%s\"\n"</span>, str);</div><div class="line"> </div><div class="line">  <span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; word;				<span class="comment">//存放字符串中的字符word[i]</span></div><div class="line">  <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; freq;				<span class="comment">//存放word[i]字符所对应的频率freq[i]</span></div><div class="line">  <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; endpoint;			<span class="comment">//每个字符word[i]对应频率区间的左右点[endpoint[2i], endpoint[2i+1]);</span></div><div class="line">   </div><div class="line">  <span class="comment">// 计算每个字母的频率(by dictionary order)</span></div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str_len;)&#123;</div><div class="line">    <span class="keyword">int</span> tmp_num = <span class="number">0</span>;</div><div class="line">    <span class="keyword">char</span> cur_word = str[i];</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; str_len; j++)&#123;</div><div class="line">      <span class="keyword">if</span> (str[j] == cur_word)&#123;</div><div class="line">        tmp_num++;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    word.push_back(cur_word);</div><div class="line">    freq.push_back(<span class="keyword">double</span>(tmp_num) / str_len);</div><div class="line">    i += tmp_num;</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  <span class="comment">//for (int i = 0; i &lt; word.size(); i++)&#123;</span></div><div class="line">  <span class="comment">//	cout &lt;&lt; word[i]&lt;&lt; " " &lt;&lt; freq[i] &lt;&lt; endl;</span></div><div class="line">  <span class="comment">//&#125;</span></div><div class="line">   </div><div class="line">  <span class="comment">// 计算每个字母的频率区间的左右端点</span></div><div class="line">  <span class="keyword">double</span> left_endpoint = <span class="number">0</span>;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; word.size(); i++)&#123;</div><div class="line">    endpoint.push_back(left_endpoint);</div><div class="line">    left_endpoint += freq[i];</div><div class="line">    endpoint.push_back(left_endpoint);</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"\n----------- Symbol Table -----------\n"</span>);</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; word.size(); i++)&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"\'%c\' %8.6lf [%8.6lf, %8.6lf)\n"</span>, word[i], freq[i], endpoint[<span class="number">2</span>*i], endpoint[<span class="number">2</span>*i+<span class="number">1</span>]);</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="comment">// 编码</span></div><div class="line">  <span class="built_in">printf</span>(<span class="string">"\n----------- Arithmetic Coding -----------\n"</span>);</div><div class="line">  <span class="keyword">double</span> left = <span class="number">0.</span>, right = <span class="number">1.</span>, delta = <span class="number">1.</span>;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str_len; i++)&#123;</div><div class="line">    <span class="keyword">int</span> index = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; word.size(); j++)&#123;</div><div class="line">      <span class="keyword">if</span> (source_str[i] == word[j])&#123;</div><div class="line">        index = j;</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    left = left + delta*endpoint[<span class="number">2</span> * index];</div><div class="line">    right = left + delta*endpoint[<span class="number">2</span> * index + <span class="number">1</span>];</div><div class="line">    <span class="comment">// delta = right - left = delta * (endpoint[2 * index + 1] - endpoint[2 * index]) = delta * freq[index]</span></div><div class="line">    delta = delta*freq[index];</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%c %0.18lf %0.18lf %0.18lf\n"</span>, source_str[i], left, right, delta);</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"*Arithmetic Coding Result: %.18lf\n"</span>, left);</div><div class="line">  </div><div class="line">  <span class="comment">//...</span></div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li>解码方法<ul>
-<li>由符号表（包括符号对应的概率与区间）和实数编码 $l_n$，可以按下面的解码算法来重构输入符号串。<ul>
-<li>① 设 $v_1 = l_n = \space$码值；</li>
-<li>② 若 $v_j \in [x_i, y_j) \Longrightarrow c_j = s_i, j = 1, …, n$；</li>
-<li>③ $v_{j+1} = \frac{v_j - x_i}{p_j}, j = 1, …, n-1$，重复步骤②、③。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; word;				<span class="comment">//存放字符串中的字符word[i]</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; freq;				<span class="comment">//存放word[i]字符所对应的频率freq[i]</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; endpoint;			<span class="comment">//每个字符word[i]对应频率区间的左右点[endpoint[2i], endpoint[2i+1]);</span></div><div class="line"> </div><div class="line"><span class="built_in">printf</span>(<span class="string">"*Arithmetic Coding Result: %.18lf\n"</span>, left);</div><div class="line"> </div><div class="line"><span class="built_in">printf</span>(<span class="string">"\n----------- Arithmetic Decoding -----------\n"</span>);</div><div class="line"><span class="keyword">double</span> v = left;</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str_len; i++)&#123;</div><div class="line">  <span class="keyword">int</span> index = <span class="number">0</span>;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; word.size(); j++)&#123;</div><div class="line">    <span class="keyword">if</span> (v &lt; endpoint[<span class="number">2</span> * j + <span class="number">1</span>])&#123;</div><div class="line">      index = j;</div><div class="line">      <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"%.18lf %d \'%c\'\n"</span>, v, index+<span class="number">1</span>, word[index]);</div><div class="line">  v = (v - endpoint[<span class="number">2</span> * index]) / freq[index];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="LZW编码"><a href="#LZW编码" class="headerlink" title="LZW编码"></a>LZW编码</h4><ul>
-<li>LZW 编码和 Huffman编码、算术编码一样，是无损压缩中的一种；该算法通过建立字典，实现字符重用与编码，适用于 source 中重复率很高的文本压缩。<ul>
-<li>LZW 算法是一种基于字典的编码——将变长的输入符号串映射成定长的码字——形成一本短语词典索引（串表），利用字符出现的频率冗余度及串模式高使用率冗余度达到压缩的目的。该算法只需一遍扫描，且具有自适应的特点（从空表开始逐步生成串表，码字长从 1 逐步增加到12），</font color="blue">不需保存和传送串表</font>。</li>
-<li>串表具有前缀性——若串 $wc$（$c$ 为字符）在串表中，则串 $w$ 也在串表中（所以，可初始化串表为含所有单个字符的串）。</li>
-<li>匹配采用贪婪算法——每次只识别与匹配串表中最长的已有串 $w$（输出对应的码字）、并可与下一输入字符 $c$ 拼成一个新的码字 $wc$。</li>
-</ul>
-</li>
-<li>LZW 压缩算法<ul>
-<li>初始化<ul>
-<li>①将所有单个字符（$n$ 个不同字符）的串放入串表 ST 中（共 $n$ 项[码字为$1~n$]，实际操作时不必放入，只需空出串表的前 $n$ 项，字符对应码字所对应的串表索引即可）；</li>
-<li>②读首字符入前缀串 $w$；</li>
-<li>③设置码长 $codeBits = n+1$；</li>
-<li>④设置串表中当前表项的索引值 $next = 初始码字 = n+1$</li>
-</ul>
-</li>
-<li>循环<ul>
-<li>⑤读下一输入字符 $c$；</li>
-<li>⑥若 $c=EOF$（文件结束符），则输出 $w$ 的码字 $dict[w]$，结束循环（输出结束码字）；</li>
-<li>⑦若 $wc$ 已在串表中，则 $w = wc$，转到循环开始处⑤；否则，输出 $w$ 的码字 $dict[w]$，将 $wc$ 放入 ST 中的 $next$ 处，$next++$；令 $w=c$，转到循环开始处⑤；</li>
-<li>⑧若 $next$ 的位数超过码长（$\gt codeBits$），则 $codeBits++$；若串表已满（$next$ 的位数已超过最大码长 12），则清空串表，输出清表码字，转到初始化开始处①（一般不太可能发生）。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>  <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#! /usr/bin/env python</span></div><div class="line"><span class="comment"># coding= utf-8</span></div><div class="line"> </div><div class="line"><span class="keyword">import</span> sys</div><div class="line"> </div><div class="line">reload(sys)</div><div class="line">sys.setdefaultencoding(<span class="string">'utf-8'</span>)</div><div class="line"> </div><div class="line">input = raw_input(<span class="string">u"请输入字符串："</span>.encode(<span class="string">'mbcs'</span>))</div><div class="line"><span class="keyword">print</span> <span class="string">u"编码过程："</span></div><div class="line">inputlist = list(input)</div><div class="line"> </div><div class="line">wclist = list(set(inputlist))</div><div class="line">diclen = len(wclist)</div><div class="line">wclist.sort()</div><div class="line">phrases_dict = &#123;&#125;</div><div class="line"> </div><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> xrange(<span class="number">1</span>, diclen+<span class="number">1</span>):</div><div class="line">    phrases_dict[x] = wclist[x<span class="number">-1</span>]</div><div class="line"> </div><div class="line">nextlist = range(<span class="number">1</span>, len(wclist)+<span class="number">1</span>)</div><div class="line">wlist = [<span class="string">'--'</span>] * len(wclist)</div><div class="line">procedurelist = [<span class="string">'--'</span>] * len(wclist)</div><div class="line">poslist = [<span class="string">'--'</span>]*len(wclist)</div><div class="line">mstr = <span class="string">''</span></div><div class="line">nstr = <span class="string">''</span></div><div class="line">k = <span class="number">0</span></div><div class="line"> </div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(inputlist)):</div><div class="line">    nstr = nstr + inputlist[i]</div><div class="line">    <span class="keyword">if</span> nstr <span class="keyword">in</span> wclist:</div><div class="line">        mstr = nstr</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        k = k+<span class="number">1</span></div><div class="line">        wclist.append(nstr)</div><div class="line">        nextlist.append(len(nextlist)+<span class="number">1</span>)</div><div class="line">        a = wclist.index(mstr)</div><div class="line">        wlist.append(a+<span class="number">1</span>)</div><div class="line">        procedurelist.append(k)</div><div class="line">        poslist.append(i-len(nstr)+<span class="number">2</span>)</div><div class="line">        mstr = inputlist[i]</div><div class="line">        nstr = inputlist[i]</div><div class="line"> </div><div class="line">wclist.append(<span class="string">'--'</span>)</div><div class="line">nextlist.append(<span class="string">'--'</span>)</div><div class="line">a = wclist.index(mstr)</div><div class="line">wlist.append(a+<span class="number">1</span>)</div><div class="line">procedurelist.append(k+<span class="number">1</span>)</div><div class="line">poslist.append(<span class="string">'--'</span>)</div><div class="line"> </div><div class="line"><span class="keyword">print</span> <span class="string">u'步 骤  位 置   Next      Wc      输出W'</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">0</span>, len(wclist)):</div><div class="line">    <span class="keyword">print</span> <span class="string">'%s\t %s\t %s\t %s\t %s\t'</span>%(procedurelist[i], poslist[i], nextlist[i], wclist[i], wlist[i])</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li>LZW 还原算法<ul>
-<li>初始化<ul>
-<li>①将所有单个字符（$n$ 个不同字符）的串放入串表 ST 中（共 $n$ 项[码字为$1~n$]，实际操作时不必放入，只需空出串表的前 $n$ 项，字符对应码字所对应的串表索引即可）；</li>
-<li>②设置码长 $codeBits = n+1$；</li>
-<li>③设置串表中当前表项的索引值 $next = 初始码字 = n+1$</li>
-<li>④读首个码字（所对应的单个字符）入老串 $old$，输出该字符；</li>
-</ul>
-</li>
-<li>循环<ul>
-<li>⑤读下一码字 $new$：若 $new$ 为结束码字，结束循环；若 $new$ 为清表码字，清空串表，转到初始化开始处①；</li>
-<li>⑥若 $new \geq next$，则输出串 $newStr = old + old[0]$（例外处理）；若 $new \lt next$，则输出串 $newStr = ST[new]$；</li>
-<li>⑦将 $old + newStr[0]$ 放入串表 ST[next] 中，$next++$；</li>
-<li>⑧若 $next$ 的位数超过码长（$\gt codeBits$），则 $codeBits++$；若加一后 $codeBits \gt 12$，则重新让 $codeBits = 12$；</li>
-<li>⑨$old = newStr$，转到循环开始处⑤。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>  <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_before_decode</span><span class="params">(phrases_dict)</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="string">u'步骤 码字   词 典    输 出'</span></div><div class="line">    keys = sorted(list(phrases_dict.keys()))</div><div class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> keys:</div><div class="line">        <span class="keyword">print</span> <span class="string">'%-4s %-4s %-4s %-5s %-4s'</span> % \</div><div class="line">            (<span class="string">''</span>, <span class="string">''</span>, <span class="string">'('</span> + str(key) + <span class="string">')'</span>, phrases_dict[key], <span class="string">''</span>)</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">decodeLZW</span><span class="params">(codes, phrases_dict)</span>:</span></div><div class="line">    step = <span class="number">1</span></div><div class="line">    next = len(phrases_dict) + <span class="number">1</span></div><div class="line">    old = phrases_dict[codes[<span class="number">0</span>]]</div><div class="line">    <span class="keyword">print</span> <span class="string">'%-4s %-4s %-4s %-5s %-4s'</span> % \</div><div class="line">        (step, <span class="string">'(1)'</span>, <span class="string">'-'</span>, <span class="string">'-'</span>, old)</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(codes)):</div><div class="line">        new = codes[i]</div><div class="line">        <span class="keyword">if</span> new &gt;= next:</div><div class="line">            newStr = old + old[<span class="number">0</span>]</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            newStr = phrases_dict[new]</div><div class="line">        phrases_dict[next] = old + newStr[<span class="number">0</span>]</div><div class="line">        step += <span class="number">1</span></div><div class="line"></div><div class="line">        <span class="keyword">print</span> <span class="string">'%-4s %-4s %-4s %-5s %-4s'</span> % \</div><div class="line">            (step, <span class="string">'('</span> + str(new) + <span class="string">')'</span>, <span class="string">'('</span> + str(next) + <span class="string">')'</span>,</div><div class="line">             phrases_dict[next], newStr)</div><div class="line">        next += <span class="number">1</span></div><div class="line">        old = newStr</div><div class="line"> </div><div class="line"><span class="keyword">print</span> <span class="string">u"解码过程："</span></div><div class="line">codes = wlist[diclen:]</div><div class="line">print_before_decode(phrases_dict)</div><div class="line">decodeLZW(codes, phrases_dict)</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
-<li><a href="https://felixzhang00.github.io/2016/12/24/2016-12-24-jpeg%E7%BC%96%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Felix: jpeg编码学习笔记</a></li>
-<li><a href="http://blog.sina.com.cn/s/blog_61d40cc30100f5e1.html">quennel的博客: JPEG编解码过程详解（一）</a></li>
-<li><a href="http://blog.sina.com.cn/s/blog_61d40cc30100f5e6.html">quennel的博客: JPEG编解码过程详解（二）</a></li>
-<li><a href="http://edwin-wang.com/2006/06/jpeg%E5%8E%8B%E7%BC%A9%E7%BC%96%E7%A0%81%E7%AC%94%E8%AE%B0/">EdwinWang.com: JPEG 压缩编码笔记</a></li>
-<li>《多媒体技术基础：李才伟编著》</li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> 编程珠玑 </category>
-            
-            <category> Algorithm </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> JPEG </tag>
-            
-            <tag> LZW </tag>
             
         </tags>
         

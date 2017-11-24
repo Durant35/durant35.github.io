@@ -2,9 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://durant35.github.io/2017/07/14/tool_CMake_find_package$pkg_check_module/</loc>
+    
+    <lastmod>2017-11-24T08:06:59.579Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/papers/index.html</loc>
+    
+    <lastmod>2017-11-22T09:25:15.597Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://durant35.github.io/papers/tracking/index.html</loc>
+    
+    <lastmod>2017-11-22T09:08:06.921Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://durant35.github.io/2017/10/29/VM1_UserSpaceSegments/</loc>
     
-    <lastmod>2017-11-10T09:54:34.338Z</lastmod>
+    <lastmod>2017-11-14T09:28:21.994Z</lastmod>
     
   </url>
   
@@ -170,13 +191,6 @@
   </url>
   
   <url>
-    <loc>http://durant35.github.io/papers/index.html</loc>
-    
-    <lastmod>2017-08-03T03:48:43.854Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://durant35.github.io/papers/slam2d/index.html</loc>
     
     <lastmod>2017-07-28T02:23:52.547Z</lastmod>
@@ -222,13 +236,6 @@
     <loc>http://durant35.github.io/papers/00_Detection,%20Classification%20and%20Tracking%20of%20Moving%20Objects%20in%20a%203D%20Environment.html</loc>
     
     <lastmod>2017-07-18T01:25:58.711Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://durant35.github.io/2017/07/14/tool_CMake_find_package$pkg_check_module/</loc>
-    
-    <lastmod>2017-07-14T14:27:45.539Z</lastmod>
     
   </url>
   
