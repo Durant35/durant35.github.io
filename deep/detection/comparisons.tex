@@ -1,0 +1,44 @@
+\documentclass{article}
+
+\usepackage{multirow}
+\usepackage{rotating}
+
+\begin{document}
+	
+\pagestyle{empty}
+
+\begin{sidewaystable}
+   	\caption{Performance comparison for 3D object detection, APs (in \%).}
+   	\vskip 10pt
+   	\begin{tabular}{|c|c|c|c||c|c|c||c|c|c||c|c|c||}
+   		\hline
+   		\multirow{2}*{\parbox{2cm}{\centering \textbf{Tag}}} & \multirow{2}*{\parbox{2.588cm}{\centering \textbf{Method}}} & \multirow{2}*{\parbox{2.5cm}{\centering \textbf{Modality}}} & \multirow{2}*{\parbox{0.7cm}{\centering \textbf{FPS}}} & \multicolumn{3}{|c||}{\textbf{Car}} & \multicolumn{3}{|c||}{\textbf{Pedestrian}} & \multicolumn{3}{|c||}{\textbf{Cyclist}} \\
+   		
+   		& & & & \parbox{0.93cm}{\centering \textbf{Easy} } & \parbox{1.5cm}{\centering \textbf{Moderate}} & \parbox{0.93cm}{\centering \textbf{Hard}} & \parbox{0.93cm}{\centering \textbf{Easy} } & \parbox{1.5cm}{\centering \textbf{Moderate}} & \parbox{0.93cm}{\centering \textbf{Hard}} & \parbox{0.93cm}{\centering \textbf{Easy} } & \parbox{1.5cm}{\centering \textbf{Moderate}} & \parbox{0.93cm}{\centering \textbf{Hard}} \\
+   		\hline
+   	\end{tabular}
+   	
+   	\begin{tabular}{|c|c|c|c||c|c|c||c|c|c||c|c|c||}
+   		\hline
+   		\parbox{2cm}{\centering 1611.07759} & \parbox{2.588cm}{\centering MV3D} & \parbox{2.5cm}{\centering LiDAR+Mono}  & \parbox{0.7cm}{\centering 2.8} & \parbox{0.93cm}{\centering 71.09} & \parbox{1.5cm}{\centering 63.35} & \parbox{0.93cm}{\centering 55.12} & \parbox{0.93cm}{\centering ---} & \parbox{1.5cm}{\centering ---} & \parbox{0.93cm}{\centering ---} & \parbox{0.93cm}{\centering ---} & \parbox{1.5cm}{\centering ---} & \parbox{0.93cm}{\centering ---} \\
+   		\hline
+   		1711.06396 & VoxelNet & LiDAR  & 4.3 & 77.47 & 65.11 & 57.73 & 39.48 & 33.69 & 31.51 & 61.22 & 48.36 & 44.37 \\
+   		\hline
+   		1711.08488 & F-PointNet & LiDAR+Mono  & 5.9 & 81.20 & 70.39 & 62.19 & \textbf{51.21} & \textbf{44.89} & \textbf{40.23} & \textbf{71.96} & 56.77 & 50.39 \\
+   		\hline
+   		1712.02294 & AVOD & LiDAR+Mono  & 12.5 & 73.59 & 65.78 & 58.38 & 38.28 & 31.51 & 26.98 & 60.11 & 44.90 & 38.80 \\
+   		\hline
+   		1712.02294 & AVOD-FPN & LiDAR+Mono  & 10.0 & \textbf{81.94} & \textbf{71.88} & \textbf{66.38} & 71.09 & 63.35 & 55.12 & 71.09 & 63.35 & 55.12 \\
+   		\hline
+   	\end{tabular}
+   	\begin{tabular}{|c|c|c|c||c|c|c||c|c|c||c|c|c||}
+   		\hline
+   		\parbox{2cm}{\centering 1803.06199} & \parbox{2.588cm}{\centering Complex-YOLO} & \parbox{2.5cm}{\centering LiDAR}  & \parbox{0.7cm}{\centering \textbf{50.4}} & \parbox{0.93cm}{\centering 67.72} & \parbox{1.5cm}{\centering 64.00} & \parbox{0.93cm}{\centering 63.01} & \parbox{0.93cm}{\centering 41.79} & \parbox{1.5cm}{\centering 39.70} & \parbox{0.93cm}{\centering 35.92} & \parbox{0.93cm}{\centering 68.17} & \parbox{1.5cm}{\centering \textbf{58.32}} & \parbox{0.93cm}{\centering \textbf{54.30}} \\
+   		\hline
+   	\end{tabular}
+\end{sidewaystable}
+
+\bibliography{comparisons}
+\bibliographystyle{ieeetr}
+
+\end{document}
