@@ -271,6 +271,84 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-OverlappingSounds_写于幸运保研后" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/12/OverlappingSounds_写于幸运保研后/" class="article-date">
+      <time datetime="2016-06-11T23:25:06.000Z" itemprop="datePublished">2016-06-12</time>
+</a>
+
+
+
+ 
+    <a href="/2016/06/12/OverlappingSounds_写于幸运保研后/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/06/12/OverlappingSounds_写于幸运保研后/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　此刻，我的内心居然出奇的平静。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Codes源于生活/">Codes源于生活</a><a class="article-category-link" href="/categories/Codes源于生活/Overlapping-Sounds/">Overlapping-Sounds</a>
+    </div>
+
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2016/06/12/OverlappingSounds_写于幸运保研后/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-programPearls_i=i++" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -993,99 +1071,6 @@
       
         <p class="article-more-link">
           <a href="/2017/07/07/programPearls_declaration$definition$initialization$assignment/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_GraphProblems" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/06/26/Algorithms_GraphProblems/" class="article-date">
-      <time datetime="2017-06-26T12:26:22.000Z" itemprop="datePublished">2017-06-26</time>
-</a>
-
-
-
- 
-    <a href="/2017/06/26/Algorithms_GraphProblems/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/06/26/Algorithms_GraphProblems/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/26/Algorithms_GraphProblems/">算法设计与分析[0020] 几个有关图的问题</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h4 id="有向图-vs-无向图"><a href="#有向图-vs-无向图" class="headerlink" title="有向图 vs 无向图"></a>有向图 vs 无向图</h4><ul>
-<li>有向图强调<strong>出入度</strong>的概念；无向图，其<strong>邻接矩阵</strong> 是一个对称矩阵。</li>
-<li>无向图边的两端是对称的，无向图讲究<strong>连通</strong>这个概念，没有<strong>方向</strong>，没有<strong>拓扑</strong>。</li>
-</ul>
-<h4 id="判断图是否连通？（一个图有几个连通分量）"><a href="#判断图是否连通？（一个图有几个连通分量）" class="headerlink" title="判断图是否连通？（一个图有几个连通分量）"></a>判断图是否连通？（一个图有几个连通分量）</h4><ul>
-<li>从一个指定的点开始，通过不同的策略去遍历这个图，有深度遍历和广度遍历。</li>
-<li>每次经过一个节点的时候，首先判断一下这个节点是否已经访问过了，如果没有访问过，则这个节点可以作为下一次继续遍历的候选。</li>
-<li>如果这个图是连通的话，这种方法最终会覆盖到整个图。所以可以采用一种计数统计的方式来实现。<ul>
-<li>比如说每次访问一个以前没有遍历的节点，则将对应的计数加一。这样当最后遍历结束后，如果统计的节点和图本身的节点一样的话，表示这个图是连通的，否则表示不连通。</li>
-</ul>
-</li>
-<li>这种方法用来判断整个图是否为连通的时候，实际上只要给定一个点，然后按照给定的步骤可以把该点所连接的所有点都涵盖到。如果有其它分隔的部分则不会再处理了，所以，通过这种办法我们在图不是连通的情况下，它只需要涵盖图的一部分就执行结束了。最坏的情况时间复杂度也就是$O(V+E)$。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/06/26/Algorithms_GraphProblems/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
