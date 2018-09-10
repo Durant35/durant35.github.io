@@ -271,6 +271,88 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Algorithms_LeastSquaresLineFitting" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/21/Algorithms_LeastSquaresLineFitting/" class="article-date">
+      <time datetime="2017-07-21T12:02:22.000Z" itemprop="datePublished">2017-07-21</time>
+</a>
+
+
+
+ 
+    <a href="/2017/07/21/Algorithms_LeastSquaresLineFitting/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/21/Algorithms_LeastSquaresLineFitting/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/21/Algorithms_LeastSquaresLineFitting/">[0025] Least Squares Line Fitting（最小二乘法直线拟合）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　<strong>最小二乘拟合</strong> 是一种数学上的近似和优化，利用已知的数据得出一条直线或者曲线，使之在坐标系上与已知数据之间的距离的平方和最小。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/07/21/Algorithms_LeastSquaresLineFitting/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-OverlappingSounds_写于幸运保研后" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -984,93 +1066,6 @@
       
         <p class="article-more-link">
           <a href="/2017/07/06/programPearls_inline$static$const$extern$volatile/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_declaration$definition$initialization$assignment" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/07/programPearls_declaration$definition$initialization$assignment/" class="article-date">
-      <time datetime="2017-07-07T06:02:16.000Z" itemprop="datePublished">2017-07-07</time>
-</a>
-
-
-
- 
-    <a href="/2017/07/07/programPearls_declaration$definition$initialization$assignment/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/07/programPearls_declaration$definition$initialization$assignment/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/07/programPearls_declaration$definition$initialization$assignment/">声明/定义/初始化/赋值</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义（定义性声明）</span></span><br><span class="line"><span class="keyword">int</span> i;</span><br><span class="line"><span class="comment">// 声明（引用性声明）</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> j;</span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line"><span class="keyword">int</span> k = <span class="number">7</span>;</span><br><span class="line"><span class="comment">// 默认初始化</span></span><br><span class="line"><span class="keyword">int</span> l;</span><br><span class="line"><span class="comment">// 赋值</span></span><br><span class="line">l = <span class="number">100</span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>引用性<font color="red">声明</font>不分配存储空间，如：<code>extern int x;</code>只是告诉编译器变量<code>x</code>是整型，已经在其它地方定义了。</li>
-<li><font color="red">定义</font>是在内存中确定变量的位置、大小。</li>
-<li><font color="red">初始化</font>是定义变量的时候赋给变量的值，强调从无到有这一过程。</li>
-<li><font color="red">赋值</font>是初始化后用到该变量，赋给该变量新的值。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/C-C/">C/C++</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/">C/C++</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/07/07/programPearls_declaration$definition$initialization$assignment/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
