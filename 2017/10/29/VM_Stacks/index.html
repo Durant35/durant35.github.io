@@ -20,7 +20,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="虚拟内存[02] Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈">
 <meta property="og:url" content="http://durant35.github.io/2017/10/29/VM_Stacks/index.html">
-<meta property="og:site_name" content="Tarantula-7&#39;s Blog">
+<meta property="og:site_name" content="Gary&#39;s Blog">
 <meta property="og:description" content="Linux 中有几种栈？各种栈的内存位置？ 关于栈 函数调用栈的典型内存布局">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://durant35.github.io/img/kernel/mm/Stack_StackFrame.png">
@@ -36,7 +36,7 @@
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
 
-    <link rel="alternate" href="/atom.xml" title="Tarantula-7&#39;s Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Gary&#39;s Blog" type="application/atom+xml">
 
 
 
@@ -63,7 +63,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>虚拟内存[02] Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈 | Tarantula-7&#39;s Blog</title>
+<title>虚拟内存[02] Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈 | Gary&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -468,8 +468,8 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/11/06/VM_VirtualAddr2PhysicalAddr/">
-                    虚拟内存[0?] 虚拟内存地址 $\Longrightarrow$ 物理内存地址
+                <a href="/2017/11/06/VM_MemoryManage/">
+                    虚拟内存[0?] 内存管理
                 </a>
             </div>
         
@@ -528,7 +528,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"虚拟内存[02] Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"虚拟内存[02] Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈　| Gary's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -570,7 +570,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/11/06/VM_VirtualAddr2PhysicalAddr/" title="上一篇: 虚拟内存[0?] 虚拟内存地址 $\Longrightarrow$ 物理内存地址">
+            <a href="/2017/11/06/VM_MemoryManage/" title="上一篇: 虚拟内存[0?] 内存管理">
                 <i class="fa fa-angle-left"></i>
             </a>
         

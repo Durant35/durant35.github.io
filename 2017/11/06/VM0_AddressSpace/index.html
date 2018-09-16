@@ -20,7 +20,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="虚拟内存[00] 虚拟内存地址空间">
 <meta property="og:url" content="http://durant35.github.io/2017/11/06/VM0_AddressSpace/index.html">
-<meta property="og:site_name" content="Tarantula-7&#39;s Blog">
+<meta property="og:site_name" content="Gary&#39;s Blog">
 <meta property="og:description" content="我们知道，进程是操作系统进行资源分配的最小单位，而内存是进程运行必不可少的资源。现代操作系统为每个进程分配独享的内存空间，这个独享的内存空间只是虚拟内存空间，每次访问内存空间的某个地址 (虚拟地址)，都需要把地址翻译成实际物理内存地址。进程要知道哪些虚拟地址上的数据在物理内存上，哪些不在？还有在物理内存上的哪里，需要用页表来记录；正因为每个进程都有一个自己的页表，使得相同的虚拟地址映射到不同的物">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://durant35.github.io/img/kernel/mm/VAspace_overview.png">
@@ -37,7 +37,7 @@
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
 
-    <link rel="alternate" href="/atom.xml" title="Tarantula-7&#39;s Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Gary&#39;s Blog" type="application/atom+xml">
 
 
 
@@ -64,7 +64,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>虚拟内存[00] 虚拟内存地址空间 | Tarantula-7&#39;s Blog</title>
+<title>虚拟内存[00] 虚拟内存地址空间 | Gary&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -461,15 +461,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/11/06/VM_Changes4LifeCycle/">
-                    虚拟内存[02] 不同阶段下的内存变化
+                <a href="/2017/11/30/TACouses_ES2017_MCU_GPIO/">
+                    GPIO 的几种输入输出模式
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/11/06/VM_VirtualAddr2PhysicalAddr/">
-                    虚拟内存[0?] 虚拟内存地址 $\Longrightarrow$ 物理内存地址
+                <a href="/2017/11/06/VM_Changes4LifeCycle/">
+                    虚拟内存[02] 不同阶段下的内存变化
                 </a>
             </div>
         
@@ -521,7 +521,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"虚拟内存[00] 虚拟内存地址空间　| Tarantula-7's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"虚拟内存[00] 虚拟内存地址空间　| Gary's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -563,7 +563,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/11/06/VM_Changes4LifeCycle/" title="上一篇: 虚拟内存[02] 不同阶段下的内存变化">
+            <a href="/2017/11/30/TACouses_ES2017_MCU_GPIO/" title="上一篇: GPIO 的几种输入输出模式">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -571,7 +571,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/11/06/VM_VirtualAddr2PhysicalAddr/" title="下一篇: 虚拟内存[0?] 虚拟内存地址 $\Longrightarrow$ 物理内存地址">
+            <a href="/2017/11/06/VM_Changes4LifeCycle/" title="下一篇: 虚拟内存[02] 不同阶段下的内存变化">
                 <i class="fa fa-angle-right"></i>
             </a>
         
