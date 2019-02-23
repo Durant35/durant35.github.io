@@ -271,6 +271,88 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-programPearls_opengl_数媒HW4参考资料" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/" class="article-date">
+      <time datetime="2015-06-16T06:31:19.000Z" itemprop="datePublished">2015-06-16</time>
+</a>
+
+
+
+ 
+    <a href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/06/16/programPearls_opengl_数媒HW4参考资料/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/">数媒HW4参考资料</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>(同学说整理，顺道POST出来咯….)<br>整体思路:<br>首先通过HW3我们已经能够完成3D Pipeline，但是我们最后的模型绘制只是将每个面的顶点依次用线段连接起来，这一次我们需要对每个面进行绘制，其实就是对每个面进行颜色填充。那么问题来了，怎么填充？填充什么颜色？<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CG/">CG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenGL/">OpenGL</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-programPearls_cv_Digital-Image-Process(pg_2016)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -998,89 +1080,6 @@
       
         <p class="article-more-link">
           <a href="/2016/09/08/linux_瞎谈Socket编程_3/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-linux_瞎谈Socket编程_2" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/16/linux_瞎谈Socket编程_2/" class="article-date">
-      <time datetime="2016-07-16T09:28:00.000Z" itemprop="datePublished">2016-07-16</time>
-</a>
-
-
-
- 
-    <a href="/2016/07/16/linux_瞎谈Socket编程_2/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/07/16/linux_瞎谈Socket编程_2/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="数据传输方式"><a href="#数据传输方式" class="headerlink" title="数据传输方式"></a><font color="#F40D64">数据传输方式</font></h2><p>　　<strong>SOCK_STREAM</strong>　　　　面向连接　　　　　　　　准确性/相对较慢　　　<font color="red">TCP</font><br>　　<strong>SOCK_DGRAM</strong>　　　　 无连接的传输方式    　　　　视频/音频    　　　　　　<font color="red">UDP</font><br><strong>Server</strong><br>　1. 创建套接字　　　　　　　　　　　　　　　　　<font color="green">int sock = socket(AF_INET, SOCK_STREAM, 0);</font><br>　2. 将套接字和IP、端口绑定　　　　　　　　　　　<font color="green">bind(sock, (struct sockaddr*)&amp;serv_addr, sizeof(serv_addr));</font><br>　3. 进入监听状态，等待客户端请求　　　　　　　　<font color="green">listen(…);</font><br>    　　　　　　　　　　　　　　　　　　　　　　　　<font color="green">accept(…);</font><br>　4. 接受客户端数据/向客户端发送数据　　　　　　　<font color="green">read(…)/write(…);</font>　　　　　　　　　　　　　　<br>　5. 关闭套接字　　　　　　　　　　　　　　　　　<font color="green">close();</font></p>
-<p><strong>Client</strong><br>　1. 创建套接字<br>　2. 向服务器(特定的IP和端口)发送请求　　　　　　　<font color="green">connect(…);</font><br>　3. 读取服务器传回的数据/向服务器发送数据　　　　<font color="green">read/write(sock, char*, sizeof(…));</font><br>　4. 关闭套接字<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/网络编程/">网络编程</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/07/16/linux_瞎谈Socket编程_2/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

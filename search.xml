@@ -137,9 +137,9 @@
             
             <category> TA Cources </category>
             
-            <category> EmbeddedSystem </category>
-            
             <category> 软硬兼施 </category>
+            
+            <category> EmbeddedSystem </category>
             
             <category> STM32 </category>
             
@@ -151,6 +151,39 @@
         <tags>
             
             <tag> MCU </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[虚拟内存[02] 不同阶段下的内存变化]]></title>
+      <url>/2017/11/06/VM_Changes4LifeCycle/</url>
+      <content type="html"><![CDATA[<h3 id="系统启动与内存"><a href="#系统启动与内存" class="headerlink" title="系统启动与内存"></a>系统启动与内存</h3><a id="more"></a>
+<h3 id="进程与内存"><a href="#进程与内存" class="headerlink" title="进程与内存"></a>进程与内存</h3><h4 id="进程创建与内存"><a href="#进程创建与内存" class="headerlink" title="进程创建与内存"></a>进程创建与内存</h4><ul>
+<li>存储器映射：虚拟内存 $\Longrightarrow$ 磁盘文件</li>
+</ul>
+<h4 id="进程启动与内存"><a href="#进程启动与内存" class="headerlink" title="进程启动与内存"></a>进程启动与内存</h4><h4 id="进程切换与内存"><a href="#进程切换与内存" class="headerlink" title="进程切换与内存"></a>进程切换与内存</h4><blockquote>
+<p><a href="http://blog.csdn.net/freeelinux/article/details/53782986">Linux虚拟地址空间布局以及进程栈和线程栈总结</a></p>
+</blockquote>
+<ul>
+<li>虚拟地址通过<strong>页表 (Page Table)</strong>映射到物理内存，页表由操作系统维护并被处理器引用。内核空间在页表中拥有较高特权级，因此用户态程序试图访问这些页时会导致一个<strong>页错误 (Page Fault)</strong>。在Linux中，内核空间是持续存在的，并且在所有进程中都映射到同样的物理内存。<font color="blue">内核代码和数据总是可寻址，随时准备处理中断和系统调用</font>；与此相反，用户模式地址空间的映射随进程切换的发生而不断变化。</li>
+</ul>
+<p>### </p>
+]]></content>
+      
+        <categories>
+            
+            <category> 软硬兼施 </category>
+            
+            <category> Kernel </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> VM </tag>
             
         </tags>
         
@@ -311,39 +344,6 @@
 </ul>
 <p><hr/><br>　<font color="red">本文我们详细介绍了 32 位/64 位模式下系统虚拟内存地址空间的布局情况，包括经典布局以及改进了经典布局，现代操作系统默认的新布局。后面，我们将对虚拟内存地址空间中的内核空间、用户空间中的各个地址段进行详细描述，以求更深入的了解。</font></p>
 <h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><p><strong>·</strong><a href="http://blog.csdn.net/yangkuanqaz85988/article/details/52403726">《Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈》</a><br><strong>·</strong><a href="http://blog.csdn.net/freeelinux/article/details/53782986">《Linux虚拟地址空间布局以及进程栈和线程栈总结》</a></p>
-]]></content>
-      
-        <categories>
-            
-            <category> 软硬兼施 </category>
-            
-            <category> Kernel </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> VM </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[虚拟内存[02] 不同阶段下的内存变化]]></title>
-      <url>/2017/11/06/VM_Changes4LifeCycle/</url>
-      <content type="html"><![CDATA[<h3 id="系统启动与内存"><a href="#系统启动与内存" class="headerlink" title="系统启动与内存"></a>系统启动与内存</h3><a id="more"></a>
-<h3 id="进程与内存"><a href="#进程与内存" class="headerlink" title="进程与内存"></a>进程与内存</h3><h4 id="进程创建与内存"><a href="#进程创建与内存" class="headerlink" title="进程创建与内存"></a>进程创建与内存</h4><ul>
-<li>存储器映射：虚拟内存 $\Longrightarrow$ 磁盘文件</li>
-</ul>
-<h4 id="进程启动与内存"><a href="#进程启动与内存" class="headerlink" title="进程启动与内存"></a>进程启动与内存</h4><h4 id="进程切换与内存"><a href="#进程切换与内存" class="headerlink" title="进程切换与内存"></a>进程切换与内存</h4><blockquote>
-<p><a href="http://blog.csdn.net/freeelinux/article/details/53782986">Linux虚拟地址空间布局以及进程栈和线程栈总结</a></p>
-</blockquote>
-<ul>
-<li>虚拟地址通过<strong>页表 (Page Table)</strong>映射到物理内存，页表由操作系统维护并被处理器引用。内核空间在页表中拥有较高特权级，因此用户态程序试图访问这些页时会导致一个<strong>页错误 (Page Fault)</strong>。在Linux中，内核空间是持续存在的，并且在所有进程中都映射到同样的物理内存。<font color="blue">内核代码和数据总是可寻址，随时准备处理中断和系统调用</font>；与此相反，用户模式地址空间的映射随进程切换的发生而不断变化。</li>
-</ul>
-<p>### </p>
 ]]></content>
       
         <categories>
@@ -683,6 +683,185 @@
     </entry>
     
     <entry>
+      <title><![CDATA[嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling]]></title>
+      <url>/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/</url>
+      <content type="html"><![CDATA[<p>　Real-time systems are collections of tasks where in addition to any <strong>ordering constraints</strong> imposed by precedences between the tasks, there are also <strong>timing constraints</strong>, requiring a scheduling strategy. Classical <font color="blue">real-time scheduling</font>（实时调度） for <strong>Periodic Tasks</strong> contains <strong>Periodic Rate Monotonic (RM)</strong> as well as <strong>Earliest Deadline First (EDF)</strong>. What’s more, tasks <em>share resources</em> and use <em>mutual exclusion</em> to guard access to those resources, resulting in <strong>Scheduling Anomalies</strong>（调度异常）.<br>　本文将讲述 <strong>Resources Sharing</strong> 给 <font color="blue">real-time scheduling</font> 带来的 <strong>Priority Inversion</strong>（优先级反转）异常，并将重点介绍对应的解决办法：Priority Inheritance Protocol (<strong>PIP</strong>)、Priority Ceiling Protocol (<strong>PCP</strong>)、Stack Resource Policy (<strong>SRP</strong>)。<a id="more"></a></p>
+<h3 id="Priority-Inversion"><a href="#Priority-Inversion" class="headerlink" title="Priority Inversion"></a>Priority Inversion</h3><ul>
+<li><strong>Resource Sharing</strong> &amp; Task Blocked<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_CriticalSection.png" width="400px" alt=""/></center><ul>
+<li>Threads (or Processes): $J_1$, $J_2$.</li>
+<li>Common resources $R_k$ likes: data structures, variables, main memory area, file, set of registers, I/O unit, …</li>
+<li>Many shared resources do not allow simultaneous accesses but require <strong>mutual exclusion</strong> (exclusive resources). A piece of code executed under mutual exclusion ($P(S_k) \leftrightarrow V(S_k)$) constraints is called a <strong>critical section</strong>.</li>
+<li>Each <strong>exclusive resource</strong> $R_k$ must be protected by a different semaphore $S_k$ and each critical section operating on a resource must begin with a <em>wait($S_k$)</em> primitive and end with a <em>signal($S_k$)</em> primitive（原子操作）.</li>
+<li>Tasks waiting for an exclusive resource is said to be <strong>blocked</strong> on that resource. Otherwise, it proceeds by entering the <strong>critical section</strong> and <strong>holds</strong> the resource. When a task <strong>leaves</strong> a critical section, the associated resource becomes free.<ul>
+<li>All tasks blocked on the same resource are kept in a queue associated with the semaphore. </li>
+<li>When a running task executes a <em>wait</em> on a <strong>locked</strong> semaphore, it enters a waiting state, until another tasks executes a <em>signal</em> primitive that <strong>unlocks</strong> the semaphore.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Priority Inversion</strong><br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_Example.png" width="480px" alt=""/></center><ul>
+<li>priority of $T_1$ &gt; priority of $T_2$ &gt; priority of $T_3$</li>
+<li>$T_3$ requests exclusive access first (at $t_0$), $T_1$ has to wait until $T_3$ releases the resource (at $t_2$)</li>
+<li>$T_2$ preempts $T_3$ (at $t_1$): $T_2$ can prevent $T_3$ from releasing the resource.</li>
+<li>If $T_1$ is blocked only by $T_3$, <strong>blocking is bounded</strong> by the length of the critical section, but blocked by &gt;2 tasks ($T_3$, $T_2$, …), <strong>blocking can exceed the length of any critical section</strong>.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>　Priority Inversion is a <strong>scheduling anomaly</strong> where a low priority task was holding a lock and blocking a high-priority task, while medium priority tasks,  unrelated lower-priority tasks, are executing. </p>
+</blockquote>
+<ul>
+<li>Solving Priority Inversion: <strong>Resource Access Protocols</strong><ul>
+<li>Basic idea: Modify the priority of those tasks that cause blocking. <ul>
+<li>When a task $T_i$ blocks one or more higher priority tasks, it temporarily assumes a higher priority.</li>
+</ul>
+</li>
+<li>Methods<ul>
+<li><font color="green">Priority Inheritance Protocol (PIP)</font>, for <strong>static priorities</strong></li>
+<li><font color="green">Priority Ceiling Protocol (PCP)</font>, for <strong>static priorities</strong></li>
+<li><font color="green">Stack Resource Policy (SRP)</font>, for <strong>static and dynamic priorities</strong><blockquote>
+<p>　<em>static priorities</em>（静态优先级）: 静态优先级是在创建进程时确定的，且在进程的整个运行期间保持不变，内核不会主动修改它。<br>　<em>dynamic priorities</em>（动态优先级）: 在创建进程时所赋予的优先级，是可以随进程的推进或随其等待时间的增加而改变的，调度程序增大或减少进程静态优先级来奖励 IO 消耗型进程或惩罚 CPU 消耗进程以便获得更好的调度性能；调整后的优先级为动态优先级。<br>　<em>real-time priorities</em>（实时优先级）: 实时优先级只对实时进程有效。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Priority-Inheritance-Protocol-PIP"><a href="#Priority-Inheritance-Protocol-PIP" class="headerlink" title="Priority Inheritance Protocol (PIP)"></a>Priority Inheritance Protocol (PIP)</h3><ul>
+<li>Avoid Priority Inversion in previous example uisng PIP<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIP.png" width="640px" alt=""/> </center><ul>
+<li><strong>Direct Blocking</strong>: higher-priority task $T_1$ tries to acquire a resource held by a lower priority task $T_3$.</li>
+<li><strong>Push-through Blocking</strong>: medium-priority task $T_2$ is blocked by a lower-priority task $T_3$ that has inherited a higher priority from a task ($T_1$) it directly blocks.</li>
+<li>Tasks have <strong>nominal</strong>（挂名优先级） and <strong>active</strong>（活跃优先级） priorities<ul>
+<li><font color="green">Nominal priority</font>: assigned by the scheduling algorithm, e.g. $T_1$’s priority.<blockquote>
+<p><em>static priorities</em> or <em>dynamic priorities</em> 取决于 <em>nominal priorities</em> 的情况</p>
+</blockquote>
+</li>
+<li><font color="green">Active priority</font>: assigned by the priority inheritance protocol dynamically to avoid priority inversion, e.g. $T_3$’s priority inherited from $T_1$.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>PIP Algorithm<ul>
+<li>Tasks are scheduled according to their <strong>active priorities</strong>. Tasks with the same priorities are scheduled <strong>FCFS</strong>.</li>
+<li>Task $T_i$’s nominal priority <strong>$P_i$</strong>, task $T_k$’s nominal priority <strong>$P_k$</strong>.</li>
+<li>When a task $T_i$ tries to enter a critical section and the resource is blocked by a lower priority task $T_k$, the task $T_i$ is blocked. Otherwise it enters the critical section.<ul>
+<li>When a task $T_i$ is blocked, it transmits its active priority to the task $T_k$ that holds the semaphore. </li>
+</ul>
+</li>
+<li>$T_k$ resumes and executes the rest of its critical section with a priority $p_k=max(p_i)$, it inherits the priority of the highest priority of the tasks blocked by it.</li>
+<li>When $T_k$ exits a critical section, it unlocks the semaphore and the highest priority task blocked on that semaphore is awakened. <ul>
+<li>If no other tasks are blocked by $T_k$, then $p_k$ is set to its nominal priority <strong>$P_k$</strong>.</li>
+<li>Otherwise it is set to the highest priority of the left tasks blocked by $T_k$.</li>
+</ul>
+</li>
+<li>Thus, medium priority tasks which do no share resources with $T_k$ cannot preempt $T_k$ and cannot <strong>prolong the blocking</strong>（延长阻塞） of the higher priority tasks</li>
+</ul>
+</li>
+<li><strong>Nested Critical Sections</strong>（一个临界区内嵌套了另一个临界区）<center><img src="/img/TA-Cources/ES2017/PriorityInversion_NestedCritical.png" width="500px" alt=""/><br/>PIP for Nested Critical Sections, $S_b$ nested in $S_a$.</center></li>
+<li><strong>Transitiveness</strong> of Priority Inheritance<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPTransitiveness.png" width="540px" alt=""/><br/>If $T_1$ is blocked by $T_2$ and $T_2$ is blocked by $T_3$, then $T_3$ inherits the priority of $T_1$ via $T_2$</center></li>
+<li>Pros and Cons<ul>
+<li>Advantages<ul>
+<li>Under the priority inheritance protocol, a job $J$ can be blocked for at most the duration of $min(n, m)$ critical sections, where $n$ is the number of lower-priority jobs that could block $J$ and $m$ is the number of distinct semaphores that can be used to block $J$.</li>
+</ul>
+</li>
+<li>Disadvantages<ul>
+<li>Deadlock is Possible<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPDeadlock.png" width="540px" alt=""/> </center></li>
+<li>Chained Blocking: $J$ can get blocked on $n$ critical sections held by $n$ distinct lower priority jobs.<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPChainedBlocking.png" width="480px" alt=""/><br/>$J_1$ is blocked for the duration of two critical sections, once to wait $J_3$ to release $S_a$ and then to wait $J_2$ to release $S_b$.</center>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Priority-Ceiling-Protocol-PCP"><a href="#Priority-Ceiling-Protocol-PCP" class="headerlink" title="Priority Ceiling Protocol (PCP)"></a>Priority Ceiling Protocol (PCP)</h3><ul>
+<li>PIP $\rightarrow$ PCP: extension of Priority Inheritance Protocol to handle chained blocking and deadlocks<ul>
+<li>avoids multiple blocking</li>
+<li>guarantees that, once a task has entered a critical section, it cannot be blocked by lower priority tasks until its completion</li>
+</ul>
+</li>
+<li>PCP Algorithm<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_PCP.png" width="540px" alt=""/><br/>Task $T_1$, $T_2$, $T_3$ and their corresponding priorities $P_1$ &gt; $P_2$ &gt;$P_3$</center><ul>
+<li>Each semaphore $S_k$ is assigned a priority ceiling $C(S_k)$. It is the priority of the highest priority task that can lock $S_k$. This is a static value.<blockquote>
+<p>$C(S_0) = P_1$　　$C(S_1) = P_1$　　$C(S_2) = P_2$</p>
+</blockquote>
+</li>
+<li>Suppose $T_i$ is currently running and it wants to lock the semaphore $S_k$.<ul>
+<li>$T_i$ is allowed to lock $S_k$ only if the priority of $T_i$ is strictly higher than the priority ceiling $C(S_k)$ of the semaphore $S_k$ where: $S_k$ is the semaphore with the highest priority ceiling among all the semaphores which are currently locked by tasks other than $T_i$<blockquote>
+<p>　检测到自身优先级比所有被占有的资源的 ceiling 值都高的时候才可以获取到请求的资源；而且，当存在资源被其它任务占有的时候，才需要进行检测操作</p>
+</blockquote>
+</li>
+<li>Otherwise, $T_i$ is said to be blocked by the semaphore $S_k$ (and the tasks currently holding $S_k$). When $T_i$ gets blocked by $S_k$ then the priority of $T_i$ is transmitted to the tasks $T$ that currently holds $S_k$.<blockquote>
+<p><font color="green">At time t2</font>: $T_2$ can not lock $S_2$. Currently $T_3$ is holding $S_2$ and $C(S_2) = P_2$ and the current priority of $T_2$ is also $P_2$.<br><font color="green">At time t5</font>: $T_1$ can not lock $S_0$. Currently $T_3$ is holding $S_2$ and $S_1$ and $C(S_1) = T_1$ and the current priority of $T_1$ is also $P_1$. The (inherited) priority of $T_3$ is now $P_1$.</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>When $T_i$ leaves a critical section guarded by $S_k$  then it unlocks $S_k$ and the highest priority task, if any, which is blocked by $S_k$ is awakened. The priority of $T_i$ is set to the highest priority of the task that is blocked by other semaphores that $T_i$ is still holding. If none, the priority of $T_i$ is set to be its <strong>nominal one</strong>.<blockquote>
+<p><font color="green">At time t6</font>: $T_3$ unlocks $S_1$. It awakens $T_1$. But $T_3$’s (inherited) priority is now only $P_2$ while $P_1 &gt; C(S_2) = P_2$. So $T_1$ preempts $T_3$ and runs to completion.<br><font color="green">At time t7</font>: $T_3$ resumes execution with priority $P_2$.<br><font color="green">At time t8</font>: $T_3$ unlocks $S_2$ and goes back to its <strong>nominal priority</strong> $P_3$. So $T_2$ preempts $T_1$ and runs to completion.</p>
+</blockquote>
+</li>
+<li>Results<br>　<strong>+</strong> A task is not allowed to enter a critical section if there are already locked semaphores which could block it eventually.<br>　<strong>+</strong> Hence, once a task enters a critical section, it can not be blocked by lower priority tasks（不会被较当前任务低优先级的任务阻塞）till its completion.</li>
+</ul>
+</li>
+<li>PCP: Properties<br>  　<strong>+</strong> A given task $T$ is delayed at most once by a lower priority task. The delay is a function of the time taken to execute the critical section<br>  　<strong>+</strong> Deadlock free (only changing priorities)<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PCPDeadlockfree.png" width="540px" alt=""/><br/>Deadlock free using PCP with $ceil(S_1)=P_1$, $ceil(S_2)=P_1$</center>
+
+</li>
+</ul>
+<h3 id="Stack-Resource-Policy-SRP"><a href="#Stack-Resource-Policy-SRP" class="headerlink" title="Stack Resource Policy (SRP)"></a>Stack Resource Policy (SRP)</h3><ul>
+<li>PCP Extending: Stack Resource Policy (SRP)<ul>
+<li>SRP supports dynamic priority scheduling</li>
+<li>PCP blocks a task at the time it makes the resource request, while SRP blocks task at the time it attempts to preempt. </li>
+</ul>
+</li>
+<li>SRP Algorithm<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_SRP.png" width="540px" alt=""/></center><ul>
+<li><font color="blue">Preemption Level</font>:  $\pi _ i \propto \frac{1}{D_i}$, tasks $T_i$ with larger deadlines $D_i$ have lower preemption level (Intuition: they can be easily preempted), is a <strong>static</strong> value.</li>
+<li><font color="blue">Resource ceiling</font>: of a resource is the <em>highest preemption level from amongst of all tasks that may access that resource</em>. Note: (i) this is associated with each resource (ii) this is <strong>static</strong>.<blockquote>
+<p><em>Resource ceiling</em> for the <strong><font color="red">red</font></strong> resource is 3. For the <strong><font color="red">yellow</font></strong> resource, it is 2.</p>
+</blockquote>
+</li>
+<li><font color="blue">System ceiling</font>: is the <em>highest resource ceiling level from amongst of resources that are currently blocked</em> (当前阻塞任务的所有资源的 <em>Resource ceiling</em> 的最大值). Note: (i) this is not associated with each resource but with the system (ii) this is a <strong>dynamic</strong> parameter that can change every time a resource is accessed or released.<blockquote>
+<p>Based on this, we can see how the <em>system ceiling</em> $\prod _s$ varies dynamically.</p>
+</blockquote>
+</li>
+<li><font color="red">*</font>A task can preempt another task if<ul>
+<li>it has the <strong>highest priority</strong>;</li>
+<li>and its preemption level is higher than the system ceiling. <strong>$\pi _ i &gt; \prod _s$</strong><blockquote>
+<p>Task $T_3$ is not preempted by $T_2$ even though it does not share the <font color="red">red</font> resource ($\pi _2 &lt; \prod _s$).</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SRP reduces preemptions compared to PCP.<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_SRPvsPCP.png" width="540px" alt=""/></center><ul>
+<li><strong>优先级&lt;SystemCeiling</strong> 的进程最终会被阻塞，或因为请求访问临界区，或因为被高优先级抢占，考虑到这一点，<em>SRP</em> 相比于 <em>PCP</em> 能够明显减少 <strong>Context Switch</strong>.<blockquote>
+<p>　<strong>A task cannot be blocked by tasks with lower premption levels</strong> (these tasks can resume only when the task completes). Hence, if there are tasks on the same preemption level, they can never occupy stack space on the same time. Higher the number of tasks on the same preemption level, larger the <strong>stack space</strong> saving!</p>
+</blockquote>
+</li>
+<li>When a task needs a resource that is not available, it <font color="green">is blocked at the time it attempts to preempt</font>, rather than later.</li>
+<li>To prevent multiple priority inversions, a task is not allowed to start until <font color="green">the resource currently available are sufficient to meet the maximum requirement of every task that could preempt it</font>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li>Slides from <em>Introduction to embedded systems, Kai Huang</em>, School of Data and Computer Science, Sun Yat-sen University, China. All rights reserved.</li>
+<li>E. A. Lee and S. A. Seshia, <em>Introduction to Embedded Systems - A Cyber-Physical Systems Approach</em>, LeeSeshia.org, 2011.</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> TA Cources </category>
+            
+            <category> EmbeddedSystem </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[嵌入式系统导论[03] Model of Computation]]></title>
       <url>/2017/10/24/TACouses_ES2017_MoCs/</url>
       <content type="html"><![CDATA[<p>　承接前期<a href="http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/">DOL Functional Simulation 和 MPARM Simulation</a>的实验内容，结合在<strong>SystemC 系统设计</strong>中提到的<a href="http://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/">Y-chart</a>，本文将讨论在 Behavior 层面的系统建模：<strong>MoCs (Model of Computation)</strong>，希望对 DOL 的建模原理有一定认识：</p>
@@ -900,185 +1079,6 @@
 </ul>
 <h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
 <li>Slides from <em>Introduction to embedded systems, Kai Huang</em>, School of Data and Computer Science, Sun Yat-sen University, China. All rights reserved.</li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> TA Cources </category>
-            
-            <category> EmbeddedSystem </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling]]></title>
-      <url>/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/</url>
-      <content type="html"><![CDATA[<p>　Real-time systems are collections of tasks where in addition to any <strong>ordering constraints</strong> imposed by precedences between the tasks, there are also <strong>timing constraints</strong>, requiring a scheduling strategy. Classical <font color="blue">real-time scheduling</font>（实时调度） for <strong>Periodic Tasks</strong> contains <strong>Periodic Rate Monotonic (RM)</strong> as well as <strong>Earliest Deadline First (EDF)</strong>. What’s more, tasks <em>share resources</em> and use <em>mutual exclusion</em> to guard access to those resources, resulting in <strong>Scheduling Anomalies</strong>（调度异常）.<br>　本文将讲述 <strong>Resources Sharing</strong> 给 <font color="blue">real-time scheduling</font> 带来的 <strong>Priority Inversion</strong>（优先级反转）异常，并将重点介绍对应的解决办法：Priority Inheritance Protocol (<strong>PIP</strong>)、Priority Ceiling Protocol (<strong>PCP</strong>)、Stack Resource Policy (<strong>SRP</strong>)。<a id="more"></a></p>
-<h3 id="Priority-Inversion"><a href="#Priority-Inversion" class="headerlink" title="Priority Inversion"></a>Priority Inversion</h3><ul>
-<li><strong>Resource Sharing</strong> &amp; Task Blocked<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_CriticalSection.png" width="400px" alt=""/></center><ul>
-<li>Threads (or Processes): $J_1$, $J_2$.</li>
-<li>Common resources $R_k$ likes: data structures, variables, main memory area, file, set of registers, I/O unit, …</li>
-<li>Many shared resources do not allow simultaneous accesses but require <strong>mutual exclusion</strong> (exclusive resources). A piece of code executed under mutual exclusion ($P(S_k) \leftrightarrow V(S_k)$) constraints is called a <strong>critical section</strong>.</li>
-<li>Each <strong>exclusive resource</strong> $R_k$ must be protected by a different semaphore $S_k$ and each critical section operating on a resource must begin with a <em>wait($S_k$)</em> primitive and end with a <em>signal($S_k$)</em> primitive（原子操作）.</li>
-<li>Tasks waiting for an exclusive resource is said to be <strong>blocked</strong> on that resource. Otherwise, it proceeds by entering the <strong>critical section</strong> and <strong>holds</strong> the resource. When a task <strong>leaves</strong> a critical section, the associated resource becomes free.<ul>
-<li>All tasks blocked on the same resource are kept in a queue associated with the semaphore. </li>
-<li>When a running task executes a <em>wait</em> on a <strong>locked</strong> semaphore, it enters a waiting state, until another tasks executes a <em>signal</em> primitive that <strong>unlocks</strong> the semaphore.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>Priority Inversion</strong><br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_Example.png" width="480px" alt=""/></center><ul>
-<li>priority of $T_1$ &gt; priority of $T_2$ &gt; priority of $T_3$</li>
-<li>$T_3$ requests exclusive access first (at $t_0$), $T_1$ has to wait until $T_3$ releases the resource (at $t_2$)</li>
-<li>$T_2$ preempts $T_3$ (at $t_1$): $T_2$ can prevent $T_3$ from releasing the resource.</li>
-<li>If $T_1$ is blocked only by $T_3$, <strong>blocking is bounded</strong> by the length of the critical section, but blocked by &gt;2 tasks ($T_3$, $T_2$, …), <strong>blocking can exceed the length of any critical section</strong>.</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>　Priority Inversion is a <strong>scheduling anomaly</strong> where a low priority task was holding a lock and blocking a high-priority task, while medium priority tasks,  unrelated lower-priority tasks, are executing. </p>
-</blockquote>
-<ul>
-<li>Solving Priority Inversion: <strong>Resource Access Protocols</strong><ul>
-<li>Basic idea: Modify the priority of those tasks that cause blocking. <ul>
-<li>When a task $T_i$ blocks one or more higher priority tasks, it temporarily assumes a higher priority.</li>
-</ul>
-</li>
-<li>Methods<ul>
-<li><font color="green">Priority Inheritance Protocol (PIP)</font>, for <strong>static priorities</strong></li>
-<li><font color="green">Priority Ceiling Protocol (PCP)</font>, for <strong>static priorities</strong></li>
-<li><font color="green">Stack Resource Policy (SRP)</font>, for <strong>static and dynamic priorities</strong><blockquote>
-<p>　<em>static priorities</em>（静态优先级）: 静态优先级是在创建进程时确定的，且在进程的整个运行期间保持不变，内核不会主动修改它。<br>　<em>dynamic priorities</em>（动态优先级）: 在创建进程时所赋予的优先级，是可以随进程的推进或随其等待时间的增加而改变的，调度程序增大或减少进程静态优先级来奖励 IO 消耗型进程或惩罚 CPU 消耗进程以便获得更好的调度性能；调整后的优先级为动态优先级。<br>　<em>real-time priorities</em>（实时优先级）: 实时优先级只对实时进程有效。</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Priority-Inheritance-Protocol-PIP"><a href="#Priority-Inheritance-Protocol-PIP" class="headerlink" title="Priority Inheritance Protocol (PIP)"></a>Priority Inheritance Protocol (PIP)</h3><ul>
-<li>Avoid Priority Inversion in previous example uisng PIP<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIP.png" width="640px" alt=""/> </center><ul>
-<li><strong>Direct Blocking</strong>: higher-priority task $T_1$ tries to acquire a resource held by a lower priority task $T_3$.</li>
-<li><strong>Push-through Blocking</strong>: medium-priority task $T_2$ is blocked by a lower-priority task $T_3$ that has inherited a higher priority from a task ($T_1$) it directly blocks.</li>
-<li>Tasks have <strong>nominal</strong>（挂名优先级） and <strong>active</strong>（活跃优先级） priorities<ul>
-<li><font color="green">Nominal priority</font>: assigned by the scheduling algorithm, e.g. $T_1$’s priority.<blockquote>
-<p><em>static priorities</em> or <em>dynamic priorities</em> 取决于 <em>nominal priorities</em> 的情况</p>
-</blockquote>
-</li>
-<li><font color="green">Active priority</font>: assigned by the priority inheritance protocol dynamically to avoid priority inversion, e.g. $T_3$’s priority inherited from $T_1$.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>PIP Algorithm<ul>
-<li>Tasks are scheduled according to their <strong>active priorities</strong>. Tasks with the same priorities are scheduled <strong>FCFS</strong>.</li>
-<li>Task $T_i$’s nominal priority <strong>$P_i$</strong>, task $T_k$’s nominal priority <strong>$P_k$</strong>.</li>
-<li>When a task $T_i$ tries to enter a critical section and the resource is blocked by a lower priority task $T_k$, the task $T_i$ is blocked. Otherwise it enters the critical section.<ul>
-<li>When a task $T_i$ is blocked, it transmits its active priority to the task $T_k$ that holds the semaphore. </li>
-</ul>
-</li>
-<li>$T_k$ resumes and executes the rest of its critical section with a priority $p_k=max(p_i)$, it inherits the priority of the highest priority of the tasks blocked by it.</li>
-<li>When $T_k$ exits a critical section, it unlocks the semaphore and the highest priority task blocked on that semaphore is awakened. <ul>
-<li>If no other tasks are blocked by $T_k$, then $p_k$ is set to its nominal priority <strong>$P_k$</strong>.</li>
-<li>Otherwise it is set to the highest priority of the left tasks blocked by $T_k$.</li>
-</ul>
-</li>
-<li>Thus, medium priority tasks which do no share resources with $T_k$ cannot preempt $T_k$ and cannot <strong>prolong the blocking</strong>（延长阻塞） of the higher priority tasks</li>
-</ul>
-</li>
-<li><strong>Nested Critical Sections</strong>（一个临界区内嵌套了另一个临界区）<center><img src="/img/TA-Cources/ES2017/PriorityInversion_NestedCritical.png" width="500px" alt=""/><br/>PIP for Nested Critical Sections, $S_b$ nested in $S_a$.</center></li>
-<li><strong>Transitiveness</strong> of Priority Inheritance<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPTransitiveness.png" width="540px" alt=""/><br/>If $T_1$ is blocked by $T_2$ and $T_2$ is blocked by $T_3$, then $T_3$ inherits the priority of $T_1$ via $T_2$</center></li>
-<li>Pros and Cons<ul>
-<li>Advantages<ul>
-<li>Under the priority inheritance protocol, a job $J$ can be blocked for at most the duration of $min(n, m)$ critical sections, where $n$ is the number of lower-priority jobs that could block $J$ and $m$ is the number of distinct semaphores that can be used to block $J$.</li>
-</ul>
-</li>
-<li>Disadvantages<ul>
-<li>Deadlock is Possible<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPDeadlock.png" width="540px" alt=""/> </center></li>
-<li>Chained Blocking: $J$ can get blocked on $n$ critical sections held by $n$ distinct lower priority jobs.<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PIPChainedBlocking.png" width="480px" alt=""/><br/>$J_1$ is blocked for the duration of two critical sections, once to wait $J_3$ to release $S_a$ and then to wait $J_2$ to release $S_b$.</center>
-
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Priority-Ceiling-Protocol-PCP"><a href="#Priority-Ceiling-Protocol-PCP" class="headerlink" title="Priority Ceiling Protocol (PCP)"></a>Priority Ceiling Protocol (PCP)</h3><ul>
-<li>PIP $\rightarrow$ PCP: extension of Priority Inheritance Protocol to handle chained blocking and deadlocks<ul>
-<li>avoids multiple blocking</li>
-<li>guarantees that, once a task has entered a critical section, it cannot be blocked by lower priority tasks until its completion</li>
-</ul>
-</li>
-<li>PCP Algorithm<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_PCP.png" width="540px" alt=""/><br/>Task $T_1$, $T_2$, $T_3$ and their corresponding priorities $P_1$ &gt; $P_2$ &gt;$P_3$</center><ul>
-<li>Each semaphore $S_k$ is assigned a priority ceiling $C(S_k)$. It is the priority of the highest priority task that can lock $S_k$. This is a static value.<blockquote>
-<p>$C(S_0) = P_1$　　$C(S_1) = P_1$　　$C(S_2) = P_2$</p>
-</blockquote>
-</li>
-<li>Suppose $T_i$ is currently running and it wants to lock the semaphore $S_k$.<ul>
-<li>$T_i$ is allowed to lock $S_k$ only if the priority of $T_i$ is strictly higher than the priority ceiling $C(S_k)$ of the semaphore $S_k$ where: $S_k$ is the semaphore with the highest priority ceiling among all the semaphores which are currently locked by tasks other than $T_i$<blockquote>
-<p>　检测到自身优先级比所有被占有的资源的 ceiling 值都高的时候才可以获取到请求的资源；而且，当存在资源被其它任务占有的时候，才需要进行检测操作</p>
-</blockquote>
-</li>
-<li>Otherwise, $T_i$ is said to be blocked by the semaphore $S_k$ (and the tasks currently holding $S_k$). When $T_i$ gets blocked by $S_k$ then the priority of $T_i$ is transmitted to the tasks $T$ that currently holds $S_k$.<blockquote>
-<p><font color="green">At time t2</font>: $T_2$ can not lock $S_2$. Currently $T_3$ is holding $S_2$ and $C(S_2) = P_2$ and the current priority of $T_2$ is also $P_2$.<br><font color="green">At time t5</font>: $T_1$ can not lock $S_0$. Currently $T_3$ is holding $S_2$ and $S_1$ and $C(S_1) = T_1$ and the current priority of $T_1$ is also $P_1$. The (inherited) priority of $T_3$ is now $P_1$.</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li>When $T_i$ leaves a critical section guarded by $S_k$  then it unlocks $S_k$ and the highest priority task, if any, which is blocked by $S_k$ is awakened. The priority of $T_i$ is set to the highest priority of the task that is blocked by other semaphores that $T_i$ is still holding. If none, the priority of $T_i$ is set to be its <strong>nominal one</strong>.<blockquote>
-<p><font color="green">At time t6</font>: $T_3$ unlocks $S_1$. It awakens $T_1$. But $T_3$’s (inherited) priority is now only $P_2$ while $P_1 &gt; C(S_2) = P_2$. So $T_1$ preempts $T_3$ and runs to completion.<br><font color="green">At time t7</font>: $T_3$ resumes execution with priority $P_2$.<br><font color="green">At time t8</font>: $T_3$ unlocks $S_2$ and goes back to its <strong>nominal priority</strong> $P_3$. So $T_2$ preempts $T_1$ and runs to completion.</p>
-</blockquote>
-</li>
-<li>Results<br>　<strong>+</strong> A task is not allowed to enter a critical section if there are already locked semaphores which could block it eventually.<br>　<strong>+</strong> Hence, once a task enters a critical section, it can not be blocked by lower priority tasks（不会被较当前任务低优先级的任务阻塞）till its completion.</li>
-</ul>
-</li>
-<li>PCP: Properties<br>  　<strong>+</strong> A given task $T$ is delayed at most once by a lower priority task. The delay is a function of the time taken to execute the critical section<br>  　<strong>+</strong> Deadlock free (only changing priorities)<center><img src="/img/TA-Cources/ES2017/PriorityInversion_PCPDeadlockfree.png" width="540px" alt=""/><br/>Deadlock free using PCP with $ceil(S_1)=P_1$, $ceil(S_2)=P_1$</center>
-
-</li>
-</ul>
-<h3 id="Stack-Resource-Policy-SRP"><a href="#Stack-Resource-Policy-SRP" class="headerlink" title="Stack Resource Policy (SRP)"></a>Stack Resource Policy (SRP)</h3><ul>
-<li>PCP Extending: Stack Resource Policy (SRP)<ul>
-<li>SRP supports dynamic priority scheduling</li>
-<li>PCP blocks a task at the time it makes the resource request, while SRP blocks task at the time it attempts to preempt. </li>
-</ul>
-</li>
-<li>SRP Algorithm<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_SRP.png" width="540px" alt=""/></center><ul>
-<li><font color="blue">Preemption Level</font>:  $\pi _ i \propto \frac{1}{D_i}$, tasks $T_i$ with larger deadlines $D_i$ have lower preemption level (Intuition: they can be easily preempted), is a <strong>static</strong> value.</li>
-<li><font color="blue">Resource ceiling</font>: of a resource is the <em>highest preemption level from amongst of all tasks that may access that resource</em>. Note: (i) this is associated with each resource (ii) this is <strong>static</strong>.<blockquote>
-<p><em>Resource ceiling</em> for the <strong><font color="red">red</font></strong> resource is 3. For the <strong><font color="red">yellow</font></strong> resource, it is 2.</p>
-</blockquote>
-</li>
-<li><font color="blue">System ceiling</font>: is the <em>highest resource ceiling level from amongst of resources that are currently blocked</em> (当前阻塞任务的所有资源的 <em>Resource ceiling</em> 的最大值). Note: (i) this is not associated with each resource but with the system (ii) this is a <strong>dynamic</strong> parameter that can change every time a resource is accessed or released.<blockquote>
-<p>Based on this, we can see how the <em>system ceiling</em> $\prod _s$ varies dynamically.</p>
-</blockquote>
-</li>
-<li><font color="red">*</font>A task can preempt another task if<ul>
-<li>it has the <strong>highest priority</strong>;</li>
-<li>and its preemption level is higher than the system ceiling. <strong>$\pi _ i &gt; \prod _s$</strong><blockquote>
-<p>Task $T_3$ is not preempted by $T_2$ even though it does not share the <font color="red">red</font> resource ($\pi _2 &lt; \prod _s$).</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>SRP reduces preemptions compared to PCP.<br><center><img src="/img/TA-Cources/ES2017/PriorityInversion_SRPvsPCP.png" width="540px" alt=""/></center><ul>
-<li><strong>优先级&lt;SystemCeiling</strong> 的进程最终会被阻塞，或因为请求访问临界区，或因为被高优先级抢占，考虑到这一点，<em>SRP</em> 相比于 <em>PCP</em> 能够明显减少 <strong>Context Switch</strong>.<blockquote>
-<p>　<strong>A task cannot be blocked by tasks with lower premption levels</strong> (these tasks can resume only when the task completes). Hence, if there are tasks on the same preemption level, they can never occupy stack space on the same time. Higher the number of tasks on the same preemption level, larger the <strong>stack space</strong> saving!</p>
-</blockquote>
-</li>
-<li>When a task needs a resource that is not available, it <font color="green">is blocked at the time it attempts to preempt</font>, rather than later.</li>
-<li>To prevent multiple priority inversions, a task is not allowed to start until <font color="green">the resource currently available are sufficient to meet the maximum requirement of every task that could preempt it</font>.</li>
-</ul>
-</li>
-</ul>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
-<li>Slides from <em>Introduction to embedded systems, Kai Huang</em>, School of Data and Computer Science, Sun Yat-sen University, China. All rights reserved.</li>
-<li>E. A. Lee and S. A. Seshia, <em>Introduction to Embedded Systems - A Cyber-Physical Systems Approach</em>, LeeSeshia.org, 2011.</li>
 </ul>
 ]]></content>
       
@@ -6919,7 +6919,7 @@
     
     <entry>
       <title><![CDATA[Key Word Engineering]]></title>
-      <url>/2016/10/09/Key%20Word%20Engineering/</url>
+      <url>/2016/10/09/misc_Key%20Word%20Engineering/</url>
       <content type="html"><![CDATA[<h3 id="A"><a href="#A" class="headerlink" title="A"></a>A</h3><blockquote>
 <p><strong>AI</strong>（Artificial Intelligence），人工智能<br><strong>ATM</strong>（asynchronous transfer mode），异步传输模式<br><strong>ARPA</strong>（Advanced Research Projects Agency），（美国国防部）高级研究计划署<br><strong>AR</strong>（augmented reality），增强实现<br><strong>ADSL</strong>（Asymmetrical Dingital Subscriber Loop），非对称数字用户环线<a id="more"></a><br>acoustic coupler，声音耦合器<br>Active Directory，活动目录<br>affinity，绑定<br>affinity group，地缘组<br>agent，代理<br>agent-based interface，代理人界面<br>agility，敏捷性<br>air waves，无线电波<br>algorithm，算法<br>analog，模拟的<br>animation，动画<br>annotation，注解，注释<br>answering machine，电话应答机<br>antenna，天线<br>application pool，应用程序池<br>architecture decay，架构腐坏<br>ARPAnet，ARPA网<br>aspect ratio，屏幕高宽比<br>atomic opreation，原子操作<br>atomic transaction，原子事务<br>atomicity，原子性<br>authentication，身份验证<br>authorization，授权<br>automation，自动化<br>autonomous，独立性<br>availability，可用性<br>availability set，可用性集</p>
 </blockquote>
@@ -9422,7 +9422,7 @@
     
     <entry>
       <title><![CDATA[JSP考勤系统(二) JDBC连接MySQL数据库]]></title>
-      <url>/2015/05/16/JSP%E8%80%83%E5%8B%A4%E7%B3%BB%E7%BB%9F-%E4%BA%8C-JDBC%E8%BF%9E%E6%8E%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
+      <url>/2015/05/16/TACouses_JSP%E8%80%83%E5%8B%A4%E7%B3%BB%E7%BB%9F-%E4%BA%8C-JDBC%E8%BF%9E%E6%8E%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
       <content type="html"><![CDATA[<p>　　在前面的MFC程序那一块，我们已经介绍了基于ODBC和ADO技术如何操作MySQL数据库，这一部分我们介绍另外一种更加方便快捷的，能够实现相同功能的方式，那就是通过JDBC访问数据库。相比之下，这种方式要比之前的ADO方便得多，较之前面难度也有所下降。</p>
 <h2 id="ODBC-vs-JDBC"><a href="#ODBC-vs-JDBC" class="headerlink" title="ODBC vs JDBC"></a><strong>ODBC vs JDBC</strong></h2><p>　　这两种方式都是访问数据库的常用的编程接口，<strong>ODBC(Open Database Connection)</strong>是”微””软”的东西，只能在其操作系统上跑，移植性可想而知；<strong>JDBC(Java Database Connection)</strong>则是Oracle的东西，是Java大家庭的一员。大家都知道，Java正式可移植性的典范，所以，JDBC的可移植性是显然的。至于为什么，通过下面的实现流程，你应该会有所体会。此外，可以通过比较ADO的实现来窥见其便捷性。<br><a id="more"></a></p>
 <h2 id="JDBC操作数据库流程"><a href="#JDBC操作数据库流程" class="headerlink" title="JDBC操作数据库流程"></a><strong>JDBC操作数据库流程</strong></h2><p><img src="/img/JDBC_overview.png" /><br>　　上述是项目中有关数据库操作的类示图。其中<strong>system.entity</strong>中的两个类为两个实体对象，<strong>UserInfo</strong>用于记录用户信息(如下)，目前只保存用户的用户名、密码以及邮箱。其数据来自于用户通过注册存入数据库的用户信息数据。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *	用户个人信息实体类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInfo</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> String username;</span><br><span class="line">  <span class="keyword">private</span> String password;</span><br><span class="line">  <span class="keyword">private</span> String email;</span><br><span class="line">  .....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -9465,7 +9465,7 @@
     
     <entry>
       <title><![CDATA[JSP考勤系统(一) 站点框架介绍与入门]]></title>
-      <url>/2015/05/15/JSP%E8%80%83%E5%8B%A4%E7%B3%BB%E7%BB%9F-%E4%B8%80-%E7%AB%99%E7%82%B9%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%85%A5%E9%97%A8/</url>
+      <url>/2015/05/15/TACouses_JSP%E8%80%83%E5%8B%A4%E7%B3%BB%E7%BB%9F-%E4%B8%80-%E7%AB%99%E7%82%B9%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%85%A5%E9%97%A8/</url>
       <content type="html"><![CDATA[<p>　　本文只是本人对当前完成进度的一个总结，如有缺漏或误点，非常欢迎您通过下方评论指出。<strong>感谢开路人ansen，提供了很多参考信息。</strong>开发环境是MyEclipse8.0(Win8.1下)。<a href="http://yunpan.cn/cjDdh4HCCAI6Y">点击获取</a>安装包(<strong>内有MyEclipse8.0安装包及如何破解提示；同时有mysql-5.5.19-32位安装程序</strong>)，访问密码<code>a690</code>。<br>　　基于当前的考勤系统网站点的实现，跟大家介绍一下(1)大概的MVC设计模式，以及可以如何遵照这种模式搭建自己的考勤系统网站；此外，会介绍一下(2)站点下如何指定路径引用资源(包括最主要的jsp文件以及少部分的image和css文件)；通过(3)几种跳转方式的实现引入Get/Post请求方式的介绍；最后，通过(4)分析web.xml配置文件来介绍有关通过url来制定Servlet控制器进行处理的匹配问题。<br><a id="more"></a></p>
 <h2 id="MVC与网站框架-部分参考百度百科"><a href="#MVC与网站框架-部分参考百度百科" class="headerlink" title="MVC与网站框架(部分参考百度百科)"></a><strong>MVC与网站框架</strong>(部分参考<a href="http://baike.baidu.com/link?url=aLp34njTqTxnzy3VhkL4BDdwmXZ8qSypz1x81mIcIPHClkzId3FgdnQfTK4PcycpsJ_AGL-oikl1LlSEcRusqC-VAXQxi0HgCANIEBuTs1zuECvMgoOiRcZai_JdIqIk">百度百科</a>)</h2><p>　　<img src="/img/MVC.png" align="center"/><br>　　上述图片显示了整个工程框架信息：<br>　　1. Model(模型)表示应用程序核心，包括一系列的java类，有system.database包中与数据库操作相关的数据库辅助类；system.entity中的数据实体类，主要是将数据库中的记录封装成实体(RFIDCard保存数据库单条记录，方便数据传送)；以及system.util中需要使用的工具类(MD5Util用于对密码进行MD5的加密)。Model是应用中用于处理应用程序数据逻辑的部分，这里主要就是与数据库操作相关的java类。<br>　　2. View(视图)用来显示数据，这里强调的是数据库记录，所有的jsp文件均属于这个范畴。工程中主要就涉及table的数据展示，表单内容的设计；辅佐上CSS对页面布局进行控制，JavaScript对表单内容进行验证或者响应某些外部事件(如鼠标点击等)。View是应用中处理数据显示的部分。WebRoot是整个网站的根目录，css目录中保存站点使用的外部样式文件，images则保存需要用到的图片文件。<br>　　3. Controller(控制器)用于处理输入，包括对数据库记录的增删改查，进一步进行相关的表单验证任务，包括登陆身份的验证，根据验证结果进行转发，实现页面间跳转。Controller是应用中处理用户交互的部分，负责从视图读取数据，调用模型里的功能函数，验证用户输入。这里的两个Servlet，LoginProcessServlet处理login.jsp登陆界面提交的表单数据，通过查询数据库，验证用户身份，从而决定转发到主界面还是退回到登录界面重新登陆；RegistProcessServlet则处理regist.jsp注册界面传送的数据，往数据库中插入注册信息，根据插入结果返回注册成功与否的提示信息。<br>　　小结一下，使用MVC分层主要是有助于管理复杂一点的应用，因为您可以在一个时间内专门关注一个方面(例如，您可以在不依赖业务逻辑的情况下专注于视图设计)。MVC分层同时也简化了分组开发，不同的开发人员可同时开发视图、控制器逻辑和业务逻辑。<br>　　假如，您还没有搭建好自己的框架，或者觉得自己的框架有点混乱，建议您可以按照这种思路开始或者进行二次修改。</p>
 <h2 id="资源路径怎么写"><a href="#资源路径怎么写" class="headerlink" title="资源路径怎么写"></a><strong>资源路径怎么写</strong></h2><p>　　当你需要插入一张图片，你把指定的图片放在了工程目录下，但是你却为src要怎么写犯困了，调整了很久，预览界面却还是一个碎了的图片，心都碎了。当你需要为表单填写一个action，你想让当前页面跳转到指定页面，却发现怎么也跳不过去…这些，都涉及到我们站点中的资源路径如何正确书写的问题。承接上文对WebRoot网站根目录文件系统的分析，我们根据上图给出的工程框架来进一步介绍一下有关资源路径书写的问题。<br><img src="/img/loginView.png" /><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;td align=<span class="string">"center"</span>&gt;</span><br><span class="line">  &lt;img alt=<span class="string">"注册会员"</span> src=<span class="string">"./images/login/regist.jpg"</span> width=<span class="string">"72px"</span>; onclick=<span class="string">"register();"</span>&gt; </span><br><span class="line">&lt;/td&gt;</span><br></pre></td></tr></table></figure></p>
