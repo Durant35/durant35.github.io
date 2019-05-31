@@ -271,6 +271,88 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-programPearls_libpcap 32-bit$64-bit" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/10/programPearls_libpcap 32-bit$64-bit/" class="article-date">
+      <time datetime="2016-10-10T02:42:37.000Z" itemprop="datePublished">2016-10-10</time>
+</a>
+
+
+
+ 
+    <a href="/2016/10/10/programPearls_libpcap 32-bit$64-bit/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/10/10/programPearls_libpcap 32-bit$64-bit/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/10/programPearls_libpcap 32-bit$64-bit/">libpcap, 32-bit&amp;64-bit</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　情况是这样的，在之前讲过的回播 <strong>.pcap</strong> 数据的 <strong>Velodyne_player</strong> 程序中，需要调用 <strong>Winpcap</strong> (其实就是 <strong>libpcap</strong> 的 Win挫版) 的 API 解析 <strong>.pcap</strong> 数据，再通过 UDP 发送出去。我们的 <strong>Velodyne_player</strong> 是一个 <strong>Win32</strong> 的程序，显然调用的就是32位的 <strong>Winpcap</strong> 库的 API； 后来我们也移植了一个 <strong>.pcap</strong> 采集程序的 Linux 版本，结果，用该 Linux 版本采集程序采集到的 <strong>.pcap</strong> 数据却没办法用我们 Win 下的 <strong>Velodyne_player</strong> 回播。后来发现，我们的 Linux 版本的采集程序用的是64位的 <strong>libpcap</strong> 库(因为系统是64位的 Ubuntu16.04，默认安装的就是64位的 <strong>libpcap</strong> 库)，64位和32位的 <strong>libpcap</strong>，在时间戳上有很关键的区别，下面是开源的 <strong>pcap.h</strong> 中的声明:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Generic per-packet information, as supplied by libpcap.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * The time stamp can and should be a "struct timeval", regardless of</span></span><br><span class="line"><span class="comment"> * whether your system supports 32-bit tv_sec in "struct timeval",</span></span><br><span class="line"><span class="comment"> * 64-bit tv_sec in "struct timeval", or both if it supports both 32-bit</span></span><br><span class="line"><span class="comment"> * and 64-bit applications.  The on-disk format of savefiles uses 32-bit</span></span><br><span class="line"><span class="comment"> * tv_sec (and tv_usec); this structure is irrelevant to that.  32-bit</span></span><br><span class="line"><span class="comment"> * and 64-bit versions of libpcap, even if they're on the same platform,</span></span><br><span class="line"><span class="comment"> * should supply the appropriate version of "struct timeval", even if</span></span><br><span class="line"><span class="comment"> * that's not what the underlying packet capture mechanism supplies.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">pcap_pkthdr</span> &#123;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">ts</span>;</span>	<span class="comment">/* time stamp */</span></span><br><span class="line">  bpf_u_int32 caplen;	<span class="comment">/* length of portion present */</span></span><br><span class="line">  bpf_u_int32 len;	<span class="comment">/* length this packet (off wire) */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/网络编程/">网络编程</a><a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/LiDAR/">LiDAR</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pcap/">pcap</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/10/10/programPearls_libpcap 32-bit$64-bit/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-linux_瞎谈Socket编程_3" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -981,88 +1063,6 @@
       
         <p class="article-more-link">
           <a href="/2016/10/02/ROS_ROS_Basics/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-ROS_&lt;arg&gt;$&lt;param&gt;$&lt;rosparam&gt;" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/" class="article-date">
-      <time datetime="2017-07-14T12:18:03.000Z" itemprop="datePublished">2017-07-14</time>
-</a>
-
-
-
- 
-    <a href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/14/ROS_&lt;arg&gt;$&lt;param&gt;$&lt;rosparam&gt;/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/">ROS launch file: &lt;arg&gt; vs &lt;param&gt; vs &lt;rosparam&gt;</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　本文介绍在 ROS 的 launch 文件中经常被使用到的三个与参数设置有关的标签 <code>&lt;arg&gt;</code>、<code>&lt;param&gt;</code>、<code>rosparam</code>。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/ROS/">ROS</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
