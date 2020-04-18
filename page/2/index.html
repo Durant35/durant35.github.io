@@ -271,22 +271,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-Algorithms_GraphProblems" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-programPearls_cv_Digital-Image-Process(pg_2016)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/06/26/Algorithms_GraphProblems/" class="article-date">
-      <time datetime="2017-06-26T12:26:22.000Z" itemprop="datePublished">2017-06-26</time>
+      <a href="/2017/02/04/programPearls_cv_Digital-Image-Process(pg_2016)/" class="article-date">
+      <time datetime="2017-02-04T09:53:31.000Z" itemprop="datePublished">2017-02-04</time>
 </a>
 
 
 
  
-    <a href="/2017/06/26/Algorithms_GraphProblems/#comments" title="查看评论">
+    <a href="/2017/02/04/programPearls_cv_Digital-Image-Process(pg_2016)/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/06/26/Algorithms_GraphProblems/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/02/04/programPearls_cv_Digital-Image-Process(pg_2016)/"></span>
         
     </a>
 
@@ -301,7 +301,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/26/Algorithms_GraphProblems/">算法设计与分析[0020] 几个有关图的问题</a>
+      <a class="article-title" href="/2017/02/04/programPearls_cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a>
     </h1>
   
 
@@ -311,18 +311,14 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h4 id="有向图-vs-无向图"><a href="#有向图-vs-无向图" class="headerlink" title="有向图 vs 无向图"></a>有向图 vs 无向图</h4><ul>
-<li>有向图强调<strong>出入度</strong>的概念；无向图，其<strong>邻接矩阵</strong> 是一个对称矩阵。</li>
-<li>无向图边的两端是对称的，无向图讲究<strong>连通</strong>这个概念，没有<strong>方向</strong>，没有<strong>拓扑</strong>。</li>
-</ul>
-<h4 id="判断图是否连通？（一个图有几个连通分量）"><a href="#判断图是否连通？（一个图有几个连通分量）" class="headerlink" title="判断图是否连通？（一个图有几个连通分量）"></a>判断图是否连通？（一个图有几个连通分量）</h4><ul>
-<li>从一个指定的点开始，通过不同的策略去遍历这个图，有深度遍历和广度遍历。</li>
-<li>每次经过一个节点的时候，首先判断一下这个节点是否已经访问过了，如果没有访问过，则这个节点可以作为下一次继续遍历的候选。</li>
-<li>如果这个图是连通的话，这种方法最终会覆盖到整个图。所以可以采用一种计数统计的方式来实现。<ul>
-<li>比如说每次访问一个以前没有遍历的节点，则将对应的计数加一。这样当最后遍历结束后，如果统计的节点和图本身的节点一样的话，表示这个图是连通的，否则表示不连通。</li>
-</ul>
-</li>
-<li>这种方法用来判断整个图是否为连通的时候，实际上只要给定一个点，然后按照给定的步骤可以把该点所连接的所有点都涵盖到。如果有其它分隔的部分则不会再处理了，所以，通过这种办法我们在图不是连通的情况下，它只需要涵盖图的一部分就执行结束了。最坏的情况时间复杂度也就是$O(V+E)$。
+              <blockquote>
+<p>Books：<a href="/uploads/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86(%E5%86%88%E8%90%A8%E9%9B%B7%E6%96%AF)%E4%B8%AD%E8%AF%91%E7%AC%AC%E4%B8%89%E7%89%88.pdf" alt="数字图像处理（冈萨雷斯）">数字图像处理（冈萨雷斯）</a><br>Codes：<a href="https://github.com/Durant35/Courses/tree/master/dip">https://github.com/Durant35/Courses/tree/master/dip</a></p>
+</blockquote>
+<h3 id="第2章-数字图像基础"><a href="#第2章-数字图像基础" class="headerlink" title="第2章 数字图像基础"></a>第2章 数字图像基础</h3><ul>
+<li>取样和量化</li>
+<li>空间和灰度分辨率<ul>
+<li>空间分辨率：空间分辨率是图像在单位面积内像素的个数，表示了图像的空间细节分辨能力</li>
+<li>灰度分辨率：灰度分辨率指的是在纯黑和纯白之间灰度级别的多少，指的是图像对灰度变化细节的分辨能力
           
       
     </div>
@@ -331,18 +327,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CV/">CV</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/06/26/Algorithms_GraphProblems/#more">more >></a>
+          <a href="/2017/02/04/programPearls_cv_Digital-Image-Process(pg_2016)/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -364,22 +360,22 @@
 
 
   
-    <article id="post-Algorithms_DFS" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-programPearls_inline$static$const$extern$volatile" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/15/Algorithms_DFS/" class="article-date">
-      <time datetime="2017-03-15T06:00:22.000Z" itemprop="datePublished">2017-03-15</time>
+      <a href="/2017/07/06/programPearls_inline$static$const$extern$volatile/" class="article-date">
+      <time datetime="2017-07-06T08:02:16.000Z" itemprop="datePublished">2017-07-06</time>
 </a>
 
 
 
  
-    <a href="/2017/03/15/Algorithms_DFS/#comments" title="查看评论">
+    <a href="/2017/07/06/programPearls_inline$static$const$extern$volatile/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/03/15/Algorithms_DFS/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/06/programPearls_inline$static$const$extern$volatile/"></span>
         
     </a>
 
@@ -394,7 +390,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a>
+      <a class="article-title" href="/2017/07/06/programPearls_inline$static$const$extern$volatile/">C/C++常见修饰符（inline&amp;static&amp;const&amp;extern&amp;volatile）</a>
     </h1>
   
 
@@ -404,8 +400,90 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　本文主要介绍 <strong>DFS</strong> 的 <em>C++</em> 和 <em>C</em> 语言实现，并借助 <a href="https://leetcode.com/">LeetCode</a> 上的一道题，说说基本的 <strong>DFS</strong> 在问题求解中的应用。</p>
-<h3 id="What’s-D-epth-F-irst-S-earch"><a href="#What’s-D-epth-F-irst-S-earch" class="headerlink" title="What’s D(epth)F(irst)S(earch)"></a>What’s D(epth)F(irst)S(earch)</h3><p>　深度优先搜索算法（Depth First Search），是搜索算法的一种。是沿着树的深度遍历树的节点，尽可能深的搜索树的分支。当节点 <strong>N</strong> 的所有边都己被探寻过，搜索将回溯到发现节点 <strong>N</strong> 的那条边的起始节点，这一过程一直进行到已发现从源节点可达的所有节点为止。<br>　如果还存在未被发现的节点，则选择其中一个作为源节点并重复以上过程，整个进程反复进行直到所有节点都被访问为止。<br>
+              <p>　本文是关于C/C++语言中常见的五个修饰符：<code>static</code>、<code>const</code>、<code>extern</code>、<code>inline</code>、<code>volatile</code>的含义和用法，在阅读本文前，建议先通过<a href="https://durant35.github.io/2017/07/07/programPearls_declaration&amp;definition&amp;initialization&amp;assignment/">《声明/定义/初始化/赋值》</a>了解有关C/C++中定义、声明等概念以及变量声明和定义的区别。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/C-C/">C/C++</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/">C/C++</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/07/06/programPearls_inline$static$const$extern$volatile/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_An Alibaba Interview Question" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/10/Algorithms_An Alibaba Interview Question/" class="article-date">
+      <time datetime="2017-03-10T06:00:22.000Z" itemprop="datePublished">2017-03-10</time>
+</a>
+
+
+
+ 
+    <a href="/2017/03/10/Algorithms_An Alibaba Interview Question/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/03/10/Algorithms_An Alibaba Interview Question/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　本文通过一道阿里面试题（下图），说说关于该题的字符串最长子串的查找问题。</p>
+<p><center><img src="/img/Algorithms/0003_alibaba_2017.png" width="1024px"/></center><br>
           
       
     </div>
@@ -420,12 +498,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/03/15/Algorithms_DFS/#more">more >></a>
+          <a href="/2017/03/10/Algorithms_An Alibaba Interview Question/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -1011,93 +1089,6 @@
       
         <p class="article-more-link">
           <a href="/2017/07/08/Algorithms_BST$R-B Tree/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_Some Shortest-path Algorithms" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/" class="article-date">
-      <time datetime="2017-03-29T06:00:22.000Z" itemprop="datePublished">2017-03-29</time>
-</a>
-
-
-
- 
-    <a href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/03/29/Algorithms_Some Shortest-path Algorithms/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文介绍几种常见的最短路径算法：</p>
-<ul>
-<li>Breadth-first Search 无权最短路径算法；</li>
-<li>Dijkstra 带权（非负权）图的单源最短路算法；</li>
-<li>Bellman-Ford 带权（可负权）图的单源最短路算法；</li>
-<li>Floyd-Warshall 带权（可负权）图的全源最短路算法，<br>　包括它们各自的<strong>使用条件&amp;范围</strong>，<strong>算法原理介绍</strong>以及<strong>代码实现</strong>。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
