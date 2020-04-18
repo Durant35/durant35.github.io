@@ -168,7 +168,7 @@
                         
                             <li><a href="/archives">All-lists</a></li>
                         
-                            <li><a href="/GaryChan">Contact</a></li>
+                            <li><a href="/garychan">Contact</a></li>
                         
                             <li><a href="/about">About</a></li>
                         
@@ -249,7 +249,7 @@
                 
                     <li><a href="/archives">All-lists</a></li>
                 
-                    <li><a href="/GaryChan">Contact</a></li>
+                    <li><a href="/garychan">Contact</a></li>
                 
                     <li><a href="/about">About</a></li>
                 
@@ -920,6 +920,91 @@
 
 
   
+    <article id="post-VM_VirtualAddr2PhysicalAddr" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/11/06/VM_VirtualAddr2PhysicalAddr/" class="article-date">
+      <time datetime="2017-11-06T11:01:00.000Z" itemprop="datePublished">2017-11-06</time>
+</a>
+
+
+
+ 
+    <a href="/2017/11/06/VM_VirtualAddr2PhysicalAddr/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/11/06/VM_VirtualAddr2PhysicalAddr/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/06/VM_VirtualAddr2PhysicalAddr/">虚拟内存[0?] 虚拟内存地址如何转换到物理内存地址</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="内核空间的虚拟内存地址"><a href="#内核空间的虚拟内存地址" class="headerlink" title="内核空间的虚拟内存地址"></a>内核空间的虚拟内存地址</h3><ul>
+<li>线性地址 (|3G~4G| - 128MB)</li>
+<li>高端内存</li>
+<li>借助 128MB 高端内存地址空间实现访问剩下的所有物理内存 (0~3G + 128MB)
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/Kernel/">Kernel</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VM/">VM</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/11/06/VM_VirtualAddr2PhysicalAddr/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-hexo_hexo扫盲" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -981,88 +1066,6 @@
       
         <p class="article-more-link">
           <a href="/2016/01/24/hexo_hexo扫盲/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-VM_MemoryManage" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/11/06/VM_MemoryManage/" class="article-date">
-      <time datetime="2017-11-06T11:01:00.000Z" itemprop="datePublished">2017-11-06</time>
-</a>
-
-
-
- 
-    <a href="/2017/11/06/VM_MemoryManage/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/11/06/VM_MemoryManage/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/06/VM_MemoryManage/">虚拟内存[0?] 内存管理</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="物理内存管理机制"><a href="#物理内存管理机制" class="headerlink" title="物理内存管理机制"></a>物理内存管理机制</h3>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/Kernel/">Kernel</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VM/">VM</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/11/06/VM_MemoryManage/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
