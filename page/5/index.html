@@ -271,22 +271,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-Algorithms_ICP" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-programPearls_Coding中的编码问题之回顾$深入" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/21/Algorithms_ICP/" class="article-date">
-      <time datetime="2017-07-21T12:02:22.000Z" itemprop="datePublished">2017-07-21</time>
+      <a href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/" class="article-date">
+      <time datetime="2016-02-25T04:11:03.000Z" itemprop="datePublished">2016-02-25</time>
 </a>
 
 
 
  
-    <a href="/2017/07/21/Algorithms_ICP/#comments" title="查看评论">
+    <a href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/21/Algorithms_ICP/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/02/25/programPearls_Coding中的编码问题之回顾$深入/"></span>
         
     </a>
 
@@ -301,7 +301,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/21/Algorithms_ICP/">[0024] Iterative Closest Points（迭代最近点）</a>
+      <a class="article-title" href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/">Coding中的编码问题之回顾&amp;深入</a>
     </h1>
   
 
@@ -311,9 +311,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h3 id="ICP-算法简介"><a href="#ICP-算法简介" class="headerlink" title="ICP 算法简介"></a>ICP 算法简介</h3><ul>
-<li>由<strong>点云配准</strong> 说起<blockquote>
-<p>　<strong>Point cloud registration</strong>, is the process of finding a spatial transformation that aligns two point clouds. The purpose is to merge point clouds of multiple views into a globally consistent model.<br>　Iterative Closest Points (ICP) is an algorithm employed to minimize the difference between two clouds of points. In the algorithm, target point cloud, is kept fixed, while the other one, the source, is transformed to best match the reference (the target). The algorithm iteratively revises the transformation (combination of translation and rotation) needed to minimize the distance from the source to the reference point cloud.
+              <font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/22/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/#more">《Coding中的编码问题之系统学习》</a><br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/25/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%9B%9E%E9%A1%BE&amp;%E6%B7%B1%E5%85%A5/#more">《这是最后一篇》</a></font>
+
+<p>　　到这里，相信你已经完整看完<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a>和<a href="http://durant35.github.io/2016/02/22/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/#more">《Coding中的编码问题之系统学习》</a>，对字符编码已经有一个清晰的点到面的理解了，本文作为整个系列文章的完结篇，一来对之前所有内容进行一个回顾与总结，加深印象，扩宽理解；二来对没提及的剩下不多的几个细节进行补充说明，希望能在你的脑海里建立较为清晰的知识网络。非常希望你也能在阅读后有自己的理解，然后整理在你的笔记或博客中；也希望日后当某个知识点模糊不清时，还能帮到你、我。<br>
           
       
     </div>
@@ -322,18 +322,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a><a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/LiDAR/">LiDAR</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/字符编码/">字符编码</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3D/">3D</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Encoding/">Encoding</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/07/21/Algorithms_ICP/#more">more >></a>
+          <a href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -598,6 +598,89 @@
 
 
   
+    <article id="post-TACouses_考勤系统-一-搭建起项目需要的开发环境" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/06/TACouses_考勤系统-一-搭建起项目需要的开发环境/" class="article-date">
+      <time datetime="2015-05-06T12:37:22.000Z" itemprop="datePublished">2015-05-06</time>
+</a>
+
+
+
+ 
+    <a href="/2015/05/06/TACouses_考勤系统-一-搭建起项目需要的开发环境/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/06/TACouses_考勤系统-一-搭建起项目需要的开发环境/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/06/TACouses_考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <ul>
+<li>从这里获取配置需要的安装文件<a href="http://yunpan.cn/cjqxCLtCfLNvW">点击获取</a>访问密码 <strong>a89b</strong></li>
+<li>安装MySQL数据库（按照一般的软件安装进行安装）</li>
+<li>安装MySQL ODBC驱动并进行数据源的配置(参见共享中的pdf教程)</li>
+<li>安装VC6.0++进行开发(win7以上的请参考.txt文件)</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-programPearls_Coding中的编码问题之入门$概览" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -662,89 +745,6 @@
         <p class="article-more-link">
           <a href="/2016/02/21/programPearls_Coding中的编码问题之入门$概览/#more">more >></a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-TACouses_考勤系统-一-搭建起项目需要的开发环境" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/05/06/TACouses_考勤系统-一-搭建起项目需要的开发环境/" class="article-date">
-      <time datetime="2015-05-06T12:37:22.000Z" itemprop="datePublished">2015-05-06</time>
-</a>
-
-
-
- 
-    <a href="/2015/05/06/TACouses_考勤系统-一-搭建起项目需要的开发环境/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2015/05/06/TACouses_考勤系统-一-搭建起项目需要的开发环境/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/06/TACouses_考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <ul>
-<li>从这里获取配置需要的安装文件<a href="http://yunpan.cn/cjqxCLtCfLNvW">点击获取</a>访问密码 <strong>a89b</strong></li>
-<li>安装MySQL数据库（按照一般的软件安装进行安装）</li>
-<li>安装MySQL ODBC驱动并进行数据源的配置(参见共享中的pdf教程)</li>
-<li>安装VC6.0++进行开发(win7以上的请参考.txt文件)</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
-    </div>
-
       
       <div class="clearfix"></div>
     </div>
@@ -847,22 +847,22 @@
 
 
   
-    <article id="post-opencl_写两个星期OpenCL先-1" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-TACouses_考勤系统-二-MFC-ADO连接MySQL数据库" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/05/24/opencl_写两个星期OpenCL先-1/" class="article-date">
-      <time datetime="2015-05-24T13:05:27.000Z" itemprop="datePublished">2015-05-24</time>
+      <a href="/2015/04/30/TACouses_考勤系统-二-MFC-ADO连接MySQL数据库/" class="article-date">
+      <time datetime="2015-04-30T15:14:17.000Z" itemprop="datePublished">2015-04-30</time>
 </a>
 
 
 
  
-    <a href="/2015/05/24/opencl_写两个星期OpenCL先-1/#comments" title="查看评论">
+    <a href="/2015/04/30/TACouses_考勤系统-二-MFC-ADO连接MySQL数据库/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2015/05/24/opencl_写两个星期OpenCL先-1/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2015/04/30/TACouses_考勤系统-二-MFC-ADO连接MySQL数据库/"></span>
         
     </a>
 
@@ -877,7 +877,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a>
+      <a class="article-title" href="/2015/04/30/TACouses_考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a>
     </h1>
   
 
@@ -887,7 +887,12 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　本文基于对有关资料的理解，同时通过代码测试验证，为大家讲述OpenCL入门时几个比较重要但又令人困惑的小知识点，包括：<br>　　1. <a href="#part1">NDRange如何设置(work-item&amp;work-group)?</a><br>　　2. <a href="#part2">如何获取kernel执行时间?</a><br>　　3. <a href="#part3">如何获取kernel编译信息?</a><br>
+              <ol>
+<li><a href="#step01">引入ADO库定义文件</a>； </li>
+<li><a href="#step02">声明AdoMysqlHelper辅助类</a>； </li>
+<li><a href="#step03">实现AdoMysqlHelper辅助类</a>； </li>
+<li><a href="#step04">小结一下</a>.<br>　　我的本本是<strong>win7-64位</strong>的，<strong>MySQL是5.6.21</strong>的，需要安装MySQL驱动的可以从这里下载安装，里面的.pdf文档有本教程需要的驱动环境的配置教程<a href="http://yunpan.cn/cjqxCLtCfLNvW">点击获取</a>访问密码 <strong>a89b</strong>(从这里也可以获取VC++6.0安装包以及32位的MySQL数据库安装包)。</li>
+</ol>
           
       
     </div>
@@ -896,18 +901,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/OpenCL/">OpenCL</a>
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCL/">OpenCL</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2015/05/24/opencl_写两个星期OpenCL先-1/#more">more >></a>
+          <a href="/2015/04/30/TACouses_考勤系统-二-MFC-ADO连接MySQL数据库/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -1011,22 +1016,22 @@
 
 
   
-    <article id="post-TACouses_考勤系统-二-MFC-ADO连接MySQL数据库" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-programPearls_.h中的ifndef..define..endif" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/04/30/TACouses_考勤系统-二-MFC-ADO连接MySQL数据库/" class="article-date">
-      <time datetime="2015-04-30T15:14:17.000Z" itemprop="datePublished">2015-04-30</time>
+      <a href="/2016/04/21/programPearls_.h中的ifndef..define..endif/" class="article-date">
+      <time datetime="2016-04-21T03:41:51.000Z" itemprop="datePublished">2016-04-21</time>
 </a>
 
 
 
  
-    <a href="/2015/04/30/TACouses_考勤系统-二-MFC-ADO连接MySQL数据库/#comments" title="查看评论">
+    <a href="/2016/04/21/programPearls_.h中的ifndef..define..endif/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2015/04/30/TACouses_考勤系统-二-MFC-ADO连接MySQL数据库/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/04/21/programPearls_.h中的ifndef..define..endif/"></span>
         
     </a>
 
@@ -1041,7 +1046,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/30/TACouses_考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a>
+      <a class="article-title" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a>
     </h1>
   
 
@@ -1051,12 +1056,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <ol>
-<li><a href="#step01">引入ADO库定义文件</a>； </li>
-<li><a href="#step02">声明AdoMysqlHelper辅助类</a>； </li>
-<li><a href="#step03">实现AdoMysqlHelper辅助类</a>； </li>
-<li><a href="#step04">小结一下</a>.<br>　　我的本本是<strong>win7-64位</strong>的，<strong>MySQL是5.6.21</strong>的，需要安装MySQL驱动的可以从这里下载安装，里面的.pdf文档有本教程需要的驱动环境的配置教程<a href="http://yunpan.cn/cjqxCLtCfLNvW">点击获取</a>访问密码 <strong>a89b</strong>(从这里也可以获取VC++6.0安装包以及32位的MySQL数据库安装包)。</li>
-</ol>
+              <p>　　参考博文 <a href="http://blog.csdn.net/luoweifu/article/details/42550955">《#pragma once与#ifndef #define …#endif的区别》</a></p>
+<p>　　<strong>#pragma once</strong> 用来防止某个头文件被多次 include；<br>　　<strong>#ifndef</strong>，<strong>#define</strong>，<strong>#endif</strong> 用来防止某个宏被多次定义。<br>
           
       
     </div>
@@ -1065,18 +1066,14 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/C-C/">C/C++</a>
     </div>
 
 
       
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
-    </div>
-
       
         <p class="article-more-link">
-          <a href="/2015/04/30/TACouses_考勤系统-二-MFC-ADO连接MySQL数据库/#more">more >></a>
+          <a href="/2016/04/21/programPearls_.h中的ifndef..define..endif/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

@@ -3941,37 +3941,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[DARPA[Boss]: Motion Planning in Urban Environments]]></title>
-      <url>/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</url>
-      <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
-<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
-<li>long range plans<ul>
-<li>on-road planning</li>
-<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
-<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
-</ul>
-</li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> 自动驾驶 </category>
-            
-            <category> DARPA </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> DARPA </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[DARPA[Boss]: Boss and the Urban Challenge]]></title>
       <url>/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/</url>
       <content type="html"><![CDATA[<p>　Boss 自动驾驶软硬件概述。</p>
@@ -4022,6 +3991,37 @@
 </li>
 </ul>
 <h4 id="Motion-Planning"><a href="#Motion-Planning" class="headerlink" title="Motion Planning"></a>Motion Planning</h4>]]></content>
+      
+        <categories>
+            
+            <category> 自动驾驶 </category>
+            
+            <category> DARPA </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> DARPA </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[DARPA[Boss]: Motion Planning in Urban Environments]]></title>
+      <url>/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/</url>
+      <content type="html"><![CDATA[<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><ul>
+<li>model-predictIve trajectory generation algorithm（模型预测轨迹生成算法）</li>
+<li>long range plans<ul>
+<li>on-road planning</li>
+<li>unstructured planning: parking lots/anomalous on-road scenarios（异常路况）<a id="more"></a>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
+</ul>
+</li>
+</ul>
+]]></content>
       
         <categories>
             
