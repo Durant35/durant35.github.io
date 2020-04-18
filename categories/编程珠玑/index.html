@@ -843,22 +843,22 @@
 
 
   
-    <article id="post-programPearls_JPEG$Arithmetic$LZW" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-programPearls_DES$3DES$AES" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/" class="article-date">
+      <a href="/2017/07/11/programPearls_DES$3DES$AES/" class="article-date">
       <time datetime="2017-07-11T10:02:16.000Z" itemprop="datePublished">2017-07-11</time>
 </a>
 
 
 
  
-    <a href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/#comments" title="查看评论">
+    <a href="/2017/07/11/programPearls_DES$3DES$AES/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/11/programPearls_JPEG$Arithmetic$LZW/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/11/programPearls_DES$3DES$AES/"></span>
         
     </a>
 
@@ -873,7 +873,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/">JPEG编码&amp;算术编码、LZW编码</a>
+      <a class="article-title" href="/2017/07/11/programPearls_DES$3DES$AES/">密码学：DES、3DES、AES</a>
     </h1>
   
 
@@ -883,7 +883,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　本文介绍 JPEG 编解码过程（附简单的<code>cpp</code>实现）。JPEG 中常用到的熵编码是变长编码：Huffman 编码，本文也对算术编码（附<code>cpp</code>实现）、LZW 编码（附<code>py</code>实现）两种熵编码进行介绍。
+              <p>　　加密方法可以分为两大类：一类是对称密码体制，又称单钥或私钥密码体制（private key cryptography）；还有一类是非对称密码体制，也称双钥或公开密钥体制（public key cryptography）。前者的加密和解密过程都用同一套密码，后者的加密和解密过程用的是两套密码。<br>　　在单钥加密的情况下，密钥只有一把，所以密钥的保存变得很重要，一旦秘钥泄露，密文也就被破解了；在双钥加密的情况下，秘钥有两把，一把是公开的公钥，还有一把是不公开的私钥，公钥与私钥是一一对应的关系，有一把公钥就必然有一把与之对应的、独一无二的私钥，反之亦成立。此外，①同时生成公钥和私钥应该是相对比较容易的：所有的公钥、私钥对都不同，用公钥可以解开私钥加密的信息，反之用私钥也可以解开公钥加密的信息；但是②从公钥推算出私钥，应该是很困难或者是不可能的。<br>　　目前，通用的单钥加密算法有 DES（Data Encryption Standard），通用的双钥加密算法为 RSA（Rivest-Shamir-Adleman），本文主要介绍三种常用的单钥加密算法：DES、3DES（Triple DES） 以及 AES（Advanced Encryption Standard）。
           
       
     </div>
@@ -898,12 +898,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JPEG/">JPEG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LZW/">LZW</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AES/">AES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DES/">DES</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/#more">more >></a>
+          <a href="/2017/07/11/programPearls_DES$3DES$AES/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
