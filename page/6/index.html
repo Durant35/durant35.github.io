@@ -168,7 +168,7 @@
                         
                             <li><a href="/archives">All-lists</a></li>
                         
-                            <li><a href="/Shengjie">Contact</a></li>
+                            <li><a href="/GaryChan">Contact</a></li>
                         
                             <li><a href="/about">About</a></li>
                         
@@ -249,7 +249,7 @@
                 
                     <li><a href="/archives">All-lists</a></li>
                 
-                    <li><a href="/Shengjie">Contact</a></li>
+                    <li><a href="/GaryChan">Contact</a></li>
                 
                     <li><a href="/about">About</a></li>
                 
@@ -271,22 +271,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-programPearls_Coding中的编码问题之回顾$深入" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-opencl_写两个星期OpenCL先-1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/" class="article-date">
-      <time datetime="2016-02-25T04:11:03.000Z" itemprop="datePublished">2016-02-25</time>
+      <a href="/2015/05/24/opencl_写两个星期OpenCL先-1/" class="article-date">
+      <time datetime="2015-05-24T13:05:27.000Z" itemprop="datePublished">2015-05-24</time>
 </a>
 
 
 
  
-    <a href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/#comments" title="查看评论">
+    <a href="/2015/05/24/opencl_写两个星期OpenCL先-1/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/02/25/programPearls_Coding中的编码问题之回顾$深入/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/24/opencl_写两个星期OpenCL先-1/"></span>
         
     </a>
 
@@ -301,7 +301,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/">Coding中的编码问题之回顾&amp;深入</a>
+      <a class="article-title" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a>
     </h1>
   
 
@@ -311,9 +311,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/22/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/#more">《Coding中的编码问题之系统学习》</a><br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/25/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%9B%9E%E9%A1%BE&amp;%E6%B7%B1%E5%85%A5/#more">《这是最后一篇》</a></font>
-
-<p>　　到这里，相信你已经完整看完<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a>和<a href="http://durant35.github.io/2016/02/22/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/#more">《Coding中的编码问题之系统学习》</a>，对字符编码已经有一个清晰的点到面的理解了，本文作为整个系列文章的完结篇，一来对之前所有内容进行一个回顾与总结，加深印象，扩宽理解；二来对没提及的剩下不多的几个细节进行补充说明，希望能在你的脑海里建立较为清晰的知识网络。非常希望你也能在阅读后有自己的理解，然后整理在你的笔记或博客中；也希望日后当某个知识点模糊不清时，还能帮到你、我。<br>
+              <p>　　本文基于对有关资料的理解，同时通过代码测试验证，为大家讲述OpenCL入门时几个比较重要但又令人困惑的小知识点，包括：<br>　　1. <a href="#part1">NDRange如何设置(work-item&amp;work-group)?</a><br>　　2. <a href="#part2">如何获取kernel执行时间?</a><br>　　3. <a href="#part3">如何获取kernel编译信息?</a><br>
           
       
     </div>
@@ -322,18 +320,353 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/字符编码/">字符编码</a>
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/OpenCL/">OpenCL</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Encoding/">Encoding</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCL/">OpenCL</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/#more">more >></a>
+          <a href="/2015/05/24/opencl_写两个星期OpenCL先-1/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/" class="article-date">
+      <time datetime="2015-05-24T12:32:23.000Z" itemprop="datePublished">2015-05-24</time>
+</a>
+
+
+
+ 
+    <a href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <ol>
+<li><p>下载配置所需的所有文件(<strong>内含Intel OpenCL的SDK(Win7及Win8.1)</strong>)<br><a href="http://yunpan.cn/cVfMshDNjNBS5">点击获取</a> 访问密码<code>e085</code>（<font color="red">因网盘失效及版本过久，建议自行前往<a href="https://software.intel.com/en-us/intel-opencl/download">官网</a>下载</font>）;</p>
+</li>
+<li><p>解压<strong>intel_sdk_for_ocl_applications_2013.64050.zip</strong>到本地，双击setup.exe开始安装(安装后可将整个文件夹删除)，记住安装路径(可以自定义安装)。win8.1直接双击<strong>intel_sdk_for_ocl_applications_2014_x64_setup.msi</strong>进行安装;</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/OpenCL/">OpenCL</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCL/">OpenCL</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-programPearls_dumpbin指南" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/16/programPearls_dumpbin指南/" class="article-date">
+      <time datetime="2016-09-16T05:23:16.000Z" itemprop="datePublished">2016-09-16</time>
+</a>
+
+
+
+ 
+    <a href="/2016/09/16/programPearls_dumpbin指南/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/16/programPearls_dumpbin指南/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <blockquote>
+<p>近几个月的 <strong>Windows</strong> 高空作业让我发现，<strong>dumpbin</strong> 这个小工具往往能解决一些关键问题。目前发现并且使用过的这个小家伙的功能有:</p>
+<ul>
+<li>查看 DLL 动态链接库导入导出信息，解决动态链接库导出和可执行程序引用对接问题、程序缺失库问题</li>
+<li>查看可执行程序的依赖库信息，解决各种程序运行时报错</li>
+<li>查看程序、库位数信息，找到库引用位数不匹配等尴尬问题</li>
+</ul>
+</blockquote>
+<p>　下面就来快速学习一下，怎么把这个小家伙用起来。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/libs-link/">libs&link</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dumpbin/">dumpbin</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/09/16/programPearls_dumpbin指南/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-mcu_老顽童STM32开发板系列教程笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/" class="article-date">
+      <time datetime="2016-02-16T13:41:31.000Z" itemprop="datePublished">2016-02-16</time>
+</a>
+
+
+
+ 
+    <a href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/02/16/mcu_老顽童STM32开发板系列教程笔记/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　本文作为追随老顽童孟瑞生老师 <strong>[<a href="http://www.rationmcu.com/">瑞生网</a>]</strong> 学习STM32单片机系列教程笔记，一来方便将其微信公众号推送教程移至PC端，方便观看学习；二来，也是更重要的，有些思考的地方，或者觉得说的很好的地方，也好记录留档。<br>　　<font color="red"><strong>最新一次更新： 第9集，时间2016-03-12。</strong></font><br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/STM32/">STM32</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MCU/">MCU</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-OverlappingSounds_写于幸运保研后" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/12/OverlappingSounds_写于幸运保研后/" class="article-date">
+      <time datetime="2016-06-11T23:25:06.000Z" itemprop="datePublished">2016-06-12</time>
+</a>
+
+
+
+ 
+    <a href="/2016/06/12/OverlappingSounds_写于幸运保研后/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/06/12/OverlappingSounds_写于幸运保研后/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　此刻，我的内心居然出奇的平静。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Coding源于生活/">Coding源于生活</a><a class="article-category-link" href="/categories/Coding源于生活/Overlapping-Sounds/">Overlapping-Sounds</a>
+    </div>
+
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2016/06/12/OverlappingSounds_写于幸运保研后/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -439,22 +772,22 @@
 
 
   
-    <article id="post-programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-linux_瞎谈Socket编程_3" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/" class="article-date">
-      <time datetime="2016-02-02T11:33:21.000Z" itemprop="datePublished">2016-02-02</time>
+      <a href="/2016/09/08/linux_瞎谈Socket编程_3/" class="article-date">
+      <time datetime="2016-09-08T01:59:58.000Z" itemprop="datePublished">2016-09-08</time>
 </a>
 
 
 
  
-    <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/#comments" title="查看评论">
+    <a href="/2016/09/08/linux_瞎谈Socket编程_3/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/linux_瞎谈Socket编程_3/"></span>
         
     </a>
 
@@ -469,7 +802,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a>
+      <a class="article-title" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a>
     </h1>
   
 
@@ -479,10 +812,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/02/programPearls_Qt_%E5%80%9FQt%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%B0%88%E8%B0%88Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/#more">《这是第一篇》</a><br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a></font>
-
-<p>　　因为想着把毕业设计中的读写器上位机软件放在 <strong>Qt</strong> 上开发，这学期<a href="http://durant35.github.io/categories/%E7%89%A9%E8%81%94%E7%BD%91%E6%8A%80%E6%9C%AF%E5%AF%BC%E8%AE%BA%E5%AE%9E%E9%AA%8C%E8%AF%BE/">《物联网导论实验课程》</a>也做过一个类似的上位机软件，不过是在 <strong>MFC</strong> 上开发，所以想到先做一下这个课程 <strong>Project</strong> 的移植，体验一发 <strong>Qt</strong>，没想到一开始就碰大壁了。。。</p>
-<p>　　相信大家也经常遇到，那就是做 <strong>UI</strong> 界面时或者通过 <strong>UI</strong> 给用户提示时，<strong>中文乱码</strong> 的现象。比如，这学期，在上《物联网导论实验课》的时候，虽然课程建议的开发平台是 <strong>VC++ 6.0</strong>，但是有部分同学尝试在 <strong>VS≥2012</strong> 开发，就发现，课程 <strong>Demo</strong> 给的部分示例代码直接放到 <strong>VS</strong> 上，就出现了 <strong>UI</strong> 中文乱码的现象。他们，或者说大多数人一开始想到的问题，无非就是项目相关文件保存方式弄错了，也许改一下保存编码方式就行。但是真的是这样吗？还有编码方式是什么，解决这个问题需要了解多少东西？本期及之后的几篇文章，将会跟大家讲述本人在解决这个问题过程中的学习体会，包括从网上学习的各种资料的汇总。一来希望能给遇到相关问题的亲们指引一下(希望对你有帮助，嘻嘻)，二来更是把自己这近几周的学习作一个系统总结，留档，方便后知后觉忘了的时候，可以温故知新。<br>
+              <h2 id="Server端"><a href="#Server端" class="headerlink" title="Server端"></a>Server端</h2><p>　　<strong>UDP Socket</strong> 编程中服务器端流程与 <strong>TCP</strong> 相似, 只是不需要通过 <strong>listen()</strong> 和 <strong>accept()</strong> 监听和等待客户端请求，直接通过 <strong>sendto()</strong> 和 <strong>recvfrom()</strong> 和客户端进行读写操作。<br>
           
       
     </div>
@@ -491,18 +821,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/字符编码/">字符编码</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/网络编程/">网络编程</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Encoding/">Encoding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VS2013/">VS2013</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/#more">more >></a>
+          <a href="/2016/09/08/linux_瞎谈Socket编程_3/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -524,22 +854,22 @@
 
 
   
-    <article id="post-TACouses_ES2017_PriorityInversionbyResourceSharing" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-linux_瞎谈Socket编程_1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/" class="article-date">
-      <time datetime="2017-10-24T04:50:14.000Z" itemprop="datePublished">2017-10-24</time>
+      <a href="/2016/07/15/linux_瞎谈Socket编程_1/" class="article-date">
+      <time datetime="2016-07-15T07:24:30.000Z" itemprop="datePublished">2016-07-15</time>
 </a>
 
 
 
  
-    <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/#comments" title="查看评论">
+    <a href="/2016/07/15/linux_瞎谈Socket编程_1/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/07/15/linux_瞎谈Socket编程_1/"></span>
         
     </a>
 
@@ -554,7 +884,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/">嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling</a>
+      <a class="article-title" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a>
     </h1>
   
 
@@ -564,7 +894,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　Real-time systems are collections of tasks where in addition to any <strong>ordering constraints</strong> imposed by precedences between the tasks, there are also <strong>timing constraints</strong>, requiring a scheduling strategy. Classical <font color="blue">real-time scheduling</font>（实时调度） for <strong>Periodic Tasks</strong> contains <strong>Periodic Rate Monotonic (RM)</strong> as well as <strong>Earliest Deadline First (EDF)</strong>. What’s more, tasks <em>share resources</em> and use <em>mutual exclusion</em> to guard access to those resources, resulting in <strong>Scheduling Anomalies</strong>（调度异常）.<br>　本文将讲述 <strong>Resources Sharing</strong> 给 <font color="blue">real-time scheduling</font> 带来的 <strong>Priority Inversion</strong>（优先级反转）异常，并将重点介绍对应的解决办法：Priority Inheritance Protocol (<strong>PIP</strong>)、Priority Ceiling Protocol (<strong>PCP</strong>)、Stack Resource Policy (<strong>SRP</strong>)。
+              <p>　　从项目中一个实例说起，我们的目标是将决策层做出的控制小车的决策(主要是速度velocity还有角速度angular)，通过TCP网络传输的方式传递到与控制小车的FPGA相连接的RaspberryPi。也许你会问，为毛要通过网络传输，不能通过其他方式，比如串口，不是会更快点吧？<br>　　Maybe…不过，这是有原因的。<br>　　其一，我觉得应该通过以太网线直接将运行决策的PC机网卡与树莓派上的网卡直接相连接，再用网络传输，应该比串口快，或者说，更稳定高效。遗憾的是，我们没办法通过以太网线直接相连，而是通过WiFi，这是因为，其二，PC机唯有的一个以太网卡，拿去插激光雷达了，而激光雷达作为一个sensor，是决策所必须的。<br>　　其三，整个体系运行在ROS之上，而，把ROS体系中做出来的决策送到控制端的树莓派上，我们得自己想办法或者说Coding。刚好，找到有一个开源的ros通讯，恰好人家是通过TCP传输的，所以，就没想那么多，直接用上了。<br>　　可想而知，这个开源的ros通讯要做的，就是把决策层做出来的velocity和angular，通过tcp传送到运行在树莓派上的程序进而控制FPGA控制小车。搞过ROS的应该知道，在ROS中节点都是通过消息进行通讯的，那么，这个ros通讯节点要做的肯定就是订阅决策层做出来的关于控制的消息，然后通过网络传输出去，这些，你可以阅读 <a href="https://github.com/JoeyNeidigh/ros_tcp_comm">这个开源项目</a> 的源码进行了解。<br>
           
       
     </div>
@@ -573,412 +903,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/EmbeddedSystem/">EmbeddedSystem</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-TACouses_Embedded_System_2016" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/01/TACouses_Embedded_System_2016/" class="article-date">
-      <time datetime="2016-10-01T07:50:14.000Z" itemprop="datePublished">2016-10-01</time>
-</a>
-
-
-
- 
-    <a href="/2016/10/01/TACouses_Embedded_System_2016/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/10/01/TACouses_Embedded_System_2016/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/01/TACouses_Embedded_System_2016/">嵌入式系统导论[00] Overview, DOL and MPARM</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　嵌入式系统实验课大概涉及的内容有以下几个部分:<br>    <center><img src="/img/TA-Cources/ES2016/dol_framework.png" width="640px"/></center><br>　　主体就涵盖了三条纵线一条横线，functional simulation，Hds simulation，analysis model 是三纵，如何通过三纵得到的数据迭代获取 application 和 architecture 的最佳 mapping 为一横。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/EmbeddedSystem/">EmbeddedSystem</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2016/10/01/TACouses_Embedded_System_2016/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-TACouses_ES2017_Java" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/09/28/TACouses_ES2017_Java/" class="article-date">
-      <time datetime="2017-09-28T04:50:14.000Z" itemprop="datePublished">2017-09-28</time>
-</a>
-
-
-
- 
-    <a href="/2017/09/28/TACouses_ES2017_Java/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/09/28/TACouses_ES2017_Java/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/28/TACouses_ES2017_Java/">嵌入式系统导论[01] Linux 下手动配置 Java 环境</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　Linux 手动配置 Java 环境（JRE+JDK）。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/EmbeddedSystem/">EmbeddedSystem</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2017/09/28/TACouses_ES2017_Java/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-TACouses_ES2017_MoCs" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/10/24/TACouses_ES2017_MoCs/" class="article-date">
-      <time datetime="2017-10-24T04:50:14.000Z" itemprop="datePublished">2017-10-24</time>
-</a>
-
-
-
- 
-    <a href="/2017/10/24/TACouses_ES2017_MoCs/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/10/24/TACouses_ES2017_MoCs/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/24/TACouses_ES2017_MoCs/">嵌入式系统导论[03] Model of Computation</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　承接前期<a href="http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/">DOL Functional Simulation 和 MPARM Simulation</a>的实验内容，结合在<strong>SystemC 系统设计</strong>中提到的<a href="http://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/">Y-chart</a>，本文将讨论在 Behavior 层面的系统建模：<strong>MoCs (Model of Computation)</strong>，希望对 DOL 的建模原理有一定认识：</p>
-<blockquote>
-<p>　To model streaming applications, the <strong>dataflow process network</strong> model of computation [Lee and Parks 1995], a subclass of <strong>Kahn process networks</strong> [Kahn 1974], has been adopted in the DOL design flow. </p>
-</blockquote>
-<p>　什么是<strong>dataflow process network</strong>？<strong>Kahn process networks</strong>又是什么？接下来我们将一一论述。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/EmbeddedSystem/">EmbeddedSystem</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2017/10/24/TACouses_ES2017_MoCs/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-TACouses_ES2017_SystemC" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/09/26/TACouses_ES2017_SystemC/" class="article-date">
-      <time datetime="2017-09-26T07:50:14.000Z" itemprop="datePublished">2017-09-26</time>
-</a>
-
-
-
- 
-    <a href="/2017/09/26/TACouses_ES2017_SystemC/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/09/26/TACouses_ES2017_SystemC/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/26/TACouses_ES2017_SystemC/">嵌入式系统导论[02] 浅谈 System C</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　<strong>SystemC</strong> 是一种基于 C++ 语言的用于 <strong>系统设计</strong> 的计算机语言，是用 C++ 编写的一组库和宏。为了更好的了解 <strong>SystemC</strong> 的用途，我们先从集成电路（<strong>IC</strong>：通用集成电路、专用集成电路）设计的一些基础讲起，谈谈 <strong>SystemC</strong> 在 IC 设计流程中的定位；通过对比 <strong>SystemC</strong> 和我们更为熟悉的 <strong>Verilog</strong>，进一步了解 <strong>SystemC</strong> 。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/EmbeddedSystem/">EmbeddedSystem</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2017/09/26/TACouses_ES2017_SystemC/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_Summary after Interview in Robosense" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/09/03/programPearls_Summary after Interview in Robosense/" class="article-date">
-      <time datetime="2017-09-03T02:46:16.000Z" itemprop="datePublished">2017-09-03</time>
-</a>
-
-
-
- 
-    <a href="/2017/09/03/programPearls_Summary after Interview in Robosense/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/09/03/programPearls_Summary after Interview in Robosense/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/03/programPearls_Summary after Interview in Robosense/">Summary after Robosense&#39;s Interview</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　昨天第一次到 xx 参观学习，略有点仓促地进行了笔试和面试，整体状态不好，可能没做好心理准备吧。感觉：Robosense 不显山不露水！<br>　下面是对期间觉得含糊不清的问题的整理。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/C-C/">C/C++</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/网络编程/">网络编程</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/">C/C++</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/09/03/programPearls_Summary after Interview in Robosense/#more">more >></a>
+          <a href="/2016/07/15/linux_瞎谈Socket编程_1/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -1000,22 +936,22 @@
 
 
   
-    <article id="post-Algorithms_LeastSquaresLineFitting" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-programPearls_Win$Linux下操作ini配置文件(DIY)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/21/Algorithms_LeastSquaresLineFitting/" class="article-date">
-      <time datetime="2017-07-21T12:02:22.000Z" itemprop="datePublished">2017-07-21</time>
+      <a href="/2016/09/08/programPearls_Win$Linux下操作ini配置文件(DIY)/" class="article-date">
+      <time datetime="2016-09-08T03:59:37.000Z" itemprop="datePublished">2016-09-08</time>
 </a>
 
 
 
  
-    <a href="/2017/07/21/Algorithms_LeastSquaresLineFitting/#comments" title="查看评论">
+    <a href="/2016/09/08/programPearls_Win$Linux下操作ini配置文件(DIY)/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/21/Algorithms_LeastSquaresLineFitting/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/programPearls_Win$Linux下操作ini配置文件(DIY)/"></span>
         
     </a>
 
@@ -1030,7 +966,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/21/Algorithms_LeastSquaresLineFitting/">[0025] Least Squares Line Fitting（最小二乘法直线拟合）</a>
+      <a class="article-title" href="/2016/09/08/programPearls_Win$Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a>
     </h1>
   
 
@@ -1040,7 +976,85 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　<strong>最小二乘拟合</strong> 是一种数学上的近似和优化，利用已知的数据得出一条直线或者曲线，使之在坐标系上与已知数据之间的距离的平方和最小。<br>
+        <p>　　待续…</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ini/">ini</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/文件操作/">文件操作</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-System_Win8.1简体中文系统切换到繁体中文系统" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/" class="article-date">
+      <time datetime="2016-02-02T09:20:25.000Z" itemprop="datePublished">2016-02-02</time>
+</a>
+
+
+
+ 
+    <a href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　今天在捣鼓<strong>VS2013</strong>的时候，出于验证<strong>VS2013</strong>默认执行字符集究竟是<strong>GBK</strong>还是<strong>ANSI</strong>，心想能不能把目前的<strong>Win8.1简体中文系统</strong>直接换成<strong>繁体中文系统</strong>，试一下再换回来。就搜了一下，果然有，虽然是百度经验<a href="http://jingyan.baidu.com/article/4ae03de3fabbe93eff9e6b1f.html">《win8.1简体系统切换到繁体系统》</a>，不过这种东西，百度还是可以信一下的，不行改回去应该不会死(有时就是这样死掉的，O(∩_∩)O哈哈~)。下面就是我Follow此百度经验切换的过程。<br>
           
       
     </div>
@@ -1049,18 +1063,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/系统/">系统</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Encoding/">Encoding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/07/21/Algorithms_LeastSquaresLineFitting/#more">more >></a>
+          <a href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -1093,7 +1107,7 @@
         <div id="footer-info">
             <div class="footer-left">
                 <i class="fa fa-copyright"></i> 
-                2014-2019 Gary Chan
+                2014-2020 Gary Chan
             </div>
             <div class="footer-right">
                 <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by <a href="http://moxfive.xyz/" target="_blank"> MOxFIVE </a><i class="fa fa-heart animated infinite pulse"></i>
