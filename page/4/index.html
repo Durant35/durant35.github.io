@@ -354,6 +354,91 @@
 
 
   
+    <article id="post-Algorithms_BiGraphMatching" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/01/Algorithms_BiGraphMatching/" class="article-date">
+      <time datetime="2017-06-01T13:00:22.000Z" itemprop="datePublished">2017-06-01</time>
+</a>
+
+
+
+ 
+    <a href="/2017/06/01/Algorithms_BiGraphMatching/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/06/01/Algorithms_BiGraphMatching/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/01/Algorithms_BiGraphMatching/">算法设计与分析[0016] 二分图匹配问题</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h4 id="二分图匹配问题"><a href="#二分图匹配问题" class="headerlink" title="二分图匹配问题"></a>二分图匹配问题</h4><ul>
+<li>二分图<br><center><img src="/img/Algorithms/0016_bipartiteGraph.png" width="340px" alt=""/></center><ul>
+<li>顶点被分成两个不相交的集合（$U$ 和 $V$）并且同属一个集合内的点两两不相连（$E_{in U} = E_{in V} = \emptyset$），即要么没有圈，要么圈所包含的边数必定是偶数。</li>
+<li><strong>二分图</strong> 的一个等价定义是：不含有 <strong>含奇数条边的环</strong> 的图。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/06/01/Algorithms_BiGraphMatching/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Algorithms_Dynamic Programming(V)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -418,93 +503,6 @@
       
         <p class="article-more-link">
           <a href="/2017/05/26/Algorithms_Dynamic Programming(V)/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_FFT" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/04/Algorithms_FFT/" class="article-date">
-      <time datetime="2017-03-04T06:00:22.000Z" itemprop="datePublished">2017-03-04</time>
-</a>
-
-
-
- 
-    <a href="/2017/03/04/Algorithms_FFT/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/03/04/Algorithms_FFT/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文介绍 <strong>Divide and Conquer（分而治之）</strong> 的一种典型算法，<strong>FFT</strong>（快速傅里叶变换）。</p>
-<h3 id="DFT"><a href="#DFT" class="headerlink" title="DFT"></a>DFT</h3><p>DFT：$X[k] = \sum_{n=0}^{N-1} x[n] e^{-j \frac{2 \pi k}{N} n}, k = 0, 1, 2, …, N-1$</p>
-<ul>
-<li>for each k: <strong>N</strong> complex mults, <strong>N-1</strong> complex adds</li>
-<li>$e^{-j \frac{2 \pi k}{N} n}$ 预计算并保存在计算机中</li>
-<li>$O(N^2)$ computations for direct <strong>DFT</strong> $\Longrightarrow$ $O(N log_2 N)$ for <strong>FFT</strong>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/03/04/Algorithms_FFT/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -863,22 +861,22 @@
 
 
   
-    <article id="post-programPearls_opengl_数媒HW4参考资料" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_ICP" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/" class="article-date">
-      <time datetime="2015-06-16T06:31:19.000Z" itemprop="datePublished">2015-06-16</time>
+      <a href="/2017/07/21/Algorithms_ICP/" class="article-date">
+      <time datetime="2017-07-21T12:02:22.000Z" itemprop="datePublished">2017-07-21</time>
 </a>
 
 
 
  
-    <a href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/#comments" title="查看评论">
+    <a href="/2017/07/21/Algorithms_ICP/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2015/06/16/programPearls_opengl_数媒HW4参考资料/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/21/Algorithms_ICP/"></span>
         
     </a>
 
@@ -893,7 +891,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/">数媒HW4参考资料</a>
+      <a class="article-title" href="/2017/07/21/Algorithms_ICP/">[0024] Iterative Closest Points（迭代最近点）</a>
     </h1>
   
 
@@ -903,7 +901,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>(同学说整理，顺道POST出来咯….)<br>整体思路:<br>首先通过HW3我们已经能够完成3D Pipeline，但是我们最后的模型绘制只是将每个面的顶点依次用线段连接起来，这一次我们需要对每个面进行绘制，其实就是对每个面进行颜色填充。那么问题来了，怎么填充？填充什么颜色？<br>
+              <h3 id="ICP-算法简介"><a href="#ICP-算法简介" class="headerlink" title="ICP 算法简介"></a>ICP 算法简介</h3><ul>
+<li>由<strong>点云配准</strong> 说起<blockquote>
+<p>　<strong>Point cloud registration</strong>, is the process of finding a spatial transformation that aligns two point clouds. The purpose is to merge point clouds of multiple views into a globally consistent model.<br>　Iterative Closest Points (ICP) is an algorithm employed to minimize the difference between two clouds of points. In the algorithm, target point cloud, is kept fixed, while the other one, the source, is transformed to best match the reference (the target). The algorithm iteratively revises the transformation (combination of translation and rotation) needed to minimize the distance from the source to the reference point cloud.
           
       
     </div>
@@ -912,18 +912,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a><a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/LiDAR/">LiDAR</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CG/">CG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenGL/">OpenGL</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3D/">3D</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/#more">more >></a>
+          <a href="/2017/07/21/Algorithms_ICP/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -1022,22 +1022,22 @@
 
 
   
-    <article id="post-Algorithms_ICP" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-programPearls_opengl_数媒HW4参考资料" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/21/Algorithms_ICP/" class="article-date">
-      <time datetime="2017-07-21T12:02:22.000Z" itemprop="datePublished">2017-07-21</time>
+      <a href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/" class="article-date">
+      <time datetime="2015-06-16T06:31:19.000Z" itemprop="datePublished">2015-06-16</time>
 </a>
 
 
 
  
-    <a href="/2017/07/21/Algorithms_ICP/#comments" title="查看评论">
+    <a href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/21/Algorithms_ICP/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2015/06/16/programPearls_opengl_数媒HW4参考资料/"></span>
         
     </a>
 
@@ -1052,7 +1052,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/21/Algorithms_ICP/">[0024] Iterative Closest Points（迭代最近点）</a>
+      <a class="article-title" href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/">数媒HW4参考资料</a>
     </h1>
   
 
@@ -1062,9 +1062,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h3 id="ICP-算法简介"><a href="#ICP-算法简介" class="headerlink" title="ICP 算法简介"></a>ICP 算法简介</h3><ul>
-<li>由<strong>点云配准</strong> 说起<blockquote>
-<p>　<strong>Point cloud registration</strong>, is the process of finding a spatial transformation that aligns two point clouds. The purpose is to merge point clouds of multiple views into a globally consistent model.<br>　Iterative Closest Points (ICP) is an algorithm employed to minimize the difference between two clouds of points. In the algorithm, target point cloud, is kept fixed, while the other one, the source, is transformed to best match the reference (the target). The algorithm iteratively revises the transformation (combination of translation and rotation) needed to minimize the distance from the source to the reference point cloud.
+              <p>(同学说整理，顺道POST出来咯….)<br>整体思路:<br>首先通过HW3我们已经能够完成3D Pipeline，但是我们最后的模型绘制只是将每个面的顶点依次用线段连接起来，这一次我们需要对每个面进行绘制，其实就是对每个面进行颜色填充。那么问题来了，怎么填充？填充什么颜色？<br>
           
       
     </div>
@@ -1073,18 +1071,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a><a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/LiDAR/">LiDAR</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3D/">3D</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CG/">CG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenGL/">OpenGL</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/07/21/Algorithms_ICP/#more">more >></a>
+          <a href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
