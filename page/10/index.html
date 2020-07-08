@@ -517,6 +517,91 @@
 
 
   
+    <article id="post-programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/" class="article-date">
+      <time datetime="2016-02-02T11:33:21.000Z" itemprop="datePublished">2016-02-02</time>
+</a>
+
+
+
+ 
+    <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/02/programPearls_Qt_%E5%80%9FQt%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%B0%88%E8%B0%88Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/#more">《这是第一篇》</a><br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a></font>
+
+<p>　　因为想着把毕业设计中的读写器上位机软件放在 <strong>Qt</strong> 上开发，这学期<a href="http://durant35.github.io/categories/%E7%89%A9%E8%81%94%E7%BD%91%E6%8A%80%E6%9C%AF%E5%AF%BC%E8%AE%BA%E5%AE%9E%E9%AA%8C%E8%AF%BE/">《物联网导论实验课程》</a>也做过一个类似的上位机软件，不过是在 <strong>MFC</strong> 上开发，所以想到先做一下这个课程 <strong>Project</strong> 的移植，体验一发 <strong>Qt</strong>，没想到一开始就碰大壁了。。。</p>
+<p>　　相信大家也经常遇到，那就是做 <strong>UI</strong> 界面时或者通过 <strong>UI</strong> 给用户提示时，<strong>中文乱码</strong> 的现象。比如，这学期，在上《物联网导论实验课》的时候，虽然课程建议的开发平台是 <strong>VC++ 6.0</strong>，但是有部分同学尝试在 <strong>VS≥2012</strong> 开发，就发现，课程 <strong>Demo</strong> 给的部分示例代码直接放到 <strong>VS</strong> 上，就出现了 <strong>UI</strong> 中文乱码的现象。他们，或者说大多数人一开始想到的问题，无非就是项目相关文件保存方式弄错了，也许改一下保存编码方式就行。但是真的是这样吗？还有编码方式是什么，解决这个问题需要了解多少东西？本期及之后的几篇文章，将会跟大家讲述本人在解决这个问题过程中的学习体会，包括从网上学习的各种资料的汇总。一来希望能给遇到相关问题的亲们指引一下(希望对你有帮助，嘻嘻)，二来更是把自己这近几周的学习作一个系统总结，留档，方便后知后觉忘了的时候，可以温故知新。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/字符编码/">字符编码</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Encoding/">Encoding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VS2013/">VS2013</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-ROS_ROS_Navigation_GettingStarted" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -589,91 +674,6 @@
       
         <p class="article-more-link">
           <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/" class="article-date">
-      <time datetime="2016-02-02T11:33:21.000Z" itemprop="datePublished">2016-02-02</time>
-</a>
-
-
-
- 
-    <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/02/programPearls_Qt_%E5%80%9FQt%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%B0%88%E8%B0%88Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/#more">《这是第一篇》</a><br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a></font>
-
-<p>　　因为想着把毕业设计中的读写器上位机软件放在 <strong>Qt</strong> 上开发，这学期<a href="http://durant35.github.io/categories/%E7%89%A9%E8%81%94%E7%BD%91%E6%8A%80%E6%9C%AF%E5%AF%BC%E8%AE%BA%E5%AE%9E%E9%AA%8C%E8%AF%BE/">《物联网导论实验课程》</a>也做过一个类似的上位机软件，不过是在 <strong>MFC</strong> 上开发，所以想到先做一下这个课程 <strong>Project</strong> 的移植，体验一发 <strong>Qt</strong>，没想到一开始就碰大壁了。。。</p>
-<p>　　相信大家也经常遇到，那就是做 <strong>UI</strong> 界面时或者通过 <strong>UI</strong> 给用户提示时，<strong>中文乱码</strong> 的现象。比如，这学期，在上《物联网导论实验课》的时候，虽然课程建议的开发平台是 <strong>VC++ 6.0</strong>，但是有部分同学尝试在 <strong>VS≥2012</strong> 开发，就发现，课程 <strong>Demo</strong> 给的部分示例代码直接放到 <strong>VS</strong> 上，就出现了 <strong>UI</strong> 中文乱码的现象。他们，或者说大多数人一开始想到的问题，无非就是项目相关文件保存方式弄错了，也许改一下保存编码方式就行。但是真的是这样吗？还有编码方式是什么，解决这个问题需要了解多少东西？本期及之后的几篇文章，将会跟大家讲述本人在解决这个问题过程中的学习体会，包括从网上学习的各种资料的汇总。一来希望能给遇到相关问题的亲们指引一下(希望对你有帮助，嘻嘻)，二来更是把自己这近几周的学习作一个系统总结，留档，方便后知后觉忘了的时候，可以温故知新。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/字符编码/">字符编码</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Encoding/">Encoding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VS2013/">VS2013</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -941,22 +941,22 @@
 
 
   
-    <article id="post-TACourses_Summer-trainning-in-July,2016" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-TACouses_ES2017_PriorityInversionbyResourceSharing" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/" class="article-date">
-      <time datetime="2017-02-04T03:21:01.000Z" itemprop="datePublished">2017-02-04</time>
+      <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/" class="article-date">
+      <time datetime="2017-10-24T04:50:14.000Z" itemprop="datePublished">2017-10-24</time>
 </a>
 
 
 
  
-    <a href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/#comments" title="查看评论">
+    <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/02/04/TACourses_Summer-trainning-in-July,2016/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/"></span>
         
     </a>
 
@@ -971,7 +971,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a>
+      <a class="article-title" href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/">嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling</a>
     </h1>
   
 
@@ -981,14 +981,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <blockquote>
-<p>摘自 <a href="https://rh-song.github.io/2016/07/18/Summer-training/#more">RiHui-Song’s Blog：Summer-training</a></p>
-</blockquote>
-<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>　本文主要记录SMIE最后一次初级实训学习的主要内容。包括了大概是三个阶段：</p>
-<ul>
-<li>准备阶段：学习测量仪器，回顾C语言编程；</li>
-<li>熟悉阶段：在FPGA上运行HelloWorld，开发小应用，如跑马灯等，最后还了解了uc/os这样一个实时操作系统；</li>
-<li>开发阶段：使用PWM波以及H桥控制车轮，使用超声模块控制让小车感知外界状况，从而进行控制，最后可以使用PID控制理论优化小车的控制。
+              <p>　Real-time systems are collections of tasks where in addition to any <strong>ordering constraints</strong> imposed by precedences between the tasks, there are also <strong>timing constraints</strong>, requiring a scheduling strategy. Classical <font color="blue">real-time scheduling</font>（实时调度） for <strong>Periodic Tasks</strong> contains <strong>Periodic Rate Monotonic (RM)</strong> as well as <strong>Earliest Deadline First (EDF)</strong>. What’s more, tasks <em>share resources</em> and use <em>mutual exclusion</em> to guard access to those resources, resulting in <strong>Scheduling Anomalies</strong>（调度异常）.<br>　本文将讲述 <strong>Resources Sharing</strong> 给 <font color="blue">real-time scheduling</font> 带来的 <strong>Priority Inversion</strong>（优先级反转）异常，并将重点介绍对应的解决办法：Priority Inheritance Protocol (<strong>PIP</strong>)、Priority Ceiling Protocol (<strong>PCP</strong>)、Stack Resource Policy (<strong>SRP</strong>)。
           
       
     </div>
@@ -997,14 +990,14 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/实训/">实训</a>
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/EmbeddedSystem/">EmbeddedSystem</a>
     </div>
 
 
       
       
         <p class="article-more-link">
-          <a href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/#more">more >></a>
+          <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

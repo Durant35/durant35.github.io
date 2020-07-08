@@ -205,6 +205,92 @@
     </entry>
     
     <entry>
+      <title><![CDATA[虚拟内存[0?] 内存管理]]></title>
+      <url>/2017/11/06/VM_MemoryManage/</url>
+      <content type="html"><![CDATA[<h3 id="物理内存管理机制"><a href="#物理内存管理机制" class="headerlink" title="物理内存管理机制"></a>物理内存管理机制</h3><a id="more"></a>
+<h3 id="页框管理"><a href="#页框管理" class="headerlink" title="页框管理"></a>页框管理</h3><p>### </p>
+]]></content>
+      
+        <categories>
+            
+            <category> 软硬兼施 </category>
+            
+            <category> Kernel </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> VM </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[虚拟内存[02] 不同阶段下的内存变化]]></title>
+      <url>/2017/11/06/VM_Changes4LifeCycle/</url>
+      <content type="html"><![CDATA[<h3 id="系统启动与内存"><a href="#系统启动与内存" class="headerlink" title="系统启动与内存"></a>系统启动与内存</h3><a id="more"></a>
+<h3 id="进程与内存"><a href="#进程与内存" class="headerlink" title="进程与内存"></a>进程与内存</h3><h4 id="进程创建与内存"><a href="#进程创建与内存" class="headerlink" title="进程创建与内存"></a>进程创建与内存</h4><ul>
+<li>存储器映射：虚拟内存 $\Longrightarrow$ 磁盘文件</li>
+</ul>
+<h4 id="进程启动与内存"><a href="#进程启动与内存" class="headerlink" title="进程启动与内存"></a>进程启动与内存</h4><h4 id="进程切换与内存"><a href="#进程切换与内存" class="headerlink" title="进程切换与内存"></a>进程切换与内存</h4><blockquote>
+<p><a href="http://blog.csdn.net/freeelinux/article/details/53782986">Linux虚拟地址空间布局以及进程栈和线程栈总结</a></p>
+</blockquote>
+<ul>
+<li>虚拟地址通过<strong>页表 (Page Table)</strong>映射到物理内存，页表由操作系统维护并被处理器引用。内核空间在页表中拥有较高特权级，因此用户态程序试图访问这些页时会导致一个<strong>页错误 (Page Fault)</strong>。在Linux中，内核空间是持续存在的，并且在所有进程中都映射到同样的物理内存。<font color="blue">内核代码和数据总是可寻址，随时准备处理中断和系统调用</font>；与此相反，用户模式地址空间的映射随进程切换的发生而不断变化。</li>
+</ul>
+<p>### </p>
+]]></content>
+      
+        <categories>
+            
+            <category> 软硬兼施 </category>
+            
+            <category> Kernel </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> VM </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[虚拟内存[0?] 虚拟内存地址如何转换到物理内存地址]]></title>
+      <url>/2017/11/06/VM_VirtualAddr2PhysicalAddr/</url>
+      <content type="html"><![CDATA[<h3 id="内核空间的虚拟内存地址"><a href="#内核空间的虚拟内存地址" class="headerlink" title="内核空间的虚拟内存地址"></a>内核空间的虚拟内存地址</h3><ul>
+<li>线性地址 (|3G~4G| - 128MB)</li>
+<li>高端内存</li>
+<li>借助 128MB 高端内存地址空间实现访问剩下的所有物理内存 (0~3G + 128MB)<a id="more"></a>
+</li>
+</ul>
+<h3 id="页表与MMU"><a href="#页表与MMU" class="headerlink" title="页表与MMU"></a>页表与MMU</h3><h4 id="相同虚拟地址如何不混淆？"><a href="#相同虚拟地址如何不混淆？" class="headerlink" title="相同虚拟地址如何不混淆？"></a>相同虚拟地址如何不混淆？</h4><p>### </p>
+]]></content>
+      
+        <categories>
+            
+            <category> 软硬兼施 </category>
+            
+            <category> Kernel </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> VM </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[虚拟内存[00] 虚拟内存地址空间]]></title>
       <url>/2017/11/06/VM0_AddressSpace/</url>
       <content type="html"><![CDATA[<p>　我们知道，进程是操作系统进行资源分配的最小单位，而内存是进程运行必不可少的资源。现代操作系统为每个进程分配<strong>独享的内存空间</strong>，这个独享的内存空间只是<font color="green"><strong>虚拟内存空间</strong></font>，每次访问内存空间的某个地址 (<font color="green"><strong>虚拟地址</strong></font>)，都需要把地址<strong>翻译</strong>成实际物理内存地址。进程要知道哪些虚拟地址上的数据在物理内存上，哪些不在？还有在物理内存上的哪里，需要用<strong>页表</strong>来记录；正因为每个进程都有一个自己的页表，使得相同的虚拟地址映射到不同的物理内存。每当切换到另一个进程时，就要通过设置 <strong>MMU</strong> 的某些寄存器来设置这个进程的页表，然后 MMU 就可以把 CPU 发出的虚拟地址转化到物理地址了。<center><img src="/img/kernel/mm/VAspace_overview.png" width="580px" alt=""/></center>　本文将详细介绍现代操作系统为每个进程分配的独享虚拟内存地址空间的详细布局，从一开始的 <font color="green"><strong>32位模式</strong></font>到如今占绝大多数的 <font color="green"><strong>64位模式</strong></font>。<a id="more"></a></p>
@@ -306,92 +392,6 @@
 </ul>
 <p><hr/><br>　<font color="red">本文我们详细介绍了 32 位/64 位模式下系统虚拟内存地址空间的布局情况，包括经典布局以及改进了经典布局，现代操作系统默认的新布局。后面，我们将对虚拟内存地址空间中的内核空间、用户空间中的各个地址段进行详细描述，以求更深入的了解。</font></p>
 <h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><p><strong>·</strong><a href="http://blog.csdn.net/yangkuanqaz85988/article/details/52403726">《Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈》</a><br><strong>·</strong><a href="http://blog.csdn.net/freeelinux/article/details/53782986">《Linux虚拟地址空间布局以及进程栈和线程栈总结》</a></p>
-]]></content>
-      
-        <categories>
-            
-            <category> 软硬兼施 </category>
-            
-            <category> Kernel </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> VM </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[虚拟内存[0?] 内存管理]]></title>
-      <url>/2017/11/06/VM_MemoryManage/</url>
-      <content type="html"><![CDATA[<h3 id="物理内存管理机制"><a href="#物理内存管理机制" class="headerlink" title="物理内存管理机制"></a>物理内存管理机制</h3><a id="more"></a>
-<h3 id="页框管理"><a href="#页框管理" class="headerlink" title="页框管理"></a>页框管理</h3><p>### </p>
-]]></content>
-      
-        <categories>
-            
-            <category> 软硬兼施 </category>
-            
-            <category> Kernel </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> VM </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[虚拟内存[02] 不同阶段下的内存变化]]></title>
-      <url>/2017/11/06/VM_Changes4LifeCycle/</url>
-      <content type="html"><![CDATA[<h3 id="系统启动与内存"><a href="#系统启动与内存" class="headerlink" title="系统启动与内存"></a>系统启动与内存</h3><a id="more"></a>
-<h3 id="进程与内存"><a href="#进程与内存" class="headerlink" title="进程与内存"></a>进程与内存</h3><h4 id="进程创建与内存"><a href="#进程创建与内存" class="headerlink" title="进程创建与内存"></a>进程创建与内存</h4><ul>
-<li>存储器映射：虚拟内存 $\Longrightarrow$ 磁盘文件</li>
-</ul>
-<h4 id="进程启动与内存"><a href="#进程启动与内存" class="headerlink" title="进程启动与内存"></a>进程启动与内存</h4><h4 id="进程切换与内存"><a href="#进程切换与内存" class="headerlink" title="进程切换与内存"></a>进程切换与内存</h4><blockquote>
-<p><a href="http://blog.csdn.net/freeelinux/article/details/53782986">Linux虚拟地址空间布局以及进程栈和线程栈总结</a></p>
-</blockquote>
-<ul>
-<li>虚拟地址通过<strong>页表 (Page Table)</strong>映射到物理内存，页表由操作系统维护并被处理器引用。内核空间在页表中拥有较高特权级，因此用户态程序试图访问这些页时会导致一个<strong>页错误 (Page Fault)</strong>。在Linux中，内核空间是持续存在的，并且在所有进程中都映射到同样的物理内存。<font color="blue">内核代码和数据总是可寻址，随时准备处理中断和系统调用</font>；与此相反，用户模式地址空间的映射随进程切换的发生而不断变化。</li>
-</ul>
-<p>### </p>
-]]></content>
-      
-        <categories>
-            
-            <category> 软硬兼施 </category>
-            
-            <category> Kernel </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> VM </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[虚拟内存[0?] 虚拟内存地址如何转换到物理内存地址]]></title>
-      <url>/2017/11/06/VM_VirtualAddr2PhysicalAddr/</url>
-      <content type="html"><![CDATA[<h3 id="内核空间的虚拟内存地址"><a href="#内核空间的虚拟内存地址" class="headerlink" title="内核空间的虚拟内存地址"></a>内核空间的虚拟内存地址</h3><ul>
-<li>线性地址 (|3G~4G| - 128MB)</li>
-<li>高端内存</li>
-<li>借助 128MB 高端内存地址空间实现访问剩下的所有物理内存 (0~3G + 128MB)<a id="more"></a>
-</li>
-</ul>
-<h3 id="页表与MMU"><a href="#页表与MMU" class="headerlink" title="页表与MMU"></a>页表与MMU</h3><h4 id="相同虚拟地址如何不混淆？"><a href="#相同虚拟地址如何不混淆？" class="headerlink" title="相同虚拟地址如何不混淆？"></a>相同虚拟地址如何不混淆？</h4><p>### </p>
 ]]></content>
       
         <categories>

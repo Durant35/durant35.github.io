@@ -431,179 +431,6 @@
 
 
   
-    <article id="post-TACouses_JSP考勤系统-二-JDBC连接MySQL数据库" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/05/16/TACouses_JSP考勤系统-二-JDBC连接MySQL数据库/" class="article-date">
-      <time datetime="2015-05-16T07:13:44.000Z" itemprop="datePublished">2015-05-16</time>
-</a>
-
-
-
- 
-    <a href="/2015/05/16/TACouses_JSP考勤系统-二-JDBC连接MySQL数据库/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2015/05/16/TACouses_JSP考勤系统-二-JDBC连接MySQL数据库/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/16/TACouses_JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　在前面的MFC程序那一块，我们已经介绍了基于ODBC和ADO技术如何操作MySQL数据库，这一部分我们介绍另外一种更加方便快捷的，能够实现相同功能的方式，那就是通过JDBC访问数据库。相比之下，这种方式要比之前的ADO方便得多，较之前面难度也有所下降。</p>
-<h2 id="ODBC-vs-JDBC"><a href="#ODBC-vs-JDBC" class="headerlink" title="ODBC vs JDBC"></a><strong>ODBC vs JDBC</strong></h2><p>　　这两种方式都是访问数据库的常用的编程接口，<strong>ODBC(Open Database Connection)</strong>是”微””软”的东西，只能在其操作系统上跑，移植性可想而知；<strong>JDBC(Java Database Connection)</strong>则是Oracle的东西，是Java大家庭的一员。大家都知道，Java正式可移植性的典范，所以，JDBC的可移植性是显然的。至于为什么，通过下面的实现流程，你应该会有所体会。此外，可以通过比较ADO的实现来窥见其便捷性。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSP/">JSP</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2015/05/16/TACouses_JSP考勤系统-二-JDBC连接MySQL数据库/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_dumpbin指南" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/16/programPearls_dumpbin指南/" class="article-date">
-      <time datetime="2016-09-16T05:23:16.000Z" itemprop="datePublished">2016-09-16</time>
-</a>
-
-
-
- 
-    <a href="/2016/09/16/programPearls_dumpbin指南/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/09/16/programPearls_dumpbin指南/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>近几个月的 <strong>Windows</strong> 高空作业让我发现，<strong>dumpbin</strong> 这个小工具往往能解决一些关键问题。目前发现并且使用过的这个小家伙的功能有:</p>
-<ul>
-<li>查看 DLL 动态链接库导入导出信息，解决动态链接库导出和可执行程序引用对接问题、程序缺失库问题</li>
-<li>查看可执行程序的依赖库信息，解决各种程序运行时报错</li>
-<li>查看程序、库位数信息，找到库引用位数不匹配等尴尬问题</li>
-</ul>
-</blockquote>
-<p>　下面就来快速学习一下，怎么把这个小家伙用起来。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/libs-link/">libs&link</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dumpbin/">dumpbin</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/09/16/programPearls_dumpbin指南/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-programPearls_Coding中的编码问题之回顾$深入" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -771,22 +598,22 @@
 
 
   
-    <article id="post-TACouses_考勤系统-三-MFC-UI控件之ComboBox" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-TACouses_JSP考勤系统-二-JDBC连接MySQL数据库" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/" class="article-date">
-      <time datetime="2015-05-11T07:42:37.000Z" itemprop="datePublished">2015-05-11</time>
+      <a href="/2015/05/16/TACouses_JSP考勤系统-二-JDBC连接MySQL数据库/" class="article-date">
+      <time datetime="2015-05-16T07:13:44.000Z" itemprop="datePublished">2015-05-16</time>
 </a>
 
 
 
  
-    <a href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/#comments" title="查看评论">
+    <a href="/2015/05/16/TACouses_JSP考勤系统-二-JDBC连接MySQL数据库/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/16/TACouses_JSP考勤系统-二-JDBC连接MySQL数据库/"></span>
         
     </a>
 
@@ -801,7 +628,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a>
+      <a class="article-title" href="/2015/05/16/TACouses_JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a>
     </h1>
   
 
@@ -811,7 +638,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>To Be Done…</p>
+              <p>　　在前面的MFC程序那一块，我们已经介绍了基于ODBC和ADO技术如何操作MySQL数据库，这一部分我们介绍另外一种更加方便快捷的，能够实现相同功能的方式，那就是通过JDBC访问数据库。相比之下，这种方式要比之前的ADO方便得多，较之前面难度也有所下降。</p>
+<h2 id="ODBC-vs-JDBC"><a href="#ODBC-vs-JDBC" class="headerlink" title="ODBC vs JDBC"></a><strong>ODBC vs JDBC</strong></h2><p>　　这两种方式都是访问数据库的常用的编程接口，<strong>ODBC(Open Database Connection)</strong>是”微””软”的东西，只能在其操作系统上跑，移植性可想而知；<strong>JDBC(Java Database Connection)</strong>则是Oracle的东西，是Java大家庭的一员。大家都知道，Java正式可移植性的典范，所以，JDBC的可移植性是显然的。至于为什么，通过下面的实现流程，你应该会有所体会。此外，可以通过比较ADO的实现来窥见其便捷性。<br>
           
       
     </div>
@@ -826,13 +654,90 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSP/">JSP</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/#more">more >></a>
+          <a href="/2015/05/16/TACouses_JSP考勤系统-二-JDBC连接MySQL数据库/#more">more >></a>
         </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-programPearls_Java到底是不是一种纯面向对象语言？" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/" class="article-date">
+      <time datetime="2016-06-30T02:26:22.000Z" itemprop="datePublished">2016-06-30</time>
+</a>
+
+
+
+ 
+    <a href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>　　参考博文 <a href="http://www.codeceo.com/article/why-java-purely-object-oriented-language.html">《Java到底是不是一种纯面向对象语言？》</a></p>
+<p>　　<strong>JVM</strong> 在创建对象的时候，实际上会创建两个对象：<br>　　　一个是实例对象。<br>　　　另一个是 <strong>Class</strong> 对象。该 <strong>Class</strong> 对象在 <strong>JVM</strong> 内仅仅会装载一次，该类的静态方法和静态属性也一同装载，<strong>JVM</strong> 使用该 <strong>Class</strong> 对象来创建具体的实例对象。<br>　　例如，在下面的 <strong>Java</strong> 语句中，将有两个对象被创建：<br>　　　　Employee emp = new Employee();<br>　　一个是实例对象 emp ；另一个则是 Class 对象，我们可以通过 <strong>Employee.class</strong> 引用到它；这个 Class 对象拥有所有的这个类定义的静态变量和静态方法，同时，如果我们访问 通过 emp 对象来访问静态内容，会发现它其实指向的对象就是 <strong>Employee.class</strong> 。</p>
+<p>　　<font color="green">静态内容确实被证实属于一个对象</font><br>　　　为什么静态内容在一个对象中（不管是emp还是emp2）改变了，在另一个对象中也同时改变，因为这两个对象改变的都是在 Employee.class 同一个对象里面的内容。</p>
+<p>　　Java 官方为每一个原始类型推出了对应的包装类（比如：Integer 对应 int，Long 对应 long，Character 对应 char），所以，其实现在我们可以为原始类型创建一个包装对象，同时对它们做对象相关的操作。<br>　　　JVM看来它把所有的 “原始类型” 都是当作对象处理”</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Java/">Java</a>
+    </div>
+
+
+      
       
       <div class="clearfix"></div>
     </div>
@@ -910,6 +815,88 @@
       
         <p class="article-more-link">
           <a href="/2016/07/02/programPearls_C语言中结构体内存free/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-TACouses_考勤系统-三-MFC-UI控件之ComboBox" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/" class="article-date">
+      <time datetime="2015-05-11T07:42:37.000Z" itemprop="datePublished">2015-05-11</time>
+</a>
+
+
+
+ 
+    <a href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>To Be Done…</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
