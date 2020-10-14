@@ -271,84 +271,6 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-programPearls_C语言中结构体内存free" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/02/programPearls_C语言中结构体内存free/" class="article-date">
-      <time datetime="2016-07-02T06:38:46.000Z" itemprop="datePublished">2016-07-02</time>
-</a>
-
-
-
- 
-    <a href="/2016/07/02/programPearls_C语言中结构体内存free/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/07/02/programPearls_C语言中结构体内存free/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　来自实训第三天的某段代码，<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">vec2f</span> &#123;</span></span><br><span class="line">  <span class="keyword">float</span> x;</span><br><span class="line">  <span class="keyword">float</span> y;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">vec2f</span> <span class="title">vec2f</span>;</span></span><br><span class="line"> </span><br><span class="line"><span class="function">vec2f* <span class="title">vec2f_alloc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  vec2f* ret;</span><br><span class="line">  ret = ( vec2f* ) <span class="built_in">malloc</span>( <span class="keyword">sizeof</span>( vec2f ) );</span><br><span class="line">  <span class="comment">//if( !ret ) // if error occurs</span></span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_init</span><span class="params">( vec2f* v, <span class="keyword">float</span> x, <span class="keyword">float</span> y )</span> </span>&#123;</span><br><span class="line">  v-&gt;x = x;</span><br><span class="line">  v-&gt;y = y;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function">vec2f* <span class="title">vec2f_new</span><span class="params">( <span class="keyword">float</span> x, <span class="keyword">float</span> y )</span> </span>&#123;</span><br><span class="line">  vec2f* ret = vec2f_alloc();</span><br><span class="line">  vec2f_init( ret, x, y );</span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_delete</span><span class="params">( vec2f** v )</span> </span>&#123;</span><br><span class="line">  <span class="built_in">free</span>( *v );</span><br><span class="line">  *v = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_print</span><span class="params">( <span class="keyword">const</span> vec2f* v )</span> </span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>( <span class="string">"[ %g %g ]\n"</span>, v-&gt;x, v-&gt;y );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/C-C/">C/C++</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2016/07/02/programPearls_C语言中结构体内存free/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-programPearls_Coding中的编码问题之入门$概览" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -412,6 +334,84 @@
       
         <p class="article-more-link">
           <a href="/2016/02/21/programPearls_Coding中的编码问题之入门$概览/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-programPearls_C语言中结构体内存free" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/02/programPearls_C语言中结构体内存free/" class="article-date">
+      <time datetime="2016-07-02T06:38:46.000Z" itemprop="datePublished">2016-07-02</time>
+</a>
+
+
+
+ 
+    <a href="/2016/07/02/programPearls_C语言中结构体内存free/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/07/02/programPearls_C语言中结构体内存free/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　来自实训第三天的某段代码，<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">vec2f</span> &#123;</span></span><br><span class="line">  <span class="keyword">float</span> x;</span><br><span class="line">  <span class="keyword">float</span> y;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">vec2f</span> <span class="title">vec2f</span>;</span></span><br><span class="line"> </span><br><span class="line"><span class="function">vec2f* <span class="title">vec2f_alloc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  vec2f* ret;</span><br><span class="line">  ret = ( vec2f* ) <span class="built_in">malloc</span>( <span class="keyword">sizeof</span>( vec2f ) );</span><br><span class="line">  <span class="comment">//if( !ret ) // if error occurs</span></span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_init</span><span class="params">( vec2f* v, <span class="keyword">float</span> x, <span class="keyword">float</span> y )</span> </span>&#123;</span><br><span class="line">  v-&gt;x = x;</span><br><span class="line">  v-&gt;y = y;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function">vec2f* <span class="title">vec2f_new</span><span class="params">( <span class="keyword">float</span> x, <span class="keyword">float</span> y )</span> </span>&#123;</span><br><span class="line">  vec2f* ret = vec2f_alloc();</span><br><span class="line">  vec2f_init( ret, x, y );</span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_delete</span><span class="params">( vec2f** v )</span> </span>&#123;</span><br><span class="line">  <span class="built_in">free</span>( *v );</span><br><span class="line">  *v = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_print</span><span class="params">( <span class="keyword">const</span> vec2f* v )</span> </span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>( <span class="string">"[ %g %g ]\n"</span>, v-&gt;x, v-&gt;y );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/C-C/">C/C++</a>
+    </div>
+
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2016/07/02/programPearls_C语言中结构体内存free/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
