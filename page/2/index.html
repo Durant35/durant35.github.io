@@ -271,6 +271,99 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Algorithms_BasicMiscs" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/02/Algorithms_BasicMiscs/" class="article-date">
+      <time datetime="2017-07-02T07:26:22.000Z" itemprop="datePublished">2017-07-02</time>
+</a>
+
+
+
+ 
+    <a href="/2017/07/02/Algorithms_BasicMiscs/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/02/Algorithms_BasicMiscs/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/02/Algorithms_BasicMiscs/">算法设计与分析[0021] Some Algorithms Basic Details Review（课程总结）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h4 id="如何对-vector-初始化"><a href="#如何对-vector-初始化" class="headerlink" title="如何对 vector 初始化"></a>如何对 <strong>vector</strong> 初始化</h4><ul>
+<li>大小为<code>size</code>的一维向量，二位向量</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;what-type&gt; var-name(what-size);</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;what-type&gt;&gt; var-name(rowSize, <span class="built_in">vector</span>&lt;what-type&gt;(colSize));</span><br></pre></td></tr></table></figure>
+<ul>
+<li>数组转 vector</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> rowSize = ?;</span><br><span class="line"><span class="keyword">int</span> colSize = ?;</span><br><span class="line">what-type A_[rowSize][colSize] = &#123;</span><br><span class="line">  &#123;element1, elment2, ..., element&#125;,</span><br><span class="line">  &#123;&#125;,</span><br><span class="line">  ...</span><br><span class="line">  &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;what-type&gt;&gt; A(rowSize, <span class="built_in">vector</span>&lt;what-type&gt;(colSize));</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;rowSize; row++) &#123;</span><br><span class="line">  A[row].assign(A_[row], A_[row] + colSize);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <a class="">置顶</a>
+        </div>
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/07/02/Algorithms_BasicMiscs/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-cpp_C++ BasicMiscs" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -684,88 +777,6 @@
 
 
   
-    <article id="post-programPearls_inline$static$const$extern$volatile" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/06/programPearls_inline$static$const$extern$volatile/" class="article-date">
-      <time datetime="2017-07-06T08:02:16.000Z" itemprop="datePublished">2017-07-06</time>
-</a>
-
-
-
- 
-    <a href="/2017/07/06/programPearls_inline$static$const$extern$volatile/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/06/programPearls_inline$static$const$extern$volatile/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/06/programPearls_inline$static$const$extern$volatile/">C/C++常见修饰符（inline&amp;static&amp;const&amp;extern&amp;volatile）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文是关于C/C++语言中常见的五个修饰符：<code>static</code>、<code>const</code>、<code>extern</code>、<code>inline</code>、<code>volatile</code>的含义和用法，在阅读本文前，建议先通过<a href="https://durant35.github.io/2017/07/07/programPearls_declaration&amp;definition&amp;initialization&amp;assignment/">《声明/定义/初始化/赋值》</a>了解有关C/C++中定义、声明等概念以及变量声明和定义的区别。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/C-C/">C/C++</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/">C/C++</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/07/06/programPearls_inline$static$const$extern$volatile/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-Algorithms_MaximizingFlow" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -834,171 +845,6 @@
       
         <p class="article-more-link">
           <a href="/2017/05/19/Algorithms_MaximizingFlow/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_NP-Complete(I)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/06/08/Algorithms_NP-Complete(I)/" class="article-date">
-      <time datetime="2017-06-08T06:00:22.000Z" itemprop="datePublished">2017-06-08</time>
-</a>
-
-
-
- 
-    <a href="/2017/06/08/Algorithms_NP-Complete(I)/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/06/08/Algorithms_NP-Complete(I)/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/08/Algorithms_NP-Complete(I)/">算法设计与分析[0017] NP-完全问题：概述（两道证明习题）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　在计算机算法求解问题当中，经常用<code>时间复杂度</code>和<code>空间复杂度</code>来表示一个算法的运行效率。空间复杂度表示一个算法在计算过程当中要占用的内存空间大小；时间复杂度则表示这个算法运行得到想要的解所需的计算工作量，并不是表示一个程序解决问题需要花多少时间，而是当问题规模扩大后，程序需要的时间长度增长得有多快，即探讨的是当输入值接近无穷时，算法所需工作量的变化快慢程度。也就是说，对于高速处理数据的计算机来说，处理某一个特定数据的效率不能衡量一个程序的好坏，而应该看当这个数据的规模变大到数百倍后，程序运行时间是否还是一样，或者也跟着慢了数百倍，或者变慢了数万倍。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/06/08/Algorithms_NP-Complete(I)/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_An Alibaba Interview Question" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/10/Algorithms_An Alibaba Interview Question/" class="article-date">
-      <time datetime="2017-03-10T06:00:22.000Z" itemprop="datePublished">2017-03-10</time>
-</a>
-
-
-
- 
-    <a href="/2017/03/10/Algorithms_An Alibaba Interview Question/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/03/10/Algorithms_An Alibaba Interview Question/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文通过一道阿里面试题（下图），说说关于该题的字符串最长子串的查找问题。</p>
-<p><center><img src="/img/Algorithms/0003_alibaba_2017.png" width="1024px"/></center><br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/03/10/Algorithms_An Alibaba Interview Question/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -1102,9 +948,173 @@
 
 
   
+    <article id="post-Algorithms_Dynamic Programming(I)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/" class="article-date">
+      <time datetime="2017-04-13T06:00:22.000Z" itemprop="datePublished">2017-04-13</time>
+</a>
+
+
+
+ 
+    <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/04/13/Algorithms_Dynamic Programming(I)/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　本文通过 <strong>Unique Paths <a href="https://leetcode.com/problems/unique-paths/#/description">[I]</a> &amp; <a href="https://leetcode.com/problems/unique-paths-ii/#/description">[II]</a></strong> 两道题从普通的递归思路到动态规划两种方式的求解尝试，希望能够初步分析如何根据动态规划的思路，进行问题求解。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_NP-Complete(I)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/08/Algorithms_NP-Complete(I)/" class="article-date">
+      <time datetime="2017-06-08T06:00:22.000Z" itemprop="datePublished">2017-06-08</time>
+</a>
+
+
+
+ 
+    <a href="/2017/06/08/Algorithms_NP-Complete(I)/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/06/08/Algorithms_NP-Complete(I)/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/08/Algorithms_NP-Complete(I)/">算法设计与分析[0017] NP-完全问题：概述（两道证明习题）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　在计算机算法求解问题当中，经常用<code>时间复杂度</code>和<code>空间复杂度</code>来表示一个算法的运行效率。空间复杂度表示一个算法在计算过程当中要占用的内存空间大小；时间复杂度则表示这个算法运行得到想要的解所需的计算工作量，并不是表示一个程序解决问题需要花多少时间，而是当问题规模扩大后，程序需要的时间长度增长得有多快，即探讨的是当输入值接近无穷时，算法所需工作量的变化快慢程度。也就是说，对于高速处理数据的计算机来说，处理某一个特定数据的效率不能衡量一个程序的好坏，而应该看当这个数据的规模变大到数百倍后，程序运行时间是否还是一样，或者也跟着慢了数百倍，或者变慢了数万倍。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/06/08/Algorithms_NP-Complete(I)/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 </div>

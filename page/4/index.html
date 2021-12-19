@@ -271,6 +271,96 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-DARPA_Boss_BossandtheUrbanChallenge" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/" class="article-date">
+      <time datetime="2017-06-02T05:00:22.000Z" itemprop="datePublished">2017-06-02</time>
+</a>
+
+
+
+ 
+    <a href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　Boss 自动驾驶软硬件概述。</p>
+<h4 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h4><ul>
+<li>软件概述<ul>
+<li>Motion planning sub-system<br>==&gt; 2 planners: avoiding static and dynamic obstacles while achieving a desired goal（最终都是产生一条 trajectory）<ul>
+<li>structured driving: road following</li>
+<li>unstructured driving: maneuvering in parking lots（停车场等的机动控制）</li>
+</ul>
+</li>
+<li>Perception sub-system
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/DARPA/">DARPA</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DARPA/">DARPA</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-programPearls_Summary after Interview in Robosense" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -332,99 +422,6 @@
       
         <p class="article-more-link">
           <a href="/2017/09/03/programPearls_Summary after Interview in Robosense/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_GraphProblems" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/06/26/Algorithms_GraphProblems/" class="article-date">
-      <time datetime="2017-06-26T12:26:22.000Z" itemprop="datePublished">2017-06-26</time>
-</a>
-
-
-
- 
-    <a href="/2017/06/26/Algorithms_GraphProblems/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/06/26/Algorithms_GraphProblems/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/26/Algorithms_GraphProblems/">算法设计与分析[0020] 几个有关图的问题</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h4 id="有向图-vs-无向图"><a href="#有向图-vs-无向图" class="headerlink" title="有向图 vs 无向图"></a>有向图 vs 无向图</h4><ul>
-<li>有向图强调<strong>出入度</strong>的概念；无向图，其<strong>邻接矩阵</strong> 是一个对称矩阵。</li>
-<li>无向图边的两端是对称的，无向图讲究<strong>连通</strong>这个概念，没有<strong>方向</strong>，没有<strong>拓扑</strong>。</li>
-</ul>
-<h4 id="判断图是否连通？（一个图有几个连通分量）"><a href="#判断图是否连通？（一个图有几个连通分量）" class="headerlink" title="判断图是否连通？（一个图有几个连通分量）"></a>判断图是否连通？（一个图有几个连通分量）</h4><ul>
-<li>从一个指定的点开始，通过不同的策略去遍历这个图，有深度遍历和广度遍历。</li>
-<li>每次经过一个节点的时候，首先判断一下这个节点是否已经访问过了，如果没有访问过，则这个节点可以作为下一次继续遍历的候选。</li>
-<li>如果这个图是连通的话，这种方法最终会覆盖到整个图。所以可以采用一种计数统计的方式来实现。<ul>
-<li>比如说每次访问一个以前没有遍历的节点，则将对应的计数加一。这样当最后遍历结束后，如果统计的节点和图本身的节点一样的话，表示这个图是连通的，否则表示不连通。</li>
-</ul>
-</li>
-<li>这种方法用来判断整个图是否为连通的时候，实际上只要给定一个点，然后按照给定的步骤可以把该点所连接的所有点都涵盖到。如果有其它分隔的部分则不会再处理了，所以，通过这种办法我们在图不是连通的情况下，它只需要涵盖图的一部分就执行结束了。最坏的情况时间复杂度也就是$O(V+E)$。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/06/26/Algorithms_GraphProblems/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -528,22 +525,22 @@
 
 
   
-    <article id="post-Algorithms_BiGraphMatching" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_FFT" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/06/01/Algorithms_BiGraphMatching/" class="article-date">
-      <time datetime="2017-06-01T13:00:22.000Z" itemprop="datePublished">2017-06-01</time>
+      <a href="/2017/03/04/Algorithms_FFT/" class="article-date">
+      <time datetime="2017-03-04T06:00:22.000Z" itemprop="datePublished">2017-03-04</time>
 </a>
 
 
 
  
-    <a href="/2017/06/01/Algorithms_BiGraphMatching/#comments" title="查看评论">
+    <a href="/2017/03/04/Algorithms_FFT/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/06/01/Algorithms_BiGraphMatching/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/03/04/Algorithms_FFT/"></span>
         
     </a>
 
@@ -558,7 +555,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/01/Algorithms_BiGraphMatching/">算法设计与分析[0016] 二分图匹配问题</a>
+      <a class="article-title" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a>
     </h1>
   
 
@@ -568,10 +565,12 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h4 id="二分图匹配问题"><a href="#二分图匹配问题" class="headerlink" title="二分图匹配问题"></a>二分图匹配问题</h4><ul>
-<li>二分图<br><center><img src="/img/Algorithms/0016_bipartiteGraph.png" width="340px" alt=""/></center><ul>
-<li>顶点被分成两个不相交的集合（$U$ 和 $V$）并且同属一个集合内的点两两不相连（$E_{in U} = E_{in V} = \emptyset$），即要么没有圈，要么圈所包含的边数必定是偶数。</li>
-<li><strong>二分图</strong> 的一个等价定义是：不含有 <strong>含奇数条边的环</strong> 的图。
+              <p>　本文介绍 <strong>Divide and Conquer（分而治之）</strong> 的一种典型算法，<strong>FFT</strong>（快速傅里叶变换）。</p>
+<h3 id="DFT"><a href="#DFT" class="headerlink" title="DFT"></a>DFT</h3><p>DFT：$X[k] = \sum_{n=0}^{N-1} x[n] e^{-j \frac{2 \pi k}{N} n}, k = 0, 1, 2, …, N-1$</p>
+<ul>
+<li>for each k: <strong>N</strong> complex mults, <strong>N-1</strong> complex adds</li>
+<li>$e^{-j \frac{2 \pi k}{N} n}$ 预计算并保存在计算机中</li>
+<li>$O(N^2)$ computations for direct <strong>DFT</strong> $\Longrightarrow$ $O(N log_2 N)$ for <strong>FFT</strong>
           
       
     </div>
@@ -591,7 +590,171 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/06/01/Algorithms_BiGraphMatching/#more">more >></a>
+          <a href="/2017/03/04/Algorithms_FFT/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_BST$R-B Tree" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/08/Algorithms_BST$R-B Tree/" class="article-date">
+      <time datetime="2017-07-08T04:02:22.000Z" itemprop="datePublished">2017-07-08</time>
+</a>
+
+
+
+ 
+    <a href="/2017/07/08/Algorithms_BST$R-B Tree/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/08/Algorithms_BST$R-B Tree/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/08/Algorithms_BST$R-B Tree/">算法设计与分析[0022] BST（二叉查找树）和 R-B Tree（红黑树）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　一些计算机程序设计中常用的线性数据结构：<code>Array</code>、<code>ArrayList</code>、<code>LinkedList</code>、<code>List</code>、<code>Stack</code>、<code>Queue</code>、<code>Hashtable</code> 和<code>Dictionary</code>。为了更高效的进行数据的查找和访问，例如避免普通数据查找的 $O(N)$ 线性时间复杂度，常用树这种数据结构保存数据。<br>　树（Tree）是由多个节点（Node）的集合组成，每个节点又有多个与其关联的子节点（Child Node）；子节点就是直接处于节点之下的节点，而父节点（Parent Node）则位于节点直接关联的上方；树的根（Root）指的是一个没有父节点的单独的节点。所有的树都呈现了一些共有的性质：<font color="blue">①只有一个根节点；②除了根节点，所有节点都有且只有一个父节点；③无环。将任意一个节点作为起始节点，都不存在任何回到该起始节点的路径（正是前两个性质保证了无环的成立）</font>。<br>　更高效同时也相对更加复杂的树型数据结构包括 <strong>BST</strong>（二叉查找树）、<strong>R-B Tree</strong>（红黑树）、<strong>AVL Tree</strong>（平衡二叉树：父节点的左子树和右子树的高度之差不能大于1）、<strong>Treap</strong>（树堆：满足①二叉查找树的性质；满足②堆的性质）、<strong>Splay Tree</strong>（伸展树：在一次搜索后，会对树进行一些特殊的操作，这些操作的理念与AVL树有些类似，即通过旋转，来改变树节点的分布，并减小树的深度；伸展树并没有AVL树的平衡要求，任意节点的左右子树可以相差任意深度）、<strong>B-Tree</strong>（B树：多叉平衡查找树，<strong>B$^{+}$-Tree</strong>（B+树）是B树的变体）等。<br>　本文主要介绍基础的 <font color="red">BST（二叉查找树）</font>以及提升搜索效率的更高级的数据结构：<font color="red">R-B Tree（红黑树）</font>。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/07/08/Algorithms_BST$R-B Tree/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_LongestCommonSubsequence" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/03/Algorithms_LongestCommonSubsequence/" class="article-date">
+      <time datetime="2017-05-03T06:00:22.000Z" itemprop="datePublished">2017-05-03</time>
+</a>
+
+
+
+ 
+    <a href="/2017/05/03/Algorithms_LongestCommonSubsequence/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/05/03/Algorithms_LongestCommonSubsequence/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　子序列和子字符串的不同之处在于，子序列不需要是原序列上连续的字符。对于 <a href="http://www.lintcode.com/en/problem/longest-common-substring/">Longest Common Substring</a> 以及 <a href="http://www.lintcode.com/en/problem/longest-common-subsequence/"> Longest Common Subsequence</a> 这类题目，大多数需要用到 DP 的思想，其中，状态转移是关键。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/05/03/Algorithms_LongestCommonSubsequence/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -696,22 +859,22 @@
 
 
   
-    <article id="post-Algorithms_LongestCommonSubsequence" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_BFS" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/05/03/Algorithms_LongestCommonSubsequence/" class="article-date">
-      <time datetime="2017-05-03T06:00:22.000Z" itemprop="datePublished">2017-05-03</time>
+      <a href="/2017/03/22/Algorithms_BFS/" class="article-date">
+      <time datetime="2017-03-22T06:00:22.000Z" itemprop="datePublished">2017-03-22</time>
 </a>
 
 
 
  
-    <a href="/2017/05/03/Algorithms_LongestCommonSubsequence/#comments" title="查看评论">
+    <a href="/2017/03/22/Algorithms_BFS/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/05/03/Algorithms_LongestCommonSubsequence/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/03/22/Algorithms_BFS/"></span>
         
     </a>
 
@@ -726,7 +889,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a>
+      <a class="article-title" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a>
     </h1>
   
 
@@ -736,7 +899,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　子序列和子字符串的不同之处在于，子序列不需要是原序列上连续的字符。对于 <a href="http://www.lintcode.com/en/problem/longest-common-substring/">Longest Common Substring</a> 以及 <a href="http://www.lintcode.com/en/problem/longest-common-subsequence/"> Longest Common Subsequence</a> 这类题目，大多数需要用到 DP 的思想，其中，状态转移是关键。<br>
+              <p>　本文主要介绍 <strong>BFS</strong> 的 <em>C++</em> 和 <em>C</em> 语言实现，并借助 <a href="https://leetcode.com/">LeetCode</a> 上的一道题，说说基本的 <strong>BFS</strong> 在问题求解中的应用。</p>
+<h3 id="What’s-B-readth-F-irst-S-earch"><a href="#What’s-B-readth-F-irst-S-earch" class="headerlink" title="What’s B(readth)F(irst)S(earch)"></a>What’s B(readth)F(irst)S(earch)</h3><p>　广度优先搜索算法（Breadth First Search），又叫宽度优先搜索，或横向优先搜索。是从根节点开始，沿着树的宽度遍历树的节点。如果所有节点均被访问，则算法中止。<br>
           
       
     </div>
@@ -756,7 +920,90 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/05/03/Algorithms_LongestCommonSubsequence/#more">more >></a>
+          <a href="/2017/03/22/Algorithms_BFS/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-linux_瞎谈Socket编程_2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/16/linux_瞎谈Socket编程_2/" class="article-date">
+      <time datetime="2016-07-16T09:28:00.000Z" itemprop="datePublished">2016-07-16</time>
+</a>
+
+
+
+ 
+    <a href="/2016/07/16/linux_瞎谈Socket编程_2/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/07/16/linux_瞎谈Socket编程_2/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="数据传输方式"><a href="#数据传输方式" class="headerlink" title="数据传输方式"></a><font color="#F40D64">数据传输方式</font></h2><p>　　<strong>SOCK_STREAM</strong>　　　　面向连接　　　　　　　　准确性/相对较慢　　　<font color="red">TCP</font><br>　　<strong>SOCK_DGRAM</strong>　　　　 无连接的传输方式    　　　　视频/音频    　　　　　　<font color="red">UDP</font><br><strong>Server</strong><br>　1. 创建套接字　　　　　　　　　　　　　　　　　<font color="green">int sock = socket(AF_INET, SOCK_STREAM, 0);</font><br>　2. 将套接字和IP、端口绑定　　　　　　　　　　　<font color="green">bind(sock, (struct sockaddr*)&amp;serv_addr, sizeof(serv_addr));</font><br>　3. 进入监听状态，等待客户端请求　　　　　　　　<font color="green">listen(…);</font><br>    　　　　　　　　　　　　　　　　　　　　　　　　<font color="green">accept(…);</font><br>　4. 接受客户端数据/向客户端发送数据　　　　　　　<font color="green">read(…)/write(…);</font>　　　　　　　　　　　　　　<br>　5. 关闭套接字　　　　　　　　　　　　　　　　　<font color="green">close();</font></p>
+<p><strong>Client</strong><br>　1. 创建套接字<br>　2. 向服务器(特定的IP和端口)发送请求　　　　　　　<font color="green">connect(…);</font><br>　3. 读取服务器传回的数据/向服务器发送数据　　　　<font color="green">read/write(sock, char*, sizeof(…));</font><br>　4. 关闭套接字<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/网络编程/">网络编程</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/07/16/linux_瞎谈Socket编程_2/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -864,256 +1111,9 @@
 
 
   
-    <article id="post-Algorithms_BST$R-B Tree" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/08/Algorithms_BST$R-B Tree/" class="article-date">
-      <time datetime="2017-07-08T04:02:22.000Z" itemprop="datePublished">2017-07-08</time>
-</a>
-
-
-
- 
-    <a href="/2017/07/08/Algorithms_BST$R-B Tree/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/08/Algorithms_BST$R-B Tree/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/08/Algorithms_BST$R-B Tree/">算法设计与分析[0022] BST（二叉查找树）和 R-B Tree（红黑树）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　一些计算机程序设计中常用的线性数据结构：<code>Array</code>、<code>ArrayList</code>、<code>LinkedList</code>、<code>List</code>、<code>Stack</code>、<code>Queue</code>、<code>Hashtable</code> 和<code>Dictionary</code>。为了更高效的进行数据的查找和访问，例如避免普通数据查找的 $O(N)$ 线性时间复杂度，常用树这种数据结构保存数据。<br>　树（Tree）是由多个节点（Node）的集合组成，每个节点又有多个与其关联的子节点（Child Node）；子节点就是直接处于节点之下的节点，而父节点（Parent Node）则位于节点直接关联的上方；树的根（Root）指的是一个没有父节点的单独的节点。所有的树都呈现了一些共有的性质：<font color="blue">①只有一个根节点；②除了根节点，所有节点都有且只有一个父节点；③无环。将任意一个节点作为起始节点，都不存在任何回到该起始节点的路径（正是前两个性质保证了无环的成立）</font>。<br>　更高效同时也相对更加复杂的树型数据结构包括 <strong>BST</strong>（二叉查找树）、<strong>R-B Tree</strong>（红黑树）、<strong>AVL Tree</strong>（平衡二叉树：父节点的左子树和右子树的高度之差不能大于1）、<strong>Treap</strong>（树堆：满足①二叉查找树的性质；满足②堆的性质）、<strong>Splay Tree</strong>（伸展树：在一次搜索后，会对树进行一些特殊的操作，这些操作的理念与AVL树有些类似，即通过旋转，来改变树节点的分布，并减小树的深度；伸展树并没有AVL树的平衡要求，任意节点的左右子树可以相差任意深度）、<strong>B-Tree</strong>（B树：多叉平衡查找树，<strong>B$^{+}$-Tree</strong>（B+树）是B树的变体）等。<br>　本文主要介绍基础的 <font color="red">BST（二叉查找树）</font>以及提升搜索效率的更高级的数据结构：<font color="red">R-B Tree（红黑树）</font>。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/07/08/Algorithms_BST$R-B Tree/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-linux_瞎谈Socket编程_2" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/16/linux_瞎谈Socket编程_2/" class="article-date">
-      <time datetime="2016-07-16T09:28:00.000Z" itemprop="datePublished">2016-07-16</time>
-</a>
-
-
-
- 
-    <a href="/2016/07/16/linux_瞎谈Socket编程_2/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/07/16/linux_瞎谈Socket编程_2/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="数据传输方式"><a href="#数据传输方式" class="headerlink" title="数据传输方式"></a><font color="#F40D64">数据传输方式</font></h2><p>　　<strong>SOCK_STREAM</strong>　　　　面向连接　　　　　　　　准确性/相对较慢　　　<font color="red">TCP</font><br>　　<strong>SOCK_DGRAM</strong>　　　　 无连接的传输方式    　　　　视频/音频    　　　　　　<font color="red">UDP</font><br><strong>Server</strong><br>　1. 创建套接字　　　　　　　　　　　　　　　　　<font color="green">int sock = socket(AF_INET, SOCK_STREAM, 0);</font><br>　2. 将套接字和IP、端口绑定　　　　　　　　　　　<font color="green">bind(sock, (struct sockaddr*)&amp;serv_addr, sizeof(serv_addr));</font><br>　3. 进入监听状态，等待客户端请求　　　　　　　　<font color="green">listen(…);</font><br>    　　　　　　　　　　　　　　　　　　　　　　　　<font color="green">accept(…);</font><br>　4. 接受客户端数据/向客户端发送数据　　　　　　　<font color="green">read(…)/write(…);</font>　　　　　　　　　　　　　　<br>　5. 关闭套接字　　　　　　　　　　　　　　　　　<font color="green">close();</font></p>
-<p><strong>Client</strong><br>　1. 创建套接字<br>　2. 向服务器(特定的IP和端口)发送请求　　　　　　　<font color="green">connect(…);</font><br>　3. 读取服务器传回的数据/向服务器发送数据　　　　<font color="green">read/write(sock, char*, sizeof(…));</font><br>　4. 关闭套接字<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/网络编程/">网络编程</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/07/16/linux_瞎谈Socket编程_2/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo_Theme Yelee Migrant Note(2)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/07/hexo_Theme Yelee Migrant Note(2)/" class="article-date">
-      <time datetime="2016-10-07T07:33:41.000Z" itemprop="datePublished">2016-10-07</time>
-</a>
-
-
-
- 
-    <a href="/2016/10/07/hexo_Theme Yelee Migrant Note(2)/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/10/07/hexo_Theme Yelee Migrant Note(2)/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/07/hexo_Theme Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文记录了 <strong>Hexo</strong> 首页与归档博文排序如何自定义，想实现的功能是 <strong>index</strong> 按照修改日期排序，最近修改的文章置顶显示；<strong>Archives</strong> 归档则按照默认的创建时间前后排序。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/10/07/hexo_Theme Yelee Migrant Note(2)/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
   
 </div>
