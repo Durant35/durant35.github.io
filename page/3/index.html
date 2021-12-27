@@ -271,22 +271,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-Algorithms_NP-Complete(I)" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_Minimum Spanning Tree" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/06/08/Algorithms_NP-Complete(I)/" class="article-date">
-      <time datetime="2017-06-08T06:00:22.000Z" itemprop="datePublished">2017-06-08</time>
+      <a href="/2017/04/06/Algorithms_Minimum Spanning Tree/" class="article-date">
+      <time datetime="2017-04-06T06:00:22.000Z" itemprop="datePublished">2017-04-06</time>
 </a>
 
 
 
  
-    <a href="/2017/06/08/Algorithms_NP-Complete(I)/#comments" title="查看评论">
+    <a href="/2017/04/06/Algorithms_Minimum Spanning Tree/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/06/08/Algorithms_NP-Complete(I)/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/04/06/Algorithms_Minimum Spanning Tree/"></span>
         
     </a>
 
@@ -301,7 +301,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/08/Algorithms_NP-Complete(I)/">算法设计与分析[0017] NP-完全问题：概述（两道证明习题）</a>
+      <a class="article-title" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a>
     </h1>
   
 
@@ -311,7 +311,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　在计算机算法求解问题当中，经常用<code>时间复杂度</code>和<code>空间复杂度</code>来表示一个算法的运行效率。空间复杂度表示一个算法在计算过程当中要占用的内存空间大小；时间复杂度则表示这个算法运行得到想要的解所需的计算工作量，并不是表示一个程序解决问题需要花多少时间，而是当问题规模扩大后，程序需要的时间长度增长得有多快，即探讨的是当输入值接近无穷时，算法所需工作量的变化快慢程度。也就是说，对于高速处理数据的计算机来说，处理某一个特定数据的效率不能衡量一个程序的好坏，而应该看当这个数据的规模变大到数百倍后，程序运行时间是否还是一样，或者也跟着慢了数百倍，或者变慢了数万倍。
+              <p>　本文将介绍带权图的最小生成树（Minimum Spanning Tree）算法：给定一个无向图 G，并且它的每条边均有权值，则 MST 是一个包括 G 的所有顶点及边的子集的图，这个子集保证图是连通的，并且子集中所有边的权值之和为所有子集中最小的。<br>　本文中介绍两种求解图的最小生成树的算法：Prim 算法和 Kruskal 算法，这两种算法都是贪心算法。一般而言，贪心策略不一定能保证找到全局最优解，但是对最小生成树问题来说，贪心策略能获得具有最小权值的生成树。<br>
           
       
     </div>
@@ -331,7 +331,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/06/08/Algorithms_NP-Complete(I)/#more">more >></a>
+          <a href="/2017/04/06/Algorithms_Minimum Spanning Tree/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -435,6 +435,88 @@
 
 
   
+    <article id="post-Algorithms_Dynamic Programming(I)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/" class="article-date">
+      <time datetime="2017-04-13T06:00:22.000Z" itemprop="datePublished">2017-04-13</time>
+</a>
+
+
+
+ 
+    <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/04/13/Algorithms_Dynamic Programming(I)/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　本文通过 <strong>Unique Paths <a href="https://leetcode.com/problems/unique-paths/#/description">[I]</a> &amp; <a href="https://leetcode.com/problems/unique-paths-ii/#/description">[II]</a></strong> 两道题从普通的递归思路到动态规划两种方式的求解尝试，希望能够初步分析如何根据动态规划的思路，进行问题求解。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Algorithms_Some Shortest-path Algorithms" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -501,88 +583,6 @@
       
         <p class="article-more-link">
           <a href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_Dynamic Programming(I)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/" class="article-date">
-      <time datetime="2017-04-13T06:00:22.000Z" itemprop="datePublished">2017-04-13</time>
-</a>
-
-
-
- 
-    <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/04/13/Algorithms_Dynamic Programming(I)/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文通过 <strong>Unique Paths <a href="https://leetcode.com/problems/unique-paths/#/description">[I]</a> &amp; <a href="https://leetcode.com/problems/unique-paths-ii/#/description">[II]</a></strong> 两道题从普通的递归思路到动态规划两种方式的求解尝试，希望能够初步分析如何根据动态规划的思路，进行问题求解。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -949,22 +949,22 @@
 
 
   
-    <article id="post-Algorithms_An Alibaba Interview Question" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-programPearls_Summary after Interview in Robosense" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/10/Algorithms_An Alibaba Interview Question/" class="article-date">
-      <time datetime="2017-03-10T06:00:22.000Z" itemprop="datePublished">2017-03-10</time>
+      <a href="/2017/09/03/programPearls_Summary after Interview in Robosense/" class="article-date">
+      <time datetime="2017-09-03T02:46:16.000Z" itemprop="datePublished">2017-09-03</time>
 </a>
 
 
 
  
-    <a href="/2017/03/10/Algorithms_An Alibaba Interview Question/#comments" title="查看评论">
+    <a href="/2017/09/03/programPearls_Summary after Interview in Robosense/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/03/10/Algorithms_An Alibaba Interview Question/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/09/03/programPearls_Summary after Interview in Robosense/"></span>
         
     </a>
 
@@ -979,7 +979,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a>
+      <a class="article-title" href="/2017/09/03/programPearls_Summary after Interview in Robosense/">Summary after Robosense&#39;s Interview</a>
     </h1>
   
 
@@ -989,8 +989,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　本文通过一道阿里面试题（下图），说说关于该题的字符串最长子串的查找问题。</p>
-<p><center><img src="/img/Algorithms/0003_alibaba_2017.png" width="1024px"/></center><br>
+              <p>　昨天第一次到 xx 参观学习，略有点仓促地进行了笔试和面试，整体状态不好，可能没做好心理准备吧。感觉：Robosense 不显山不露水！<br>　下面是对期间觉得含糊不清的问题的整理。
           
       
     </div>
@@ -999,18 +998,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/C-C/">C/C++</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/">C/C++</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/03/10/Algorithms_An Alibaba Interview Question/#more">more >></a>
+          <a href="/2017/09/03/programPearls_Summary after Interview in Robosense/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

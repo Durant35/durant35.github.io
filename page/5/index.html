@@ -354,22 +354,22 @@
 
 
   
-    <article id="post-Algorithms_DFS" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_BiGraphMatching" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/15/Algorithms_DFS/" class="article-date">
-      <time datetime="2017-03-15T06:00:22.000Z" itemprop="datePublished">2017-03-15</time>
+      <a href="/2017/06/01/Algorithms_BiGraphMatching/" class="article-date">
+      <time datetime="2017-06-01T13:00:22.000Z" itemprop="datePublished">2017-06-01</time>
 </a>
 
 
 
  
-    <a href="/2017/03/15/Algorithms_DFS/#comments" title="查看评论">
+    <a href="/2017/06/01/Algorithms_BiGraphMatching/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/03/15/Algorithms_DFS/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/06/01/Algorithms_BiGraphMatching/"></span>
         
     </a>
 
@@ -384,7 +384,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a>
+      <a class="article-title" href="/2017/06/01/Algorithms_BiGraphMatching/">算法设计与分析[0016] 二分图匹配问题</a>
     </h1>
   
 
@@ -394,8 +394,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　本文主要介绍 <strong>DFS</strong> 的 <em>C++</em> 和 <em>C</em> 语言实现，并借助 <a href="https://leetcode.com/">LeetCode</a> 上的一道题，说说基本的 <strong>DFS</strong> 在问题求解中的应用。</p>
-<h3 id="What’s-D-epth-F-irst-S-earch"><a href="#What’s-D-epth-F-irst-S-earch" class="headerlink" title="What’s D(epth)F(irst)S(earch)"></a>What’s D(epth)F(irst)S(earch)</h3><p>　深度优先搜索算法（Depth First Search），是搜索算法的一种。是沿着树的深度遍历树的节点，尽可能深的搜索树的分支。当节点 <strong>N</strong> 的所有边都己被探寻过，搜索将回溯到发现节点 <strong>N</strong> 的那条边的起始节点，这一过程一直进行到已发现从源节点可达的所有节点为止。<br>　如果还存在未被发现的节点，则选择其中一个作为源节点并重复以上过程，整个进程反复进行直到所有节点都被访问为止。<br>
+              <h4 id="二分图匹配问题"><a href="#二分图匹配问题" class="headerlink" title="二分图匹配问题"></a>二分图匹配问题</h4><ul>
+<li>二分图<br><center><img src="/img/Algorithms/0016_bipartiteGraph.png" width="340px" alt=""/></center><ul>
+<li>顶点被分成两个不相交的集合（$U$ 和 $V$）并且同属一个集合内的点两两不相连（$E_{in U} = E_{in V} = \emptyset$），即要么没有圈，要么圈所包含的边数必定是偶数。</li>
+<li><strong>二分图</strong> 的一个等价定义是：不含有 <strong>含奇数条边的环</strong> 的图。
           
       
     </div>
@@ -410,12 +412,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/03/15/Algorithms_DFS/#more">more >></a>
+          <a href="/2017/06/01/Algorithms_BiGraphMatching/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -437,22 +439,22 @@
 
 
   
-    <article id="post-Algorithms_BST$R-B Tree" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_An Alibaba Interview Question" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/08/Algorithms_BST$R-B Tree/" class="article-date">
-      <time datetime="2017-07-08T04:02:22.000Z" itemprop="datePublished">2017-07-08</time>
+      <a href="/2017/03/10/Algorithms_An Alibaba Interview Question/" class="article-date">
+      <time datetime="2017-03-10T06:00:22.000Z" itemprop="datePublished">2017-03-10</time>
 </a>
 
 
 
  
-    <a href="/2017/07/08/Algorithms_BST$R-B Tree/#comments" title="查看评论">
+    <a href="/2017/03/10/Algorithms_An Alibaba Interview Question/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/08/Algorithms_BST$R-B Tree/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/03/10/Algorithms_An Alibaba Interview Question/"></span>
         
     </a>
 
@@ -467,7 +469,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/08/Algorithms_BST$R-B Tree/">算法设计与分析[0022] BST（二叉查找树）和 R-B Tree（红黑树）</a>
+      <a class="article-title" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a>
     </h1>
   
 
@@ -477,7 +479,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　一些计算机程序设计中常用的线性数据结构：<code>Array</code>、<code>ArrayList</code>、<code>LinkedList</code>、<code>List</code>、<code>Stack</code>、<code>Queue</code>、<code>Hashtable</code> 和<code>Dictionary</code>。为了更高效的进行数据的查找和访问，例如避免普通数据查找的 $O(N)$ 线性时间复杂度，常用树这种数据结构保存数据。<br>　树（Tree）是由多个节点（Node）的集合组成，每个节点又有多个与其关联的子节点（Child Node）；子节点就是直接处于节点之下的节点，而父节点（Parent Node）则位于节点直接关联的上方；树的根（Root）指的是一个没有父节点的单独的节点。所有的树都呈现了一些共有的性质：<font color="blue">①只有一个根节点；②除了根节点，所有节点都有且只有一个父节点；③无环。将任意一个节点作为起始节点，都不存在任何回到该起始节点的路径（正是前两个性质保证了无环的成立）</font>。<br>　更高效同时也相对更加复杂的树型数据结构包括 <strong>BST</strong>（二叉查找树）、<strong>R-B Tree</strong>（红黑树）、<strong>AVL Tree</strong>（平衡二叉树：父节点的左子树和右子树的高度之差不能大于1）、<strong>Treap</strong>（树堆：满足①二叉查找树的性质；满足②堆的性质）、<strong>Splay Tree</strong>（伸展树：在一次搜索后，会对树进行一些特殊的操作，这些操作的理念与AVL树有些类似，即通过旋转，来改变树节点的分布，并减小树的深度；伸展树并没有AVL树的平衡要求，任意节点的左右子树可以相差任意深度）、<strong>B-Tree</strong>（B树：多叉平衡查找树，<strong>B$^{+}$-Tree</strong>（B+树）是B树的变体）等。<br>　本文主要介绍基础的 <font color="red">BST（二叉查找树）</font>以及提升搜索效率的更高级的数据结构：<font color="red">R-B Tree（红黑树）</font>。
+              <p>　本文通过一道阿里面试题（下图），说说关于该题的字符串最长子串的查找问题。</p>
+<p><center><img src="/img/Algorithms/0003_alibaba_2017.png" width="1024px"/></center><br>
           
       
     </div>
@@ -497,7 +500,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/07/08/Algorithms_BST$R-B Tree/#more">more >></a>
+          <a href="/2017/03/10/Algorithms_An Alibaba Interview Question/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -852,88 +855,6 @@
 
 
   
-    <article id="post-tool_NotePad" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/02/02/tool_NotePad/" class="article-date">
-      <time datetime="2016-02-02T09:13:06.000Z" itemprop="datePublished">2016-02-02</time>
-</a>
-
-
-
- 
-    <a href="/2016/02/02/tool_NotePad/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/02/02/tool_NotePad/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/02/tool_NotePad/">NotePad++</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　简单说说<strong>NotePad++</strong>几个实用的地方，特别是在字符编码，字节查看这方面很有用处。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/小工具/">小工具</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Encoding/">Encoding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NotePad/">NotePad++</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/02/02/tool_NotePad/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-TACouses_考勤系统-一-搭建起项目需要的开发环境" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1078,6 +999,88 @@
       
         <p class="article-more-link">
           <a href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-tool_NotePad" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/02/tool_NotePad/" class="article-date">
+      <time datetime="2016-02-02T09:13:06.000Z" itemprop="datePublished">2016-02-02</time>
+</a>
+
+
+
+ 
+    <a href="/2016/02/02/tool_NotePad/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/02/02/tool_NotePad/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/02/tool_NotePad/">NotePad++</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　简单说说<strong>NotePad++</strong>几个实用的地方，特别是在字符编码，字节查看这方面很有用处。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/小工具/">小工具</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Encoding/">Encoding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NotePad/">NotePad++</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/02/02/tool_NotePad/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

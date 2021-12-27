@@ -271,22 +271,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-python_sort-Functions" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-programPearls_precise delay using select" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/01/24/python_sort-Functions/" class="article-date">
-      <time datetime="2017-01-24T08:18:38.000Z" itemprop="datePublished">2017-01-24</time>
+      <a href="/2016/09/08/programPearls_precise delay using select/" class="article-date">
+      <time datetime="2016-09-08T03:51:14.000Z" itemprop="datePublished">2016-09-08</time>
 </a>
 
 
 
  
-    <a href="/2017/01/24/python_sort-Functions/#comments" title="查看评论">
+    <a href="/2016/09/08/programPearls_precise delay using select/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/01/24/python_sort-Functions/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/programPearls_precise delay using select/"></span>
         
     </a>
 
@@ -301,7 +301,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a>
+      <a class="article-title" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a>
     </h1>
   
 
@@ -311,8 +311,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>TBD…</p>
-
+              <h3 id="select-初识"><a href="#select-初识" class="headerlink" title="select 初识"></a>select 初识</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  _In_    <span class="keyword">int</span>                  nfds,         <span class="comment">// 忽略,仅是为了与Berkeley套接字兼容</span></span></span></span><br><span class="line"><span class="function"><span class="params">  _Inout_ fd_set               *readfds,     <span class="comment">// 指向一个套接字集合,用来检查其可读性</span></span></span></span><br><span class="line"><span class="function"><span class="params">  _Inout_ fd_set               *writefds,    <span class="comment">// 指向一个套接字集合,用来检查其可写性</span></span></span></span><br><span class="line"><span class="function"><span class="params">  _Inout_ fd_set               *exceptfds,   <span class="comment">// 指向一个套接字集合,用来检查错误</span></span></span></span><br><span class="line"><span class="function"><span class="params">  _In_    <span class="keyword">const</span> struct timeval *timeout      <span class="comment">// 指定此函数等待的最长时间,如果为NULL,则最长时间为无限大</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"> </span><br><span class="line">返回值: </span><br><span class="line">  函数调用成功，返回发生网络事件的所有套接字数量的总和</span><br><span class="line">  如果超时返回<span class="number">0</span>，代表在描述词状态改变前已超过timeout时间;</span><br><span class="line">  当有错误发生时则返回SOCKET_ERROR(<span class="number">-1</span>).</span><br></pre></td></tr></table></figure>
+          
       
     </div>
     
@@ -326,9 +326,13 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a href="/2016/09/08/programPearls_precise delay using select/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -1005,22 +1009,22 @@
 
 
   
-    <article id="post-programPearls_precise delay using select" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-python_sort-Functions" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/09/08/programPearls_precise delay using select/" class="article-date">
-      <time datetime="2016-09-08T03:51:14.000Z" itemprop="datePublished">2016-09-08</time>
+      <a href="/2017/01/24/python_sort-Functions/" class="article-date">
+      <time datetime="2017-01-24T08:18:38.000Z" itemprop="datePublished">2017-01-24</time>
 </a>
 
 
 
  
-    <a href="/2016/09/08/programPearls_precise delay using select/#comments" title="查看评论">
+    <a href="/2017/01/24/python_sort-Functions/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/programPearls_precise delay using select/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/01/24/python_sort-Functions/"></span>
         
     </a>
 
@@ -1035,7 +1039,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a>
+      <a class="article-title" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a>
     </h1>
   
 
@@ -1045,8 +1049,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h3 id="select-初识"><a href="#select-初识" class="headerlink" title="select 初识"></a>select 初识</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  _In_    <span class="keyword">int</span>                  nfds,         <span class="comment">// 忽略,仅是为了与Berkeley套接字兼容</span></span></span></span><br><span class="line"><span class="function"><span class="params">  _Inout_ fd_set               *readfds,     <span class="comment">// 指向一个套接字集合,用来检查其可读性</span></span></span></span><br><span class="line"><span class="function"><span class="params">  _Inout_ fd_set               *writefds,    <span class="comment">// 指向一个套接字集合,用来检查其可写性</span></span></span></span><br><span class="line"><span class="function"><span class="params">  _Inout_ fd_set               *exceptfds,   <span class="comment">// 指向一个套接字集合,用来检查错误</span></span></span></span><br><span class="line"><span class="function"><span class="params">  _In_    <span class="keyword">const</span> struct timeval *timeout      <span class="comment">// 指定此函数等待的最长时间,如果为NULL,则最长时间为无限大</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"> </span><br><span class="line">返回值: </span><br><span class="line">  函数调用成功，返回发生网络事件的所有套接字数量的总和</span><br><span class="line">  如果超时返回<span class="number">0</span>，代表在描述词状态改变前已超过timeout时间;</span><br><span class="line">  当有错误发生时则返回SOCKET_ERROR(<span class="number">-1</span>).</span><br></pre></td></tr></table></figure>
-          
+        <p>TBD…</p>
+
       
     </div>
     
@@ -1060,13 +1064,9 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
     </div>
 
-      
-        <p class="article-more-link">
-          <a href="/2016/09/08/programPearls_precise delay using select/#more">more >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>
