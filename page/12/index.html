@@ -271,22 +271,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-TACouses_ES2017_SystemC" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-ROS_&lt;arg&gt;$&lt;param&gt;$&lt;rosparam&gt;" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/09/26/TACouses_ES2017_SystemC/" class="article-date">
-      <time datetime="2017-09-26T07:50:14.000Z" itemprop="datePublished">2017-09-26</time>
+      <a href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/" class="article-date">
+      <time datetime="2017-07-14T12:18:03.000Z" itemprop="datePublished">2017-07-14</time>
 </a>
 
 
 
  
-    <a href="/2017/09/26/TACouses_ES2017_SystemC/#comments" title="查看评论">
+    <a href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/09/26/TACouses_ES2017_SystemC/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/14/ROS_&lt;arg&gt;$&lt;param&gt;$&lt;rosparam&gt;/"></span>
         
     </a>
 
@@ -301,7 +301,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/26/TACouses_ES2017_SystemC/">嵌入式系统导论[02] 浅谈 System C</a>
+      <a class="article-title" href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/">ROS launch file: &lt;arg&gt; vs &lt;param&gt; vs &lt;rosparam&gt;</a>
     </h1>
   
 
@@ -311,7 +311,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　<strong>SystemC</strong> 是一种基于 C++ 语言的用于 <strong>系统设计</strong> 的计算机语言，是用 C++ 编写的一组库和宏。为了更好的了解 <strong>SystemC</strong> 的用途，我们先从集成电路（<strong>IC</strong>：通用集成电路、专用集成电路）设计的一些基础讲起，谈谈 <strong>SystemC</strong> 在 IC 设计流程中的定位；通过对比 <strong>SystemC</strong> 和我们更为熟悉的 <strong>Verilog</strong>，进一步了解 <strong>SystemC</strong> 。<br>
+              <p>　　本文介绍在 ROS 的 launch 文件中经常被使用到的三个与参数设置有关的标签 <code>&lt;arg&gt;</code>、<code>&lt;param&gt;</code>、<code>rosparam</code>。
           
       
     </div>
@@ -320,14 +320,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/EmbeddedSystem/">EmbeddedSystem</a>
+    <a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/ROS/">ROS</a>
     </div>
 
 
       
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
+    </div>
+
       
         <p class="article-more-link">
-          <a href="/2017/09/26/TACouses_ES2017_SystemC/#more">more >></a>
+          <a href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -588,89 +592,6 @@
 
 
   
-    <article id="post-ROS_ROS_Basics" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/02/ROS_ROS_Basics/" class="article-date">
-      <time datetime="2016-10-02T13:18:03.000Z" itemprop="datePublished">2016-10-02</time>
-</a>
-
-
-
- 
-    <a href="/2016/10/02/ROS_ROS_Basics/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/10/02/ROS_ROS_Basics/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　ROS 基本概念以及经常使用的命令。</p>
-<h3 id="ROS-文件系统"><a href="#ROS-文件系统" class="headerlink" title="ROS 文件系统"></a>ROS 文件系统</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取软件包有关信息</span></span><br><span class="line">xxx@...$ rospack find [package-name]</span><br><span class="line"><span class="comment"># 查看环境变量(ROS_PACKAGE_PATH)</span></span><br><span class="line">xxx@...$ <span class="built_in">export</span> | grep ROS</span><br></pre></td></tr></table></figure>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/ROS/">ROS</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/10/02/ROS_ROS_Basics/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-misc_Key Word Engineering" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -750,22 +671,22 @@
 
 
   
-    <article id="post-hexo_DisqusInsteadofDuoshuo" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-TACouses_ES2017_MoCs" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/" class="article-date">
-      <time datetime="2017-07-14T06:54:28.000Z" itemprop="datePublished">2017-07-14</time>
+      <a href="/2017/10/24/TACouses_ES2017_MoCs/" class="article-date">
+      <time datetime="2017-10-24T04:50:14.000Z" itemprop="datePublished">2017-10-24</time>
 </a>
 
 
 
  
-    <a href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/#comments" title="查看评论">
+    <a href="/2017/10/24/TACouses_ES2017_MoCs/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/14/hexo_DisqusInsteadofDuoshuo/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/10/24/TACouses_ES2017_MoCs/"></span>
         
     </a>
 
@@ -780,7 +701,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/">hexo：告别多说，拥抱 Disqus</a>
+      <a class="article-title" href="/2017/10/24/TACouses_ES2017_MoCs/">嵌入式系统导论[03] Model of Computation</a>
     </h1>
   
 
@@ -790,7 +711,11 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　首先说说，换了 Disqus 之后的体验吧，除了需要翻墙外，都挺好的。<font color="blue">最重要的是，以前一直希望多说有的邮件提醒（一直没有），Disqus 自带就有这个功能</font>。anyway，反正多说已经阵亡了，选择 Disqus 还挺不错的。<br>　　怎么从多说迁移到 Disqus 呢？配置上很简单，主要难题是如何迁移原先多说评论的数据。
+              <p>　承接前期<a href="http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/">DOL Functional Simulation 和 MPARM Simulation</a>的实验内容，结合在<strong>SystemC 系统设计</strong>中提到的<a href="http://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/">Y-chart</a>，本文将讨论在 Behavior 层面的系统建模：<strong>MoCs (Model of Computation)</strong>，希望对 DOL 的建模原理有一定认识：</p>
+<blockquote>
+<p>　To model streaming applications, the <strong>dataflow process network</strong> model of computation [Lee and Parks 1995], a subclass of <strong>Kahn process networks</strong> [Kahn 1974], has been adopted in the DOL design flow. </p>
+</blockquote>
+<p>　什么是<strong>dataflow process network</strong>？<strong>Kahn process networks</strong>又是什么？接下来我们将一一论述。
           
       
     </div>
@@ -799,18 +724,99 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/EmbeddedSystem/">EmbeddedSystem</a>
     </div>
 
 
       
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
       
         <p class="article-more-link">
-          <a href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/#more">more >></a>
+          <a href="/2017/10/24/TACouses_ES2017_MoCs/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-TACourses_Summer-trainning-in-July,2016" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/" class="article-date">
+      <time datetime="2017-02-04T03:21:01.000Z" itemprop="datePublished">2017-02-04</time>
+</a>
+
+
+
+ 
+    <a href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/02/04/TACourses_Summer-trainning-in-July,2016/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <blockquote>
+<p>摘自 <a href="https://rh-song.github.io/2016/07/18/Summer-training/#more">RiHui-Song’s Blog：Summer-training</a></p>
+</blockquote>
+<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>　本文主要记录SMIE最后一次初级实训学习的主要内容。包括了大概是三个阶段：</p>
+<ul>
+<li>准备阶段：学习测量仪器，回顾C语言编程；</li>
+<li>熟悉阶段：在FPGA上运行HelloWorld，开发小应用，如跑马灯等，最后还了解了uc/os这样一个实时操作系统；</li>
+<li>开发阶段：使用PWM波以及H桥控制车轮，使用超声模块控制让小车感知外界状况，从而进行控制，最后可以使用PID控制理论优化小车的控制。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/实训/">实训</a>
+    </div>
+
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

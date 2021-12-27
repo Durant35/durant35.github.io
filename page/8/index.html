@@ -271,88 +271,6 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-programPearls_JPEG$Arithmetic$LZW" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/" class="article-date">
-      <time datetime="2017-07-11T10:02:16.000Z" itemprop="datePublished">2017-07-11</time>
-</a>
-
-
-
- 
-    <a href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/11/programPearls_JPEG$Arithmetic$LZW/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/">JPEG编码&amp;算术编码、LZW编码</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　本文介绍 JPEG 编解码过程（附简单的<code>cpp</code>实现）。JPEG 中常用到的熵编码是变长编码：Huffman 编码，本文也对算术编码（附<code>cpp</code>实现）、LZW 编码（附<code>py</code>实现）两种熵编码进行介绍。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JPEG/">JPEG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LZW/">LZW</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-hexo_hexo错误的分类或标签无法删除" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -435,22 +353,22 @@
 
 
   
-    <article id="post-hexo_push你的新博客到Github" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-ROS_ROS_Navigation_GettingStarted" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/01/22/hexo_push你的新博客到Github/" class="article-date">
-      <time datetime="2016-01-22T02:09:22.000Z" itemprop="datePublished">2016-01-22</time>
+      <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/" class="article-date">
+      <time datetime="2016-10-03T09:43:09.000Z" itemprop="datePublished">2016-10-03</time>
 </a>
 
 
 
  
-    <a href="/2016/01/22/hexo_push你的新博客到Github/#comments" title="查看评论">
+    <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/01/22/hexo_push你的新博客到Github/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/10/03/ROS_ROS_Navigation_GettingStarted/"></span>
         
     </a>
 
@@ -465,7 +383,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a>
+      <a class="article-title" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a>
     </h1>
   
 
@@ -475,7 +393,18 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h2 id="第一步-为hexo配置你的Github"><a href="#第一步-为hexo配置你的Github" class="headerlink" title="第一步 为hexo配置你的Github"></a><font color="#F40D64"><strong>第一步 为hexo配置你的Github</strong></font></h2><p>　　首先编辑你hexo根目录下的<strong>_config.yml</strong>文件，找到以下内容并修改为github的部署方式<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Deployment 需要进行部署方式的修改</span><br><span class="line">## Docs: http:<span class="comment">//hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">  type: git 			#部署类型, 本文使用Github</span><br><span class="line">  repository: https:<span class="comment">//github.com/username/username.github.io.git </span></span><br><span class="line">        #部署的仓库的SSH</span><br><span class="line">  branch: master 		#部署分支,一般使用master主分支</span><br></pre></td></tr></table></figure></p>
+              <p>　　To add navigation to a robot, we need to launch 3 nodes:</p>
+<blockquote>
+<ul>
+<li>map_server: to provide the static map {“*.yaml” &amp; “*.pgm”}, against which the robot will localize and plan.</li>
+<li>amcl: to localize the robot against the static map.</li>
+<li>move_base: to handle global planning and local control for the robot.</li>
+</ul>
+</blockquote>
+<p>　　<strong>amcl</strong> 是移动机器人二维环境下的概率定位系统，它实现了自适应(或 <strong>kdl</strong> 采样)的 <strong>蒙特卡洛定位</strong> 方法，其中针对已有的地图使用 <strong>粒子滤波器</strong> 跟踪一个机器人的姿态。</p>
+<p>　　<strong>move_base</strong> 提供了 ROS 导航的配置，运行，交互接口，主要包括两个部分：</p>
+<blockquote>
+<p>　(1) 全局路径规划：根据给定的目标位置进行总体路径的规划<br>　(2) 局部路径规划：根据附近的障碍物信息进行躲避路线规划<br>
           
       
     </div>
@@ -484,18 +413,100 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    <a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/ROS/">ROS</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2016/01/22/hexo_push你的新博客到Github/#more">more >></a>
+          <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-TACouses_iotCourse_02 Windows下的静态库和动态库" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/16/TACouses_iotCourse_02 Windows下的静态库和动态库/" class="article-date">
+      <time datetime="2015-10-16T12:29:02.000Z" itemprop="datePublished">2015-10-16</time>
+</a>
+
+
+
+ 
+    <a href="/2015/10/16/TACouses_iotCourse_02 Windows下的静态库和动态库/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/10/16/TACouses_iotCourse_02 Windows下的静态库和动态库/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/16/TACouses_iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　本文旨在指导大家如何创建和使用<strong>Windows下的DLL动态链接库</strong>以及通过<strong>DLL动态链接库导出导入</strong>这一过程介绍一些<strong>编译链接、动态加载</strong>的小知识。本章内容作为本学期项目开发的延伸扩展，目的是让大家对项目中使用的读写器接口函数库由来以及如何在项目中使用该函数库有更深入的理解。在这个过程，大家将会初步接触并了解：<br>　　　　<strong>+1.　</strong> <strong>Windows静态链接库和动态链接库</strong>的一些背景知识;<br>　　　　<strong>+2.　</strong> 如何创建和使用<strong>DLL动态链接库</strong>。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a><a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/libs-link/">libs&link</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DLL/">DLL</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/10/16/TACouses_iotCourse_02 Windows下的静态库和动态库/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -682,86 +693,6 @@
 
 
   
-    <article id="post-hsw_CPUWipeoutIlliteracy" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/05/16/hsw_CPUWipeoutIlliteracy/" class="article-date">
-      <time datetime="2017-05-16T07:33:00.000Z" itemprop="datePublished">2017-05-16</time>
-</a>
-
-
-
- 
-    <a href="/2017/05/16/hsw_CPUWipeoutIlliteracy/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/05/16/hsw_CPUWipeoutIlliteracy/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　处理器（CPU）决定了电脑的性能等级，是一个需要考虑的核心因素。CPU 从早期的单核，发展到现在的双核，多核。除了<strong>核心数</strong>之外，还有<strong>线程数</strong>之说，下面会对这两个概念进行扫盲。
-　　</p>
-<h4 id="CPU-个数"><a href="#CPU-个数" class="headerlink" title="CPU 个数"></a>CPU 个数</h4><p>　CPU 的个数是指物理上，也就是硬件上存在着几颗物理 CPU，指的是真实存在的处理器的个数，1个代表1颗、2个代表2颗 CPU 处理器。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/Architecture/">Architecture</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2017/05/16/hsw_CPUWipeoutIlliteracy/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-hexo_自定义主题" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -823,6 +754,86 @@
       
         <p class="article-more-link">
           <a href="/2016/01/26/hexo_自定义主题/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hsw_CPUWipeoutIlliteracy" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/16/hsw_CPUWipeoutIlliteracy/" class="article-date">
+      <time datetime="2017-05-16T07:33:00.000Z" itemprop="datePublished">2017-05-16</time>
+</a>
+
+
+
+ 
+    <a href="/2017/05/16/hsw_CPUWipeoutIlliteracy/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/05/16/hsw_CPUWipeoutIlliteracy/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　处理器（CPU）决定了电脑的性能等级，是一个需要考虑的核心因素。CPU 从早期的单核，发展到现在的双核，多核。除了<strong>核心数</strong>之外，还有<strong>线程数</strong>之说，下面会对这两个概念进行扫盲。
+　　</p>
+<h4 id="CPU-个数"><a href="#CPU-个数" class="headerlink" title="CPU 个数"></a>CPU 个数</h4><p>　CPU 的个数是指物理上，也就是硬件上存在着几颗物理 CPU，指的是真实存在的处理器的个数，1个代表1颗、2个代表2颗 CPU 处理器。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/Architecture/">Architecture</a>
+    </div>
+
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2017/05/16/hsw_CPUWipeoutIlliteracy/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -922,88 +933,6 @@
 
 
   
-    <article id="post-hexo_hexo扫盲" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/01/24/hexo_hexo扫盲/" class="article-date">
-      <time datetime="2016-01-24T03:38:39.000Z" itemprop="datePublished">2016-01-24</time>
-</a>
-
-
-
- 
-    <a href="/2016/01/24/hexo_hexo扫盲/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/01/24/hexo_hexo扫盲/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　下述盲点也是本人在搭建过程中遇到的疑惑，在此文中做一个整理：<br>　　　<a href="#spot01"><strong><1> </strong> 用于配置的<strong>_config.yml</strong>文件的这种<strong>.yml</strong>格式是什么？</a><br>　　　<a href="#spot02"><strong><2> </strong> 安装hexo时用到的<strong>npm命令</strong>究竟是什么？</a><br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/01/24/hexo_hexo扫盲/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1065,6 +994,88 @@
       
         <p class="article-more-link">
           <a href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hexo_hexo扫盲" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/24/hexo_hexo扫盲/" class="article-date">
+      <time datetime="2016-01-24T03:38:39.000Z" itemprop="datePublished">2016-01-24</time>
+</a>
+
+
+
+ 
+    <a href="/2016/01/24/hexo_hexo扫盲/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/01/24/hexo_hexo扫盲/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　下述盲点也是本人在搭建过程中遇到的疑惑，在此文中做一个整理：<br>　　　<a href="#spot01"><strong><1> </strong> 用于配置的<strong>_config.yml</strong>文件的这种<strong>.yml</strong>格式是什么？</a><br>　　　<a href="#spot02"><strong><2> </strong> 安装hexo时用到的<strong>npm命令</strong>究竟是什么？</a><br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/01/24/hexo_hexo扫盲/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

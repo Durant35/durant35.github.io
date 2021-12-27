@@ -271,22 +271,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-VM1_UserSpaceSegments" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-VM_Changes4LifeCycle" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/10/29/VM1_UserSpaceSegments/" class="article-date">
-      <time datetime="2017-10-29T02:28:00.000Z" itemprop="datePublished">2017-10-29</time>
+      <a href="/2017/11/06/VM_Changes4LifeCycle/" class="article-date">
+      <time datetime="2017-11-06T11:01:00.000Z" itemprop="datePublished">2017-11-06</time>
 </a>
 
 
 
  
-    <a href="/2017/10/29/VM1_UserSpaceSegments/#comments" title="查看评论">
+    <a href="/2017/11/06/VM_Changes4LifeCycle/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/10/29/VM1_UserSpaceSegments/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/11/06/VM_Changes4LifeCycle/"></span>
         
     </a>
 
@@ -301,7 +301,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/29/VM1_UserSpaceSegments/">虚拟内存[01] 用户内存空间的各个段分布</a>
+      <a class="article-title" href="/2017/11/06/VM_Changes4LifeCycle/">虚拟内存[02] 不同阶段下的内存变化</a>
     </h1>
   
 
@@ -311,7 +311,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　前面我们已经详细了解了虚拟内存地址空间的布局情况，本文将对其中的用户空间，主要是<font color="green"><strong>用户空间中各个地址段的分布，存储的数据类别</strong></font>等进行阐述。
+              <h3 id="系统启动与内存"><a href="#系统启动与内存" class="headerlink" title="系统启动与内存"></a>系统启动与内存</h3>
           
       
     </div>
@@ -331,7 +331,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/10/29/VM1_UserSpaceSegments/#more">more >></a>
+          <a href="/2017/11/06/VM_Changes4LifeCycle/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -517,22 +517,22 @@
 
 
   
-    <article id="post-VM_Changes4LifeCycle" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_UnionFindSet" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/11/06/VM_Changes4LifeCycle/" class="article-date">
-      <time datetime="2017-11-06T11:01:00.000Z" itemprop="datePublished">2017-11-06</time>
+      <a href="/2017/06/01/Algorithms_UnionFindSet/" class="article-date">
+      <time datetime="2017-06-01T06:00:22.000Z" itemprop="datePublished">2017-06-01</time>
 </a>
 
 
 
  
-    <a href="/2017/11/06/VM_Changes4LifeCycle/#comments" title="查看评论">
+    <a href="/2017/06/01/Algorithms_UnionFindSet/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/11/06/VM_Changes4LifeCycle/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/06/01/Algorithms_UnionFindSet/"></span>
         
     </a>
 
@@ -547,7 +547,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/06/VM_Changes4LifeCycle/">虚拟内存[02] 不同阶段下的内存变化</a>
+      <a class="article-title" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a>
     </h1>
   
 
@@ -557,7 +557,258 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h3 id="系统启动与内存"><a href="#系统启动与内存" class="headerlink" title="系统启动与内存"></a>系统启动与内存</h3>
+              <h4 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h4><ul>
+<li>并查集：并查集处理的是集合之间的关系，即 union，find。在这种数据类型中，N个不同元素被分成若干个组，每组是一个集合，这种集合叫做分离集合。并查集支持查找一个元素所属的集合和两个元素分别所属的集合的合并。注意：并查集只能进行合并操作，不能进行分割操作。</li>
+<li>并查集支持以下操作：<ul>
+<li><code>makeset(x)</code>：创建一个仅包含 x 的独立集合（分离集）；最初每个节点单独构成了一个分离集 ==&gt; 一组分离集</li>
+<li><code>find(x)</code>：不断重复地检验节点对，判断其是否属于同一个集合？</li>
+<li><code>union(x, y)</code>：每当增加了一条边，将与之相关的两个集合合并。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/06/01/Algorithms_UnionFindSet/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-programPearls_JPEG$Arithmetic$LZW" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/" class="article-date">
+      <time datetime="2017-07-11T10:02:16.000Z" itemprop="datePublished">2017-07-11</time>
+</a>
+
+
+
+ 
+    <a href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/11/programPearls_JPEG$Arithmetic$LZW/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/">JPEG编码&amp;算术编码、LZW编码</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　本文介绍 JPEG 编解码过程（附简单的<code>cpp</code>实现）。JPEG 中常用到的熵编码是变长编码：Huffman 编码，本文也对算术编码（附<code>cpp</code>实现）、LZW 编码（附<code>py</code>实现）两种熵编码进行介绍。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JPEG/">JPEG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LZW/">LZW</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hexo_push你的新博客到Github" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/22/hexo_push你的新博客到Github/" class="article-date">
+      <time datetime="2016-01-22T02:09:22.000Z" itemprop="datePublished">2016-01-22</time>
+</a>
+
+
+
+ 
+    <a href="/2016/01/22/hexo_push你的新博客到Github/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/01/22/hexo_push你的新博客到Github/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="第一步-为hexo配置你的Github"><a href="#第一步-为hexo配置你的Github" class="headerlink" title="第一步 为hexo配置你的Github"></a><font color="#F40D64"><strong>第一步 为hexo配置你的Github</strong></font></h2><p>　　首先编辑你hexo根目录下的<strong>_config.yml</strong>文件，找到以下内容并修改为github的部署方式<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Deployment 需要进行部署方式的修改</span><br><span class="line">## Docs: http:<span class="comment">//hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">  type: git 			#部署类型, 本文使用Github</span><br><span class="line">  repository: https:<span class="comment">//github.com/username/username.github.io.git </span></span><br><span class="line">        #部署的仓库的SSH</span><br><span class="line">  branch: master 		#部署分支,一般使用master主分支</span><br></pre></td></tr></table></figure></p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/01/22/hexo_push你的新博客到Github/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-VM_MemoryManage" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/11/06/VM_MemoryManage/" class="article-date">
+      <time datetime="2017-11-06T11:01:00.000Z" itemprop="datePublished">2017-11-06</time>
+</a>
+
+
+
+ 
+    <a href="/2017/11/06/VM_MemoryManage/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/11/06/VM_MemoryManage/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/06/VM_MemoryManage/">虚拟内存[0?] 内存管理</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="物理内存管理机制"><a href="#物理内存管理机制" class="headerlink" title="物理内存管理机制"></a>物理内存管理机制</h3>
           
       
     </div>
@@ -577,7 +828,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/11/06/VM_Changes4LifeCycle/#more">more >></a>
+          <a href="/2017/11/06/VM_MemoryManage/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -684,22 +935,22 @@
 
 
   
-    <article id="post-Algorithms_UnionFindSet" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/06/01/Algorithms_UnionFindSet/" class="article-date">
-      <time datetime="2017-06-01T06:00:22.000Z" itemprop="datePublished">2017-06-01</time>
+      <a href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/" class="article-date">
+      <time datetime="2015-07-15T07:54:25.000Z" itemprop="datePublished">2015-07-15</time>
 </a>
 
 
 
  
-    <a href="/2017/06/01/Algorithms_UnionFindSet/#comments" title="查看评论">
+    <a href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/06/01/Algorithms_UnionFindSet/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/"></span>
         
     </a>
 
@@ -714,7 +965,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a>
+      <a class="article-title" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&amp;Win8.1(both 64-bit),其他仅供参考)</a>
     </h1>
   
 
@@ -724,12 +975,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h4 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h4><ul>
-<li>并查集：并查集处理的是集合之间的关系，即 union，find。在这种数据类型中，N个不同元素被分成若干个组，每组是一个集合，这种集合叫做分离集合。并查集支持查找一个元素所属的集合和两个元素分别所属的集合的合并。注意：并查集只能进行合并操作，不能进行分割操作。</li>
-<li>并查集支持以下操作：<ul>
-<li><code>makeset(x)</code>：创建一个仅包含 x 的独立集合（分离集）；最初每个节点单独构成了一个分离集 ==&gt; 一组分离集</li>
-<li><code>find(x)</code>：不断重复地检验节点对，判断其是否属于同一个集合？</li>
-<li><code>union(x, y)</code>：每当增加了一条边，将与之相关的两个集合合并。
+              <p>　　本教程将教你如何快速搭建起Android开发环境，其中结合了诸多网上经典教程的亮点，希望能够尽可能详细地描述环境搭建原理，同时，让你最方便快速的搭建起开发环境，进行后续更为重点的Android开发。<br>　　本教程在64位Win8.1下搭建，并在64位Win7虚拟机下亲测有效。<br>
           
       
     </div>
@@ -738,100 +984,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/06/01/Algorithms_UnionFindSet/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-VM_MemoryManage" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/11/06/VM_MemoryManage/" class="article-date">
-      <time datetime="2017-11-06T11:01:00.000Z" itemprop="datePublished">2017-11-06</time>
-</a>
-
-
-
- 
-    <a href="/2017/11/06/VM_MemoryManage/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/11/06/VM_MemoryManage/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/06/VM_MemoryManage/">虚拟内存[0?] 内存管理</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="物理内存管理机制"><a href="#物理内存管理机制" class="headerlink" title="物理内存管理机制"></a>物理内存管理机制</h3>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/Kernel/">Kernel</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VM/">VM</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/11/06/VM_MemoryManage/#more">more >></a>
+          <a href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -917,181 +1081,6 @@
       
         <p class="article-more-link">
           <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/" class="article-date">
-      <time datetime="2015-07-15T07:54:25.000Z" itemprop="datePublished">2015-07-15</time>
-</a>
-
-
-
- 
-    <a href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&amp;Win8.1(both 64-bit),其他仅供参考)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　本教程将教你如何快速搭建起Android开发环境，其中结合了诸多网上经典教程的亮点，希望能够尽可能详细地描述环境搭建原理，同时，让你最方便快速的搭建起开发环境，进行后续更为重点的Android开发。<br>　　本教程在64位Win8.1下搭建，并在64位Win7虚拟机下亲测有效。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-ROS_ROS_Navigation_GettingStarted" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/" class="article-date">
-      <time datetime="2016-10-03T09:43:09.000Z" itemprop="datePublished">2016-10-03</time>
-</a>
-
-
-
- 
-    <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/10/03/ROS_ROS_Navigation_GettingStarted/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　To add navigation to a robot, we need to launch 3 nodes:</p>
-<blockquote>
-<ul>
-<li>map_server: to provide the static map {“*.yaml” &amp; “*.pgm”}, against which the robot will localize and plan.</li>
-<li>amcl: to localize the robot against the static map.</li>
-<li>move_base: to handle global planning and local control for the robot.</li>
-</ul>
-</blockquote>
-<p>　　<strong>amcl</strong> 是移动机器人二维环境下的概率定位系统，它实现了自适应(或 <strong>kdl</strong> 采样)的 <strong>蒙特卡洛定位</strong> 方法，其中针对已有的地图使用 <strong>粒子滤波器</strong> 跟踪一个机器人的姿态。</p>
-<p>　　<strong>move_base</strong> 提供了 ROS 导航的配置，运行，交互接口，主要包括两个部分：</p>
-<blockquote>
-<p>　(1) 全局路径规划：根据给定的目标位置进行总体路径的规划<br>　(2) 局部路径规划：根据附近的障碍物信息进行躲避路线规划<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/ROS/">ROS</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
