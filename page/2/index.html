@@ -777,22 +777,22 @@
 
 
   
-    <article id="post-Algorithms_MaximizingFlow" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_LongestIncreasingSubsequence" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/05/19/Algorithms_MaximizingFlow/" class="article-date">
-      <time datetime="2017-05-19T02:54:22.000Z" itemprop="datePublished">2017-05-19</time>
+      <a href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/" class="article-date">
+      <time datetime="2017-04-28T06:00:22.000Z" itemprop="datePublished">2017-04-28</time>
 </a>
 
 
 
  
-    <a href="/2017/05/19/Algorithms_MaximizingFlow/#comments" title="查看评论">
+    <a href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/05/19/Algorithms_MaximizingFlow/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/04/28/Algorithms_LongestIncreasingSubsequence/"></span>
         
     </a>
 
@@ -807,7 +807,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a>
+      <a class="article-title" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a>
     </h1>
   
 
@@ -817,14 +817,11 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h4 id="网络流：最大流问题"><a href="#网络流：最大流问题" class="headerlink" title="网络流：最大流问题"></a>网络流：最大流问题</h4><ul>
-<li>所谓网络：<ul>
-<li>一个有向图 $G=(V, E)$</li>
-<li>G中有两个特殊节点 $s, t \in V$，分别称为 G 中的源点(source) 和汇点(sink)。</li>
-<li>G中每条边都有容量 $c_e \lt 0$。</li>
-</ul>
-</li>
-<li>所谓流是指一种特定的输送方式，其中对每条边赋予一个变量 $f_e$，使其满足如下三个基本性质：
+              <h4 id="300-Longest-Increasing-Subsequence"><a href="#300-Longest-Increasing-Subsequence" class="headerlink" title="300. Longest Increasing Subsequence"></a><a href="https://leetcode.com/problems/longest-increasing-subsequence/#/description">300. Longest Increasing Subsequence</a></h4><blockquote>
+<p>Given an unsorted array of integers, find the length of longest increasing subsequence.<br>For example, Given [10, 9, 2, 5, 3, 7, 101, 18], The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4. Note that there may be more than one LIS combination, it is only necessary for you to return the length. </p>
+</blockquote>
+<ul>
+<li>给出一个序列 $a_1, a_2, …, a_n$，求它的一个子序列（设为 $s_1, s_2, …, s_n$ ），使得这个子序列满足这样的性质：$ s_1 &lt; s_2 &lt; s_3 &lt;…&lt; s_n $ 并且这个子序列的长度最长，输出这个最长的长度。实际上，诸如最长下降子序列，最长不上升子序列等问题都可以看成同一个问题，仔细思考就会发现，这其实只是 $&lt;$ 符号定义上的问题，并不影响问题的实质。
           
       
     </div>
@@ -839,12 +836,94 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/05/19/Algorithms_MaximizingFlow/#more">more >></a>
+          <a href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_LongestPalindromicSubsequence" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/" class="article-date">
+      <time datetime="2017-05-12T06:00:22.000Z" itemprop="datePublished">2017-05-12</time>
+</a>
+
+
+
+ 
+    <a href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/05/12/Algorithms_LongestPalindromicSubsequence/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　所谓 <strong>回文（palindrome）</strong>，指的是正读和反读都是一样的。而 <strong>字符子串</strong> 和 <strong>字符子序列</strong> 的区别，在前面 <a href="http://durant35.github.io/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a> 中也有提到过，字符字串指的是字符串中连续的n个字符，而字符子序列指的是字符串中不一定连续但先后顺序与原字符串一致的n个字符。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -948,22 +1027,22 @@
 
 
   
-    <article id="post-Algorithms_Dynamic Programming(I)" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_MaximizingFlow" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/" class="article-date">
-      <time datetime="2017-04-13T06:00:22.000Z" itemprop="datePublished">2017-04-13</time>
+      <a href="/2017/05/19/Algorithms_MaximizingFlow/" class="article-date">
+      <time datetime="2017-05-19T02:54:22.000Z" itemprop="datePublished">2017-05-19</time>
 </a>
 
 
 
  
-    <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#comments" title="查看评论">
+    <a href="/2017/05/19/Algorithms_MaximizingFlow/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/04/13/Algorithms_Dynamic Programming(I)/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/05/19/Algorithms_MaximizingFlow/"></span>
         
     </a>
 
@@ -978,7 +1057,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a>
+      <a class="article-title" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a>
     </h1>
   
 
@@ -988,89 +1067,14 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　本文通过 <strong>Unique Paths <a href="https://leetcode.com/problems/unique-paths/#/description">[I]</a> &amp; <a href="https://leetcode.com/problems/unique-paths-ii/#/description">[II]</a></strong> 两道题从普通的递归思路到动态规划两种方式的求解尝试，希望能够初步分析如何根据动态规划的思路，进行问题求解。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_NP-Complete(I)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/06/08/Algorithms_NP-Complete(I)/" class="article-date">
-      <time datetime="2017-06-08T06:00:22.000Z" itemprop="datePublished">2017-06-08</time>
-</a>
-
-
-
- 
-    <a href="/2017/06/08/Algorithms_NP-Complete(I)/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/06/08/Algorithms_NP-Complete(I)/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/08/Algorithms_NP-Complete(I)/">算法设计与分析[0017] NP-完全问题：概述（两道证明习题）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　在计算机算法求解问题当中，经常用<code>时间复杂度</code>和<code>空间复杂度</code>来表示一个算法的运行效率。空间复杂度表示一个算法在计算过程当中要占用的内存空间大小；时间复杂度则表示这个算法运行得到想要的解所需的计算工作量，并不是表示一个程序解决问题需要花多少时间，而是当问题规模扩大后，程序需要的时间长度增长得有多快，即探讨的是当输入值接近无穷时，算法所需工作量的变化快慢程度。也就是说，对于高速处理数据的计算机来说，处理某一个特定数据的效率不能衡量一个程序的好坏，而应该看当这个数据的规模变大到数百倍后，程序运行时间是否还是一样，或者也跟着慢了数百倍，或者变慢了数万倍。
+              <h4 id="网络流：最大流问题"><a href="#网络流：最大流问题" class="headerlink" title="网络流：最大流问题"></a>网络流：最大流问题</h4><ul>
+<li>所谓网络：<ul>
+<li>一个有向图 $G=(V, E)$</li>
+<li>G中有两个特殊节点 $s, t \in V$，分别称为 G 中的源点(source) 和汇点(sink)。</li>
+<li>G中每条边都有容量 $c_e \lt 0$。</li>
+</ul>
+</li>
+<li>所谓流是指一种特定的输送方式，其中对每条边赋予一个变量 $f_e$，使其满足如下三个基本性质：
           
       
     </div>
@@ -1090,7 +1094,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/06/08/Algorithms_NP-Complete(I)/#more">more >></a>
+          <a href="/2017/05/19/Algorithms_MaximizingFlow/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
