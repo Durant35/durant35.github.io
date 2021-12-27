@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Gary Chan" />
+
+
+
+<meta name="description" content="在校包括从业，涉足自动驾驶这个行业也近六载了，工作后也许久没再写过博文了。这一次，想把从业高度相关的，近期梳理的国内自动驾驶头部公司Sensor settings，或者是自动驾驶硬件方案梳理一下，整理成一期系列文章（主要也是内容太多太杂，先用博文整理一下，再看是否有时间浓缩成slides吧）。">
+<meta name="keywords" content="自动驾驶,SensorSettings">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自动驾驶硬件方案①：概述">
+<meta property="og:url" content="http://durant35.github.io/2021/11/22/SensorSettings_Overview/index.html">
+<meta property="og:site_name" content="Gary Chan&#39;s Blog">
+<meta property="og:description" content="在校包括从业，涉足自动驾驶这个行业也近六载了，工作后也许久没再写过博文了。这一次，想把从业高度相关的，近期梳理的国内自动驾驶头部公司Sensor settings，或者是自动驾驶硬件方案梳理一下，整理成一期系列文章（主要也是内容太多太杂，先用博文整理一下，再看是否有时间浓缩成slides吧）。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/Overview-Comparision.jpg">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/ApolloMoon-13V5R2L.jpg">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/Apollo-5Gen_iteration.png">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/Pony-PonyAlpha_iteration.png">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/Pony-PonyAlpha_3parts.jpg">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/Pony-PonyAlpha-X_FOV.png">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/Weride-Iteration.jpg">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/Weride-SensorSuite3.jpg">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/Weride-SensorSuite4.jpg">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/Weride-SensorSuite4_Application.jpg">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/AutoX-Gen5_Summary.png">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/AutoX-5Gen_iteration.png">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/AutoX-Gen5.png">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/AutoX-XCU.png">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/DeepRoute-iteration.png">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/DeepRoute-SenseII.png">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/DeepRoute-SenseII_FOV.jpg">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/DeepRoute-Sense_HW.png">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/DiDi-Gemini.jpeg">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/DiDi-Gemini2.jpg">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/Momenta-11V5R1L.png">
+<meta property="og:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/Momenta-Mpilot_MSD.png">
+<meta property="og:updated_time" content="2021-12-16T12:09:02.695Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自动驾驶硬件方案①：概述">
+<meta name="twitter:description" content="在校包括从业，涉足自动驾驶这个行业也近六载了，工作后也许久没再写过博文了。这一次，想把从业高度相关的，近期梳理的国内自动驾驶头部公司Sensor settings，或者是自动驾驶硬件方案梳理一下，整理成一期系列文章（主要也是内容太多太杂，先用博文整理一下，再看是否有时间浓缩成slides吧）。">
+<meta name="twitter:image" content="http://durant35.github.io/img/SensorSettings/01-Overview/Overview-Comparision.jpg">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Gary Chan&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>自动驾驶硬件方案①：概述 | Gary Chan&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+</head>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Gary Chan</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">　　你永远流淌在我的记忆里？River flows in you</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">Home</a></li>
+                        
+                            <li><a href="/tags">All-tags</a></li>
+                        
+                            <li><a href="/archives">All-lists</a></li>
+                        
+                            <li><a href="/garychan">Contact</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/">3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AES/">AES</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary/">Binary</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/">C/C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CG/">CG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMD/">CMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/">CV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DARPA/">DARPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DES/">DES</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DLL/">DLL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Encoding/">Encoding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HUAWEI/">HUAWEI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPEG/">JPEG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Key-words/">Key-words</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LZW/">LZW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCU/">MCU</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MFC/">MFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NotePad/">NotePad++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCL/">OpenCL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL/">OpenGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB/">PCB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SensorSettings/">SensorSettings</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VM/">VM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS2013/">VS2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vim/">Vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dumpbin/">dumpbin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ini/">ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pcap/">pcap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tmux/">tmux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vimium/">vimium</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件操作/">文件操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漫威电影/">漫威电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动驾驶/">自动驾驶</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://wiki.ros.org/">ROS</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://zhiqiu.github.io/">Zhiqiu&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.ruanyifeng.com/blog/">阮一峰的网络日志</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://rh-song.github.io/">RiHui-Song&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://goshin.github.io/">Goshin&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://blog.csdn.net/u014593748">Kangdk&#39;s CSDN</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Gary Chan</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Gary Chan</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">　　你永远流淌在我的记忆里？River flows in you</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/tags">All-tags</a></li>
+                
+                    <li><a href="/archives">All-lists</a></li>
+                
+                    <li><a href="/garychan">Contact</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-SensorSettings_Overview" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2021/11/22/SensorSettings_Overview/" class="article-date">
+      <time datetime="2021-11-22T12:26:22.000Z" itemprop="datePublished">2021-11-22</time>
+</a>
+
+
+
+ 
+    <a href="/2021/11/22/SensorSettings_Overview/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2021/11/22/SensorSettings_Overview/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      自动驾驶硬件方案①：概述
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SensorSettings/">SensorSettings</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/自动驾驶/">自动驾驶</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>　在校包括从业，涉足自动驾驶这个行业也近六载了，工作后也许久没再写过博文了。这一次，想把从业高度相关的，近期梳理的国内自动驾驶头部公司Sensor settings，或者是自动驾驶硬件方案梳理一下，整理成一期系列文章（主要也是内容太多太杂，先用博文整理一下，再看是否有时间浓缩成slides吧）。<a id="more"></a><br>　故本系列博文，主要是把自己收集的资料，尤其是那些一直收藏阅读的高质量文章进行汇总整理；另外整理过程中自我的所思所悟，希望自己的从业经验的整理总结，对文章的思考理解，能给大家带来除了内容量了解之外的思路碰撞。如有理解不周，还望海涵指出，共同学习进步。<br>　<br>　本文作为系列博文开篇，跟大家分享一下我们要干啥。Sensor settings，自动驾驶硬件方案，其核心内容是具体用了哪些传感器，激光雷达为主？还是视觉为主（除了Tesla，你能看到我们整理的头部玩家方案还都是激光雷达为主）？传感器的数目，1V3L5R，一个前视相机+3个激光雷达+1个前视长距毫米波雷达和4个短距角雷达？7V1L5R？还是？传感器型号，激光雷达是禾赛的Pandar64还是？相机是2MP（百万像素）还是8MP，FOV60？更为重要的是计算单元！x86的还是嵌入式arm？具体比如是Nvidia DRIVE AGX Xavier平台？基于Xavier SOC计算单元？亦或是华为MDC610？等等<br>　围绕着Sensor settings，我们收集汇总感兴趣的头部玩家他们的硬件方案演进，希望能总结一些趋势以借鉴。此外除了单家的演进，也希望总结的时候能够集多家进行横向比较，看看能整理成怎么样吧。这里也mark一下，有小伙本也指出能否涵盖通讯架构、电源架构，这里先mark一下，我争取争取。<br>　按照目前已经收集的资料进度和情况，包括计划的头部玩家收集，我们后续章节将会这样安排：</p>
+<ul>
+<li>最开始我们整理一下<a href="https://www.weride.ai/">文远知行，Weride.ai</a>，包括前身曾经的景驰科技。接下来是<a href="https://www.deeproute.ai/">元戎启行 DeepRoute.ai</a>，包括前身Roadstar.ai 星行科技。</li>
+<li>接下来，我觉得得来个RoboBus的，分享一下<a href="https://www.qcraft.ai/">Qcraft 轻舟智行</a>。</li>
+<li>在后面，就是重头戏，其实也是本系列博文的初衷，<a href="https://apollo.auto/">百度Apollo</a>，看看Apoll Moon长啥样，又是怎么迭代过来的。数一当然也少不了数二，在Apollo之后我们会整理一下<a href="https://pony.ai/">Pony.ai，小马智行</a>。</li>
+<li>目前在列的最后，是两家充满神秘色彩的公司，<a href="https://www.autox.ai/zh/index.html">AutoX（安途）</a>和<a href="https://www.momenta.cn/">Momenta（初速度）</a>，前者曾坚称不会用激光雷达，擅长视觉；后者则是现在看来少有的还坚守视觉方案的公司。</li>
+</ul>
+<p>　那我们正式开始。最开始跟大家先总览一下国内头部玩家最新的硬件方案，来自本系列博文的启发文章，<a href="https://zhuanlan.zhihu.com/p/422541823">《国内自动驾驶车辆传感器方案哪家强？此处没有山东蓝翔》</a>。作者对Robotaxi领域的第一梯队的自动驾驶传感器方案进行对比，汇总如下表Robotaxi领域头部玩家最新硬件方案：<br>    <center><img src="/img/SensorSettings/01-Overview/Overview-Comparision.jpg" alt="Overview-Comparision" width="810px"/></center></p>
+<h3 id="百度Apollo第五代Robotaxi-极狐αT-威马W6-广汽埃安"><a href="#百度Apollo第五代Robotaxi-极狐αT-威马W6-广汽埃安" class="headerlink" title="百度Apollo第五代Robotaxi: 极狐αT/威马W6/广汽埃安"></a>百度Apollo第五代Robotaxi: 极狐αT/威马W6/广汽埃安</h3><p>　从6月17日，百度Apollo携手ARCFOX极狐共同发布第五代量产共享无人车Apollo Moon开始，到10月28日，首场以“奔赴无人之境”为主题的百度“Apollo Day”技术开放日上三款合作车型集体亮相，百度向我们展示了其在前装量产、降成本、大规模运营方面的探索和成果。<br>    <center><img src="/img/SensorSettings/01-Overview/ApolloMoon-13V5R2L.jpg" alt="ApolloMoon-13V5R2L" width="640px"/></center><br>　这套13V5R2L的传感器配置方案，涵盖<strong>计算单元与传感器多层冗余</strong>等46项安全保障技术，确保行车安全，计算平台算力据称超过了800TOPS（我们将在Apollo章节探讨下是不是NVIDIA Orin-X搭载的“三鲜”？）。同时，其支持5G云代驾以及V2X车路协同等功能，相较于上一代车型自动驾驶能力提升了10倍，而且整车价格只有48万元！<br>    <center><img src="/img/SensorSettings/01-Overview/Apollo-5Gen_iteration.png" alt="Apollo-5Gen_iteration" width="640px"/></center><br>　从2013年国内第一辆自动驾驶车辆，到2021年今年Apollo Moon，百度Apollo已经完成了五代硬件方案迭代，其宗旨是“每一代无人车：性能提升十倍，成本降低一半”！</p>
+<h3 id="小马智行第五代传感器方案PonyAlpha-X"><a href="#小马智行第五代传感器方案PonyAlpha-X" class="headerlink" title="小马智行第五代传感器方案PonyAlpha X"></a>小马智行第五代传感器方案PonyAlpha X</h3><p>　从2016年到2021年，小马智行的硬件系统已经更迭至第五代——PonyAlpha X。2017年4月，小马智行打造了第一台自动驾驶测试车，第一代硬件平台采用的传感器包括了Velodyne HDL64的激光雷达；2018年Q1第二代平台采用了32线激光雷达，传感器的体积明显缩小；第三代方案则是2018年9月在世界人工智能大会上发布的PonyAlpha，2019年12月第四代无人车PonyAlpha 2.0能感应200米外的物体。针对PonyAlpha X，小马智行从2020年11月开始搭建了一条自动化标准化的产线，今年2月，搭载PonyAlpha X的自动驾驶车辆开始批量下线，且已经深度介入到计算平台和摄像头等核心硬件的开发中。<br>    <center><img src="/img/SensorSettings/01-Overview/Pony-PonyAlpha_iteration.png" alt="Pony-PonyAlpha_iteration" width="640px"/></center><br>　PonyAlpha硬件平台有三个组成部分：车顶模块，后备箱模块和车身补盲LiDAR（上一代是毫米波雷达）。<br>    <center><img src="/img/SensorSettings/01-Overview/Pony-PonyAlpha_3parts.jpg" alt="Pony-PonyAlpha_3parts.jpg" width="640px"/></center><br>　PonyAlpha X所有传感器车顶一体化，一共配备了： </p>
+<ul>
+<li>4个禾赛激光雷达，1个位于车顶前方，一个位于车顶中央，2个分别位于左右两侧后视镜前侧，用于盲区检测；</li>
+<li>4个毫米波雷达，检测范围 200 米，2个为车顶前向，1个位于车顶左侧，用于<strong>右转时对左侧快速来车的检测</strong>（这真是奇妙的配置），还有 1个为车顶后向；</li>
+<li>4个广角摄像头，覆盖车身周围80米内的区域；</li>
+<li>还有前向3个摄像头：1个为200米长距，1个为150米中距；还有1个覆盖180米，是由小马智行自研的红绿灯检测摄像头，<strong>PIDC</strong>（Pony Info/Intelligence? Detection Camera）。  <center><img src="/img/SensorSettings/01-Overview/Pony-PonyAlpha-X_FOV.png" alt="PonyAlpha-X_FOV" width="640px"/></center>
+
+</li>
+</ul>
+<p>　在PonyAlpha X之后，小马智行内部也在开发第六代的自动驾驶系统。新系统将集成<strong>4个由Luminar提供的固态激光雷达（Luminar Iris）</strong>，据说整体硬件成本会在这代基础上再降至少一半。</p>
+<h3 id="文远智行自动驾驶传感器套件WeRide-Sensor-Suite-4-0"><a href="#文远智行自动驾驶传感器套件WeRide-Sensor-Suite-4-0" class="headerlink" title="文远智行自动驾驶传感器套件WeRide Sensor Suite 4.0"></a>文远智行自动驾驶传感器套件WeRide Sensor Suite 4.0</h3><p>　文远知行WeRide.ai（前身为景驰科技JingChi.ai），2017年4月成立，2018年10月更名。到景驰科技更名为止，其无人驾驶的技术已经迭代了三代，从第一代使用传统64线激光雷达的MKZ，到二代双32线的MKZ（预计是2018年8月），再到第三代基于广汽GE3的双32线Lidar（预计也是2018年8月）。除了激光雷达的变化，还有摄像头的变化，从前向两个到三个，到后向摄像头的出现以及摄像头俯仰角的变化。我们可以看到，改名文远知行初期，其传感器方案仍称为第三代无人驾驶车。到了2019年3月在GTC大会上，文远知行发布了最新的L4级自动驾驶车型——日产LEAF 2，增加了更多的毫米波雷达和激光雷达，前向激光雷达可实现250米检测距离，配以两侧覆盖盲区的传感器，极大地提升了感知的范围及性能，后称之为<a href="https://www.weride.ai/test-ride-cn/">第二代传感器套件， Sensor Suite 2.0</a>（我们可以认为，上述的“第三代无人驾驶车”就是Sensor Suite 1.0）。<br>    <center><img src="/img/SensorSettings/01-Overview/Weride-Iteration.jpg" alt="Weride-Iteration" width="810px"/></center><br>　2019年12月18日，在英伟达NVIDIA主办的年度科技盛事GTC China 2019（中国苏州）上，WeRide则推出<a href="https://www.weride.ai/smartsuite-cn/">首个自动驾驶车顶一体化集成套件——WeRide Smart Suite 3.0</a>。 2021年10月16日，进一步高度集成传感器，发布<a href="https://www.weride.ai/sensor4.0-cn/">全新一代传感器套件WeRide Sensor Suite 4.0</a>，整个套件集成了激光雷达、4D 毫米波雷达以及相机模块等，在具备更强感知能力的基础上，体积缩减为上代套件的1/6，套件整体重量仅13公斤，据说这一套件在量产线上可实现 20 分钟/套的生产？！！其中固态激光雷达分布的位置沿用了3.0传感器套件预留的设计。<br>    <center><img src="/img/SensorSettings/01-Overview/Weride-SensorSuite3.jpg" alt="Weride-SensorSuite3.jpg" width="640px"/></center><br>　WeRide Sensor Suite 4.0包含<strong>激光雷达、4D毫米波雷达、固态激光雷达、盲区激光雷达、文远知行全新自研的相机模块</strong>，实现360度视场全覆盖，最远达到前向300米、无盲区死角的探测，精准判断和识别感知范围内的物体及其运动状态、特殊交通场景及标志等，具备<strong>自动清洗传感器</strong>功能。具体各传感器数目、安装位置，还需要我们搜集资料甚至自己臆测了。<br>    <center><img src="/img/SensorSettings/01-Overview/Weride-SensorSuite4.jpg" alt="Weride-SensorSuite4" width="810px"/></center><br>    <center><img src="/img/SensorSettings/01-Overview/Weride-SensorSuite4_Application.jpg" alt="Weride-SensorSuite4_Application" width="810px"/></center></p>
+<h3 id="AutoX第五代全无人驾驶系统AutoX-Gen5"><a href="#AutoX第五代全无人驾驶系统AutoX-Gen5" class="headerlink" title="AutoX第五代全无人驾驶系统AutoX Gen5"></a>AutoX第五代全无人驾驶系统AutoX Gen5</h3><p>　2021年7月6日，AutoX发布第五代全无人驾驶系统以及中文品牌名称：安途。发布会<a href="https://www.bilibili.com/video/BV1V64y1t7Qf/">【20210706 14:00】AutoX 第五代Gen5全无人驾驶系统发布会</a>，熟悉的口音…<br>    <center><img src="/img/SensorSettings/01-Overview/AutoX-Gen5_Summary.png" alt="AutoX-Gen5_Summary" width="640px"/></center><br>　AutoX成立于2016年9月，其第一代系统诞生于2017年，基于360度摄像头进行环境感知，可实现Tesla FSD、Huawei Hi等价辅助驾驶能力；随后AutoX以每年一代的节奏更新换代，2018年第二代系统便在第一代系统的基础上扩展了40线激光雷达，通过摄像头和激光雷达进行深度的融合，可实现L4级别自动驾驶商业化的运营，如外卖、生鲜的配送；2019年推出的第三代系统，则进一步拓展了毫米波雷达，可在中国繁华路段处理雨雾天气自动驾驶；2020年AutoX Gen4则将硬件升级为全套传感器+XCU域控制器，实现完全无人驾驶的一个车规级的安全的标准，给完全无人驾驶提供了一个算力的平台。<br>    <center><img src="/img/SensorSettings/01-Overview/AutoX-5Gen_iteration.png" alt="AutoX-Gen5_iteration" width="640px"/></center><br>　AutoX第五代全无人驾驶系统 AutoX Gen5在经过两年半研发之后，也终于正式面世，进一步升级为高清传感器及车规级电子电气架构，可实现车内完全无人，做到真正的全无人驾驶（听起来太牛叉了，不过很多网友都在问见过AutoX Gen4吗？闷声发大财呀！？希望我们梳理的时候能够有个答案）。Gen5系统依靠车周360度的28颗车规级摄像头实现每帧2亿像素，摄像头由安森美提供，在白天和黑夜都可以提供良好的视频画面。除了摄像头，自动驾驶出租车系统还包括 6 枚每超 1500 万点云成像的高清激光雷达，安装在车顶的两颗128线激光雷达，同时在车辆的前后左右还有四个64线盲区激光雷达。Gen5总计使用了8个4D毫米波雷达，这样一来相当于是有了激光和毫米波两层点云，再跟摄像头进行融合后，能进一步提升感知精度。<br>    <center><img src="/img/SensorSettings/01-Overview/AutoX-Gen5.png" alt="AutoX-Gen5" width="640px"/></center><br>　在核心计算平台方面，AutoX与英伟达深入合作，推出中国首个L4/L5级别无人驾驶计算平台—算力高达2200Tops的<strong>AutoX XCU</strong>，<a href="https://blogs.nvidia.cn/2021/11/15/autox-full-self-driving-nvidia-drive/">其核心是两个NVIDIA Ampere架构GPU，每个GPU具有900 TOPS计算能力</a>。<strong>AutoX XCU</strong>采用了英特尔CPU + 英伟达GPU + 赛灵思FPGA的架构，其中GPU和FPGA都能提供计算能力，后者还能在硬件上完成传感器的时间同步。<br>    <center><img src="/img/SensorSettings/01-Overview/AutoX-XCU.png" alt="AutoX-XCU" width="640px"/></center></p>
+<h3 id="元戎启行传感器解决方案DeepRoute-Sense-II"><a href="#元戎启行传感器解决方案DeepRoute-Sense-II" class="headerlink" title="元戎启行传感器解决方案DeepRoute Sense II"></a>元戎启行传感器解决方案DeepRoute Sense II</h3><p>　从2019年2月成立至今，短短近3年时间，元戎启行已经完成其传感器解决方案DeepRoute Sense两代迭代，于2019年11月首次发布，并在2020年1月CES上推广。（果然是专业的自动驾驶，短短几个月便推出一套方案，不过此前两年Roadstar硬件方案也迭代了近三代）<br>    <center><img src="/img/SensorSettings/01-Overview/DeepRoute-iteration.png" alt="DeepRoute-iteration" width="640px"/></center><br>　DeepRoute-Sense主要包括车顶盒和传感器融合校准服务，是在车顶上装的整个传感器系统（车顶盒），集成了激光雷达、摄像头、GNSS、IMU等传感器。DeepRoute-Sense传感器套件作为核心硬件平台，如人类司机的“眼睛”，通过传感器为自动驾驶车辆收集精准的路况、环境和定位信息，为感知和决策奠定可靠的先决条件。2020年8月19日，元戎启行与曹操出行联合宣布，双方正进行自动驾驶车队的测试运营合作，目标是在<strong>2022年杭州亚运会期间提供自动驾驶出行服务</strong>，同时元戎启行为吉利几何A（曹操出行）量身定制了更贴合车身的传感器套件解决方案——DeepRoute-Sense II发布，到亚运会举办期间，双方合作的自动驾驶车队将扩大至数百辆级别。<br>    <center><img src="/img/SensorSettings/01-Overview/DeepRoute-SenseII.png" alt="DeepRoute-SenseII" width="640px"/></center><br>　DeepRoute-Sense II，整体车顶盒厚度只有24.6厘米，这样的厚度据说是业界最薄，一方面整体外观更流畅、美观，同时轻薄的造型能有效减少风阻。7颗摄像头全部嵌于车顶盒内部，两侧的激光雷达，最小可探测距离为0.1m，能精准感知近距离物体，解决车辆近距离盲区问题；在水平视场角保持360°的基础上，能对近距离盲区进行最大范围的覆盖。DeepRoute-Sense II除其中3颗激光雷达之外，其他硬件全部由元戎启行自主研发生产，也正基于此，DeepRoute-Sense II的成本可低至25万元（25万是算不贵呢？还是贵！）。除了曹操出行，DeepRoute-Sense II也部署在东风汽车上，也早在2020年10月19日元戎启行就加入东风汽车的领航项目，携手打造国内最大自动驾驶车队。至此，杭州（吉利曹操出行）、武汉（东风汽车）、深圳（总部）三地并跑，风雨兼程。<br>    <center><img src="/img/SensorSettings/01-Overview/DeepRoute-SenseII_FOV.jpg" alt="DeepRoute-SenseII_FOV" width="640px"/></center><br>　DeepRoute-Sense包含元戎启行自行研发的车载相机<strong>DeepRoute-Vision</strong>，用于同步传感器时间、空间信息的控制器<strong>DeepRoute-Syntric</strong>等硬件产品，这当中最核心的莫过于一块体积如砖头大小的计算平台——DeepRoute-Tite。早在CES 2020期间，元戎启行就发布了<a href="https://www.deeproute.ai/news/detail213.html">计算平台解决方案DeepRoute-Tite</a>。据介绍，该计算平台使用单Xavier SoC，运行功率是45W，成本仅为传统方案的一半。其称，让低成本的车规级计算平台也能实现L4级自动驾驶，是元戎启行要做的事情；不需要超高性能的计算平台，一台Xavier即可满足L4级自动驾驶的计算需求（如今看来这个预计可能比较难，从CES2020至今，再没太多关于其自研计算平台的信息？朋友称在深圳体验的时候实际上跑的都是工控机…希望后续梳理能够找到这方面相关信息）。讲道理，在几何A上，元戎启行还配备了<strong>低功耗的计算平台</strong>，这个计算单元当仁不让是DeepRoute-Tite，但32TOPS实在不够呀，应该在算力上逐步做减法会容易很多，不确定DeepRoute-Tite是不是也在憋大招，Orin？<br>    <center><img src="/img/SensorSettings/01-Overview/DeepRoute-Sense_HW.png" alt="DeepRoute-Sense_HW.png" width="810px"/></center></p>
+<h3 id="滴滴自动驾驶硬件平台—双子星"><a href="#滴滴自动驾驶硬件平台—双子星" class="headerlink" title="滴滴自动驾驶硬件平台—双子星"></a>滴滴自动驾驶硬件平台—双子星</h3><p>　滴滴自动驾驶相对来说了解较少，这里通过20210702<a href="https://shangzhibo.tv/watch/10459926">盖世汽车2021第四届全球自动驾驶论坛</a>初瞰了一下（ 时间戳00:44:00开始），作为国内最成熟的共享出行平台，滴滴自动驾驶有其充分的业务需求和研发紧迫性、实战性。滴滴<strong>双子星硬件平台</strong>，其传感器数量级和种类只有AutoX Gen5可以媲美，传感器数量达到了50个！如此复杂的硬件平台，初衷是认为目前顶尖的算法准确性≈85%，运用到实际场景中只剩下70%，希望通过增加硬件复杂度弥补这丢失的精度，硬件提升很直观可以带来自动驾驶感知性能的提升，感知性能提升又会带来预测的提升；同时，传感器成本在以超出大家预计的速度降成本，滴滴也在致力于与供应商一起迭代硬件，优化成本，最终达到量产是可行的。<br>    <center><img src="/img/SensorSettings/01-Overview/DiDi-Gemini.jpeg" alt="DiDi-Gemini" width="640px"/></center><br>　为了配备数量如此多且复杂的硬件设备，双子星也配备了高算力的自动驾驶计算单元：Gemini Core，达到700+TOPS 算力，40Gb+/s 传感器数据接入。<a href="https://blogs.nvidia.cn/2021/05/17/didi-nvidia-drive-self-driving-robotaxis/">Gemini Core基于NVIDIA DRIVE AGX Pegasus打造</a>，不过标称NVIDIA DRIVE AGX Pegasus平台只有320TOPS，不知道是怎么配置达到700+TOPS 算力？320*2=640？还是NVIDIA 专门为DiDi定制化或者推荐集成的计算单元？<br>    <center><img src="/img/SensorSettings/01-Overview/DiDi-Gemini2.jpg" alt="DiDi-Gemini" width="640px"/></center></p>
+<h3 id="Momenta统一量产传感器方案"><a href="#Momenta统一量产传感器方案" class="headerlink" title="Momenta统一量产传感器方案"></a>Momenta统一量产传感器方案</h3><p>　早！在2019年3月，Momenta就发布了其可量产自动驾驶解决方案Momenta Mpilot，场景包括高速（Mpilot Highway）、泊车（Mpilot Parking）以及城市道路（Mpilot Urban），除Highway正式发布外，Parking、Urban预计2019 Q3、2020 Q1正式发布，提供从停车场取车—上高速环路—城市道路—停车场泊车连贯的自动驾驶体验。<br>　2019年7月11日Mpilot Parking正式发布，12月26日正式发布了L4级无人驾驶技术MSD (Momenta Self Driving)，可实现城市场景下的完全无人驾驶。这里可能要问说好的Mpilot Urban呢？估计视觉+毫米波做中国城市道路的L4还是太难了，现阶段还需要激光雷达的加持，美其名曰“辅助型激光雷达”。<br>    <center><img src="/img/SensorSettings/01-Overview/Momenta-11V5R1L.png" alt="Momenta-11V5R1L" width="640px"/></center><br>　Momenta统一量产传感器方案包括12个摄像头、12个超声波雷达（Mpilot需要，车前保4个短距+车后保4个短距+车眉毛4个长距）、5个毫米波以及1个辅助型激光雷达，除了激光雷达之外，其他都是可量产的传感器组合，价格可控制在千元级别。不知道基于消费级GPS/IMU的定位精度如何？如果真能靠这套Settings做L4，那确实厉害。<br>    <center><img src="/img/SensorSettings/01-Overview/Momenta-Mpilot_MSD.png" alt="Momenta-Mpilot_MSD" width="640px"/></center><br>　据Momenta称其战略：量产自动驾驶 (Mpilot) 与完全无人驾驶 (MSD) 两条腿走路。左腿量产自动驾驶, 旨在为行业交付一流可量产的自动驾驶系列产品，并提供源源不断的<strong>数据流</strong>；右腿完全无人驾驶，持续研发更先进的数据驱动算法，致力于打造L4级别的完全无人驾驶技术，并反馈给量产产品领先的<strong>技术流</strong>。Mpilot为MSD提供“数据流”，MSD为 Mpilot 提供“技术流”，两者之间高效的闭环自动化迭代，将重新定义实现无人驾驶的关键路径：通过量产自动驾驶产品获得海量数据，持续研发数据驱动的核心算法，打造闭环自动化工程体系，发挥数据价值，高效迭代技术，最终实现完全无人驾驶。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>　以下是知乎作者的总结，这里原封不动摘录。</p>
+<ol>
+<li>基本上Robotaxi都会配备至少一个360度顶激光+一个前向激光雷达，同时大部分企业也会配备盲区激光雷达，除了百度和momenta这两家企业外，其他robotaxi企业更倾向于步更多的传感器，尤其是滴滴和AutoX，可以在堆料王这一称号竞争中比拼一下；</li>
+<li>超声波传感器在L4方案中逐渐被放弃；</li>
+<li>大部分使用毫米波雷达的企业开始转向4D毫米波雷达；</li>
+<li>传感器方案其实越来越趋于同质化，说明行业对于传感器的布局越来越统一，前装量产的可能性越来越大；</li>
+<li>根据大家对于4D毫米波雷达的认可，激光雷达+4D毫米波雷达+摄像头将会成为Robotaxi主流方案。</li>
+</ol>
+<p>　本文就简介到这里，对于后续暂无计划深入梳理的方案就展开多了解了一下，希望大家阅读后对前沿自动驾驶硬件方案也有自己的理解和认识，更重要的是能够被这么“高大上的东西”吸引，有所兴趣。各家硬件方案迭代至今，跟各自的RoadMap相关，更反映了自动驾驶行业近几年的迅猛发展，我们希望以此作为契机，梳理各家迭代的路程，希望能从中总结出差距和趋势，他山之石，可以攻玉…</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2021/11/22/SensorSettings_Overview/">自动驾驶硬件方案①：概述</a></p>
+
+        <!-- 
+        <p><span>文章作者:</span><a href="/" title="回到主页">Gary Chan</a></p>
+        -->
+        <p><span>文章作者:</span>Gary</p>
+
+        <p><span>发布时间:</span>2021-11-22, 20:26:22</p>
+        <p><span>最后更新:</span>2021-12-16, 20:09:02</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2021/11/22/SensorSettings_Overview/" title="自动驾驶硬件方案①：概述">http://durant35.github.io/2021/11/22/SensorSettings_Overview/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2021/11/22/SensorSettings_Overview/　　作者: Gary Chan" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+
+        <!-- not to show license information
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+        -->
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2021/12/16/SensorSettings_Apollo/">
+                    自动驾驶硬件方案②：Where Apollo Moon Happens
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2020/10/13/binary_Compile-Link-Load-Execute/">
+                    编译、链接、装载与运行
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#百度Apollo第五代Robotaxi-极狐αT-威马W6-广汽埃安"><span class="toc-number">1.</span> <span class="toc-text">百度Apollo第五代Robotaxi: 极狐αT/威马W6/广汽埃安</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小马智行第五代传感器方案PonyAlpha-X"><span class="toc-number">2.</span> <span class="toc-text">小马智行第五代传感器方案PonyAlpha X</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文远智行自动驾驶传感器套件WeRide-Sensor-Suite-4-0"><span class="toc-number">3.</span> <span class="toc-text">文远智行自动驾驶传感器套件WeRide Sensor Suite 4.0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AutoX第五代全无人驾驶系统AutoX-Gen5"><span class="toc-number">4.</span> <span class="toc-text">AutoX第五代全无人驾驶系统AutoX Gen5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#元戎启行传感器解决方案DeepRoute-Sense-II"><span class="toc-number">5.</span> <span class="toc-text">元戎启行传感器解决方案DeepRoute Sense II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#滴滴自动驾驶硬件平台—双子星"><span class="toc-number">6.</span> <span class="toc-text">滴滴自动驾驶硬件平台—双子星</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Momenta统一量产传感器方案"><span class="toc-number">7.</span> <span class="toc-text">Momenta统一量产传感器方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">8.</span> <span class="toc-text">总结</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+        <!--
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+        -->
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+        <!--
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+        -->
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"自动驾驶硬件方案①：概述　| Gary Chan's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/2021/11/22/SensorSettings_Overview/';
+            this.page.identifier = '2021/11/22/SensorSettings_Overview/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2021/12/16/SensorSettings_Apollo/" title="上一篇: 自动驾驶硬件方案②：Where Apollo Moon Happens">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2020/10/13/binary_Compile-Link-Load-Execute/" title="下一篇: 编译、链接、装载与运行">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/12/16/SensorSettings_Apollo/">自动驾驶硬件方案②：Where Apollo Moon Happens</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/11/22/SensorSettings_Overview/">自动驾驶硬件方案①：概述</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/13/binary_Compile-Link-Load-Execute/">编译、链接、装载与运行</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/21/tool_vimium几步走/">vimium几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/26/tool_tmux几步走/">tmux几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/10/cpp_C++ BasicMiscs/">C++ Basic</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/TACouses_ES2017_MCU_GPIO/">GPIO 的几种输入输出模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/VM_MemoryManage/">虚拟内存[0?] 内存管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/VM_VirtualAddr2PhysicalAddr/">虚拟内存[0?] 虚拟内存地址如何转换到物理内存地址</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/VM0_AddressSpace/">虚拟内存[00] 虚拟内存地址空间</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/VM_Changes4LifeCycle/">虚拟内存[02] 不同阶段下的内存变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/29/VM_Stacks/">虚拟内存[02] Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/29/VM1_UserSpaceSegments/">虚拟内存[01] 用户内存空间的各个段分布</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/">嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/24/TACouses_ES2017_MoCs/">嵌入式系统导论[03] Model of Computation</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/28/TACouses_ES2017_Java/">嵌入式系统导论[01] Linux 下手动配置 Java 环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/26/TACouses_ES2017_SystemC/">嵌入式系统导论[02] 浅谈 System C</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/03/programPearls_Summary after Interview in Robosense/">Summary after Robosense's Interview</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/binary_ldconfig4RuntimeLibraries/">ldconfig：[load]运行时库管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/Algorithms_ICP/">[0024] Iterative Closest Points（迭代最近点）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/Algorithms_LeastSquaresLineFitting/">[0025] Least Squares Line Fitting（最小二乘法直线拟合）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/programPearls_i=i++/">i = i++;</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/tool_CMake_find_package$pkg_check_module/">CMake 查找库: find_package vs pkg_check_modules</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/">ROS launch file: <arg> vs <param> vs <rosparam></a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/">hexo：告别多说，拥抱 Disqus</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/">32-bit program on 64-bit OS & 64-bit program on 32-bit OS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/13/Algorithms_OnlineJudge4Huawei2017/">算法设计与分析[0023] 秋招华为在线笔试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/">JPEG编码&算术编码、LZW编码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/11/programPearls_DES$3DES$AES/">密码学：DES、3DES、AES</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/Algorithms_BST$R-B Tree/">算法设计与分析[0022] BST（二叉查找树）和 R-B Tree（红黑树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/07/programPearls_declaration$definition$initialization$assignment/">声明/定义/初始化/赋值</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/programPearls_inline$static$const$extern$volatile/">C/C++常见修饰符（inline&static&const&extern&volatile）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/Algorithms_BasicMiscs/">算法设计与分析[0021] Some Algorithms Basic Details Review（课程总结）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GraphProblems/">算法设计与分析[0020] 几个有关图的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GreedyAlgorithms/">算法设计与分析[0019] Greedy Algorithms（贪心策略）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/">算法设计与分析[0018] 图的点连通度和边连通度</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/08/Algorithms_NP-Complete(I)/">算法设计与分析[0017] NP-完全问题：概述（两道证明习题）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">DARPA[Boss]: Motion Planning in Urban Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_BiGraphMatching/">算法设计与分析[0016] 二分图匹配问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/Algorithms_Dynamic Programming(V)/">算法设计与分析[0014] Dynamic Programming(V) 一道习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/13/hsw_UbuntuSystemBootSequence/">一张图带你看 Ubuntu(Linux) 系统启动过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/programPearls_cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/linux_LinuxCommandNotes/">Linux命令小纸条</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/tool_vim几步走/">vim几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/10/programPearls_libpcap 32-bit$64-bit/">libpcap, 32-bit&64-bit</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/misc_Key Word Engineering/">Key Word Engineering</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/07/hexo_Theme Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/01/TACouses_Embedded_System_2016/">嵌入式系统导论[00] Overview, DOL and MPARM</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/hexo_Theme Yelee Migrant Note/">hexo博客主题Yelee迁移笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux下基本文件操作/">Win/Linux下基本文件操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/26/tool_git几步走/">git几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/09/OverlappingSounds_Basketball_Never_Stops/">Basketball Never Stops</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/">Coding中的编码问题之回顾&深入</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/21/programPearls_Coding中的编码问题之入门$概览/">Coding中的编码问题之入门&概览</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/11/movies_漫威电影/">漫威21部系列电影(持续更新)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/tool_NotePad/">NotePad++</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">在hexo new之后立即打开Markdown文稿</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_自定义主题/">hexo自定义主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/29/TACouses_iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/TACouses_iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/28/TACouses_iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&Win8.1(both 64-bit),其他仅供参考)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/09/graduatedesign_01 STM32_Keil$JLink/">(一) 搭建STM32开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/">数媒HW4参考资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/16/TACouses_JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/15/TACouses_JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/TACouses_考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/06/TACouses_考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/TACouses_考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/hexo_win搭建hexo/">win搭建hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2021 Gary Chan
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by <a href="http://moxfive.xyz/" target="_blank"> MOxFIVE </a><i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+            
+            
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

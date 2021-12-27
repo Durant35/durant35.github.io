@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Gary Chan" />
+
+
+
+<meta name="description" content="承接前期DOL Functional Simulation 和 MPARM Simulation的实验内容，结合在SystemC 系统设计中提到的Y-chart，本文将讨论在 Behavior 层面的系统建模：MoCs (Model of Computation)，希望对 DOL 的建模原理有一定认识：  　To mo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="嵌入式系统导论[03] Model of Computation">
+<meta property="og:url" content="http://durant35.github.io/2017/10/24/TACouses_ES2017_MoCs/index.html">
+<meta property="og:site_name" content="Gary Chan&#39;s Blog">
+<meta property="og:description" content="承接前期DOL Functional Simulation 和 MPARM Simulation的实验内容，结合在SystemC 系统设计中提到的Y-chart，本文将讨论在 Behavior 层面的系统建模：MoCs (Model of Computation)，希望对 DOL 的建模原理有一定认识：  　To model streaming applications, the dataflo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/4typesTiming.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/StateCharts_FSM2StateCharts.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/StateCharts_Concurrency.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/StateCharts_TreeRepresentation.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/StateCharts_EdgeLabel.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/DataFlow_Model.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/DataFlow_MPEG2.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/DataFlow_Monotonic.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/DataFlow_KPN.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/DataFlow_SDF.png">
+<meta property="og:image" content="http://durant35.github.io/img/TA-Cources/ES2017/DataFlow_SDFEquation.png">
+<meta property="og:updated_time" content="2020-03-28T04:37:22.322Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="嵌入式系统导论[03] Model of Computation">
+<meta name="twitter:description" content="承接前期DOL Functional Simulation 和 MPARM Simulation的实验内容，结合在SystemC 系统设计中提到的Y-chart，本文将讨论在 Behavior 层面的系统建模：MoCs (Model of Computation)，希望对 DOL 的建模原理有一定认识：  　To model streaming applications, the dataflo">
+<meta name="twitter:image" content="http://durant35.github.io/img/TA-Cources/ES2017/4typesTiming.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Gary Chan&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>嵌入式系统导论[03] Model of Computation | Gary Chan&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+</head>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Gary Chan</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">　　你永远流淌在我的记忆里？River flows in you</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">Home</a></li>
+                        
+                            <li><a href="/tags">All-tags</a></li>
+                        
+                            <li><a href="/archives">All-lists</a></li>
+                        
+                            <li><a href="/garychan">Contact</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/">3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AES/">AES</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary/">Binary</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/">C/C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CG/">CG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMD/">CMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/">CV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DARPA/">DARPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DES/">DES</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DLL/">DLL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Encoding/">Encoding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HUAWEI/">HUAWEI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPEG/">JPEG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Key-words/">Key-words</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LZW/">LZW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCU/">MCU</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MFC/">MFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NotePad/">NotePad++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCL/">OpenCL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL/">OpenGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB/">PCB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SensorSettings/">SensorSettings</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VM/">VM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS2013/">VS2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vim/">Vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dumpbin/">dumpbin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ini/">ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pcap/">pcap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tmux/">tmux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vimium/">vimium</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件操作/">文件操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漫威电影/">漫威电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动驾驶/">自动驾驶</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://wiki.ros.org/">ROS</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://zhiqiu.github.io/">Zhiqiu&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.ruanyifeng.com/blog/">阮一峰的网络日志</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://rh-song.github.io/">RiHui-Song&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://goshin.github.io/">Goshin&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://blog.csdn.net/u014593748">Kangdk&#39;s CSDN</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Gary Chan</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Gary Chan</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">　　你永远流淌在我的记忆里？River flows in you</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/tags">All-tags</a></li>
+                
+                    <li><a href="/archives">All-lists</a></li>
+                
+                    <li><a href="/garychan">Contact</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-TACouses_ES2017_MoCs" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/10/24/TACouses_ES2017_MoCs/" class="article-date">
+      <time datetime="2017-10-24T04:50:14.000Z" itemprop="datePublished">2017-10-24</time>
+</a>
+
+
+
+ 
+    <a href="/2017/10/24/TACouses_ES2017_MoCs/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/10/24/TACouses_ES2017_MoCs/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      嵌入式系统导论[03] Model of Computation
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/EmbeddedSystem/">EmbeddedSystem</a>
+    </div>
+
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>　承接前期<a href="http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/">DOL Functional Simulation 和 MPARM Simulation</a>的实验内容，结合在<strong>SystemC 系统设计</strong>中提到的<a href="http://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/">Y-chart</a>，本文将讨论在 Behavior 层面的系统建模：<strong>MoCs (Model of Computation)</strong>，希望对 DOL 的建模原理有一定认识：</p>
+<blockquote>
+<p>　To model streaming applications, the <strong>dataflow process network</strong> model of computation [Lee and Parks 1995], a subclass of <strong>Kahn process networks</strong> [Kahn 1974], has been adopted in the DOL design flow. </p>
+</blockquote>
+<p>　什么是<strong>dataflow process network</strong>？<strong>Kahn process networks</strong>又是什么？接下来我们将一一论述。<a id="more"></a>
+　</p>
+<h3 id="Model-of-System（系统建模）"><a href="#Model-of-System（系统建模）" class="headerlink" title="Model of System（系统建模）"></a>Model of System（系统建模）</h3><ul>
+<li>传统模型不能满足后续的 Requirements<ul>
+<li>Von Neumann Model</li>
+<li>Thread-based Concurrency Models</li>
+</ul>
+</li>
+<li>Requirements for Model for Embedded Systems<ul>
+<li><strong>Modularity</strong>: Systems specified as a composition of objects</li>
+<li><strong>Represent hierarchy</strong>: Humans not capable to understand systems containing more than a few objects<ul>
+<li>Behavioral hierarchy: like statements-&gt;procedures-&gt;programs</li>
+<li>Structural hierarchy: like transistors-&gt;gates-&gt;processors-&gt;printed circuit</li>
+</ul>
+</li>
+<li><strong>Concurrency</strong>, <strong>synchronization</strong> and <strong>communication</strong></li>
+<li>Represent <strong>timing</strong> behavior/requirements<ul>
+<li>Timing is essential for embedded systems!</li>
+<li>Four types of timing specs required [Burns, 1990]<center><img src="/img/TA-Cources/ES2017/4typesTiming.png" width="640px" alt=""/></center></li>
+</ul>
+</li>
+<li>Represent <strong>state-oriented behavior</strong>: Required for reactive systems</li>
+<li>Represent <strong>dataflow-oriented behavior</strong>: Components send streams of data to each other</li>
+</ul>
+</li>
+<li>Model of Computation（满足 Requirements 的一些系统建模方法）<ul>
+<li>StateCharts</li>
+<li>Data-Flow Models<ul>
+<li>Kahn Process Network</li>
+<li>Synchronous Dataflow</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="State-Charts"><a href="#State-Charts" class="headerlink" title="State Charts"></a>State Charts</h3><ul>
+<li>FSM <strong>→</strong> State Charts<br>  <center><img src="/img/TA-Cources/ES2017/StateCharts_FSM2StateCharts.png" width="640px" alt=""/></center><ul>
+<li>Introducing Hierarchy</li>
+<li>Types of States<ul>
+<li>Current states of FSMs are also called <strong>active states</strong></li>
+<li>States which are not composed of other states are called <strong>basic states</strong></li>
+<li>States containing other states are called <strong>super-states</strong></li>
+<li>For each basic state <em>s</em>, the super-states containing <em>s</em> are called <strong>ancestor states</strong></li>
+<li>Super-states <code>S</code> are called <strong>OR-super-states</strong>, if exactly one of the sub-states of <code>S</code> is active whenever <code>S</code> is active.</li>
+</ul>
+</li>
+<li>Default State Mechanism</li>
+</ul>
+</li>
+<li>Concurrency<ul>
+<li><strong>AND-super-states</strong>: FSM is in all (immediate) sub-states of a super-state<center><img src="/img/TA-Cources/ES2017/StateCharts_Concurrency.png" width="640px" alt=""/></center></li>
+</ul>
+</li>
+<li>Tree Representation of State Sets<br>  <center><img src="/img/TA-Cources/ES2017/StateCharts_TreeRepresentation.png" width="540px" alt=""/></center><ul>
+<li>Computation of State Sets（状态空间）：State Charts $\Longrightarrow$ FSM<ul>
+<li><strong>basic states</strong>: state set = state</li>
+<li><strong>OR-super-states</strong>: state set = union of children</li>
+<li><strong>AND-super-states</strong>: state set = Cartesian product of children<blockquote>
+<p>两个集合 $X$ 和 $Y$ 的<strong>笛卡尔积（Cartesian product）</strong>，是所有可能的有序对组成的集合：<br>$$X × Y = \verb|{| (x, y) \space | \space x \in X \wedge y \in Y \verb|}|$$</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Representation of Computations<br>  <center><img src="/img/TA-Cources/ES2017/StateCharts_EdgeLabel.png" width="480px" alt=""/></center><ul>
+<li><strong>Events</strong><ul>
+<li>有效性：only until the next evaluation of the model</li>
+<li>Can be either internally or externally generated</li>
+<li>“event” can be composed of several events:  <strong>e1 and e2</strong>; <strong>e1 or e2</strong>; <strong>not e</strong></li>
+</ul>
+</li>
+<li><strong>Conditions</strong>: refer to values of variables/states that keep their value until they are reassigned</li>
+<li><strong>Actions</strong><ul>
+<li>Can either be assignments for variables or creation of events</li>
+<li>“action” can also be composed: <strong>(a1; a2)</strong>, actions <em>a1</em> and <em>a2</em> are executed in parallel.</li>
+</ul>
+</li>
+<li>All events, states and actions are globally visible</li>
+</ul>
+</li>
+</ul>
+<h3 id="Data-Flow-Models"><a href="#Data-Flow-Models" class="headerlink" title="Data-Flow Models"></a>Data-Flow Models</h3><ul>
+<li>All processes run “simultaneously”</li>
+<li>Processes can be described with imperative code (Host Language, e.g. <em>C/C++/Java/…</em>)</li>
+<li><strong>Processes can only communicate through buffers</strong>, network description with Coordination Language, e.g. <em>XML</em><center><img src="/img/TA-Cources/ES2017/DataFlow_Model.png" width="340px" alt=""/></center></li>
+<li>Sequence of read tokens is identical to the sequence of written tokens</li>
+<li>Appropriate for applications that deal with <strong>streams of data</strong><ul>
+<li>Fundamentally concurrent: maps easily to parallel hardware</li>
+<li>Perfect fit for block-diagram specifications (control systems, signal processing)<center><img src="/img/TA-Cources/ES2017/DataFlow_MPEG2.png" width="540px" alt=""/><br/>Example: MPEG-2 Video Decoder</center></li>
+<li>Matches well current and future trend towards multimedia applications</li>
+</ul>
+</li>
+<li>下面详细介绍两种 Data-Flow Models：<strong>KPN</strong> 以及它的一种变种 <strong>SDF</strong>。</li>
+</ul>
+<h4 id="Kahn-Process-Network-KPN"><a href="#Kahn-Process-Network-KPN" class="headerlink" title="Kahn Process Network (KPN)"></a>Kahn Process Network (KPN)</h4><ul>
+<li>Proposed by Kahn in 1974 as a general-purpose scheme for <strong>parallel programming</strong><ul>
+<li>FIFO buffers（管道无穷大）: infinite size</li>
+<li>Blocking-read（阻塞读）: destructive and blocking (reading an empty channel blocks until data is available)</li>
+<li>Non-blocking-write（非阻塞写）</li>
+<li>Unique attribute: determinate（确定性）</li>
+</ul>
+</li>
+<li>KPN 的 Determinacy（确定性）问题<ul>
+<li>Random vs Determinate: A system is <strong>random</strong> if the information known about the system and its inputs is not sufficient to determine its outputs</li>
+<li>Define the <strong>history of a channel</strong> to be the sequence of tokens that have been both written and read. A process network is said to be determinate if <strong>the histories of all channels (output channels) depend only on the histories of the input channels</strong>.</li>
+<li>Importance<ul>
+<li><strong>Functional behavior</strong>（MoCs 是行为级层面的系统建模） is <strong>independent of timing</strong> (scheduling, communication time, execution time of processes)</li>
+<li>Separation of functional properties and timing</li>
+</ul>
+</li>
+<li>Proof of Determinism<ul>
+<li>monotonic（单调性）$\Longrightarrow$ determinate（确定性的严格证明）<ul>
+<li>网络中的每个进程都是单调的，则整个网络也是单调的：A network of monotonic processes itself defines a monotonic process.</li>
+<li>一个单调的网络自然满足确定性：A monotonic process is clearly determinate<br><center><img src="/img/TA-Cources/ES2017/DataFlow_Monotonic.png" width="640px" alt=""/></center><blockquote>
+<p>如何证明进程的单调性？<br>　① Formal definition</p>
+<ul>
+<li>input/output sequence (stream): $X = [x_1, x_2, x_3, …]$ （单个 channel）</li>
+<li>p-tuple of sequences: $\mathbf{X} = [X^1, X^2, X^3, …] \in S$（多个 channel）</li>
+<li><strong>prefix ordering</strong>: $[x_1] \subseteq [x_1, x_2] \subseteq [x_1, x_2, x_3]$</li>
+<li><strong>process</strong>: $F = S_{in} \to S_{out}$，输入 $\mathbf{X} \in S_{in}$， 输出 $F(\mathbf{X}) \in S_{out}$</li>
+</ul>
+<p>　② $\mathbf{X} \subseteq \mathbf{X’}  \Rightarrow F(\mathbf{X}) \subseteq F(\mathbf{X’})$ $\Longrightarrow$ monotonic process</p>
+<ul>
+<li><strong>ordered set of sequences</strong> $\mathbf{X} \subseteq \mathbf{X’}$</li>
+<li>输入 sequences 互为 <strong>ordered set</strong>，输出 sequences 也互为 <strong>ordered set</strong>，那么进程是单调的<br>　③ 如何证明：sequences 互为 <strong>ordered set</strong></li>
+<li>证明：$ \forall X^i \subseteq X’^i \Rightarrow \mathbf{X} \subseteq \mathbf{X’}$</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>反证法简单证明 $\Longrightarrow$ non-monotonic behavior（output 不仅取决于 input，还跟时间相关）$\Longrightarrow$ non-determinate</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>实例 (A Kahn Process Network): prints an alternating sequence of 0’s and 1’s<br><center><img src="/img/TA-Cources/ES2017/DataFlow_KPN.png" width="640px" alt=""/></center><ul>
+<li>Process <code>h</code> sends initial value, then passes through values</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">process <span class="title">h</span><span class="params">(in <span class="keyword">int</span> u, out <span class="keyword">int</span> v, <span class="keyword">int</span> init)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> i = init;</span><br><span class="line">  send(i, v);</span><br><span class="line">  <span class="keyword">for</span>(;;) &#123;</span><br><span class="line">    i = wait(u);</span><br><span class="line">    send(i, v);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Process <code>f</code>alternately reads from u and v, prints the data value, and writes it to w</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">process <span class="title">f</span><span class="params">(in <span class="keyword">int</span> u, in <span class="keyword">int</span> v, out <span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">bool</span> b = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">for</span>(;;) &#123;</span><br><span class="line">    i = b ? wait(u) : wait(v);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%i\n"</span>, i);</span><br><span class="line">    send(i, w);</span><br><span class="line">    b = !b;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Process <code>g</code> reads from u and alternately copies it to v and w</li>
+</ul>
+</li>
+<li>  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">process <span class="title">g</span><span class="params">(in <span class="keyword">int</span> u, out <span class="keyword">int</span> v, out <span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">bool</span> b = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">for</span>(;;) &#123;</span><br><span class="line">    i = wait(u);</span><br><span class="line">    <span class="keyword">if</span>(b) &#123;</span><br><span class="line">      send(i, v);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      send(i, w);</span><br><span class="line">    &#125;</span><br><span class="line">    b = !b;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>整个 KPN 网络的单线程 <em>Java</em> 实现</li>
+</ul>
+</li>
+<li>  <figure class="highlight java"><figcaption><span>KPN.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KPN</span> </span>&#123;</span><br><span class="line">  Queue&lt;Integer&gt; chan1 = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">  Queue&lt;Integer&gt; chan2 = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">  Queue&lt;Integer&gt; chan3 = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">  Queue&lt;Integer&gt; chan4 = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">  Queue&lt;Integer&gt; chan5 = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> counter = <span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">h1</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> init=<span class="number">1</span>;</span><br><span class="line">    h1()&#123;</span><br><span class="line">      chan1.add(init);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(chan4.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">int</span> tmp = chan4.remove();</span><br><span class="line">        chan1.add(tmp);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">h0</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> init=<span class="number">0</span>;</span><br><span class="line">    h0()&#123;</span><br><span class="line">      chan2.add(init);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(chan5.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">int</span> tmp = chan5.remove();</span><br><span class="line">        chan2.add(tmp);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">g</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> write_up = <span class="keyword">true</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(chan3.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">int</span> tmp = chan3.remove();</span><br><span class="line">        System.out.println(<span class="string">"Output is: "</span>+tmp+<span class="string">" at "</span>+counter++);</span><br><span class="line">        <span class="keyword">if</span>(write_up)&#123;</span><br><span class="line">          chan4.add(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">          chan5.add(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        write_up = !write_up;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">f</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> read_up = <span class="keyword">true</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(read_up)&#123;</span><br><span class="line">        <span class="keyword">if</span>(chan1.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">          <span class="keyword">int</span> tmp = chan1.remove();</span><br><span class="line">          chan3.add(tmp);</span><br><span class="line">          read_up = !read_up;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(chan2.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">          <span class="keyword">int</span> tmp = chan2.remove();</span><br><span class="line">          chan3.add(tmp);</span><br><span class="line">          read_up = !read_up;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  h1 h1_;</span><br><span class="line">  h0 h0_;</span><br><span class="line">  f f_;</span><br><span class="line">  g g_;</span><br><span class="line">  </span><br><span class="line">  KPN()&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="comment">// Test 1:</span></span><br><span class="line">    <span class="comment">/* initialize the channel and processes. */</span></span><br><span class="line">    chan1.clear();</span><br><span class="line">    chan2.clear();</span><br><span class="line">    chan3.clear();</span><br><span class="line">    chan4.clear();</span><br><span class="line">    chan5.clear();</span><br><span class="line">    h1_ = <span class="keyword">new</span> h1();</span><br><span class="line">    h0_ = <span class="keyword">new</span> h0();</span><br><span class="line">    f_ = <span class="keyword">new</span> f();</span><br><span class="line">    g_ = <span class="keyword">new</span> g();</span><br><span class="line">    System.out.println(<span class="string">"Order 1:   h1, h0, f, g"</span>);</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;<span class="number">100</span>; ++i)&#123;</span><br><span class="line">      h1_.run();</span><br><span class="line">      h0_.run();</span><br><span class="line">      f_.run();</span><br><span class="line">      g_.run();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Test 2:</span></span><br><span class="line">    <span class="comment">/* initialize the channel and processes. */</span></span><br><span class="line">    chan1.clear();</span><br><span class="line">    chan2.clear();</span><br><span class="line">    chan3.clear();</span><br><span class="line">    chan4.clear();</span><br><span class="line">    chan5.clear();</span><br><span class="line">    h1_ = <span class="keyword">new</span> h1();</span><br><span class="line">    h0_ = <span class="keyword">new</span> h0();</span><br><span class="line">    f_ = <span class="keyword">new</span> f();</span><br><span class="line">    g_ = <span class="keyword">new</span> g();</span><br><span class="line">    System.out.println(<span class="string">"Order 2:   h1, h1, h1, g, f, h0, h0"</span>);</span><br><span class="line">    <span class="keyword">for</span>(; i&lt;<span class="number">200</span>; ++i)&#123;</span><br><span class="line">      h1_.run();</span><br><span class="line">      h1_.run();</span><br><span class="line">      h1_.run();</span><br><span class="line">      g_.run();</span><br><span class="line">      f_.run();</span><br><span class="line">      h0_.run();</span><br><span class="line">      h0_.run();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Test 3:</span></span><br><span class="line">    <span class="comment">/* initialize the channel and processes. */</span></span><br><span class="line">    chan1.clear();</span><br><span class="line">    chan2.clear();</span><br><span class="line">    chan3.clear();</span><br><span class="line">    chan4.clear();</span><br><span class="line">    chan5.clear();</span><br><span class="line">    h1_ = <span class="keyword">new</span> h1();</span><br><span class="line">    h0_ = <span class="keyword">new</span> h0();</span><br><span class="line">    f_ = <span class="keyword">new</span> f();</span><br><span class="line">    g_ = <span class="keyword">new</span> g();</span><br><span class="line">    System.out.println(<span class="string">"Order 3:  f, f, g, h1, h0, h1, h0, h0, g"</span>);</span><br><span class="line">    <span class="keyword">for</span>(; i&lt;<span class="number">300</span>; ++i)&#123;</span><br><span class="line">      f_.run();</span><br><span class="line">      f_.run();</span><br><span class="line">      g_.run();</span><br><span class="line">      h1_.run();</span><br><span class="line">      h0_.run();</span><br><span class="line">      h1_.run();</span><br><span class="line">      h0_.run();</span><br><span class="line">      h0_.run();</span><br><span class="line">      g_.run();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Test 4:</span></span><br><span class="line">    <span class="comment">/* initialize the channel and processes. */</span></span><br><span class="line">    chan1.clear();</span><br><span class="line">    chan2.clear();</span><br><span class="line">    chan3.clear();</span><br><span class="line">    chan4.clear();</span><br><span class="line">    chan5.clear();</span><br><span class="line">    h1_ = <span class="keyword">new</span> h1();</span><br><span class="line">    h0_ = <span class="keyword">new</span> h0();</span><br><span class="line">    f_ = <span class="keyword">new</span> f();</span><br><span class="line">    g_ = <span class="keyword">new</span> g();</span><br><span class="line">    System.out.println(<span class="string">"Order 4:   g, h0, h1, f"</span>);</span><br><span class="line">    <span class="keyword">for</span>(; i&lt;<span class="number">400</span>; ++i)&#123;</span><br><span class="line">      g_.run();</span><br><span class="line">      h0_.run();</span><br><span class="line">      h1_.run();</span><br><span class="line">      f_.run();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Test 5:</span></span><br><span class="line">    <span class="comment">/* initialize the channel and processes. */</span></span><br><span class="line">    chan1.clear();</span><br><span class="line">    chan2.clear();</span><br><span class="line">    chan3.clear();</span><br><span class="line">    chan4.clear();</span><br><span class="line">    chan5.clear();</span><br><span class="line">    h1_ = <span class="keyword">new</span> h1();</span><br><span class="line">    h0_ = <span class="keyword">new</span> h0();</span><br><span class="line">    f_ = <span class="keyword">new</span> f();</span><br><span class="line">    g_ = <span class="keyword">new</span> g();</span><br><span class="line">    System.out.println(<span class="string">"Order 5: g, g, g, h0, h1, f"</span>);</span><br><span class="line">    <span class="keyword">for</span>(; i&lt;<span class="number">500</span>; ++i)&#123;</span><br><span class="line">      g_.run();</span><br><span class="line">      g_.run();</span><br><span class="line">      g_.run();</span><br><span class="line">      h0_.run();</span><br><span class="line">      h1_.run();</span><br><span class="line">      f_.run();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    <span class="keyword">new</span> KPN();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>整个 KPN 网络的多线程 <em>Java</em> 实现</li>
+</ul>
+</li>
+<li>  <figure class="highlight java"><figcaption><span>KPN_multithread.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Lock;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KPN</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">private</span> Queue&lt;Integer&gt; chan1 = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">  <span class="keyword">private</span> Queue&lt;Integer&gt; chan2 = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">  <span class="keyword">private</span> Queue&lt;Integer&gt; chan3 = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">  <span class="keyword">private</span> Queue&lt;Integer&gt; chan4 = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">  <span class="keyword">private</span> Queue&lt;Integer&gt; chan5 = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> counter=<span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">h</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    Queue&lt;Integer&gt; in, out;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> init;</span><br><span class="line">    </span><br><span class="line">    h(Queue&lt;Integer&gt; in, Queue&lt;Integer&gt; out, <span class="keyword">int</span> init)&#123;</span><br><span class="line">      <span class="keyword">this</span>.in = in;</span><br><span class="line">      <span class="keyword">this</span>.out = out;</span><br><span class="line">      <span class="keyword">this</span>.init = init;</span><br><span class="line">      out.add(<span class="keyword">this</span>.init);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">if</span>(in.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> tmp = in.remove();</span><br><span class="line">            out.add(tmp);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">          lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">f</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    Queue&lt;Integer&gt; in_up, in_down, out;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> read_up = <span class="keyword">true</span>;</span><br><span class="line">    f(Queue&lt;Integer&gt; in_up, Queue&lt;Integer&gt; in_down, Queue&lt;Integer&gt; out)&#123;</span><br><span class="line">      <span class="keyword">this</span>.in_up = in_up;</span><br><span class="line">      <span class="keyword">this</span>.in_down = in_down;</span><br><span class="line">      <span class="keyword">this</span>.out = out;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">if</span>(read_up) &#123;</span><br><span class="line">            <span class="keyword">if</span>(in_up.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">              <span class="keyword">int</span> tmp = in_up.remove();</span><br><span class="line">              read_up = !read_up;</span><br><span class="line">              out.add(tmp);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(in_down.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">              <span class="keyword">int</span> tmp = in_down.remove();</span><br><span class="line">              read_up = !read_up;</span><br><span class="line">              out.add(tmp);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">          lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">g</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    Queue&lt;Integer&gt; in, out_up, out_down;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> write_up = <span class="keyword">true</span>;</span><br><span class="line">    </span><br><span class="line">    g(Queue&lt;Integer&gt; in, Queue&lt;Integer&gt; out_up, Queue&lt;Integer&gt; out_down)&#123;</span><br><span class="line">      <span class="keyword">this</span>.in = in;</span><br><span class="line">      <span class="keyword">this</span>.out_up = out_up;</span><br><span class="line">      <span class="keyword">this</span>.out_down = out_down;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">if</span>(in.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> tmp = in.remove();</span><br><span class="line">            <span class="keyword">if</span>(counter&lt;<span class="number">50</span>)</span><br><span class="line">              System.out.println(<span class="string">"Output is: "</span>+tmp+<span class="string">" at "</span>+(++counter));</span><br><span class="line">            <span class="keyword">if</span>(write_up)&#123;</span><br><span class="line">              out_up.add(tmp);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">              out_down.add(tmp);</span><br><span class="line">            &#125;</span><br><span class="line">            write_up = !write_up;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">          lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  KPN()&#123;</span><br><span class="line">    h h1 = <span class="keyword">new</span> h(chan4, chan1, <span class="number">1</span>);</span><br><span class="line">    h h0 = <span class="keyword">new</span> h(chan5, chan2, <span class="number">0</span>);</span><br><span class="line">    g g_ = <span class="keyword">new</span> g(chan3, chan4, chan5);</span><br><span class="line">    f f_ = <span class="keyword">new</span> f(chan1, chan2, chan3);</span><br><span class="line">    <span class="comment">/*Order1: h1 h0 f g</span></span><br><span class="line"><span class="comment">		new Thread(h1).start();</span></span><br><span class="line"><span class="comment">		new Thread(h0).start();</span></span><br><span class="line"><span class="comment">		new Thread(g_).start();</span></span><br><span class="line"><span class="comment">		new Thread(f_).start();</span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line">    <span class="comment">/*Order2: h1 h1 h1 g f h0 h0</span></span><br><span class="line"><span class="comment">		new Thread(h1).start();</span></span><br><span class="line"><span class="comment">		new Thread(h1).start();</span></span><br><span class="line"><span class="comment">		new Thread(h1).start();</span></span><br><span class="line"><span class="comment">		new Thread(g_).start();</span></span><br><span class="line"><span class="comment">		new Thread(f_).start();</span></span><br><span class="line"><span class="comment">		new Thread(h0).start();</span></span><br><span class="line"><span class="comment">		new Thread(h0).start();</span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line">    <span class="comment">/*Order3: f f g h1 h0 h1 h0 h0 g*/</span></span><br><span class="line">    <span class="keyword">new</span> Thread(f_).start();</span><br><span class="line">    <span class="keyword">new</span> Thread(f_).start();</span><br><span class="line">    <span class="keyword">new</span> Thread(g_).start();</span><br><span class="line">    <span class="keyword">new</span> Thread(h1).start();</span><br><span class="line">    <span class="keyword">new</span> Thread(h0).start();</span><br><span class="line">    <span class="keyword">new</span> Thread(h1).start();</span><br><span class="line">    <span class="keyword">new</span> Thread(h0).start();</span><br><span class="line">    <span class="keyword">new</span> Thread(h0).start();</span><br><span class="line">    <span class="keyword">new</span> Thread(g_).start();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    <span class="keyword">new</span> KPN();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>Scheduling Kahn Networks $\Longrightarrow$ KPN 网络难以调度<ul>
+<li>系统运行顺畅：Challenge is running processes <strong>without accumulating tokens</strong> and <strong>without producing a deadlock</strong></li>
+<li>Tom Parks’ Algorithm:  Schedules a Kahn Process Network in bounded memory<ul>
+<li>Parks’ algorithm expensive and fussy to implement</li>
+<li>Difficult to schedule because of need to balance relative process rates</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Synchronous-Dataflow-SDF"><a href="#Synchronous-Dataflow-SDF" class="headerlink" title="Synchronous Dataflow (SDF)"></a>Synchronous Dataflow (SDF)</h4><p>　从上面论述，我们了解到，<strong>KPN</strong> 需要<code>infinite buffer size</code>，另外，它难以调度，这些都是实际应用中几乎不可能解决的问题；相比之下，<strong>SDF</strong> 则更多运用在实际场景中。</p>
+<p><center><img src="/img/TA-Cources/ES2017/DataFlow_SDF.png" width="480px" alt=""/><br/>Example: DAT-to-CD rate converter (converts a 44.1 kHz sampling rate to 48 kHz)</center></p>
+<ul>
+<li>KPN <strong>$\rightarrow$</strong> SDF<ul>
+<li>Restriction of Kahn Networks to allow compile-time scheduling<ul>
+<li>Each process reads and writes <strong>a fixed number of tokens</strong> each time it fires</li>
+<li>Firing is an <strong>atomic process</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>调度策略 $\Longrightarrow$ the schedule can be executed repeatedly without accumulating tokens in buffers<ul>
+<li>Solving the Balancing Equation $\Longrightarrow$ <strong>Establish relative execution rates</strong><br><center><img src="/img/TA-Cources/ES2017/DataFlow_SDFEquation.png" width="540px" alt=""/></center><ul>
+<li>对<strong>$n$ 个进程构成的 SDF</strong> 中的各条 channel 建立约束方程，得到 <strong>topology matrix（拓扑矩阵）</strong><code>M</code></li>
+<li>解线性方程组 $M \overrightarrow{q} = 0$，得到每个进程在每个周期中的运行次数 $\overrightarrow{q}$<ul>
+<li><strong>rank(M) = n-1</strong>: A connected SDF graph（连通且相容的 SDF）, then there exists a unique smallest positive integer solution $\overrightarrow{q}$  （存在周期性调度，最小正整数为对应的进程在每个周期中的运行次数）</li>
+<li><strong>rank(M) &lt; n-1</strong>: Disconnected systems（不连通的 SDF）, then have two- or higher-dimensional solutions （存在某些进程可以独立运行，它们与整个系统脱离）</li>
+<li><strong>rank(M) = n</strong>: Inconsistent systems（不相容的 SDF）, then only have the all-zeros solution （不存在可能的调度策略去运行，因为总会出现无限累积）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Determine Periodic Schedule<ul>
+<li>Consistent Rates Not Enough: ① Rates do not avoid deadlock; ② Add an initial token (delay) on one of the channels $\Longrightarrow$ 在满足每个进程的运行次数下，决定一个周期内所有进程的运行顺序。</li>
+<li>Systems often have many possible schedules. How can we use this flexibility<ul>
+<li>Reduced code size (loop structure, hierarchy): <code>BBBCDDDDAA</code>$\Longrightarrow$<code>(3B)C(4D)(2A)</code></li>
+<li>Reduced buffer sizes: 虽然整个系统在每次周期运行后，进程间的 channels 都不会出现数据积累，但每个周期运行过程中，每条 channel 需要有足够大小的 buffer 用于转存数据。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li>Slides from <em>Introduction to embedded systems, Kai Huang</em>, School of Data and Computer Science, Sun Yat-sen University, China. All rights reserved.</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/10/24/TACouses_ES2017_MoCs/">嵌入式系统导论[03] Model of Computation</a></p>
+
+        <!-- 
+        <p><span>文章作者:</span><a href="/" title="回到主页">Gary Chan</a></p>
+        -->
+        <p><span>文章作者:</span>Gary</p>
+
+        <p><span>发布时间:</span>2017-10-24, 12:50:14</p>
+        <p><span>最后更新:</span>2020-03-28, 12:37:22</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/10/24/TACouses_ES2017_MoCs/" title="嵌入式系统导论[03] Model of Computation">http://durant35.github.io/2017/10/24/TACouses_ES2017_MoCs/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/10/24/TACouses_ES2017_MoCs/　　作者: Gary Chan" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+
+        <!-- not to show license information
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+        -->
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/">
+                    嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/09/28/TACouses_ES2017_Java/">
+                    嵌入式系统导论[01] Linux 下手动配置 Java 环境
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Model-of-System（系统建模）"><span class="toc-number">1.</span> <span class="toc-text">Model of System（系统建模）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#State-Charts"><span class="toc-number">2.</span> <span class="toc-text">State Charts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Flow-Models"><span class="toc-number">3.</span> <span class="toc-text">Data-Flow Models</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Kahn-Process-Network-KPN"><span class="toc-number">3.1.</span> <span class="toc-text">Kahn Process Network (KPN)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Synchronous-Dataflow-SDF"><span class="toc-number">3.2.</span> <span class="toc-text">Synchronous Dataflow (SDF)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#References"><span class="toc-number">4.</span> <span class="toc-text">References</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+        <!--
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+        -->
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+        <!--
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+        -->
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"嵌入式系统导论[03] Model of Computation　| Gary Chan's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/2017/10/24/TACouses_ES2017_MoCs/';
+            this.page.identifier = '2017/10/24/TACouses_ES2017_MoCs/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/" title="上一篇: 嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/09/28/TACouses_ES2017_Java/" title="下一篇: 嵌入式系统导论[01] Linux 下手动配置 Java 环境">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/12/16/SensorSettings_Apollo/">自动驾驶硬件方案②：Where Apollo Moon Happens</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/11/22/SensorSettings_Overview/">自动驾驶硬件方案①：概述</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/13/binary_Compile-Link-Load-Execute/">编译、链接、装载与运行</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/21/tool_vimium几步走/">vimium几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/26/tool_tmux几步走/">tmux几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/10/cpp_C++ BasicMiscs/">C++ Basic</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/TACouses_ES2017_MCU_GPIO/">GPIO 的几种输入输出模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/VM_MemoryManage/">虚拟内存[0?] 内存管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/VM_VirtualAddr2PhysicalAddr/">虚拟内存[0?] 虚拟内存地址如何转换到物理内存地址</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/VM0_AddressSpace/">虚拟内存[00] 虚拟内存地址空间</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/VM_Changes4LifeCycle/">虚拟内存[02] 不同阶段下的内存变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/29/VM_Stacks/">虚拟内存[02] Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/29/VM1_UserSpaceSegments/">虚拟内存[01] 用户内存空间的各个段分布</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/">嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/24/TACouses_ES2017_MoCs/">嵌入式系统导论[03] Model of Computation</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/28/TACouses_ES2017_Java/">嵌入式系统导论[01] Linux 下手动配置 Java 环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/26/TACouses_ES2017_SystemC/">嵌入式系统导论[02] 浅谈 System C</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/03/programPearls_Summary after Interview in Robosense/">Summary after Robosense's Interview</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/binary_ldconfig4RuntimeLibraries/">ldconfig：[load]运行时库管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/Algorithms_ICP/">[0024] Iterative Closest Points（迭代最近点）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/Algorithms_LeastSquaresLineFitting/">[0025] Least Squares Line Fitting（最小二乘法直线拟合）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/programPearls_i=i++/">i = i++;</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/tool_CMake_find_package$pkg_check_module/">CMake 查找库: find_package vs pkg_check_modules</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/">ROS launch file: <arg> vs <param> vs <rosparam></a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/">hexo：告别多说，拥抱 Disqus</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/">32-bit program on 64-bit OS & 64-bit program on 32-bit OS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/13/Algorithms_OnlineJudge4Huawei2017/">算法设计与分析[0023] 秋招华为在线笔试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/">JPEG编码&算术编码、LZW编码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/11/programPearls_DES$3DES$AES/">密码学：DES、3DES、AES</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/Algorithms_BST$R-B Tree/">算法设计与分析[0022] BST（二叉查找树）和 R-B Tree（红黑树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/07/programPearls_declaration$definition$initialization$assignment/">声明/定义/初始化/赋值</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/programPearls_inline$static$const$extern$volatile/">C/C++常见修饰符（inline&static&const&extern&volatile）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/Algorithms_BasicMiscs/">算法设计与分析[0021] Some Algorithms Basic Details Review（课程总结）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GraphProblems/">算法设计与分析[0020] 几个有关图的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GreedyAlgorithms/">算法设计与分析[0019] Greedy Algorithms（贪心策略）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/">算法设计与分析[0018] 图的点连通度和边连通度</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/08/Algorithms_NP-Complete(I)/">算法设计与分析[0017] NP-完全问题：概述（两道证明习题）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">DARPA[Boss]: Motion Planning in Urban Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_BiGraphMatching/">算法设计与分析[0016] 二分图匹配问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/Algorithms_Dynamic Programming(V)/">算法设计与分析[0014] Dynamic Programming(V) 一道习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/13/hsw_UbuntuSystemBootSequence/">一张图带你看 Ubuntu(Linux) 系统启动过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/programPearls_cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/linux_LinuxCommandNotes/">Linux命令小纸条</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/tool_vim几步走/">vim几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/10/programPearls_libpcap 32-bit$64-bit/">libpcap, 32-bit&64-bit</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/misc_Key Word Engineering/">Key Word Engineering</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/07/hexo_Theme Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/01/TACouses_Embedded_System_2016/">嵌入式系统导论[00] Overview, DOL and MPARM</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/hexo_Theme Yelee Migrant Note/">hexo博客主题Yelee迁移笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux下基本文件操作/">Win/Linux下基本文件操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/26/tool_git几步走/">git几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/09/OverlappingSounds_Basketball_Never_Stops/">Basketball Never Stops</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/">Coding中的编码问题之回顾&深入</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/21/programPearls_Coding中的编码问题之入门$概览/">Coding中的编码问题之入门&概览</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/11/movies_漫威电影/">漫威21部系列电影(持续更新)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/tool_NotePad/">NotePad++</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">在hexo new之后立即打开Markdown文稿</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_自定义主题/">hexo自定义主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/29/TACouses_iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/TACouses_iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/28/TACouses_iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&Win8.1(both 64-bit),其他仅供参考)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/09/graduatedesign_01 STM32_Keil$JLink/">(一) 搭建STM32开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/">数媒HW4参考资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/16/TACouses_JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/15/TACouses_JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/TACouses_考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/06/TACouses_考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/TACouses_考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/hexo_win搭建hexo/">win搭建hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2021 Gary Chan
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by <a href="http://moxfive.xyz/" target="_blank"> MOxFIVE </a><i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+            
+            
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

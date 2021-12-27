@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Gary Chan" />
+
+
+
+<meta name="description" content="我们知道，进程是操作系统进行资源分配的最小单位，而内存是进程运行必不可少的资源。现代操作系统为每个进程分配独享的内存空间，这个独享的内存空间只是虚拟内存空间，每次访问内存空间的某个地址 (虚拟地址)，都需要把地址翻译成实际物理内存地址。进程要知道哪些虚拟地址上的数据在物理内存上，哪些不在？还有在物理内存上的哪里，需要用">
+<meta name="keywords" content="VM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚拟内存[00] 虚拟内存地址空间">
+<meta property="og:url" content="http://durant35.github.io/2017/11/06/VM0_AddressSpace/index.html">
+<meta property="og:site_name" content="Gary Chan&#39;s Blog">
+<meta property="og:description" content="我们知道，进程是操作系统进行资源分配的最小单位，而内存是进程运行必不可少的资源。现代操作系统为每个进程分配独享的内存空间，这个独享的内存空间只是虚拟内存空间，每次访问内存空间的某个地址 (虚拟地址)，都需要把地址翻译成实际物理内存地址。进程要知道哪些虚拟地址上的数据在物理内存上，哪些不在？还有在物理内存上的哪里，需要用页表来记录；正因为每个进程都有一个自己的页表，使得相同的虚拟地址映射到不同的物">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://durant35.github.io/img/kernel/mm/VAspace_overview.png">
+<meta property="og:image" content="http://durant35.github.io/img/kernel/mm/VAspace_x86.png">
+<meta property="og:image" content="http://durant35.github.io/img/kernel/mm/VAspace_x64.png">
+<meta property="og:image" content="http://durant35.github.io/img/kernel/mm/VAspace_x64_default.png">
+<meta property="og:image" content="http://durant35.github.io/img/kernel/mm/VAspace_x64_classic.png">
+<meta property="og:updated_time" content="2020-03-28T04:37:22.326Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="虚拟内存[00] 虚拟内存地址空间">
+<meta name="twitter:description" content="我们知道，进程是操作系统进行资源分配的最小单位，而内存是进程运行必不可少的资源。现代操作系统为每个进程分配独享的内存空间，这个独享的内存空间只是虚拟内存空间，每次访问内存空间的某个地址 (虚拟地址)，都需要把地址翻译成实际物理内存地址。进程要知道哪些虚拟地址上的数据在物理内存上，哪些不在？还有在物理内存上的哪里，需要用页表来记录；正因为每个进程都有一个自己的页表，使得相同的虚拟地址映射到不同的物">
+<meta name="twitter:image" content="http://durant35.github.io/img/kernel/mm/VAspace_overview.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Gary Chan&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>虚拟内存[00] 虚拟内存地址空间 | Gary Chan&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+</head>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Gary Chan</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">　　你永远流淌在我的记忆里？River flows in you</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">Home</a></li>
+                        
+                            <li><a href="/tags">All-tags</a></li>
+                        
+                            <li><a href="/archives">All-lists</a></li>
+                        
+                            <li><a href="/garychan">Contact</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/">3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AES/">AES</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary/">Binary</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/">C/C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CG/">CG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMD/">CMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/">CV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DARPA/">DARPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DES/">DES</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DLL/">DLL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Encoding/">Encoding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HUAWEI/">HUAWEI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPEG/">JPEG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Key-words/">Key-words</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LZW/">LZW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCU/">MCU</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MFC/">MFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NotePad/">NotePad++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCL/">OpenCL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL/">OpenGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB/">PCB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SensorSettings/">SensorSettings</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VM/">VM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS2013/">VS2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vim/">Vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dumpbin/">dumpbin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ini/">ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pcap/">pcap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tmux/">tmux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vimium/">vimium</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件操作/">文件操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漫威电影/">漫威电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动驾驶/">自动驾驶</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://wiki.ros.org/">ROS</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://zhiqiu.github.io/">Zhiqiu&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.ruanyifeng.com/blog/">阮一峰的网络日志</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://rh-song.github.io/">RiHui-Song&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://goshin.github.io/">Goshin&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://blog.csdn.net/u014593748">Kangdk&#39;s CSDN</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Gary Chan</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Gary Chan</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">　　你永远流淌在我的记忆里？River flows in you</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/tags">All-tags</a></li>
+                
+                    <li><a href="/archives">All-lists</a></li>
+                
+                    <li><a href="/garychan">Contact</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-VM0_AddressSpace" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/11/06/VM0_AddressSpace/" class="article-date">
+      <time datetime="2017-11-06T11:01:00.000Z" itemprop="datePublished">2017-11-06</time>
+</a>
+
+
+
+ 
+    <a href="/2017/11/06/VM0_AddressSpace/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/11/06/VM0_AddressSpace/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      虚拟内存[00] 虚拟内存地址空间
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/Kernel/">Kernel</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VM/">VM</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>　我们知道，进程是操作系统进行资源分配的最小单位，而内存是进程运行必不可少的资源。现代操作系统为每个进程分配<strong>独享的内存空间</strong>，这个独享的内存空间只是<font color="green"><strong>虚拟内存空间</strong></font>，每次访问内存空间的某个地址 (<font color="green"><strong>虚拟地址</strong></font>)，都需要把地址<strong>翻译</strong>成实际物理内存地址。进程要知道哪些虚拟地址上的数据在物理内存上，哪些不在？还有在物理内存上的哪里，需要用<strong>页表</strong>来记录；正因为每个进程都有一个自己的页表，使得相同的虚拟地址映射到不同的物理内存。每当切换到另一个进程时，就要通过设置 <strong>MMU</strong> 的某些寄存器来设置这个进程的页表，然后 MMU 就可以把 CPU 发出的虚拟地址转化到物理地址了。<center><img src="/img/kernel/mm/VAspace_overview.png" width="580px" alt=""/></center>　本文将详细介绍现代操作系统为每个进程分配的独享虚拟内存地址空间的详细布局，从一开始的 <font color="green"><strong>32位模式</strong></font>到如今占绝大多数的 <font color="green"><strong>64位模式</strong></font>。<a id="more"></a></p>
+<h3 id="虚拟内存地址空间布局"><a href="#虚拟内存地址空间布局" class="headerlink" title="虚拟内存地址空间布局"></a>虚拟内存地址空间布局</h3><h4 id="32-位模式下它是一个-4GB-的内存地址块"><a href="#32-位模式下它是一个-4GB-的内存地址块" class="headerlink" title="32 位模式下它是一个 4GB 的内存地址块"></a>32 位模式下它是一个 4GB 的内存地址块</h4><p><center><img src="/img/kernel/mm/VAspace_x86.png" width="810px" alt=""/><br/>图: 32 位系统下进程地址空间默认布局(左)和进程地址空间经典布局(右)</center></p>
+<ul>
+<li>每个进程看到的地址空间都是一样的，比如 <code>.text</code> 都是从 <strong>0x80048000</strong> 开始，内核地址空间都是 <strong>0xC0000000~0xFFFFFFFF</strong>，然后<font color="green">用户栈</font>都是向低地址增长，反过来<font color="green">堆</font>都是向高地址扩展。<ul>
+<li><strong>0x00000000~0x08048000</strong> 是不能给用户访问的，这里面是一些 C 运行库的内容，访问会报 <font color="green">segement fault 错误</font>。</li>
+<li><strong>0xC0000000~0xFFFFFFFF</strong> 这段是内核的逻辑地址，在用户态时访问会出错，权限不够，如果想访问，需要切换到内核态 ，可以通过系统调用等方式：系统调用代表某个进程运行于内核，此时，相当于该进程可以访问这段内核虚拟地址了 (实际上只能访问该进程的某个 8KB 的内核栈)。</li>
+</ul>
+</li>
+<li><code>Random stack offset</code>、<code>Random mmap offset</code>和<code>Random brk offset</code>随机值意在防止恶意程序。<blockquote>
+<p>这是一种安全机制：ASLR (Address Space Layout Randomization)，主要防止缓冲区溢出攻击；<br>Linux 通过对栈、内存映射段、堆的起始地址加上随机偏移量来打乱布局，以免恶意程序通过计算获取访问栈、库函数等地址。</p>
+</blockquote>
+</li>
+<li>内核空间下面就是<font color="green">用户栈 Stack 地址段</font>，栈的最大范围，我们可以通过 <em>prlimit</em> 命令看到，默认的情况下是 8MB。</li>
+<li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gary@xxx:~$ prlimit -s</span><br><span class="line">RESOURCE DESCRIPTION       SOFT      HARD UNITS</span><br><span class="line">STACK    max stack size 8388608 unlimited bytes</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>接下来的区域是 <strong>Memory Mapping Segment</strong>，这块地址是用来分配内存区域的，一般是用来把文件映射进内存用的，但是你也可以在这里申请内存空间来使用。<ul>
+<li><font color="#F99157">mmap()</font> 系统调用把一个文件映射到 Memory Mapping Segment 内存地址空间中；</li>
+<li>也可以匿名直接申请一段内存空间使用：<font color="#F99157">mmap()</font> 不一定要在 Memory Mapping Segment 进行内存申请，你也可以指定任意的内存地址，当然只要不跟已有的虚拟地址冲突就好；这个地址也一定要是 <strong>000</strong> 结尾，才使得能页对齐 (1KB)。</li>
+</ul>
+</li>
+<li><code>start_brk</code>和<code>brk</code>这两个值分别标识了堆的起始地址和结束地址，其中<code>brk</code>又叫 <strong>program break</strong>。在 linux 中可以通过 <font color="#F99157">brk()</font> 和 <font color="#F99157">sbrk()</font> 这两个函数来改变 program break 的位置。<ul>
+<li>当我们在程序中调用 <font color="#F99157">malloc()</font> 的时候，一般就是在内部调用 <font color="#F99157">sbrk()</font> 来调整图中<code>brk</code>标识的位置向上移动。</li>
+<li>当调用 <font color="#F99157">free()</font> 来释放内存空间的时候，传递给 <font color="#F99157">sbrk()</font> 一个负值来使堆的<code>brk</code>标识向下移动。当然了，<font color="#F99157">brk()</font> 和 <font color="#F99157">sbrk()</font> 所做的工作远不是简单地移动<code>brk</code>标识，还要处理将虚拟内存映射到物理内存地址等工作。</li>
+<li><strong>glibc</strong> 中当申请的内存空间不大于<code>MMAP_THRESHOLD</code>的时候，<font color="#F99157">malloc()</font> 使用 <font color="#F99157">brk()</font>/<font color="#F99157">sbrk()</font> 来调整的<code>brk</code>标识的位置，这个时候所申请到的空间确实位于图中的<code>start_brk</code>和<code>brk</code>之间；当所申请的空间大于这个阈值的时候，<font color="#F99157">malloc()</font>改用 <font color="#F99157">mmap()</font> 来分配空间，这个时候所申请到的空间就位于图中的 <strong>Memory Mapping Segment</strong> 这一段内。</li>
+<li>习惯上还是将整个 <strong>Heap 段</strong>和 <strong>Memory Mapping Segment 段</strong>称为<font color="green">“堆”</font>。</li>
+</ul>
+</li>
+<li>接下来分别是 <strong>BSS</strong> Segment、<strong>Data</strong> Segment和 <strong>Text</strong> Segment<ul>
+<li>BSS Segment存放未初始化的静态变量，所以也就是可以随意读写；</li>
+<li>Text Segment 其实就是存放二进制可执行代码的位置，所以它的权限是读与可执行；</li>
+<li>Data Segment 存放的是静态常量，所以该地址段权限是只读。</li>
+</ul>
+</li>
+<li><font color="red">新的进程内存布局（默认进程内存布局）导致了<strong>栈空间</strong>的固定，而<strong>堆区域</strong>和 <strong>MMAP 区域</strong>共用一个空间，这在很大程度上增长了堆区域的大小</font>。</li>
+</ul>
+<p><hr/></p>
+<h4 id="64-位模式下虚拟地址空间布局"><a href="#64-位模式下虚拟地址空间布局" class="headerlink" title="64 位模式下虚拟地址空间布局"></a>64 位模式下虚拟地址空间布局</h4><p><center><img src="/img/kernel/mm/VAspace_x64.png" width="880px" alt=""/><br/>图: 64 位系统下进程地址空间默认布局(左)和进程地址空间经典布局(右)</center></p>
+<ul>
+<li>对于<font color="green">x86_64</font> Linux，有效的地址区间是从 <strong>0x00000000 00000000$\sim$0x00007FFF FFFFFFFF</strong> 还有 <strong>0xFFFF8000 00000000$\sim$0xFFFFFFFF FFFFFFFF</strong> 两个地址区间。而每个地址区间都有 128TB 的地址空间可以使用，所以总共是 256TB 的可用空间。</li>
+<li>对于64位 (x86_64 和 <font color="green">amd64</font>) 架构来说，用户空间 <strong>text</strong> 段的起始地址为 <strong>0x0000000000400000</strong>，和 32位 (<font color="green">x86</font>) 下的一样后面跟着的是 <strong>data</strong> 段和 <strong>bss</strong> 段。 <strong>heap</strong> 段和 bss 段之间、<strong>stack</strong> 段和 <strong>0x00007FFFFFFFF000</strong> 之间也可以设置一个由 ASLR 导致的 random brk offset，heap 段向上增长，stack 段向下增长。</li>
+<li>经典布局下，<strong>Memory Mapping Segment</strong> 的起始地址通过页对齐之后从某一地址开始。由于 <font color="green">amd64</font> 架构下页大小可以为 4K、2M 或者1G，不像 <font color="green">x86 (_64)</font> 下页大小统一为 4K，所以 mmap 的起始范围根据系统的页大小也有不同<ul>
+<li><font color="green">x86_64</font> 下，mmap 段的起始地址固定为 <strong>0x00002AAAAAAAB000</strong>（也可以设置 random mmap offset），向上增长</li>
+</ul>
+</li>
+</ul>
+<p><hr/></p>
+<h4 id="Linux-下控制虚拟地址空间布局"><a href="#Linux-下控制虚拟地址空间布局" class="headerlink" title="Linux 下控制虚拟地址空间布局"></a>Linux 下控制虚拟地址空间布局</h4><ul>
+<li>Linux 下可以通过 <code>vm.legacy_va_layout</code>、<code>kernel.randomize_va_space</code> 配置上面提到的虚拟地址空间布局。</li>
+<li>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 是否使用经典的进程内存布局</span></span><br><span class="line">gary@...~$ cat /proc/sys/vm/legacy_va_layout</span><br><span class="line"><span class="comment"># 0: 使用新的进程内存布局</span></span><br><span class="line">0</span><br><span class="line">gary@...~$ sysctl -w vm.legacy_va_layout=1</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 是否开启 ASLR 地址空间布局随机化</span></span><br><span class="line"><span class="comment"># When setting the value to 1, address space is randomized. </span></span><br><span class="line"><span class="comment">#   the positions of the stack itself</span></span><br><span class="line"><span class="comment">#   virtual dynamic shared object (VDSO) page</span></span><br><span class="line"><span class="comment">#   shared memory regions. </span></span><br><span class="line"><span class="comment"># Setting the option to value 2 will be similar to 1, and add data segments as well. </span></span><br><span class="line">gary@...~$ cat /proc/sys/kernel/randomize_va_space</span><br><span class="line">2</span><br><span class="line">gary@...~$ sysctl -w kernel.randomize_va_space=0</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>VDSO</strong> 是什么呢？</li>
+</ul>
+</li>
+<li>不修改配置直接查看 Linux 系统虚拟内存地址空间布局，确实采用的是上述默认地址空间布局<br><center><img src="/img/kernel/mm/VAspace_x64_default.png" width="680px" alt=""/><br/><code>vm.legacy_va_layout</code>=0 &amp;&amp; <code>kernel.randomize_va_space</code>=2</center><ul>
+<li>前三行分别是 <strong>Text</strong> Segment (<font color="red">起始地址为 0x0000000000400000</font>)、<strong>Data</strong> Segment 和 <strong>BSS</strong> Segment；</li>
+<li>接下来是 <strong>Heap</strong> 地址段、<strong>Memory Mapping</strong> Segment (<font color="red">Stack 地址段以下，0x00007FFFFFFFF000 附近</font>) 和 <strong>Stack</strong> 地址段 (<font color="red">和 0x00007FFFFFFFF000 间隔 random stack offset</font>)；</li>
+<li>再下面就是 <strong>vvar</strong>，<strong>vdso</strong> 和 <strong>vsyscall</strong> 了：这三个东西都为了加速访问内核数据，比如读取时间 <font color="#F99157">gettimeofday()</font>，肯定不能频繁地进行系统调用陷入内核，所以就映射到用户空间了；所有程序都有这 3 个映射地址段。<blockquote>
+<p><font color="blue">关于 vvar，vdso 和 vsyscall</font><br><strong>+</strong> 先说 <strong>vsyscall</strong>，这东西出现最早，比如读取时间 <font color="#F99157">gettimeofday()</font>，内核会把时间数据和 <font color="#F99157">gettimeofday()</font> 的实现映射到这块区域，用户空间可以直接调用 (内核将一些本身应该是系统调用的直接映射到用户空间，这样对于一些使用比较频繁的系统调用，可以直接在用户空间调用以节省开销）。但是 <font color="red">vsyscall 区域太小了，而且映射区域固定，有安全问题</font>；</p>
+<p><strong>+</strong> 后来又造出了 <strong>vdso</strong> (之所以保留 vsyscall 是为了兼容用户空间程序)：vdso 相当于加载一个 <strong>linux-vd.so</strong> 库文件一样 (名字也由此而来)，也就是把一些函数实现映射到这个区域；<strong>vvar</strong> 也就是存放数据的地方了，那么用户可以通过调用 vdso 里的函数，使用 vvar 里的数据，来获得自己想要的信息，而且<font color="red">地址是随机的，更安全</font>。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>通过 <em>sysctl</em> 设置成经典布局<br><center><img src="/img/kernel/mm/VAspace_x64_classic.png" width="680px" alt=""/><br/><code>vm.legacy_va_layout</code>=1 &amp;&amp; <code>kernel.randomize_va_space</code>=0</center><ul>
+<li><strong>vdso</strong>，<strong>vvar</strong> 随 <strong>Memory Mapping</strong> Segment 发生变动；</li>
+<li><strong>Memory Mapping</strong> Segment 起始地址固定为 <strong>0x00002AAAAAAAB000</strong>，向上增长。</li>
+</ul>
+</li>
+</ul>
+<p><hr/></p>
+<h4 id="不同的-CPU-体系架构下的虚拟内存地址空间"><a href="#不同的-CPU-体系架构下的虚拟内存地址空间" class="headerlink" title="不同的 CPU 体系架构下的虚拟内存地址空间"></a>不同的 CPU 体系架构下的虚拟内存地址空间</h4><blockquote>
+<p>这是一个值得讨论的话题…</p>
+</blockquote>
+<ul>
+<li><font color="green">amd64</font> 架构下的进程地址空间布局总体上来说和 <font color="green">x86(_64)</font> 除了 32 位/64 位模式外，几乎是相同的；只不过 amd64 的页大小可以为4K、2M或者1G，不像 x86 下页大小统一为4K，造成经典布局下 mmap 段的固定起始地址存在偏差。</li>
+<li><font color="green">ARM(64)</font> 近似。</li>
+</ul>
+<h3 id="采用虚拟内存地址空间的好处"><a href="#采用虚拟内存地址空间的好处" class="headerlink" title="采用虚拟内存地址空间的好处"></a>采用虚拟内存地址空间的好处</h3><blockquote>
+<p><a href="http://www.linuxidc.com/Linux/2015-02/113981.htm">Linux 虚拟内存和物理内存的理解</a></p>
+</blockquote>
+<ul>
+<li>既然每个进程的内存空间都是一致而且固定的，所以<font color="blue">链接器在链接可执行文件时，可以设定内存地址</font>，而不用去管这些数据最终实际的内存地址，这是有独立内存空间的好处；</li>
+<li>当不同的进程使用同样的代码时，比如库文件中的代码，<font color="blue">物理内存中可以只存储一份这样的代码 (共享)</font>，不同的进程只需要把自己的虚拟内存映射过去就可以了，节省内存；</li>
+<li>在程序需要分配连续的内存空间的时候，只需要在虚拟内存空间分配连续空间，而不需要实际物理内存的连续空间，可以利用<font color="blue">碎片</font>；</li>
+</ul>
+<blockquote>
+<p><a href="http://blog.csdn.net/freeelinux/article/details/53782986">Linux 虚拟地址空间布局以及进程栈和线程栈总结</a></p>
+</blockquote>
+<ul>
+<li>内存的延迟分配：只有在真正访问一个地址的时候才建立这个地址的物理映射，这是 Linux 内存管理的基本思想。<ul>
+<li>Linux内核在用户申请内存的时候，只是给它分配了一个线性区（也就是虚拟内存），并没有分配实际物理内存；只有当用户使用这块内存的时候，内核才会分配具体的物理页面给用户，这时候才占用宝贵的物理内存。</li>
+<li>内核释放物理页面是通过释放线性区，找到其对应的物理页面，将其全部释放的过程。</li>
+</ul>
+</li>
+</ul>
+<p><hr/><br>　<font color="red">本文我们详细介绍了 32 位/64 位模式下系统虚拟内存地址空间的布局情况，包括经典布局以及改进了经典布局，现代操作系统默认的新布局。后面，我们将对虚拟内存地址空间中的内核空间、用户空间中的各个地址段进行详细描述，以求更深入的了解。</font></p>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><p><strong>·</strong><a href="http://blog.csdn.net/yangkuanqaz85988/article/details/52403726">《Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈》</a><br><strong>·</strong><a href="http://blog.csdn.net/freeelinux/article/details/53782986">《Linux虚拟地址空间布局以及进程栈和线程栈总结》</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/11/06/VM0_AddressSpace/">虚拟内存[00] 虚拟内存地址空间</a></p>
+
+        <!-- 
+        <p><span>文章作者:</span><a href="/" title="回到主页">Gary Chan</a></p>
+        -->
+        <p><span>文章作者:</span>Gary</p>
+
+        <p><span>发布时间:</span>2017-11-06, 19:01:00</p>
+        <p><span>最后更新:</span>2020-03-28, 12:37:22</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/11/06/VM0_AddressSpace/" title="虚拟内存[00] 虚拟内存地址空间">http://durant35.github.io/2017/11/06/VM0_AddressSpace/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/11/06/VM0_AddressSpace/　　作者: Gary Chan" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+
+        <!-- not to show license information
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+        -->
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/11/06/VM_MemoryManage/">
+                    虚拟内存[0?] 内存管理
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/11/06/VM_Changes4LifeCycle/">
+                    虚拟内存[02] 不同阶段下的内存变化
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟内存地址空间布局"><span class="toc-number">1.</span> <span class="toc-text">虚拟内存地址空间布局</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#32-位模式下它是一个-4GB-的内存地址块"><span class="toc-number">1.1.</span> <span class="toc-text">32 位模式下它是一个 4GB 的内存地址块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#64-位模式下虚拟地址空间布局"><span class="toc-number">1.2.</span> <span class="toc-text">64 位模式下虚拟地址空间布局</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux-下控制虚拟地址空间布局"><span class="toc-number">1.3.</span> <span class="toc-text">Linux 下控制虚拟地址空间布局</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不同的-CPU-体系架构下的虚拟内存地址空间"><span class="toc-number">1.4.</span> <span class="toc-text">不同的 CPU 体系架构下的虚拟内存地址空间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#采用虚拟内存地址空间的好处"><span class="toc-number">2.</span> <span class="toc-text">采用虚拟内存地址空间的好处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#References"><span class="toc-number">3.</span> <span class="toc-text">References</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+        <!--
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+        -->
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+        <!--
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+        -->
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"虚拟内存[00] 虚拟内存地址空间　| Gary Chan's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/2017/11/06/VM0_AddressSpace/';
+            this.page.identifier = '2017/11/06/VM0_AddressSpace/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/11/06/VM_MemoryManage/" title="上一篇: 虚拟内存[0?] 内存管理">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/11/06/VM_Changes4LifeCycle/" title="下一篇: 虚拟内存[02] 不同阶段下的内存变化">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/12/16/SensorSettings_Apollo/">自动驾驶硬件方案②：Where Apollo Moon Happens</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/11/22/SensorSettings_Overview/">自动驾驶硬件方案①：概述</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/13/binary_Compile-Link-Load-Execute/">编译、链接、装载与运行</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/21/tool_vimium几步走/">vimium几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/26/tool_tmux几步走/">tmux几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/10/cpp_C++ BasicMiscs/">C++ Basic</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/TACouses_ES2017_MCU_GPIO/">GPIO 的几种输入输出模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/VM_MemoryManage/">虚拟内存[0?] 内存管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/VM_VirtualAddr2PhysicalAddr/">虚拟内存[0?] 虚拟内存地址如何转换到物理内存地址</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/VM0_AddressSpace/">虚拟内存[00] 虚拟内存地址空间</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/VM_Changes4LifeCycle/">虚拟内存[02] 不同阶段下的内存变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/29/VM_Stacks/">虚拟内存[02] Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/29/VM1_UserSpaceSegments/">虚拟内存[01] 用户内存空间的各个段分布</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/">嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/24/TACouses_ES2017_MoCs/">嵌入式系统导论[03] Model of Computation</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/28/TACouses_ES2017_Java/">嵌入式系统导论[01] Linux 下手动配置 Java 环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/26/TACouses_ES2017_SystemC/">嵌入式系统导论[02] 浅谈 System C</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/03/programPearls_Summary after Interview in Robosense/">Summary after Robosense's Interview</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/binary_ldconfig4RuntimeLibraries/">ldconfig：[load]运行时库管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/Algorithms_ICP/">[0024] Iterative Closest Points（迭代最近点）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/Algorithms_LeastSquaresLineFitting/">[0025] Least Squares Line Fitting（最小二乘法直线拟合）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/programPearls_i=i++/">i = i++;</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/tool_CMake_find_package$pkg_check_module/">CMake 查找库: find_package vs pkg_check_modules</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/">ROS launch file: <arg> vs <param> vs <rosparam></a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/">hexo：告别多说，拥抱 Disqus</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/">32-bit program on 64-bit OS & 64-bit program on 32-bit OS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/13/Algorithms_OnlineJudge4Huawei2017/">算法设计与分析[0023] 秋招华为在线笔试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/">JPEG编码&算术编码、LZW编码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/11/programPearls_DES$3DES$AES/">密码学：DES、3DES、AES</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/Algorithms_BST$R-B Tree/">算法设计与分析[0022] BST（二叉查找树）和 R-B Tree（红黑树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/07/programPearls_declaration$definition$initialization$assignment/">声明/定义/初始化/赋值</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/programPearls_inline$static$const$extern$volatile/">C/C++常见修饰符（inline&static&const&extern&volatile）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/Algorithms_BasicMiscs/">算法设计与分析[0021] Some Algorithms Basic Details Review（课程总结）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GraphProblems/">算法设计与分析[0020] 几个有关图的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GreedyAlgorithms/">算法设计与分析[0019] Greedy Algorithms（贪心策略）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/">算法设计与分析[0018] 图的点连通度和边连通度</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/08/Algorithms_NP-Complete(I)/">算法设计与分析[0017] NP-完全问题：概述（两道证明习题）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">DARPA[Boss]: Motion Planning in Urban Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_BiGraphMatching/">算法设计与分析[0016] 二分图匹配问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/Algorithms_Dynamic Programming(V)/">算法设计与分析[0014] Dynamic Programming(V) 一道习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/13/hsw_UbuntuSystemBootSequence/">一张图带你看 Ubuntu(Linux) 系统启动过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/programPearls_cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/linux_LinuxCommandNotes/">Linux命令小纸条</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/tool_vim几步走/">vim几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/10/programPearls_libpcap 32-bit$64-bit/">libpcap, 32-bit&64-bit</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/misc_Key Word Engineering/">Key Word Engineering</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/07/hexo_Theme Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/01/TACouses_Embedded_System_2016/">嵌入式系统导论[00] Overview, DOL and MPARM</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/hexo_Theme Yelee Migrant Note/">hexo博客主题Yelee迁移笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux下基本文件操作/">Win/Linux下基本文件操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/26/tool_git几步走/">git几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/09/OverlappingSounds_Basketball_Never_Stops/">Basketball Never Stops</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/">Coding中的编码问题之回顾&深入</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/21/programPearls_Coding中的编码问题之入门$概览/">Coding中的编码问题之入门&概览</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/11/movies_漫威电影/">漫威21部系列电影(持续更新)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/tool_NotePad/">NotePad++</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">在hexo new之后立即打开Markdown文稿</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_自定义主题/">hexo自定义主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/29/TACouses_iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/TACouses_iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/28/TACouses_iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&Win8.1(both 64-bit),其他仅供参考)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/09/graduatedesign_01 STM32_Keil$JLink/">(一) 搭建STM32开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/">数媒HW4参考资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/16/TACouses_JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/15/TACouses_JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/TACouses_考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/06/TACouses_考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/TACouses_考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/hexo_win搭建hexo/">win搭建hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2021 Gary Chan
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by <a href="http://moxfive.xyz/" target="_blank"> MOxFIVE </a><i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+            
+            
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

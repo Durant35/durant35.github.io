@@ -271,22 +271,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-programPearls_JPEG$Arithmetic$LZW" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-VM_VirtualAddr2PhysicalAddr" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/" class="article-date">
-      <time datetime="2017-07-11T10:02:16.000Z" itemprop="datePublished">2017-07-11</time>
+      <a href="/2017/11/06/VM_VirtualAddr2PhysicalAddr/" class="article-date">
+      <time datetime="2017-11-06T11:01:00.000Z" itemprop="datePublished">2017-11-06</time>
 </a>
 
 
 
  
-    <a href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/#comments" title="查看评论">
+    <a href="/2017/11/06/VM_VirtualAddr2PhysicalAddr/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/11/programPearls_JPEG$Arithmetic$LZW/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/11/06/VM_VirtualAddr2PhysicalAddr/"></span>
         
     </a>
 
@@ -301,7 +301,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/">JPEG编码&amp;算术编码、LZW编码</a>
+      <a class="article-title" href="/2017/11/06/VM_VirtualAddr2PhysicalAddr/">虚拟内存[0?] 虚拟内存地址如何转换到物理内存地址</a>
     </h1>
   
 
@@ -311,7 +311,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　本文介绍 JPEG 编解码过程（附简单的<code>cpp</code>实现）。JPEG 中常用到的熵编码是变长编码：Huffman 编码，本文也对算术编码（附<code>cpp</code>实现）、LZW 编码（附<code>py</code>实现）两种熵编码进行介绍。
+              <h3 id="内核空间的虚拟内存地址"><a href="#内核空间的虚拟内存地址" class="headerlink" title="内核空间的虚拟内存地址"></a>内核空间的虚拟内存地址</h3><ul>
+<li>线性地址 (|3G~4G| - 128MB)</li>
+<li>高端内存</li>
+<li>借助 128MB 高端内存地址空间实现访问剩下的所有物理内存 (0~3G + 128MB)
           
       
     </div>
@@ -320,18 +323,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/Kernel/">Kernel</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JPEG/">JPEG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LZW/">LZW</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VM/">VM</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/#more">more >></a>
+          <a href="/2017/11/06/VM_VirtualAddr2PhysicalAddr/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -435,22 +438,22 @@
 
 
   
-    <article id="post-hexo_hexo扫盲" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-hexo_push你的新博客到Github" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/01/24/hexo_hexo扫盲/" class="article-date">
-      <time datetime="2016-01-24T03:38:39.000Z" itemprop="datePublished">2016-01-24</time>
+      <a href="/2016/01/22/hexo_push你的新博客到Github/" class="article-date">
+      <time datetime="2016-01-22T02:09:22.000Z" itemprop="datePublished">2016-01-22</time>
 </a>
 
 
 
  
-    <a href="/2016/01/24/hexo_hexo扫盲/#comments" title="查看评论">
+    <a href="/2016/01/22/hexo_push你的新博客到Github/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/01/24/hexo_hexo扫盲/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/01/22/hexo_push你的新博客到Github/"></span>
         
     </a>
 
@@ -465,7 +468,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a>
+      <a class="article-title" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a>
     </h1>
   
 
@@ -475,7 +478,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　下述盲点也是本人在搭建过程中遇到的疑惑，在此文中做一个整理：<br>　　　<a href="#spot01"><strong><1> </strong> 用于配置的<strong>_config.yml</strong>文件的这种<strong>.yml</strong>格式是什么？</a><br>　　　<a href="#spot02"><strong><2> </strong> 安装hexo时用到的<strong>npm命令</strong>究竟是什么？</a><br>
+              <h2 id="第一步-为hexo配置你的Github"><a href="#第一步-为hexo配置你的Github" class="headerlink" title="第一步 为hexo配置你的Github"></a><font color="#F40D64"><strong>第一步 为hexo配置你的Github</strong></font></h2><p>　　首先编辑你hexo根目录下的<strong>_config.yml</strong>文件，找到以下内容并修改为github的部署方式<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Deployment 需要进行部署方式的修改</span><br><span class="line">## Docs: http:<span class="comment">//hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">  type: git 			#部署类型, 本文使用Github</span><br><span class="line">  repository: https:<span class="comment">//github.com/username/username.github.io.git </span></span><br><span class="line">        #部署的仓库的SSH</span><br><span class="line">  branch: master 		#部署分支,一般使用master主分支</span><br></pre></td></tr></table></figure></p>
           
       
     </div>
@@ -495,7 +498,89 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/01/24/hexo_hexo扫盲/#more">more >></a>
+          <a href="/2016/01/22/hexo_push你的新博客到Github/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hexo_添加about导航栏" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/26/hexo_添加about导航栏/" class="article-date">
+      <time datetime="2016-01-26T07:03:22.000Z" itemprop="datePublished">2016-01-26</time>
+</a>
+
+
+
+ 
+    <a href="/2016/01/26/hexo_添加about导航栏/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/01/26/hexo_添加about导航栏/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　如何添加关于的导航栏呢？首先需要创建用于关于导航栏的网页，通过命令<code>hexo new page &quot;about&quot;</code>创建，即在source下创建about文件夹，该文件夹下新建<code>index.md</code>，根据普通文章正文要求对其书写即可。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/01/26/hexo_添加about导航栏/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -579,88 +664,6 @@
       
         <p class="article-more-link">
           <a href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo_添加about导航栏" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/01/26/hexo_添加about导航栏/" class="article-date">
-      <time datetime="2016-01-26T07:03:22.000Z" itemprop="datePublished">2016-01-26</time>
-</a>
-
-
-
- 
-    <a href="/2016/01/26/hexo_添加about导航栏/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/01/26/hexo_添加about导航栏/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　如何添加关于的导航栏呢？首先需要创建用于关于导航栏的网页，通过命令<code>hexo new page &quot;about&quot;</code>创建，即在source下创建about文件夹，该文件夹下新建<code>index.md</code>，根据普通文章正文要求对其书写即可。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/01/26/hexo_添加about导航栏/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -1004,22 +1007,22 @@
 
 
   
-    <article id="post-hexo_hexo分级目录与多标签" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-hexo_hexo扫盲" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/07/16/hexo_hexo分级目录与多标签/" class="article-date">
-      <time datetime="2016-07-16T08:11:05.000Z" itemprop="datePublished">2016-07-16</time>
+      <a href="/2016/01/24/hexo_hexo扫盲/" class="article-date">
+      <time datetime="2016-01-24T03:38:39.000Z" itemprop="datePublished">2016-01-24</time>
 </a>
 
 
 
  
-    <a href="/2016/07/16/hexo_hexo分级目录与多标签/#comments" title="查看评论">
+    <a href="/2016/01/24/hexo_hexo扫盲/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/07/16/hexo_hexo分级目录与多标签/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/01/24/hexo_hexo扫盲/"></span>
         
     </a>
 
@@ -1034,7 +1037,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a>
+      <a class="article-title" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a>
     </h1>
   
 
@@ -1044,8 +1047,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　无论是多标签还是分级目录，其最终目的都是为了更好的归档我们的文章，方便在查找时能够快速准确的翻开我们之前保存的博文。</p>
-<h2 id="多标签"><a href="#多标签" class="headerlink" title="多标签"></a><font color="#F40D64">多标签</font></h2><p>　　多标签，就是想把一篇文章同时归档到多个标签里面，这样，通过任一个标签都能索引到我们的博文。而，用作标签的，显然是我们之前抒写的博文内容的 <strong>Keywords</strong>。<br>　　可以通过以下方式实现 <strong>hexo</strong> 的多标签：<br><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tags: #文章标签可，空，多标签请用格式[tag1,tag2,tag3]，如下，注意!!"tags:"后面有个空格</span><br><span class="line">tags: [tag1, tag2, tag3, ...]</span><br><span class="line"><span class="section"># 下面这种方式似乎仅限于hexo 3.0，应该包括以上吧...</span></span><br><span class="line">tags: </span><br><span class="line"><span class="bullet">- </span>tags1</span><br><span class="line"><span class="bullet">- </span>tags2</span><br><span class="line"><span class="bullet">- </span>...</span><br></pre></td></tr></table></figure></p>
+              <p>　　下述盲点也是本人在搭建过程中遇到的疑惑，在此文中做一个整理：<br>　　　<a href="#spot01"><strong><1> </strong> 用于配置的<strong>_config.yml</strong>文件的这种<strong>.yml</strong>格式是什么？</a><br>　　　<a href="#spot02"><strong><2> </strong> 安装hexo时用到的<strong>npm命令</strong>究竟是什么？</a><br>
           
       
     </div>
@@ -1065,7 +1067,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/07/16/hexo_hexo分级目录与多标签/#more">more >></a>
+          <a href="/2016/01/24/hexo_hexo扫盲/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Gary Chan" />
+
+
+
+<meta name="description" content="本文作为追随老顽童孟瑞生老师 [瑞生网] 学习STM32单片机系列教程笔记，一来方便将其微信公众号推送教程移至PC端，方便观看学习；二来，也是更重要的，有些思考的地方，或者觉得说的很好的地方，也好记录留档。　　最新一次更新： 第9集，时间2016-03-12。">
+<meta name="keywords" content="MCU">
+<meta property="og:type" content="article">
+<meta property="og:title" content="老顽童STM32开发板系列教程笔记">
+<meta property="og:url" content="http://durant35.github.io/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/index.html">
+<meta property="og:site_name" content="Gary Chan&#39;s Blog">
+<meta property="og:description" content="本文作为追随老顽童孟瑞生老师 [瑞生网] 学习STM32单片机系列教程笔记，一来方便将其微信公众号推送教程移至PC端，方便观看学习；二来，也是更重要的，有些思考的地方，或者觉得说的很好的地方，也好记录留档。　　最新一次更新： 第9集，时间2016-03-12。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://durant35.github.io/img/STM32/Kidult/04_GPIO_Config_by_register.png">
+<meta property="og:image" content="http://durant35.github.io/img/STM32/Kidult/04_GPIOMode_TypeDef.png">
+<meta property="og:image" content="http://durant35.github.io/img/STM32/Kidult/04_GPIO_Diagram.png">
+<meta property="og:image" content="http://durant35.github.io/img/STM32/Kidult/04_GPIO_Diagram_Input.png">
+<meta property="og:image" content="http://durant35.github.io/img/STM32/Kidult/04_GPIO_Diagram_Output.png">
+<meta property="og:image" content="http://durant35.github.io/img/STM32/Kidult/04_OpenPull_OpenCollector.png">
+<meta property="og:image" content="http://durant35.github.io/img/STM32/Kidult/05_BootMode.png">
+<meta property="og:image" content="http://durant35.github.io/img/STM32/Kidult/05_AUTO_ISP.png">
+<meta property="og:image" content="http://durant35.github.io/img/STM32/Kidult/05_STM32自动ISP软件DTR和RTS的选择.png">
+<meta property="og:image" content="http://durant35.github.io/img/STM32/Kidult/05_ZeepModule.png">
+<meta property="og:image" content="http://durant35.github.io/img/STM32/Kidult/05_ZeepModule_3_3V.png">
+<meta property="og:image" content="http://durant35.github.io/img/STM32/Kidult/05_ZeepModule_5V.png">
+<meta property="og:updated_time" content="2020-03-28T04:37:22.330Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="老顽童STM32开发板系列教程笔记">
+<meta name="twitter:description" content="本文作为追随老顽童孟瑞生老师 [瑞生网] 学习STM32单片机系列教程笔记，一来方便将其微信公众号推送教程移至PC端，方便观看学习；二来，也是更重要的，有些思考的地方，或者觉得说的很好的地方，也好记录留档。　　最新一次更新： 第9集，时间2016-03-12。">
+<meta name="twitter:image" content="http://durant35.github.io/img/STM32/Kidult/04_GPIO_Config_by_register.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Gary Chan&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>老顽童STM32开发板系列教程笔记 | Gary Chan&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+</head>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Gary Chan</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">　　你永远流淌在我的记忆里？River flows in you</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">Home</a></li>
+                        
+                            <li><a href="/tags">All-tags</a></li>
+                        
+                            <li><a href="/archives">All-lists</a></li>
+                        
+                            <li><a href="/garychan">Contact</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/">3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AES/">AES</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary/">Binary</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/">C/C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CG/">CG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMD/">CMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/">CV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DARPA/">DARPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DES/">DES</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DLL/">DLL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Encoding/">Encoding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HUAWEI/">HUAWEI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPEG/">JPEG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Key-words/">Key-words</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LZW/">LZW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCU/">MCU</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MFC/">MFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NotePad/">NotePad++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCL/">OpenCL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL/">OpenGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB/">PCB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SensorSettings/">SensorSettings</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VM/">VM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS2013/">VS2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vim/">Vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dumpbin/">dumpbin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ini/">ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pcap/">pcap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tmux/">tmux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vimium/">vimium</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件操作/">文件操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漫威电影/">漫威电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动驾驶/">自动驾驶</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://wiki.ros.org/">ROS</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://zhiqiu.github.io/">Zhiqiu&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.ruanyifeng.com/blog/">阮一峰的网络日志</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://rh-song.github.io/">RiHui-Song&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://goshin.github.io/">Goshin&#39;s Blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://blog.csdn.net/u014593748">Kangdk&#39;s CSDN</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Gary Chan</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Gary Chan</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">　　你永远流淌在我的记忆里？River flows in you</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/tags">All-tags</a></li>
+                
+                    <li><a href="/archives">All-lists</a></li>
+                
+                    <li><a href="/garychan">Contact</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2911566017/home?topnav=1&wvr=6" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Durant35" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-mcu_老顽童STM32开发板系列教程笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/" class="article-date">
+      <time datetime="2016-02-16T13:41:31.000Z" itemprop="datePublished">2016-02-16</time>
+</a>
+
+
+
+ 
+    <a href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/02/16/mcu_老顽童STM32开发板系列教程笔记/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      老顽童STM32开发板系列教程笔记
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/STM32/">STM32</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MCU/">MCU</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>　　本文作为追随老顽童孟瑞生老师 <strong>[<a href="http://www.rationmcu.com/">瑞生网</a>]</strong> 学习STM32单片机系列教程笔记，一来方便将其微信公众号推送教程移至PC端，方便观看学习；二来，也是更重要的，有些思考的地方，或者觉得说的很好的地方，也好记录留档。<br>　　<font color="red"><strong>最新一次更新： 第9集，时间2016-03-12。</strong></font><br><a id="more"></a></p>
+<h2 id="视频教程第一集"><a href="#视频教程第一集" class="headerlink" title="视频教程第一集"></a><font color="#F40D64">视频教程第一集</font></h2><p>　　<strong>链接：</strong><a href="http://mp.weixin.qq.com/s?__biz=MzAwNTUzNDA1MQ==&amp;mid=401306263&amp;idx=1&amp;sn=5b1489e0ed64862190177ca99e2c55cd&amp;scene=0#wechat_redirect">点击跳转至原文</a><br>　　<strong>笔记： </strong><br>　　+ 开发板拆装(主要是液晶屏)、<strong>液晶屏FPC排线</strong>。<br>　　+ 液晶屏<strong>16位驱动、8位驱动、SPI驱动</strong>，16位、8位应该说的是并口吧。<br>　　+ 短路帽。<br>　　+ 供电，电脑USB口输出5V，普通安卓手机充电器输出也是5V。<br>　　+ <strong>USB口</strong>，白底在下，从右至左依次为<strong>V<sub>+</sub>=5V</strong>、<strong>D<sub>-</sub></strong>、<strong>D<sub>+</sub></strong>、<strong>GND</strong>，中间为数据引脚，两侧为电源引脚。<br>　　+ <code>5V 2A</code> 电流是其最大输出量，最大可输出2A，电流输出多少看负载。<br>　　+ CAN通讯、485通讯、232通讯、NRF24L01无线通讯、红外发射、红外接收。<br>　　+ <strong>EEPROM vs FLASH</strong><br>　　　EEPROM:一个字节一个字节地写，随意写无需擦除。<br>　　　FLASH:一个扇区一个扇区(4K)地写，容量大，需要先擦除才能写入。</p>
+<h2 id="短路帽介绍"><a href="#短路帽介绍" class="headerlink" title="短路帽介绍"></a><font color="#F40D64">短路帽介绍</font></h2><p>　　<strong>链接：</strong><a href="http://mp.weixin.qq.com/s?__biz=MzAwNTUzNDA1MQ==&amp;mid=401341489&amp;idx=1&amp;sn=fd3780364cf341e47e7155d2d79f41a2&amp;scene=0#wechat_redirect">点击跳转至原文</a><br>　　<strong>笔记： </strong><br>　　+ 当你想让单片机一上电，就运行单片机中的程序，需要再上电之前，就把BOOT0引脚接地，BOOT1引脚无所谓高低，这也是为什么<strong>BOOT1引脚还可以作为其它复用功能</strong>的原因。<br>　　+ 你的疑问：开发板上，默认的短路帽配置是BOOT0和BOOT1都是低电平，也就是配置成了表中的第一种方式，就是一上电就默认运行单片机中的程序，那为什么还可以用串口下载程序？答：这是因为在串口下载程序时，开发板上的<strong>CH340这个芯片上的RTS引脚可以控制BOOT0引脚变高变低</strong>(查看原理图可知，此处采用短路帽兼容普通的BOOT0高、低电平连接方式)。<br>　　+ IR是PB0，即PB0控制红外接收；IE是PB1，即PB1控制红外发射。<br>　　+ FLASH存储芯片 SPI接口：W25Q_CS<strong>→</strong>PA4；SPI1_SCK<strong>→</strong>PA5；SPI1_MISO<strong>→</strong>PA6；SPI1_MOSI<strong>→</strong>PA7。<br>　　+ RS485接口：485_CTR<strong>→</strong>PA1；TXD2<strong>→</strong>PA2；RXD2<strong>→</strong>PA3。<br>　　+ 蜂鸣器：BEEP<strong>→</strong>PD6。<br>　　+ CAN通信：CAN_RX<strong>→</strong>PB8；CAN_TX<strong>→</strong>PB9。<br>　　+ EEPROM存储芯片 I2C接口：I2C1_SCL<strong>→</strong>PB6；I2C2_SDA<strong>→</strong>PB7。<br>　　+ CH340芯片 ISP下载接口：TXD1<strong>→</strong>PA9；RXD1<strong>→</strong>PA10。<br>　　+ RS232通信端口：TXD3<strong>→</strong>PB10；RXD3<strong>→</strong>PB11。</p>
+<h2 id="电源部分"><a href="#电源部分" class="headerlink" title="电源部分"></a><font color="#F40D64">电源部分</font></h2><p>　　<strong>链接：</strong><a href="http://mp.weixin.qq.com/s?__biz=MzAwNTUzNDA1MQ==&amp;mid=401345349&amp;idx=1&amp;sn=40e057fa74a590b05a9942fac10551f4&amp;scene=0#wechat_redirect">点击跳转至原文</a><br>　　<strong>笔记： </strong><br>　　+ 5V输出，实际上就是从USB口输入的5V经过了一个500mA的保险丝。3.3V输出，实际上就是通过AMS1117把5V转换成的3.3V输出。<br>　　+ 输出电流最大500mA，这是由那个500mA的保险丝决定的。<br>　　+ 有些人问我，可不可以从这个5V输出口供电？答案是可以，你只要保证你的输入电压最好在5V左右，不要相差太多即可。）<br>　　+ 500mA的保险丝电流超过500mA自动断开但不会坏掉，电流低于500mA时自动导通。<br>　　+ 电流指示灯的限流电阻2K，其实&gt;330Ω都是可以的，限流电阻越小，指示灯越亮。<br>　　+ 万用表的通断档。使用时注意不要将5V、3.3V和GND碰接，造成短路。<br>　　+ 六脚开关焊接的时候不需要区分方向。</p>
+<h2 id="单片机-STM32-的引脚模式设置"><a href="#单片机-STM32-的引脚模式设置" class="headerlink" title="单片机 STM32 的引脚模式设置"></a><font color="#F40D64">单片机 STM32 的引脚模式设置</font></h2><p>　　<strong>链接：</strong><a href="http://mp.weixin.qq.com/s?__biz=MzAwNTUzNDA1MQ==&amp;mid=401455207&amp;idx=1&amp;sn=b8db0e7805c3000f218f6ae543568703&amp;scene=23&amp;srcid=0303gfeYl6HZ0O8oWdPcRqAc#rd">点击跳转至原文</a><br>　　<strong>注：</strong> 参考博文 <a href="http://blog.csdn.net/kevinhg/article/details/17490273">《STM32中GPIO的8种工作模式！》</a><br>　　<strong>笔记： </strong><br>　　+ <font color="#F40D64">寄存器 or 库开发？</font><br>　　　　如果你是用 <font color="green">直接写寄存器</font> 来配置的话，那么，看上手册，给 “配置寄存器” 对应的位写 0 或者 1 就可以达到目的。如下图：<br>    <img src="/img/STM32/Kidult/04_GPIO_Config_by_register.png" /><br>　　　　如果是用 <font color="green">库函数</font> 来配置的话，就需要知道下面这个结构体中的变量代表的意义。<br>    <img src="/img/STM32/Kidult/04_GPIOMode_TypeDef.png" /><br>　　　　库函数，选择好 GPIO_Mode 之后，就要使用 <strong>void GPIO_Init(GPIO_TypeDef* GPIOx, GPIO_InitTypeDef* GPIO_InitStruct)</strong> 函数来配置，你可以打开这个配置函数，实际上也是在对 “配置寄存器” 进行写操作。</p>
+<p>　　　　先解释一下这个结构体中的各个变量的意思：<br>　　　　　<strong>GPIO_Mode_AIN</strong>：    模拟输入模式<br>　　　　　<strong>GPIO_Mode_IN_FLOATING</strong>：    浮空输入模式<br>　　　　　<strong>GPIO_Mode_IPD</strong>：    下拉输入模式<br>　　　　　<strong>GPIO_Mode_IPU</strong>：    上拉输入模式<br>　　　　　<strong>GPIO_Mode_Out_OD</strong>：    通用开漏输出模式<br>　　　　　<strong>GPIO_Mode_Out_PP</strong>：    通用推挽输出模式<br>　　　　　<strong>GPIO_Mode_AF_OD</strong>：    复用开漏输出模式<br>　　　　　<strong>GPIO_Mode_AF_PP</strong>：    复用推挽输出模式<br>　　　　前四个是输入模式，后四个是输出模式。</p>
+<p>　　+ <font color="#F40D64">结构图（本人整理部分）</font><br>    <center><img src="/img/STM32/Kidult/04_GPIO_Diagram.png" alt=""/></center><br>　　　　最右端为 I/O 引脚，左端的器件位于芯片内部。<font color="green">I/O 引脚并联了两个用于保护的二极管 ，可以防止外部电流倒灌</font>。</p>
+<p>　　+ <font color="#F40D64">4种输入模式（本人整理部分）</font><br>    <center><img src="/img/STM32/Kidult/04_GPIO_Diagram_Input.png" width="600px" alt=""/></center><br>　　　　结构图的上半部分为输入模式结构，分为 <strong>上拉输入模式</strong>、<strong>下拉输入模式</strong>、<strong>浮空输入模式</strong> 和 <strong>模拟输入模式</strong>。</p>
+<p>　　　　两个保护二极管进来，接下来就遇到了两个开关和电阻，与 $V_{DD}$ 相连的为上拉电阻，与 $V_{SS}$ 相连的为下拉电阻。再连接到 TTL 施密特触发器就把电压信号转化为 0、1 的数字信号存储在输入数据寄存器（IDR）。我们可以通过设置配置寄存器（CRL、CRH）来控制这两个开关，于是就可以得到 GPIO 的上拉输入模式 (<strong>GPIO_Mode_IPU</strong>) 和下拉输入模式 (<strong>GPIO_Mode_IPD</strong>) 了。</p>
+<p>　　　　从它的结构我们就可以理解，若 <font color="green">GPIO 引脚配置为上拉输入模式，在默认状态下 (GPIO 引脚无输入)，读取得的 GPIO 引脚数据为 1，高电平。而下拉模式则相反，在默认状态下其引脚数据为 0，低电平</font>。 <font color="blue">[ 上拉输入默认是高电平，外接低电平有影响，故只能用来检测外接低电平；下拉模式则相反，故只能用来检测外接高电平 ]</font></p>
+<p>　　　　而 STM32 的浮空输入模式 (<strong>GPIO_Mode_IN_FLOATING</strong>) 在芯片内部既没有接上拉，也没有接下拉电阻，经由触发器输入。配置成这个模式直接用电压表测量其引脚电压为 1 点几伏，这是个不确定值 (高、低电平都有可能)；由于其输入阻抗较大，一般把这种模式用于标准的通信协议如 $I^2C$、$USART$ 的接收端。 <font color="blue">[ 可以用来检测外接是高电平，还是低电平 ]</font></p>
+<p>　　　　模拟输入模式（<strong>GPIO_Mode_AIN</strong> ）则关闭了施密特触发器，不接上、下拉电阻，经由另一线路把电压信号传送到片上外设模块 (如传送至 ADC 模块，由 ADC 采集电压信号，所以使用 ADC 外设的时候，必须设置为模拟输入模式)。 <font color="blue">[ 不管外接是高电平还是低电平，始终是检测到低电平。。。没意义了 ]</font></p>
+<p>　　　　另外，经测试，<font color="blue"><strong>开漏输出模式</strong> 也能够实现正常检测高低电平，而且默认状态是高电平；<br>　　　　<strong>推挽输出模式</strong> 似乎也能检测，不过建议还是不要这样做</font>。。。
+　　</p>
+<p>　　+ <font color="#F40D64">4种输出模式（本人整理部分）</font><br>    <center><img src="/img/STM32/Kidult/04_GPIO_Diagram_Output.png" width="600px" alt=""/></center><br>　　结构图的下半部分为输出模式结构，分为 <strong>推挽输出模式</strong>、<strong>开漏输出模式</strong>、<strong>复用推挽输出模式</strong> 和 <strong>复用开漏输出模式</strong>。线路经过一个由 P-MOS 管和 N-MOS 管组成的单元电路。<br>　　所谓<strong>推挽输出模式</strong>，是根据其工作方式来命名的：在输出高电平时，<strong>N-MOS</strong> 管导通（使输出接地） ；低电平时，<strong>P-MOS</strong> 管导通（输出高电平）。两个管子轮流导通，一个负责灌电流，一个负责拉电流，使其负载能力和开关速度都比普通的方式有很大的提高。推挽输出的低电平为 0 伏（<strong>void GPIO_ResetBits(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)</strong>），高电平为 $V_{DD} = 3.3$ 伏（<strong>void GPIO_SetBits(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)</strong>）。 <font color="blue">[ 推挽输出模式默认输出低电平，另外，必须配置引脚输出速率，否则会导致输出紊乱 ]</font><br>　　在<strong>开漏输出模式</strong>时，如果我们控制输出为 0，低电平，则使 <strong>N-MOS</strong> 管导通，使输出接地（<strong>void GPIO_ResetBits(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)</strong>），<font color="green">若控制输出为 1 （无法直接输出高电平），则既不输出高电平，也不输出低电平，为<strong>高阻态</strong>（高阻态就是电阻很大，或者说是趋向无穷大，用来隔开相当于断开但又不是真的断开）</font>。为正常使用时必须在外部接上一个上拉电阻。它具有“线与”特性，即很多个开漏模式引脚连接到一起时，只有当所有引脚都输出高阻态，才由上拉电阻提供高电平，此高电平的电压为外部上拉电阻所接电源的电压。若其中一个引脚为低电平，那线路就相当于短路接地，使得整条线路都为低电平，0 伏。<br>　　博客中关于 <strong>开漏输出模式</strong> 和 <strong>推挽输出模式</strong> 的阐述如下：<div style="background-color: #CFD5DB"><font color="blue"><br>一、推挽输出：</font><br/><br>　　可以输出高、低电平，连接数字器件；推挽结构一般是指两个三极管分别受两个互补信号的控制，总是在一个三极管导通的时候另一个截止。高低电平由 IC 的电源决定。<br>　　推挽电路是两个参数相同的三极管或 MOSFET，以推挽方式存在于电路中，各负责正负半周的波形放大任务，电路工作时，两只对称的功率开关管每次只有一个导通，所以导通损耗小、效率高。输出既可以向负载灌电流，也可以从负载抽取电流。推拉式输出级既提高电路的负载能力，又提高开关速度。<br/><font color="blue"><br>二、开漏输出：</font><br/    ><br>　　输出端相当于三极管的集电极，要得到高电平状态需要上拉电阻才行。适合于做电流型的驱动，其吸收电流的能力相对强（一般 20mA 以内）。开漏形式的电路有以下几个特点：<br/><br>　　　<strong>1、</strong> 利用外部电路的驱动能力，减少 IC 内部的驱动。当 IC 内部 MOSFET 导通时，驱动电流是从外部的 VCC 流经上拉电阻、MOSFET 到 GND。IC 内部仅需很小的栅极驱动电流。<br/><br>　　　<strong>2、</strong> 一般来说，开漏是用来连接不同电平的器件，匹配电平用的，因为开漏引脚不连接外部的上拉电阻时，只能输出低电平，如果需要同时具备输出高电平的功能，则需要接上拉电阻，很好的一个优点是 通过改变上拉电源的电压，便可以改变传输电平。比如加上上拉电阻就可以提供 TTL/CMOS 电平输出等（上拉电阻的阻值决定了逻辑电平转换的速度。阻值越大，速度越低功耗越小，所以 负载电阻的选择要兼顾功耗和速度）。<br/><br>　　　<strong>3、</strong> 开漏输出提供了灵活的输出方式，但是也有其弱点，就是带来上升沿的延时。因为上升沿是通过外接上拉无源电阻对负载充电，所以当电阻选择小时延时就小，但功耗大；反之延时大功耗小。所以如果对延时有要求，则建议用下降沿输出。<br/><br>　　　<strong>4、</strong> 可以将多个开漏输出连接到一条线上。通过一只上拉电阻，在不增加任何器件的情况下，形成 “与逻辑” 关系，即 “线与”。可以简单的理解为：在所有引脚连在一起时，外接一上拉电阻，如果有一个引脚输出为逻辑 0，相当于接地，与之并联的回路 “相当于被一根导线短路”，所以外电路逻辑电平便为 0，只有都为高电平时，与的结果才为逻辑 1。<br/><br>    <center><img src="/img/STM32/Kidult/04_OpenPull_OpenCollector.png" width="540px" alt=""/></center><br>　　关于推挽输出和开漏输出，最后用一幅最简单的图形来概括：<br>　　① 左边的便是推挽输出模式，其中比较器输出高电平时下面的 PNP 三极管截止，而上面 NPN 三极管导通，输出电平 $V_{S+}$；当比较器输出低电平时则恰恰相反，PNP 三极管导通，输出和地相连，为低电平。<br>　　② 右边的则可以理解为开漏输出形式，需要接上拉：控制输出为 0，低电平，则使 <strong>N-MOS</strong> 管导通，输出 Out 接地；控制输出为 1，高阻态，输出 Out 的电压为外部上拉电阻所接电源的电压$V_{S+}$<br>　　<br></div><br>　　STM32 的 GPIO 输出模式就分为 普通推挽输出（GPIO_Mode_Out_PP）、普通开漏输出（GPIO_Mode_Out_OD）及     复用推挽输出（GPIO_Mode_AF_PP ）、复用开漏输出（GPI O_Mode_AF_OD ）。</p>
+<p>　　<font color="green">普通推挽输出模式一般应用在输出电平为 0 和 3.3 伏的场合。而普通开漏输出模式一般应用在电平不匹配的场合，如需要输出 5 伏的高电平，就需要在外部接一个上拉电阻，电源为 5 伏，把 GPIO 设置为开漏模式，当输出高阻态时，由上拉电阻和电源向外输出 5 伏的电平</font>。<br>　　对于相应的复用模式，则是根据 GPIO 的复用功能来选择的，如 GPIO 的引脚用作串口的输出，则使用复用推挽输出模式。如果用在 IC、SMBUS 这些需要线与功能的复用场合，就使用复用开漏模式。<br>　　在使用任何一种开漏模式时，都需要接上拉电阻。<br>　　<br>　　+ <font color="#F40D64">总结在 STM32 中选用 IO 模式（来自博客）</font><br>　　<strong>1、</strong> 浮空输入 GPIO_IN_FLOATING —— 浮空输入，可以做 KEY 识别，RX1<br>　　<strong>2、</strong> 带上拉输入 GPIO_IPU —— IO 内部上拉电阻输入<br>　　<strong>3、</strong> 带下拉输入 GPIO_IPD —— IO 内部下拉电阻输入<br>　　<strong>4、</strong> 模拟输入 GPIO_AIN —— 应用 ADC 模拟输入，或者低功耗下省电<br>　　<strong>5、</strong> 开漏输出 GPIO_OUT_OD —— IO 输出 0 接 GND，IO 输出 1，悬空，需要外接上拉电阻，才能实现输出高电平。当输出为 1 时，IO 口的状态由上拉电阻拉高电平，但由于是开漏输出模式，这样 IO 口也就可以由外部电路改变为低电平或不变。可以读 IO 输入电平变化，实现 C51 的 IO 双向功能<br>　　<strong>6、</strong> 推挽输出 GPIO_OUT_PP —— IO 输出 0-接GND， IO 输出 1-接VCC，读输入值是未知的<br>　　<strong>7、</strong> 复用功能的推挽输出 GPIO_AF_PP —— 片内外设功能（I<sub>2</sub>C 的 SCL，SDA）<br>　　<strong>8、</strong> 复用功能的开漏输出 GPIO_AF_OD —— 片内外设功能（TX1，MOSI，MISO，SCK，SS）</p>
+<p>　　+ <font color="#F40D64">STM32 设置实例：（来自博客）</font><br>　　<strong>1、</strong> 模拟 I<sub>2</sub>C 使用开漏输出 _OUT_OD，接上拉电阻，能够正确输出 0 和 1；读值时先 <strong>GPIO_SetBits(GPIOB, GPIO_Pin_0)；</strong> 拉高，然后可以读 IO 的值；使用 <strong>GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_0)；</strong><br>　　<strong>2、</strong> 如果是无上拉电阻，IO 默认是高电平；需要读取 IO 的值，可以使用带上拉输入 _IPU 和 浮空输入_IN_FLOATING 和开漏输出 _OUT_OD。</p>
+<p>　　+ <font color="#F40D64">通常有 5 种方式使用某个引脚功能，它们的配置方式如下：（来自博客）</font><br>　　 <strong>1、</strong> 作为普通 GPIO 输入：根据需要配置该引脚为浮空输入、带弱上拉输入或带弱下拉输入，同时不要使能该引脚对应的所有复用功能模块。<br>　　 <strong>2、</strong> 作为普通GPIO输出：根据需要配置该引脚为推挽输出或开漏输出，同时不要使能该引脚对应的所有复用功能模块。<br>　　 <strong>3、</strong> 作为普通模拟输入：配置该引脚为模拟输入模式，同时不要使能该引脚对应的所有复用功能模块。<br>　　 <strong>4、</strong> 作为内置外设的输入：根据需要配置该引脚为浮空输入、带弱上拉输入或带弱下拉输入，同时使能该引脚对应的某个复用功能模块。<br>　　 <strong>5、</strong> 作为内置外设的输出：根据需要配置该引脚为复用推挽输出或复用开漏输出，同时使能该引脚对应的所有复用功能模块。<br>　　 注意 <font color="green">如果有多个复用功能模块对应同一个引脚，只能使能其中之一，其它模块保持非使能状态</font>。比如要使用 STM32F103VBT6 的 47、48 脚的 USART3 功能，则需要配置 47 脚为复用推挽输出或复用开漏输出，配置 48 脚为某种输入模式，同时使能 USART3 并保持 I<sub>2</sub>C 的非使能状态。如果要使用 STM32F103VBT6 的 47 脚作为 TIM2_CH3，则需要对 TIM2 进行重映射，然后再按复用功能的方式配置对应引脚。</p>
+<p>　　+ <font color="#F40D64">在上面基础上，最后，我们再从 <strong>瑞生哥</strong> 的分类来进行回顾</font><br>　　 <strong>1、</strong> 输入和输出<br>　　 　从 51 过来的人，对输入和输出比较陌生。<font color="green">51 单片机不用设置输入和输出模式，自动变换，无需程序配置，当我们写程序读引脚的电平的时候，实际上就是作为输入模式来使用，当我们写程序让引脚输出电平的时候，实际上就是作为输出模式来使用</font>。也就是说，并不是 51 单片机没有输入和输出这个概念，而是你已经使用了很久却没有发现。<br>　　 　STM32 与 51 的区别就是：当我们要读引脚电平的时候，也就是作为输入，我们必须要先把引脚设置为输入功能，才可以读。当我们要控制引脚高低电平的时候，也就是作为输出，我们必须要先把引脚设置为输出功能，才可以设置。<br>　　 　概念比较抽象，你只需要记住：在引脚上没有外界干扰的情况下，上拉就是把引脚设置为高电平了，你用万用表量上拉引脚，就是高电平；下拉就是把引脚设置为低电平了，你用万用表量下拉引脚，就是低电平，也就是 0 V。</p>
+<p>　　 <strong>2、</strong> 推挽与开漏<br>　　 　概念比较抽象，你只需要记住： <font color="green">设置为推挽，就是提高了引脚的输出电流能力。设置为开漏，就是提高了引脚的输入电流能力</font>。然后还要知道，<font color="green">设置为开漏时，如果外部不加上拉电阻，默认输出是低电平</font>。</p>
+<p>　　 <strong>3、</strong> 通用与复用<br>　　 　通用就是作为普通的输入和输出引脚。复用就是该引脚可以作为 SPI 引脚 I<sub>2</sub>C 引脚等其他功能的引脚。</p>
+<p>　　 <strong>4、</strong> 使用介绍<br>　　 　结合上面讲的，可以得到一些简单的应用设置方式。<br>　　 　比如检测按键，就应该设置为输入，如果 <font color="green">外部没有加上拉电阻，你就需要设置引脚为上拉输入，这样如果检测到引脚是低电平，就是按下按键</font>了。如果 <font color="green">外部加了上拉电阻，你这时既可以把引脚设置为上拉输入，也可以设置为浮空输入，设置为这两种，由于外部上拉电阻的原因，默认就是高电平，同样，检测到低电平时，就是按键按下</font> 了。<br>　　 　当你要控制引脚高低电平做应用时，就是需要把引脚设置为输出功能。例如驱动一个器件，驱动一个发光二极管等。如果你要 <font color="green">使用高电平点亮发光二极管，就需要把引脚设置为推挽输出，以增大电流输出能力，如果你设置为开漏输出，发光二极管肯定是点不亮了</font>。但是如果你 <font color="green">使用低电平点亮发光二极管，那么设置为开漏和推挽输出都可以正常点亮发光二极管</font>。</p>
+<h2 id="STM32-之串口介绍"><a href="#STM32-之串口介绍" class="headerlink" title="STM32 之串口介绍"></a><font color="#F40D64">STM32 之串口介绍</font></h2><p>　　<strong>链接：</strong><a href="http://mp.weixin.qq.com/s?__biz=MzAwNTUzNDA1MQ==&amp;mid=401488699&amp;idx=1&amp;sn=a778d11a59c683301b1aa1e83b0203a8&amp;scene=4#wechat_redirect">点击跳转至原文</a><br>　　<strong>笔记： </strong></p>
+<ul>
+<li><font color="#F40D64">串口硬件电路介绍</font><br>　　+ <strong>CH340</strong> 虚拟出一个串口（电脑使用的是 USB，<strong>CH340</strong> 即是 USB 转 TTL 芯片），电脑上需要安装相应的驱动。<br>　　+ <strong>CH340</strong> 需要晶振（12MHz），晶振的 <font color="green">匹配电容异常时可以不焊接，只是稳定性不太好</font>。<br>　　+ <strong>CH340</strong> 的 DTR 引脚（高电平3.3V）需要连接到 STM32 的复位引脚 RST（<a href="http://www.rationmcu.com/stm32/1317.html">ISP下载程序</a>）。</li>
+<li><font color="#F40D64">如何用串口下载程序</font><br>　　+ <strong>手动 ISP 下载程序</strong>，<font color="green">STM32 上电，会自动检测 BOOT0 引脚是什么电平，如果是高电平，等待用户下载程序；如果是低电平，运行用户之前下载到单片机的程序</font>。所以我们需要把 BOOT0 引脚引出，然后控制其接地或接 VCC 来下载程序或者运行程序。在调试过程中，我们需要不断的控制 BOOT0，非常麻烦。<br>  <img src="/img/STM32/Kidult/05_BootMode.png" width="600px"/><br>　　+ <strong>自动 ISP 下载程序</strong>，把 BOOT0 与地直接连接，那么每次上电就会运行程序，而且只要点击电脑上的 “下载” 按钮，就开始下载程序，下载完程序，就开始执行。实现此目的，需要借助串口握手信号 DTR 和 RTS。<font color="green">DTR 连接 RESET（复位引脚），控制复位；RTS 连接 BOOT0，用来控制程序运行或者等待下载</font>。<br>  <img src="/img/STM32/Kidult/05_AUTO_ISP.png"/><br>　　+ 按道理应该是 DTR 低电平复位，然后 RTS 低电平进入 BootLoader 呀。但是，有一点需要注意，它这里讲的高低电平，是针对电脑原始的 <strong>9 针串口</strong> 的，也就是 <strong>“232 电平”</strong>，我们用的 <strong>USB</strong> 转 TTL 芯片是 <strong>“TTL 电平”</strong>，正好相反（<a href="http://www.rationmcu.com/elecjc/947.html">《USB 转串口-硬件扫盲》</a>）。<br>  <img src="/img/STM32/Kidult/05_STM32自动ISP软件DTR和RTS的选择.png"/><br>　　　单片机串口是 TTL 电平，要和电脑串口(或者USB 转串口线)通信，就需要使得他俩的电平逻辑一样才可以通信。这时候，就需要用到 <strong>TTL 转 232 电平</strong> 的芯片：MAX232、MAX3232、SP232、SP3232（232 芯片用于 5V 单片机，3232 用于 3.3V 的单片机）。<br>　　　如果用的不是电脑原生的串口，而是 USB 转的串口，也就是，直接把 USB 转的串口，变成了可以和单片机直接通信的 TTL 电平了。<strong>USB 转 TTL</strong> 芯片有很多，例如：<strong>CH340</strong>、PL2303、CP2102、FT232 等。<br>　　+ 串口通讯的交叉连接方式：Rx1 &lt;–&gt; Tx2、Tx1 &lt;–&gt; Rx2。<br>　　+ ISP 下载方式必须使用 STM32 的 USART1（PA9[TxD1]、PA10[RxD1]）。</li>
+</ul>
+<h2 id="STM32-之-JLINK-下载程序"><a href="#STM32-之-JLINK-下载程序" class="headerlink" title="STM32 之 JLINK 下载程序"></a><font color="#F40D64">STM32 之 JLINK 下载程序</font></h2><p>　　<strong>链接：</strong><a href="http://mp.weixin.qq.com/s?__biz=MzAwNTUzNDA1MQ==&amp;mid=401511909&amp;idx=1&amp;sn=fbd322da77d5267a6b1c91e57c8dfed7&amp;scene=4#wechat_redirect">点击跳转至原文</a><br>　　<strong>笔记： </strong><br>　　+ JLINK V8/V9、STLINK、ULINK2 等都可以使用。<br>　　+ 仿真器一般不提供电源，使用仿真器下载时，需要为开发板提供电源！！<br>　　+ 只有通过 JLINK 发现了单片机的器件号（IDCODE），才可以正常使用<br>　　+ 仿真器下载有 JTAG和 SW 两种方式，STM32 单片机均支持，板子上用的是 20PIN 的 JTAG 座（个人认为可以兼容 SW）。</p>
+<h2 id="STM32-之引脚高低电平"><a href="#STM32-之引脚高低电平" class="headerlink" title="STM32 之引脚高低电平"></a><font color="#F40D64">STM32 之引脚高低电平</font></h2><p>　　<strong>链接：</strong><a href="http://mp.weixin.qq.com/s?__biz=MzAwNTUzNDA1MQ==&amp;mid=401558555&amp;idx=1&amp;sn=f16b1cfc47e8ff93a8efac668b3bb288&amp;scene=4#wechat_redirect">点击跳转至原文</a><br>　　<strong>笔记： </strong><br>　　+ 单片机引脚在上电之后默认是输入模式。<br>　　+ 不接地电路不构成回路，没有电流流过，LED 不亮；最好串联一限流电阻，防止 LED 烧坏！<br>　　+ 模板例程的概念，具体如何建立模板例程后续再介绍。</p>
+<h2 id="STM32-之检测引脚电平"><a href="#STM32-之检测引脚电平" class="headerlink" title="STM32 之检测引脚电平"></a><font color="#F40D64">STM32 之检测引脚电平</font></h2><p>　　<strong>链接：</strong><a href="http://mp.weixin.qq.com/s?__biz=MzAwNTUzNDA1MQ==&amp;mid=401612574&amp;idx=1&amp;sn=83888de9810cfcca21be196b25c0d099&amp;scene=4#wechat_redirect">点击跳转至原文</a><br>　　<strong>笔记： </strong><br>　　+ 单片机引脚内部有带上拉电阻，故可选择性在引脚外部电路带或不带上拉电阻（采用上拉输入模式）。<br>　　+ 四角按键，左右两同侧引脚按下，均导通。<br>　　+ <font color="green">使用万用表测通断时，千万不要给开发板上电！</font> ！<br>　　+ <strong>uint8_t GPIO_ReadInputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)</strong> 返回的其实就是 0、1。</p>
+<h2 id="STM32-之蜂鸣器应用"><a href="#STM32-之蜂鸣器应用" class="headerlink" title="STM32 之蜂鸣器应用"></a><font color="#F40D64">STM32 之蜂鸣器应用</font></h2><p>　　<strong>链接：</strong><a href="http://mp.weixin.qq.com/s?__biz=MzAwNTUzNDA1MQ==&amp;mid=401620696&amp;idx=1&amp;sn=767696fdfd8dc34bbe04c3e50645d230&amp;scene=4#wechat_redirect">点击跳转至原文</a><br>　　<strong>笔记： </strong><br>　　+ 蜂鸣器电路： <font color="green">下拉电阻 （NPN 三极管高电平导通，单片机引脚上电后为输入模式，防止复位时蜂鸣器误动作而鸣叫）</font> + 基极限流电阻（防止烧坏 NPN 三极管）。<br>    <img src="/img/STM32/Kidult/05_ZeepModule.png" width="540px"/></p>
+<p>　　+ 其他参考电路：<br>    <img src="/img/STM32/Kidult/05_ZeepModule_3_3V.png" width="360px" style="float: left"/><br>    <img src="/img/STM32/Kidult/05_ZeepModule_5V.png" width="360px"/></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a></p>
+
+        <!-- 
+        <p><span>文章作者:</span><a href="/" title="回到主页">Gary Chan</a></p>
+        -->
+        <p><span>文章作者:</span>csj</p>
+
+        <p><span>发布时间:</span>2016-02-16, 21:41:31</p>
+        <p><span>最后更新:</span>2020-03-28, 12:37:22</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/" title="老顽童STM32开发板系列教程笔记">http://durant35.github.io/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/　　作者: Gary Chan" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+
+        <!-- not to show license information
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+        -->
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/02/21/programPearls_Coding中的编码问题之入门$概览/">
+                    Coding中的编码问题之入门&amp;概览
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/02/11/movies_漫威电影/">
+                    漫威21部系列电影(持续更新)
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#视频教程第一集"><span class="toc-number">1.</span> <span class="toc-text">视频教程第一集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#短路帽介绍"><span class="toc-number">2.</span> <span class="toc-text">短路帽介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#电源部分"><span class="toc-number">3.</span> <span class="toc-text">电源部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单片机-STM32-的引脚模式设置"><span class="toc-number">4.</span> <span class="toc-text">单片机 STM32 的引脚模式设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STM32-之串口介绍"><span class="toc-number">5.</span> <span class="toc-text">STM32 之串口介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STM32-之-JLINK-下载程序"><span class="toc-number">6.</span> <span class="toc-text">STM32 之 JLINK 下载程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STM32-之引脚高低电平"><span class="toc-number">7.</span> <span class="toc-text">STM32 之引脚高低电平</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STM32-之检测引脚电平"><span class="toc-number">8.</span> <span class="toc-text">STM32 之检测引脚电平</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STM32-之蜂鸣器应用"><span class="toc-number">9.</span> <span class="toc-text">STM32 之蜂鸣器应用</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-4 i,
+        .toc-level-4 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+        <!--
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+        -->
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+        <!--
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+        -->
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"老顽童STM32开发板系列教程笔记　| Gary Chan's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://durant35.github.io/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/';
+            this.page.identifier = '2016/02/16/mcu_老顽童STM32开发板系列教程笔记/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//durant35.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/02/21/programPearls_Coding中的编码问题之入门$概览/" title="上一篇: Coding中的编码问题之入门&amp;概览">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/02/11/movies_漫威电影/" title="下一篇: 漫威21部系列电影(持续更新)">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/12/16/SensorSettings_Apollo/">自动驾驶硬件方案②：Where Apollo Moon Happens</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/11/22/SensorSettings_Overview/">自动驾驶硬件方案①：概述</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/13/binary_Compile-Link-Load-Execute/">编译、链接、装载与运行</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/21/tool_vimium几步走/">vimium几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/26/tool_tmux几步走/">tmux几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/10/cpp_C++ BasicMiscs/">C++ Basic</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/TACouses_ES2017_MCU_GPIO/">GPIO 的几种输入输出模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/VM_MemoryManage/">虚拟内存[0?] 内存管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/VM_VirtualAddr2PhysicalAddr/">虚拟内存[0?] 虚拟内存地址如何转换到物理内存地址</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/VM0_AddressSpace/">虚拟内存[00] 虚拟内存地址空间</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/06/VM_Changes4LifeCycle/">虚拟内存[02] 不同阶段下的内存变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/29/VM_Stacks/">虚拟内存[02] Linux 中的各种栈：进程栈 线程栈 内核栈 中断栈</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/29/VM1_UserSpaceSegments/">虚拟内存[01] 用户内存空间的各个段分布</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/">嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/24/TACouses_ES2017_MoCs/">嵌入式系统导论[03] Model of Computation</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/28/TACouses_ES2017_Java/">嵌入式系统导论[01] Linux 下手动配置 Java 环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/26/TACouses_ES2017_SystemC/">嵌入式系统导论[02] 浅谈 System C</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/03/programPearls_Summary after Interview in Robosense/">Summary after Robosense's Interview</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/binary_ldconfig4RuntimeLibraries/">ldconfig：[load]运行时库管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/Algorithms_ICP/">[0024] Iterative Closest Points（迭代最近点）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/Algorithms_LeastSquaresLineFitting/">[0025] Least Squares Line Fitting（最小二乘法直线拟合）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/programPearls_i=i++/">i = i++;</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/tool_CMake_find_package$pkg_check_module/">CMake 查找库: find_package vs pkg_check_modules</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/">ROS launch file: <arg> vs <param> vs <rosparam></a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/">hexo：告别多说，拥抱 Disqus</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/">32-bit program on 64-bit OS & 64-bit program on 32-bit OS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/13/Algorithms_OnlineJudge4Huawei2017/">算法设计与分析[0023] 秋招华为在线笔试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/11/programPearls_JPEG$Arithmetic$LZW/">JPEG编码&算术编码、LZW编码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/11/programPearls_DES$3DES$AES/">密码学：DES、3DES、AES</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/Algorithms_BST$R-B Tree/">算法设计与分析[0022] BST（二叉查找树）和 R-B Tree（红黑树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/07/programPearls_declaration$definition$initialization$assignment/">声明/定义/初始化/赋值</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/programPearls_inline$static$const$extern$volatile/">C/C++常见修饰符（inline&static&const&extern&volatile）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/Algorithms_BasicMiscs/">算法设计与分析[0021] Some Algorithms Basic Details Review（课程总结）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GraphProblems/">算法设计与分析[0020] 几个有关图的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/26/Algorithms_GreedyAlgorithms/">算法设计与分析[0019] Greedy Algorithms（贪心策略）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/">算法设计与分析[0018] 图的点连通度和边连通度</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/08/Algorithms_NP-Complete(I)/">算法设计与分析[0017] NP-完全问题：概述（两道证明习题）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_BossandtheUrbanChallenge/">DARPA[Boss]: Boss and the Urban Challenge</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/DARPA_Boss_MotionPlanninginUrbanEnvironments/">DARPA[Boss]: Motion Planning in Urban Environments</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_BiGraphMatching/">算法设计与分析[0016] 二分图匹配问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/01/Algorithms_UnionFindSet/">算法设计与分析[0015] Union Find Set（并查集）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/Algorithms_Dynamic Programming(V)/">算法设计与分析[0014] Dynamic Programming(V) 一道习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/Algorithms_MaximizingFlow/">算法设计与分析[0013] 网络流：最大流（Max Flow）问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/hsw_CPUWipeoutIlliteracy/">CPU 扫盲（核心数/线程数）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/13/hsw_UbuntuSystemBootSequence/">一张图带你看 Ubuntu(Linux) 系统启动过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Algorithms_LongestPalindromicSubsequence/">算法设计与分析[0012] Dynamic Programming(IV)（Longest Palindromic Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Algorithms_LongestCommonSubsequence/">算法设计与分析[0011] Dynamic Programming(III)（Longest Common Subsequence）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/Algorithms_LongestIncreasingSubsequence/">算法设计与分析[0010] Longest Increasing Subsequence（最长递增子序列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/Algorithms_Dynamic Programming(II)/">算法设计与分析[0009] Dynamic Programming(II)（Maximum Sum/Product Subarray）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/10/Algorithms_An Alibaba Interview Question/">算法设计与分析[0003] 一道阿里巴巴面试题（2017） </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/programPearls_cv_Digital-Image-Process(pg_2016)/">Digital Image Process</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/linux_LinuxCommandNotes/">Linux命令小纸条</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/tool_vim几步走/">vim几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/02/hexo-md源文件内容修改预览页面刷新无效/">hexo，md源文件内容修改预览页面刷新无效</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/10/programPearls_libpcap 32-bit$64-bit/">libpcap, 32-bit&64-bit</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/misc_Key Word Engineering/">Key Word Engineering</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/07/hexo_Theme Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/ROS_ROS_Navigation_GettingStarted/">初识ROS自主导航</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/01/TACouses_Embedded_System_2016/">嵌入式系统导论[00] Overview, DOL and MPARM</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/hexo_Theme Yelee Migrant Note/">hexo博客主题Yelee迁移笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/programPearls_dumpbin指南/">dumpbin 指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux下基本文件操作/">Win/Linux下基本文件操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_Win$Linux Operate ini configuration files(API)/">Win/Linux下操作ini配置文件(API)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/26/tool_git几步走/">git几步走</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/09/OverlappingSounds_Basketball_Never_Stops/">Basketball Never Stops</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/tool_CMake_快速入门/">CMake 快速入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/">Coding中的编码问题之回顾&深入</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/21/programPearls_Coding中的编码问题之入门$概览/">Coding中的编码问题之入门&概览</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/11/movies_漫威电影/">漫威21部系列电影(持续更新)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/System_Win8.1简体中文系统切换到繁体中文系统/">Win8.1简体中文系统切换到繁体中文系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/tool_NotePad/">NotePad++</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/02/hexo_在hexo new之后立即打开新建的Markdown文稿/">在hexo new之后立即打开Markdown文稿</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_自定义主题/">hexo自定义主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/26/hexo_添加about导航栏/">hexo添加about导航栏</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/24/hexo_2.0x hexo迁移至最新版本笔记/">2.0x hexo迁移至最新版本笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/29/TACouses_iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/16/TACouses_iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/28/TACouses_iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&Win8.1(both 64-bit),其他仅供参考)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/07/09/graduatedesign_01 STM32_Keil$JLink/">(一) 搭建STM32开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/">数媒HW4参考资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/16/TACouses_JSP考勤系统-二-JDBC连接MySQL数据库/">JSP考勤系统(二) JDBC连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/15/TACouses_JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/TACouses_考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/05/06/TACouses_考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/TACouses_考勤系统-二-MFC-ADO连接MySQL数据库/">考勤系统(二) MFC ADO连接MySQL数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/04/30/hexo_win搭建hexo/">win搭建hexo</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2021 Gary Chan
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by <a href="http://moxfive.xyz/" target="_blank"> MOxFIVE </a><i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+            
+            
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
