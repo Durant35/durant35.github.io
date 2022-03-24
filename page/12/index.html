@@ -271,22 +271,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-python_sort-Functions" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_Vertex$Edge connectivity degree" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/01/24/python_sort-Functions/" class="article-date">
-      <time datetime="2017-01-24T08:18:38.000Z" itemprop="datePublished">2017-01-24</time>
+      <a href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/" class="article-date">
+      <time datetime="2017-06-24T06:00:22.000Z" itemprop="datePublished">2017-06-24</time>
 </a>
 
 
 
  
-    <a href="/2017/01/24/python_sort-Functions/#comments" title="查看评论">
+    <a href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/01/24/python_sort-Functions/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/06/24/Algorithms_Vertex$Edge connectivity degree/"></span>
         
     </a>
 
@@ -301,7 +301,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a>
+      <a class="article-title" href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/">算法设计与分析[0018] 图的点连通度和边连通度</a>
     </h1>
   
 
@@ -311,85 +311,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>TBD…</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo_DisqusInsteadofDuoshuo" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/" class="article-date">
-      <time datetime="2017-07-14T06:54:28.000Z" itemprop="datePublished">2017-07-14</time>
-</a>
-
-
-
- 
-    <a href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/14/hexo_DisqusInsteadofDuoshuo/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/">hexo：告别多说，拥抱 Disqus</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　首先说说，换了 Disqus 之后的体验吧，除了需要翻墙外，都挺好的。<font color="blue">最重要的是，以前一直希望多说有的邮件提醒（一直没有），Disqus 自带就有这个功能</font>。anyway，反正多说已经阵亡了，选择 Disqus 还挺不错的。<br>　　怎么从多说迁移到 Disqus 呢？配置上很简单，主要难题是如何迁移原先多说评论的数据。
+              <h4 id="基本概念？"><a href="#基本概念？" class="headerlink" title="基本概念？"></a>基本概念？</h4><ul>
+<li>点连通度（图的连通度）：对应一个图 $G$，对于所有点集 $U \subset V_G$，也就是 $V_G$ 的子集中，使得 $G-U$（在图 $G$ 中删去 $U$ 和与 $U$ 关联的边）要么是一个非连通图，要么就是一个平凡图，其中最小的集合 $U$ 的大小 $|U|$ 就是图 $G$ 的<strong>点连通度</strong>（有时候也直接称为<strong>图的连通度</strong>）。
           
       
     </div>
@@ -398,18 +321,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/#more">more >></a>
+          <a href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -672,22 +595,22 @@
 
 
   
-    <article id="post-ROS_ROS_Basics" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-ROS_&lt;arg&gt;$&lt;param&gt;$&lt;rosparam&gt;" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/10/02/ROS_ROS_Basics/" class="article-date">
-      <time datetime="2016-10-02T13:18:03.000Z" itemprop="datePublished">2016-10-02</time>
+      <a href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/" class="article-date">
+      <time datetime="2017-07-14T12:18:03.000Z" itemprop="datePublished">2017-07-14</time>
 </a>
 
 
 
  
-    <a href="/2016/10/02/ROS_ROS_Basics/#comments" title="查看评论">
+    <a href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/10/02/ROS_ROS_Basics/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/14/ROS_&lt;arg&gt;$&lt;param&gt;$&lt;rosparam&gt;/"></span>
         
     </a>
 
@@ -702,7 +625,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a>
+      <a class="article-title" href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/">ROS launch file: &lt;arg&gt; vs &lt;param&gt; vs &lt;rosparam&gt;</a>
     </h1>
   
 
@@ -712,8 +635,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　ROS 基本概念以及经常使用的命令。</p>
-<h3 id="ROS-文件系统"><a href="#ROS-文件系统" class="headerlink" title="ROS 文件系统"></a>ROS 文件系统</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取软件包有关信息</span></span><br><span class="line">xxx@...$ rospack find [package-name]</span><br><span class="line"><span class="comment"># 查看环境变量(ROS_PACKAGE_PATH)</span></span><br><span class="line">xxx@...$ <span class="built_in">export</span> | grep ROS</span><br></pre></td></tr></table></figure>
+              <p>　　本文介绍在 ROS 的 launch 文件中经常被使用到的三个与参数设置有关的标签 <code>&lt;arg&gt;</code>、<code>&lt;param&gt;</code>、<code>rosparam</code>。
           
       
     </div>
@@ -733,7 +655,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/10/02/ROS_ROS_Basics/#more">more >></a>
+          <a href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -1090,9 +1012,88 @@
 
 
   
+    <article id="post-misc_Key Word Engineering" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/09/misc_Key Word Engineering/" class="article-date">
+      <time datetime="2016-10-09T00:14:45.000Z" itemprop="datePublished">2016-10-09</time>
+</a>
+
+
+
+ 
+    <a href="/2016/10/09/misc_Key Word Engineering/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/10/09/misc_Key Word Engineering/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/09/misc_Key Word Engineering/">Key Word Engineering</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="A"><a href="#A" class="headerlink" title="A"></a>A</h3><blockquote>
+<p><strong>AI</strong>（Artificial Intelligence），人工智能<br><strong>ATM</strong>（asynchronous transfer mode），异步传输模式<br><strong>ARPA</strong>（Advanced Research Projects Agency），（美国国防部）高级研究计划署<br><strong>AR</strong>（augmented reality），增强实现<br><strong>ADSL</strong>（Asymmetrical Dingital Subscriber Loop），非对称数字用户环线
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Key-words/">Key-words</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/10/09/misc_Key Word Engineering/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/11/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/13/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/11/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span>
     </nav>
   
 </div>

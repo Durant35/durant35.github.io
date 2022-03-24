@@ -521,93 +521,6 @@
 
 
   
-    <article id="post-Algorithms_FFT" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/04/Algorithms_FFT/" class="article-date">
-      <time datetime="2017-03-04T06:00:22.000Z" itemprop="datePublished">2017-03-04</time>
-</a>
-
-
-
- 
-    <a href="/2017/03/04/Algorithms_FFT/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/03/04/Algorithms_FFT/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文介绍 <strong>Divide and Conquer（分而治之）</strong> 的一种典型算法，<strong>FFT</strong>（快速傅里叶变换）。</p>
-<h3 id="DFT"><a href="#DFT" class="headerlink" title="DFT"></a>DFT</h3><p>DFT：$X[k] = \sum_{n=0}^{N-1} x[n] e^{-j \frac{2 \pi k}{N} n}, k = 0, 1, 2, …, N-1$</p>
-<ul>
-<li>for each k: <strong>N</strong> complex mults, <strong>N-1</strong> complex adds</li>
-<li>$e^{-j \frac{2 \pi k}{N} n}$ 预计算并保存在计算机中</li>
-<li>$O(N^2)$ computations for direct <strong>DFT</strong> $\Longrightarrow$ $O(N log_2 N)$ for <strong>FFT</strong>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/03/04/Algorithms_FFT/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-Algorithms_GraphProblems" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -701,22 +614,22 @@
 
 
   
-    <article id="post-Algorithms_BiGraphMatching" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_FFT" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/06/01/Algorithms_BiGraphMatching/" class="article-date">
-      <time datetime="2017-06-01T13:00:22.000Z" itemprop="datePublished">2017-06-01</time>
+      <a href="/2017/03/04/Algorithms_FFT/" class="article-date">
+      <time datetime="2017-03-04T06:00:22.000Z" itemprop="datePublished">2017-03-04</time>
 </a>
 
 
 
  
-    <a href="/2017/06/01/Algorithms_BiGraphMatching/#comments" title="查看评论">
+    <a href="/2017/03/04/Algorithms_FFT/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/06/01/Algorithms_BiGraphMatching/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/03/04/Algorithms_FFT/"></span>
         
     </a>
 
@@ -731,7 +644,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/01/Algorithms_BiGraphMatching/">算法设计与分析[0016] 二分图匹配问题</a>
+      <a class="article-title" href="/2017/03/04/Algorithms_FFT/">算法设计与分析[0002] Divide and Conquer——FFT（快速傅里叶变换）</a>
     </h1>
   
 
@@ -741,10 +654,12 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h4 id="二分图匹配问题"><a href="#二分图匹配问题" class="headerlink" title="二分图匹配问题"></a>二分图匹配问题</h4><ul>
-<li>二分图<br><center><img src="/img/Algorithms/0016_bipartiteGraph.png" width="340px" alt=""/></center><ul>
-<li>顶点被分成两个不相交的集合（$U$ 和 $V$）并且同属一个集合内的点两两不相连（$E_{in U} = E_{in V} = \emptyset$），即要么没有圈，要么圈所包含的边数必定是偶数。</li>
-<li><strong>二分图</strong> 的一个等价定义是：不含有 <strong>含奇数条边的环</strong> 的图。
+              <p>　本文介绍 <strong>Divide and Conquer（分而治之）</strong> 的一种典型算法，<strong>FFT</strong>（快速傅里叶变换）。</p>
+<h3 id="DFT"><a href="#DFT" class="headerlink" title="DFT"></a>DFT</h3><p>DFT：$X[k] = \sum_{n=0}^{N-1} x[n] e^{-j \frac{2 \pi k}{N} n}, k = 0, 1, 2, …, N-1$</p>
+<ul>
+<li>for each k: <strong>N</strong> complex mults, <strong>N-1</strong> complex adds</li>
+<li>$e^{-j \frac{2 \pi k}{N} n}$ 预计算并保存在计算机中</li>
+<li>$O(N^2)$ computations for direct <strong>DFT</strong> $\Longrightarrow$ $O(N log_2 N)$ for <strong>FFT</strong>
           
       
     </div>
@@ -764,7 +679,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/06/01/Algorithms_BiGraphMatching/#more">more >></a>
+          <a href="/2017/03/04/Algorithms_FFT/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -946,6 +861,88 @@
 
 
   
+    <article id="post-hexo_Theme Yelee Migrant Note(2)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/07/hexo_Theme Yelee Migrant Note(2)/" class="article-date">
+      <time datetime="2016-10-07T07:33:41.000Z" itemprop="datePublished">2016-10-07</time>
+</a>
+
+
+
+ 
+    <a href="/2016/10/07/hexo_Theme Yelee Migrant Note(2)/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/10/07/hexo_Theme Yelee Migrant Note(2)/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/07/hexo_Theme Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　本文记录了 <strong>Hexo</strong> 首页与归档博文排序如何自定义，想实现的功能是 <strong>index</strong> 按照修改日期排序，最近修改的文章置顶显示；<strong>Archives</strong> 归档则按照默认的创建时间前后排序。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/10/07/hexo_Theme Yelee Migrant Note(2)/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-hexo_Theme Yelee Migrant Note" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1036,22 +1033,22 @@
 
 
   
-    <article id="post-hexo_Theme Yelee Migrant Note(2)" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_BFS" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/10/07/hexo_Theme Yelee Migrant Note(2)/" class="article-date">
-      <time datetime="2016-10-07T07:33:41.000Z" itemprop="datePublished">2016-10-07</time>
+      <a href="/2017/03/22/Algorithms_BFS/" class="article-date">
+      <time datetime="2017-03-22T06:00:22.000Z" itemprop="datePublished">2017-03-22</time>
 </a>
 
 
 
  
-    <a href="/2016/10/07/hexo_Theme Yelee Migrant Note(2)/#comments" title="查看评论">
+    <a href="/2017/03/22/Algorithms_BFS/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/10/07/hexo_Theme Yelee Migrant Note(2)/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/03/22/Algorithms_BFS/"></span>
         
     </a>
 
@@ -1066,7 +1063,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/07/hexo_Theme Yelee Migrant Note(2)/">hexo博客主题Yelee迁移笔记(二)</a>
+      <a class="article-title" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a>
     </h1>
   
 
@@ -1076,7 +1073,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　本文记录了 <strong>Hexo</strong> 首页与归档博文排序如何自定义，想实现的功能是 <strong>index</strong> 按照修改日期排序，最近修改的文章置顶显示；<strong>Archives</strong> 归档则按照默认的创建时间前后排序。<br>
+              <p>　本文主要介绍 <strong>BFS</strong> 的 <em>C++</em> 和 <em>C</em> 语言实现，并借助 <a href="https://leetcode.com/">LeetCode</a> 上的一道题，说说基本的 <strong>BFS</strong> 在问题求解中的应用。</p>
+<h3 id="What’s-B-readth-F-irst-S-earch"><a href="#What’s-B-readth-F-irst-S-earch" class="headerlink" title="What’s B(readth)F(irst)S(earch)"></a>What’s B(readth)F(irst)S(earch)</h3><p>　广度优先搜索算法（Breadth First Search），又叫宽度优先搜索，或横向优先搜索。是从根节点开始，沿着树的宽度遍历树的节点。如果所有节点均被访问，则算法中止。<br>
           
       
     </div>
@@ -1085,18 +1083,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2016/10/07/hexo_Theme Yelee Migrant Note(2)/#more">more >></a>
+          <a href="/2017/03/22/Algorithms_BFS/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -1120,7 +1118,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
   
 </div>
