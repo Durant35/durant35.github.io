@@ -271,22 +271,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-TACouses_iotCourse_03_ADO连接MySQL数据库" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/" class="article-date">
-      <time datetime="2016-02-02T11:33:21.000Z" itemprop="datePublished">2016-02-02</time>
+      <a href="/2015/11/29/TACouses_iotCourse_03_ADO连接MySQL数据库/" class="article-date">
+      <time datetime="2015-11-29T01:50:30.000Z" itemprop="datePublished">2015-11-29</time>
 </a>
 
 
 
  
-    <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/#comments" title="查看评论">
+    <a href="/2015/11/29/TACouses_iotCourse_03_ADO连接MySQL数据库/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2015/11/29/TACouses_iotCourse_03_ADO连接MySQL数据库/"></span>
         
     </a>
 
@@ -301,7 +301,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/">借Qt中文乱码谈谈Coding中的编码问题</a>
+      <a class="article-title" href="/2015/11/29/TACouses_iotCourse_03_ADO连接MySQL数据库/">ADO连接MySQL数据库</a>
     </h1>
   
 
@@ -311,10 +311,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/02/programPearls_Qt_%E5%80%9FQt%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%B0%88%E8%B0%88Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/#more">《这是第一篇》</a><br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a></font>
-
-<p>　　因为想着把毕业设计中的读写器上位机软件放在 <strong>Qt</strong> 上开发，这学期<a href="http://durant35.github.io/categories/%E7%89%A9%E8%81%94%E7%BD%91%E6%8A%80%E6%9C%AF%E5%AF%BC%E8%AE%BA%E5%AE%9E%E9%AA%8C%E8%AF%BE/">《物联网导论实验课程》</a>也做过一个类似的上位机软件，不过是在 <strong>MFC</strong> 上开发，所以想到先做一下这个课程 <strong>Project</strong> 的移植，体验一发 <strong>Qt</strong>，没想到一开始就碰大壁了。。。</p>
-<p>　　相信大家也经常遇到，那就是做 <strong>UI</strong> 界面时或者通过 <strong>UI</strong> 给用户提示时，<strong>中文乱码</strong> 的现象。比如，这学期，在上《物联网导论实验课》的时候，虽然课程建议的开发平台是 <strong>VC++ 6.0</strong>，但是有部分同学尝试在 <strong>VS≥2012</strong> 开发，就发现，课程 <strong>Demo</strong> 给的部分示例代码直接放到 <strong>VS</strong> 上，就出现了 <strong>UI</strong> 中文乱码的现象。他们，或者说大多数人一开始想到的问题，无非就是项目相关文件保存方式弄错了，也许改一下保存编码方式就行。但是真的是这样吗？还有编码方式是什么，解决这个问题需要了解多少东西？本期及之后的几篇文章，将会跟大家讲述本人在解决这个问题过程中的学习体会，包括从网上学习的各种资料的汇总。一来希望能给遇到相关问题的亲们指引一下(希望对你有帮助，嘻嘻)，二来更是把自己这近几周的学习作一个系统总结，留档，方便后知后觉忘了的时候，可以温故知新。<br>
+              <p>　　本文旨在指导大家如何通过使用<strong>ADO数据库访问技术</strong>实现对<strong>MySQL数据库</strong>的访问和<strong>CURD</strong>等相关操作。在这个过程中，大家将会初步接触并了解：<br>　　　　<strong>+1.　</strong> 存在哪些<strong>数据库访问技术</strong>;<br>　　　　<strong>+2.　</strong> 什么是<strong>Windows COM编程</strong>;<br>　　　　<strong>+3.　</strong> 如何为<strong>MySQL数据库</strong>配置<strong>ODBC数据源</strong>;<br>　　　　<strong>+4.　</strong> <strong>ADO编程</strong>如何实现访问和操作<strong>MySQL数据库</strong>。<br>
           
       
     </div>
@@ -323,18 +320,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/字符编码/">字符编码</a>
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Encoding/">Encoding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VS2013/">VS2013</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/#more">more >></a>
+          <a href="/2015/11/29/TACouses_iotCourse_03_ADO连接MySQL数据库/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -356,22 +353,22 @@
 
 
   
-    <article id="post-raspberry_enable-ssh-without-UI" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-TACouses_ES2017_PriorityInversionbyResourceSharing" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/01/25/raspberry_enable-ssh-without-UI/" class="article-date">
-      <time datetime="2017-01-24T16:48:58.000Z" itemprop="datePublished">2017-01-25</time>
+      <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/" class="article-date">
+      <time datetime="2017-10-24T04:50:14.000Z" itemprop="datePublished">2017-10-24</time>
 </a>
 
 
 
  
-    <a href="/2017/01/25/raspberry_enable-ssh-without-UI/#comments" title="查看评论">
+    <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/01/25/raspberry_enable-ssh-without-UI/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/"></span>
         
     </a>
 
@@ -386,7 +383,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a>
+      <a class="article-title" href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/">嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling</a>
     </h1>
   
 
@@ -396,8 +393,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　可能是我写录的树莓派系统image有问题吧，小伙伴都说默认应该是打开22端口，支持ssh的；但是我做的几张SD卡的系统都是不打开的，我很纳闷，怀疑用的是假的镜像吧。前几次都发生在实验室，显示器，HDMI线应有尽有，启动系统，简单地通过界面在系统的 <strong>Preferences</strong> 中开启ssh端口即可。然而这一次，发生在家里（因为之前一直没空写个关于树莓派外置无线网卡驱动安装的教程，想着利用寒假回家弄一弄），家里哪有实验室那么好的环境，所以，甭想通过界面操作开启。</p>
-<p>　　那究竟能不能通过直接修改SD卡里面的image文件内容，不用UI的方式，开启ssh端口呢？通过下面的捣鼓发现，这是可行的。</p>
+              <p>　Real-time systems are collections of tasks where in addition to any <strong>ordering constraints</strong> imposed by precedences between the tasks, there are also <strong>timing constraints</strong>, requiring a scheduling strategy. Classical <font color="blue">real-time scheduling</font>（实时调度） for <strong>Periodic Tasks</strong> contains <strong>Periodic Rate Monotonic (RM)</strong> as well as <strong>Earliest Deadline First (EDF)</strong>. What’s more, tasks <em>share resources</em> and use <em>mutual exclusion</em> to guard access to those resources, resulting in <strong>Scheduling Anomalies</strong>（调度异常）.<br>　本文将讲述 <strong>Resources Sharing</strong> 给 <font color="blue">real-time scheduling</font> 带来的 <strong>Priority Inversion</strong>（优先级反转）异常，并将重点介绍对应的解决办法：Priority Inheritance Protocol (<strong>PIP</strong>)、Priority Ceiling Protocol (<strong>PCP</strong>)、Stack Resource Policy (<strong>SRP</strong>)。
           
       
     </div>
@@ -406,14 +402,97 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/RaspberryPi/">RaspberryPi</a>
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/EmbeddedSystem/">EmbeddedSystem</a>
     </div>
 
 
       
       
         <p class="article-more-link">
-          <a href="/2017/01/25/raspberry_enable-ssh-without-UI/#more">more >></a>
+          <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_Vertex$Edge connectivity degree" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/" class="article-date">
+      <time datetime="2017-06-24T06:00:22.000Z" itemprop="datePublished">2017-06-24</time>
+</a>
+
+
+
+ 
+    <a href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/06/24/Algorithms_Vertex$Edge connectivity degree/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/">算法设计与分析[0018] 图的点连通度和边连通度</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h4 id="基本概念？"><a href="#基本概念？" class="headerlink" title="基本概念？"></a>基本概念？</h4><ul>
+<li>点连通度（图的连通度）：对应一个图 $G$，对于所有点集 $U \subset V_G$，也就是 $V_G$ 的子集中，使得 $G-U$（在图 $G$ 中删去 $U$ 和与 $U$ 关联的边）要么是一个非连通图，要么就是一个平凡图，其中最小的集合 $U$ 的大小 $|U|$ 就是图 $G$ 的<strong>点连通度</strong>（有时候也直接称为<strong>图的连通度</strong>）。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -517,22 +596,22 @@
 
 
   
-    <article id="post-programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-hexo_DisqusInsteadofDuoshuo" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/" class="article-date">
-      <time datetime="2017-07-14T03:51:14.000Z" itemprop="datePublished">2017-07-14</time>
+      <a href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/" class="article-date">
+      <time datetime="2017-07-14T06:54:28.000Z" itemprop="datePublished">2017-07-14</time>
 </a>
 
 
 
  
-    <a href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/#comments" title="查看评论">
+    <a href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/14/hexo_DisqusInsteadofDuoshuo/"></span>
         
     </a>
 
@@ -547,7 +626,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/">32-bit program on 64-bit OS &amp; 64-bit program on 32-bit OS</a>
+      <a class="article-title" href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/">hexo：告别多说，拥抱 Disqus</a>
     </h1>
   
 
@@ -557,10 +636,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h4 id="32-bit-program-on-64-bit-OS"><a href="#32-bit-program-on-64-bit-OS" class="headerlink" title="32-bit program on 64-bit OS"></a>32-bit program on 64-bit OS</h4><blockquote>
-<p><a href="https://www.viva64.com/en/k/0004/">Is it possible to run 64-bit applications in a 32-bit OS?</a></p>
-</blockquote>
-<p>　　还是有一定的现实意义，比如经常有一些开源库只有 32-bit 版本，为了对其进行构建，需要在 64-bit 系统上配置 32-bit 环境（通常是 32-bit 的 C/C++ 基本库）。
+              <p>　　首先说说，换了 Disqus 之后的体验吧，除了需要翻墙外，都挺好的。<font color="blue">最重要的是，以前一直希望多说有的邮件提醒（一直没有），Disqus 自带就有这个功能</font>。anyway，反正多说已经阵亡了，选择 Disqus 还挺不错的。<br>　　怎么从多说迁移到 Disqus 呢？配置上很简单，主要难题是如何迁移原先多说评论的数据。
           
       
     </div>
@@ -569,97 +645,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/系统/">系统</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-ROS_ROS_Basics" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/02/ROS_ROS_Basics/" class="article-date">
-      <time datetime="2016-10-02T13:18:03.000Z" itemprop="datePublished">2016-10-02</time>
-</a>
-
-
-
- 
-    <a href="/2016/10/02/ROS_ROS_Basics/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/10/02/ROS_ROS_Basics/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　ROS 基本概念以及经常使用的命令。</p>
-<h3 id="ROS-文件系统"><a href="#ROS-文件系统" class="headerlink" title="ROS 文件系统"></a>ROS 文件系统</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取软件包有关信息</span></span><br><span class="line">xxx@...$ rospack find [package-name]</span><br><span class="line"><span class="comment"># 查看环境变量(ROS_PACKAGE_PATH)</span></span><br><span class="line">xxx@...$ <span class="built_in">export</span> | grep ROS</span><br></pre></td></tr></table></figure>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/ROS/">ROS</a>
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2016/10/02/ROS_ROS_Basics/#more">more >></a>
+          <a href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -681,22 +678,22 @@
 
 
   
-    <article id="post-TACourses_Summer-trainning-in-July,2016" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-TACouses_ES2017_SystemC" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/" class="article-date">
-      <time datetime="2017-02-04T03:21:01.000Z" itemprop="datePublished">2017-02-04</time>
+      <a href="/2017/09/26/TACouses_ES2017_SystemC/" class="article-date">
+      <time datetime="2017-09-26T07:50:14.000Z" itemprop="datePublished">2017-09-26</time>
 </a>
 
 
 
  
-    <a href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/#comments" title="查看评论">
+    <a href="/2017/09/26/TACouses_ES2017_SystemC/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/02/04/TACourses_Summer-trainning-in-July,2016/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/09/26/TACouses_ES2017_SystemC/"></span>
         
     </a>
 
@@ -711,7 +708,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a>
+      <a class="article-title" href="/2017/09/26/TACouses_ES2017_SystemC/">嵌入式系统导论[02] 浅谈 System C</a>
     </h1>
   
 
@@ -721,14 +718,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <blockquote>
-<p>摘自 <a href="https://rh-song.github.io/2016/07/18/Summer-training/#more">RiHui-Song’s Blog：Summer-training</a></p>
-</blockquote>
-<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>　本文主要记录SMIE最后一次初级实训学习的主要内容。包括了大概是三个阶段：</p>
-<ul>
-<li>准备阶段：学习测量仪器，回顾C语言编程；</li>
-<li>熟悉阶段：在FPGA上运行HelloWorld，开发小应用，如跑马灯等，最后还了解了uc/os这样一个实时操作系统；</li>
-<li>开发阶段：使用PWM波以及H桥控制车轮，使用超声模块控制让小车感知外界状况，从而进行控制，最后可以使用PID控制理论优化小车的控制。
+              <p>　<strong>SystemC</strong> 是一种基于 C++ 语言的用于 <strong>系统设计</strong> 的计算机语言，是用 C++ 编写的一组库和宏。为了更好的了解 <strong>SystemC</strong> 的用途，我们先从集成电路（<strong>IC</strong>：通用集成电路、专用集成电路）设计的一些基础讲起，谈谈 <strong>SystemC</strong> 在 IC 设计流程中的定位；通过对比 <strong>SystemC</strong> 和我们更为熟悉的 <strong>Verilog</strong>，进一步了解 <strong>SystemC</strong> 。<br>
           
       
     </div>
@@ -737,14 +727,93 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/实训/">实训</a>
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/EmbeddedSystem/">EmbeddedSystem</a>
     </div>
 
 
       
       
         <p class="article-more-link">
-          <a href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/#more">more >></a>
+          <a href="/2017/09/26/TACouses_ES2017_SystemC/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-misc_Key Word Engineering" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/09/misc_Key Word Engineering/" class="article-date">
+      <time datetime="2016-10-09T00:14:45.000Z" itemprop="datePublished">2016-10-09</time>
+</a>
+
+
+
+ 
+    <a href="/2016/10/09/misc_Key Word Engineering/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/10/09/misc_Key Word Engineering/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/09/misc_Key Word Engineering/">Key Word Engineering</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="A"><a href="#A" class="headerlink" title="A"></a>A</h3><blockquote>
+<p><strong>AI</strong>（Artificial Intelligence），人工智能<br><strong>ATM</strong>（asynchronous transfer mode），异步传输模式<br><strong>ARPA</strong>（Advanced Research Projects Agency），（美国国防部）高级研究计划署<br><strong>AR</strong>（augmented reality），增强实现<br><strong>ADSL</strong>（Asymmetrical Dingital Subscriber Loop），非对称数字用户环线
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Key-words/">Key-words</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/10/09/misc_Key Word Engineering/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -848,22 +917,22 @@
 
 
   
-    <article id="post-TACouses_ES2017_MoCs" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/10/24/TACouses_ES2017_MoCs/" class="article-date">
-      <time datetime="2017-10-24T04:50:14.000Z" itemprop="datePublished">2017-10-24</time>
+      <a href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/" class="article-date">
+      <time datetime="2017-07-14T03:51:14.000Z" itemprop="datePublished">2017-07-14</time>
 </a>
 
 
 
  
-    <a href="/2017/10/24/TACouses_ES2017_MoCs/#comments" title="查看评论">
+    <a href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/10/24/TACouses_ES2017_MoCs/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/"></span>
         
     </a>
 
@@ -878,7 +947,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/24/TACouses_ES2017_MoCs/">嵌入式系统导论[03] Model of Computation</a>
+      <a class="article-title" href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/">32-bit program on 64-bit OS &amp; 64-bit program on 32-bit OS</a>
     </h1>
   
 
@@ -888,11 +957,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　承接前期<a href="http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/">DOL Functional Simulation 和 MPARM Simulation</a>的实验内容，结合在<strong>SystemC 系统设计</strong>中提到的<a href="http://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/">Y-chart</a>，本文将讨论在 Behavior 层面的系统建模：<strong>MoCs (Model of Computation)</strong>，希望对 DOL 的建模原理有一定认识：</p>
-<blockquote>
-<p>　To model streaming applications, the <strong>dataflow process network</strong> model of computation [Lee and Parks 1995], a subclass of <strong>Kahn process networks</strong> [Kahn 1974], has been adopted in the DOL design flow. </p>
+              <h4 id="32-bit-program-on-64-bit-OS"><a href="#32-bit-program-on-64-bit-OS" class="headerlink" title="32-bit program on 64-bit OS"></a>32-bit program on 64-bit OS</h4><blockquote>
+<p><a href="https://www.viva64.com/en/k/0004/">Is it possible to run 64-bit applications in a 32-bit OS?</a></p>
 </blockquote>
-<p>　什么是<strong>dataflow process network</strong>？<strong>Kahn process networks</strong>又是什么？接下来我们将一一论述。
+<p>　　还是有一定的现实意义，比如经常有一些开源库只有 32-bit 版本，为了对其进行构建，需要在 64-bit 系统上配置 32-bit 环境（通常是 32-bit 的 C/C++ 基本库）。
           
       
     </div>
@@ -901,14 +969,14 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/EmbeddedSystem/">EmbeddedSystem</a>
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/系统/">系统</a>
     </div>
 
 
       
       
         <p class="article-more-link">
-          <a href="/2017/10/24/TACouses_ES2017_MoCs/#more">more >></a>
+          <a href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -930,22 +998,22 @@
 
 
   
-    <article id="post-hexo_DisqusInsteadofDuoshuo" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-programPearls_precise delay using select" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/" class="article-date">
-      <time datetime="2017-07-14T06:54:28.000Z" itemprop="datePublished">2017-07-14</time>
+      <a href="/2016/09/08/programPearls_precise delay using select/" class="article-date">
+      <time datetime="2016-09-08T03:51:14.000Z" itemprop="datePublished">2016-09-08</time>
 </a>
 
 
 
  
-    <a href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/#comments" title="查看评论">
+    <a href="/2016/09/08/programPearls_precise delay using select/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/14/hexo_DisqusInsteadofDuoshuo/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/programPearls_precise delay using select/"></span>
         
     </a>
 
@@ -960,7 +1028,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/">hexo：告别多说，拥抱 Disqus</a>
+      <a class="article-title" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a>
     </h1>
   
 
@@ -970,90 +1038,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　首先说说，换了 Disqus 之后的体验吧，除了需要翻墙外，都挺好的。<font color="blue">最重要的是，以前一直希望多说有的邮件提醒（一直没有），Disqus 自带就有这个功能</font>。anyway，反正多说已经阵亡了，选择 Disqus 还挺不错的。<br>　　怎么从多说迁移到 Disqus 呢？配置上很简单，主要难题是如何迁移原先多说评论的数据。
+              <h3 id="select-初识"><a href="#select-初识" class="headerlink" title="select 初识"></a>select 初识</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  _In_    <span class="keyword">int</span>                  nfds,         <span class="comment">// 忽略,仅是为了与Berkeley套接字兼容</span></span></span></span><br><span class="line"><span class="function"><span class="params">  _Inout_ fd_set               *readfds,     <span class="comment">// 指向一个套接字集合,用来检查其可读性</span></span></span></span><br><span class="line"><span class="function"><span class="params">  _Inout_ fd_set               *writefds,    <span class="comment">// 指向一个套接字集合,用来检查其可写性</span></span></span></span><br><span class="line"><span class="function"><span class="params">  _Inout_ fd_set               *exceptfds,   <span class="comment">// 指向一个套接字集合,用来检查错误</span></span></span></span><br><span class="line"><span class="function"><span class="params">  _In_    <span class="keyword">const</span> struct timeval *timeout      <span class="comment">// 指定此函数等待的最长时间,如果为NULL,则最长时间为无限大</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"> </span><br><span class="line">返回值: </span><br><span class="line">  函数调用成功，返回发生网络事件的所有套接字数量的总和</span><br><span class="line">  如果超时返回<span class="number">0</span>，代表在描述词状态改变前已超过timeout时间;</span><br><span class="line">  当有错误发生时则返回SOCKET_ERROR(<span class="number">-1</span>).</span><br></pre></td></tr></table></figure>
           
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-python_sort-Functions" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/01/24/python_sort-Functions/" class="article-date">
-      <time datetime="2017-01-24T08:18:38.000Z" itemprop="datePublished">2017-01-24</time>
-</a>
-
-
-
- 
-    <a href="/2017/01/24/python_sort-Functions/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/01/24/python_sort-Functions/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/24/python_sort-Functions/">8 sort functions using python</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>TBD…</p>
-
       
     </div>
     
@@ -1067,9 +1053,13 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a href="/2016/09/08/programPearls_precise delay using select/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>

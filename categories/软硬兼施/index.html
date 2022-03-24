@@ -801,7 +801,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　我们知道，进程是操作系统进行资源分配的最小单位，而内存是进程运行必不可少的资源。现代操作系统为每个进程分配<strong>独享的内存空间</strong>，这个独享的内存空间只是<font color="green"><strong>虚拟内存空间</strong></font>，每次访问内存空间的某个地址 (<font color="green"><strong>虚拟地址</strong></font>)，都需要把地址<strong>翻译</strong>成实际物理内存地址。进程要知道哪些虚拟地址上的数据在物理内存上，哪些不在？还有在物理内存上的哪里，需要用<strong>页表</strong>来记录；正因为每个进程都有一个自己的页表，使得相同的虚拟地址映射到不同的物理内存。每当切换到另一个进程时，就要通过设置 <strong>MMU</strong> 的某些寄存器来设置这个进程的页表，然后 MMU 就可以把 CPU 发出的虚拟地址转化到物理地址了。<br>　本文将详细介绍现代操作系统为每个进程分配的独享虚拟内存地址空间的详细布局，从一开始的 <font color="green"><strong>32位模式</strong></font>到如今占绝大多数的 <font color="green"><strong>64位模式</strong></font>。
+              <p>　我们知道，进程是操作系统进行资源分配的最小单位，而内存是进程运行必不可少的资源。现代操作系统为每个进程分配<strong>独享的内存空间</strong>，这个独享的内存空间只是<font color="green"><strong>虚拟内存空间</strong></font>，每次访问内存空间的某个地址 (<font color="green"><strong>虚拟地址</strong></font>)，都需要把地址<strong>翻译</strong>成实际物理内存地址。进程要知道哪些虚拟地址上的数据在物理内存上，哪些不在？还有在物理内存上的哪里，需要用<strong>页表</strong>来记录；正因为<strong>每个进程都有一个自己的页表</strong>，使得相同的虚拟地址映射到不同的物理内存。每当切换到另一个进程时，就要通过设置 <strong>MMU</strong> 的某些寄存器来设置这个进程的页表，然后 MMU 就可以把 CPU 发出的虚拟地址转化到物理地址了。<br>　本文将详细介绍现代操作系统为每个进程分配的独享虚拟内存地址空间的详细布局，从一开始的 <font color="green"><strong>32位模式</strong></font>到如今占绝大多数的 <font color="green"><strong>64位模式</strong></font>。
           
       
     </div>

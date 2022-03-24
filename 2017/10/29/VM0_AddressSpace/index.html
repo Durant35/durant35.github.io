@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://durant35.github.io/img/kernel/mm/VAspace_x64.png">
 <meta property="og:image" content="http://durant35.github.io/img/kernel/mm/VAspace_x64_default.png">
 <meta property="og:image" content="http://durant35.github.io/img/kernel/mm/VAspace_x64_classic.png">
-<meta property="og:updated_time" content="2022-03-24T05:17:53.594Z">
+<meta property="og:updated_time" content="2022-03-24T07:20:15.415Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟内存[00] 虚拟内存地址空间">
 <meta name="twitter:description" content="我们知道，进程是操作系统进行资源分配的最小单位，而内存是进程运行必不可少的资源。现代操作系统为每个进程分配独享的内存空间，这个独享的内存空间只是虚拟内存空间，每次访问内存空间的某个地址 (虚拟地址)，都需要把地址翻译成实际物理内存地址。进程要知道哪些虚拟地址上的数据在物理内存上，哪些不在？还有在物理内存上的哪里，需要用页表来记录；正因为每个进程都有一个自己的页表，使得相同的虚拟地址映射到不同的物">
@@ -327,13 +327,13 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>　我们知道，进程是操作系统进行资源分配的最小单位，而内存是进程运行必不可少的资源。现代操作系统为每个进程分配<strong>独享的内存空间</strong>，这个独享的内存空间只是<font color="green"><strong>虚拟内存空间</strong></font>，每次访问内存空间的某个地址 (<font color="green"><strong>虚拟地址</strong></font>)，都需要把地址<strong>翻译</strong>成实际物理内存地址。进程要知道哪些虚拟地址上的数据在物理内存上，哪些不在？还有在物理内存上的哪里，需要用<strong>页表</strong>来记录；正因为每个进程都有一个自己的页表，使得相同的虚拟地址映射到不同的物理内存。每当切换到另一个进程时，就要通过设置 <strong>MMU</strong> 的某些寄存器来设置这个进程的页表，然后 MMU 就可以把 CPU 发出的虚拟地址转化到物理地址了。<br>　本文将详细介绍现代操作系统为每个进程分配的独享虚拟内存地址空间的详细布局，从一开始的 <font color="green"><strong>32位模式</strong></font>到如今占绝大多数的 <font color="green"><strong>64位模式</strong></font>。<a id="more"></a></p>
+        <p>　我们知道，进程是操作系统进行资源分配的最小单位，而内存是进程运行必不可少的资源。现代操作系统为每个进程分配<strong>独享的内存空间</strong>，这个独享的内存空间只是<font color="green"><strong>虚拟内存空间</strong></font>，每次访问内存空间的某个地址 (<font color="green"><strong>虚拟地址</strong></font>)，都需要把地址<strong>翻译</strong>成实际物理内存地址。进程要知道哪些虚拟地址上的数据在物理内存上，哪些不在？还有在物理内存上的哪里，需要用<strong>页表</strong>来记录；正因为<strong>每个进程都有一个自己的页表</strong>，使得相同的虚拟地址映射到不同的物理内存。每当切换到另一个进程时，就要通过设置 <strong>MMU</strong> 的某些寄存器来设置这个进程的页表，然后 MMU 就可以把 CPU 发出的虚拟地址转化到物理地址了。<br>　本文将详细介绍现代操作系统为每个进程分配的独享虚拟内存地址空间的详细布局，从一开始的 <font color="green"><strong>32位模式</strong></font>到如今占绝大多数的 <font color="green"><strong>64位模式</strong></font>。<a id="more"></a></p>
 <center><img src="/img/kernel/mm/VAspace_overview.png" width="580px" alt=""/></center>
 
 <h3 id="虚拟内存地址空间布局"><a href="#虚拟内存地址空间布局" class="headerlink" title="虚拟内存地址空间布局"></a>虚拟内存地址空间布局</h3><h4 id="32-位模式下它是一个-4GB-的内存地址块"><a href="#32-位模式下它是一个-4GB-的内存地址块" class="headerlink" title="32 位模式下它是一个 4GB 的内存地址块"></a>32 位模式下它是一个 4GB 的内存地址块</h4><p><center><img src="/img/kernel/mm/VAspace_x86.png" width="810px" alt=""/><br/>图: 32 位系统下进程地址空间默认布局(左)和进程地址空间经典布局(右)</center></p>
 <ul>
 <li>每个进程看到的地址空间都是一样的，比如 <code>.text</code> 都是从 <strong>0x80048000</strong> 开始，内核地址空间都是 <strong>0xC0000000~0xFFFFFFFF</strong>，然后<font color="green">用户栈</font>都是向低地址增长，反过来<font color="green">堆</font>都是向高地址扩展。<ul>
-<li><strong>0x00000000~0x08048000</strong> 是不能给用户访问的，这里面是一些 C 运行库的内容，访问会报 <font color="green">segement fault 错误</font>。</li>
+<li><strong>0x00000000~0x08048000</strong> （≈128MB）是不能给用户访问的，这里面是一些 C 运行库的内容，访问会报 <font color="green">segement fault 错误</font>。</li>
 <li><strong>0xC0000000~0xFFFFFFFF</strong> 这段是内核的逻辑地址，在用户态时访问会出错，权限不够，如果想访问，需要切换到内核态 ，可以通过系统调用等方式：系统调用代表某个进程运行于内核，此时，相当于该进程可以访问这段内核虚拟地址了 (实际上只能访问该进程的某个 8KB 的内核栈)。</li>
 </ul>
 </li>
@@ -360,8 +360,8 @@
 </li>
 <li>接下来分别是 <strong>BSS</strong> Segment、<strong>Data</strong> Segment和 <strong>Text</strong> Segment<ul>
 <li>BSS Segment存放未初始化的静态变量，所以也就是可以随意读写；</li>
-<li>Text Segment 其实就是存放二进制可执行代码的位置，所以它的权限是读与可执行；</li>
-<li>Data Segment 存放的是静态常量，所以该地址段权限是只读。</li>
+<li>Data Segment 存放的是静态常量，所以该地址段权限是只读；</li>
+<li>Text Segment 其实就是存放二进制可执行代码的位置，所以它的权限是读与可执行。</li>
 </ul>
 </li>
 <li><font color="red">新的进程内存布局（默认进程内存布局）导致了<strong>栈空间</strong>的固定，而<strong>堆区域</strong>和 <strong>MMAP 区域</strong>共用一个空间，这在很大程度上增长了堆区域的大小</font>。</li>
@@ -444,7 +444,7 @@
         <p><span>文章作者:</span>Gary</p>
 
         <p><span>发布时间:</span>2017-10-29, 10:28:00</p>
-        <p><span>最后更新:</span>2022-03-24, 13:17:53</p>
+        <p><span>最后更新:</span>2022-03-24, 15:20:15</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/10/29/VM0_AddressSpace/" title="虚拟内存[00] 虚拟内存地址空间">http://durant35.github.io/2017/10/29/VM0_AddressSpace/</a>
             <span class="copy-path" data-clipboard-text="原文: http://durant35.github.io/2017/10/29/VM0_AddressSpace/　　作者: Gary Chan" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
