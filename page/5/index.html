@@ -354,22 +354,22 @@
 
 
   
-    <article id="post-Algorithms_BiGraphMatching" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_DFS" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/06/01/Algorithms_BiGraphMatching/" class="article-date">
-      <time datetime="2017-06-01T13:00:22.000Z" itemprop="datePublished">2017-06-01</time>
+      <a href="/2017/03/15/Algorithms_DFS/" class="article-date">
+      <time datetime="2017-03-15T06:00:22.000Z" itemprop="datePublished">2017-03-15</time>
 </a>
 
 
 
  
-    <a href="/2017/06/01/Algorithms_BiGraphMatching/#comments" title="查看评论">
+    <a href="/2017/03/15/Algorithms_DFS/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/06/01/Algorithms_BiGraphMatching/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/03/15/Algorithms_DFS/"></span>
         
     </a>
 
@@ -384,7 +384,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/01/Algorithms_BiGraphMatching/">算法设计与分析[0016] 二分图匹配问题</a>
+      <a class="article-title" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a>
     </h1>
   
 
@@ -394,10 +394,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h4 id="二分图匹配问题"><a href="#二分图匹配问题" class="headerlink" title="二分图匹配问题"></a>二分图匹配问题</h4><ul>
-<li>二分图<br><center><img src="/img/Algorithms/0016_bipartiteGraph.png" width="340px" alt=""/></center><ul>
-<li>顶点被分成两个不相交的集合（$U$ 和 $V$）并且同属一个集合内的点两两不相连（$E_{in U} = E_{in V} = \emptyset$），即要么没有圈，要么圈所包含的边数必定是偶数。</li>
-<li><strong>二分图</strong> 的一个等价定义是：不含有 <strong>含奇数条边的环</strong> 的图。
+              <p>　本文主要介绍 <strong>DFS</strong> 的 <em>C++</em> 和 <em>C</em> 语言实现，并借助 <a href="https://leetcode.com/">LeetCode</a> 上的一道题，说说基本的 <strong>DFS</strong> 在问题求解中的应用。</p>
+<h3 id="What’s-D-epth-F-irst-S-earch"><a href="#What’s-D-epth-F-irst-S-earch" class="headerlink" title="What’s D(epth)F(irst)S(earch)"></a>What’s D(epth)F(irst)S(earch)</h3><p>　深度优先搜索算法（Depth First Search），是搜索算法的一种。是沿着树的深度遍历树的节点，尽可能深的搜索树的分支。当节点 <strong>N</strong> 的所有边都己被探寻过，搜索将回溯到发现节点 <strong>N</strong> 的那条边的起始节点，这一过程一直进行到已发现从源节点可达的所有节点为止。<br>　如果还存在未被发现的节点，则选择其中一个作为源节点并重复以上过程，整个进程反复进行直到所有节点都被访问为止。<br>
           
       
     </div>
@@ -412,12 +410,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/06/01/Algorithms_BiGraphMatching/#more">more >></a>
+          <a href="/2017/03/15/Algorithms_DFS/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -860,88 +858,6 @@
 
 
   
-    <article id="post-Algorithms_Minimum Spanning Tree" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/06/Algorithms_Minimum Spanning Tree/" class="article-date">
-      <time datetime="2017-04-06T06:00:22.000Z" itemprop="datePublished">2017-04-06</time>
-</a>
-
-
-
- 
-    <a href="/2017/04/06/Algorithms_Minimum Spanning Tree/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/04/06/Algorithms_Minimum Spanning Tree/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文将介绍带权图的最小生成树（Minimum Spanning Tree）算法：给定一个无向图 G，并且它的每条边均有权值，则 MST 是一个包括 G 的所有顶点及边的子集的图，这个子集保证图是连通的，并且子集中所有边的权值之和为所有子集中最小的。<br>　本文中介绍两种求解图的最小生成树的算法：Prim 算法和 Kruskal 算法，这两种算法都是贪心算法。一般而言，贪心策略不一定能保证找到全局最优解，但是对最小生成树问题来说，贪心策略能获得具有最小权值的生成树。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/06/Algorithms_Minimum Spanning Tree/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-Algorithms_NP-Complete(I)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1003,6 +919,88 @@
       
         <p class="article-more-link">
           <a href="/2017/06/08/Algorithms_NP-Complete(I)/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_Minimum Spanning Tree" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/06/Algorithms_Minimum Spanning Tree/" class="article-date">
+      <time datetime="2017-04-06T06:00:22.000Z" itemprop="datePublished">2017-04-06</time>
+</a>
+
+
+
+ 
+    <a href="/2017/04/06/Algorithms_Minimum Spanning Tree/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/04/06/Algorithms_Minimum Spanning Tree/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/06/Algorithms_Minimum Spanning Tree/">算法设计与分析[0007] Minimum Spanning Tree（最小生成树）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　本文将介绍带权图的最小生成树（Minimum Spanning Tree）算法：给定一个无向图 G，并且它的每条边均有权值，则 MST 是一个包括 G 的所有顶点及边的子集的图，这个子集保证图是连通的，并且子集中所有边的权值之和为所有子集中最小的。<br>　本文中介绍两种求解图的最小生成树的算法：Prim 算法和 Kruskal 算法，这两种算法都是贪心算法。一般而言，贪心策略不一定能保证找到全局最优解，但是对最小生成树问题来说，贪心策略能获得具有最小权值的生成树。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/04/06/Algorithms_Minimum Spanning Tree/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
