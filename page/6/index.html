@@ -271,22 +271,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-Algorithms_Some Shortest-path Algorithms" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_Dynamic Programming(I)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/" class="article-date">
-      <time datetime="2017-03-29T06:00:22.000Z" itemprop="datePublished">2017-03-29</time>
+      <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/" class="article-date">
+      <time datetime="2017-04-13T06:00:22.000Z" itemprop="datePublished">2017-04-13</time>
 </a>
 
 
 
  
-    <a href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/#comments" title="查看评论">
+    <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/03/29/Algorithms_Some Shortest-path Algorithms/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/04/13/Algorithms_Dynamic Programming(I)/"></span>
         
     </a>
 
@@ -301,7 +301,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/">算法设计与分析[0006] Some Shortest-path Algorithms（最短路径算法）</a>
+      <a class="article-title" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a>
     </h1>
   
 
@@ -311,12 +311,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　本文介绍几种常见的最短路径算法：</p>
-<ul>
-<li>Breadth-first Search 无权最短路径算法；</li>
-<li>Dijkstra 带权（非负权）图的单源最短路算法；</li>
-<li>Bellman-Ford 带权（可负权）图的单源最短路算法；</li>
-<li>Floyd-Warshall 带权（可负权）图的全源最短路算法，<br>　包括它们各自的<strong>使用条件&amp;范围</strong>，<strong>算法原理介绍</strong>以及<strong>代码实现</strong>。
+              <p>　本文通过 <strong>Unique Paths <a href="https://leetcode.com/problems/unique-paths/#/description">[I]</a> &amp; <a href="https://leetcode.com/problems/unique-paths-ii/#/description">[II]</a></strong> 两道题从普通的递归思路到动态规划两种方式的求解尝试，希望能够初步分析如何根据动态规划的思路，进行问题求解。<br>
           
       
     </div>
@@ -331,12 +326,97 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/03/29/Algorithms_Some Shortest-path Algorithms/#more">more >></a>
+          <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/" class="article-date">
+      <time datetime="2015-05-24T12:32:23.000Z" itemprop="datePublished">2015-05-24</time>
+</a>
+
+
+
+ 
+    <a href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <ol>
+<li><p>下载配置所需的所有文件(<strong>内含Intel OpenCL的SDK(Win7及Win8.1)</strong>)<br><a href="http://yunpan.cn/cVfMshDNjNBS5">点击获取</a> 访问密码<code>e085</code>（<font color="red">因网盘失效及版本过久，建议自行前往<a href="https://software.intel.com/en-us/intel-opencl/download">官网</a>下载</font>）;</p>
+</li>
+<li><p>解压<strong>intel_sdk_for_ocl_applications_2013.64050.zip</strong>到本地，双击setup.exe开始安装(安装后可将整个文件夹删除)，记住安装路径(可以自定义安装)。win8.1直接双击<strong>intel_sdk_for_ocl_applications_2014_x64_setup.msi</strong>进行安装;</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/OpenCL/">OpenCL</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCL/">OpenCL</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -445,22 +525,22 @@
 
 
   
-    <article id="post-programPearls_Coding中的编码问题之系统学习" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_ICP" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/" class="article-date">
-      <time datetime="2016-02-22T04:11:03.000Z" itemprop="datePublished">2016-02-22</time>
+      <a href="/2017/07/21/Algorithms_ICP/" class="article-date">
+      <time datetime="2017-07-21T12:02:22.000Z" itemprop="datePublished">2017-07-21</time>
 </a>
 
 
 
  
-    <a href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/#comments" title="查看评论">
+    <a href="/2017/07/21/Algorithms_ICP/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/02/22/programPearls_Coding中的编码问题之系统学习/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/21/Algorithms_ICP/"></span>
         
     </a>
 
@@ -475,7 +555,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a>
+      <a class="article-title" href="/2017/07/21/Algorithms_ICP/">[0024] Iterative Closest Points（迭代最近点）</a>
     </h1>
   
 
@@ -485,9 +565,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a><br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/25/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%9B%9E%E9%A1%BE&amp;%E6%B7%B1%E5%85%A5/#more">《Coding中的编码问题之回顾&amp;深入》</a></font>
-
-<p>　　大家在看完<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a>后，估计对字符编码应该有一个总览性的理解了。本文借 <strong>开源中国</strong> 上<a href="http://my.oschina.net/goldenshaw/blog?disp=2&amp;p=1&amp;catalog=536953">《字符集编码系列》</a>系列博文为大家详细介绍字符编码的诸多细节，相信看完本文后，一定能一一解决你到目前积累的绝大多数疑问，让我们带着疑问现在就开始吧！<br>
+              <h3 id="ICP-算法简介"><a href="#ICP-算法简介" class="headerlink" title="ICP 算法简介"></a>ICP 算法简介</h3><ul>
+<li>由<strong>点云配准</strong> 说起<blockquote>
+<p>　<strong>Point cloud registration</strong>, is the process of finding a spatial transformation that aligns two point clouds. The purpose is to merge point clouds of multiple views into a globally consistent model.<br>　Iterative Closest Points (ICP) is an algorithm employed to minimize the difference between two clouds of points. In the algorithm, target point cloud, is kept fixed, while the other one, the source, is transformed to best match the reference (the target). The algorithm iteratively revises the transformation (combination of translation and rotation) needed to minimize the distance from the source to the reference point cloud.
           
       
     </div>
@@ -496,18 +576,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/字符编码/">字符编码</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a><a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/LiDAR/">LiDAR</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Encoding/">Encoding</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3D/">3D</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/#more">more >></a>
+          <a href="/2017/07/21/Algorithms_ICP/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -611,22 +691,22 @@
 
 
   
-    <article id="post-Algorithms_ICP" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-tool_NotePad" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/21/Algorithms_ICP/" class="article-date">
-      <time datetime="2017-07-21T12:02:22.000Z" itemprop="datePublished">2017-07-21</time>
+      <a href="/2016/02/02/tool_NotePad/" class="article-date">
+      <time datetime="2016-02-02T09:13:06.000Z" itemprop="datePublished">2016-02-02</time>
 </a>
 
 
 
  
-    <a href="/2017/07/21/Algorithms_ICP/#comments" title="查看评论">
+    <a href="/2016/02/02/tool_NotePad/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/21/Algorithms_ICP/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/02/02/tool_NotePad/"></span>
         
     </a>
 
@@ -641,7 +721,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/21/Algorithms_ICP/">[0024] Iterative Closest Points（迭代最近点）</a>
+      <a class="article-title" href="/2016/02/02/tool_NotePad/">NotePad++</a>
     </h1>
   
 
@@ -651,9 +731,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h3 id="ICP-算法简介"><a href="#ICP-算法简介" class="headerlink" title="ICP 算法简介"></a>ICP 算法简介</h3><ul>
-<li>由<strong>点云配准</strong> 说起<blockquote>
-<p>　<strong>Point cloud registration</strong>, is the process of finding a spatial transformation that aligns two point clouds. The purpose is to merge point clouds of multiple views into a globally consistent model.<br>　Iterative Closest Points (ICP) is an algorithm employed to minimize the difference between two clouds of points. In the algorithm, target point cloud, is kept fixed, while the other one, the source, is transformed to best match the reference (the target). The algorithm iteratively revises the transformation (combination of translation and rotation) needed to minimize the distance from the source to the reference point cloud.
+              <p>　　简单说说<strong>NotePad++</strong>几个实用的地方，特别是在字符编码，字节查看这方面很有用处。<br>
           
       
     </div>
@@ -662,18 +740,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a><a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/LiDAR/">LiDAR</a>
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/小工具/">小工具</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3D/">3D</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Encoding/">Encoding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NotePad/">NotePad++</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/07/21/Algorithms_ICP/#more">more >></a>
+          <a href="/2016/02/02/tool_NotePad/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -758,88 +836,6 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
     </div>
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-tool_NotePad" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/02/02/tool_NotePad/" class="article-date">
-      <time datetime="2016-02-02T09:13:06.000Z" itemprop="datePublished">2016-02-02</time>
-</a>
-
-
-
- 
-    <a href="/2016/02/02/tool_NotePad/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/02/02/tool_NotePad/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/02/tool_NotePad/">NotePad++</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　简单说说<strong>NotePad++</strong>几个实用的地方，特别是在字符编码，字节查看这方面很有用处。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/小工具/">小工具</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Encoding/">Encoding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NotePad/">NotePad++</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/02/02/tool_NotePad/#more">more >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>
