@@ -271,22 +271,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-TACouses_ES2017_PriorityInversionbyResourceSharing" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-ROS_ROS_Basics" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/" class="article-date">
-      <time datetime="2017-10-24T04:50:14.000Z" itemprop="datePublished">2017-10-24</time>
+      <a href="/2016/10/02/ROS_ROS_Basics/" class="article-date">
+      <time datetime="2016-10-02T13:18:03.000Z" itemprop="datePublished">2016-10-02</time>
 </a>
 
 
 
  
-    <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/#comments" title="查看评论">
+    <a href="/2016/10/02/ROS_ROS_Basics/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/10/02/ROS_ROS_Basics/"></span>
         
     </a>
 
@@ -301,7 +301,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/">嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling</a>
+      <a class="article-title" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a>
     </h1>
   
 
@@ -311,7 +311,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　Real-time systems are collections of tasks where in addition to any <strong>ordering constraints</strong> imposed by precedences between the tasks, there are also <strong>timing constraints</strong>, requiring a scheduling strategy. Classical <font color="blue">real-time scheduling</font>（实时调度） for <strong>Periodic Tasks</strong> contains <strong>Periodic Rate Monotonic (RM)</strong> as well as <strong>Earliest Deadline First (EDF)</strong>. What’s more, tasks <em>share resources</em> and use <em>mutual exclusion</em> to guard access to those resources, resulting in <strong>Scheduling Anomalies</strong>（调度异常）.<br>　本文将讲述 <strong>Resources Sharing</strong> 给 <font color="blue">real-time scheduling</font> 带来的 <strong>Priority Inversion</strong>（优先级反转）异常，并将重点介绍对应的解决办法：Priority Inheritance Protocol (<strong>PIP</strong>)、Priority Ceiling Protocol (<strong>PCP</strong>)、Stack Resource Policy (<strong>SRP</strong>)。
+              <p>　　ROS 基本概念以及经常使用的命令。</p>
+<h3 id="ROS-文件系统"><a href="#ROS-文件系统" class="headerlink" title="ROS 文件系统"></a>ROS 文件系统</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取软件包有关信息</span></span><br><span class="line">xxx@...$ rospack find [package-name]</span><br><span class="line"><span class="comment"># 查看环境变量(ROS_PACKAGE_PATH)</span></span><br><span class="line">xxx@...$ <span class="built_in">export</span> | grep ROS</span><br></pre></td></tr></table></figure>
           
       
     </div>
@@ -320,14 +321,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/EmbeddedSystem/">EmbeddedSystem</a>
+    <a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/ROS/">ROS</a>
     </div>
 
 
       
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
+    </div>
+
       
         <p class="article-more-link">
-          <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/#more">more >></a>
+          <a href="/2016/10/02/ROS_ROS_Basics/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

@@ -438,22 +438,22 @@
 
 
   
-    <article id="post-Algorithms_GraphProblems" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-linux_瞎谈Socket编程_2" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/06/26/Algorithms_GraphProblems/" class="article-date">
-      <time datetime="2017-06-26T12:26:22.000Z" itemprop="datePublished">2017-06-26</time>
+      <a href="/2016/07/16/linux_瞎谈Socket编程_2/" class="article-date">
+      <time datetime="2016-07-16T09:28:00.000Z" itemprop="datePublished">2016-07-16</time>
 </a>
 
 
 
  
-    <a href="/2017/06/26/Algorithms_GraphProblems/#comments" title="查看评论">
+    <a href="/2016/07/16/linux_瞎谈Socket编程_2/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/06/26/Algorithms_GraphProblems/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/07/16/linux_瞎谈Socket编程_2/"></span>
         
     </a>
 
@@ -468,7 +468,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/26/Algorithms_GraphProblems/">算法设计与分析[0020] 几个有关图的问题</a>
+      <a class="article-title" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a>
     </h1>
   
 
@@ -478,18 +478,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h4 id="有向图-vs-无向图"><a href="#有向图-vs-无向图" class="headerlink" title="有向图 vs 无向图"></a>有向图 vs 无向图</h4><ul>
-<li>有向图强调<strong>出入度</strong>的概念；无向图，其<strong>邻接矩阵</strong> 是一个对称矩阵。</li>
-<li>无向图边的两端是对称的，无向图讲究<strong>连通</strong>这个概念，没有<strong>方向</strong>，没有<strong>拓扑</strong>。</li>
-</ul>
-<h4 id="判断图是否连通？（一个图有几个连通分量）"><a href="#判断图是否连通？（一个图有几个连通分量）" class="headerlink" title="判断图是否连通？（一个图有几个连通分量）"></a>判断图是否连通？（一个图有几个连通分量）</h4><ul>
-<li>从一个指定的点开始，通过不同的策略去遍历这个图，有深度遍历和广度遍历。</li>
-<li>每次经过一个节点的时候，首先判断一下这个节点是否已经访问过了，如果没有访问过，则这个节点可以作为下一次继续遍历的候选。</li>
-<li>如果这个图是连通的话，这种方法最终会覆盖到整个图。所以可以采用一种计数统计的方式来实现。<ul>
-<li>比如说每次访问一个以前没有遍历的节点，则将对应的计数加一。这样当最后遍历结束后，如果统计的节点和图本身的节点一样的话，表示这个图是连通的，否则表示不连通。</li>
-</ul>
-</li>
-<li>这种方法用来判断整个图是否为连通的时候，实际上只要给定一个点，然后按照给定的步骤可以把该点所连接的所有点都涵盖到。如果有其它分隔的部分则不会再处理了，所以，通过这种办法我们在图不是连通的情况下，它只需要涵盖图的一部分就执行结束了。最坏的情况时间复杂度也就是$O(V+E)$。
+              <h2 id="数据传输方式"><a href="#数据传输方式" class="headerlink" title="数据传输方式"></a><font color="#F40D64">数据传输方式</font></h2><p>　　<strong>SOCK_STREAM</strong>　　　　面向连接　　　　　　　　准确性/相对较慢　　　<font color="red">TCP</font><br>　　<strong>SOCK_DGRAM</strong>　　　　 无连接的传输方式    　　　　视频/音频    　　　　　　<font color="red">UDP</font><br><strong>Server</strong><br>　1. 创建套接字　　　　　　　　　　　　　　　　　<font color="green">int sock = socket(AF_INET, SOCK_STREAM, 0);</font><br>　2. 将套接字和IP、端口绑定　　　　　　　　　　　<font color="green">bind(sock, (struct sockaddr*)&amp;serv_addr, sizeof(serv_addr));</font><br>　3. 进入监听状态，等待客户端请求　　　　　　　　<font color="green">listen(…);</font><br>    　　　　　　　　　　　　　　　　　　　　　　　　<font color="green">accept(…);</font><br>　4. 接受客户端数据/向客户端发送数据　　　　　　　<font color="green">read(…)/write(…);</font>　　　　　　　　　　　　　　<br>　5. 关闭套接字　　　　　　　　　　　　　　　　　<font color="green">close();</font></p>
+<p><strong>Client</strong><br>　1. 创建套接字<br>　2. 向服务器(特定的IP和端口)发送请求　　　　　　　<font color="green">connect(…);</font><br>　3. 读取服务器传回的数据/向服务器发送数据　　　　<font color="green">read/write(sock, char*, sizeof(…));</font><br>　4. 关闭套接字<br>
           
       
     </div>
@@ -498,18 +488,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/网络编程/">网络编程</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/06/26/Algorithms_GraphProblems/#more">more >></a>
+          <a href="/2016/07/16/linux_瞎谈Socket编程_2/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -618,22 +608,22 @@
 
 
   
-    <article id="post-linux_瞎谈Socket编程_2" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_GraphProblems" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/07/16/linux_瞎谈Socket编程_2/" class="article-date">
-      <time datetime="2016-07-16T09:28:00.000Z" itemprop="datePublished">2016-07-16</time>
+      <a href="/2017/06/26/Algorithms_GraphProblems/" class="article-date">
+      <time datetime="2017-06-26T12:26:22.000Z" itemprop="datePublished">2017-06-26</time>
 </a>
 
 
 
  
-    <a href="/2016/07/16/linux_瞎谈Socket编程_2/#comments" title="查看评论">
+    <a href="/2017/06/26/Algorithms_GraphProblems/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/07/16/linux_瞎谈Socket编程_2/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/06/26/Algorithms_GraphProblems/"></span>
         
     </a>
 
@@ -648,7 +638,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/16/linux_瞎谈Socket编程_2/">瞎谈 Socket 编程(二)</a>
+      <a class="article-title" href="/2017/06/26/Algorithms_GraphProblems/">算法设计与分析[0020] 几个有关图的问题</a>
     </h1>
   
 
@@ -658,8 +648,18 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h2 id="数据传输方式"><a href="#数据传输方式" class="headerlink" title="数据传输方式"></a><font color="#F40D64">数据传输方式</font></h2><p>　　<strong>SOCK_STREAM</strong>　　　　面向连接　　　　　　　　准确性/相对较慢　　　<font color="red">TCP</font><br>　　<strong>SOCK_DGRAM</strong>　　　　 无连接的传输方式    　　　　视频/音频    　　　　　　<font color="red">UDP</font><br><strong>Server</strong><br>　1. 创建套接字　　　　　　　　　　　　　　　　　<font color="green">int sock = socket(AF_INET, SOCK_STREAM, 0);</font><br>　2. 将套接字和IP、端口绑定　　　　　　　　　　　<font color="green">bind(sock, (struct sockaddr*)&amp;serv_addr, sizeof(serv_addr));</font><br>　3. 进入监听状态，等待客户端请求　　　　　　　　<font color="green">listen(…);</font><br>    　　　　　　　　　　　　　　　　　　　　　　　　<font color="green">accept(…);</font><br>　4. 接受客户端数据/向客户端发送数据　　　　　　　<font color="green">read(…)/write(…);</font>　　　　　　　　　　　　　　<br>　5. 关闭套接字　　　　　　　　　　　　　　　　　<font color="green">close();</font></p>
-<p><strong>Client</strong><br>　1. 创建套接字<br>　2. 向服务器(特定的IP和端口)发送请求　　　　　　　<font color="green">connect(…);</font><br>　3. 读取服务器传回的数据/向服务器发送数据　　　　<font color="green">read/write(sock, char*, sizeof(…));</font><br>　4. 关闭套接字<br>
+              <h4 id="有向图-vs-无向图"><a href="#有向图-vs-无向图" class="headerlink" title="有向图 vs 无向图"></a>有向图 vs 无向图</h4><ul>
+<li>有向图强调<strong>出入度</strong>的概念；无向图，其<strong>邻接矩阵</strong> 是一个对称矩阵。</li>
+<li>无向图边的两端是对称的，无向图讲究<strong>连通</strong>这个概念，没有<strong>方向</strong>，没有<strong>拓扑</strong>。</li>
+</ul>
+<h4 id="判断图是否连通？（一个图有几个连通分量）"><a href="#判断图是否连通？（一个图有几个连通分量）" class="headerlink" title="判断图是否连通？（一个图有几个连通分量）"></a>判断图是否连通？（一个图有几个连通分量）</h4><ul>
+<li>从一个指定的点开始，通过不同的策略去遍历这个图，有深度遍历和广度遍历。</li>
+<li>每次经过一个节点的时候，首先判断一下这个节点是否已经访问过了，如果没有访问过，则这个节点可以作为下一次继续遍历的候选。</li>
+<li>如果这个图是连通的话，这种方法最终会覆盖到整个图。所以可以采用一种计数统计的方式来实现。<ul>
+<li>比如说每次访问一个以前没有遍历的节点，则将对应的计数加一。这样当最后遍历结束后，如果统计的节点和图本身的节点一样的话，表示这个图是连通的，否则表示不连通。</li>
+</ul>
+</li>
+<li>这种方法用来判断整个图是否为连通的时候，实际上只要给定一个点，然后按照给定的步骤可以把该点所连接的所有点都涵盖到。如果有其它分隔的部分则不会再处理了，所以，通过这种办法我们在图不是连通的情况下，它只需要涵盖图的一部分就执行结束了。最坏的情况时间复杂度也就是$O(V+E)$。
           
       
     </div>
@@ -668,18 +668,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/网络编程/">网络编程</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2016/07/16/linux_瞎谈Socket编程_2/#more">more >></a>
+          <a href="/2017/06/26/Algorithms_GraphProblems/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -786,89 +786,6 @@
 
 
   
-    <article id="post-Algorithms_BFS" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/22/Algorithms_BFS/" class="article-date">
-      <time datetime="2017-03-22T06:00:22.000Z" itemprop="datePublished">2017-03-22</time>
-</a>
-
-
-
- 
-    <a href="/2017/03/22/Algorithms_BFS/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/03/22/Algorithms_BFS/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/22/Algorithms_BFS/">算法设计与分析[0005] Breadth First Search（广度优先搜索）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　本文主要介绍 <strong>BFS</strong> 的 <em>C++</em> 和 <em>C</em> 语言实现，并借助 <a href="https://leetcode.com/">LeetCode</a> 上的一道题，说说基本的 <strong>BFS</strong> 在问题求解中的应用。</p>
-<h3 id="What’s-B-readth-F-irst-S-earch"><a href="#What’s-B-readth-F-irst-S-earch" class="headerlink" title="What’s B(readth)F(irst)S(earch)"></a>What’s B(readth)F(irst)S(earch)</h3><p>　广度优先搜索算法（Breadth First Search），又叫宽度优先搜索，或横向优先搜索。是从根节点开始，沿着树的宽度遍历树的节点。如果所有节点均被访问，则算法中止。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/03/22/Algorithms_BFS/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-TACouses_ES2017_Java" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -947,22 +864,22 @@
 
 
   
-    <article id="post-Algorithms_Dynamic Programming(I)" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_DFS" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/" class="article-date">
-      <time datetime="2017-04-13T06:00:22.000Z" itemprop="datePublished">2017-04-13</time>
+      <a href="/2017/03/15/Algorithms_DFS/" class="article-date">
+      <time datetime="2017-03-15T06:00:22.000Z" itemprop="datePublished">2017-03-15</time>
 </a>
 
 
 
  
-    <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#comments" title="查看评论">
+    <a href="/2017/03/15/Algorithms_DFS/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/04/13/Algorithms_Dynamic Programming(I)/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/03/15/Algorithms_DFS/"></span>
         
     </a>
 
@@ -977,7 +894,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/13/Algorithms_Dynamic Programming(I)/">算法设计与分析[0008] Dynamic Programming(I)（Unique Paths）</a>
+      <a class="article-title" href="/2017/03/15/Algorithms_DFS/">算法设计与分析[0004] Depth First Search（深度优先搜索）</a>
     </h1>
   
 
@@ -987,7 +904,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　本文通过 <strong>Unique Paths <a href="https://leetcode.com/problems/unique-paths/#/description">[I]</a> &amp; <a href="https://leetcode.com/problems/unique-paths-ii/#/description">[II]</a></strong> 两道题从普通的递归思路到动态规划两种方式的求解尝试，希望能够初步分析如何根据动态规划的思路，进行问题求解。<br>
+              <p>　本文主要介绍 <strong>DFS</strong> 的 <em>C++</em> 和 <em>C</em> 语言实现，并借助 <a href="https://leetcode.com/">LeetCode</a> 上的一道题，说说基本的 <strong>DFS</strong> 在问题求解中的应用。</p>
+<h3 id="What’s-D-epth-F-irst-S-earch"><a href="#What’s-D-epth-F-irst-S-earch" class="headerlink" title="What’s D(epth)F(irst)S(earch)"></a>What’s D(epth)F(irst)S(earch)</h3><p>　深度优先搜索算法（Depth First Search），是搜索算法的一种。是沿着树的深度遍历树的节点，尽可能深的搜索树的分支。当节点 <strong>N</strong> 的所有边都己被探寻过，搜索将回溯到发现节点 <strong>N</strong> 的那条边的起始节点，这一过程一直进行到已发现从源节点可达的所有节点为止。<br>　如果还存在未被发现的节点，则选择其中一个作为源节点并重复以上过程，整个进程反复进行直到所有节点都被访问为止。<br>
           
       
     </div>
@@ -1007,7 +925,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/04/13/Algorithms_Dynamic Programming(I)/#more">more >></a>
+          <a href="/2017/03/15/Algorithms_DFS/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -1090,6 +1008,96 @@
       
         <p class="article-more-link">
           <a href="/2015/04/30/hexo_win搭建hexo/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hexo_Theme Yelee Migrant Note" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/16/hexo_Theme Yelee Migrant Note/" class="article-date">
+      <time datetime="2016-09-16T06:54:28.000Z" itemprop="datePublished">2016-09-16</time>
+</a>
+
+
+
+ 
+    <a href="/2016/09/16/hexo_Theme Yelee Migrant Note/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/16/hexo_Theme Yelee Migrant Note/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/16/hexo_Theme Yelee Migrant Note/">hexo博客主题Yelee迁移笔记</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <blockquote>
+<p>References:</p>
+<ul>
+<li><a href="http://moxfive.coding.me/yelee/">Yelee 主题使用说明</a></li>
+<li><a href="https://github.com/MOxFIVE/hexo-theme-yelee">Github: 简而不减 Hexo 双栏博客主题</a></li>
+</ul>
+</blockquote>
+<p>　　<strong><a href="http://moxfive.xyz/">MOxFIVE</a></strong> 自定义的 <strong>Yelee</strong> 这个主题真的很好用，迁移之后我的几个体会是:<br>　　　a). 动态效果很酷炫，整个界面给人的感觉就很满意<br>　　　b). 添加多说评论栏是如此的简单<br>　　　c). 自带的站点、页面访问量统计，很不错<br>　　　d). 整个源码的框架似乎更合理了，你可以自己浏览一下源码，感同身受吧？</p>
+<p>　　下面是本人将自己的博客主题迁移到 <strong>Yelee</strong> 的过程以及其中做的一些自定义适配。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/09/16/hexo_Theme Yelee Migrant Note/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

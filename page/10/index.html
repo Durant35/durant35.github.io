@@ -271,22 +271,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-Algorithms_OnlineJudge4Huawei2017" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_LeastSquaresLineFitting" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/13/Algorithms_OnlineJudge4Huawei2017/" class="article-date">
-      <time datetime="2017-07-13T00:55:22.000Z" itemprop="datePublished">2017-07-13</time>
+      <a href="/2017/07/21/Algorithms_LeastSquaresLineFitting/" class="article-date">
+      <time datetime="2017-07-21T12:02:22.000Z" itemprop="datePublished">2017-07-21</time>
 </a>
 
 
 
  
-    <a href="/2017/07/13/Algorithms_OnlineJudge4Huawei2017/#comments" title="查看评论">
+    <a href="/2017/07/21/Algorithms_LeastSquaresLineFitting/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/13/Algorithms_OnlineJudge4Huawei2017/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/21/Algorithms_LeastSquaresLineFitting/"></span>
         
     </a>
 
@@ -301,7 +301,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/13/Algorithms_OnlineJudge4Huawei2017/">算法设计与分析[0023] 秋招华为在线笔试</a>
+      <a class="article-title" href="/2017/07/21/Algorithms_LeastSquaresLineFitting/">[0025] Least Squares Line Fitting（最小二乘法直线拟合）</a>
     </h1>
   
 
@@ -311,8 +311,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　昨晚华为在线笔试，三道编程题，结果倒在第二题上，刷了两题半，没能 AK。</p>
-<h4 id="第一题"><a href="#第一题" class="headerlink" title="第一题"></a>第一题</h4><p>　第一题是括号（“(”、“[”、“{”）匹配，想法也比较简单，就通过栈<code>stack</code>模拟，遇到开括号推入堆栈，每当遇到闭括号（“)”、“]”、“}”），就进行配对，满足配对就将栈顶的开括号弹出。假如最终的栈是空的，说明输入表达式不存在括号或者括号能够完全匹配。<br>　需要注意的是：①满足配对并不是<code>stack.top()==inputStr[currentIdx]</code>，而需要分上述三种括号进行一一配对；②当存在闭括号，但栈为空或者栈顶元素并不是配对的开括号，已经能够证明输入表达式括号不匹配了，此时可以跳出循环。
+              <p>　　<strong>最小二乘拟合</strong> 是一种数学上的近似和优化，利用已知的数据得出一条直线或者曲线，使之在坐标系上与已知数据之间的距离的平方和最小。<br>
           
       
     </div>
@@ -327,176 +326,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HUAWEI/">HUAWEI</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/07/13/Algorithms_OnlineJudge4Huawei2017/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo_push你的新博客到Github" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/01/22/hexo_push你的新博客到Github/" class="article-date">
-      <time datetime="2016-01-22T02:09:22.000Z" itemprop="datePublished">2016-01-22</time>
-</a>
-
-
-
- 
-    <a href="/2016/01/22/hexo_push你的新博客到Github/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/01/22/hexo_push你的新博客到Github/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/22/hexo_push你的新博客到Github/">hexo，push你的新博客到Github</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="第一步-为hexo配置你的Github"><a href="#第一步-为hexo配置你的Github" class="headerlink" title="第一步 为hexo配置你的Github"></a><font color="#F40D64"><strong>第一步 为hexo配置你的Github</strong></font></h2><p>　　首先编辑你hexo根目录下的<strong>_config.yml</strong>文件，找到以下内容并修改为github的部署方式<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Deployment 需要进行部署方式的修改</span><br><span class="line">## Docs: http:<span class="comment">//hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">  type: git 			#部署类型, 本文使用Github</span><br><span class="line">  repository: https:<span class="comment">//github.com/username/username.github.io.git </span></span><br><span class="line">        #部署的仓库的SSH</span><br><span class="line">  branch: master 		#部署分支,一般使用master主分支</span><br></pre></td></tr></table></figure></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/01/22/hexo_push你的新博客到Github/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo_hexo错误的分类或标签无法删除" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/" class="article-date">
-      <time datetime="2016-01-24T03:51:31.000Z" itemprop="datePublished">2016-01-24</time>
-</a>
-
-
-
- 
-    <a href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/01/24/hexo_hexo错误的分类或标签无法删除/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/">hexo错误的分类或标签无法删除</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　<strong>描述：</strong><br>　　　有的时候我们在编写<code>.md</code>文件时，可能一时没注意，将<code>categories:</code> 或<code>tags:</code>写错，直到通过<code>$ hexo s[erver]</code>预览时才发现；或者我们一开始定义了一个分类或一个标签，细想觉得不合适。这些情况都涉及到分类和标签的修改，但是有时我们会苦恼于，明明原先的分类/标签改掉了，可为何预览时他还在，折腾很久还是没有干掉他！！！<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/01/24/hexo_hexo错误的分类或标签无法删除/#more">more >></a>
+          <a href="/2017/07/21/Algorithms_LeastSquaresLineFitting/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -600,22 +435,22 @@
 
 
   
-    <article id="post-graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-hexo_hexo分级目录与多标签" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/" class="article-date">
-      <time datetime="2015-10-03T00:59:14.000Z" itemprop="datePublished">2015-10-03</time>
+      <a href="/2016/07/16/hexo_hexo分级目录与多标签/" class="article-date">
+      <time datetime="2016-07-16T08:11:05.000Z" itemprop="datePublished">2016-07-16</time>
 </a>
 
 
 
  
-    <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/#comments" title="查看评论">
+    <a href="/2016/07/16/hexo_hexo分级目录与多标签/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/07/16/hexo_hexo分级目录与多标签/"></span>
         
     </a>
 
@@ -630,7 +465,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a>
+      <a class="article-title" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a>
     </h1>
   
 
@@ -640,7 +475,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　<strong>本文介绍了使用MFRC500射频芯片搭建射频读写模块的完整设计，其中包括电源部分的设计，PCB天线设计，以及天线电路设计及相关的理论依据，公式计算</strong>。<br>
+              <p>　　无论是多标签还是分级目录，其最终目的都是为了更好的归档我们的文章，方便在查找时能够快速准确的翻开我们之前保存的博文。</p>
+<h2 id="多标签"><a href="#多标签" class="headerlink" title="多标签"></a><font color="#F40D64">多标签</font></h2><p>　　多标签，就是想把一篇文章同时归档到多个标签里面，这样，通过任一个标签都能索引到我们的博文。而，用作标签的，显然是我们之前抒写的博文内容的 <strong>Keywords</strong>。<br>　　可以通过以下方式实现 <strong>hexo</strong> 的多标签：<br><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tags: #文章标签可，空，多标签请用格式[tag1,tag2,tag3]，如下，注意!!"tags:"后面有个空格</span><br><span class="line">tags: [tag1, tag2, tag3, ...]</span><br><span class="line"><span class="section"># 下面这种方式似乎仅限于hexo 3.0，应该包括以上吧...</span></span><br><span class="line">tags: </span><br><span class="line"><span class="bullet">- </span>tags1</span><br><span class="line"><span class="bullet">- </span>tags2</span><br><span class="line"><span class="bullet">- </span>...</span><br></pre></td></tr></table></figure></p>
           
       
     </div>
@@ -649,18 +485,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/RFID/">RFID</a>
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PCB/">PCB</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/#more">more >></a>
+          <a href="/2016/07/16/hexo_hexo分级目录与多标签/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -764,6 +600,335 @@
 
 
   
+    <article id="post-TACouses_iotCourse_01 MFC-TabControl控件实现选项卡功能" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/09/28/TACouses_iotCourse_01 MFC-TabControl控件实现选项卡功能/" class="article-date">
+      <time datetime="2015-09-28T08:15:27.000Z" itemprop="datePublished">2015-09-28</time>
+</a>
+
+
+
+ 
+    <a href="/2015/09/28/TACouses_iotCourse_01 MFC-TabControl控件实现选项卡功能/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/09/28/TACouses_iotCourse_01 MFC-TabControl控件实现选项卡功能/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/28/TACouses_iotCourse_01 MFC-TabControl控件实现选项卡功能/">MFC TabControl控件实现选项卡功能</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　本文旨在指导大家如何通过使用<strong>Tab Control控件</strong>实现选项卡功能,构建整个读写器上位机软件的主要框架。在这个过程，大家将会初步接触并了解：<br>　　　　<strong>+1.　</strong> 什么是<strong>基于对话框</strong>的MFC程序;<br>　　　　<strong>+2.　</strong> <strong>Tab Control控件</strong>如何使用;<br>　　　　<strong>+3.　</strong> Windows程序的<strong>消息处理机制</strong>。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/09/28/TACouses_iotCourse_01 MFC-TabControl控件实现选项卡功能/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_OnlineJudge4Huawei2017" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/13/Algorithms_OnlineJudge4Huawei2017/" class="article-date">
+      <time datetime="2017-07-13T00:55:22.000Z" itemprop="datePublished">2017-07-13</time>
+</a>
+
+
+
+ 
+    <a href="/2017/07/13/Algorithms_OnlineJudge4Huawei2017/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/13/Algorithms_OnlineJudge4Huawei2017/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/13/Algorithms_OnlineJudge4Huawei2017/">算法设计与分析[0023] 秋招华为在线笔试</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　昨晚华为在线笔试，三道编程题，结果倒在第二题上，刷了两题半，没能 AK。</p>
+<h4 id="第一题"><a href="#第一题" class="headerlink" title="第一题"></a>第一题</h4><p>　第一题是括号（“(”、“[”、“{”）匹配，想法也比较简单，就通过栈<code>stack</code>模拟，遇到开括号推入堆栈，每当遇到闭括号（“)”、“]”、“}”），就进行配对，满足配对就将栈顶的开括号弹出。假如最终的栈是空的，说明输入表达式不存在括号或者括号能够完全匹配。<br>　需要注意的是：①满足配对并不是<code>stack.top()==inputStr[currentIdx]</code>，而需要分上述三种括号进行一一配对；②当存在闭括号，但栈为空或者栈顶元素并不是配对的开括号，已经能够证明输入表达式括号不匹配了，此时可以跳出循环。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HUAWEI/">HUAWEI</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/07/13/Algorithms_OnlineJudge4Huawei2017/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-graduatedesign_01 STM32_Keil$JLink" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/07/09/graduatedesign_01 STM32_Keil$JLink/" class="article-date">
+      <time datetime="2015-07-09T08:57:30.000Z" itemprop="datePublished">2015-07-09</time>
+</a>
+
+
+
+ 
+    <a href="/2015/07/09/graduatedesign_01 STM32_Keil$JLink/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/07/09/graduatedesign_01 STM32_Keil$JLink/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/09/graduatedesign_01 STM32_Keil$JLink/">(一) 搭建STM32开发环境</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　在正式开展STM32开发之前，我们需要花1-3天搭建开发环境和熟悉开发流程。本文为整个博客系列的第一篇，将带你按照以下几个步骤完成开发环境的搭建的测试，下一篇将为你介绍如何创建项目，通过这两讲熟悉开发流程，为后面的开发打下基础：<br>　　1. 安装JLink驱动，用于下载程序到开发板上；<br>　　2. 安装MDK-KEIL，用于开发程序；<br>　　3. 破解MDK-KEIL；<br>　　4. 使用开发板标准测试测试开发环境。<br>所有安装程序均可以从这里下载获取 <a href="http://yunpan.cn/ccKyYhhC56rGg">http://yunpan.cn/ccKyYhhC56rGg</a> 访问密码 <strong>eb4f</strong><br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/STM32/">STM32</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MCU/">MCU</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/07/09/graduatedesign_01 STM32_Keil$JLink/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/" class="article-date">
+      <time datetime="2015-10-03T00:59:14.000Z" itemprop="datePublished">2015-10-03</time>
+</a>
+
+
+
+ 
+    <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　<strong>本文介绍了使用MFRC500射频芯片搭建射频读写模块的完整设计，其中包括电源部分的设计，PCB天线设计，以及天线电路设计及相关的理论依据，公式计算</strong>。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/RFID/">RFID</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PCB/">PCB</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -828,171 +993,6 @@
       
         <p class="article-more-link">
           <a href="/2016/02/02/programPearls_Qt_借Qt中文乱码谈谈Coding中的编码问题/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/" class="article-date">
-      <time datetime="2015-07-15T07:54:25.000Z" itemprop="datePublished">2015-07-15</time>
-</a>
-
-
-
- 
-    <a href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/">快速搭建Android ADT开发环境(基于Win7&amp;Win8.1(both 64-bit),其他仅供参考)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　本教程将教你如何快速搭建起Android开发环境，其中结合了诸多网上经典教程的亮点，希望能够尽可能详细地描述环境搭建原理，同时，让你最方便快速的搭建起开发环境，进行后续更为重点的Android开发。<br>　　本教程在64位Win8.1下搭建，并在64位Win7虚拟机下亲测有效。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2015/07/15/Android_快速搭建Android-ADT开发环境-基于Win7-Win8-1-其他仅供参考/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo_hexo分级目录与多标签" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/16/hexo_hexo分级目录与多标签/" class="article-date">
-      <time datetime="2016-07-16T08:11:05.000Z" itemprop="datePublished">2016-07-16</time>
-</a>
-
-
-
- 
-    <a href="/2016/07/16/hexo_hexo分级目录与多标签/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/07/16/hexo_hexo分级目录与多标签/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/16/hexo_hexo分级目录与多标签/">hexo分级目录与多标签</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　无论是多标签还是分级目录，其最终目的都是为了更好的归档我们的文章，方便在查找时能够快速准确的翻开我们之前保存的博文。</p>
-<h2 id="多标签"><a href="#多标签" class="headerlink" title="多标签"></a><font color="#F40D64">多标签</font></h2><p>　　多标签，就是想把一篇文章同时归档到多个标签里面，这样，通过任一个标签都能索引到我们的博文。而，用作标签的，显然是我们之前抒写的博文内容的 <strong>Keywords</strong>。<br>　　可以通过以下方式实现 <strong>hexo</strong> 的多标签：<br><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tags: #文章标签可，空，多标签请用格式[tag1,tag2,tag3]，如下，注意!!"tags:"后面有个空格</span><br><span class="line">tags: [tag1, tag2, tag3, ...]</span><br><span class="line"><span class="section"># 下面这种方式似乎仅限于hexo 3.0，应该包括以上吧...</span></span><br><span class="line">tags: </span><br><span class="line"><span class="bullet">- </span>tags1</span><br><span class="line"><span class="bullet">- </span>tags2</span><br><span class="line"><span class="bullet">- </span>...</span><br></pre></td></tr></table></figure></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/07/16/hexo_hexo分级目录与多标签/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

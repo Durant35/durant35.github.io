@@ -440,22 +440,22 @@
 
 
   
-    <article id="post-raspberry_using_an_external_wireless_card(CF-WU855P)" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-raspberry_enable-ssh-without-UI" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/" class="article-date">
-      <time datetime="2017-01-24T16:52:41.000Z" itemprop="datePublished">2017-01-25</time>
+      <a href="/2017/01/25/raspberry_enable-ssh-without-UI/" class="article-date">
+      <time datetime="2017-01-24T16:48:58.000Z" itemprop="datePublished">2017-01-25</time>
 </a>
 
 
 
  
-    <a href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/#comments" title="查看评论">
+    <a href="/2017/01/25/raspberry_enable-ssh-without-UI/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/01/25/raspberry_enable-ssh-without-UI/"></span>
         
     </a>
 
@@ -470,7 +470,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/">RaspberryPi, Use an external wireless card(ComFast-WU855P)</a>
+      <a class="article-title" href="/2017/01/25/raspberry_enable-ssh-without-UI/">RaspberryPi, enable ssh without UI</a>
     </h1>
   
 
@@ -480,7 +480,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　树莓派3已经自带无线网卡，这是一种极大的便捷，真正将树莓派变成躲在一个角落里，安静地搞事情的计算机。然而对于树莓派B+或者树莓派2，除了少数免驱的外接无线网卡外（树莓派系统已经自带了驱动），大多数外接无线网卡还是需要经过配置才能使用的，下面就介绍使用过的一款无线网卡（<a href="http://en.comfast.com.cn/product/WirelessAdapter/item-155.html">ComFast-WU855P</a>）的驱动配置过程，该无线网卡采用 <strong>REALTEK8192</strong> 高阶芯片（从<a href="https://detail.tmall.com/item.htm?spm=a230r.1.14.1.JY6QbF&amp;id=37237024789&amp;cm_id=140105335569ed55e27b&amp;abbucket=6&amp;skuId=57539293852">淘宝</a>上了解到的，不知道对不对），这是一款常用的芯片，本文安装的驱动理论上对采用该芯片的无线网卡都是可用的。</p>
+              <p>　　可能是我写录的树莓派系统image有问题吧，小伙伴都说默认应该是打开22端口，支持ssh的；但是我做的几张SD卡的系统都是不打开的，我很纳闷，怀疑用的是假的镜像吧。前几次都发生在实验室，显示器，HDMI线应有尽有，启动系统，简单地通过界面在系统的 <strong>Preferences</strong> 中开启ssh端口即可。然而这一次，发生在家里（因为之前一直没空写个关于树莓派外置无线网卡驱动安装的教程，想着利用寒假回家弄一弄），家里哪有实验室那么好的环境，所以，甭想通过界面操作开启。</p>
+<p>　　那究竟能不能通过直接修改SD卡里面的image文件内容，不用UI的方式，开启ssh端口呢？通过下面的捣鼓发现，这是可行的。</p>
           
       
     </div>
@@ -496,7 +497,90 @@
       
       
         <p class="article-more-link">
-          <a href="/2017/01/25/raspberry_using_an_external_wireless_card(CF-WU855P)/#more">more >></a>
+          <a href="/2017/01/25/raspberry_enable-ssh-without-UI/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Algorithms_Vertex$Edge connectivity degree" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/" class="article-date">
+      <time datetime="2017-06-24T06:00:22.000Z" itemprop="datePublished">2017-06-24</time>
+</a>
+
+
+
+ 
+    <a href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2017/06/24/Algorithms_Vertex$Edge connectivity degree/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/">算法设计与分析[0018] 图的点连通度和边连通度</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h4 id="基本概念？"><a href="#基本概念？" class="headerlink" title="基本概念？"></a>基本概念？</h4><ul>
+<li>点连通度（图的连通度）：对应一个图 $G$，对于所有点集 $U \subset V_G$，也就是 $V_G$ 的子集中，使得 $G-U$（在图 $G$ 中删去 $U$ 和与 $U$ 关联的边）要么是一个非连通图，要么就是一个平凡图，其中最小的集合 $U$ 的大小 $|U|$ 就是图 $G$ 的<strong>点连通度</strong>（有时候也直接称为<strong>图的连通度</strong>）。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/06/24/Algorithms_Vertex$Edge connectivity degree/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -600,22 +684,22 @@
 
 
   
-    <article id="post-ROS_ROS_Basics" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-ROS_&lt;arg&gt;$&lt;param&gt;$&lt;rosparam&gt;" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/10/02/ROS_ROS_Basics/" class="article-date">
-      <time datetime="2016-10-02T13:18:03.000Z" itemprop="datePublished">2016-10-02</time>
+      <a href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/" class="article-date">
+      <time datetime="2017-07-14T12:18:03.000Z" itemprop="datePublished">2017-07-14</time>
 </a>
 
 
 
  
-    <a href="/2016/10/02/ROS_ROS_Basics/#comments" title="查看评论">
+    <a href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/10/02/ROS_ROS_Basics/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/14/ROS_&lt;arg&gt;$&lt;param&gt;$&lt;rosparam&gt;/"></span>
         
     </a>
 
@@ -630,7 +714,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/02/ROS_ROS_Basics/">ROS Basics</a>
+      <a class="article-title" href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/">ROS launch file: &lt;arg&gt; vs &lt;param&gt; vs &lt;rosparam&gt;</a>
     </h1>
   
 
@@ -640,8 +724,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　ROS 基本概念以及经常使用的命令。</p>
-<h3 id="ROS-文件系统"><a href="#ROS-文件系统" class="headerlink" title="ROS 文件系统"></a>ROS 文件系统</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取软件包有关信息</span></span><br><span class="line">xxx@...$ rospack find [package-name]</span><br><span class="line"><span class="comment"># 查看环境变量(ROS_PACKAGE_PATH)</span></span><br><span class="line">xxx@...$ <span class="built_in">export</span> | grep ROS</span><br></pre></td></tr></table></figure>
+              <p>　　本文介绍在 ROS 的 launch 文件中经常被使用到的三个与参数设置有关的标签 <code>&lt;arg&gt;</code>、<code>&lt;param&gt;</code>、<code>rosparam</code>。
           
       
     </div>
@@ -661,7 +744,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/10/02/ROS_ROS_Basics/#more">more >></a>
+          <a href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -683,22 +766,22 @@
 
 
   
-    <article id="post-TACouses_ES2017_MoCs" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-TACouses_ES2017_PriorityInversionbyResourceSharing" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/10/24/TACouses_ES2017_MoCs/" class="article-date">
+      <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/" class="article-date">
       <time datetime="2017-10-24T04:50:14.000Z" itemprop="datePublished">2017-10-24</time>
 </a>
 
 
 
  
-    <a href="/2017/10/24/TACouses_ES2017_MoCs/#comments" title="查看评论">
+    <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/10/24/TACouses_ES2017_MoCs/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/"></span>
         
     </a>
 
@@ -713,7 +796,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/24/TACouses_ES2017_MoCs/">嵌入式系统导论[03] Model of Computation</a>
+      <a class="article-title" href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/">嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling</a>
     </h1>
   
 
@@ -723,11 +806,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　承接前期<a href="http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/">DOL Functional Simulation 和 MPARM Simulation</a>的实验内容，结合在<strong>SystemC 系统设计</strong>中提到的<a href="http://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/">Y-chart</a>，本文将讨论在 Behavior 层面的系统建模：<strong>MoCs (Model of Computation)</strong>，希望对 DOL 的建模原理有一定认识：</p>
-<blockquote>
-<p>　To model streaming applications, the <strong>dataflow process network</strong> model of computation [Lee and Parks 1995], a subclass of <strong>Kahn process networks</strong> [Kahn 1974], has been adopted in the DOL design flow. </p>
-</blockquote>
-<p>　什么是<strong>dataflow process network</strong>？<strong>Kahn process networks</strong>又是什么？接下来我们将一一论述。
+              <p>　Real-time systems are collections of tasks where in addition to any <strong>ordering constraints</strong> imposed by precedences between the tasks, there are also <strong>timing constraints</strong>, requiring a scheduling strategy. Classical <font color="blue">real-time scheduling</font>（实时调度） for <strong>Periodic Tasks</strong> contains <strong>Periodic Rate Monotonic (RM)</strong> as well as <strong>Earliest Deadline First (EDF)</strong>. What’s more, tasks <em>share resources</em> and use <em>mutual exclusion</em> to guard access to those resources, resulting in <strong>Scheduling Anomalies</strong>（调度异常）.<br>　本文将讲述 <strong>Resources Sharing</strong> 给 <font color="blue">real-time scheduling</font> 带来的 <strong>Priority Inversion</strong>（优先级反转）异常，并将重点介绍对应的解决办法：Priority Inheritance Protocol (<strong>PIP</strong>)、Priority Ceiling Protocol (<strong>PCP</strong>)、Stack Resource Policy (<strong>SRP</strong>)。
           
       
     </div>
@@ -743,7 +822,7 @@
       
       
         <p class="article-more-link">
-          <a href="/2017/10/24/TACouses_ES2017_MoCs/#more">more >></a>
+          <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -847,22 +926,22 @@
 
 
   
-    <article id="post-ROS_&lt;arg&gt;$&lt;param&gt;$&lt;rosparam&gt;" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-TACouses_ES2017_MoCs" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/" class="article-date">
-      <time datetime="2017-07-14T12:18:03.000Z" itemprop="datePublished">2017-07-14</time>
+      <a href="/2017/10/24/TACouses_ES2017_MoCs/" class="article-date">
+      <time datetime="2017-10-24T04:50:14.000Z" itemprop="datePublished">2017-10-24</time>
 </a>
 
 
 
  
-    <a href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/#comments" title="查看评论">
+    <a href="/2017/10/24/TACouses_ES2017_MoCs/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/14/ROS_&lt;arg&gt;$&lt;param&gt;$&lt;rosparam&gt;/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/10/24/TACouses_ES2017_MoCs/"></span>
         
     </a>
 
@@ -877,7 +956,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/">ROS launch file: &lt;arg&gt; vs &lt;param&gt; vs &lt;rosparam&gt;</a>
+      <a class="article-title" href="/2017/10/24/TACouses_ES2017_MoCs/">嵌入式系统导论[03] Model of Computation</a>
     </h1>
   
 
@@ -887,92 +966,11 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　本文介绍在 ROS 的 launch 文件中经常被使用到的三个与参数设置有关的标签 <code>&lt;arg&gt;</code>、<code>&lt;param&gt;</code>、<code>rosparam</code>。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/自动驾驶/">自动驾驶</a><a class="article-category-link" href="/categories/自动驾驶/ROS/">ROS</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/07/14/ROS_<arg>$<param>$<rosparam>/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/" class="article-date">
-      <time datetime="2017-07-14T03:51:14.000Z" itemprop="datePublished">2017-07-14</time>
-</a>
-
-
-
- 
-    <a href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/">32-bit program on 64-bit OS &amp; 64-bit program on 32-bit OS</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h4 id="32-bit-program-on-64-bit-OS"><a href="#32-bit-program-on-64-bit-OS" class="headerlink" title="32-bit program on 64-bit OS"></a>32-bit program on 64-bit OS</h4><blockquote>
-<p><a href="https://www.viva64.com/en/k/0004/">Is it possible to run 64-bit applications in a 32-bit OS?</a></p>
+              <p>　承接前期<a href="http://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/">DOL Functional Simulation 和 MPARM Simulation</a>的实验内容，结合在<strong>SystemC 系统设计</strong>中提到的<a href="http://durant35.github.io/2017/09/26/TACouses_ES2017_SystemC/">Y-chart</a>，本文将讨论在 Behavior 层面的系统建模：<strong>MoCs (Model of Computation)</strong>，希望对 DOL 的建模原理有一定认识：</p>
+<blockquote>
+<p>　To model streaming applications, the <strong>dataflow process network</strong> model of computation [Lee and Parks 1995], a subclass of <strong>Kahn process networks</strong> [Kahn 1974], has been adopted in the DOL design flow. </p>
 </blockquote>
-<p>　　还是有一定的现实意义，比如经常有一些开源库只有 32-bit 版本，为了对其进行构建，需要在 64-bit 系统上配置 32-bit 环境（通常是 32-bit 的 C/C++ 基本库）。
+<p>　什么是<strong>dataflow process network</strong>？<strong>Kahn process networks</strong>又是什么？接下来我们将一一论述。
           
       
     </div>
@@ -981,14 +979,14 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/系统/">系统</a>
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/EmbeddedSystem/">EmbeddedSystem</a>
     </div>
 
 
       
       
         <p class="article-more-link">
-          <a href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/#more">more >></a>
+          <a href="/2017/10/24/TACouses_ES2017_MoCs/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
