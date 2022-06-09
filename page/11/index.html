@@ -271,22 +271,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_LeastSquaresLineFitting" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/" class="article-date">
-      <time datetime="2015-10-03T00:59:14.000Z" itemprop="datePublished">2015-10-03</time>
+      <a href="/2017/07/21/Algorithms_LeastSquaresLineFitting/" class="article-date">
+      <time datetime="2017-07-21T12:02:22.000Z" itemprop="datePublished">2017-07-21</time>
 </a>
 
 
 
  
-    <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/#comments" title="查看评论">
+    <a href="/2017/07/21/Algorithms_LeastSquaresLineFitting/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/21/Algorithms_LeastSquaresLineFitting/"></span>
         
     </a>
 
@@ -301,7 +301,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/">MFRC500 射频芯片射频读写模块完整设计</a>
+      <a class="article-title" href="/2017/07/21/Algorithms_LeastSquaresLineFitting/">[0025] Least Squares Line Fitting（最小二乘法直线拟合）</a>
     </h1>
   
 
@@ -311,7 +311,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　<strong>本文介绍了使用MFRC500射频芯片搭建射频读写模块的完整设计，其中包括电源部分的设计，PCB天线设计，以及天线电路设计及相关的理论依据，公式计算</strong>。<br>
+              <p>　　<strong>最小二乘拟合</strong> 是一种数学上的近似和优化，利用已知的数据得出一条直线或者曲线，使之在坐标系上与已知数据之间的距离的平方和最小。<br>
           
       
     </div>
@@ -320,18 +320,100 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/RFID/">RFID</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Algorithm/">Algorithm</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PCB/">PCB</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2015/10/03/graduatedesign_02 MFRC500-射频芯片射频读写模块完整设计/#more">more >></a>
+          <a href="/2017/07/21/Algorithms_LeastSquaresLineFitting/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/" class="article-date">
+      <time datetime="2016-09-17T11:54:00.000Z" itemprop="datePublished">2016-09-17</time>
+</a>
+
+
+
+ 
+    <a href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/">从 VS 的 dumpbin 目录谈 x86、xi386、x86-64、amd64...</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　翻开 <strong>VS</strong> 的 <strong>dumpbin.exe</strong>、<strong>cl.exe</strong> 的存放目录，你会惊奇的发现，居然存在这么多个分支！<br>    <center><img src="/img/hsw/VS2013_dumpbin_dirs.png" width="640px"/></center><br>　　什么 <strong>amd64</strong>、<strong>amd64_arm</strong>、<strong>amd64_x86</strong>、<strong>arm</strong>、<strong>x86_amd64</strong>、<strong>x86_arm</strong>???<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/Architecture/">Architecture</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dumpbin/">dumpbin</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/09/17/hsw_从VS的dumpbin目录谈x86,i386,x86-64,amd64/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -435,22 +517,22 @@
 
 
   
-    <article id="post-TACouses_iotCourse_02 Windows下的静态库和动态库" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-linux_sudo_unable_to_resolve_host" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/16/TACouses_iotCourse_02 Windows下的静态库和动态库/" class="article-date">
-      <time datetime="2015-10-16T12:29:02.000Z" itemprop="datePublished">2015-10-16</time>
+      <a href="/2016/10/03/linux_sudo_unable_to_resolve_host/" class="article-date">
+      <time datetime="2016-10-03T02:42:07.000Z" itemprop="datePublished">2016-10-03</time>
 </a>
 
 
 
  
-    <a href="/2015/10/16/TACouses_iotCourse_02 Windows下的静态库和动态库/#comments" title="查看评论">
+    <a href="/2016/10/03/linux_sudo_unable_to_resolve_host/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2015/10/16/TACouses_iotCourse_02 Windows下的静态库和动态库/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/10/03/linux_sudo_unable_to_resolve_host/"></span>
         
     </a>
 
@@ -465,7 +547,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/16/TACouses_iotCourse_02 Windows下的静态库和动态库/">Windows下的静态库和动态库</a>
+      <a class="article-title" href="/2016/10/03/linux_sudo_unable_to_resolve_host/">sudo, unable to resolve host</a>
     </h1>
   
 
@@ -475,7 +557,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　本文旨在指导大家如何创建和使用<strong>Windows下的DLL动态链接库</strong>以及通过<strong>DLL动态链接库导出导入</strong>这一过程介绍一些<strong>编译链接、动态加载</strong>的小知识。本章内容作为本学期项目开发的延伸扩展，目的是让大家对项目中使用的读写器接口函数库由来以及如何在项目中使用该函数库有更深入的理解。在这个过程，大家将会初步接触并了解：<br>　　　　<strong>+1.　</strong> <strong>Windows静态链接库和动态链接库</strong>的一些背景知识;<br>　　　　<strong>+2.　</strong> 如何创建和使用<strong>DLL动态链接库</strong>。<br>
+              <blockquote>
+<p>Reference:<br>　<a href="http://askubuntu.com/questions/59458/error-message-when-i-run-sudo-unable-to-resolve-host-none">Error message when I run sudo: unable to resolve host (none)</a></p>
+</blockquote>
+<p>　现象是这样的。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xxx@...:~$ sudo <span class="literal">true</span></span><br><span class="line">sudo: unable to resolve host (...)</span><br></pre></td></tr></table></figure></p>
           
       
     </div>
@@ -483,19 +568,15 @@
     <div class="article-info article-info-index">
       
       
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a><a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/libs-link/">libs&link</a>
-    </div>
-
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DLL/">DLL</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bash/">bash</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2015/10/16/TACouses_iotCourse_02 Windows下的静态库和动态库/#more">more >></a>
+          <a href="/2016/10/03/linux_sudo_unable_to_resolve_host/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -599,22 +680,22 @@
 
 
   
-    <article id="post-hexo_hexo扫盲" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Algorithms_Divide and Conquer" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/01/24/hexo_hexo扫盲/" class="article-date">
-      <time datetime="2016-01-24T03:38:39.000Z" itemprop="datePublished">2016-01-24</time>
+      <a href="/2017/02/26/Algorithms_Divide and Conquer/" class="article-date">
+      <time datetime="2017-02-26T06:00:22.000Z" itemprop="datePublished">2017-02-26</time>
 </a>
 
 
 
  
-    <a href="/2016/01/24/hexo_hexo扫盲/#comments" title="查看评论">
+    <a href="/2017/02/26/Algorithms_Divide and Conquer/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/01/24/hexo_hexo扫盲/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/02/26/Algorithms_Divide and Conquer/"></span>
         
     </a>
 
@@ -629,7 +710,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/24/hexo_hexo扫盲/">hexo扫盲</a>
+      <a class="article-title" href="/2017/02/26/Algorithms_Divide and Conquer/">算法设计与分析[0001] Divide and Conquer </a>
     </h1>
   
 
@@ -639,256 +720,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　下述盲点也是本人在搭建过程中遇到的疑惑，在此文中做一个整理：<br>　　　<a href="#spot01"><strong><1> </strong> 用于配置的<strong>_config.yml</strong>文件的这种<strong>.yml</strong>格式是什么？</a><br>　　　<a href="#spot02"><strong><2> </strong> 安装hexo时用到的<strong>npm命令</strong>究竟是什么？</a><br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/01/24/hexo_hexo扫盲/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-TACouses_ES2017_PriorityInversionbyResourceSharing" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/" class="article-date">
-      <time datetime="2017-10-24T04:50:14.000Z" itemprop="datePublished">2017-10-24</time>
-</a>
-
-
-
- 
-    <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/">嵌入式系统导论[04] Solutions for Priority Inversion in Real-time Scheduling</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　Real-time systems are collections of tasks where in addition to any <strong>ordering constraints</strong> imposed by precedences between the tasks, there are also <strong>timing constraints</strong>, requiring a scheduling strategy. Classical <font color="blue">real-time scheduling</font>（实时调度） for <strong>Periodic Tasks</strong> contains <strong>Periodic Rate Monotonic (RM)</strong> as well as <strong>Earliest Deadline First (EDF)</strong>. What’s more, tasks <em>share resources</em> and use <em>mutual exclusion</em> to guard access to those resources, resulting in <strong>Scheduling Anomalies</strong>（调度异常）.<br>　本文将讲述 <strong>Resources Sharing</strong> 给 <font color="blue">real-time scheduling</font> 带来的 <strong>Priority Inversion</strong>（优先级反转）异常，并将重点介绍对应的解决办法：Priority Inheritance Protocol (<strong>PIP</strong>)、Priority Ceiling Protocol (<strong>PCP</strong>)、Stack Resource Policy (<strong>SRP</strong>)。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/EmbeddedSystem/">EmbeddedSystem</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2017/10/24/TACouses_ES2017_PriorityInversionbyResourceSharing/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-TACourses_Summer-trainning-in-July,2016" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/" class="article-date">
-      <time datetime="2017-02-04T03:21:01.000Z" itemprop="datePublished">2017-02-04</time>
-</a>
-
-
-
- 
-    <a href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/02/04/TACourses_Summer-trainning-in-July,2016/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/">Summer-trainning in July, 2016</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>摘自 <a href="https://rh-song.github.io/2016/07/18/Summer-training/#more">RiHui-Song’s Blog：Summer-training</a></p>
-</blockquote>
-<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>　本文主要记录SMIE最后一次初级实训学习的主要内容。包括了大概是三个阶段：</p>
-<ul>
-<li>准备阶段：学习测量仪器，回顾C语言编程；</li>
-<li>熟悉阶段：在FPGA上运行HelloWorld，开发小应用，如跑马灯等，最后还了解了uc/os这样一个实时操作系统；</li>
-<li>开发阶段：使用PWM波以及H桥控制车轮，使用超声模块控制让小车感知外界状况，从而进行控制，最后可以使用PID控制理论优化小车的控制。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/实训/">实训</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2017/02/04/TACourses_Summer-trainning-in-July,2016/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Algorithms_GreedyAlgorithms" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/06/26/Algorithms_GreedyAlgorithms/" class="article-date">
-      <time datetime="2017-06-26T06:00:22.000Z" itemprop="datePublished">2017-06-26</time>
-</a>
-
-
-
- 
-    <a href="/2017/06/26/Algorithms_GreedyAlgorithms/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2017/06/26/Algorithms_GreedyAlgorithms/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/26/Algorithms_GreedyAlgorithms/">算法设计与分析[0019] Greedy Algorithms（贪心策略）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h4 id="何为贪心？"><a href="#何为贪心？" class="headerlink" title="何为贪心？"></a>何为贪心？</h4><ul>
-<li>贪心算法在解决问题的策略上目光短浅，只根据当前已有的信息就作出选择（下一步的选择总是在当前看来收敛最快和效果最明显的那一个），而且一旦做出了选择，不管将来有什么结果，这个选择策略都不会改变（以迭代的方式作出相继的贪心选择，每作一次贪心选择就将所求问题简化为规模更小的子问题）。</li>
-<li>贪心算法并不是从整体最优考虑，它所做出的选择只是在某种意义上的局部最优。</li>
-<li>贪心算法对于大部分的优化问题都能产生最优解（如单源最短路径问题，最小生成树等），但不能总获得整体最优解，通常可以获得近似最优解。</li>
-<li>贪心策略一旦经过证明成立后，它就是一种高效的算法。
+              <p>　本周的 part 是 <strong>Divide and Conquer（分而治之）</strong>。<br>
           
       
     </div>
@@ -908,7 +740,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/06/26/Algorithms_GreedyAlgorithms/#more">more >></a>
+          <a href="/2017/02/26/Algorithms_Divide and Conquer/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -930,22 +762,22 @@
 
 
   
-    <article id="post-hexo_DisqusInsteadofDuoshuo" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/" class="article-date">
-      <time datetime="2017-07-14T06:54:28.000Z" itemprop="datePublished">2017-07-14</time>
+      <a href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/" class="article-date">
+      <time datetime="2017-07-14T03:51:14.000Z" itemprop="datePublished">2017-07-14</time>
 </a>
 
 
 
  
-    <a href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/#comments" title="查看评论">
+    <a href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2017/07/14/hexo_DisqusInsteadofDuoshuo/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/"></span>
         
     </a>
 
@@ -960,7 +792,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/">hexo：告别多说，拥抱 Disqus</a>
+      <a class="article-title" href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/">32-bit program on 64-bit OS &amp; 64-bit program on 32-bit OS</a>
     </h1>
   
 
@@ -970,7 +802,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　首先说说，换了 Disqus 之后的体验吧，除了需要翻墙外，都挺好的。<font color="blue">最重要的是，以前一直希望多说有的邮件提醒（一直没有），Disqus 自带就有这个功能</font>。anyway，反正多说已经阵亡了，选择 Disqus 还挺不错的。<br>　　怎么从多说迁移到 Disqus 呢？配置上很简单，主要难题是如何迁移原先多说评论的数据。
+              <h4 id="32-bit-program-on-64-bit-OS"><a href="#32-bit-program-on-64-bit-OS" class="headerlink" title="32-bit program on 64-bit OS"></a>32-bit program on 64-bit OS</h4><blockquote>
+<p><a href="https://www.viva64.com/en/k/0004/">Is it possible to run 64-bit applications in a 32-bit OS?</a></p>
+</blockquote>
+<p>　　还是有一定的现实意义，比如经常有一些开源库只有 32-bit 版本，为了对其进行构建，需要在 64-bit 系统上配置 32-bit 环境（通常是 32-bit 的 C/C++ 基本库）。
           
       
     </div>
@@ -979,18 +814,175 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/Hexo/">Hexo</a>
+    <a class="article-category-link" href="/categories/技术留档/">技术留档</a><a class="article-category-link" href="/categories/技术留档/系统/">系统</a>
+    </div>
+
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2017/07/14/programPearls_32-bit program on 64-bit OS $ 64-bit program on 32-bit OS/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-misc_Key Word Engineering" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/09/misc_Key Word Engineering/" class="article-date">
+      <time datetime="2016-10-09T00:14:45.000Z" itemprop="datePublished">2016-10-09</time>
+</a>
+
+
+
+ 
+    <a href="/2016/10/09/misc_Key Word Engineering/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/10/09/misc_Key Word Engineering/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/09/misc_Key Word Engineering/">Key Word Engineering</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="A"><a href="#A" class="headerlink" title="A"></a>A</h3><blockquote>
+<p><strong>AI</strong>（Artificial Intelligence），人工智能<br><strong>ATM</strong>（asynchronous transfer mode），异步传输模式<br><strong>ARPA</strong>（Advanced Research Projects Agency），（美国国防部）高级研究计划署<br><strong>AR</strong>（augmented reality），增强实现<br><strong>ADSL</strong>（Asymmetrical Dingital Subscriber Loop），非对称数字用户环线
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Key-words/">Key-words</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/10/09/misc_Key Word Engineering/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-programPearls_precise delay using select" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/08/programPearls_precise delay using select/" class="article-date">
+      <time datetime="2016-09-08T03:51:14.000Z" itemprop="datePublished">2016-09-08</time>
+</a>
+
+
+
+ 
+    <a href="/2016/09/08/programPearls_precise delay using select/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/programPearls_precise delay using select/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/08/programPearls_precise delay using select/">使用 select 函数实现更为精确的延时</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="select-初识"><a href="#select-初识" class="headerlink" title="select 初识"></a>select 初识</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  _In_    <span class="keyword">int</span>                  nfds,         <span class="comment">// 忽略,仅是为了与Berkeley套接字兼容</span></span></span></span><br><span class="line"><span class="function"><span class="params">  _Inout_ fd_set               *readfds,     <span class="comment">// 指向一个套接字集合,用来检查其可读性</span></span></span></span><br><span class="line"><span class="function"><span class="params">  _Inout_ fd_set               *writefds,    <span class="comment">// 指向一个套接字集合,用来检查其可写性</span></span></span></span><br><span class="line"><span class="function"><span class="params">  _Inout_ fd_set               *exceptfds,   <span class="comment">// 指向一个套接字集合,用来检查错误</span></span></span></span><br><span class="line"><span class="function"><span class="params">  _In_    <span class="keyword">const</span> struct timeval *timeout      <span class="comment">// 指定此函数等待的最长时间,如果为NULL,则最长时间为无限大</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"> </span><br><span class="line">返回值: </span><br><span class="line">  函数调用成功，返回发生网络事件的所有套接字数量的总和</span><br><span class="line">  如果超时返回<span class="number">0</span>，代表在描述词状态改变前已超过timeout时间;</span><br><span class="line">  当有错误发生时则返回SOCKET_ERROR(<span class="number">-1</span>).</span><br></pre></td></tr></table></figure>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/07/14/hexo_DisqusInsteadofDuoshuo/#more">more >></a>
+          <a href="/2016/09/08/programPearls_precise delay using select/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

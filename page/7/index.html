@@ -271,22 +271,22 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-TACouses_JSP考勤系统-一-站点框架介绍与入门" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-linux_瞎谈Socket编程_1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/05/15/TACouses_JSP考勤系统-一-站点框架介绍与入门/" class="article-date">
-      <time datetime="2015-05-15T15:40:35.000Z" itemprop="datePublished">2015-05-15</time>
+      <a href="/2016/07/15/linux_瞎谈Socket编程_1/" class="article-date">
+      <time datetime="2016-07-15T07:24:30.000Z" itemprop="datePublished">2016-07-15</time>
 </a>
 
 
 
  
-    <a href="/2015/05/15/TACouses_JSP考勤系统-一-站点框架介绍与入门/#comments" title="查看评论">
+    <a href="/2016/07/15/linux_瞎谈Socket编程_1/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2015/05/15/TACouses_JSP考勤系统-一-站点框架介绍与入门/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/07/15/linux_瞎谈Socket编程_1/"></span>
         
     </a>
 
@@ -301,7 +301,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/15/TACouses_JSP考勤系统-一-站点框架介绍与入门/">JSP考勤系统(一) 站点框架介绍与入门</a>
+      <a class="article-title" href="/2016/07/15/linux_瞎谈Socket编程_1/">瞎谈 Socket 编程(一)</a>
     </h1>
   
 
@@ -311,7 +311,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>　　本文只是本人对当前完成进度的一个总结，如有缺漏或误点，非常欢迎您通过下方评论指出。<strong>感谢开路人ansen，提供了很多参考信息。</strong>开发环境是MyEclipse8.0(Win8.1下)。<a href="http://yunpan.cn/cjDdh4HCCAI6Y">点击获取</a>安装包(<strong>内有MyEclipse8.0安装包及如何破解提示；同时有mysql-5.5.19-32位安装程序</strong>)，访问密码<code>a690</code>。<br>　　基于当前的考勤系统网站点的实现，跟大家介绍一下(1)大概的MVC设计模式，以及可以如何遵照这种模式搭建自己的考勤系统网站；此外，会介绍一下(2)站点下如何指定路径引用资源(包括最主要的jsp文件以及少部分的image和css文件)；通过(3)几种跳转方式的实现引入Get/Post请求方式的介绍；最后，通过(4)分析web.xml配置文件来介绍有关通过url来制定Servlet控制器进行处理的匹配问题。<br>
+              <p>　　从项目中一个实例说起，我们的目标是将决策层做出的控制小车的决策(主要是速度velocity还有角速度angular)，通过TCP网络传输的方式传递到与控制小车的FPGA相连接的RaspberryPi。也许你会问，为毛要通过网络传输，不能通过其他方式，比如串口，不是会更快点吧？<br>　　Maybe…不过，这是有原因的。<br>　　其一，我觉得应该通过以太网线直接将运行决策的PC机网卡与树莓派上的网卡直接相连接，再用网络传输，应该比串口快，或者说，更稳定高效。遗憾的是，我们没办法通过以太网线直接相连，而是通过WiFi，这是因为，其二，PC机唯有的一个以太网卡，拿去插激光雷达了，而激光雷达作为一个sensor，是决策所必须的。<br>　　其三，整个体系运行在ROS之上，而，把ROS体系中做出来的决策送到控制端的树莓派上，我们得自己想办法或者说Coding。刚好，找到有一个开源的ros通讯，恰好人家是通过TCP传输的，所以，就没想那么多，直接用上了。<br>　　可想而知，这个开源的ros通讯要做的，就是把决策层做出来的velocity和angular，通过tcp传送到运行在树莓派上的程序进而控制FPGA控制小车。搞过ROS的应该知道，在ROS中节点都是通过消息进行通讯的，那么，这个ros通讯节点要做的肯定就是订阅决策层做出来的关于控制的消息，然后通过网络传输出去，这些，你可以阅读 <a href="https://github.com/JoeyNeidigh/ros_tcp_comm">这个开源项目</a> 的源码进行了解。<br>
           
       
     </div>
@@ -320,18 +320,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/网络编程/">网络编程</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSP/">JSP</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2015/05/15/TACouses_JSP考勤系统-一-站点框架介绍与入门/#more">more >></a>
+          <a href="/2016/07/15/linux_瞎谈Socket编程_1/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -353,22 +353,22 @@
 
 
   
-    <article id="post-programPearls_Win$Linux下操作ini配置文件(DIY)" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-TACouses_考勤系统-一-搭建起项目需要的开发环境" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/09/08/programPearls_Win$Linux下操作ini配置文件(DIY)/" class="article-date">
-      <time datetime="2016-09-08T03:59:37.000Z" itemprop="datePublished">2016-09-08</time>
+      <a href="/2015/05/06/TACouses_考勤系统-一-搭建起项目需要的开发环境/" class="article-date">
+      <time datetime="2015-05-06T12:37:22.000Z" itemprop="datePublished">2015-05-06</time>
 </a>
 
 
 
  
-    <a href="/2016/09/08/programPearls_Win$Linux下操作ini配置文件(DIY)/#comments" title="查看评论">
+    <a href="/2015/05/06/TACouses_考勤系统-一-搭建起项目需要的开发环境/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/programPearls_Win$Linux下操作ini配置文件(DIY)/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/06/TACouses_考勤系统-一-搭建起项目需要的开发环境/"></span>
         
     </a>
 
@@ -383,7 +383,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/08/programPearls_Win$Linux下操作ini配置文件(DIY)/">Win/Linux下操作ini配置文件(DIY)</a>
+      <a class="article-title" href="/2015/05/06/TACouses_考勤系统-一-搭建起项目需要的开发环境/">考勤系统(一) 搭建起项目需要的开发环境</a>
     </h1>
   
 
@@ -393,7 +393,12 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>　　待续…</p>
+        <ul>
+<li>从这里获取配置需要的安装文件<a href="http://yunpan.cn/cjqxCLtCfLNvW">点击获取</a>访问密码 <strong>a89b</strong></li>
+<li>安装MySQL数据库（按照一般的软件安装进行安装）</li>
+<li>安装MySQL ODBC驱动并进行数据源的配置(参见共享中的pdf教程)</li>
+<li>安装VC6.0++进行开发(win7以上的请参考.txt文件)</li>
+</ul>
 
       
     </div>
@@ -402,13 +407,13 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a>
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ini/">ini</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/文件操作/">文件操作</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
     </div>
 
       
@@ -431,22 +436,22 @@
 
 
   
-    <article id="post-programPearls_Win$Linux下基本文件操作" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-linux_瞎谈Socket编程_3" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/09/08/programPearls_Win$Linux下基本文件操作/" class="article-date">
-      <time datetime="2016-09-08T03:58:53.000Z" itemprop="datePublished">2016-09-08</time>
+      <a href="/2016/09/08/linux_瞎谈Socket编程_3/" class="article-date">
+      <time datetime="2016-09-08T01:59:58.000Z" itemprop="datePublished">2016-09-08</time>
 </a>
 
 
 
  
-    <a href="/2016/09/08/programPearls_Win$Linux下基本文件操作/#comments" title="查看评论">
+    <a href="/2016/09/08/linux_瞎谈Socket编程_3/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/programPearls_Win$Linux下基本文件操作/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/09/08/linux_瞎谈Socket编程_3/"></span>
         
     </a>
 
@@ -461,7 +466,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/08/programPearls_Win$Linux下基本文件操作/">Win/Linux下基本文件操作</a>
+      <a class="article-title" href="/2016/09/08/linux_瞎谈Socket编程_3/">瞎谈Socket编程(三) Win/Linux下的UDP编程</a>
     </h1>
   
 
@@ -471,8 +476,172 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>　　待续…</p>
+              <h2 id="Server端"><a href="#Server端" class="headerlink" title="Server端"></a>Server端</h2><p>　　<strong>UDP Socket</strong> 编程中服务器端流程与 <strong>TCP</strong> 相似, 只是不需要通过 <strong>listen()</strong> 和 <strong>accept()</strong> 监听和等待客户端请求，直接通过 <strong>sendto()</strong> 和 <strong>recvfrom()</strong> 和客户端进行读写操作。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/网络编程/">网络编程</a>
+    </div>
 
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/09/08/linux_瞎谈Socket编程_3/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-mcu_老顽童STM32开发板系列教程笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/" class="article-date">
+      <time datetime="2016-02-16T13:41:31.000Z" itemprop="datePublished">2016-02-16</time>
+</a>
+
+
+
+ 
+    <a href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2016/02/16/mcu_老顽童STM32开发板系列教程笔记/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/">老顽童STM32开发板系列教程笔记</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　本文作为追随老顽童孟瑞生老师 <strong>[<a href="http://www.rationmcu.com/">瑞生网</a>]</strong> 学习STM32单片机系列教程笔记，一来方便将其微信公众号推送教程移至PC端，方便观看学习；二来，也是更重要的，有些思考的地方，或者觉得说的很好的地方，也好记录留档。<br>　　<font color="red"><strong>最新一次更新： 第9集，时间2016-03-12。</strong></font><br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/STM32/">STM32</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MCU/">MCU</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/02/16/mcu_老顽童STM32开发板系列教程笔记/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-programPearls_opengl_数媒HW4参考资料" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/" class="article-date">
+      <time datetime="2015-06-16T06:31:19.000Z" itemprop="datePublished">2015-06-16</time>
+</a>
+
+
+
+ 
+    <a href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/06/16/programPearls_opengl_数媒HW4参考资料/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/">数媒HW4参考资料</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>(同学说整理，顺道POST出来咯….)<br>整体思路:<br>首先通过HW3我们已经能够完成3D Pipeline，但是我们最后的模型绘制只是将每个面的顶点依次用线段连接起来，这一次我们需要对每个面进行绘制，其实就是对每个面进行颜色填充。那么问题来了，怎么填充？填充什么颜色？<br>
+          
       
     </div>
     
@@ -486,9 +655,262 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/文件操作/">文件操作</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CG/">CG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenGL/">OpenGL</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a href="/2015/06/16/programPearls_opengl_数媒HW4参考资料/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-TACouses_考勤系统-三-MFC-UI控件之ComboBox" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/" class="article-date">
+      <time datetime="2015-05-11T07:42:37.000Z" itemprop="datePublished">2015-05-11</time>
+</a>
+
+
+
+ 
+    <a href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/">考勤系统(三) MFC UI控件之ComboBox</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>To Be Done…</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/05/11/TACouses_考勤系统-三-MFC-UI控件之ComboBox/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/" class="article-date">
+      <time datetime="2015-05-24T12:32:23.000Z" itemprop="datePublished">2015-05-24</time>
+</a>
+
+
+
+ 
+    <a href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/">win7 64位下VS2012搭建OpenCL开发环境(Intel显卡)[win8.1下VS2013亲测同样可行]</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <ol>
+<li><p>下载配置所需的所有文件(<strong>内含Intel OpenCL的SDK(Win7及Win8.1)</strong>)<br><a href="http://yunpan.cn/cVfMshDNjNBS5">点击获取</a> 访问密码<code>e085</code>（<font color="red">因网盘失效及版本过久，建议自行前往<a href="https://software.intel.com/en-us/intel-opencl/download">官网</a>下载</font>）;</p>
+</li>
+<li><p>解压<strong>intel_sdk_for_ocl_applications_2013.64050.zip</strong>到本地，双击setup.exe开始安装(安装后可将整个文件夹删除)，记住安装路径(可以自定义安装)。win8.1直接双击<strong>intel_sdk_for_ocl_applications_2014_x64_setup.msi</strong>进行安装;</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/OpenCL/">OpenCL</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCL/">OpenCL</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/05/24/opencl_win7-64位下VS搭建OpenCL开发环境-Intel显卡/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-opencl_写两个星期OpenCL先-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/24/opencl_写两个星期OpenCL先-1/" class="article-date">
+      <time datetime="2015-05-24T13:05:27.000Z" itemprop="datePublished">2015-05-24</time>
+</a>
+
+
+
+ 
+    <a href="/2015/05/24/opencl_写两个星期OpenCL先-1/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+        
+            <span class="disqus-comment-count" data-disqus-identifier="2015/05/24/opencl_写两个星期OpenCL先-1/"></span>
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/24/opencl_写两个星期OpenCL先-1/">写两个星期OpenCL先(1)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>　　本文基于对有关资料的理解，同时通过代码测试验证，为大家讲述OpenCL入门时几个比较重要但又令人困惑的小知识点，包括：<br>　　1. <a href="#part1">NDRange如何设置(work-item&amp;work-group)?</a><br>　　2. <a href="#part2">如何获取kernel执行时间?</a><br>　　3. <a href="#part3">如何获取kernel编译信息?</a><br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/软硬兼施/">软硬兼施</a><a class="article-category-link" href="/categories/软硬兼施/OpenCL/">OpenCL</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCL/">OpenCL</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/05/24/opencl_写两个星期OpenCL先-1/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -596,22 +1018,22 @@
 
 
   
-    <article id="post-TACouses_考勤系统-四-MFC-UI控件之ListCtrl" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-programPearls_.h中的ifndef..define..endif" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/05/11/TACouses_考勤系统-四-MFC-UI控件之ListCtrl/" class="article-date">
-      <time datetime="2015-05-11T07:52:40.000Z" itemprop="datePublished">2015-05-11</time>
+      <a href="/2016/04/21/programPearls_.h中的ifndef..define..endif/" class="article-date">
+      <time datetime="2016-04-21T03:41:51.000Z" itemprop="datePublished">2016-04-21</time>
 </a>
 
 
 
  
-    <a href="/2015/05/11/TACouses_考勤系统-四-MFC-UI控件之ListCtrl/#comments" title="查看评论">
+    <a href="/2016/04/21/programPearls_.h中的ifndef..define..endif/#comments" title="查看评论">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
         
-            <span class="disqus-comment-count" data-disqus-identifier="2015/05/11/TACouses_考勤系统-四-MFC-UI控件之ListCtrl/"></span>
+            <span class="disqus-comment-count" data-disqus-identifier="2016/04/21/programPearls_.h中的ifndef..define..endif/"></span>
         
     </a>
 
@@ -626,7 +1048,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/11/TACouses_考勤系统-四-MFC-UI控件之ListCtrl/">考勤系统(四) MFC UI控件之ListCtrl</a>
+      <a class="article-title" href="/2016/04/21/programPearls_.h中的ifndef..define..endif/">.h中的#ifndef..#define..#endif</a>
     </h1>
   
 
@@ -636,166 +1058,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>To Be Done…<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/TA-Cources/">TA Cources</a><a class="article-category-link" href="/categories/TA-Cources/IoT/">IoT</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2015/05/11/TACouses_考勤系统-四-MFC-UI控件之ListCtrl/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_Java到底是不是一种纯面向对象语言？" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/" class="article-date">
-      <time datetime="2016-06-30T02:26:22.000Z" itemprop="datePublished">2016-06-30</time>
-</a>
-
-
-
- 
-    <a href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/30/programPearls_Java到底是不是一种纯面向对象语言？/">Java到底是不是一种纯面向对象语言？</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>　　参考博文 <a href="http://www.codeceo.com/article/why-java-purely-object-oriented-language.html">《Java到底是不是一种纯面向对象语言？》</a></p>
-<p>　　<strong>JVM</strong> 在创建对象的时候，实际上会创建两个对象：<br>　　　一个是实例对象。<br>　　　另一个是 <strong>Class</strong> 对象。该 <strong>Class</strong> 对象在 <strong>JVM</strong> 内仅仅会装载一次，该类的静态方法和静态属性也一同装载，<strong>JVM</strong> 使用该 <strong>Class</strong> 对象来创建具体的实例对象。<br>　　例如，在下面的 <strong>Java</strong> 语句中，将有两个对象被创建：<br>　　　　Employee emp = new Employee();<br>　　一个是实例对象 emp ；另一个则是 Class 对象，我们可以通过 <strong>Employee.class</strong> 引用到它；这个 Class 对象拥有所有的这个类定义的静态变量和静态方法，同时，如果我们访问 通过 emp 对象来访问静态内容，会发现它其实指向的对象就是 <strong>Employee.class</strong> 。</p>
-<p>　　<font color="green">静态内容确实被证实属于一个对象</font><br>　　　为什么静态内容在一个对象中（不管是emp还是emp2）改变了，在另一个对象中也同时改变，因为这两个对象改变的都是在 Employee.class 同一个对象里面的内容。</p>
-<p>　　Java 官方为每一个原始类型推出了对应的包装类（比如：Integer 对应 int，Long 对应 long，Character 对应 char），所以，其实现在我们可以为原始类型创建一个包装对象，同时对它们做对象相关的操作。<br>　　　JVM看来它把所有的 “原始类型” 都是当作对象处理”</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/Java/">Java</a>
-    </div>
-
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_C语言中结构体内存free" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/02/programPearls_C语言中结构体内存free/" class="article-date">
-      <time datetime="2016-07-02T06:38:46.000Z" itemprop="datePublished">2016-07-02</time>
-</a>
-
-
-
- 
-    <a href="/2016/07/02/programPearls_C语言中结构体内存free/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/07/02/programPearls_C语言中结构体内存free/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/02/programPearls_C语言中结构体内存free/">C语言中结构体内存free</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　　来自实训第三天的某段代码，<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">vec2f</span> &#123;</span></span><br><span class="line">  <span class="keyword">float</span> x;</span><br><span class="line">  <span class="keyword">float</span> y;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">vec2f</span> <span class="title">vec2f</span>;</span></span><br><span class="line"> </span><br><span class="line"><span class="function">vec2f* <span class="title">vec2f_alloc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  vec2f* ret;</span><br><span class="line">  ret = ( vec2f* ) <span class="built_in">malloc</span>( <span class="keyword">sizeof</span>( vec2f ) );</span><br><span class="line">  <span class="comment">//if( !ret ) // if error occurs</span></span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_init</span><span class="params">( vec2f* v, <span class="keyword">float</span> x, <span class="keyword">float</span> y )</span> </span>&#123;</span><br><span class="line">  v-&gt;x = x;</span><br><span class="line">  v-&gt;y = y;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function">vec2f* <span class="title">vec2f_new</span><span class="params">( <span class="keyword">float</span> x, <span class="keyword">float</span> y )</span> </span>&#123;</span><br><span class="line">  vec2f* ret = vec2f_alloc();</span><br><span class="line">  vec2f_init( ret, x, y );</span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_delete</span><span class="params">( vec2f** v )</span> </span>&#123;</span><br><span class="line">  <span class="built_in">free</span>( *v );</span><br><span class="line">  *v = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">vec2f_print</span><span class="params">( <span class="keyword">const</span> vec2f* v )</span> </span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>( <span class="string">"[ %g %g ]\n"</span>, v-&gt;x, v-&gt;y );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+              <p>　　参考博文 <a href="http://blog.csdn.net/luoweifu/article/details/42550955">《#pragma once与#ifndef #define …#endif的区别》</a></p>
+<p>　　<strong>#pragma once</strong> 用来防止某个头文件被多次 include；<br>　　<strong>#ifndef</strong>，<strong>#define</strong>，<strong>#endif</strong> 用来防止某个宏被多次定义。<br>
           
       
     </div>
@@ -811,253 +1075,7 @@
       
       
         <p class="article-more-link">
-          <a href="/2016/07/02/programPearls_C语言中结构体内存free/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-OverlappingSounds_写于幸运保研后" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/12/OverlappingSounds_写于幸运保研后/" class="article-date">
-      <time datetime="2016-06-11T23:25:06.000Z" itemprop="datePublished">2016-06-12</time>
-</a>
-
-
-
- 
-    <a href="/2016/06/12/OverlappingSounds_写于幸运保研后/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/06/12/OverlappingSounds_写于幸运保研后/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/12/OverlappingSounds_写于幸运保研后/">写于幸运保研后</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>　此刻，我的内心居然出奇的平静。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Coding源于生活/">Coding源于生活</a><a class="article-category-link" href="/categories/Coding源于生活/Overlapping-Sounds/">Overlapping-Sounds</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2016/06/12/OverlappingSounds_写于幸运保研后/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_Coding中的编码问题之回顾$深入" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/" class="article-date">
-      <time datetime="2016-02-25T04:11:03.000Z" itemprop="datePublished">2016-02-25</time>
-</a>
-
-
-
- 
-    <a href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/02/25/programPearls_Coding中的编码问题之回顾$深入/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/">Coding中的编码问题之回顾&amp;深入</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/22/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/#more">《Coding中的编码问题之系统学习》</a><br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/25/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%9B%9E%E9%A1%BE&amp;%E6%B7%B1%E5%85%A5/#more">《这是最后一篇》</a></font>
-
-<p>　　到这里，相信你已经完整看完<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a>和<a href="http://durant35.github.io/2016/02/22/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/#more">《Coding中的编码问题之系统学习》</a>，对字符编码已经有一个清晰的点到面的理解了，本文作为整个系列文章的完结篇，一来对之前所有内容进行一个回顾与总结，加深印象，扩宽理解；二来对没提及的剩下不多的几个细节进行补充说明，希望能在你的脑海里建立较为清晰的知识网络。非常希望你也能在阅读后有自己的理解，然后整理在你的笔记或博客中；也希望日后当某个知识点模糊不清时，还能帮到你、我。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/字符编码/">字符编码</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Encoding/">Encoding</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/02/25/programPearls_Coding中的编码问题之回顾$深入/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-programPearls_Coding中的编码问题之系统学习" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/" class="article-date">
-      <time datetime="2016-02-22T04:11:03.000Z" itemprop="datePublished">2016-02-22</time>
-</a>
-
-
-
- 
-    <a href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/#comments" title="查看评论">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="count-comment"></span>
-        
-        
-            <span class="disqus-comment-count" data-disqus-identifier="2016/02/22/programPearls_Coding中的编码问题之系统学习/"></span>
-        
-    </a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/">Coding中的编码问题之系统学习</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <font color="green" size="4">[系列文章]上一篇：<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a><br>[系列文章]下一篇：<a href="http://durant35.github.io/2016/02/25/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%9B%9E%E9%A1%BE&amp;%E6%B7%B1%E5%85%A5/#more">《Coding中的编码问题之回顾&amp;深入》</a></font>
-
-<p>　　大家在看完<a href="http://durant35.github.io/2016/02/21/programPearls_Coding%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E4%B9%8B%E5%85%A5%E9%97%A8&amp;%E6%A6%82%E8%A7%88/#more">《Coding中的编码问题之入门&amp;概览》</a>后，估计对字符编码应该有一个总览性的理解了。本文借 <strong>开源中国</strong> 上<a href="http://my.oschina.net/goldenshaw/blog?disp=2&amp;p=1&amp;catalog=536953">《字符集编码系列》</a>系列博文为大家详细介绍字符编码的诸多细节，相信看完本文后，一定能一一解决你到目前积累的绝大多数疑问，让我们带着疑问现在就开始吧！<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程珠玑/">编程珠玑</a><a class="article-category-link" href="/categories/编程珠玑/字符编码/">字符编码</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Encoding/">Encoding</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/02/22/programPearls_Coding中的编码问题之系统学习/#more">more >></a>
+          <a href="/2016/04/21/programPearls_.h中的ifndef..define..endif/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
